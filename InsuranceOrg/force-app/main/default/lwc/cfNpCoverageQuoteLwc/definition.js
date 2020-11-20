@@ -1,0 +1,3 @@
+let definition = 
+                {"dataSource":{"type":null},"filter":{},"states":[{"blankStateCheck":false,"conditions":{"group":[{"field":"$scope.data.status","operator":"===","type":"system","value":"'active'"}]},"definedActions":{"actions":[]},"fields":[],"name":"Coverage-Quote","placeholderExpand":true,"sObjectType":null,"templateUrl":"np-table-list-policy-items-plus-nds","isSmartAction":false,"smartAction":{},"lwc":{"MasterLabel":"npCoveragesAndAttributes","DeveloperName":"npCoveragesAndAttributes","Id":"0Rb3i000000bupFCAQ","name":"npCoveragesAndAttributes"}}],"title":"Quote","sessionVars":[{"name":"RecordType","val":"CoverageSpec"}],"enableLwc":true,"GlobalKey__c":"np-coverage-quote-lwc/VEX Personal Lines/1/1579517030559"}; 
+            export default definition

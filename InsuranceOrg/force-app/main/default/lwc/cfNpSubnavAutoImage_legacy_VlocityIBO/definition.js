@@ -1,0 +1,3 @@
+let definition = 
+                {"dataSource":{"type":null},"filter":{"['Type']":"OpenAuto"},"sessionVars":[],"states":[{"blankCardState":true,"blankStateCheck":true,"collapse":false,"conditions":{"group":[{"field":"$scope.data.status","operator":"===","type":"system","value":"'non-existent'"}]},"definedActions":{"actions":[]},"fields":[],"filter":"$scope.data.status === 'non-existent'","name":"Open Auto","placeholderExpand":true,"sObjectType":"Account","templateUrl":"np-subnav-open-nds","isSmartAction":false,"smartAction":{},"placeholders":[]}],"title":"Auto","enableLwc":false,"GlobalKey__c":"np-subnav-auto-image/VlocityIBO/1509635733398"}; 
+            export default definition

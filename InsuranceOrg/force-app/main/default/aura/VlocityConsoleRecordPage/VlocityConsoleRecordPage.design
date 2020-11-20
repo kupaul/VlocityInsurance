@@ -1,0 +1,9 @@
+<design:component label="Vlocity Two Region Custom App Page Template">
+    <flexipage:template >
+        <!-- The default width for the "left" region is "MEDIUM". In tablets,
+        the width is "SMALL" -->
+            <flexipage:region name="left" label="Left Region" defaultWidth="SMALL">
+            </flexipage:region>
+            <flexipage:region name="main" label="Main Region" defaultWidth="MEDIUM" />
+       </flexipage:template>
+</design:component>

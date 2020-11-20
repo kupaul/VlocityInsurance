@@ -1,0 +1,39 @@
+<template>
+	<div class="nds-m-top--small nds-card nds-card_custom nds-policy__premium-summary" if:true={selectedState}>
+		<div class="nds-size--1-of-1 nds-p-bottom--large">
+			<div class="nds-tile nds-p-bottom--large" if:true={firstField}>
+				<div class="nds-tile__detail">
+					<vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj}
+						field-name={firstField.name} type={firstField.type}></vlocity_ins-output-field>
+				</div>
+				<p class="nds-truncate  nds-p-vertical--large">{firstField.label}</p>
+			</div>
+			<table class="nds-table nds-table__custom">
+				<tbody>
+					<tr key={field.name} for:each={restField} for:item="field" for:index="index">
+						<td>
+							<p class="nds-truncate nds-text-heading_small nds-p-bottom--x-small">{field.label}</p>
+						</td>
+						<td class="nds-text-align--right">
+							<div class="nds-tile__detail">
+								<p class="nds-truncate nds-text-heading_small">
+									<vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj}
+										field-name={field.name} type={field.type}></vlocity_ins-output-field>
+								</p>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="nds-size--1-of-1 nds-p-horizontal--small">
+			<div for:each={actions} for:item="item" key={item.id}>
+				<a class="nds-m-bottom--small" href="#">
+					<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType}
+						state-action={item}>
+					</vlocity_ins-action>
+				</a>
+			</div>
+		</div>
+	</div>
+</template>

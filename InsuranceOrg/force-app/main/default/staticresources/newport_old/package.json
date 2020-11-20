@@ -1,0 +1,40 @@
+{
+  "name": "@vlocity-inc/newport-design-system",
+  "description": "Vlocity Newport Design System",
+  "version": "0.0.0",
+  "author": "Vlocity",
+  "nds": {
+    "name": "v103",
+    "id": "103",
+    "dependencies": {
+      "@salesforce-ux/design-system-previewer": "2.1.4",
+      "@salesforce-ux/design-system-parser": "1.0.1",
+      "@salesforce-ux/build-server-api": "2.0.2",
+      "@salesforce-ux/instant-vrt": "1.1.2",
+      "@salesforce-ux/design-system-markup": "2.0.2",
+      "@salesforce-ux/icons": "7.31.0",
+      "@salesforce-ux/create-snap": "0.0.6"
+    }
+  },
+  "license": "SEE LICENSE IN README.md",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vlocityinc/newport-design-system.git"
+  },
+  "greenkeeper": {
+    "ignore": [
+      "theo",
+      "webpack"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "testRegex": "(/__tests__/.*(test|spec))\\.jsx?$",
+    "setupTestFrameworkScriptFile": "./jest.setup.js"
+  }
+}

@@ -1,0 +1,3 @@
+let definition = 
+                {"Cards":["vlocity-interaction-acuity-sidebar-offer-card-1x"],"GlobalKey__c":"Offers Lwc-1x/1/VEX Personal Lines/1594191258003","componentName":"cfOffersLwc1x_1_VEXPersonalLines","dataSource":{"type":null},"enableLwc":true,"lwc":{"MasterLabel":"cardCanvas1x","DeveloperName":"cardCanvas1x","Id":"0Rb3t000000LOscCAO","name":"cardCanvas1x"},"previewType":"designTime","repeatCards":false,"templates":{"0":{"templateUrl":"console-right-sidebar-slds"}},"workspace":["vlocity-interaction-acuity-sidebar-offer-card-1x/VEX Personal Lines/1/1594191301463"]}; 
+            export default definition

@@ -1,0 +1,45 @@
+<template>
+	<section class="nds-subnav__active nds-subnav__theme" if:true={selectedState}>
+		<div class="nds-text-align_center" onclick={selectSubNav} data-recordid={cardState} if:true={firstAction}>
+			<vlocity_ins-action icon-extraclass="nds-m-right_small nds-show" state-obj={obj} context-id={contextId}
+				s-object-type={sObjectType} state-action={firstAction} action-wrapperclass="nds-size--1-of-1"
+				action-labelclass="nds-size--7-of-8" icon-wrapperclass="nds-size--1-of-8">
+				<div class="nds-subnav__image nds-m-bottom--x-small nds-grid nds-grid--vertical-align-center">
+					<img if:true={session}  src={imageUrl} />
+         </div>
+					<div class="nds-subnav__cardValues">
+						<h2 if:true={session}>
+							{session.BTitle}
+						</h2>
+						<h2 class="nds-subnav__hideSmall" key={field.name} for:each={state.fields} for:item="field"
+							for:index="index">
+
+							<span if:true={field.label}>{field.label} </span>
+							<span key={field.label}  class="nds-subnav__value" >
+                     <vlocity_ins-output-field extraclass="nds-show_inline-block"  record={obj} field-name={field.name} type={field.type} ></vlocity_ins-output-field>
+                </span>
+						</h2>
+					</div>
+			</vlocity_ins-action>
+		</div>
+		<div class="nds-text-align_center" onclick={selectSubNav} data-recordid={cardState} if:false={firstAction}>
+
+			<div class="nds-subnav__image nds-m-bottom--x-small nds-grid nds-grid--vertical-align-center">
+				<img if:true={session}  src={imageUrl} />
+         </div>
+				<div class="nds-subnav__cardValues">
+					<h2 if:true={session}>
+						{session.BTitle}
+					</h2>
+					<h2 class="nds-subnav__hideSmall" key={field.name} for:each={state.fields} for:item="field"
+						for:index="index">
+
+						<span if:true={field.label}>{field.label} </span>
+						<span key={field.label}  class="nds-subnav__value" >
+                     <vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj} field-name={field.name} type={field.type} ></vlocity_ins-output-field>
+                </span>
+					</h2>
+				</div>
+			</div>
+	</section>
+</template>

@@ -1,0 +1,39 @@
+<template>
+<section class="VPL_Select-vehicle nds-size--12-of-12">
+    <article class="nds-card"  for:each={insuredItemRecord} for:item="field" for:index="index" key={field.InsuredItemId}>
+      <div class="nds-card__header nds-grid" data-id={field.InsuredItemId} onclick={selectRecords} >
+          <div class="selectedItemIcon"> 
+            <vlocity_ins-icon style={getSvgStyle}
+              icon-name="utility:check"
+              size="small"
+              theme="nds"
+              color="#fff"
+              extraclass="selectedIcon"
+            ></vlocity_ins-icon>
+          </div>
+          <div class="nds-media__figure nds-col nds-size--2-of-12">
+            <span class="nds-icon_container" >
+              <span class="nds-icon_container">
+              <vlocity_ins-icon
+                  icon-name="utility:user"
+                  size="small"
+                ></vlocity_ins-icon>
+              </span>
+            </span>
+          </div>
+          <div class="nds-media__body nds-col nds-size--10-of-12" >
+            <h2 class="nds-card__header-title nds-grid">
+              <div class="nds-col">
+                <span class="nds-text-heading_small">{field.DriverName}</span>
+                
+                </div>
+                <div class="nds-col">
+                
+                <span class="nds-text-heading_small nds-text-color_weak">{field.Model}</span>
+                </div>
+            </h2>
+          </div>
+      </div>
+    </article>
+    </section>
+  </template>

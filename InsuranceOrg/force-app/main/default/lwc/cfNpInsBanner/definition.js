@@ -1,0 +1,3 @@
+let definition = 
+                {"states":[{"fields":[],"conditions":{"group":[{"field":"$scope.data.status","operator":"===","value":"'active'","type":"system"}]},"definedActions":{"actions":[]},"name":"Active","lwc":{"MasterLabel":"npBanner","DeveloperName":"npBanner","Id":"0Rb3t000000LOkICAI","name":"npBanner"},"isSmartAction":false,"smartAction":{},"sObjectType":"Account","actionCtxId":"['contextId']"}],"filter":{},"dataSource":{"type":null},"title":"Banner","enableLwc":true,"GlobalKey__c":"np-ins-banner/VEX Personal Lines/1/1580277799070"}; 
+            export default definition

@@ -1,0 +1,12 @@
+<template>
+  <div class="fixedHeight40">
+    <span if:true={fieldValue} title={fieldValue} class="spanclass">{fieldValue}</span>
+    <span if:false={fieldValue}> {placeholder} </span>
+  </div>
+</template>
+<!-- <template>
+  <div class={extraclass}>
+    <span if:true={fieldValue} title={fieldValue} class="spanclass" >{fieldValue}</span>
+    <span if:false={fieldValue}> {placeholder} </span>
+  </div>
+</template> -->

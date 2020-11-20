@@ -1,0 +1,82 @@
+/*cardHorizActiveLwc.css*/
+.via-slds-card--active .via-slds-card__body {
+  overflow: hidden;
+}
+.policyAssets .via-slds-card--active{
+ border: 1px solid rgba(221,219,218);
+}
+.policyAssets .policyAssetsPadding{
+    padding: 0.75rem;
+}
+.via-slds-card--active .via-slds-card__header {
+  background-clip: padding-box;
+  background-color: #f4f6f9;
+  border-bottom: 2px solid #d8dde6;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.via-slds-card--active .via-slds-card__footer {
+  border-top: 1px solid #d8dde6;
+  margin-top: 0;
+  text-align: left;
+}
+
+.via-slds-card--active .via-slds-flyout-grid> :not(:empty) {
+  width: 100%;
+}
+
+.via-slds-card--active .via-action-icon:before {
+  font-size: 200%;
+}
+
+.via-slds-card--active .via-action-link:hover,
+.via-slds-card--active .via-action-link:focus,
+.via-slds-card--active .via-action-link:active {
+  color: #0070d2;
+  text-decoration: underline;
+}
+
+.via-slds-card--active svg.via-action-icon {
+  margin: 0 8px;
+}
+
+.via-slds-card--active .via-field {
+  position: relative;
+}
+
+.via-slds-card--active .via-field .track-view {
+  position: absolute;
+  top: -0.3rem;
+  right: -0.25rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
+
+.via-slds-card--active .via-field .track-view svg {
+  fill: #a7b8d1;
+  transition: fill 100ms ease-in;
+}
+
+.via-slds-card--active .via-field .track-view:hover svg {
+  fill: #54698d;
+}
+
+.via-slds-card--active .via-field .track-view:active svg {
+  fill: #4bc076;
+}
+
+.via-slds-card--active .via-field:hover .track-view {
+  opacity: 1;
+}
+
+.via-slds-card--active .via-actions .via-action-link img {
+  width: 26px;
+  height: 26px;
+  margin: 0px 5px;
+}
+
+.state-action-item {
+  height: 53px;
+}

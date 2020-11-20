@@ -1,0 +1,26 @@
+/*npCoveragesAndAttributes.css*/
+/*** STYLES ***/
+.np-table-list-grid{
+                position: relative;
+                color: #16325c;
+                vertical-align: top;
+}
+.np-table-list-plus-text{
+                    font-size:16px;
+ }
+.vloc-attr-showmore{
+                        position: absolute;
+                        right: .6rem;
+                        top: .9rem;
+}           
+ .custom-link--color{
+            color:#0070D2;
+}      
+.custom-field-label
+            {
+                color: #16325c;
+            }          
+.custom-text-bold
+        {
+            font-weight:bold;
+        }

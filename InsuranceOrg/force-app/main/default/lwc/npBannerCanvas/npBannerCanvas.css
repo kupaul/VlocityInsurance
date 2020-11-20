@@ -1,0 +1,44 @@
+/*npBannerCanvas.css*/
+
+     .np-intelligence-banner{
+        position:relative;
+     }
+.np-intelligence-banner .np-get-agent{
+            position: absolute;
+            left: 10%;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            max-height: 200px;
+        }
+.np-hero-resource-card{
+    position:relative;
+}
+.np-hero-resource-card .np-hero-resource-card-carouse--buttons {
+        left:0;
+        right:0;
+        bottom:80px;
+        position:absolute;
+        text-align:center;
+        }
+ .np-hero-resource-card .np-hero-resource-card-carouse--buttons input {
+        display: none;
+    }
+.np-hero-resource-card .np-hero-resource-card-carouse--buttons li{
+            padding:0 10px;
+            display: inline-block; }
+.np-hero-resource-card .np-hero-resource-card-carouse--buttons li label {
+        background-color: #EEF1F6;
+        bottom: 0;
+        border-radius: 100%;
+        cursor: pointer;
+        height: 8px;
+        transition: .25s;
+        width: 8px;
+        z-index: 10;
+        left: 50%;
+        }
+.np-hero-resource-card .np-hero-resource-card-carouse--buttons input:checked + label {
+        background-color: rgb(224,106,26); ;
+    }

@@ -1,0 +1,9 @@
+.THIS .via-new-step-button_button-menu > .slds-dropdown.slds-dropdown_left {
+    transform: translateX(-50%) !important;
+}
+
+.THIS .via-new-step-button_button-menu-bottom > .slds-dropdown.slds-dropdown_left {
+    transform: translateX(-50%) !important;
+    top: auto !important;
+    bottom: 85% !important;
+}

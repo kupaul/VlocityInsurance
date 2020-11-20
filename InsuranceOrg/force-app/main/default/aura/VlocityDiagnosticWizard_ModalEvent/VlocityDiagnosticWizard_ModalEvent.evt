@@ -1,0 +1,6 @@
+<aura:event type="COMPONENT"
+            description="Event used to display modals">
+    <aura:attribute name="modalParams"
+                    type="Map"
+                    required="true" />
+</aura:event>

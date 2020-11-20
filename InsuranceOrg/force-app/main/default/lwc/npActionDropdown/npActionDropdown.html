@@ -1,0 +1,21 @@
+<template>
+	<div class="nds-form-element" if:true={selectedState}>
+		<div class="nds-select_container">
+			<select onchange={actionSelectedChange} tabindex="0" class="nds-select nds-m-right--xx-small" data-id="select-01">
+                      <option value="-1"></option>
+                        <template for:each={actions} for:item="action" for:index="index">
+                          <option key={action.displayName} value={index}>
+                            <span>{action.displayName}</span>
+                          </option>
+                        </template>
+                      </select>
+		</div>
+		<div class="nds-m-vertical--small">
+			<button if:false={actionSelected} class="nds-button nds-button--brand nds-size--1-of-1" onclick={buttonClick}>Get a quote</button>
+			<vlocity_ins-action if:true={actionSelected} state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={actionSelected}>
+				<button class="nds-button nds-button--brand nds-size--1-of-1" onclick={buttonClick}>Get a quote</button>
+			</vlocity_ins-action>
+
+		</div>
+	</div>
+</template>

@@ -1,0 +1,19 @@
+<aura:component>
+    <aura:attribute name="showAlert"
+                    type="Boolean"
+                    default="true" />
+    <aura:attribute name="iframeUrl"
+                    type="String" />
+    <aura:if isTrue="{!v.showAlert}">
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning"
+             role="alert">
+            <h2>Click <a onclick="{!c.onNewTabClick}">Open New Tab</a> if nothing displays.</h2>
+            <div class="slds-notify__close">
+                <lightning:buttonIcon variant="bare"
+                                      iconName="utility:close"
+                                      alternativeText="Close"
+                                      onclick="{! c.closeAlert}" />
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

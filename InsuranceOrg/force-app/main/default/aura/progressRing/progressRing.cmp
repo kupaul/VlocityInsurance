@@ -1,0 +1,44 @@
+<aura:component>
+    <aura:attribute name="value"
+                    type="Integer"
+                    default="0" />
+    <aura:attribute name="completedRecords"
+                    type="Integer"
+                    default="0" />
+    <aura:attribute name="numRecords"
+                    type="Integer"
+                    default="0" />
+    <aura:attribute name="recordStatus"
+                    type="String"
+                    default="Not Started" />
+    <aura:attribute name="progressRingSettings"
+                    type="Map" />
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.updateView}" />
+    <aura:handler name="change"
+                  value="{!v.recordStatus}"
+                  action="{!c.updateView}" />
+    <div class="{! 'slds-progress-ring ' +
+                'slds-progress-ring_large ' +
+                v.progressRingSettings.color}">
+        <div id="progressContainer"
+             class="slds-progress-ring__progress"
+             role="progressbar"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow="{!v.value}">
+        </div>
+        <aura:if isTrue="{! !v.progressRingSettings.loading}">
+            <div class="slds-progress-ring__content">
+                <lightning:icon iconName="{! v.progressRingSettings.iconName }"
+                                alternativeText="{! v.progressRingSettings.altText}" />
+            </div>
+            <aura:set attribute="else">
+                <lightning:spinner variant="brand"
+                                   size="small"
+                                   alternativeText="{! v.progressRingSettings.altText}" />
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

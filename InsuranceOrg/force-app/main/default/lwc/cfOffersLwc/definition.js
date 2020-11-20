@@ -1,0 +1,3 @@
+let definition = 
+                {"Cards":["vlocity-interaction-acuity-sidebar-offer-card-IBO"],"GlobalKey__c":"Offers Lwc/1/vlocityDev/1578645326751","componentName":"cfOffersLwc","dataSource":{"type":null},"enableLwc":true,"lwc":{"MasterLabel":"cardCanvas1x","DeveloperName":"cardCanvas1x","Id":"0Rb3t000000LOscCAO","name":"cardCanvas1x"},"previewType":"runTime","repeatCards":false,"templates":{"0":{"templateUrl":"console-right-sidebar-slds"}},"workspace":["vlocity-interaction-acuity-sidebar-offer-card-IBO/VlocityIBO/1/1573221260211"]}; 
+            export default definition

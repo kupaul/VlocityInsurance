@@ -1,0 +1,43 @@
+<aura:component>
+    <aura:attribute name="showModal"
+                    type="boolean" />
+    <aura:attribute name="recordName"
+                    type="String" />
+    <aura:attribute name="notes"
+                    type="String" />
+    <aura:attribute name="modalParams"
+                    type="Map"
+                    required="true" />
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.doInit}" />
+    <section role="dialog"
+             tabindex="-1"
+             aria-labelledby="modal-heading-01"
+             aria-modal="true"
+             aria-describedby="modal-content-id-1"
+             class="slds-modal slds-modal_medium slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h2 id="modal-heading-01"
+                    class="slds-text-heading_medium slds-hyphenate">{! v.recordName}</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium"
+                 id="modal-content-id-1">
+                <lightning:inputRichText value="{!v.notes}"
+                                         placeholder="Type something interesting" />
+            </div>
+            <footer class="slds-modal__footer">
+                <lightning:button variant="neutral"
+                                  title="Cancel"
+                                  label="Cancel"
+                                  onclick="{! c.onCancelClick}" />
+                <lightning:button variant="brand"
+                                  title="Save"
+                                  label="Save"
+                                  onclick="{! c.onActionClick}" />
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

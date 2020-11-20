@@ -1,0 +1,20 @@
+<template>
+<div class="slds-panel slds-grid slds-grid--vertical slds-nowrap" if:true={selectedState}>
+    <div class="slds-form--stacked slds-grow slds-scrollable--y">
+      <div class="slds-grid slds-p-around--small slds-wrap via-slds-story-cards--header slds-theme--shade">
+          <div class="slds-p-right--x-small via-slds-story-cards--header-title">
+            <div class="slds-text-heading--medium">{card.title}</div>
+          </div>
+      </div>
+      <div class="slds-panel__section slds-p-around--small">
+          <div class="slds-grid slds-wrap">
+                 <div class="slds-col slds-button via-slds-button slds-button--neutral slds-p-top--xx-small slds-m-vertical--xx-small  slds-p-bottom--xx-small slds-text-link--reset slds-grid slds-grid_vertical" for:each={actions} for:item="item" key={item.id}>
+				<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={item}>
+					{item.displayName}
+				</vlocity_ins-action>
+		        </div>
+          </div>
+      </div>
+  </div>
+</div>
+</template>

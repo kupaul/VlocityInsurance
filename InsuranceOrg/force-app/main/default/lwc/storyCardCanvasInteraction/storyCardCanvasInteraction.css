@@ -1,0 +1,7 @@
+:host .bg-white {
+  background: white;
+}
+
+:host .light-color {
+  color: #C6C4C3;
+}

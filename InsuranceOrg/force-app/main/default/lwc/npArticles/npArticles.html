@@ -1,0 +1,43 @@
+<template>
+	<div class="nds-size--1-of-1  nds-m-bottom_small nds-hero-resource__card" if:true={selectedState}>
+		<div class="nds-is-relative">
+			<div class="custom-close__wrapper nds-is-absolute">
+				<vlocity_ins-icon onclick={dismissOffer} theme="nds" icon-name="utility:close" size="x-small" extraclass="nds-notify__close">
+				</vlocity_ins-icon>
+			</div>
+			<img class="custom-article-image" src={getImageUrl}>
+		</div>
+		<template if:true={firstAction}>
+			<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={firstAction} theme="nds"
+			 icon-extraclass="nds-hide">
+				<div class="nds-box nds-box_x-small nds-color__background_gray-4 custom-article-item-box" for:each={state.fields} for:item="field"
+				 key={field.name}>
+					<a class="custom-anchor">
+	                    <vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj} field-name={field.name} type={field.type}></vlocity_ins-output-field>
+	                    <vlocity_ins-icon icon-name="utility:chevronright" size="x-small" extraclass="nds-button__icon"> </vlocity_ins-icon>
+                    </a>
+				</div>
+			</vlocity_ins-action>
+			<!-- <vlocity_ins-navigate-action onnavigate={addTrackingEntry} target-type={obj.targetObjectType} target-name={obj.targetObjectKey}
+			 target-id={obj.Id}>
+				<div class="nds-box nds-box_x-small nds-color__background_gray-4 custom-article-item-box" for:each={state.fields} for:item="field"
+				 key={field.name}>
+					<span>
+	                    <vlocity_ins-output-field record={obj} field-name={field.name} type={field.type}></vlocity_ins-output-field>
+	                    <vlocity_ins-icon icon-name="utility:chevronright" size="x-small" extraclass="nds-button__icon"> </vlocity_ins-icon>
+                    </span>
+				</div>
+			</vlocity_ins-navigate-action> -->
+		</template>
+		<template if:false={firstAction}>
+			<div class="nds-box nds-box_x-small nds-color__background_gray-4 custom-article-item-box" for:each={state.fields} for:item="field"
+			 key={field.name}>
+				<span>
+	                    <vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj} field-name={field.name} type={field.type}></vlocity_ins-output-field>
+	                    <vlocity_ins-icon icon-name="utility:chevronright" size="x-small" extraclass="nds-button__icon"> </vlocity_ins-icon>
+                    </span>
+			</div>
+		</template>
+
+	</div>
+</template>

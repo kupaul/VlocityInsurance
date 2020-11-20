@@ -1,0 +1,39 @@
+<template>
+	<section class="console-card active nds-summary__details nds-m-bottom--medium" if:true={selectedState}>
+		<article class="nds-grid nds-wrap nds-grid--vertical-stretch  nds-p-around--large">
+			<div
+				class="nds-size--1-of-12 nds-medium-size--1-of-12 nds-large-size--1-of-12 nds-small-size--1-of-12 nds-x-small-size--1-of-1 nds-summary__details-icon">
+				<div class="nds-media__figure ">
+					<img width="50" if:true={session}  src={getImageSrc} />
+                </div>
+				</div>
+				<div class="nds-size--11-of-12 nds-small-size--11-of-12 nds-x-small-size--1-of-1">
+					<h3 class="nds-m-bottom--small nds-m-bottom--large nds-font-size-large" if:true={firstField}>
+						<vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj}
+							field-name={firstField.name} ></vlocity_ins-output-field>
+					</h3>
+					<ul class="nds-text-heading_small">
+						<li class="nds-grid nds-wrap nds-p-bottom--small nds-border--bottom" key={field.name}
+							for:each={restField} for:item="field" for:index="index">
+							<div class="nds-size--4-of-12 nds-medium-size--4-of-12 nds-large-size--4-of-12 nds-small-size--6-of-12 nds-x-small-size--6-of-12 nds-p-top--small nds-summary__details-label"
+								key={field.id}>
+								{field.label}
+							</div>
+							<div class="nds-size--8-of-12 nds-size--8-of-12 nds-medium-size--8-of-12 nds-large-size--8-of-12 nds-small-size--6-of-12 nds-x-small-size--6-of-12 nds-p-top--small nds-summary__details-value"
+								key={field.label}>
+								<vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj} field-name={field.name} type={field.type}>
+								</vlocity_ins-output-field>
+							</div>
+						</li>
+					</ul>
+					<div class="nds-has-block-links nds-m-top--medium nds-text-heading_small">
+						<div for:each={actions} for:item="item" key={item.id} class="nds-m-bottom--small">
+							<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType}
+								state-action={item}>
+							</vlocity_ins-action>
+						</div>
+					</div>
+				</div>
+		</article>
+	</section>
+</template>

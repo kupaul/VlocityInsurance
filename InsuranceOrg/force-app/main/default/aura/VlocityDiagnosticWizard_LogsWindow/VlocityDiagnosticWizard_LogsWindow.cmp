@@ -1,0 +1,40 @@
+<aura:component controller="VlocityDiagnosticWizardController">
+    <aura:attribute name="record"
+                    type="Map" />
+    <aura:attribute name="systemLogs"
+                    type="List" />
+    <aura:attribute name="columns"
+                    type="List" />
+    <aura:attribute name="numRecords"
+                    type="Integer"
+                    default="5" />
+    <aura:attribute name="loading"
+                    type="Boolean"
+                    default="false" />
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{! c.doInit}" />
+    <div class="slds-m-vertical_medium">
+        <div class="slds-is-relative">
+            <aura:if isTrue="{! v.loading }">
+                <lightning:spinner size="medium"
+                                   variant="brand" />
+            </aura:if>
+            <lightning:datatable keyField="id"
+                                 data="{! v.systemLogs }"
+                                 columns="{! v.columns }"
+                                 hideCheckboxColumn="true"
+                                 minColumnWidth="50"
+                                 maxColumnWidth="1500"
+                                 onrowaction="{! c.navigateToLog}"
+                                 class=""
+                                 enableInfiniteLoading="true" />
+            <div class="slds-m-around_xx-small slds-align_absolute-center">
+                <lightning:button variant="base"
+                                  title="Load more"
+                                  label="Load more"
+                                  onclick="{! c.loadMoreRecords }" />
+            </div>
+        </div>
+    </div>
+</aura:component>

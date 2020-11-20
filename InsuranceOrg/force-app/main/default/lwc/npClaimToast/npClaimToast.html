@@ -1,0 +1,32 @@
+<template>
+	<template if:true={toastOpen}>
+		<div class="npclaimtoast-card nds-p-around--x-small" if:true={selectedState}>
+			<div class="npclaimtoast-card_inner nds-is-relative">
+				<div class="nds-grid">
+					<div class="nds-text-align_left nds-size--10-of-12 nds-m-around_small">
+						<span> Open Claim </span>
+						<span if:true={firstField}>(<em>
+			<vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj} field-name={firstField.name}></vlocity_ins-output-field>
+        </em></span>
+						<span if:true={secondField}> &nbsp;|<em>
+			 &nbsp; <vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj} field-name={secondField.name}></vlocity_ins-output-field>
+        </em>)</span>
+					</div>
+					<div class="nds-text-align_right nds-size--2-of-12" for:each={actions} for:item="item"
+						key={item.id}>
+						<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType}
+							state-action={item} theme="nds" action-labelclass="nds-button--icon-inverse"
+							icon-extraclass="nds-hide">
+							{item.displayName}
+						</vlocity_ins-action>
+					</div>
+				</div>
+				<div class="custom-close__wrapper nds-is-absolute">
+					<vlocity_ins-icon onclick={removeToast} theme="nds" icon-name="utility:close" size="x-small"
+						extraclass="nds-notify__close" color="white">
+					</vlocity_ins-icon>
+				</div>
+			</div>
+		</div>
+	</template>
+</template>

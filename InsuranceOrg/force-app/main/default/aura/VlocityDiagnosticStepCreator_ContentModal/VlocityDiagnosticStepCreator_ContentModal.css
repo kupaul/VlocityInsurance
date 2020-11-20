@@ -1,0 +1,5 @@
+.THIS .via-content-modal_textarea > .slds-form-element__control > textarea {
+    min-height: 500px;
+    background-color: #2b2826;
+    color: #f3f2f2;
+}

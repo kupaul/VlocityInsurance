@@ -1,0 +1,23 @@
+<template>
+	<div class="nds-grid nds-grid_vertical">
+		<div class="nds-canvas">
+			<div class="nds-p-around_small">
+				<h3 class="nds-is-relative nds-m-bottom--xx-large nds-canvas__title" if:true={session.Title}>{session.Title}</h3>
+
+				<div class="nds-grid nds-m-vertical--medium">
+					<div for:each={tabs} key={tab.label} for:item="tab" for:index="index" class={tab.class} data-index={index} onclick={switchTab}>
+						<vlocity_ins-icon extraclass={tab.iconClass} icon-name={tab.iconName} theme="nds" size="medium"></vlocity_ins-icon>
+						<div class="vloc-broker-tabs-no">{tab.no}</div>
+						<span class="nds-text-body_small vloc-broker-tabs-label"> {tab.label} </span>
+					</div>
+				</div>
+				<div>
+					<ul class="vloc-broker-app-policies nds-m-top--small">
+
+						<slot></slot>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

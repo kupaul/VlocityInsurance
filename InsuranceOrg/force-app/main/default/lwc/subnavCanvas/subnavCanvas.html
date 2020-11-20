@@ -1,0 +1,32 @@
+<template>
+	<div class="via-nds">
+		<div class="nds-is-relative">
+			<vlocity_ins-spinner if:false={isLoaded} variant="brand" size="medium" alternative-text="loading"></vlocity_ins-spinner>
+		</div>
+		<div class="nds-subnav__wrapper" >
+			<div class="nds-grid nds-subnav__inner">
+				<a class="nds-subnav__theme nds-subnav__overview-card"  href={overviewHref}>
+					<section class="nds-subnav__active nds-subnav__overview nds-subnav__tabSelected">
+						<div class="nds-subnav__cardtop nds-text-align_center" onclick={goToOverview}>
+							<div class="nds-subnav__image nds-m-bottom--x-small nds-grid nds-grid--vertical-align-center">
+								<!--define the placeholder 'NavIcon' in the layout card state.-->
+								<img src={imageUrl} height="32">
+							</div>
+							<div class="nds-subnav__cardValues">
+								<h2>
+									<!-- {{data.title is default if NavTitle is not defined in the layout card states }}-->
+									Overview
+								</h2>
+							</div>
+						</div>
+					</section>
+				</a>
+				<div class="nds-subnav__fullWidth nds-scrollable--x">
+					<div class="nds-grid">
+						<slot class="subNav" onprivateitemregister={handleChildRegister}></slot>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

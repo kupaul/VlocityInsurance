@@ -1,0 +1,10 @@
+/*subnav.css*/
+
+.nds-subnav__theme {
+    position: relative;
+    width: 100%;
+    height: 173px;
+    text-decoration: none;
+    max-width: 140px;
+    max-width: 150px;
+}

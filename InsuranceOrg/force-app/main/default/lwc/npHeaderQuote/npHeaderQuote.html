@@ -1,0 +1,40 @@
+<template>
+	<div if:true={selectedState}>
+		<h3 class="nds-is-relative nds-m-bottom--xx-large nds-canvas__title" if:true={firstField}>
+			<vlocity_ins-output-field record={obj} field-name={firstField.name}></vlocity_ins-output-field>
+		</h3>
+		<div class="nds-text-title--caps nds-m-top--large" if:true={secondField}>
+			<span class="nds-truncate nds-text-heading_label nds-m-bottom_xx-small nds-p-right_xx-small" title={secondField.label}>
+					{secondField.label}:
+				</span>
+			<vlocity_ins-output-field record={obj} field-name={secondField.name}></vlocity_ins-output-field>
+		</div>
+		<div class="nds-grid nds-wrap nds-m-top--small nds-p-bottom--medium nds-size--1-of-1">
+			<div class="nds-grid nds-size--1-of-1 nds--small-size--1-of-1 nds-medium-size--1-of-2 nds-large-size--1-of-2 nds-float--left nds-m-top--small"
+			 if:true={thirdField}>
+				<div class="nds-size--1-of-2 nds-large-size--1-of-2 nds-medium-size--1-of-2 nds-text-heading_small nds-truncate nds-m-bottom--xx-small">{thirdField.label}:</div>
+
+				<div class="nds-size--1-of-2 nds-large-size--1-of-2 nds-medium-size--1-of-2  nds-float--left">
+					<a class="nds-text-link--reset" href="#" if:true={firstAction}>
+						<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={firstAction} icon-extraclass="nds-hide">
+								<vlocity_ins-output-field record={obj} field-name={thirdField.name}></vlocity_ins-output-field>
+						</vlocity_ins-action>
+					</a>
+					<div if:false={firstAction} class="nds-text-body--regular-np nds-truncate">
+						<vlocity_ins-output-field record={obj} field-name={thirdField.name}></vlocity_ins-output-field>
+					</div>
+				</div>
+			</div>
+			<div class="nds-grid nds-size--1-of-1 nds--small-size--1-of-1 nds-medium-size--1-of-2 nds-large-size--1-of-2 nds-float--left nds-m-top--small"
+			 key={field.name} for:each={restField} for:item="field">
+				<div class="nds-size--1-of-2 nds-large-size--1-of-2 nds-medium-size--1-of-2 nds-text-heading_small nds-truncate nds-m-bottom--xx-small"
+				 title={field.label}>{field.label}:</div>
+				<div class="nds-size--1-of-2 nds-large-size--1-of-2 nds-medium-size--1-of-2  nds-float--left">
+					<span class="nds-text-body--regular-np nds-truncate" title={field.label}>
+                       	<vlocity_ins-output-field record={obj} field-name={field.name}></vlocity_ins-output-field>
+                    </span>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

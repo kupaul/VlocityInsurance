@@ -1,0 +1,128 @@
+<aura:component controller="VlocityDiagnosticWizardController">
+    <!-- Component Attributes -->
+    <!-- SObject attributes -->
+    <aura:attribute name="record"
+                    type="Map" />
+    <!-- Group Ste Attributes -->
+    <aura:attribute name="childRecords"
+                    type="List" />
+    <aura:attribute name="completedChildren"
+                    type="Integer"
+                    default="0" />
+    <aura:attribute name="shownChildren"
+                    type="Integer"
+                    default="0" />
+    <!-- Filtering Attributes -->
+    <aura:attribute name="filters"
+                    type="Map" />
+    <aura:attribute name="recordTagsList"
+                    type="List" />
+    <aura:attribute name="recordTags"
+                    type="Map" />
+    <!-- Show/Hide Logic -->
+    <aura:attribute name="displayStep"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="displayLogs"
+                    type="Boolean"
+                    default="false" />
+    <!-- Cosmetic Attributes -->
+    <aura:attribute name="actionBtnAttributes"
+                    type="Map" />
+    <aura:attribute name="recordStatus"
+                    type="String" />
+    <aura:attribute name="showAdvancedFilters"
+                    type="Boolean" />
+    <aura:attribute name="showAllWarnings"
+                    type="Boolean" />
+    <!-- Logic Attributes -->
+    <aura:attribute name="initialRecordStatus"
+                    type="String" />
+    <aura:attribute name="invokeOutput"
+                    type="Map" />
+    <aura:attribute name="notes"
+                    type="String" />
+    <aura:attribute name="isChild"
+                    type="Boolean"
+                    default="false" />
+    <!-- Custom Input Attributes -->
+    <aura:attribute name="customInput"
+                    type="String" />    
+    <aura:attribute name="customInput2"
+                    type="String" />
+    <!-- Modal Attributes -->
+    <aura:attribute name="showNotesModal"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="showInstructionModal"
+                    type="Boolean"
+                    default="false" />
+    <!-- End Attributes -->
+    <aura:handler name="change"
+                  value="{!v.record}"
+                  action="{!c.onRecordChange}" />
+    <aura:handler name="change"
+                  value="{!v.recordStatus}"
+                  action="{!c.onRecordStatusChange}" />
+    <aura:handler name="change"
+                  value="{!v.filters}"
+                  action="{!c.onFiltersChange}" />
+    <aura:handler name="notifyParentEvent"
+                  event="c:VlocityDiagnosticWizard_ChildStepUpdateEvent"
+                  action="{!c.onChildUpdateEvent}" />
+
+    <!-- Public Methods from VlocityDiagnosticWizard_StepElementController.js -->
+    <aura:method name="openInstructionModal" />
+    <aura:method name="openNotesModal" />
+    <aura:method name="openLogsWindow" />
+    <aura:method name="openCheckResult" />
+    <aura:method name="saveNotes" />
+    <aura:method name="completeAction" />
+    <aura:method name="preCheckStep" />
+    <aura:method name="updateCustomInput" />
+    <aura:registerEvent name="notifyParentEvent"
+                        type="c:VlocityDiagnosticWizard_ChildStepUpdateEvent" />
+    <aura:registerEvent name="modalEvent"
+                        type="c:VlocityDiagnosticWizard_ModalEvent" />
+    <ltng:require scripts="{!$Resource.VlocityDiagnosticWizard_Bundle}"
+                  afterScriptsLoaded="{!c.doInit}" />
+
+    <!-- Element for SLDS Setup Assistant-->
+    <aura:if isTrue="{!v.isChild}">
+        <c:VlocityDiagnosticWizard_InnerStepElement record="{! v.record}"
+                                                    customInput="{! v.customInput}"
+                                                    customInput2="{! v.customInput2}"
+                                                    displayStep="{! v.displayStep}"
+                                                    displayLogs="{! v.displayLogs}"
+                                                    filters="{! v.filters}"
+                                                    actionBtnAttributes="{! v.actionBtnAttributes}"
+                                                    recordStatus="{! v.recordStatus}"
+                                                    showAdvancedFilters="{! v.showAdvancedFilters}"
+                                                    showAllWarnings="{!v.showAllWarnings}"
+                                                    initialRecordStatus="{! v.initialRecordStatus}"
+                                                    invokeOutput="{! v.invokeOutput}"
+                                                    recordTags="{! v.recordTags}"
+                                                    parent="{!this}"
+                                                    aura:id="innerStepElement" />
+        <aura:set attribute="else">
+            <c:VlocityDiagnosticWizard_OuterStepElement record="{! v.record}"
+                                                        customInput="{! v.customInput}"
+                                                        customInput2="{! v.customInput2}"
+                                                        childRecords="{!v.childRecords}"
+                                                        completedChildren="{!v.completedChildren}"
+                                                        shownChildren="{!v.shownChildren}"
+                                                        displayStep="{! v.displayStep}"
+                                                        displayLogs="{! v.displayLogs}"
+                                                        filters="{! v.filters}"
+                                                        actionBtnAttributes="{! v.actionBtnAttributes}"
+                                                        recordStatus="{! v.recordStatus}"
+                                                        showAdvancedFilters="{! v.showAdvancedFilters}"
+                                                        showAllWarnings="{!v.showAllWarnings}"
+                                                        initialRecordStatus="{! v.initialRecordStatus}"
+                                                        invokeOutput="{! v.invokeOutput}"
+                                                        recordTags="{! v.recordTags}"
+                                                        parent="{!this}"
+                                                        aura:id="outerStepElement" />
+        </aura:set>
+    </aura:if>
+</aura:component>

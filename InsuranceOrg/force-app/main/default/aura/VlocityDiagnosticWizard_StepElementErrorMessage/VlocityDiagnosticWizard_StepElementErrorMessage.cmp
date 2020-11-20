@@ -1,0 +1,56 @@
+<aura:component>
+    <aura:attribute name="errorMessage"
+                    type="String" />
+    <aura:attribute name="warningMessage"
+                    type="String" />
+    <aura:attribute name="infoMessage"
+                    type="String" />
+    <aura:attribute name="consoleMessage"
+                    type="String" />
+    <aura:attribute name="hasWarnings"
+                    type="Boolean" />
+    <aura:attribute name="hasErrors"
+                    type="Boolean" />
+    <aura:attribute name="hasInfos"
+                    type="Boolean" />
+    <aura:attribute name="showAllWarnings"
+                    type="Boolean" />
+    <div>
+        <aura:if isTrue="{!and(v.errorMessage, v.hasErrors == true)}">
+            <div>
+                <p class="slds-p-top_xx-small">Error:
+                    <i class="slds-text-color_error">
+                        {! v.errorMessage}
+                    </i>
+                </p>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!and(v.warningMessage, v.hasWarnings == true)}">
+            <div>
+                <p class="slds-p-top_xx-small">Warning:
+                    <i class="via-text-color_warning">
+                        {! v.warningMessage}
+                    </i>
+                </p>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{!and(v.infoMessage, v.hasInfos == true)}">
+            <div>
+                <p class="slds-p-top_xx-small">
+                    <i class="via-text-color_info">
+                        {! v.infoMessage}
+                    </i>
+                </p>
+            </div>
+        </aura:if>
+        <aura:if isTrue="{! and(v.showAllWarnings, v.consoleMessage)}">
+            <div>
+                <lightning:helptext class="via-helptext_error slds-error slds-button_icon slds-button_icon-error"
+                                    content="{! v.consoleMessage }"
+                                    variant="error"
+                                    iconName="{!v.hasWarnings ? 'utility:warning' : 'utility:error'}"
+                                    iconVariant="{!v.hasWarnings ? 'warning' : 'error'}" />
+            </div>
+        </aura:if>
+    </div>
+</aura:component>

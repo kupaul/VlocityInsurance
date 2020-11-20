@@ -1,0 +1,112 @@
+.asset-card {
+  background: #fff;
+}
+
+.asset-card .expand-icon {
+  position: absolute;
+  z-index: 9;
+  right: 9px;
+  top: 10px;
+  opacity: 0.8;
+  display: none;
+}
+
+.asset-card:hover .expand-icon {
+  display: initial;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.asset-pill,
+.asset-pill:hover {
+  background-color: aliceblue;
+  color: dodgerblue;
+}
+
+
+.asset-image {
+  height: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.asset-image img {
+  position: absolute;
+  width: 100%;
+}
+
+.asset-field-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.asset-field-label {
+    font-weight: 400;
+    font-size: 11px;
+    color: #B0ADAB;
+}
+
+.asset-field {
+  border-bottom: 1px solid #eee;
+  min-width: 28%;
+  
+}
+
+.asset-field-value {
+font-size: 13px;
+  font-weight: normal;
+}
+
+.asset-field span {
+    border: none;
+}
+
+.asset-field:not(:last-child) {
+  border-right: 1px solid #eee;
+}
+
+.asset-field:nth-child(3n) {
+  border-right: none;
+}
+
+.bg-shade {
+  background: #f4f6f9;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.vloc-track-field {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
+
+.via-field:hover .vloc-track-field {
+  opacity: 0.7;
+}
+
+.via-field .vloc-track-field:hover,
+.via-field:hover .vloc-track-field:hover {
+  opacity: 1;
+}
+
+.action-color {
+  color: #459df2;
+}
+
+.title-font-weight {
+  font-weight: bold;
+}
+
+.smartaction-img {
+    width:48px !important;
+    height: 48px !important;
+}

@@ -1,0 +1,56 @@
+<template>
+	<div class={getClass} if:true={selectedState}>
+		<section class="nds-activity-feed-timeline__card">
+			<ul class="nds-grid nds-wrap nds-is-relative">
+				<li class=" nds-size--1-of-1 nds-text-align--left nds-m-bottom--xx-large nds-is-relative">
+					<div class="nds-activity-feed-timeline__circle"></div>
+					<time class="nds-activity-feed-card_item__date" if:true={firstField}><span>
+                <vlocity_ins-output-field
+                extraclass="nds-show_inline"
+                    record={obj}
+                    field-name={firstField.name}
+                    type={firstField.type}
+                  ></vlocity_ins-output-field>
+            </span></time>
+					<div
+						class="nds-activity-feed-timeline__label nds-box nds-text-heading_small nds-is-relative nds-grid">
+						<div class="nds-size--10-of-12" if:true={secondField}>
+							<vlocity_ins-navigate-action target-type="Record" target-action="view"
+								target-name={obj.objType} target-id={obj.Id}>
+								<a class="nds-show_inline-block nds-m-bottom--x-small" href="javascript:void(0)"> <span>
+                         <vlocity_ins-output-field
+                         extraclass="nds-show_inline"
+                    record={obj}
+                    field-name={secondField.name}
+                  ></vlocity_ins-output-field> | <vlocity_ins-output-field
+                    record={obj}
+                    extraclass="nds-show_inline"
+                    field-name={thirdField.name}
+                  ></vlocity_ins-output-field></span></a>
+							</vlocity_ins-navigate-action>
+
+							<!-- Define fields template and add the field details in the layout card states-->
+							<p key={field.name} for:each={restField} for:item="field" for:index="index">
+								<strong>
+                   <vlocity_ins-output-field
+                   extraclass="nds-show_inline"
+                                record={obj}
+                                field-name={field.name}
+                                type={field.type}
+                            ></vlocity_ins-output-field></strong>
+							</p>
+						</div>
+						<div for:each={actions} for:item="item" key={item.id}>
+							<a class="nds-m-bottom--small nds-m-horizontal--medium" href="#">
+								<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType}
+									state-action={item}>
+								</vlocity_ins-action>
+							</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</section>
+	</div>
+
+</template>

@@ -1,0 +1,62 @@
+<template>
+	<section class="np-via-nds-card--left-profile" if:true={selectedState}>
+		<div class="profile-picture big-profile-picture">
+			<img src="" if:true={showImage} >
+			<span if:false={showImage} class="nds-avatar__profile">
+         <span class="nds-profile__image">
+         <vlocity_ins-icon
+              icon-name='utility:user'
+              size="medium"
+              extraclass="nds-avatar__custom nds-avatar_large"
+            ></vlocity_ins-icon>
+         </span>
+			</span>
+		</div>
+
+		<div class="profile-detail">
+			<div class="profile-name nds-m-vertical--small">
+				{obj.Name}
+			</div>
+			<!--Using ng-repeat to iterate over the fields object -->
+			<template if:true={obj.PrimaryContact}>
+				<div class="profile-info  nds-m-top--medium" if:true={obj.PrimaryContact.Name}>
+					<span>{obj.PrimaryContact.Name}</span>
+				</div>
+			</template>
+			<!-- Using nds-frid class to render the placeholders and action mapped-->
+			<div class="nds-grid nds-wrap np-profile-actions">
+				<div class="nds-col via-nds-col nds-m-top--medium nds-p-horizontal--small" for:each={actions} for:item="item" key={item.id}>
+					<a class="nds-text-link--reset" href="#">
+						<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={item}>
+						</vlocity_ins-action>
+					</a>
+				</div>
+				<template if:true={obj.PrimaryContact}>
+					<div if:true={obj.PrimaryContact.Email} class="nds-col via-nds-col nds-m-top--medium nds-p-horizontal--small">
+						<a href="mailto:" class="nds-text-link--reset">
+							<span>{obj.PrimaryContact.Email}</span>
+						</a>
+					</div>
+
+					<div if:true={obj.PrimaryContact.WebSite} class="nds-col via-nds-col np-last-action nds-m-top--medium nds-p-horizontal--small">
+						<a href="#" class="nds-text-link--reset" target="_blank">
+							{obj.PrimaryContact.WebSite}
+						</a>
+					</div>
+				</template>
+			</div>
+		</div>
+	</section>
+	<template if:true={obj.PrimaryContact}>
+		<section class="nds-text-heading_small nds-text-align_center">
+			<div if:true={obj.PrimaryContact.Phone} class="nds-p-vertical_small">
+				<a href="tel:#" class="nds-color-text-secondary">
+					{obj.PrimaryContact.Phone}
+				</a>
+			</div>
+			<div if:true={obj.PrimaryContact.MailingAddress}>
+				<span class="nds-color-text-secondary">{obj.PrimaryContact.MailingAddress.Street} </span>
+			</div>
+		</section>
+	</template>
+</template>

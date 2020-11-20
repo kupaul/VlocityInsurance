@@ -1,0 +1,135 @@
+<template>
+  <div if:true={selectedState} class="nds-card via-nds-card--active">
+    <div
+      class="nds-card__body via-nds-card__body nds-grid nds-wrap nds-theme--default nds-m-vertical_none"
+    >
+      <vlocity_ins-icon
+        if:true={displayBadge}
+        icon-name="standard:reward"
+        theme={theme}
+        baseurl={iconUrl}
+        color="#ffffff"
+        bg-color={badgeColor}
+        size="large"
+        class="profile-badge nds-icon-standard-reward"
+      ></vlocity_ins-icon>
+  </div>
+      <div class="profile-picture" style={getProfilePic}></div>
+      <div class="profieCardContent nds-p-left_small">
+        <div class="nds-size--1-of-1">
+          <div class="profile-name">
+            {userName}
+          </div>
+        </div>
+        <div class="nds-size--1-of-1">
+          <div
+            key={field.name}
+            class="nds-p-vertical--xx-small nds-color__text_gray-8"
+            for:each={state.fields}
+            for:item="field"
+            for:index="index"
+          >
+            <div
+              key={field.label}
+              class="nds-tile__detail nds-text-heading--small"
+            >
+              <vlocity_ins-output-field
+              extraclass="nds-show_inline-block"
+                record={obj}
+                field-name={field.name}
+                type={field.type}
+              ></vlocity_ins-output-field>
+            </div>
+          </div>
+        </div>
+        <div class="nds-size--1-of-1">
+          <ul
+            if:true={profileTags}
+            class="statusCard nds-size--1-of-1 nds-p-vertical_small"
+          >
+            <template for:each={profileTags} for:item="item">
+              <span key={item.id} class={item.class} data-color={item.colorC}>
+                <li
+                  class="nds-pill nds-p-around_x-small nds-m-right_x-small nds-m-vertical_x-small"
+                >
+                  <vlocity_ins-pill
+                    value={item.content}
+                    icon-url={iconUrl}
+                    theme={theme}
+                    name="statusPill"
+                    viewonly="true"
+                    tag-extraclass="nds-p-around_none nds-m-around_none"
+                  >
+                  </vlocity_ins-pill>
+                </li>
+              </span>
+            </template>
+          </ul>
+        </div>
+      </div>
+      <div class="actions-parent-div  nds-p-left_small nds-m-bottom--small">
+        <div if:true={rowActions.length} class={rowActionClass}>
+          <div class="nds-grid slds-grid_vertical">
+            <template for:each={rowActions} for:item="item">
+              <div class={actionClass} key={item.id}>
+                <vlocity_ins-action
+                  icon-extraclass="nds-m-right_small"
+                  state-obj={obj}
+                  context-id={contextId}
+                  s-object-type={sObjectType}
+                  state-action={item}
+                  icon-only={actionIconOnly}
+                  icon-size="small"
+                  action-wrapperclass="nds-size--1-of-1 nds-table_fixed-layout nds-p-left_x-small"
+                  action-labelclass="nds-size--6-of-8 nds-float_right nds-m-top_xxx-small nds-m-right_small nds-truncate nds-p-around_xx-small"
+                  icon-wrapperclass="nds-size--2-of-8 nds-p-right_xx-small"
+                  icon-img-wrapperclass="nds-avatar nds-avatar_medium nds-p-around_xxx-small"
+                >
+                  <a role="menuitem" tabindex="0">
+                    <span
+                      class="slds-float_left slds-m-top_xxx-small slds-m-right_small slds-truncate slds-action_text"
+                      >{item.displayName}</span
+                    >
+                  </a>
+                </vlocity_ins-action>
+              </div>
+            </template>
+          </div>
+        </div>
+        <div if:true={menuActions.length} class={menuActionClass}>
+          <vlocity_ins-menu
+            theme={theme}
+            icon-url={iconUrl}
+            position="right"
+            icon-size="x-small"
+            icon-name="utility:threedots_vertical"
+            class="nds-float_left"
+          >
+            <template for:each={menuActions} for:item="action">
+              <vlocity_ins-menu-item
+                key={action.id}
+                theme={theme}
+                record={action}
+                icon-url={iconUrl}
+                name={action.displayName}
+              >
+                <vlocity_ins-action
+                  icon-extraclass="nds-m-right_small"
+                  icon-size="xx-small"
+                  state-obj={obj}
+                  context-id={contextId}
+                  s-object-type={sObjectType}
+                  state-action={action}
+                  action-wrapperclass="nds-size--1-of-1"
+                  action-labelclass="nds-size--7-of-8"
+                  icon-wrapperclass="nds-size--1-of-8"
+                >
+                </vlocity_ins-action>
+              </vlocity_ins-menu-item>
+            </template>
+          </vlocity_ins-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

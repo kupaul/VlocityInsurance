@@ -1,0 +1,91 @@
+<template>
+    <section>
+        <aside>
+            <h3 class="nds-is-relative nds-m-bottom--xx-large nds-canvas__title" if:true={firstField}>
+            <span class="nds-p-right--small">
+                {firstField.label}
+            </span>   
+            <span class="nds-p-right--small">
+                <vlocity_ins-output-field
+                extraclass="nds-show_inline-block"
+                    record={obj}
+                    field-name={firstField.name}
+                  ></vlocity_ins-output-field>
+            </span>
+            </h3>
+            <div>
+                <article class="nds-card nds-card_custom nds-grid nds-wrap nds-grid--vertical-stretch">
+                    <div class=" nds-size--1-of-1 nds-small-size--7-of-12 nds-medium-size--7-of-12">
+                        <table>
+                            <tbody>
+                                <tr key={field.name} for:each={defaultField} for:item="field" for:index="index">
+                                    <td class="nds-p-bottom--large">
+                                        <span class="nds-text-heading_small">{field.label}</span> :
+                                    </td>
+                                    <td class="nds-p-bottom--large">
+                                        <span class="nds-text-heading_small">
+                                           <vlocity_ins-output-field
+                                           extraclass="nds-show_inline-block"
+                                                record={obj}
+                                                field-name={field.name}
+                                                type={field.type}
+                                            ></vlocity_ins-output-field>
+                                            </span>
+                                    </td>
+                                </tr>
+                                <tr if:true={showMore} key={field.name} for:each={restField} for:item="field" for:index="index">
+                                    <td class="nds-p-bottom--large">
+                                        <span class="nds-text-heading_small">{field.label}</span> :
+                                    </td>
+                                    <td class="nds-p-bottom--large">
+                                        <span class="nds-text-heading_small">
+                                           <vlocity_ins-output-field
+                                           extraclass="nds-show_inline-block"
+                                                record={obj}
+                                                field-name={field.name}
+                                                type={field.type}
+                                            ></vlocity_ins-output-field>
+                                            </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="nds-size--1-of-1 nds-small-size--5-of-12 nds-medium-size--5-of-12">
+                        <ul class="actions">
+                            <li class="nds-p-bottom--large nds-text-heading_small" for:each={defaultActions} for:item="item"  key={item.id}> 
+                                        <vlocity_ins-action
+                                        state-obj={obj}
+                                        context-id={contextId}
+                                        s-object-type={sObjectType}
+                                        state-action={item}
+                                        theme='nds'
+                                         icon-wrapperclass='nds-hide'
+                                        >
+                                    </vlocity_ins-action>
+                            </li>
+                            <li if:true={showMore} class="nds-p-bottom--large nds-text-heading_small" for:each={restActions} for:item="item"  key={item.id}> 
+                                        <vlocity_ins-action
+                                        state-obj={obj}
+                                        context-id={contextId}
+                                        s-object-type={sObjectType}
+                                        state-action={item}
+                                        theme='nds'
+                                        icon-wrapperclass='nds-hide'
+                                        >
+                                    </vlocity_ins-action>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="nds-m-top--large">
+                        <a href="javascript:void(0)" onclick={showToggle}> 
+                            <span class="nds-text-heading_small"  if:false={showMore}>Show Details</span>
+                            <span class="nds-text-heading_small" if:true={showMore}>Hide Details</span>
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </aside>
+    </section>
+</template>

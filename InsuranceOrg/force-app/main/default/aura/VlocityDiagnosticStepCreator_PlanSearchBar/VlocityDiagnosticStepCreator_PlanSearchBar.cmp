@@ -1,0 +1,64 @@
+<aura:component>
+    <aura:attribute name="planSearch"
+                    type="String" />
+    <aura:attribute name="plans"
+                    type="List" />
+    <aura:attribute name="filteredPlans"
+                    type="List" />
+    <aura:attribute name="displayContent"
+                    type="Boolean" />
+    <aura:handler name="change"
+                  value="{! v.plans}"
+                  action="{! c.onPlanSearchChange}" />
+    <aura:handler name="change"
+                  value="{! v.planSearch}"
+                  action="{! c.onPlanSearchChange}" />
+    <aura:registerEvent name="generalEvent"
+                        type="c:VlocityDiagnosticStepCreator_Event" />
+    <div class="{! 'slds-combobox_container via-plan-search_dropdown' + ' ' +
+        (v.displayContent ? 'slds-transition-show transition' : 'slds-transition-hide transition')}">
+        <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+             role="listbox">
+            <ul class="slds-listbox slds-listbox_vertical"
+                role="presentation">
+                <!-- NEW PLAN -->
+                <li role="presentation"
+                    class="slds-listbox__item"
+                    onclick="{! c.selectNewPlan}">
+                    <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                         role="option">
+                        <span class="slds-media__figure slds-listbox__option-icon">
+                            <lightning:icon iconName="utility:add"
+                                            size="xx-small" />
+                        </span>
+                        <span class="slds-media__body">
+                            <span class="slds-truncate"
+                                  title="New Plan">New Plan</span>
+                        </span>
+                    </div>
+                </li>
+                <!-- FILTERED PLANS -->
+                <aura:iteration items="{! v.filteredPlans}"
+                                var="plan"
+                                indexVar="planIndex">
+                    <li role="presentation"
+                        class="slds-listbox__item"
+                        onclick="{! c.selectPlan}"
+                        data-value="{! plan.Name}">
+                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                             role="option">
+                            <span class="slds-media__figure slds-listbox__option-icon">
+                                <lightning:icon iconName="utility:richtextbulletedlist"
+                                                size="xx-small" />
+                            </span>
+                            <span class="slds-media__body">
+                                <span class="slds-truncate"
+                                      title="{! plan.Name}">{! plan.Name}</span>
+                            </span>
+                        </div>
+                    </li>
+                </aura:iteration>
+            </ul>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,16 @@
+<template>
+	<div class="via-nds custom-footer">
+		<div class={readBorder}>
+			<div class="nds-is-relative">
+
+				<vlocity_ins-spinner if:false={isLoaded} variant="brand" size="medium" alternative-text="loading"></vlocity_ins-spinner>
+			</div>
+			<div class="nds-text-heading_small" if:true={session.title}>
+				{session.title}
+			</div>
+			<div class="np-footer-canvas slds-p-horizontal_large slds-p-top_x-large slds-p-bottom_xx-large nds-p-horizontal_large nds-p-top_x-large nds-p-bottom_xx-large">
+				<slot class="grid-contiainer"></slot>
+			</div>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,15 @@
+<template>
+	<div class=" grid-item np-footer-cards slds-p-horizontal_large slds-p-bottom_large nds-p-horizontal_large nds-p-bottom_large section-cards"
+	 if:true={selectedState}>
+		<div class="slds-p-bottom_x-large nds-p-bottom_x-large section-title">
+			{obj.name}</div>
+		<ul class="slds-list_vertical-space-medium nds-list_vertical-space-medium ">
+			<li class="slds-item nds-item" for:each={actions} for:item="item" key={item.id}>
+				<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={item} theme="nds" action-labelclass="nds-button--icon-inverse"
+				 icon-extraclass="nds-hide">
+					<a class="custom-footer-links">{item.displayName}</a>
+				</vlocity_ins-action>
+			</li>
+		</ul>
+	</div>
+</template>

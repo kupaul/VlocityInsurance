@@ -1,0 +1,60 @@
+<template>
+    <template if:true={isLoaded}>
+        <vlocity_ins-modal class="vloc-ins-editor-modal" size="small" title={formTitle}>
+            <div slot="content">
+                <template if:true={needCustomProcess}>
+                    <template if:true={showEditorForm}>
+
+                        <!-- Omniscript  markup --> 
+                        <!-- <c-ins-quote-add-edit-renters-english layout="lightning" prefill={prefill}></c-ins-quote-add-edit-renters-english> -->
+
+                        <!-- <template if:true={productCodeRenters}>
+                            <c-ins-quote-add-edit-renters-english layout="lightning" prefill={prefill}></c-ins-quote-add-edit-renters-english>
+                        </template>  -->
+
+                       <!-- <template if:true={productCodeAuto}>
+                            <c-ins-quote-add-edit-english layout="lightning" prefill={prefill}></c-ins-quote-add-edit-english>
+                        </template> -->
+                        <c-lwc-add-vehicles-quote-admin-u-i-english layout="lightning" prefill={prefill}></c-lwc-add-vehicles-quote-admin-u-i-english>
+
+                        <!-- <template if:true={productCodeWholeLife}>
+                            <c-ins-quote-add-edit-life-english layout="lightning" prefill={prefill}></c-ins-quote-add-edit-life-english>
+                        </template>  -->
+                    </template>
+                </template>
+                <template if:false={needCustomProcess}>
+                    <div if:true={dataError} class="slds-has-error slds-m-top_none slds-align_absolute-center">
+                       <div class="slds-form-element__help">{customLabels.InsQuoteNoData}</div>
+                    </div>
+                    <form if:false={hideForm} onsubmit={preventDefault}>
+                        <template if:true={ruleContext}>
+                            <template if:true={ruleContext.debugMode}>({product.ProductCode})</template>
+                        </template>
+                        <template if:true={attributeCategories}>
+                            <template for:each={attributeCategories} for:item="attributeCategory">
+                                <div key={attributeCategory.id}>
+                                    <div class="slds-section__title slds-m-top_medium">
+                                        <h3 if:false={attributeCategory.fields} class="slds-text-title_bold">{attributeCategory.Name}</h3>
+                                    </div>
+                                    <div if:true={attributeCategory.productAttributes} class="slds-grid slds-wrap">
+                                        <template for:each={attributeCategory.productAttributes.records} for:item="attribute">
+                                            <div key={attribute.attributeId} class="slds-col slds-size_1-of-2">
+                                                <div class="slds-m-around_small" if:false={attribute.hidden}>
+                                                    <vlocity_ins-ins-attribute rule-context={ruleContext}  attribute={attribute} attribute-style="recordEditor" root-channel={rootChannel} is-readonly={isReadonly}></vlocity_ins-ins-attribute>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                        </template>
+                    </form>
+                </template>
+            </div>
+            <div slot="footer">
+                <vlocity_ins-button variant="reset" label={customLabels.InsButtonCancel} onclick={closeRecordEditor} extraclass="slds-button slds-m-vertical_small"></vlocity_ins-button>
+                <vlocity_ins-button if:false={hideSaveButtton} variant="brand" disabled={disableSave} label={customLabels.Save} onclick={saveAttributeMetadata} extraclass="slds-m-left_medium"></vlocity_ins-button>
+            </div>
+        </vlocity_ins-modal>
+    </template>
+</template>

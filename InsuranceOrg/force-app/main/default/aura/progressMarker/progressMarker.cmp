@@ -1,0 +1,23 @@
+<aura:component>
+    <aura:attribute name="recordStatus"
+                    type="String"
+                    default="In Progress" />
+    <aura:if isTrue="{! or(or(v.recordStatus=='Not Started',v.recordStatus=='In Progress'),v.recordStatus=='Warning')}">
+        <div class="slds-progress__marker">
+        </div>
+    </aura:if>
+    <aura:if isTrue="{! v.recordStatus=='Failed'}">
+        <span class="slds-icon_container slds-icon-utility-error slds-progress__marker slds-progress__marker_icon"
+              title="Error">
+            <lightning:icon iconName="utility:error"
+                            size="xx-small" />
+        </span>
+    </aura:if>
+    <aura:if isTrue="{! v.recordStatus=='Complete'}">
+        <span class="slds-icon_container slds-icon-utility-success slds-progress__marker slds-progress__marker_icon slds-progress__marker_icon-success"
+              title="Complete">
+            <lightning:icon iconName="utility:success"
+                            size="xx-small" />
+        </span>
+    </aura:if>
+</aura:component>

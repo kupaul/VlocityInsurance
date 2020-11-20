@@ -1,0 +1,31 @@
+<template>
+	<div class="via-nds">
+		<div class={readBorder}>
+			<div class="nds-is-relative">
+
+				<vlocity_ins-spinner if:false={isLoaded} variant="brand" size="medium" alternative-text="loading"></vlocity_ins-spinner>
+			</div>
+			<div>
+				<div class="nds-text-heading_small" if:true={session.title}>
+					{session.title}
+				</div>
+			</div>
+			<div class="nds-intelligence__banner">
+				<div class="np-hero-resource-card">
+					<div class="nds-col nds-grid nds-grid--vertical">
+						<slot onprivateitemregister={handleChildRegister}></slot>
+						<!-- repeating the buttons based on the count and clickable to get the desired carousel banner-->
+						<div if:true={showCarouselButton}>
+							<ul class="np-hero-resource-card-carouse--buttons">
+								<li for:each={privateChildrenRecord} key={item.guid} for:item="item" for:index="index">
+									<input type="radio" name="np-hero-resource-card-carousel" checked={item.active}>
+									<label></label>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

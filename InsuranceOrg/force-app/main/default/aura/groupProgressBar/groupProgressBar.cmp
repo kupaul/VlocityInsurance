@@ -1,0 +1,33 @@
+<aura:component>
+    <aura:attribute name="completedRecords"
+                    type="Integer"
+                    default="0" />
+    <aura:attribute name="numRecords"
+                    type="Integer"
+                    default="0" />
+    <aura:attribute name="progressBarValue"
+                    type="Integer"
+                    default="0" />
+    <aura:attribute name="progressBarLabel"
+                    type="String" />
+    <aura:handler name="change"
+                  value="{!v.completedRecords}"
+                  action="{!c.setProgressBarValue}" />
+    <div>
+        <div class="slds-grid slds-grid_align-end slds-p-bottom_xxx-small">
+            <span aria-hidden="true">
+                <strong>{! v.completedRecords + ' of ' + v.numRecords + ' complete'}</strong>
+            </span>
+        </div>
+        <div class="slds-progress-bar slds-progress-bar_circular"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow="{!v.progressBarValue}"
+             role="progressbar">
+            <span class="slds-progress-bar__value slds-progress-bar__value_success"
+                  id="progressBarElement">
+                <span class="slds-assistive-text">{! v.progressBarValue + '% Complete'}</span>
+            </span>
+        </div>
+    </div>
+</aura:component>

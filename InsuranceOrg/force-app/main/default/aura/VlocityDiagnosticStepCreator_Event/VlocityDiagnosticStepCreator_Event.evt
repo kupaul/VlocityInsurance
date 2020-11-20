@@ -1,0 +1,7 @@
+<aura:event type="COMPONENT" description="General Event for VlocityDiagnosticStepCreator components">
+    <aura:attribute name="eventType"
+                    type="String"
+                    required="true" />
+    <aura:attribute name="eventValue"
+                    type="String" />
+</aura:event>

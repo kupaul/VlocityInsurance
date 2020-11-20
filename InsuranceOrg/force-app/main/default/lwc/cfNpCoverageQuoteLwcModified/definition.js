@@ -1,0 +1,3 @@
+let definition = 
+                {"states":[{"fields":[],"conditions":{"group":[{"field":"$scope.data.status","operator":"===","value":"'active'","type":"system"}]},"definedActions":{"actions":[]},"name":"Coverage-Application","lwc":{"MasterLabel":"npCoveragesAndAttributes","DeveloperName":"npCoveragesAndAttributes","Id":"0Rb3t000000LOhNCAW","name":"npCoveragesAndAttributes"},"isSmartAction":false,"smartAction":{}}],"filter":{},"dataSource":{"type":null},"title":"Application","enableLwc":true,"sessionVars":[{"name":"RecordType","val":"CoverageSpec"}],"GlobalKey__c":"np-coverage-quote-lwc-Modified/Exavalu/1/1600693029166"}; 
+            export default definition

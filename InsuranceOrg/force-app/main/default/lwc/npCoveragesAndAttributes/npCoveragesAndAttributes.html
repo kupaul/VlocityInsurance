@@ -1,0 +1,53 @@
+<template>
+	<div if:true={selectedState}>{checkCoverageSpec}
+		<!-- Row iteration section -->
+		<div class={coverageSpecClass}>
+			<div for:each={rows} for:item="row" key={row.productId} for:index="index"
+				class="nds-p-vertical--small np-table-list nds-row nds-p-bottom--x-small nds-grid nds-wrap">
+				<h2 class="nds-text-heading_medium nds-p-bottom--medium nds-size--1-of-1" if:true={row.groupName}>
+					{row.groupName}</h2>
+				<div
+					class="nds-p-bottom--small nds-p-right--medium nds-large-size--10-of-12 nds-medium-size--10-of-12 nds-small-size--9-of-12 nds-x-small-size--12-of-12 np-table-list-grid">
+					<!-- Handling Show/hide attributes section using icon  -->
+					<template if:true={row.groupName}>
+						<div if:true={row.isOptional} class="nds-p-vertical--xx-small">
+							<span class="np-table-list-plus-text">Optional</span>
+						</div>
+					</template>
+					<div data-attr-index={index} onclick={showHideData}>
+						<span class="custom-link--color np-table-list-plus-text">
+                            <span class="nds-p-right--xx-small">{row.Name}</span>
+						<vlocity_ins-icon if:false={row.showMore} icon-name="utility:chevrondown" size="x-small"
+							theme="nds"></vlocity_ins-icon>
+						<vlocity_ins-icon if:true={row.showMore} icon-name="utility:chevronup" size="x-small"
+							theme="nds"></vlocity_ins-icon>
+						</span>
+					</div>
+					<!-- Fields iteration -->
+					<p class="custom-field-label np-table-list-plus-text" for:each={state.fields} for:item="field"
+						for:index="index" key={field.name} data-label={field.label}>
+						<vlocity_ins-output-field extraclass="nds-show_inline-block" record={row}
+							field-name={field.name} type={field.type}></vlocity_ins-output-field>
+					</p>
+					<!-- Fields iteration ends-->
+				</div>
+				<!-- Attribute iteration section shows only when expanded using icon-->
+				<template if:true={row.showMore}>
+					<div class={attrClass} key={attr.attributeId} for:each={row.attrs} for:item="attr">
+						<div class="nds-grid nds-wrap nds-p-bottom--x-small">
+							<div
+								class="nds-p-right--medium nds-large-size--8-of-12 nds-medium-size--8-of-12 nds-small-size--9-of-12 nds-x-small-size--9-of-12">
+								<span>{attr.label}</span> </div>
+							<div
+								class="nds-large-size--2-of-12 nds-medium-size--2-of-12 nds-small-size--3-of-12 nds-x-small-size--3-of-12">
+								<c-output-product-attributes attribute={attr}></c-output-product-attributes>
+							</div>
+						</div>
+					</div>
+				</template>
+				<!-- Attribute section ends-->
+			</div>
+		</div>
+		<!-- Row iteration section ends-->
+	</div>
+</template>

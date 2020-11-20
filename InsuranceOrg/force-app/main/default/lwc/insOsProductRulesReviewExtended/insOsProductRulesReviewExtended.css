@@ -1,0 +1,33 @@
+.vloc-ins-os-product-rules-review-link {
+    color: #16325c;
+}
+
+.vloc-ins-os-product-rules-review-card {
+    border: 1px solid #0070d2;
+    background-color: #f8fbfe;
+    color: #16325c;
+    border-radius: 0.25rem;
+    padding: 1.25rem 1.5rem;
+    line-height: 1.4;
+}
+
+.vloc-ins-os-product-rules-review-rule {
+    font-size: 0.8125rem;
+    display: flex;
+}
+
+.vloc-ins-os-product-rules-review-rule-number-circle {
+    width: 1.75rem;
+    height: 1.75rem;
+    display: block;
+    background-color: #0070d2;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 1.75rem;
+    margin-right: 0.5rem;
+}
+
+.vloc-ins-os-product-rules-review-bold {
+    font-weight: bold;
+}

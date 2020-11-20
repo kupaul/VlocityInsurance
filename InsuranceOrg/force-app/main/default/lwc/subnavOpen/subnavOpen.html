@@ -1,0 +1,28 @@
+<template>
+	<section class="nds-subnav__active nds-subnav__theme" if:true={selectedState}>
+		<div class=" nds-text-align_center" onclick={selectSubNav} if:true={firstAction}>
+			<vlocity_ins-action icon-extraclass="nds-m-right_small nds-show" state-obj={obj} context-id={contextId}
+				s-object-type={sObjectType} state-action={firstAction} action-wrapperclass="nds-size--1-of-1"
+				action-labelclass="nds-size--7-of-8" icon-wrapperclass="nds-size--1-of-8">
+				<div class="nds-subnav__image nds-m-bottom--x-small nds-grid nds-grid--vertical-align-center">
+					<img if:true={session} src={imageUrl} />
+					</div>
+					<div class="nds-subnav__cardValues">
+						<h2 if:true={session}>
+							{session.OpenTitle}
+						</h2>
+					</div>
+			</vlocity_ins-action>
+		</div>
+		<div class=" nds-text-align_center" onclick={selectSubNav} if:false={firstAction}>
+			<div class="nds-subnav__image nds-m-bottom--x-small nds-grid nds-grid--vertical-align-center">
+				<img if:true={session} src={imageUrl} />
+					</div>
+				<div class="nds-subnav__cardValues">
+					<h2 if:true={session}>
+						{session.OpenTitle}
+					</h2>
+				</div>
+			</div>
+	</section>
+</template>

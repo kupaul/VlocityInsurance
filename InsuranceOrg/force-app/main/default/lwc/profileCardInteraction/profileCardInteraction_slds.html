@@ -1,0 +1,92 @@
+<template>
+	<div if:true={selectedState} class="slds-card via-slds-card--active">
+		<div class="slds-card__body via-slds-card__body slds-grid slds-wrap slds-theme--default slds-m-vertical_none">
+			<vlocity_ins-icon if:true={displayBadge} icon-name="standard:reward" theme={theme} baseurl={iconUrl}
+				color="#ffffff" bg-color={badgeColor} size="large" class="profile-badge slds-icon-standard-reward">
+			</vlocity_ins-icon>
+			<div class="profile-picture" style={getProfilePic}>
+			</div>
+			<div class="profieCardContent slds-p-left_small">
+				<div class="slds-size--1-of-1">
+					<div class="profile-name">
+						{userName}
+					</div>
+				</div>
+				<div class="slds-size--1-of-1">
+					<div class="slds-grid slds-wrap">
+						<span class="address-icon  slds-size--1-of-12">
+					<vlocity_ins-icon if:true={displayBadge} icon-name="standard:address" theme={theme} baseurl={iconUrl} color="#9FABC0"
+					 size="small" class="profile-address-icon"></vlocity_ins-icon>
+                     </span>
+						<div key={field.name} class="slds-p-around--xx-small slds-color__text_gray-8  profile-info"
+							for:each={state.fields} for:item="field" for:index="index">
+							<div key={field.label} class="slds-tile__detail">
+								<vlocity_ins-output-field record={obj} field-name={field.name} type={field.type}>
+								</vlocity_ins-output-field>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="slds-size--1-of-1">
+					<ul if:true={profileTags} class="statusCard slds-size--1-of-1 slds-p-vertical_small">
+						<template for:each={profileTags} for:item="item">
+							<span key={item.id} class={item.class} data-color={item.colorC}>
+                <li
+                  class="slds-pill slds-p-around_x-small slds-m-right_x-small slds-m-vertical_x-small"
+                >
+                  <vlocity_ins-pill
+                    value={item.content}
+                    icon-url={iconUrl}
+                    theme={theme}
+                    name="statusPill"
+                    viewonly="true"
+                    tag-extraclass="slds-p-around_none slds-m-around_none"
+                  >
+                  </vlocity_ins-pill>
+                </li>
+              </span>
+						</template>
+					</ul>
+				</div>
+			</div>
+			<div class="actions-parent-div slds-p-left_small slds-m-bottom--small">
+				<div if:true={rowActions.length} class={rowActionClass}>
+					<div class="slds-grid slds-grid_vertical">
+						<template for:each={rowActions} for:item="item">
+							<div class={actionClass} key={item.id}>
+								<vlocity_ins-action icon-extraclass="slds-m-right_small" state-obj={obj}
+									context-id={contextId} s-object-type={sObjectType} state-action={item}
+									icon-only={actionIconOnly} icon-size="small"
+									action-wrapperclass="slds-size--1-of-1 slds-table_fixed-layout slds-p-left_x-small"
+									action-labelclass="slds-size--6-of-8 slds-float_right slds-m-top_xxx-small slds-m-right_small slds-truncate slds-p-around_xx-small"
+									icon-wrapperclass="slds-size--2-of-8 slds-p-right_xx-small"
+									icon-img-wrapperclass="slds-avatar slds-avatar_medium slds-p-around_xxx-small">
+
+									<a role="menuitem" tabindex="0">
+										<span class="slds-float_left slds-m-top_xxx-small slds-m-right_small slds-truncate slds-action_text">{item.displayName}</span>
+									</a>
+
+								</vlocity_ins-action>
+							</div>
+						</template>
+					</div>
+				</div>
+				<div if:true={menuActions.length} class={menuActionClass}>
+					<vlocity_ins-menu theme={theme} icon-url={iconUrl} position="right" icon-size="x-small"
+						icon-name="utility:threedots_vertical" class="slds-float_left">
+						<template for:each={menuActions} for:item="action">
+							<vlocity_ins-menu-item key={action.id} theme={theme} record={action} icon-url={iconUrl}
+								name={action.displayName}>
+								<vlocity_ins-action icon-extraclass="slds-m-right_small" icon-size="xx-small"
+									state-obj={obj} context-id={contextId} s-object-type={sObjectType}
+									state-action={action} action-wrapperclass="slds-size--1-of-1"
+									action-labelclass="slds-size--7-of-8" icon-wrapperclass="slds-size--1-of-8">
+								</vlocity_ins-action>
+							</vlocity_ins-menu-item>
+						</template>
+					</vlocity_ins-menu>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

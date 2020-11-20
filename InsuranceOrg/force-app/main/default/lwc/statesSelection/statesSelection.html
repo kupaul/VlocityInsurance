@@ -1,0 +1,27 @@
+<template>
+ <div class="panel panel-default">
+    <div>{Title}</div>
+    <table class="table slds-table slds-table--bordered slds-table--cell-buffer" style="table-layout: auto;">
+      <thead>
+        <tr>
+          <th class="slds-cell-shrink">Select</th>
+            <th>Postal Abbr.</th><th>State Name</th>
+        </tr>
+      </thead>
+    <tbody class="ins">
+    <template for:each={displayRows} for:item="displayrow">
+       <tr key={displayrow.index}>
+            <td class="slds-cell-shrink">
+                <lightning-input type="checkbox" variant="label-hidden"
+                  checked={displayrow.checked} name={displayrow.tagname}
+                  data-key={displayrow.index} label="dataCheckbox" onchange={handleSelection}>
+                </lightning-input>
+            </td>
+            <!-- convert the map to a list, and then display it -->
+            <td>{displayrow.id}</td><td>{displayrow.name}</td>
+        </tr>
+    </template>
+    </tbody>
+    </table>
+ </div>
+ </template>

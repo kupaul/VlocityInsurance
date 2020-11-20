@@ -1,0 +1,49 @@
+<aura:component>
+    <aura:attribute name="disabled"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="templateMenuItems"
+                    type="List" />
+    <aura:attribute name="showButtonMenuAbove"
+                    type="Boolean"
+                    default="false" />
+    <aura:registerEvent name="generalEvent"
+                        type="c:VlocityDiagnosticStepCreator_Event" />
+    <div>
+        <lightning:buttonGroup>
+            <lightning:buttonIcon alternativeText="New Diagnostic Step"
+                                  disabled="{!v.disabled}"
+                                  variant="border-filled"
+                                  iconName="utility:new"
+                                  onclick="{! c.handleCreateNewStep }" />
+            <!-- Menu to display-->
+            <lightning:buttonMenu alternativeText="Show menu"
+                                  disabled="{!v.disabled}"
+                                  variant="border-filled"
+                                  class="{! 'slds-button_last' + ' ' +  (v.showButtonMenuAbove ? 'via-new-step-button_button-menu-bottom' : 'via-new-step-button_button-menu')}"
+                                  onselect="{! c.handleCreateNewStep}"
+                                  aura:id="newStepButtonMenu">
+
+                <!-- loop through groups -->
+                <aura:iteration items="{! v.templateMenuItems}"
+                                var="menuItemGroup">
+
+                    <aura:if isTrue="{! menuItemGroup.menuDivider}">
+                        <lightning:menuDivider variant="tighter" />
+                    </aura:if>
+
+                    <aura:if isTrue="{! menuItemGroup.menuSubheader }">
+                        <lightning:menuSubheader label="{! menuItemGroup.label}" />
+                    </aura:if>
+
+                    <aura:iteration items="{! menuItemGroup.menuItems}"
+                                    var="menuItem">
+                        <lightning:menuItem label="{! menuItem.label}"
+                                            value="{! menuItem.value}" />
+                    </aura:iteration>
+
+                </aura:iteration>
+            </lightning:buttonMenu>
+        </lightning:buttonGroup>
+    </div>
+</aura:component>

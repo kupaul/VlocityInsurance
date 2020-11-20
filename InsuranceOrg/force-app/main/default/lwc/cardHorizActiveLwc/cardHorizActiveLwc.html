@@ -1,0 +1,60 @@
+<template>
+  <div class="slds-p-top_small policyAssets"  if:true={selectedState}>
+    <div class="slds-card via-slds-card--active slds-m-bottom--small">
+      <div
+        class="via-slds-card__header slds-card__header slds-grid slds-grid--vertical-align-center policyAssetsPadding slds-p-around--small"
+      >
+      <vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={firstAction} icon-extraclass="nds-hide" >
+        <div class="slds-media slds-media--center slds-has-flexi-truncate">
+           
+          <div class="slds-media__figure">
+            <vlocity_ins-icon
+              icon-name="standard:contact"
+              size="medium"
+              extraclass="slds-icon-standard-contact"
+            ></vlocity_ins-icon>
+          </div>
+          <div class="slds-media__body slds-truncate">
+                 <vlocity_ins-output-field
+                    record={obj}
+                    field-name={firstField.name}
+                    type={firstField.type}
+                  ></vlocity_ins-output-field>
+          </div>
+        </div>
+        </vlocity_ins-action>
+      </div>
+
+      <div
+        class="slds-card__body slds-p-around-small via-slds-card__body slds-grid slds-wrap slds-theme--default slds-p-around--medium"
+      >
+        <div class="slds-col slds-col--padded slds-grid slds-wrap slds-grid--align-spread">
+          <div
+            key={field.name}
+            class=" slds-p-bottom--medium"
+            for:each={restField}
+            for:item="field"
+            for:index="index"
+          >
+            <p
+              key={field.name}
+              class="slds-truncate slds-text-heading--label"
+              title={field.label}
+            >
+              {field.label}
+            </p>
+            <div
+              key={field.label}
+              class="slds-tile__detail slds-text-heading--small "
+            >
+              <vlocity_ins-output-field
+                record={obj}
+                field-name={field.name}
+              ></vlocity_ins-output-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

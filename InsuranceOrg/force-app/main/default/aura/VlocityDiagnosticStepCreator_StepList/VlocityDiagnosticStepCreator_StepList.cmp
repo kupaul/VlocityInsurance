@@ -1,0 +1,216 @@
+<aura:component controller="VlocityDiagnosticStepCreatorController">
+
+  <!-- FROM CONTROLLER -->
+  <aura:attribute name="stepCreators"
+                  type="List"
+                  default="[]" />
+  <aura:attribute name="stepCreator"
+                  type="Map"
+                  default="{}" />
+  <aura:attribute name="plans"
+                  type="List"
+                  default="[]" />
+  <aura:attribute name="records"
+                  type="List"
+                  default="[]" />
+  <!-- SAVE STATE -->
+  <aura:attribute name="saveState"
+                  type="Map"
+                  default="{}" />
+
+  <!-- INPUT -->
+  <aura:attribute name="planName"
+                  type="String"
+                  default="" />
+  <aura:attribute name="planSearch"
+                  type="String"
+                  default="" />
+  <aura:attribute name="planNamespace"
+                  type="String"
+                  default="" />
+
+  <!-- LOGIC -->
+  <aura:attribute name="errorMessage"
+                  type="String" />
+  <aura:attribute name="planOpen"
+                  type="Boolean"
+                  default="false" />
+  <aura:attribute name="planNameEditOpen"
+                  type="Boolean"
+                  default="false" />
+  <aura:attribute name="modalContent"
+                  type="String"
+                  default="" />
+  <aura:attribute name="showContentModal"
+                  type="Boolean"
+                  default="false" />
+  <aura:attribute name="showPlansDropdown"
+                  type="Boolean"
+                  default="false" />
+  <aura:attribute name="templateMenuItems"
+                  type="List"
+                  default="[]" />
+  <aura:attribute name="stepElementIsExpanded"
+                  type="Boolean"
+                  default="false" />
+  <aura:attribute name="loading"
+                  type="Boolean"
+                  default="false" />
+  <aura:attribute name="saveInProgress"
+                  type="Boolean"
+                  default="false" />
+  <ltng:require scripts="{!$Resource.VlocityDiagnosticWizard_Bundle}"
+                afterScriptsLoaded="{!c.doInit}" />
+  <aura:handler name="change"
+                value="{! v.planName}"
+                action="{! c.onRecordsChange}" />
+  <aura:handler name="change"
+                value="{! v.records}"
+                action="{! c.onRecordsChange}" />
+  <aura:handler name="generalEvent"
+                event="c:VlocityDiagnosticStepCreator_Event"
+                action="{! c.onEvent}" />
+
+  <!-- CONTENT MODAL -->
+  <aura:if isTrue="{! v.showContentModal}">
+    <c:VlocityDiagnosticStepCreator_ContentModal modalContent="{! v.modalContent}"
+                                                 showModal="{! v.showContentModal}"
+                                                 saveInProgress="{! v.saveInProgress}"
+                                                 errorMessage="{! v.errorMessage}" />
+  </aura:if>
+  <!-- END CONTENT MODAL -->
+
+  <!-- LOADING BACKGROUND-->
+  <div class="{! and( !v.showContentModal, v.loading) ? 'slds-backdrop slds-backdrop_open' : ''}"></div>
+  <!-- END LOADING BACKGROUND -->
+  <div>
+
+    <!-- Control Card -->
+    <section class="slds-card slds-m-around_medium"
+             onkeyup="{! c.handleKeyUp }">
+      <lightning:layout horizontalAlign="center"
+                        class="slds-m-around_medium">
+        <lightning:layoutItem flexibility="grow"
+                              padding="around-small">
+          <lightning:input name="planSearchInput"
+                           type="search"
+                           label="Plan Search Input"
+                           placeholder="Search Plan Name"
+                           value="{! v.planSearch}"
+                           onfocus="{! c.focusPlanSearchBar}"
+                           onblur="{! c.blurPlanSearchBar}"
+                           variant="label-hidden" />
+          <!-- Show Plan Names Popup -->
+          <div>
+            <c:VlocityDiagnosticStepCreator_PlanSearchBar planSearch="{!v.planSearch}"
+                                                          plans="{!v.plans}"
+                                                          displayContent="{!v.showPlansDropdown}" />
+          </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="no-flex"
+                              padding="around-small">
+          <lightning:button label="JSON"
+                            variant="neutral"
+                            iconName="utility:list"
+                            iconPosition="right"
+                            disabled="{! !v.planName}"
+                            onclick="{! c.showJSONModal }" />
+        </lightning:layoutItem>
+      </lightning:layout>
+    </section>
+
+    <!-- Info Card -->
+    <aura:if isTrue="{!v.planOpen}">
+      <section class="slds-card slds-m-around_medium">
+        <lightning:layout horizontalAlign="center"
+                          class="slds-m-around_medium">
+          <lightning:layoutItem flexibility="grow"
+                                padding="around-small">
+            <aura:if isTrue="{! v.planNameEditOpen}">
+              <lightning:input name="planNameInput"
+                               label="Plan Name Input"
+                               placeholder="Enter Plan Name"
+                               value="{! v.planName}"
+                               variant="label-hidden" />
+              <aura:set attribute="else">
+                <h2 class="slds-text-heading_medium slds-p-top_xx-small"
+                    onclick="{! c.togglePlanNameEditOpen}">{!v.planName ? v.planName : 'Click to set the plan name'}</h2>
+              </aura:set>
+            </aura:if>
+          </lightning:layoutItem>
+          <lightning:layoutItem flexibility="no-flex"
+                                padding="around-small">
+            <lightning:buttonIcon alternativeText="Edit Plan Name"
+                                  variant="{! v.planNameEditOpen ?  'brand' : 'border-filled'}"
+                                  iconName="{! v.planNameEditOpen ? 'utility:save' : 'utility:edit'}"
+                                  onclick="{! c.togglePlanNameEditOpen }" />
+          </lightning:layoutItem>
+        </lightning:layout>
+      </section>
+    </aura:if>
+
+    <!-- Steps View -->
+    <section class="slds-p=bottom_xx-large">
+      <aura:iteration items="{!v.records}"
+                      var="record"
+                      indexVar="recordIndex">
+        <section class="slds-card slds-m-around_medium">
+          <div class="slds-m-around_medium">
+            <div class="slds-grid slds-grid_vertical-align-center slds-gutters_xx-small slds-wrap">
+              <div class="slds-col slds-size_8-of-12">
+                <h2 class="slds-text-heading_small slds-truncate slds-p-top_xx-small"
+                    onclick="{! c.toggleExpandRecordDoc }"
+                    data-record-index="{! recordIndex}">
+                  <aura:if isTrue="{! record.ParentStepUniqueId}">
+                    <lightning:icon iconName="utility:level_down"
+                                    alternativeText="(child step)"
+                                    size="x-small"
+                                    class="slds-p-right_xx-small" />
+                  </aura:if>
+                  {! record.Name}
+                </h2>
+              </div>
+              <div class="slds-col_bump-left">
+                <lightning:buttonIcon alternativeText="Remove Diagnostic Step"
+                                      variant="neutral"
+                                      iconName="utility:delete"
+                                      onclick="{! c.destroyStep }"
+                                      value="{! recordIndex}" />
+                <lightning:buttonIcon alternativeText="Copy Diagnostic Step"
+                                      variant="neutral"
+                                      iconName="utility:copy"
+                                      onclick="{! c.copyStep }"
+                                      value="{! recordIndex}" />
+                <lightning:buttonIcon alternativeText="Move Step Up"
+                                      variant="neutral"
+                                      iconName="utility:up"
+                                      onclick="{! c.moveStepUp }"
+                                      value="{! recordIndex}" />
+                <lightning:buttonIcon alternativeText="Move Step Down"
+                                      variant="neutral"
+                                      iconName="utility:down"
+                                      onclick="{! c.moveStepDown }"
+                                      value="{! recordIndex}" />
+                <lightning:buttonIcon alternativeText="Toggle Expand Diagnostic Step View"
+                                      variant="{! record.expandRecord ?  'brand' : 'border-filled'}"
+                                      iconName="{! record.expandRecord ? 'utility:contract_alt' : 'utility:expand_alt'}"
+                                      onclick="{! c.toggleExpandRecord }"
+                                      value="{! recordIndex}" />
+              </div>
+            </div>
+            <aura:if isTrue="{! record.expandRecord}">
+              <div class="slds-m-top_small">
+                <c:VlocityDiagnosticStepCreator_StepElement record="{!record}" />
+              </div>
+            </aura:if>
+          </div>
+        </section>
+      </aura:iteration>
+      <div class="slds-m-around_medium slds-align_absolute-center">
+        <c:VlocityDiagnosticStepCreator_NewStepButton templateMenuItems="{!v.templateMenuItems}"
+                                                      showButtonMenuAbove="{! or(v.stepElementIsExpanded, v.records.length > 3)}"
+                                                      disabled="{! !v.planName}" />
+      </div>
+    </section>
+  </div>
+</aura:component>

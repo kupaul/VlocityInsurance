@@ -1,0 +1,9 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <div class="slds-box slds-theme_default slds-p-bottom_large slds-m-bottom_xx-large">
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_11-of-12 slds-large-size_8-of-12">
+                <c:VlocityDiagnosticStepCreator_StepList />
+            </div>
+        </div>
+    </div>
+</aura:component>

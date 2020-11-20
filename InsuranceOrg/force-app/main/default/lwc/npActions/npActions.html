@@ -1,0 +1,11 @@
+<template>
+	<div class="nds-grid nds-wrap" if:true={selectedState}>
+		<div class="nds-size_1-of-1 nds-m-bottom--medium nds-text-heading_small" for:each={actions} for:item="item" key={item.id}>
+
+			<vlocity_ins-action state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={item} theme="nds"
+              icon-wrapperclass='nds-hide'>
+			</vlocity_ins-action>
+
+		</div>
+	</div>
+</template>

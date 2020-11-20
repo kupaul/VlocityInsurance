@@ -1,0 +1,27 @@
+.THIS .slds-setup-assistant > li {
+    padding-top: 1rem;
+    border-bottom: 1px rgb(221, 219, 218) solid;
+    padding-bottom: 1rem;
+}
+
+.THIS .slds-setup-assistant__step-detail {
+    padding-left: 0rem;
+}
+
+.THIS .via-text-color_warning {
+    color: rgb(224, 108, 0);
+}
+
+.THIS .slds-pill__label.via-pill_label {
+    color: rgb(8, 7, 7) !important;
+    font-weight: normal !important;
+}
+
+.THIS .via-text-color_info {
+    color: #1990b8;
+}
+
+.THIS .via-truncate-rich-text {
+    max-height: 80px;
+    overflow: scroll;
+}

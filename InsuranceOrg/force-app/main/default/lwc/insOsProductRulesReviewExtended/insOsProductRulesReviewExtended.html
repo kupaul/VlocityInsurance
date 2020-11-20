@@ -1,0 +1,26 @@
+<template>
+    <div class="vloc-ins-os-product-rules-review-card">
+        <div class="slds-size_1-of-1 nds-size_1-of-1 slds-m-bottom_small nds-m-bottom_small">
+            <h3 class="vloc-ins-os-product-rules-review-bold">Underwriting Evaluation</h3>
+        </div>
+        <template if:true={rulesList}>
+            <template for:each={rulesList} for:item="rule">
+                <div key={rule.uniqueKey}
+                    class="vloc-ins-os-product-rules-review-rule slds-grid slds-grid_wrap slds-m-bottom_medium nds-grid nds-grid_wrap nds-m-bottom_medium">
+                    <div class="slds-m-top_xxx-small nds-m-top_xxx-small">
+                        <span class="vloc-ins-os-product-rules-review-rule-number-circle">{rule.count}</span>
+                    </div>
+                    <div>
+                        <h4 class="vloc-ins-os-product-rules-review-bold">
+                            <span if:true={rule.instanceKey}>{rule.instanceKey}-{rule.parentInstanceKey}: </span>
+                            {rule.requirementName}
+                        </h4>
+                        <p class="slds-m-bottom_none nds-m-bottom_none">
+                            {rule.message}
+                        </p>
+                    </div>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

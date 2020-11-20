@@ -1,0 +1,22 @@
+<template>
+<div class="via-nds">
+  <div class={readBorder}>
+    <div class="nds-is-relative">
+      <vlocity_ins-spinner
+        if:false={isLoaded}
+        variant="brand"
+        size="medium"
+        alternative-text="loading"
+      ></vlocity_ins-spinner>
+    </div>
+    <div class="nds-m-horizontal--large nds-m-vertical--medium">
+    <div class="nds-is-relative">
+      <div class="nds-m-bottom--xx-large nds-canvas__title" if:true={session.title}>
+        {session.title}
+      </div>
+    </div>
+    <slot></slot>
+    </div>
+  </div>
+</div>
+</template>

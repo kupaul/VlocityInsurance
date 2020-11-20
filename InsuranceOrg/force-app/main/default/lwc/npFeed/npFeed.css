@@ -1,0 +1,5 @@
+/*npFeed.css*/
+
+:host:last-child .nds-show section ul::before,:host .nds-show.lastShowEle section ul::before{
+    content:none;
+}

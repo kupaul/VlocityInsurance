@@ -1,0 +1,3 @@
+let definition = 
+                {"states":[{"fields":[],"conditions":{"group":[{"field":"$scope.data.status","operator":"===","value":"'active'","type":"system"}]},"definedActions":{"actions":[{"type":"Vlocity Action","id":"npViewAccount","displayName":"npViewStatemet","iconName":"icon-v-merge","collapse":true,"isCustomAction":false,"hasExtraParams":false}]},"name":"Active","lwc":{"MasterLabel":"npFindAgent","DeveloperName":"npFindAgent","Id":"0Rb3t000000LOkJCAI","name":"npFindAgent"},"isSmartAction":false,"smartAction":{},"sObjectType":"Account","actionCtxId":"['Id']"}],"filter":{},"dataSource":{"type":null},"title":"Find Agent","enableLwc":true,"GlobalKey__c":"np-find-agent/VEX Personal Lines/1/1580277732366"}; 
+            export default definition

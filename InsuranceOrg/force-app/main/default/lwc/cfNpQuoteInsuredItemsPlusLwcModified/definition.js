@@ -1,0 +1,3 @@
+let definition = 
+                {"states":[{"fields":[],"conditions":{"group":[{"field":"$scope.data.status","operator":"===","value":"'active'","type":"system"}]},"definedActions":{"actions":[]},"name":"Insured Item","lwc":{"MasterLabel":"npCoveragesAndAttributes","DeveloperName":"npCoveragesAndAttributes","Id":"0Rb3t000000LOhNCAW","name":"npCoveragesAndAttributes"},"isSmartAction":false,"smartAction":{},"collapse":true}],"filter":{},"dataSource":{"type":null},"title":"Quote Insured Item","enableLwc":true,"sessionVars":[{"name":"RecordType","val":"InsuredItemSpec"}],"GlobalKey__c":"np-quote-insured-items-plus-lwc-Modified/Exavalu/1/1599630645799"}; 
+            export default definition

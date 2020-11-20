@@ -1,0 +1,82 @@
+<aura:component>
+    <aura:attribute name="recordStatus"
+                    type="String"
+                    default="" />
+    <aura:attribute name="customInputLabel"
+                    type="String"
+                    default="" />    
+    <aura:attribute name="customInputLabel2"
+                    type="String"
+                    default="" />
+    <aura:attribute name="customInput"
+                    type="String"
+                    default="" />    
+    <aura:attribute name="customInput2"
+                    type="String"
+                    default="" />
+    <aura:attribute name="expandCustomInput"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="recordCustomInputValue"
+                    type="String"
+                    default="" />
+    <aura:attribute name="recordCustomInputValue2"
+                    type="String"
+                    default="" />
+    <aura:attribute name="grandparent"
+                    type="Aura.Component" />
+    <div class="{! 'slds-grid slds-grid_vertical-align-end' + ' ' + (v.expandCustomInput ? 'slds-grid_align-end slds-wrap' : 'slds-grid_align-start')}">
+        <div class="slds-col slds-grow">
+            <div class="slds-grid slds-grid_vertical-align-start slds-wrap">
+                <aura:if isTrue="{!v.customInputLabel}">
+                    <div class="{! 'slds-col' + ' ' + (!!v.customInputLabel &amp;&amp; !v.customInputLabel2 ? 'slds-size_1-of-1' : 'slds-size_6-of-12') + ' slds-grid slds-grid_align-spread'}">
+                        <aura:if isTrue="{!v.expandCustomInput}">
+                            <lightning:textarea name="customInput"
+                                            label="{!v.customInputLabel}"
+                                            value="{! v.customInput}"
+                                            disabled="{! v.recordStatus == 'In Progress' }"
+                                            variant="{! v.customInputLabel ? 'standard' : 'label-hidden'}" />
+                            <aura:set attribute="else">
+                                <lightning:input name="customInput"
+                                            label="{!v.customInputLabel}"
+                                            value="{! v.customInput}"
+                                            disabled="{! v.recordStatus == 'In Progress' }"
+                                            variant="{! v.customInputLabel ? 'standard' : 'label-hidden'}" />
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </aura:if>
+                <aura:if isTrue="{!v.customInputLabel2}">
+                    <div class="{! 'slds-col' + ' ' + (!!v.customInputLabel2 &amp;&amp; !v.customInputLabel ? 'slds-size_1-of-1' : 'slds-size_6-of-12') + ' slds-grid slds-grid_align-spread'}">
+                        <aura:if isTrue="{!v.expandCustomInput}">
+                            <lightning:textarea name="customInput2"
+                                                label="{!v.customInputLabel2}"
+                                                value="{! v.customInput2}"
+                                                disabled="{! v.recordStatus == 'In Progress' }"
+                                                variant="{! v.customInputLabel2 ? 'standard' : 'label-hidden'}" />
+                            <aura:set attribute="else">
+                                <lightning:input name="customInput2"
+                                                label="{!v.customInputLabel2}"
+                                                value="{! v.customInput2}"
+                                                disabled="{! v.recordStatus == 'In Progress' }"
+                                                variant="{! v.customInputLabel2 ? 'standard' : 'label-hidden'}" />
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </aura:if>
+            </div>
+        </div>
+        <div class="{! v.expandCustomInput ? 'slds-col slds-p-top_xx-small' : ''}">
+            <lightning:buttonGroup class="{! or(v.expandCustomInput, or(v.recordCustomInputValue != v.customInput,  v.recordCustomInputValue2 != v.customInput2)) ? '' : 'slds-hide'}">
+                <lightning:button label="Save"
+                                  title="Save"
+                                  disabled="{! or(v.recordStatus == 'In Progress', and(v.recordCustomInputValue == v.customInput, v.recordCustomInputValue2 == v.customInput2)) }"
+                                  onclick="{! c.updateCustomInput }" />
+                <lightning:buttonIcon variant="{!v.expandCustomInput ? 'brand' : 'border-filled'}"
+                                      iconName="utility:expand_alt"
+                                      alternativeText="Toggle Expand Custom Input"
+                                      onclick="{! c.toggleExpandCustomInput }" />
+            </lightning:buttonGroup>
+        </div>
+    </div>
+</aura:component>

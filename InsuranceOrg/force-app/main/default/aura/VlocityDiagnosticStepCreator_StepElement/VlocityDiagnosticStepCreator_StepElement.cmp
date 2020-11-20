@@ -1,0 +1,168 @@
+<aura:component controller="VlocityDiagnosticWizardController">
+    <aura:attribute name="record"
+                    type="Map" />
+    <aura:attribute name="frequencyOptions"
+                    type="List"
+                    default="[
+                    {'label':'Upgrade', 'value':'Upgrade'},
+                    {'label':'First Install', 'value':'First Install'},
+                    {'label':'Upgrade / First Install', 'value':'Upgrade / First Install'},
+                    {'label':'Diagnostic', 'value':'Diagnostic'},
+                    {'label':'Always', 'value':'Always'}
+                    ]" />
+    <aura:attribute name="typeOptions"
+                    type="List"
+                    default="[
+                    {'label':'Manual', 'value':'Manual'},
+                    {'label':'Auto', 'value':'Auto'},
+                    {'label':'Group', 'value':'Group'}
+                    ]" />
+    <aura:attribute name="priorityOptions"
+                    type="List"
+                    default="[
+                    {'label':'None', 'value':'None'},
+                    {'label':'Critical', 'value':'Critical'}
+                    ]" />
+    <aura:attribute name="booleanOptions"
+                    type="List"
+                    default="[
+                    {'label':'false', 'value':'false'},
+                    {'label':'true', 'value':'true'}
+                    ]" />
+
+    <div class="slds-grid slds-grid_align-start slds-grid_vertical-align-end slds-wrap slds-gutters_x-small">
+        <div class="slds-col slds-size_1-of-1">
+            <lightning:input name="nameInput"
+                             label="Name"
+                             value="{! v.record.Name}"
+                             required="true"
+                             maxlength="80" />
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <lightning:input name="externalIdInput"
+                             label="External Id (used to group logs)"
+                             value="{! v.record.ExternalId}"
+                             placeholder="{! v.record.Name}"
+                             maxlength="80" />
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <lightning:input name="uniqueIdInput"
+                             label="Unique Id (used for upsert and referencing other steps)"
+                             value="{! v.record.UniqueId}"
+                             required="true"
+                             placeholder="{! v.record.Name}"
+                             maxlength="80" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+            <lightning:input name="tagsInput"
+                             label="Tags (Comma Separated)"
+                             value="{! v.record.Tags}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+            <lightning:input name="versionIntroducedInput"
+                             label="Version Introduced"
+                             value="{! v.record.VersionIntroduced}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+            <lightning:combobox name="frequencyInput"
+                                label="Frequency"
+                                value="{! v.record.StepFrequency}"
+                                required="true"
+                                options="{! v.frequencyOptions}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+            <lightning:combobox name="typeInput"
+                                label="Type"
+                                value="{! v.record.Type}"
+                                required="true"
+                                options="{! v.typeOptions}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-3">
+            <lightning:combobox name="priorityInput"
+                                label="Priority"
+                                value="{! v.record.Priority}"
+                                options="{! v.priorityOptions}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <lightning:input name="customInputLabelInput"
+                             label="Custom Input Label (enter a value to enable custom input)"
+                             placeholder="Custom Input Label Name"
+                             value="{! v.record.CustomInputLabel}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <lightning:textarea name="customInputValueInput"
+                                label="Initial Custom Input Value (replaces any '__CUSTOMINPUT__' token used in options)"
+                                value="{! v.record.CustomInputValue}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <lightning:input name="customInputLabelInput2"
+                             label="Custom Input Label 2 (enter a value to enable custom input)"
+                             placeholder="Custom Input Label Name"
+                             value="{! v.record.CustomInputLabel2}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <lightning:textarea name="customInputValueInput2"
+                                label="Initial Custom Input Value 2 (replaces any '__CUSTOMINPUT2__' token used in options)"
+                                value="{! v.record.CustomInputValue2}"/>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+            <lightning:input name="stepCommandInput"
+                             label="Instruction URL"
+                             value="{!v.record.StepCommand}"
+                             type="text" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+            <lightning:input name="checkResultUrlInput"
+                             label="Check Result URL"
+                             value="{!v.record.CheckResultUrl}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-p-bottom_small">
+            <label class="slds-form-element__label">Instructions</label>
+            <lightning:inputRichText value="{! v.record.Instruction}"
+                                     label="Instructions (displayed on the step)"
+                                     placeholder="Type something interesting"
+                                     variant="bottom-toolbar" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+            <lightning:input name="parentStepUidInput"
+                             label="Parent Step Unique Id (Parent Step must be Group)"
+                             value="{!v.record.ParentStepUniqueId}"
+                             maxlength="80" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-2">
+            <lightning:input name="precursorStepUidInput"
+                             label="Precursor Step Unique Id"
+                             value="{!v.record.PrecursorStepUniqueId}"
+                             maxlength="80" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-3">
+            <lightning:input name="preCheckMethodInput"
+                             label="Pre-Execution Validation Method"
+                             placeholder="{! v.record.Type != 'Auto' ? '' : 'ClassName.methodName'}"
+                             value="{! v.record.PreCheckMethod}"
+                             disabled="{! v.record.Type == 'Group'}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-3">
+            <lightning:input name="executionMethodInput"
+                             label="Execution Method"
+                             placeholder="{! v.record.Type != 'Auto' ? '' : 'ClassName.methodName'}"
+                             value="{! v.record.ExecutionMethod}"
+                             disabled="{! v.record.Type != 'Auto'}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-1 slds-large-size_1-of-3">
+            <lightning:input name="postCheckMethodInput"
+                             label="Post-Execution Validation Method"
+                             placeholder="{! v.record.Type != 'Auto' ? '' : 'ClassName.methodName'}"
+                             value="{! v.record.PostCheckMethod}"
+                             disabled="{! v.record.Type == 'Group'}" />
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <lightning:textarea name="optionsInput"
+                                label="Options (in JSON)"
+                                value="{! v.record.Options}"
+                                disabled="{! v.record.Type == 'Group'}"
+                                class="via-code_textarea"
+                                onblur="{! c.onJSONTextAreaBlur}" />
+        </div>
+    </div>
+</aura:component>

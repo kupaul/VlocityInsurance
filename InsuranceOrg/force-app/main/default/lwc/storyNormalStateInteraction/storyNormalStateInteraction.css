@@ -1,0 +1,41 @@
+.slds-shadow .show-on-hover {
+  display: none;
+}
+
+:host .light-color {
+  color: #C6C4C3;
+}
+
+:host .dark-gray {
+  color: #696766;
+}
+
+.small-font {
+  font-size: 11px;
+}
+
+:host .gray-color {
+  color: #9E9C9A;
+}
+
+.custom-border-bottom {
+  border-bottom: 1px solid #F3F2F2;
+}
+
+.dummy-size {
+  width: 40px;
+}
+
+.slds-shadow {
+  cursor: pointer;
+}
+
+.slds-shadow:hover .show-on-hover {
+  display: initial;
+}
+
+.icon-color-gray {
+  background: #F4F6F9;
+  padding: 8px 10px 11px 10px;
+  border-radius: 50%;
+}

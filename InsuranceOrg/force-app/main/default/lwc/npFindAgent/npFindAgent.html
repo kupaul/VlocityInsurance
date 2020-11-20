@@ -1,0 +1,32 @@
+<template>
+	<div class="np-get-agent">
+		<section class="nds-get__quote nds-col">
+			<div class="nds-p-around--medium nds-get__headline">Get personalized service from a local agent </div>
+			<form class="nds-form--inline" name="quoteForm" novalidate>
+				<div class="nds-grid nds-wrap nds-grid--vertical-stretch">
+					<div class="nds-col  nds-size--5-of-12 nds-small-size--5-of-12 nds-medium-size--5-of-12 nds-large-size--5-of-12 nds-x-small-size--5-of-12 nds-p-vertical--small">
+						<label class="nds-text-align--left nds-p-horizontal--medium nds-is-relative">
+                <input type="text" placeholder="ENTER YOUR ZIP" name="zipCode" value={zipCode} onchange={zipcodeChange} required/>
+                 <span if:true={validation} class="nds-get__quote-icon">
+                     <vlocity_ins-icon icon-name="utility:warning" size="x-small"
+                      extraclass="np-form-error"> 
+                      </vlocity_ins-icon></span>
+                </label>
+					</div>
+					<template for:each={actions} for:item="item">
+						<vlocity_ins-action key={item.id} onclick={submitForm} action-labelclass="nds-text-align--center nds-p-horizontal--large nds-p-vertical--large"
+						 icon-wrapperclass="nds-size--1-of-8" state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={item}>
+							<vlocity_ins-button label={item.displayName} type="button" variant="neutral" extraclass="nds-col nds-size--7-of-12 nds-small-size--7-of-12 nds-medium-size--7-of-12 nds-large-size--7-of-12 nds-x-small-size--7-of-12  nds-button nds-button--brand"></vlocity_ins-button>
+							<vlocity_ins-navigate-action target-params={zipCode}>
+							</vlocity_ins-navigate-action>
+						</vlocity_ins-action>
+					</template>
+
+
+
+				</div>
+
+			</form>
+		</section>
+	</div>
+</template>

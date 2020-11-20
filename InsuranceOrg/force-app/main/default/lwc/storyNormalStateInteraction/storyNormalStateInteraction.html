@@ -1,0 +1,52 @@
+<template>
+	<div if:true={selectedState}>
+		<h2 if:true={obj.showTitle}
+			class="slds-text-title_caps light-color slds-text-title slds-p-horizontal--medium slds-p-top_medium">
+			Last 30 Days
+		</h2>
+
+		<div class="via-slds-card--active">
+			<article onclick={toggleFlyout} class={cardContainerClass}>
+				<div class="slds-p-horizontal--medium slds-p-vertical--small slds-grid">
+					<header class="slds-media slds-media_center slds-has-flexi-truncate">
+						<div class="slds-media__figure  slds-p-bottom_x-small">
+							<vlocity_ins-icon class={iconClass} variant="inverse" size="medium" icon-name={iconName}>
+							</vlocity_ins-icon>
+						</div>
+						<div class="slds-media__body">
+							<h2 class="slds-card__header-title">
+								<vlocity_ins-navigate-action target-type="Record" target-action="view"
+									target-name={obj.objType} target-id={obj.Id}>
+									<a href="javascript:void(0)"> <span style="font-size:14px">{obj.title}</span></a>
+								</vlocity_ins-navigate-action>
+							</h2>
+							<div if:true={obj.monthNameLastActivityDate} class="small-font">
+								{obj.monthNameLastActivityDate}
+							</div>
+							<div class="slds-grid">
+								<template for:each={state.fields} for:item="field" for:index="index">
+									<div key={field.name} class="slds-p-right--large">
+										<div title={field.label}>
+											{field.label} : &nbsp;
+											<vlocity_ins-output-field extraclass="slds-show_inline-block nds-show_inline-block" record={obj}
+												field-name={field.name} type={field.type}></vlocity_ins-output-field>
+										</div>
+									</div>
+								</template>
+							</div>
+						</div>
+						<div class="slds-no-flex dummy-size">
+							<vlocity_ins-icon if:true={hideFlyout} class="show-on-hover icon-color-gray "
+								variant="default" size="x-small" icon-name="utility:chevrondown"></vlocity_ins-icon>
+							<vlocity_ins-icon if:false={hideFlyout} class="icon-color-gray " variant="default"
+								size="x-small" icon-name="utility:chevronup"></vlocity_ins-icon>
+						</div>
+					</header>
+				</div>
+			</article>
+			<div if:true={renderFlyout} class={getFlyoutClass}>
+				<slot name="flyout"></slot>
+			</div>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,28 @@
+/*npFooterCanvas.css*/
+.custom-footer{
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+ .np-footer-canvas{
+        padding:2rem 0 3rem 0 !important;
+        background-color: #17315C;
+ }
+ .grid-contiainer{
+     display:grid;
+     grid-template-columns: auto auto auto auto;
+ }
+        .mobile-footer{
+            display: none;
+        }
+    @media (max-width:767px){
+        .np-footer-canvas{
+            padding: 0 0 3rem 0;
+        }
+        .desktop-footer{
+            display: none;
+        }
+        .mobile-footer{
+            display: initial !important;
+        }
+    }

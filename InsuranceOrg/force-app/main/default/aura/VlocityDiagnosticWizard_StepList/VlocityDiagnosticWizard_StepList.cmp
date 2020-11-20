@@ -1,0 +1,137 @@
+<aura:component implements="force:appHostable"
+                controller="VlocityDiagnosticWizardController">
+    <aura:attribute name="records"
+                    type="List"
+                    default="" />
+    <aura:attribute name="filters"
+                    type="Map"
+                    default="{'overrideTags':[ ['showAllSteps',false] ]}" />
+    <aura:attribute name="recordTagsList"
+                    type="List"
+                    default="[]" />
+    <aura:attribute name="showFilters"
+                    type="Boolean"
+                    default="true" />
+    <aura:attribute name="showRefreshModal"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="showInstructionModal"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="modalParams"
+                    type="Map"
+                    default="{
+                        modalType: 'notes',
+                        parent: null
+                      }" />
+    <aura:attribute name="showNotesModal"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="showAllWarnings"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="showAdvancedFilters"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="wizardType"
+                    type="String"
+                    default="'Diagnostic', 'Always'" />
+    <aura:attribute name="modalMessage"
+                    type="String"
+                    default="This is a modal." />
+    <aura:handler name="modalEvent"
+                  event="c:VlocityDiagnosticWizard_ModalEvent"
+                  action="{!c.onModalEvent}" />
+    <ltng:require scripts="{!$Resource.VlocityDiagnosticWizard_Bundle}"
+                  afterScriptsLoaded="{!c.doInit}" />
+    <div>
+        <!-- REFRESH PAGE MODAL -->
+        <aura:if isTrue="{!v.showRefreshModal}">
+            <c:VlocityDiagnosticWizard_RefreshModal modalMessage="{!v.modalMessage}" />
+        </aura:if>
+        <aura:if isTrue="{!v.showInstructionModal}">
+            <c:VlocityDiagnosticWizard_InstructionModal showModal="{!v.showInstructionModal}"
+                                                        modalParams="{!v.modalParams}" />
+        </aura:if>
+        <aura:if isTrue="{!v.showNotesModal}">
+            <c:VlocityDiagnosticWizard_NotesModal showModal="{!v.showNotesModal}"
+                                                  modalParams="{!v.modalParams}" />
+        </aura:if>
+        <section class="slds-card slds-m-around_medium">
+            <lightning:layout horizontalAlign="spread"
+                              class="slds-m-around_small">
+                <lightning:layoutItem flexibility="grow">
+                    <lightning:layout multipleRows="true">
+                        <lightning:layoutItem flexibility="no-flex"
+                                              class="slds-p-around_xx-small">
+                            <lightning:button label="Filters"
+                                              variant="{! v.showFilters ? 'brand':'neutral'}"
+                                              iconName="{! v.showFilters ? 'utility:chevrondown':'utility:chevronup'}"
+                                              iconPosition="right"
+                                              onclick="{! c.toggleShowFilters }" />
+                        </lightning:layoutItem>
+                        <lightning:layoutItem flexibility="no-flex"
+                                              class="slds-p-around_xx-small">
+                            <lightning:button label="Show All Steps"
+                                              variant="{! v.filters.overrideTags[0][1] ? 'brand':'neutral'}"
+                                              iconName="{! v.filters.overrideTags[0][1] ? 'utility:check':'utility:close'}"
+                                              iconPosition="right"
+                                              onclick="{! c.toggleShowAllSteps }" />
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="no-flex"
+                                      class="slds-p-around_xx-small">
+                    <lightning:button label="Reload Steps"
+                                      variant="neutral"
+                                      iconName="utility:arrowup"
+                                      iconPosition="right"
+                                      onclick="{! c.createNewSteps }" />
+                </lightning:layoutItem>
+            </lightning:layout>
+        </section>
+        <div class="{! v.showFilters ? '' : 'slds-hide'}">
+            <section class="slds-card slds-m-around_medium">
+                <div class="slds-m-around_medium">
+                    <c:VlocityDiagnosticWizard_FilterContainer filtersList="{! v.filters.frequencyTags}"
+                                                               filtersName="Frequency"
+                                                               showAdvancedFiltersButton="true"
+                                                               showAdvancedFilters="{! v.showAdvancedFilters}" />
+                    <c:VlocityDiagnosticWizard_FilterContainer filtersList="{! v.filters.priorityTags}"
+                                                               filtersName="Priority" />
+                    <div class="{! 'slds-border_top slds-p-top_x-large slds-m-top_medium slds-m-bottom_large ' + (v.showAdvancedFilters ? '' : 'slds-hide')}"
+                         aura:id="advancedFiltersContainer">
+                        <c:VlocityDiagnosticWizard_FilterContainer filtersList="{! v.filters.featureTags}"
+                                                                   filtersName="Feature" />
+                        <c:VlocityDiagnosticWizard_FilterContainer filtersList="{! v.filters.typeTags}"
+                                                                   filtersName="Type" />
+                        <c:VlocityDiagnosticWizard_FilterContainer filtersList="{! v.filters.statusTags}"
+                                                                   filtersName="Status"
+                                                                   disableFilters="{! v.filters.overrideTags[0][1]}" />
+                        <div class="slds-p-top_xx-small">
+                            <lightning:input type="checkbox"
+                                             label="Show All Warnings"
+                                             name="showAllWarningsInput"
+                                             value="{!v.showAllWarnings}"
+                                             checked="{!v.showAllWarnings}" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <section class="slds-card slds-m-horizontal_medium slds-m-bottom_medium">
+        <ol class="slds-setup-assistant">
+            <aura:iteration items="{!v.records}"
+                            var="record">
+                <c:VlocityDiagnosticWizard_StepElement record="{!record}"
+                                                       childRecords="{!record.UpgradeSteps__r}"
+                                                       filters="{!v.filters}"
+                                                       showAdvancedFilters="{!v.showAdvancedFilters}"
+                                                       showAllWarnings="{!v.showAllWarnings}"
+                                                       recordTagsList="{!v.recordTagsList}"
+                                                       aura:id="stepElement" />
+            </aura:iteration>
+        </ol>
+    </section>
+</aura:component>

@@ -1,0 +1,3 @@
+let definition = 
+                {"dataSource":{"type":null},"filter":{},"states":[{"actionCtxId":"['PrimaryBroker']['Id']","collapse":false,"conditions":{"group":[{"field":"$scope.data.status","operator":"===","value":"'active'","type":"system"}]},"definedActions":{"actions":[]},"fields":[],"name":"Active","placeholderExpand":true,"sObjectType":"Contact","templateUrl":"np-profile-photo","blankStateCheck":false,"isSmartAction":false,"smartAction":{},"lwc":{"MasterLabel":"npProfile","DeveloperName":"npProfile","Id":"0Rb3t000000LOi4CAQ","name":"npProfile"}}],"title":"Contact Profile","enableLwc":true,"GlobalKey__c":"np-agent-profile-card-lwc/VEX Personal Lines/1/1579680349496"}; 
+            export default definition

@@ -1,0 +1,3 @@
+let definition = 
+                {"states":[{"fields":[],"conditions":{"group":[{"field":"$scope.data.status","operator":"===","value":"'active'","type":"system"}]},"definedActions":{"actions":[]},"name":"Insured Party","lwc":{"MasterLabel":"npCoveragesAndAttributes","DeveloperName":"npCoveragesAndAttributes","Id":"0Rb3t000000LOhNCAW","name":"npCoveragesAndAttributes"},"isSmartAction":false,"smartAction":{}}],"filter":{},"dataSource":{"type":null},"title":"Quote Insured Party","enableLwc":true,"sessionVars":[{"name":"RecordType","val":"InsuredPartySpec"}],"GlobalKey__c":"np-quote-insured-parties-plus-lwc-Modified/Exavalu/1/1599630727078"}; 
+            export default definition

@@ -1,0 +1,49 @@
+<template>
+	<div class="vloc-broker-app-policy">
+		<div class="vloc-broker-quote-container nds-m-bottom_small nds-theme_shade" if:true={selectedState}>
+			<div class="nds-card__header nds-m-top_small nds-grid">
+				<div class="nds-form-element nds-truncate">
+                    <div for:each={actions} for:item="item"  key={item.id}>
+                            <vlocity_ins-action
+                                state-obj={obj}
+                                context-id={contextId}
+                                s-object-type={sObjectType}
+                                state-action={item}
+                                icon-extraclass="nds-text-link_reset nds-m-bottom--small"
+                                >
+                                <a class="vloc-broker-quote-name nds-text-heading_small">{obj.Name}</a>
+                            </vlocity_ins-action>
+                    </div>
+					<div class="nds-small-show">
+						<div class="nds-text-body_small nds-m-top_small">{obj.AccountName} </div>
+						<div if:true={obj.LastModifiedDate} class="nds-text-body_small nds-m-top_xx-small"> Last Modified:
+							<lightning-formatted-date-time year="2-digit" day="2-digit" month="2-digit" value={obj.LastModifiedDate}>
+							</lightning-formatted-date-time>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="vloc-broker-quote-data-container nds-small-show nds-card__body via-nds-card__body nds-grid nds-grid_vertical nds-p-horizontal_medium">
+				<div class="nds-grid nds-wrap nds-m-top_small" for:each={firstThreeField} for:item="field" key={field.name}>
+					<div class="nds-col nds-truncate nds-text-heading_x-small nds-size_1-of-4" title={field.label}>{field.label}</div>
+					<div class="nds-col nds-truncate nds-text-heading_x-small nds-size_3-of-4 vloc-broker-quote-data">
+						<vlocity_ins-output-field record={obj} field-name={field.name} type={field.type}></vlocity_ins-output-field>
+					</div>
+				</div>
+				<div if:true={showMore} class="nds-grid nds-wrap nds-m-top_small nds-size_1-of-1" for:each={restField} for:item="field" key={field.name}>
+					<div class="nds-col nds-truncate nds-text-heading_x-small nds-size_1-of-4" title={field.label}>{field.label}</div>
+					<div class="nds-col nds-truncate nds-text-heading_x-small nds-size_3-of-4 vloc-broker-quote-data">
+						<vlocity_ins-output-field record={obj} field-name={field.name} type={field.type}></vlocity_ins-output-field>
+					</div>
+				</div>
+				<div class="vloc-view-more nds-m-top_small">
+					<button class="nds-button vloc-show-more-btn" onclick={showToggle}>
+                        <span if:false={showMore}>View More</span>
+                         <span if:true={showMore}>View Less</span>
+                    </button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</template>

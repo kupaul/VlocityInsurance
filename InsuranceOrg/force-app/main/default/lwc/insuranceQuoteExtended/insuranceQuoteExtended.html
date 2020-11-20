@@ -1,0 +1,116 @@
+<template>
+    <div if:false={isLoaded}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </div>
+    <div if:true={customLabels} class="slds-p-horizontal_large slds-p-bottom_large vloc-ins-quote">
+        <div class="slds-grid slds-grid_align-end slds-p-vertical_medium">
+            <vlocity_ins-ins-policy-management class="vloc-ins-policy-management" record-id={recordId}
+                root-channel={rootChannel} title={customLabels.InsIssuePolicy} type="quote" quote-type={quoteType}>
+            </vlocity_ins-ins-policy-management> 
+            <div if:true={showActions} class="slds-border_right slds-p-horizontal_x-small slds-m-right_small">
+                <vlocity_ins-ins-create-version record-id={recordId} title={customLabels.InsCreateVersion}>
+                </vlocity_ins-ins-create-version>
+                <vlocity_ins-ins-version-history record-id={recordId} label={customLabels.VersionHistory}></vlocity_ins-ins-version-history>
+                <button if:true={enableDebugMode} class="slds-button slds-button_neutral" onclick={debugMode}><span
+                        if:true={inDebugMode}>{customLabels.InsQuoteProduction}</span><span
+                        if:false={inDebugMode}>{customLabels.InsQuoteDebug}</span>&nbsp;{customLabels.InsQuoteMode}</button>
+            </div>
+            <vlocity_ins-button if:true={showAddProduct} theme={theme} variant="neutral" label={customLabels.InsQuotesAddProduct}
+                onclick={openProductList}></vlocity_ins-button>
+            <template if:true={insuredItemsSpec}>
+                <template if:false={displayDropdown}>
+                    <template for:each={insuredItemsSpec} for:item="itemSpec">
+                        <button key={itemSpec.productId} class="slds-button slds-button_neutral"
+                            onclick={getPrimaryInsuredItemSpec} data-child-product-id={itemSpec.productId}
+                            disabled={stateOptions.isReadonly}>
+                            {customLabels.Add} {itemSpec.name}</button>
+                    </template>
+                </template>
+                <vlocity_ins-combobox if:true={displayDropdown} options={insuredItemsSpecOptions}
+                    placeholder={customLabels.InsQuoteSelectInsuredItem} onchange={getPrimaryInsuredItemSpec}
+                    disabled={stateOptions.isReadonly}>
+                </vlocity_ins-combobox>
+            </template>
+        </div>
+        <div if:true={showAddProduct} class="slds-has-error slds-m-top_none">
+            <div class="slds-align_absolute-center vloc-add-product-container vloc-ins-product">
+                <div class="slds-media__figure" onclick={openProductList}>
+                    <div class="vloc-ins-add-product-icons">
+                        <div class="vloc-ins-add-product-icon">
+                            <vlocity_ins-icon size="large" color="white" icon-name="utility:ribbon"></vlocity_ins-icon>
+                        </div>
+                        <div class="vloc-ins-add-product-icon">
+                            <vlocity_ins-icon size="small" color="white" icon-name="utility:add"></vlocity_ins-icon>
+                        </div>
+                    </div>
+                </div>
+                <p class="slds-text-body_regular">
+                    <button onclick={openProductList} class="slds-button">{customLabels.InsQuoteAddProduct}</button>
+                    {customLabels.InsQuoteToStartBuildingQuote}.
+                </p>
+            </div>
+        </div>
+        <template if:true={showRootLineItem}>
+            <div if:true={displayNetPrice} class="slds-m-bottom_large slds-box vloc-ins-price-change-container">
+                <span class="vloc-ins-price-change slds-m-right_medium">
+                    <span
+                        class="vloc-ins-price-change-label slds-m-right_xx-small">{customLabels.InsQuoteNetPriceChange}:</span>
+                    <vlocity_ins-tooltip if:true={displayTooltip} content="tooltip" class="slds-p-horizontal_xx-small">
+                        <div if:true={totalPremiumTermDifference} class="slds-grid slds-grid_align-spread">
+                            <div class="slds-m-right_small">{customLabels.InsProductInstancePremium}:</div>
+                            <lightning-formatted-number value={totalPremiumTermDifference} format-style="currency"
+                                currency-code={currency} minimum-fraction-digits="2" maximum-fraction-digits="2">
+                            </lightning-formatted-number>
+                        </div>
+                        <div if:true={totalTaxTermDifference} class="slds-grid slds-grid_align-spread">
+                            <div class="slds-m-right_small">{customLabels.InsProductInstanceTaxes}:</div>
+                            <lightning-formatted-number value={totalTaxTermDifference} format-style="currency"
+                                currency-code={currency} minimum-fraction-digits="2" maximum-fraction-digits="2">
+                            </lightning-formatted-number>
+                        </div>
+                        <div if:true={totalFeeTermDifference} class="slds-grid slds-grid_align-spread">
+                            <div class="slds-m-right_small">{customLabels.InsProductInstanceFees}:</div>
+                            <lightning-formatted-number value={totalFeeTermDifference} format-style="currency"
+                                currency-code={currency} minimum-fraction-digits="2" maximum-fraction-digits="2">
+                            </lightning-formatted-number>
+                        </div>
+                    </vlocity_ins-tooltip>
+                    <span if:true={isNetPositive}>+</span>
+                    <lightning-formatted-number value={priceNetDifference} format-style="currency">
+                    </lightning-formatted-number>
+                </span>
+                <span class="vloc-ins-light">{daysRemaining} ({effectiveDate} - {endDate})</span>
+            </div>
+            <div class="slds-m-bottom_large slds-box vloc-ins-product">
+                <vlocity_ins-ins-product-instance root-channel={rootChannel} product={rootLineItem} theme={theme}
+                    data-product-id={rootLineItem.quoteLineItemId} rule-context={ruleContext} options={stateOptions}>
+                </vlocity_ins-ins-product-instance>
+            </div>
+            <template if:true={rootLineItem.childProducts}>
+                <template if:true={rootLineItem.childProducts.records}>
+                    <template for:each={rootLineItem.childProducts.records} for:item="childLineItem">
+                        <template if:true={childLineItem.isPrimary}>
+                            <div key={childLineItem.quoteLineItemId}
+                                class="slds-p-vertical_large slds-m-bottom_large slds-box vloc-ins-product">
+                                <vlocity_ins-ins-product-instance root-channel={rootChannel} product={childLineItem} theme={theme}
+                                    data-product-id={childLineItem.quoteLineItemId} insured-items={insuredItemsSpec}
+                                    rule-context={ruleContext} options={stateOptions}></vlocity_ins-ins-product-instance>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+            </template>
+        </template>
+    </div>
+    <div class="vloc-ins-toast-container vloc-ins-toast-container_top-center slds-is-fixed">
+        <vlocity_ins-toast class="vloc-ins-toast" theme={theme} message={toastMessage} styletype={styleType} duration={duration}>
+        </vlocity_ins-toast>
+    </div>
+    <template if:true={showAddProduct}>
+        <vlocity_ins-ins-quote-product-list class="vloc-ins-product-list" record-id={recordId} root-channel={rootChannel}>
+        </vlocity_ins-ins-quote-product-list>
+    </template>
+    <c-auto-insurance-record-editor-extended class="vloc-ins-record-editor" in-debug-mode={inDebugMode} rule-context={ruleContext}
+        root-channel={rootChannel} title={recordEditorTitle} editor-config={editorConfig} record-id={recordId}
+        theme={theme} is-readonly={stateOptions.isReadonly}></c-auto-insurance-record-editor-extended>
+</template>

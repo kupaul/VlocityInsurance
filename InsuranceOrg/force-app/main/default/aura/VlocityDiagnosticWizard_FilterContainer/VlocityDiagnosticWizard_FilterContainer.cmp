@@ -1,0 +1,48 @@
+<aura:component>
+    <aura:attribute name="filtersList"
+                    type="List" />
+    <aura:attribute name="filtersName"
+                    type="String" />
+    <aura:attribute name="showAdvancedFiltersButton"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="showAdvancedFilters"
+                    type="Boolean" />
+    <aura:attribute name="disableFilters"
+                    type="Boolean"
+                    default="false" />
+    <aura:if isTrue="{! v.filtersList.length > 0}">
+        <div class="slds-grid slds-grid_align-spread">
+            <div class="slds-col slds-grid slds-grid-wrap">
+                <div class="slds-col">
+                    <form class="slds-form--inline">
+                        <div class="slds-form-element">
+                            <h2 class="via-filter-container_title slds-text-heading_small slds-m-bottom_xx-small">{!
+                                v.filtersName}</h2>
+                        </div>
+                        <aura:iteration items="{!v.filtersList}"
+                                        var="tag">
+                            <div class="slds-form-element">
+                                <lightning:button label="{!tag[0]}"
+                                                value="{!tag[0]}"
+                                                class="slds-m-bottom_x-small via-filter-container_button"
+                                                onclick="{!c.toggleTagValue}"
+                                                disabled="{!v.disableFilters}"
+                                                variant="{!tag[1] ? 'brand' : 'neutral'}">
+                                </lightning:button>
+                            </div>
+                        </aura:iteration>
+                    </form>
+                </div>
+            </div>
+            <aura:if isTrue="{! v.showAdvancedFiltersButton}">
+                <div class="slds-col">
+                    <lightning:buttonIcon iconName="{! v.showAdvancedFilters ? 'utility:dash' : 'utility:add'}"
+                                        variant="border-filled"
+                                        onclick="{!c.toggleShowAdvancedFilters}"
+                                        alternativeText="Show Advanced Filters" />
+                </div>
+            </aura:if>
+        </div>
+    </aura:if>
+</aura:component>

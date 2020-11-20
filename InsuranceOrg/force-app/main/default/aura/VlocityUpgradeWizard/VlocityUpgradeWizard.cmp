@@ -1,0 +1,9 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <div class="slds-box slds-theme_default">
+        <div class="slds-grid slds-grid_align-center">
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_11-of-12 slds-large-size_8-of-12">
+                <c:VlocityDiagnosticWizard_StepList wizardType="'Upgrade','First Install', 'Always', 'Upgrade / First Install'" />
+            </div>
+        </div>
+    </div>
+</aura:component>

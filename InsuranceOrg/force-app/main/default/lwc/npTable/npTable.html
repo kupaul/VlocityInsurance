@@ -1,0 +1,21 @@
+<template>
+	<table class="nds-table--fixed-layout" cellpadding="5" if:true={selectedState}>
+		<tbody>
+			<tr class="nds-border_bottom nds-text-heading_small">
+				<!-- getting all the fields from the card state-->
+				<td class="nds-truncate nds-p-vertical--small nds-p-right--x-small" data-label={field.label} for:each={state.fields} for:item="field"
+				 key={field.label}>
+					<vlocity_ins-output-field extraclass="nds-show_inline-block" record={obj} field-name={field.name} type={field.type}></vlocity_ins-output-field>
+				</td>
+
+				<td class="nds-truncate nds-p-vertical--small nds-p-right--x-small" if:true={showactions}>
+					<template for:each={actions} for:item="item">
+						<vlocity_ins-action key={item.id} state-obj={obj} context-id={contextId} s-object-type={sObjectType} state-action={item} theme='nds'
+                                         icon-wrapperclass='nds-hide'>
+						</vlocity_ins-action>
+					</template>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</template>

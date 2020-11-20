@@ -1,0 +1,6 @@
+<template>
+	<div class="nds-theme_warning nds-p-around_small nds-text-align_center warning-text" if:true={selectedState}>
+		<span if:true={session.openStateTitle}>{session.openStateTitle}</span>
+		<span if:false={session.openStateTitle}>There are no records</span>
+	</div>
+</template>

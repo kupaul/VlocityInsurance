@@ -1,0 +1,18 @@
+/*npFooter.css*/
+ .section-cards{
+            border-right: 0.125px solid #7F8FA5;
+        }
+ .np-footer-cards{
+        text-align: center;
+ }
+        .section-title{
+            color: white;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        a.custom-footer-links{
+            color: #F6FFFF;
+        }
+              a.custom-footer-links:hover{
+                text-decoration: none;
+            }

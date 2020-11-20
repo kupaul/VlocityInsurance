@@ -1,0 +1,166 @@
+<aura:component>
+    <aura:attribute name="record"
+                    type="Map" />
+    <aura:attribute name="filters"
+                    type="Map" />
+    <aura:attribute name="recordTags"
+                    type="Map" />
+    <aura:attribute name="invokeOutput"
+                    type="Map" />
+    <aura:attribute name="recordStatus"
+                    type="String" />
+    <aura:attribute name="showAdvancedFilters"
+                    type="Boolean" />
+    <aura:attribute name="showAllWarnings"
+                    type="Boolean" />
+    <aura:attribute name="customInput"
+                    type="String" />
+    <aura:attribute name="customInput2"
+                    type="String" />
+    <aura:attribute name="actionBtnAttributes"
+                    type="Map" />
+    <aura:attribute name="displayStep"
+                    type="Boolean"
+                    default="true" />
+    <aura:attribute name="displayLogs"
+                    type="Boolean"
+                    default="false" />
+    <aura:attribute name="initialRecordStatus"
+                    type="String" />
+    <aura:attribute name="parent"
+                    type="Aura.Component"
+                    required="true" />
+    <!-- Inner List item for SLDS Setup Assistant -->
+    <aura:if isTrue="{!v.displayStep}">
+        <li class="slds-progress__item"
+            aura:id="progressItemContainer">
+            <c:progressMarker recordStatus="{! v.recordStatus}" />
+            <div class="slds-progress__item_content slds-box slds-theme_shade">
+                <div class="slds-grid slds-grid_vertical-align-start slds-wrap">
+                    <!-- First Row: Name, Tags and Complete Step Button -->
+                    <div class="slds-col slds-size_1-of-1 slds-grid slds-grid_align-spread">
+                        <div class="slds-col">
+                            <!-- Record's Name -->
+                            <span class="slds-setup-assistant__step-summary-title slds-text-heading_small"
+                                  title="{!v.record.Name}">
+                                {!v.record.Name}
+                            </span>
+                            <!-- Record's Tags -->
+                            <span class="slds-m-left_x-small">
+                                <c:pillGroup tags="{!v.recordTags.featureTags}" />
+                            </span>
+                        </div>
+                        <div class="slds-col slds-shrink-none">
+                            <!-- Action Button -->
+                            <lightning:button variant="brand"
+                                              class="{! 'via-diagnostic-wizard_action-button' + (v.actionBtnAttributes.hidden ? ' slds-hide' : '')}"
+                                              label="{! v.actionBtnAttributes.label}"
+                                              title="{! v.actionBtnAttributes.label}"
+                                              disabled="{! v.actionBtnAttributes.disabled}"
+                                              onclick="{! c.completeAction}" />
+                        </div>
+                    </div>
+                    <!-- Second Row: Step Info and Controls -->
+                    <div class="slds-col slds-size_1-of-1">
+                        <aura:if isTrue="{! v.record.RelatedBatchJobId}">
+                            <p>
+                            Related JobID: <span>{!v.record.RelatedBatchJobId}</span>
+                            </p>
+                        </aura:if>
+                        <!-- Record's Instructions -->
+                        <aura:if isTrue="{! v.record.Instruction}">
+                            <div class="slds-m-top_x-small via-truncate-rich-text">
+                                <p>
+                                    <lightning:formattedRichText value="{! v.record.Instruction }"></lightning:formattedRichText>
+                                </p>
+                            </div>
+                        </aura:if>
+                        <!-- Record's Error -->
+                        <aura:if isTrue="{! or(v.invokeOutput.errorMessage,v.invokeOutput.infoMessage,v.invokeOutput.warningMessage,v.invokeOutput.consoleMessage)}">
+                            <div class="slds-m-top_xx-small">
+                                <c:VlocityDiagnosticWizard_StepElementErrorMessage errorMessage="{! v.invokeOutput.errorMessage}"
+                                                                                   infoMessage="{! v.invokeOutput.infoMessage}"
+                                                                                   warningMessage="{! v.invokeOutput.warningMessage}"
+                                                                                   consoleMessage="{! v.invokeOutput.consoleMessage}"
+                                                                                   showAllWarnings="{! v.showAllWarnings}"
+                                                                                   hasWarnings="{! v.invokeOutput.hasWarnings}" 
+                                                                                   hasErrors="{! v.invokeOutput.hasErrors}" 
+                                                                                   hasInfos="{! v.invokeOutput.hasInfos}" />
+                            </div>
+                        </aura:if>
+                        <!-- Record's Check and Execution Status -->
+                        <aura:if isTrue="{!v.showAdvancedFilters}">
+                            <div class="slds-m-top_x-small">
+                                <span class="slds-badge slds-badge_lightest">{!
+                                    (v.record.LastCheckStatus=='No Check Method')
+                                    ? 'No Verification Method'
+                                    : 'Verification ' + v.record.LastCheckStatus}</span>
+                                <span class="slds-badge slds-badge_lightest">{! 'Execution ' +
+                                    v.record.LastExecutionStatus}</span>
+                            </div>
+                        </aura:if>
+                    </div>
+                </div>
+                <!-- Third Row: Controls and Custom Input -->
+                <div class="slds-col slds-m-top_x-small slds-size_1-of-1">
+                    <div class="slds-grid slds-gutters slds-grid_align-start slds-grid_vertical-align-end slds-wrap">
+                        <div class="slds-col slds-grow-none slds-m-vertical_xxx-small">
+                            <lightning:buttonGroup>
+                                <!-- Show Instruction Button -->
+                                <aura:if isTrue="{! or(v.record.StepCommand, v.record.Instruction)}">
+                                    <lightning:button variant="neutral"
+                                                      class=""
+                                                      label="Instruction"
+                                                      title="Instruction"
+                                                      onclick="{! c.openInstructionModal }" />
+                                </aura:if>
+                                <!-- Show Notes Button -->
+                                <lightning:button variant="neutral"
+                                                  class=""
+                                                  label="Notes"
+                                                  title="Notes"
+                                                  onclick="{! c.openNotesModal }" />
+                                <!-- Show Logs Button -->
+                                <aura:if isTrue="{! v.record.Type!='Group'}">
+                                    <lightning:button variant="{! v.displayLogs ? 'brand' : 'neutral'}"
+                                                      class=""
+                                                      label="Logs"
+                                                      title="Logs"
+                                                      onclick="{! c.toggleDisplayLogs }" />
+                                </aura:if>
+                                <!-- Show Check Result Button -->
+                                <aura:if isTrue="{! v.record.CheckResultUrl}">
+                                    <lightning:button variant="neutral"
+                                                      class="slds-button_outline-brand"
+                                                      label="Check Result"
+                                                      title="Check Result"
+                                                      onclick="{! c.openCheckResult }" />
+                                </aura:if>
+                            </lightning:buttonGroup>
+                        </div>
+                        <!-- Custom Input -->
+                        <aura:if isTrue="{! v.record.CustomInputLabel}">
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12 slds-m-vertical_xxx-small">
+                                <c:VlocityDiagnosticWizard_StepElementCustomInput recordStatus="{! v.recordStatus}"
+                                                                                  customInputLabel="{! v.record.CustomInputLabel}"
+                                                                                  customInput="{! v.customInput}"
+                                                                                  recordCustomInputValue="{! v.record.CustomInputValue}"
+                                                                                  customInputLabel2="{! v.record.CustomInputLabel2}"
+                                                                                  customInput2="{! v.customInput2}"
+                                                                                  recordCustomInputValue2="{! v.record.CustomInputValue2}"
+                                                                                  grandparent="{! v.parent}" />
+                            </div>
+                        </aura:if>
+                        <!-- End Custom Input -->
+                    </div>
+                </div>
+                <!-- Fourth Row: Logs Window -->
+                <aura:if isTrue="{! v.displayLogs}">
+                    <div class="slds-col slds-size_1-of-1">
+                        <c:VlocityDiagnosticWizard_LogsWindow record="{!v.record}" />
+                    </div>
+                </aura:if>
+            </div>
+        </li>
+    </aura:if>
+</aura:component>

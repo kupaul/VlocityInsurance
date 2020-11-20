@@ -1,0 +1,19 @@
+/*npArticles.css*/
+
+.custom-article-image{
+        /* border: 1px solid #dddbda; */
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+.custom-article-item-box{
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+}
+.custom-close__wrapper{
+    top:5px;
+    right:5px;
+}
+
+a.custom-anchor{
+    color:inherit;
+}

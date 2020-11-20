@@ -1,0 +1,36 @@
+.slds-shadow {
+  cursor: pointer;
+}
+
+.slds-shadow .show-on-hover {
+  display: none;
+}
+
+.slds-shadow:hover .show-on-hover {
+  display: initial;
+}
+
+.card-active,
+.slds-shadow:hover {
+  -webkit-box-shadow: 0px 4px 3px -2px #c7c7c7;
+  -moz-box-shadow: 0px 4px 3px -2px #c7c7c7;
+  box-shadow: 0px 4px 3px -2px #c7c7c7;
+}
+
+:host .light-color {
+  color: #C6C4C3;
+}
+
+:host .gray-color {
+  color: #9E9C9A;
+}
+
+.dummy-size {
+  width: 40px;
+}
+
+.icon-color-gray {
+  background: #F4F6F9;
+  padding: 8px 10px 11px 10px;
+  border-radius: 50%;
+}

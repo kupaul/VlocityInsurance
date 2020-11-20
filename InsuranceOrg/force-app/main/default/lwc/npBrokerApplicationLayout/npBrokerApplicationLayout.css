@@ -1,0 +1,55 @@
+/*npBrokerApplicationLayout.css*/
+.vloc-broker-app-policy {
+  height: auto;
+  width: 100%;
+  /*  Simple transition */
+  -webkit-transition: top 0.75s ease-in-out;
+  -moz-transition: top 0.75s ease-in-out;
+  transition: top 0.75s ease-in-out;
+}
+.vloc-broker-tabs {
+  background: #f8fbfe;
+  min-width: 13%;
+  position: relative;
+}
+.vloc-broker-tabs:hover {
+  cursor: pointer;
+}
+
+.vloc-broker-tabs-label {
+  position: relative;
+  left: -0.5rem;
+}
+
+.vloc-broker-tabs-no {
+  position: relative;
+  width: 13px;
+  height: 13px;
+  border-radius: 9px;
+  background: #ff6e0d;
+  display: inline-block;
+  left: -13px;
+  top: -10px;
+  font-size: 7px;
+  color: white;
+  text-align: center;
+  padding-top: 2px;
+}
+
+.vloc-broker-tabs:last-child:last-child {
+  border-right: 1px solid #d8dde6;
+}
+
+.vloc-broker-tabs-icon {
+  fill: #0070d2;
+  width: 2rem;
+  height: 2rem;
+}
+.active-tab .vloc-broker-tabs-icon {
+  fill: white;
+}
+
+.active-tab {
+  background: #0070d2;
+  color: white;
+}

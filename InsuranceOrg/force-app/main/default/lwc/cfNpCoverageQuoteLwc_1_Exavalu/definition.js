@@ -1,0 +1,3 @@
+let definition = 
+                {"states":[{"fields":[],"conditions":{"group":[{"field":"$scope.data.status","operator":"===","value":"'active'","type":"system"}]},"definedActions":{"actions":[]},"name":"Active","lwc":{"attributes":{"type":"LightningComponentBundle","url":"/services/data/v46.0/tooling/sobjects/LightningComponentBundle/0Rb3t000000LOdNCAW"},"MasterLabel":"cardActiveState","Id":"0Rb3t000000LOdNCAW","NamespacePrefix":"vlocity_ins","DeveloperName":"cardActiveState"},"isSmartAction":false,"smartAction":{}}],"filter":{},"dataSource":{"type":null},"title":"Application","enableLwc":true,"GlobalKey__c":"np-coverage-quote-lwc/Exavalu/1/1600693000648"}; 
+            export default definition

@@ -1,0 +1,33 @@
+<template>
+	<div class="via-nds">
+		<div class={readBorder} >
+            <div class="nds-m-horizontal--large nds-m-vertical--medium">
+			<div class="nds-is-relative">
+				<vlocity_ins-spinner if:false={isLoaded} variant="brand" size="medium" alternative-text="loading"></vlocity_ins-spinner>
+			</div>
+			<div class="nds-is-relative nds-m-bottom--xx-large">
+				<div class="nds-canvas__title" if:true={session.title}>
+					{session.title}
+				</div>
+			</div>
+			<div>
+				<table  class="nds-no-row-hover nds-table--fixed-layout" cellpadding="5">
+					<thead>
+						<!--Added Card state field lable for table header-->
+						<tr class="nds-text-heading--label ">
+							<th class="nds-p-bottom--small nds-p-right--x-small" for:each={cardFields} for:item="field" key={field.label} scope="col">
+								<div class="nds-truncate">{field.label}</div>
+							</th>
+                            <th if:true={showactions}></th>
+						</tr>
+					</thead>
+				</table>
+					<!--ng-repeat the data in each card/row -->
+					
+                            <slot></slot>
+			</div>
+
+		</div>
+	</div>
+	</div>
+</template>

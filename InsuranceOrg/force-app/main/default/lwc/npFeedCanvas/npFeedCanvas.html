@@ -1,0 +1,24 @@
+<template>
+<div class="via-nds">
+  <div class={readBorder}>
+    <div class="slds-is-relative">
+      <vlocity_ins-spinner
+        if:false={isLoaded}
+        variant="brand"
+        size="medium"
+        alternative-text="loading"
+      ></vlocity_ins-spinner>
+    </div>
+    <div if:true={isLoaded} class="nds-m-horizontal--large nds-m-vertical--medium">
+      <div class="nds-grid nds-grid--align-spread " if:true={session.title}>
+         <h3  class="nds-is-relative nds-m-bottom--xx-large nds-canvas__title">
+              {session.title}
+            </h3>
+        <a if:true={hideShowmore} class="nds-align--absolute-center nds-m-bottom--xx-large nds-m-right--medium nds-text-heading_small" onclick={setLimit}>
+            Show More</a>
+         </div>
+          <slot onprivateitemregister={handleChildRegister}></slot>
+    </div>
+  </div>
+</div>
+</template>

@@ -1,0 +1,11 @@
+<aura:component>
+    <aura:attribute name="tags"
+                    type="List" />
+    <aura:iteration items="{!v.tags}"
+                    var="tag">
+        <div class="slds-pill">
+            <div class="slds-pill__label via-pill_label"
+                 title="{!tag}">{!tag}</div>
+        </div>
+    </aura:iteration>
+</aura:component>

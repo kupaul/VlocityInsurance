@@ -1,0 +1,6 @@
+<template>
+	<div class="nds-align_absolute-center nds-p-around--medium nds-text-heading_medium" if:true={selectedState}>
+		<span if:true={session.openStateTitle}>{session.openStateTitle}</span>
+		<span if:false={session.openStateTitle}>There are no records</span>
+	</div>
+</template>

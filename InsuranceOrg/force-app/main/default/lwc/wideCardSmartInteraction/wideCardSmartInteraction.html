@@ -1,0 +1,128 @@
+<template>
+	<div if:true={selectedState} class="slds-card slds-theme--default slds-m-bottom_small slds-m-vertical_large">
+		<div class="slds-grid asset-card  slds-p-top_large slds-p-horizontal_large">
+			<div if:true={isFlyout} onclick={toggleFlyout}
+				class="slds-icon_container pointer slds-icon_container_circle bg-shade expand-icon">
+				<vlocity_ins-icon icon-name="utility:expand" size="x-small"></vlocity_ins-icon>
+			</div>
+			<div if:true={isImageAvailable} class="slds-col slds-size_3-of-12 asset-image slds-m-right_medium">
+				<img if:true={session} style={getImageStyle} src={session.img} />
+      </div>
+				<div class={infoDivClass}>
+					<div class="via-slds-card__header">
+						<div class="slds-media slds-media--center slds-has-flexi-truncate slds-p-around_small">
+							<div class="slds-media__body slds-truncate">
+								<a href="javascript:void(0);" class="slds-text-link--reset" tooltip-placement="bottom"
+									tooltip={card.title}>
+									<span class="title" if:true={firstField}>
+                  <vlocity_ins-output-field
+                  extraclass="nds-show_inline-block"
+                    record={obj}
+                    field-name={firstField.name}
+                  ></vlocity_ins-output-field>
+                </span>
+									<span
+                  if:true={session.status}
+                  class="slds-pill slds-p-horizontal_x-small slds-pill_bare slds-m-left--small asset-pill"
+                  >{session.status}</span>
+								</a>
+								<br />
+            </div>
+							</div>
+
+							<!--Fields-->
+
+							<div class="slds-grid asset-field-grid slds-p-around_x-small">
+								<div key={field.name}
+									class="via-field slds-p-around--x-small slds-show_inline-block slds-col asset-field slds-is-relative"
+									for:each={restField} for:item="field" for:index="index" onmouseleave={resetIcon}>
+									<div class="vloc-track-field">
+										<vlocity_ins-icon data-fieldindex={index} onclick={trackInteraction}
+											icon-name="utility:preview" size="small" class="trackIcon">
+										</vlocity_ins-icon>
+									</div>
+									<p key={field.id}
+										class="asset-field-label slds-truncate slds-text-heading_label slds-m-bottom_xx-small slds-p-right_large slds-text-color_inverse-weak"
+										title={field.label}>
+										{field.label}
+									</p>
+									<div key={field.label} class="slds-tile__detail slds-text-body_regular">
+										<div class="asset-field-value">
+											<vlocity_ins-output-field record={obj} field-name={field.name}
+												extraclass="nds-show_inline-block" type={field.type}>
+											</vlocity_ins-output-field>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<template for:each={actions} for:item="item">
+									<div key={item.id}
+										class="slds-p-right_medium slds-p-around_small slds-float_left slds-m-bottom_small slds-m-top_x-small action-color">
+										<vlocity_ins-action state-obj={obj} context-id={contextId}
+											s-object-type={sObjectType} state-action={item} hide-action-icon="true"
+											action-wrapperclass="slds-text-link_reset">
+
+										</vlocity_ins-action>
+									</div>
+								</template>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="bg-shade slds-p-around_medium" if:true={firstAction.id}>
+					<header class="slds-media slds-media_center slds-has-flexi-truncate">
+						<div class="slds-media__figure" if:true={iconObj.hasIcon}>
+							<span class={iconObj.iconClass} title="contact">
+            <vlocity_ins-icon
+              size="large"
+              variant={iconObj.iconVariant}
+              icon-name={iconObj.iconName}
+            ></vlocity_ins-icon>
+          </span>
+						</div>
+						<div class="slds-media__figure" if:true={firstAction.image}>
+							<img class="smartaction-img" src={firstAction.image} style={session.imageStyle} />
+        </div>
+							<div class="slds-media__body">
+								<h2 if:true={firstAction.displayName} class="slds-card__header-title">
+									{firstAction.displayName}
+								</h2>
+								<span if:true={firstAction.description}>
+            {firstAction.description}
+          </span>
+							</div>
+							<div class="slds-no-flex">
+								<template if:true={firstAction.id}>
+									<div key={firstAction.id}
+										class="slds-p-right_x-small slds-p-vertical_xx-small slds-float_left">
+										<vlocity_ins-action state-obj={obj}
+											action-wrapperclass="slds-button slds-button_neutral smart-action"
+											context-id={smartContextId} s-object-type={smartObjType}
+											state-action={firstAction} icon-extraclass="slds-hide">
+										</vlocity_ins-action>
+									</div>
+								</template>
+							</div>
+					</header>
+				</div>
+			</div>
+
+			<div class={getFlyoutClass}>
+				<div class="via-slds-flyout-container">
+					<template if:true={renderFlyout}>
+						<vlocity_ins-modal hideheader hideclosebutton hidefooter is-modal-open size="large">
+							<div slot="content">
+								<div class="slds-text-align_right">
+									<div onclick={toggleFlyout}
+										class="slds-icon_container pointer  slds-icon_container_circle bg-shade">
+										<vlocity_ins-icon icon-name="action:reject" size="x-small"></vlocity_ins-icon>
+									</div>
+								</div>
+								<slot name="flyout"></slot>
+							</div>
+						</vlocity_ins-modal>
+					</template>
+				</div>
+			</div>
+</template>

@@ -1,0 +1,3 @@
+let definition = 
+                {"Cards":["np-quote-details-lwc-Modified"],"enableLwc":true,"repeatCards":false,"lwc":{"MasterLabel":"npCanvas","DeveloperName":"npCanvas","Id":"0Rb3t000000LOhHCAW","name":"npCanvas"},"previewType":"designTime","componentName":"cfNpQuoteHeaderLwcModified_1_Exavalu","enableUserInfo":true,"dataSource":{"type":"Query","value":{"jsonMap":"{\"params.id\":\"{{params.id}}\"}"},"contextVariables":[{"name":"params.id","val":"0Q03t000001ugVVCAY"}]},"GlobalKey__c":"np-quote-header-lwc-Modified/1/Exavalu/1600688988658","workspace":["np-quote-details-lwc-Modified/Exavalu/1/1600689158562"]}; 
+            export default definition

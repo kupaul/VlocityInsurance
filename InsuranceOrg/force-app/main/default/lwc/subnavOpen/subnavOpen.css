@@ -1,0 +1,185 @@
+/*subnavOpen.css*/
+.nds-subnav__wrapper .np-subnav-card-active {
+    display: flex;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: 0;
+    padding: 10px;
+    border-bottom: 1px solid #dfe2e4;
+    background: #f8fbfe;
+    cursor: pointer;
+}
+.nds-subnav__wrapper .np-subnav-card-active.tabSelected {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 110, 13, 1);
+    border-bottom: 0;
+    color: #fff;
+}
+.nds-subnav__wrapper .np-subnav-card-active.tabSelected i img {
+    -webkit-filter: brightness(0.25);
+    filter: brightness(5);
+}
+.nds-subnav__wrapper .np-subnav-card-active.tabSelected:hover {
+    border-bottom-color: transparent;
+}
+.nds-subnav__wrapper .np-subnav-card-active .cardValues h2 {
+    font-size: 10px;
+}
+.nds-subnav__wrapper .np-subnav-card-active .cardValues h2:first-child {
+    font-size: 16px;
+    padding-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 17px;
+    height: 36px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-subnav-card-active.tabSelected .cardValues h2:first-child {
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 17px;
+    height: 36px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-custom-svg {
+    pointer-events: none;
+    height: 60px;
+}
+.nds-subnav__wrapper .np-subnav-card-active object svg {
+    fill: #0070d2;
+}
+.nds-subnav__wrapper .np-subnav-card-active h2.hidSmall {
+    line-height: 24px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.nds-subnav__wrapper .np-subnav-card-active .card-top {
+    text-align: center;
+}
+.nds-subnav__wrapper .np-subnav-card-active .card-top .card-image {
+    display: flex;
+    justify-content: center;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover {
+    display: none;
+    position: absolute;
+    left: 0;
+    border-radius: inherit;
+    top: 100%;
+    width: 400px;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info {
+    clear: both;
+    padding: 5px 20px;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.details {
+    float: left;
+    padding: 10px 5px 0px 0px;
+    width: 48%;
+   /* fallback */
+    width: calc(100% - 150px);
+    cursor: pointer;
+    word-wrap: break-word;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.details li {
+    margin-bottom: 16px;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.details li:last-of-type {
+    margin: 0;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.details span {
+    display: block;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.details span.detail-label {
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.details span.value {
+    text-transform: none;
+    color: #757c8c;
+    font-size: 14px;
+    font-weight: 300;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions {
+    float: right;
+    width: 150px;
+    word-wrap: break-word;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions a {
+    display: table;
+    width: 100%;
+    height: 53px;
+    border-bottom: 2px solid rgba(231, 236, 243, 0.54);
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions a img {
+    width: 29px;
+    height: 29px;
+    margin: 5px 9px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.nds-subnav__wrapper .nds-subnav__image img{
+    pointer-events: none;
+    height: 3.75rem;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions a i.icon {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 25px;
+    line-height: 34px;
+    color: #0070d2;
+    width: 40px;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions a i.icon:before {
+    font-weight: 100;
+    line-height: 34px;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions a span {
+    font-size: 12px;
+    line-height: 1;
+    display: table-cell;
+    vertical-align: middle;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions a:hover {
+    text-decoration: none;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions a:hover i.icon {
+    color: #0070d2;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions a:hover span {
+    color: #0070d2;
+}
+.nds-subnav__wrapper .np-subnav-card-active .np-submenu--hover .card-info ul.actions li:last-of-type a {
+    border: none;
+}
+.nds-subnav__wrapper .np-subnav-card-active:hover {
+    border-bottom: 3px solid #0070d2;
+}
+.nds-subnav__wrapper .np-subnav-card-active:hover .np-submenu--hover {
+    display: none;
+}
+/*subnav.css*/
+
+.nds-subnav__theme {
+    position: relative;
+    width: 100%;
+    height: 173px;
+    text-decoration: none;
+    max-width: 140px;
+    max-width: 150px;
+}
