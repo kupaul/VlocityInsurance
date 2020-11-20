@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__MedicationFrequencyCheck</fullName>
+    <active>true</active>
+    <description>This rule checks if the Frequency (Other) field is also set, if the Frequency field has been set to &apos;other&apos;.</description>
+    <errorConditionFormula>AND((ISPICKVAL(vlocity_ins__Frequency__c , &quot;other&quot;)), ISBLANK(vlocity_ins__FrequencyOther__c))</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__FrequencyOther__c</errorDisplayField>
+    <errorMessage>Frequency (Other) must not be empty, if the Frequency chosen is &apos;other&apos;.</errorMessage>
+</ValidationRule>

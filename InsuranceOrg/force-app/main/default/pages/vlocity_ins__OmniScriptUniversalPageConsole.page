@@ -1,0 +1,22 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" controller="vlocity_ins.VFPageControllerBase" 
+           language="{!$CurrentPage.parameters.LanguageCode}">
+    <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
+            <style>
+             .vlc-slds-bpTree-step-chart__container{
+                 background: #fff;
+             }
+
+             .via-slds ul.vlc-slds-knowledge-item .vlc-slds-knowledge-list-item .vlc-slds-control-action__container > p[ng-click]{
+                 width: 60%;
+                 max-width: 60%;
+             }
+            </style>
+        </head>
+        <body>
+            <apex:includeScript value="/support/console/42.0/integration.js"/>
+            <c:OmniScriptUniversalComponent />
+        </body>
+   </html>
+</apex:page>

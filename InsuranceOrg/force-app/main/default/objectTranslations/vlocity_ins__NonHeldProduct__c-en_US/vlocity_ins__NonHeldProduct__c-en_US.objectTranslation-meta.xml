@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <label><!-- Malpractice --></label>
+        <name>vlocity_ins__Malpractice</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Other --></label>
+        <name>vlocity_ins__Other</name>
+    </recordTypes>
+</CustomObjectTranslation>

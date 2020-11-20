@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Billing Frequency --></label>
+    <name>vlocity_ins__BillingFrequency__c</name>
+    <picklistValues>
+        <masterLabel>Annually</masterLabel>
+        <translation><!-- Annually --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Monthly</masterLabel>
+        <translation><!-- Monthly --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quarterly</masterLabel>
+        <translation><!-- Quarterly --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Semi-Monthly</masterLabel>
+        <translation><!-- Semi-Monthly --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

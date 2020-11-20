@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AppliesTo__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Identifies to what the price, charge or adjustment will be applied: to a specific asset, to multiple assets, to a contract or to an account.</description>
+    <externalId>false</externalId>
+    <label>Applies To</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Account</fullName>
+                <default>false</default>
+                <label>Account</label>
+            </value>
+            <value>
+                <fullName>Asset</fullName>
+                <default>false</default>
+                <label>Asset</label>
+            </value>
+            <value>
+                <fullName>Multiple Assets</fullName>
+                <default>false</default>
+                <label>Multiple Assets</label>
+            </value>
+            <value>
+                <fullName>Contract</fullName>
+                <default>false</default>
+                <label>Contract</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

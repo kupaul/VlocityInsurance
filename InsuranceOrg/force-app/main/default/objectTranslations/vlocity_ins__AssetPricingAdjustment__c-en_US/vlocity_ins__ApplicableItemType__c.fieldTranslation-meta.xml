@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Applicable Item Type --></label>
+    <name>vlocity_ins__ApplicableItemType__c</name>
+    <picklistValues>
+        <masterLabel>Coverage</masterLabel>
+        <translation><!-- Coverage --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Insured Item</masterLabel>
+        <translation><!-- Insured Item --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Party Relationship</masterLabel>
+        <translation><!-- Party Relationship --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

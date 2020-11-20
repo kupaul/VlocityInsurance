@@ -1,0 +1,48 @@
+{
+  "name": "vlocityomnioutlwc",
+  "description": "Vlocity OmniOut for LWC",
+  "version": "890.225.0",
+  "author": "Vlocity, Inc.",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "dependencies": {
+    "@salesforce-ux/design-system": "2.11.6",
+    "compression": "1.7.4",
+    "dotenv-webpack": "1.7.0",
+    "express": "4.17.1",
+    "helmet": "3.21.3",
+    "jsforce": "1.9.3",
+    "navigo": "7.1.2",
+    "@vlocity-ins/oui": "890.225.0",
+    "@vlocity-ins/sdk": "890.225.0",
+    "@vlocity-ins/resources": "890.225.0",
+    "@vlocity-ins/core": "890.225.0",
+    "@vlocity-ins/components": "890.225.0",
+    "@vlocity-ins/calc": "890.225.0",
+    "@vlocity-ins/rm": "890.225.0"
+  },
+  "devDependencies": {
+    "eslint": "6.8.0",
+    "husky": "4.2.3",
+    "lint-staged": "10.0.8",
+    "lwc-services": "2.0.0",
+    "prettier": "1.19.1"
+  },
+  "engines": {
+    "node": ">=10.13.0",
+    "npm": ">=6.4.1",
+    "yarn": ">=1.9.4"
+  },
+  "scripts": {
+    "build": "lwc-services build -m production -w scripts/webpack.config.js",
+    "build:development": "lwc-services build -w scripts/webpack.config.js",
+    "lint": "eslint ./src/**/*.js",
+    "prettier": "prettier --write \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
+    "prettier:verify": "prettier --list-different \"**/*.{css,html,js,json,md,ts,yaml,yml}\"",
+    "serve": "node scripts/server.js",
+    "test:unit": "lwc-services test:unit",
+    "test:unit:coverage": "lwc-services test:unit --coverage",
+    "test:unit:debug": "lwc-services test:unit --debug",
+    "test:unit:watch": "lwc-services test:unit --watch",
+    "watch": "lwc-services watch -w scripts/webpack.config.js"
+  }
+}

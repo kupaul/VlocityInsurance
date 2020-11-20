@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Specialty Type --></label>
+    <name>vlocity_ins__SpecialtyType__c</name>
+    <picklistValues>
+        <masterLabel>Adult Intensivist</masterLabel>
+        <translation><!-- Adult Intensivist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Allergy</masterLabel>
+        <translation><!-- Allergy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Anesthesia</masterLabel>
+        <translation><!-- Anesthesia --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bariatric Medicine / Surgery</masterLabel>
+        <translation><!-- Bariatric Medicine / Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Burn / Trauma</masterLabel>
+        <translation><!-- Burn / Trauma --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cardiac Catheterization</masterLabel>
+        <translation><!-- Cardiac Catheterization --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cardiology</masterLabel>
+        <translation><!-- Cardiology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cardiovascular Surgery</masterLabel>
+        <translation><!-- Cardiovascular Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Colorectal Surgery</masterLabel>
+        <translation><!-- Colorectal Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dentistry</masterLabel>
+        <translation><!-- Dentistry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dermatology</masterLabel>
+        <translation><!-- Dermatology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Electrophysiology</masterLabel>
+        <translation><!-- Electrophysiology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Emergency Medicine</masterLabel>
+        <translation><!-- Emergency Medicine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Endocrinology</masterLabel>
+        <translation><!-- Endocrinology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Family Practice</masterLabel>
+        <translation><!-- Family Practice --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gastroenterology</masterLabel>
+        <translation><!-- Gastroenterology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>General Surgery</masterLabel>
+        <translation><!-- General Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Geriatrics</masterLabel>
+        <translation><!-- Geriatrics --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gynecologic Oncology</masterLabel>
+        <translation><!-- Gynecologic Oncology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hematology Oncology</masterLabel>
+        <translation><!-- Hematology Oncology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hepatobiliary</masterLabel>
+        <translation><!-- Hepatobiliary --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hospitalist</masterLabel>
+        <translation><!-- Hospitalist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Infectious Disease</masterLabel>
+        <translation><!-- Infectious Disease --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Internal Medicine</masterLabel>
+        <translation><!-- Internal Medicine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Interventional Radiology</masterLabel>
+        <translation><!-- Interventional Radiology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medical Genetics</masterLabel>
+        <translation><!-- Medical Genetics --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Neonatology</masterLabel>
+        <translation><!-- Neonatology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nephrology</masterLabel>
+        <translation><!-- Nephrology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Neurology</masterLabel>
+        <translation><!-- Neurology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Neuroradiology</masterLabel>
+        <translation><!-- Neuroradiology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Neurosurgery</masterLabel>
+        <translation><!-- Neurosurgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nuclear Medicine</masterLabel>
+        <translation><!-- Nuclear Medicine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Obstetrics &amp; Gynecology</masterLabel>
+        <translation><!-- Obstetrics &amp; Gynecology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Occupational Medicine</masterLabel>
+        <translation><!-- Occupational Medicine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ophthalmology</masterLabel>
+        <translation><!-- Ophthalmology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Optometry</masterLabel>
+        <translation><!-- Optometry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Oral Surgery</masterLabel>
+        <translation><!-- Oral Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Orthopedics</masterLabel>
+        <translation><!-- Orthopedics --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Otolaryngology / Head &amp; Neck Surgery</masterLabel>
+        <translation><!-- Otolaryngology / Head &amp; Neck Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pain Management</masterLabel>
+        <translation><!-- Pain Management --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Palliative Care</masterLabel>
+        <translation><!-- Palliative Care --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pathology Surgical &amp; Anatomic</masterLabel>
+        <translation><!-- Pathology Surgical &amp; Anatomic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pediatric Intensivist</masterLabel>
+        <translation><!-- Pediatric Intensivist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pediatric Surgery</masterLabel>
+        <translation><!-- Pediatric Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pediatrics</masterLabel>
+        <translation><!-- Pediatrics --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Plastic &amp; Reconstructive Surgery</masterLabel>
+        <translation><!-- Plastic &amp; Reconstructive Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Podiatric Surgery</masterLabel>
+        <translation><!-- Podiatric Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Psychiatry</masterLabel>
+        <translation><!-- Psychiatry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pulmonary Medicine</masterLabel>
+        <translation><!-- Pulmonary Medicine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Radiation Oncology</masterLabel>
+        <translation><!-- Radiation Oncology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Radiology</masterLabel>
+        <translation><!-- Radiology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rheumatology</masterLabel>
+        <translation><!-- Rheumatology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Surgical Oncology</masterLabel>
+        <translation><!-- Surgical Oncology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Thoracic Surgery</masterLabel>
+        <translation><!-- Thoracic Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Transplant Surgery</masterLabel>
+        <translation><!-- Transplant Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Urology</masterLabel>
+        <translation><!-- Urology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vascular Surgery</masterLabel>
+        <translation><!-- Vascular Surgery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wound Care</masterLabel>
+        <translation><!-- Wound Care --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

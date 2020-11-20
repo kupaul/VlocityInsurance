@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Animal --></label>
+        <name>vlocity_ins__Animal</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Business Operation --></label>
+        <name>vlocity_ins__BusinessOperation</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Crop --></label>
+        <name>vlocity_ins__Crop</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- ImageType --></label>
+        <name>vlocity_ins__ImageType</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Livestock --></label>
+        <name>vlocity_ins__Livestock</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- People --></label>
+        <name>vlocity_ins__People</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Property --></label>
+        <name>vlocity_ins__Property</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Vehicles --></label>
+        <name>vlocity_ins__Vehicles</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Watercraft --></label>
+        <name>vlocity_ins__Watercraft</name>
+    </fieldSets>
+    <recordTypes>
+        <label><!-- Animal --></label>
+        <name>vlocity_ins__Animal</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Business Operation --></label>
+        <name>vlocity_ins__BusinessOperation</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Crop --></label>
+        <name>vlocity_ins__Crop</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Livestock --></label>
+        <name>vlocity_ins__Livestock</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- People --></label>
+        <name>vlocity_ins__People</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Property --></label>
+        <name>vlocity_ins__Property</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Vehicles --></label>
+        <name>vlocity_ins__Vehicles</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Watercraft --></label>
+        <name>vlocity_ins__Watercraft</name>
+    </recordTypes>
+</CustomObjectTranslation>

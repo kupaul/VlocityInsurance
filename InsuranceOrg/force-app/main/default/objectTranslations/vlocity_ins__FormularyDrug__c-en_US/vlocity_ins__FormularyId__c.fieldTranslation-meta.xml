@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- A link to the related Formulary, allowing for a Drug to be linked to one or more Formulary. --></help>
+    <label><!-- Formulary --></label>
+    <name>vlocity_ins__FormularyId__c</name>
+    <relationshipLabel><!-- Formulary Drugs --></relationshipLabel>
+</CustomFieldTranslation>

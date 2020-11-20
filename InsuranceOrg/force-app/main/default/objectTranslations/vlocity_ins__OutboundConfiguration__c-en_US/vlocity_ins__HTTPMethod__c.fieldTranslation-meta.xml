@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- HTTP Method --></label>
+    <name>vlocity_ins__HTTPMethod__c</name>
+    <picklistValues>
+        <masterLabel>DELETE</masterLabel>
+        <translation><!-- DELETE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GET</masterLabel>
+        <translation><!-- GET --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HEAD</masterLabel>
+        <translation><!-- HEAD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>POST</masterLabel>
+        <translation><!-- POST --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PUT</masterLabel>
+        <translation><!-- PUT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TRACE</masterLabel>
+        <translation><!-- TRACE --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

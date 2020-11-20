@@ -1,0 +1,535 @@
+<apex:page showHeader="true" sidebar="true" controller="vlocity_ins.XOMSyncDeltaControllerExtension" standardStylesheets="false" docType="html-5.0" title="{!$Label.vlocity_ins__xomcatalogsynchronisation}">
+	<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org" ng-app="deltaSync">
+        <head>
+          <base href="/"/>
+          <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+
+          <!-- additional css for new UI -->
+          <style>
+            .slds-dl--horizontal__label {
+              width: 50% !important;
+            }
+            .slds-dl--horizontal__detail {
+              width: 50% !important;
+            }
+            .slds-badge_inverse {
+              display: inline-block;
+              padding: 2px 8px;
+              border-radius: 20px;
+              margin-top: 4px;
+            }
+            .slds-badge_inverse.error {
+              background: #c23934;
+            }
+            .slds-badge_inverse.success {
+              background: #04844b;
+            }
+            .slds-progress-bar__value.animate {
+              -webkit-transition: width .8s ease-in-out;
+              transition: width .8s ease-in-out
+            }
+          </style>
+
+          <script type="text/javascript" src="{!URLFOR($Resource.JQUERYJS)}"></script>
+          <script type="text/javascript" src="/support/console/31.0/integration.js"></script>
+          <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/vlocity.js')}"></script>
+          <script type="text/javascript" src="{!URLFOR($Resource.SldsAngular)}"></script>
+          <script type="text/javascript" src="{!URLFOR($Resource.XomThorIntegration)}"></script>
+
+          <script>
+            function disableBack() {
+            	if(document.referrer.indexOf('salesforce')!=-1){
+            		window.history.forward();
+            	}
+            };
+
+            window.onload = disableBack();
+                
+            var app = angular.module('deltaSync', ["vlocity", "ngSanitize", 'thorIntegration']);
+
+            app.config(['remoteActionsProvider', function(remoteActionsProvider) {
+              remoteActionsProvider.setRemoteActions({
+                forceStartCatalogSyncBatchJob: "{!$RemoteAction.XOMSyncDeltaControllerExtension.forceStartCatalogSyncBatchJob}",
+                getJobStatus: "{!$RemoteAction.XOMSyncDeltaControllerExtension.getJobStatus}",
+                getNumberOfBatches: "{!$RemoteAction.XOMSyncDeltaControllerExtension.getNumberOfBatches}",
+                getBatch: {action: "{!$RemoteAction.XOMSyncDeltaControllerExtension.getBatch}", config: {escape: false}},
+                commitBatch: "{!$RemoteAction.XOMSyncDeltaControllerExtension.commitBatch}"
+              });
+            }]);
+
+            var urlBase = '{!JSENCODE(thorSyncUrl)}';
+
+            var uiServicesUrl = '{!JSENCODE(uiServicesUrl)}';
+
+            var localUrl = '{!JSENCODE($CurrentPage.parameters.localUrl)}';
+
+            if (localUrl)
+            {
+              // Override with local URL
+              uiServicesUrl = localUrl;
+              urlBase = localUrl;
+            }
+
+            app.service('deltaSyncService', ['$http', function ($http) {
+
+                this.syncDelta = function (delta) {
+                    return $http.post(urlBase, delta, {withCredentials: true});
+                };
+
+                this.ping = function (delta) {
+                    return $http.head(urlBase, {withCredentials: true});
+                };
+
+            }]);
+
+            app.controller ('myController', function ($scope, $timeout, remoteActions, thorIntegrationService, deltaSyncService) {
+
+                $scope.syncDeltasPerBatch = '{!catalogSyncEventBatchSize}';
+                $scope.isQueueingEnabled = '{!isQueueingEnabled}';
+
+
+                function reset() {
+                  $scope.syncEnabled = false;
+                  $scope.syncDeltas = '-';
+                  $scope.completedDate = '-';
+                  $scope.completedTime = '-';
+                  $scope.createdDate = '-';
+                  $scope.createdTime = '-';
+                  $scope.jobStatus = {
+                    Status: '-',
+                    JobItemsProcessed: '-',
+                    TotalJobItems:  '-'
+                  };
+                  $scope.alertTheme = 'info';
+                  $scope.alertText = 'Please wait';
+                  $scope.infoText = 'Please wait';
+                  $scope.percentComplete = '0';
+                  
+                }
+
+                reset();
+
+                function updateJobDetails() {
+                  console.log('updating job details');
+
+                  remoteActions.getJobStatus().then(function(response) {
+                    console.log('force null', response);
+                    if(response) {
+
+                      $scope.jobStatus = response;
+                  
+                      //prettify epoch dates
+                      if($scope.jobStatus.CompletedDate) {
+                        var d = new Date($scope.jobStatus.CompletedDate);
+                        $scope.completedDate = d.toLocaleDateString();
+                        $scope.completedTime = d.toLocaleTimeString();
+                      } else {
+                        $scope.completedDate = '-';
+                        $scope.completedTime = '';
+                      }
+                      if($scope.jobStatus.CreatedDate) {
+                        var d = new Date($scope.jobStatus.CreatedDate);
+                        $scope.createdDate = d.toLocaleDateString();
+                        $scope.createdTime = d.toLocaleTimeString();
+                      }
+
+                      // percent complete texts
+                      if($scope.jobStatus.TotalJobItems) { // divide by zero check
+                        var percentComplete = Math.floor(($scope.jobStatus.JobItemsProcessed / $scope.jobStatus.TotalJobItems) * 100);
+                        $scope.percentComplete = percentComplete;
+                      } else {
+                        $scope.percentComplete = 100;
+                      }
+
+                      // alert message
+                      if($scope.jobStatus.Status == 'Completed') {
+                        $scope.alertTheme = 'success';
+                        $scope.alertText = 'Catalog Sync Job has completed'
+                      } else if ($scope.jobStatus.Status == 'Failed') {
+                        $scope.alertTheme = 'error';
+                        $scope.alertText = 'Catalog Sync Job has failed'
+                      } else if ($scope.jobStatus.Status == 'Aborted') {
+                        $scope.alertTheme = 'error';
+                        $scope.alertText = 'Catalog Sync Job was aborted'
+                      } else {
+                        $scope.alertTheme = 'warning';
+                        $scope.alertText = 'Catalog Sync Job is running'
+                      }
+                      
+                      var callInterval;
+
+                      // generate informative text
+                      if($scope.jobStatus.Status == 'Completed' ||
+                        $scope.jobStatus.Status == 'Failed' ||
+                        $scope.jobStatus.Status == 'Aborted') {
+                        $scope.infoText = 'Processed ';
+                        $scope.isJobRunning = false;
+                        $scope.syncEnabled = true;
+                        callInterval = 120000; // set 2 minutes interval
+                      } else {
+                        $scope.infoText = 'Processing ';
+                        $scope.isJobRunning = true;
+                        $scope.syncEnabled = false;
+                        callInterval = 500; // set 500 ms interval
+                      }
+
+                      // call the function again after interval
+                      $scope.infoText += $scope.jobStatus.JobItemsProcessed +
+                        ' of ' + $scope.jobStatus.TotalJobItems + ' batches';
+
+                      if(callInterval) {
+                        setTimeout(updateJobDetails, callInterval);
+                      }
+
+                    } else {
+
+                        reset();
+                        $scope.alertTheme = 'info';
+                        $scope.alertText = 'We couldn\'t find the last Catalog Sync Job'
+                        $scope.infoText = 'Completed jobs are removed seven days after completion. See Setup > Apex Jobs';
+                        $scope.jobStatus = {
+                          Status: 'Not found',
+                          JobItemsProcessed: '-',
+                          TotalJobItems:  '-'
+                        }
+                        $scope.syncEnabled = true;  
+                    }
+
+                  });
+                  
+                }
+
+                function retrieveNumberOfDeltas() {
+                    console.log('retreiving number of sync deltas');
+
+                    remoteActions.getNumberOfBatches($scope.syncDeltasPerBatch).then(function(response) {                    
+                      $scope.syncDeltas = response.totalSize;
+
+                      if($scope.syncDeltas && !$scope.isJobRunning) {
+                        $scope.syncEnabled = true;
+                      }
+
+                      // call this function again after 2mins
+                      setTimeout(retrieveNumberOfDeltas, 120000);
+                    });
+
+                }
+
+                // run our methods
+                updateJobDetails();
+                retrieveNumberOfDeltas();
+
+                $scope.startCatalogSyncBatchJob = function startCatalogSyncBatchJob()
+                {
+                    $scope.isJobRunning = true;
+                    reset();
+
+                    remoteActions.forceStartCatalogSyncBatchJob()
+                      .then(function(jobId) {
+                        console.log('Catalog Synchronization Batch Job Started. Job Id: ', jobId);
+                        updateJobDetails();
+                      }).catch(function(err) {
+                        console.error('Error occurred on starting catalog batch job', err);
+                        $scope.isJobRunning = false;
+                      });
+
+                }
+
+                // END OF JS FOR NEW UI
+
+                function syncBatch() {
+                  $scope.syncEnabled = false;
+
+                  $scope.alertMessage = {
+                      "showAlert" : false,
+                      "type" : "info"
+                  };
+                  $scope.syncFlag = true;
+
+                  thorIntegrationService.retryOperationInCaseAuthenticationError(
+                        function() {
+                          return deltaSyncService.ping().then(function()
+                          {
+                            syncBatchInternal();
+                          });
+                        },
+
+                        uiServicesUrl,null,function(response) {
+                          if (response.status == 401) {
+                              $scope.alertMessage = {
+                                "heading" : 'Authentication is in progress...',
+                                "message" : '',
+                                "type" : 'warning',
+                                "showAlert" : true
+                          }
+                        }
+                      }                     
+                  ).catch(function(err)
+                  {
+                    $scope.alertMessage = {
+                      "heading" : 'Connection Error',
+                      "message" : 'The Sync has failed due to system issues. ' +
+                          'Please contact Vlocity Support for assistance. Error: ' + err.message,
+                      "type" : 'error',
+                      "showAlert" : true
+                    }
+                  });
+                }
+
+                function syncBatchInternal() {
+                    $scope.syncEnabled = false;
+
+                    if (nextSyncShouldReset) {
+                      retrieveNumberOfDeltas(function() {
+                            nextSyncShouldReset = false;
+                            syncBatch();
+                        });
+
+                        return;
+                    }
+
+                    remoteActions.getBatch($scope.syncDeltasPerBatch).then(function(batchJson) {
+
+                        if (batchJson.length) {
+                            console.log('batchJson', batchJson);
+
+                            deltaSyncService.syncDelta(batchJson)
+                                .then(
+                                    function() {
+
+                                      var syncedIds = [];
+
+                                      for (var i=0; i<batchJson.length; i++) {
+                                        syncedIds.push(batchJson[i].Id);
+                                      }
+
+                                      console.log('Committing ' + syncedIds);
+
+                                      remoteActions.commitBatch(syncedIds).then(function() {
+
+                                        $scope.batches[$scope.currentBatch++].completed = true;
+
+                                        if ($scope.currentBatch < $scope.batches.length) {
+                                            $scope.batches[$scope.currentBatch].current = true;
+                                            $scope.progress = Math.floor($scope.currentBatch/$scope.batches.length);
+                                            syncBatch();
+                                        } else {
+                                          console.log('Finishing');
+                                          retrieveNumberOfDeltas(function() {
+                                            nextSyncShouldReset = true;
+                                          });
+                                        }
+
+                                      });
+                                    }, function(err) {
+                                        console.log('err', err);
+                                        if(err.data) {
+                                            $scope.alertMessage = {
+                                                "heading" : (err.data.customMessage ? err.data.customMessage : err.data.error),
+                                                "message" : err.data.message,
+                                                "type" : 'error',
+                                                "showAlert" : true
+                                            }
+                                        }else {
+                                            $scope.alertMessage = {
+                                            "heading" : 'Connection Error',
+                                            "message" : 'The Sync has failed due to system issues. \n' +
+                                                'Please contact Vlocity Support for assistance. Error: ' + err.message,
+                                            "type" : 'error',
+                                            "showAlert" : true
+                                          }
+                                        }
+                                        $scope.batches[$scope.currentBatch].error = true;
+                                        nextSyncShouldReset = true;
+                                    });
+                        } else {
+                            // We finish
+                            // But still need to tick the last one
+                            retrieveNumberOfDeltas(function() {
+                              $scope.batches[$scope.currentBatch++].completed = true;
+                              nextSyncShouldReset = true;
+                            });
+                        }
+                    });
+
+                }
+
+                $scope.syncBatch = syncBatch;
+
+                $scope.isReturnEnabled = function()
+                {
+                    if(document.referrer.indexOf('salesforce')==-1)
+                    {
+                        return true;
+                    }
+                    return false;
+                };
+                
+                $scope.backToAdminDashboard = function () {
+                    history.back();
+                };
+                
+            });
+
+          </script>
+
+        </head>
+        <apex:slds />
+        <body class="ng-cloak slds-scope" ng-controller="myController" ng-init="">
+        
+          <!-- START OF NEW UI -->
+          <div class="slds-panel">
+            <div class="slds-panel__section">
+              <div class="slds-text-heading_large slds-m-top_medium">
+                Catalog Synchronization
+              </div>
+              <br/>
+  
+              <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_2-of-3">
+                    <div class="slds-box slds-m-right_medium">
+    
+                        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_{{alertTheme}} slds-m-bottom_medium" role="alert">
+                          <span class="slds-icon_container slds-icon-utility-info slds-m-right_x-small">
+                            <svg class="slds-icon slds-icon_x-small" aria-hidden="true">
+                              <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+                            </svg>
+                          </span>
+                          <h2>{{alertText}}
+                          </h2>
+                        </div>
+    
+                        <div>
+                          <div class="slds-grid slds-grid_align-spread slds-p-bottom_x-small" id="progress-bar-label-id-6">
+                            <span>{{infoText}}</span>
+                            <span aria-hidden="true">
+                              <strong>{{percentComplete}}%</strong>
+                            </span>
+                          </div>
+                          <div class="slds-progress-bar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25" aria-labelledby="progress-bar-label-id-6" role="progressbar">
+                            <span class="slds-progress-bar__value" ng-class="isJobRunning ? 'animate' : ''" style="width:{{percentComplete}}%">
+                            </span>
+                          </div>
+                        </div>
+            
+                        <hr/>
+
+                        <div class="slds-form-element">
+                          <button ng-if="!isQueueingEnabled" ng-disabled="!syncEnabled" type="button" class="slds-button slds-button--brand"
+                            ng-click="syncBatch()">
+                            Synchronize
+                          </button>
+                          <button ng-if="isQueueingEnabled" ng-disabled="!syncEnabled" type="button" class="slds-button slds-button--brand"
+                            ng-click="startCatalogSyncBatchJob()">
+                            <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
+                              <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#sync')}"></use>
+                            </svg>
+                            Start Sync Job
+                          </button>
+                          <button ng-if="isReturnEnabled()" type="button" class="slds-button slds-button--neutral" ng-click="backToAdminDashboard()">
+                            Back
+                          </button>
+
+                          <div class="slds-float_right">
+                            <p class="slds-truncate"><small><strong>Sync Deltas:</strong> {{syncDeltas}}</small></p>
+                            <p class="slds-truncate"><small><strong>Sync Deltas per batch:</strong> {{syncDeltasPerBatch}}</small></p>
+                          </div>
+
+                        </div>
+
+                      </div>
+                </div>
+  
+                <div class="slds-col slds-size_1-of-3">
+                    <div class="slds-popover slds-popover--panel slds-nubbin--left-top" role="dialog">
+                        <div class="slds-popover__header">
+                          <div class="slds-media slds-media--center slds-m-bottom--small">
+                            <div class="slds-media__figure">
+                              <span class="slds-icon__container slds-icon-utility-info">
+                                <svg aria-hidden="true" class="slds-icon slds-icon--large slds-icon-text-default">
+                                  <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+                                </svg>
+                                <span class="slds-assistive-text">Job Details</span>
+                              </span>
+                            </div>
+                            <div class="slds-media__body"><span class="slds-text-heading--medium">Job Details</span></div>
+                          </div>
+                          <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                            <div class="slds-col--padded slds-size--1-of-2 slds-p-bottom--x-small">
+                              <dl>
+                                <dt>
+                                  <p class="slds-text-heading--label slds-truncate">Status</p>
+                                </dt>
+                                <dd>
+                                  <p class="slds-truncate"><span class="slds-badge_inverse {{alertTheme}}">{{jobStatus.Status}}</span></p>
+                                </dd>
+                              </dl>
+                            </div>
+                            <div class="slds-col--padded slds-size--1-of-2 slds-p-bottom--x-small">
+                              <dl>
+                                <dt>
+                                  <p class="slds-text-heading--label slds-truncate">Last Complete</p>
+                                </dt>
+                                <dd>{{completedDate}}<br/>{{completedTime}}
+                                </dd>
+                              </dl>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="slds-popover__body">
+                          <dl class="slds-popover__body-list">
+                            <dt class="slds-m-bottom--small">
+                              <div class="slds-media slds-media--center">
+                                <div class="slds-media__figure">
+                                  <span class="slds-icon__container slds-icon-utility-summary">
+                                    <svg aria-hidden="true" class="slds-icon slds-icon--small slds-icon-text-default">
+                                      <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#summary')}"></use>
+                                    </svg>
+                                    <span class="slds-assistive-text">More Information</span>
+                                  </span>
+                                </div>
+                                <div class="slds-media__body">
+                                  <h3 class="slds-text-heading--small">More Information</h3>
+                                </div>
+                              </div>
+                            </dt>
+                            <dd class="slds-tile">
+                              <div class="slds-tile__detail">
+                                <dl class="slds-dl--horizontal slds-text-body--small">
+                                  <dt class="slds-dl--horizontal__label">
+                                    <p class="slds-truncate">Started</p>
+                                  </dt>
+                                  <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                                    <p class="slds-truncate">{{createdDate}}<br/>{{createdTime}}</p>
+                                  </dd>
+                                  <dt class="slds-dl--horizontal__label">
+                                    <p class="slds-truncate">Batches Processed</p>
+                                  </dt>
+                                  <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                                    <p class="slds-truncate">{{jobStatus.JobItemsProcessed}}</p>
+                                  </dd>
+                                  <dt class="slds-dl--horizontal__label">
+                                    <p class="slds-truncate">Total Batches</p>
+                                  </dt>
+                                  <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                                    <p class="slds-truncate">{{jobStatus.TotalJobItems}}</p>
+                                  </dd>
+                                </dl>
+                              </div>
+                            </dd>
+                            
+                          </dl>
+                          
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+            <!-- END OF NEW UI -->
+
+
+        </body>
+    </html>
+</apex:page>

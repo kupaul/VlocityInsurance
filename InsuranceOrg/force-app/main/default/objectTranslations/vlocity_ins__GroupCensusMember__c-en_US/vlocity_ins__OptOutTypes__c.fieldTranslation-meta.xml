@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Opt-out Types --></label>
+    <name>vlocity_ins__OptOutTypes__c</name>
+    <picklistValues>
+        <masterLabel>Dental</masterLabel>
+        <translation><!-- Dental --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medical</masterLabel>
+        <translation><!-- Medical --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medical Savings Account</masterLabel>
+        <translation><!-- Medical Savings Account --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vision</masterLabel>
+        <translation><!-- Vision --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Event Type --></label>
+    <name>vlocity_ins__EventType__c</name>
+    <picklistValues>
+        <masterLabel>Educational</masterLabel>
+        <translation><!-- Educational --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Enrollment</masterLabel>
+        <translation><!-- Enrollment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sales</masterLabel>
+        <translation><!-- Sales --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

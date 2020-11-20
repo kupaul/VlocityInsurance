@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AssetId__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The parent held product, such as a policy or financial account.</description>
+    <externalId>false</externalId>
+    <label>Held Product</label>
+    <referenceTo>Asset</referenceTo>
+    <relationshipLabel>Held Product Relationships</relationshipLabel>
+    <relationshipName>AssetPartyRels</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

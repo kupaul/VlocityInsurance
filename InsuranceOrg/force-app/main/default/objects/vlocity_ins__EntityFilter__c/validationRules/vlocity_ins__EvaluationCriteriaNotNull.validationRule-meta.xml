@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EvaluationCriteriaNotNull</fullName>
+    <active>true</active>
+    <description>Evaluation Criteria shouldn&apos;t be null if the filter is of type Evaluation</description>
+    <errorConditionFormula>ISPICKVAL(vlocity_ins__Type__c, &apos;Evaluation&apos;) &amp;&amp;   (ISPICKVAL(vlocity_ins__EvaluationCriteria__c, &apos;&apos;))</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__EvaluationCriteria__c</errorDisplayField>
+    <errorMessage>Please select a valid type for this Entity Filter.</errorMessage>
+</ValidationRule>

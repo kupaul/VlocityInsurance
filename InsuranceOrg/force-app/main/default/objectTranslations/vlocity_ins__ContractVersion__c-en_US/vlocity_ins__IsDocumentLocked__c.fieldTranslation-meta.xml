@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Is Document Locked --></label>
+    <name>vlocity_ins__IsDocumentLocked__c</name>
+</CustomFieldTranslation>

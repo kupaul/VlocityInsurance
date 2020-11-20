@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DocumentCreationSource__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicates how the document version was created</description>
+    <externalId>false</externalId>
+    <label>Document Creation Source</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Customize</fullName>
+                <default>false</default>
+                <label>Customize</label>
+            </value>
+            <value>
+                <fullName>Generate</fullName>
+                <default>true</default>
+                <label>Generate</label>
+            </value>
+            <value>
+                <fullName>Import</fullName>
+                <default>false</default>
+                <label>Import</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

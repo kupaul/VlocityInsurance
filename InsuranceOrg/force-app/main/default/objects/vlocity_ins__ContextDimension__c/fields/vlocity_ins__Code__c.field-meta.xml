@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Code__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A unique identifier of the context dimension. This value is used in custom expressions, so use a unique but meaningful code value that is easy to read in custom expressions. Note: You cannot use spaces in a context dimension code due to rules parsing engine requirements.</description>
+    <externalId>true</externalId>
+    <label>Code</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

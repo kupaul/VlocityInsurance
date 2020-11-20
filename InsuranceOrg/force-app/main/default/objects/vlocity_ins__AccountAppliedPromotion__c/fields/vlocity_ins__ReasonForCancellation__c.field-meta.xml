@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ReasonForCancellation__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Text describing the reason why the customer canceled their participation in the promotion.</description>
+    <externalId>false</externalId>
+    <label>Reason for Cancellation</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

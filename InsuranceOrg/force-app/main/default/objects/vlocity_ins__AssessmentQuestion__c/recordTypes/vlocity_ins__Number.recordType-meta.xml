@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Number</fullName>
+    <active>true</active>
+    <label>Number</label>
+    <picklistValues>
+        <picklist>vlocity_ins__FreetextType__c</picklist>
+        <values>
+            <fullName>Long Text</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Short Text</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__QuestionType__c</picklist>
+        <values>
+            <fullName>Number</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__SelectType__c</picklist>
+        <values>
+            <fullName>Dropdown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Radio Button</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

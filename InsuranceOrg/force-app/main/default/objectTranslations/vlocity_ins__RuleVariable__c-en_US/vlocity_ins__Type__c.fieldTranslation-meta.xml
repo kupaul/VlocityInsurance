@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Id</masterLabel>
+        <translation><!-- Id --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>List&lt;Id&gt;</masterLabel>
+        <translation><!-- List&lt;Id&gt; --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>List&lt;Sobject&gt;</masterLabel>
+        <translation><!-- List&lt;Sobject&gt; --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>List&lt;String&gt;</masterLabel>
+        <translation><!-- List&lt;String&gt; --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sobject</masterLabel>
+        <translation><!-- Sobject --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>String</masterLabel>
+        <translation><!-- String --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

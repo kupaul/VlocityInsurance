@@ -1,0 +1,3 @@
+<apex:page standardController="vlocity_ins__Household__c" id="fapage">
+ <c:InsurancePolicyList showPartyName="true" />
+</apex:page>

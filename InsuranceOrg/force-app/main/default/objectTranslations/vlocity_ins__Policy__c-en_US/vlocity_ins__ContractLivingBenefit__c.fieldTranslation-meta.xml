@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Contract Living Benefit --></label>
+    <name>vlocity_ins__ContractLivingBenefit__c</name>
+    <picklistValues>
+        <masterLabel>COL Increase Benefit</masterLabel>
+        <translation><!-- COL Increase Benefit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Minimum Guaranteed Income</masterLabel>
+        <translation><!-- Minimum Guaranteed Income --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quaterly Ratchet</masterLabel>
+        <translation><!-- Quaterly Ratchet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Standard Benefit</masterLabel>
+        <translation><!-- Standard Benefit --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

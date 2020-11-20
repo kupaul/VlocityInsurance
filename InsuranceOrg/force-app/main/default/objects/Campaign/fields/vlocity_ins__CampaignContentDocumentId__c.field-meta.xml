@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CampaignContentDocumentId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the primary document (or other content) that is the subject of the campaign. Could be content being promoted in the campaign or a script to be used when talking to campaign targets. Points to the child Campaign Content Document (CampaignContentDocument__c) record that associates a Salesforce File with a Campaign.</description>
+    <externalId>false</externalId>
+    <label>Campaign Content Document</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>vlocity_ins__CampaignContentDocument__c.vlocity_ins__CampaignId__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Id</valueField>
+        </filterItems>
+        <filterItems>
+            <field>vlocity_ins__CampaignContentDocument__c.vlocity_ins__IsPrimary__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>vlocity_ins__CampaignContentDocument__c</referenceTo>
+    <relationshipLabel>Campaigns</relationshipLabel>
+    <relationshipName>Campaigns</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

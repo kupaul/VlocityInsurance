@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Console Admin Search --></label>
+        <name>vlocity_ins__ConsoleAdminSearch</name>
+    </fieldSets>
+    <validationRules>
+        <errorMessage><!-- Effective End Date should be greater than or equal to Effective Start Date. --></errorMessage>
+        <name>vlocity_ins__EffectiveStart_Greater_EffectiveEnd</name>
+    </validationRules>
+</CustomObjectTranslation>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Construction Type --></label>
+    <name>vlocity_ins__ConstructionType__c</name>
+    <picklistValues>
+        <masterLabel>Concrete Block</masterLabel>
+        <translation><!-- Concrete Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Metal Frame</masterLabel>
+        <translation><!-- Metal Frame --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other Noncombustible</masterLabel>
+        <translation><!-- Other Noncombustible --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Poured Concrete</masterLabel>
+        <translation><!-- Poured Concrete --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wood Frame</masterLabel>
+        <translation><!-- Wood Frame --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

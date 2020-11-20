@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>CPQ</fullName>
+        <default>false</default>
+        <label>CPQ</label>
+    </customValue>
+    <description>This picklist stores all possible domain for translation.</description>
+    <masterLabel>Vlocity Translation Domain</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

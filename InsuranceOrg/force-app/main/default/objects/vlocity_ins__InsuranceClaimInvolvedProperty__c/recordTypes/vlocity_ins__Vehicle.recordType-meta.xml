@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Vehicle</fullName>
+    <active>true</active>
+    <label>Vehicle</label>
+    <picklistValues>
+        <picklist>vlocity_ins__LocationType__c</picklist>
+        <values>
+            <fullName>Body Shop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incident Location</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Policyholder Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repair Shop</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Salvage Yard</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__PropertyType__c</picklist>
+        <values>
+            <fullName>Antique %2F Classic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Farm</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recreational</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__TotalReserveStatus__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ApprovedRollup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reverted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsPublished__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, indicates that the template is already published on Off-Platform Service</description>
+    <externalId>false</externalId>
+    <label>Is Published</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

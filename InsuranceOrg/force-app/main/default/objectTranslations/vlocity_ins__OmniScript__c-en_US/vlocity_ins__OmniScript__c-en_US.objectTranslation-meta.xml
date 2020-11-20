@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <webLinks>
+        <label><!-- ActivateVersion --></label>
+        <name>vlocity_ins__ActivateVersion</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- CreateVersion --></label>
+        <name>vlocity_ins__CreateVersion</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- DeactivateVersion --></label>
+        <name>vlocity_ins__DeactivateVersion</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Designer --></label>
+        <name>vlocity_ins__Designer</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- HorizontalModePreview --></label>
+        <name>vlocity_ins__HorizontalModePreview</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- ImportExportScripts --></label>
+        <name>vlocity_ins__ImportExportScripts</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Preview --></label>
+        <name>vlocity_ins__Preview</name>
+    </webLinks>
+</CustomObjectTranslation>

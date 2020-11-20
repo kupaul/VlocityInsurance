@@ -1,0 +1,220 @@
+<apex:page standardStylesheets="false" showHeader="true" sidebar="false" controller="vlocity_ins.ContractDocumentCreationController" tabStyle="Contract" docType="html-5.0">
+    <html xmlns:ng="http://angularjs.org" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <apex:includeScript value="/support/console/42.0/integration.js"/>
+        <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+        <apex:includeScript value="/xdomain/xdomain.js"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/jszip/jszip.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/jszip-utils.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/file-saver.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/build/docxtemplater.v3.5.0.min.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ContractDocumentCreationApp}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__deepmerge}"/>
+
+        <apex:includeScript value="{!$Resource.vlocity_ins__DocXContentTypes}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__cs_pdftron_documentgeneration}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/>
+        <apex:stylesheet value="{!$Resource.vlocity_ins__DocumentBaseCss}" />
+        <apex:stylesheet value="{!$Resource.vlocity_ins__ContractDocumentCreationCss}"/>
+        <!-- PDF.js -->
+        <apex:stylesheet value="{!$Resource.vlocity_ins__pdfViewerCss}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__pdfJS}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__pdfjsViewer}"/>
+
+
+        <!-- PDFTRON Libraries for salesforce side implementation-->
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cs_pdftron_lib, '/core/external/jquery-3.2.1.min.js')}"/>
+
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cs_pdftron_lib, '/core/CoreControls.js')}"/>
+        <!--<apex:includeScript value="{!URLFOR($Resource.cs_pdftron_lib, '/core/pdf/PDFNet.js')}"/>-->
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cs_pdftron_lib, '/webviewer.min.js')}"/>
+    </head>
+    <body>
+    <div class="vloc-body vlocity via-slds ng-cloak" ng-app="contractDocumentCreationApp" ng-controller="contractDocumentCreationCtrl" via-screen-height="viaScreenHeight" via-affix="top" style="min-height:1000px">
+        <div class="slds-spinner_container" ng-show="vlcLoading">
+            <div class="slds-spinner slds-spinner_brand slds-spinner_large" aria-hidden="false" role="status">
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+            _.noConflict();
+            var nameSpacePrefix, remoteActions, contractVersionId, parentId, sourceId, docName,documentTemplateId,autoAttachDoc, docType, containsRedlines, baseRequestUrl, inLightningExperience, labels;
+            window.sessionId = '{!$Api.Session_ID}';
+            nameSpacePrefix = '{!nameSpacePrefix}';
+            contractVersionId = '{!$CurrentPage.parameters.Id}';
+            parentId = '{!parentId}';
+            sourceId = '{!sourceId}';
+            docName = '{!JSENCODE(documentName)}';
+            docType = '{!JSENCODE(attachDocType)}';
+            containsRedlines = {!containsRedlines};
+            baseRequestUrl = '{!$Site.BaseRequestUrl}';
+            inLightningExperience = (['Theme4d', 'Theme4u'].indexOf('{!$User.UIThemeDisplayed}') > -1);
+            pdfGenerationSource = '{!JSENCODE(pdfGenerationSource)}';
+            pdfViewer = '{!JSENCODE(pdfViewer)}';
+            recordDeletionLimit = '{!recordDeletionLimit}';
+            templateType = '{!templateType}';
+            autoAttachDoc = '{!autoAttachDoc}';
+            documentTemplateId = '{!documentTemplateId}';
+            autoAttachDocType = '{!JSENCODE(autoAttachDocType)}';
+
+            Visualforce.remoting.timeout = 120000; // Set timeout at page level
+
+            labels = {
+                'allSectionSavedLabel':'{!$Label.ContractAllSectionSaved}',
+                'saveAllSectionLabel':'{!$Label.ContractSaveAllSections}',
+                'customizeReadyCheckInLabel':'{!$Label.ContractCustomizeReadyCheckIn}',
+                'cancelLabel':'{!$Label.Cancel}',
+                'yesCheckInLabel':'{!$Label.ContractYesCheckIn}',
+                'noCheckInLabel':'{!$Label.ContractNoCheckIn}',
+                'downloadDocRedlineLabel':'{!$Label.ContractDownloadDocRedlines}',
+                'yesDownloadLabel':'{!$Label.ContractYesDownload}',
+                'downloadPDFLabel':'{!$Label.ContractDownloadPDF}',
+                'downloadWordLabel':'{!$Label.ContractDownloadWord}',
+                'checkInDocLabel':'{!$Label.ContractCheckInDoc}',
+                'safariNoSupportLabel': '{!$Label.ContractSafariNoSupport}',
+                'clmContractDocWordDocRedlines':'{!$Label.CLMContractDocWordDocRedlines}',
+                'clmContractDocDownloadWord':'{!$Label.CLMContractDocDownloadWord}',
+                'clmContractDocPdfRedlines':'{!$Label.CLMContractDocPdfRedlines}',
+                'clmContractDocDownloadYes':'{!$Label.CLMContractDocDownloadYes}',
+                'clmContractDocCheckInDoc':'{!$Label.CLMContractDocCheckInDoc}',
+                'clmContractDocDownloadPDFDoc':'{!$Label.CLMContractDocDownloadPDFDoc}',
+                'clmContractDocDownloadWordDoc':'{!$Label.CLMContractDocDownloadWordDoc}',
+                'clmContractCustomizeDoc':'{!$Label.CLMContractCustomizeDoc}',
+                'clmReconcileDocViewDoc':'{!$Label.CLMReconcileDocViewDoc}',
+                'clmReconcileDocViewReconcileDetail':'{!$Label.CLMReconcileDocViewReconcileDetail}',
+                'CLMTemplateDownloadFile': '{!$label.CLMTemplateDownloadFile}',
+                'CLMTemplateViewFile': '{!$label.CLMTemplateViewFile}',
+                'CLMDocGenDownloadDoc':'{!$label.CLMDocGenDownloadDoc}',
+                'CLMDocGenDownloadPDF':'{!$label.CLMDocGenDownloadPDF}',
+                'CLMDocGenDownloadWord':'{!$label.CLMDocGenDownloadWord}',
+                'CLMDocGeneratingPDF':'{!$label.CLMDocGeneratingPDF}',
+                'VlocityPDFTronNoSystemUserMsg':'{!$label.VlocityPDFTronNoSystemUserMsg}',
+                'PdfGenerationWaitingMessage':'{!$label.PdfGenerationWaitingMessage}'
+            };
+            remoteActions = {
+                getContractSectionsForVersion: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getContractSectionsForVersion}',
+                    config: {escape: false}
+                },
+                getTemplateList: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getTemplateList}',
+                    config: {escape: false}
+                },
+                createContractSectionsforVersion: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.createContractSectionsforVersion}',
+                    config: {escape: false}
+                },
+                updateContractSections: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.updateContractSections}',
+                    config: {escape: false}
+                },
+                saveNewDocumentSections: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.saveNewDocumentSections}',
+                    config: {escape: false}
+                },
+                removeContractSections: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.removeContractSections}',
+                    config: {escape: false}
+                },
+                savePdf: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.savePdf}',
+                    config: {escape: false}
+                },
+                generatePdf: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.generatePdf}',
+                    config: {escape: false}
+                },
+                attachDocx: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.saveDocx}',
+                    config: {escape: false}
+                },
+                checkIn: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.checkIn}',
+                    config: {escape: false}
+                },
+                downloadDocx: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getContractVersionDocument}',
+                    config: {escape: false}
+                },
+                getClientSidePdfLibraries: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getClientSidePdfLibraries}',
+                    config: {escape: false}
+                },
+                getPDFIntegrationConfig: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getPDFIntegrationConfig}',
+                    config: {escape: false}
+                },
+                getDocxTemplate: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getDocTemplateForContractType}',
+                    config: {escape: false}
+                },
+                downloadPdf: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.downloadPdf}',
+                    config: {escape: false}
+                },
+                getTokenData: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getTokenData}',
+                    config: {escape: false}
+                },
+                linkContentVersionToContractVersion: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.linkContentVersionToContractVersion}',
+                    config: {escape: false}
+                },
+                linkContentVersionToContractVersionNew: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.linkContentVersionToContractVersionNew}',
+                    config: {escape: false}
+                },
+                unlinkContentVersionFromContractVersion: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.unlinkContentVersionFromContractVersion}',
+                    config: {escape: false}
+                },
+                checkInContentVersionForContractVersion: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.checkInContentVersionForContractVersion}',
+                    config: {escape: false}
+                },
+                invokeBatchJob: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.invokeBatchJob}',
+                    config: {escape: false}
+                },
+                getWMLData: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getWMLData}',
+                    config: {escape: false}
+                },
+                getDocumentType: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getDocumentType}',
+                    config: {escape: false}
+                },
+                deleteNotRequiredDocs: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.deleteNotRequiredDocs}',
+                    config: {escape: false}
+                },
+                removeContractSectionsByBatch: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.removeContractSectionsByBatch}',
+                    config: {escape: false}
+                },
+                getAutoAttachTemplateDetails:{
+                    action: '{!$RemoteAction.ContractDocumentCreationController.getAutoAttachTemplateDetails}',
+                    config: {escape: false}
+                },
+                resolveDocumentGenerationMethods: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.resolveDocumentGenerationMethods}',
+                    config: {escape: false}
+                },
+                checkinWithoutAttachment: {
+                    action: '{!$RemoteAction.ContractDocumentCreationController.checkinWithoutAttachment}',
+                    config: {escape: false}
+                }
+            };
+        </script>
+    </body>
+    </html>
+</apex:page>

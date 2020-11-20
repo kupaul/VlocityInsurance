@@ -1,0 +1,3 @@
+<apex:page standardController="vlocity_ins__FinancialSecurityPosition__c" extensions="vlocity_ins.PageControllerBase">
+    <c:EmbeddedURL standardController="{!stdController}" cusSetting="StockChartURL"/>
+</apex:page>

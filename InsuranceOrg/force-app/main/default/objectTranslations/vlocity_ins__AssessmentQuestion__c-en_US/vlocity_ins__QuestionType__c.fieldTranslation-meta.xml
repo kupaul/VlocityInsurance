@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Question Type --></label>
+    <name>vlocity_ins__QuestionType__c</name>
+    <picklistValues>
+        <masterLabel>Checkbox</masterLabel>
+        <translation><!-- Checkbox --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Date</masterLabel>
+        <translation><!-- Date --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Free-text</masterLabel>
+        <translation><!-- Free-text --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Instruction</masterLabel>
+        <translation><!-- Instruction --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multi-select</masterLabel>
+        <translation><!-- Multi-select --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Number</masterLabel>
+        <translation><!-- Number --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Question Table MultiSelect</masterLabel>
+        <translation><!-- Question Table MultiSelect --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Question Table Single Select</masterLabel>
+        <translation><!-- Question Table Single Select --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Single Select</masterLabel>
+        <translation><!-- Single Select --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

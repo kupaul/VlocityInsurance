@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Qualified Type --></label>
+    <name>vlocity_ins__QualifiedType__c</name>
+    <picklistValues>
+        <masterLabel>Non-Qualified</masterLabel>
+        <translation><!-- Non-Qualified --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Qualified</masterLabel>
+        <translation><!-- Qualified --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

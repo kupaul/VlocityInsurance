@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EducationType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Education Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Doctor of Medicine (MD)</fullName>
+                <default>false</default>
+                <label>Doctor of Medicine (MD)</label>
+            </value>
+            <value>
+                <fullName>Doctor of Physical Therapy (DPT)</fullName>
+                <default>false</default>
+                <label>Doctor of Physical Therapy (DPT)</label>
+            </value>
+            <value>
+                <fullName>Doctor of Osteopathic Medicine (DO)</fullName>
+                <default>false</default>
+                <label>Doctor of Osteopathic Medicine (DO)</label>
+            </value>
+            <value>
+                <fullName>Doctor of Optometry (OD)</fullName>
+                <default>false</default>
+                <label>Doctor of Optometry (OD)</label>
+            </value>
+            <value>
+                <fullName>Doctor of Dental Medicine (DMD)</fullName>
+                <default>false</default>
+                <label>Doctor of Dental Medicine (DMD)</label>
+            </value>
+            <value>
+                <fullName>Doctor of Dental Surgery (DDS)</fullName>
+                <default>false</default>
+                <label>Doctor of Dental Surgery (DDS)</label>
+            </value>
+            <value>
+                <fullName>Dental Hygiene (ASDH)</fullName>
+                <default>false</default>
+                <label>Dental Hygiene (ASDH)</label>
+            </value>
+            <value>
+                <fullName>Physician Assistant (PA)</fullName>
+                <default>false</default>
+                <label>Physician Assistant (PA)</label>
+            </value>
+            <value>
+                <fullName>Occupational Therapy (OT)</fullName>
+                <default>false</default>
+                <label>Occupational Therapy (OT)</label>
+            </value>
+            <value>
+                <fullName>Master of Science in Occupational Therapy (MSOT)</fullName>
+                <default>false</default>
+                <label>Master of Science in Occupational Therapy (MSOT)</label>
+            </value>
+            <value>
+                <fullName>Master of Social Work (MSW)</fullName>
+                <default>false</default>
+                <label>Master of Social Work (MSW)</label>
+            </value>
+            <value>
+                <fullName>Master of Public Health (MPH)</fullName>
+                <default>false</default>
+                <label>Master of Public Health (MPH)</label>
+            </value>
+            <value>
+                <fullName>Registered Nurse (RM)</fullName>
+                <default>false</default>
+                <label>Registered Nurse (RM)</label>
+            </value>
+            <value>
+                <fullName>Nurse Practioner (NP)</fullName>
+                <default>false</default>
+                <label>Nurse Practioner (NP)</label>
+            </value>
+            <value>
+                <fullName>Podiatric Medicine (DPM)</fullName>
+                <default>false</default>
+                <label>Podiatric Medicine (DPM)</label>
+            </value>
+            <value>
+                <fullName>Doctor of Chiropractic (DC)</fullName>
+                <default>false</default>
+                <label>Doctor of Chiropractic (DC)</label>
+            </value>
+            <value>
+                <fullName>Radiation Therapy (RT)</fullName>
+                <default>false</default>
+                <label>Radiation Therapy (RT)</label>
+            </value>
+            <value>
+                <fullName>Respiratory Therapy (RT)</fullName>
+                <default>false</default>
+                <label>Respiratory Therapy (RT)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

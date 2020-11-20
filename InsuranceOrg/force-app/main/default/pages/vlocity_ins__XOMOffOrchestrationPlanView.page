@@ -1,0 +1,133 @@
+<apex:page > 
+<!-- controller="XOMOffOrchestrationPlanController"> -->
+<html style="height:100%"  width="100" height="100">
+    <head>
+ 		<script type="text/javascript" src="/canvas/sdk/js/39.0/canvas-all.js"/>
+        <script type="text/javascript">
+        (function(global) {
+          var module = function() {
+
+            function subscribe(event) {
+              Sfdc.canvas.parent.subscribe(event)
+            }
+
+            function unsubscribe(event) {
+              Sfdc.canvas.parent.unsubscribe(event)
+            }
+
+            function publish(event) {
+              Sfdc.canvas.parent.publish(event)
+            }
+
+            function resize(size, target) {
+              Sfdc.canvas.parent.resize(size, target)
+            }
+            return{subscribe:subscribe, unsubscribe:unsubscribe, publish:publish, resize:resize}
+          }();
+
+          global.Sfdc = global.Sfdc || {};
+          global.Sfdc.canvas = global.Sfdc.canvas || {};
+          global.Sfdc.canvas.controller = module
+        })(this);
+        </script>
+
+        <script type="text/javascript">
+        function postPathChanged() { 
+        	var canvasPath = window.location.hash.substring(1);
+            console.log('VFparent: post navToPath: ' + canvasPath);
+            Sfdc.canvas.controller.publish(
+            {
+                name: 'navToPath', 
+                payload : {path : canvasPath}
+                }); 
+            console.log('VFparent: message is sent to navToPath: path = ' + canvasPath);
+         };
+         </script>
+
+         <script type="text/javascript">
+         // update Off-platform url on pathChanged event from XOM Offplatform
+            Sfdc.onReady(function() {  
+                console.log('VFparent: subscribed to a pathChanged events from Canvas App');
+                Sfdc.canvas.controller.subscribe(
+                    {
+                        name : 'pathChanged',
+                        onData : function (e) {
+	                        window.location.hash = e.path;
+                        }
+                    });
+
+                });
+		</script>
+
+		<script type="text/javascript">
+		   // re-trigger Sfdc.canvas onRender with anchor path after apex.canvas element is initialised
+          // this is the only way to pass anchor part of the VF page url via Javascript without full page refresh
+			let canvasPath = window.location.hash.substring(1);
+
+	        Sfdc.onReady(function() {
+		        window.setTimeout(function() 
+			        { //re-render Canvas app, pass location.hash url
+		            console.log('VFparent: SFDC onReady redirect Canvas to ' + canvasPath);
+					let canvasRootId = document.getElementById('XOMOffCanvasContainer').nextSibling.id;
+					let canvasInstanceId = canvasRootId + ':canvasapp';
+					let canvasContainerId = canvasInstanceId + ':container';
+					let canvasSessionid = document.getElementById(canvasContainerId).nextSibling.nextSibling.text.match(/sid:"(.*)"/)[1];
+
+		            Sfdc.canvas.parent.render( 
+		            {
+		                 app: {
+		                   namespace:"",
+		                   developerName: "XOM_Offplatform_Canvas_App",
+		                   name:"XOM Offplatform Canvas App"
+		                 },
+		                 version:"39.0",
+		                 sid: canvasSessionid
+		             },
+		             canvasContainerId, //containerId
+		             //define options for Canvas App
+		             function() {
+		                 var scrollingVal;
+		                 var options = {
+		                     displayLocation : "Visualforce",
+		                     record : {
+		                        Id:"",
+		                        fields:""
+		                     },
+		                     canvasId : function () {
+		                         var instanceId = null;
+		                         if ("false" === "true") {
+		                             instanceId = canvasInstanceId;
+		                         } else {
+		                             instanceId = "xomoffcanvasapp";
+		                         }
+		                         return instanceId;
+		                     }()
+		                 };
+
+		                 options["frameborder"] = "";
+		                 options["width"] = {value:"1200px"};
+		                 options["height"] = {value:"800px"};
+		                 options["width"].max = "infinite";
+		                 options["height"].max = "infinite";
+		                 options["scrolling"] = "auto"; // yes, no, auto
+		                 options["parameters"] = {
+		                    'path': canvasPath
+		                 };
+		                 if (UserContext.siteUrlPrefix) {
+		                  options["customPathPrefix"] = UserContext.siteUrlPrefix;
+		                 }
+
+		                 return options;
+		                }()
+
+		            );
+	        },10)});
+		</script>
+    </head>
+    <body>
+        <div id="XOMOffCanvasContainer"/> <!-- is used to identify canvas container. Place above apex:canvasApp container -->
+        <apex:canvasApp applicationName="XOM Offplatform Canvas App" canvasId="xomoffcanvasapp"  scrolling="auto" maxHeight="infinite" maxWidth="infinite" height="800px" width="1200px" 
+        />
+    </body>
+</html>
+</apex:page>

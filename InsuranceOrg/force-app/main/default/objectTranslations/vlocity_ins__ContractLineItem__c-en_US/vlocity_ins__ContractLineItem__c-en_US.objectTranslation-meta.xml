@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- GetContractDetailFields --></label>
+        <name>vlocity_ins__GetContractDetailFields</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Get Plans --></label>
+        <name>vlocity_ins__GetPlans</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- QuoteDetail --></label>
+        <name>vlocity_ins__QuoteDetail</name>
+    </fieldSets>
+    <validationRules>
+        <errorMessage><!-- Contract Line Item Effective End Date has to be earlier than Contract End Date --></errorMessage>
+        <name>vlocity_ins__ValidateEndDate</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Contract Line Item Effective Start Date has to be later than Contract Start Date --></errorMessage>
+        <name>vlocity_ins__ValidateStartDate</name>
+    </validationRules>
+</CustomObjectTranslation>

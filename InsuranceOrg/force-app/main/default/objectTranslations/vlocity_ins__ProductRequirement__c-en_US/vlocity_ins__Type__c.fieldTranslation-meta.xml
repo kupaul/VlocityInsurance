@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Call-Out</masterLabel>
+        <translation><!-- Call-Out --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DocuSign</masterLabel>
+        <translation><!-- DocuSign --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Document</masterLabel>
+        <translation><!-- Document --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Image</masterLabel>
+        <translation><!-- Image --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Task</masterLabel>
+        <translation><!-- Task --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

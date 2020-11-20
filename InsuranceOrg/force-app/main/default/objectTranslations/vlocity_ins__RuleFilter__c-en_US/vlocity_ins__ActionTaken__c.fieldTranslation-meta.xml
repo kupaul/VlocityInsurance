@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Action Taken --></label>
+    <name>vlocity_ins__ActionTaken__c</name>
+    <picklistValues>
+        <masterLabel>Do Not Qualify</masterLabel>
+        <translation><!-- Do Not Qualify --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>No Action</masterLabel>
+        <translation><!-- No Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Policy Action</masterLabel>
+        <translation><!-- Policy Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Qualify</masterLabel>
+        <translation><!-- Qualify --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

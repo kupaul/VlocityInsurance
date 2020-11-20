@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CalculationProcedureVersionId__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Vlocity Calculation Procedure Version</label>
+    <referenceTo>vlocity_ins__CalculationProcedureVersion__c</referenceTo>
+    <relationshipLabel>Vlocity Calculation Procedure Variables</relationshipLabel>
+    <relationshipName>CalculationProcedureVariables</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsHeaderRule__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If TRUE, this rule  is the header rule for the parent ruleset.Header rule is the highest priority rule in a ruleset. if this SUCCEEDS ,no need to execute further rules.</description>
+    <externalId>false</externalId>
+    <label>IsHeaderRule</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible"
+              content="IE=edge" />
+        <meta http-equiv="Content-Type"
+              content="text/html;charset=utf-8" />
+        <style>
+            html,
+            body {
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+                border: 0;
+                background: transparent;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="container"
+             style="width: 100vw; height:100vh;"></div>
+
+        <script src="./min/vs/loader.js"></script>
+        <script>
+            const LINE_HEIGHT = 18;
+            const CONTAINER_GUTTER = 10;
+            let editor;
+            let _monacoId;
+            let _currentVal;
+
+            let compilerOptions = {
+                allowNonTsExtensions: true,
+                experimentalDecorators: true
+            };
+
+            require.config({
+                paths: {
+                    vs: "./min/vs"
+                }
+            });
+
+            window.addEventListener("message", receiveMessage, false);
+            window.addEventListener('keydown', function (event) {
+                // cmd||ctrl + s
+                if ((event.ctrlKey || event.metaKey) && event.which == 83) {
+                    event.preventDefault();
+                    let e = new CustomEvent('SaveLWC', {
+                        detail: 'save'
+                    })
+                    window.parent.document.dispatchEvent(e)
+                }
+            });
+
+            function receiveMessage() {
+                switch (event.data.message) {
+                    case "render":
+                        _monacoId = event.data.elementid;
+                        if (event.data.config.customLanguage) {
+                            registerCustomLanguage(event.data.config.customLanguage);
+                            event.data.config.customLanguage = undefined;
+                        }
+                        renderEditor(event.data.value, event.data.config);
+                        return;
+                    case "value-changed":
+                        if (event.data.value !== editor.getValue()) {
+                            updateValue(event.data.value);
+                        }
+                        return;
+                    case "append-value":
+                        appendValue(event.data.value);
+                    case "property-change":
+                        propertyChange(event.data.property, event.data.value);
+                    case "update":
+                        updateEditor(event.data.type, event.data.value);
+                        return;
+                    case 'provide-completion-items':
+                        handleCompletionItems(event.data);
+                        return;
+                }
+            }
+
+            function appendValue(value) {
+                if (!editor) {
+                    return;
+                }
+                editor.pushUndoStop();
+                const lineCount = editor.getModel().getLineCount();
+                const lastLineLength = editor.getModel().getLineMaxColumn(lineCount);
+
+                const range = new monaco.Range(
+                    lineCount,
+                    lastLineLength,
+                    lineCount,
+                    lastLineLength
+                );
+                editor.executeEdits("", [{
+                    range: range,
+                    text: value
+                }]);
+                editor.revealLine(lineCount);
+            }
+
+            function propertyChange(property, value) {
+                if (!editor) {
+                    return;
+                }
+                editor[property] = value;
+            }
+
+            function updateValue(value) {
+                if (!editor) {
+                    return;
+                }
+                let position = editor ? editor.getPosition() : null;
+                _currentVal = value;
+                editor.setValue(value || '');
+                if (position) {
+                    editor.setPosition(position);
+                }
+            }
+
+            function updateEditor(type, value) {
+                switch (type.toLowerCase()) {
+                    case "language":
+                        monaco.editor.setModelLanguage(editor.getModel(), value);
+                        return;
+                    case "theme":
+                        monaco.editor.setTheme(value);
+                        return;
+                    case "options":
+                        editor.updateOptions(JSON.parse(value));
+                        return;
+                }
+            }
+
+            function renderEditor(value, config) {
+                require(["vs/editor/editor.main"], function () {
+                    compilerOptions["target"] =
+                        monaco.languages.typescript.ScriptTarget.ES6;
+                    monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
+                        compilerOptions
+                    );
+
+                    monaco.editor.onDidCreateEditor(event => {
+                        window.parent.postMessage({
+                            message: _monacoId + "-loaded",
+                            value: ""
+                        }, "*");
+                    });
+
+                    editor = monaco.editor.create(
+                        document.getElementById("container"),
+                        Object.assign({
+                                language: "json"
+                            },
+                            config, {
+                                value: typeof value !== "string" ? JSON.stringify(value) : value
+                            }
+                        )
+                    );
+
+                    editor.updateOptions({
+                        scrollBeyondLastLine: false
+                    });
+
+                    editor.getModel().onDidChangeContent(event => {
+                        if (_currentVal !== editor.getValue()) {
+                            window.parent.postMessage({
+                                message: _monacoId + "-change",
+                                value: editor.getValue()
+                            }, "*");
+                        }
+                    });
+
+                    const ro = new window.ResizeObserver(function () {
+                        editor.layout();
+                    });
+                    ro.observe(document.body);
+                });
+            }
+
+            function rehydrateRegexsInTokenizer(tokenizer) {
+                if (typeof tokenizer === 'string') {
+                    if (/\/.+\//.test(tokenizer)) {
+                        return new RegExp(tokenizer);
+                    } else {
+                        return tokenizer;
+                    }
+                }
+                if (Array.isArray(tokenizer)) {
+                    return tokenizer.map(item => {
+                        if (typeof item === 'string' && /\/.+\//.test(item)) {
+                            return new RegExp(item);
+                        } else {
+                            return rehydrateRegexsInTokenizer(item);
+                        }
+                        return item;
+                    });
+                }
+                return Object.keys(tokenizer).reduce((obj, key) => {
+                    if (typeof tokenizer[key] === 'string') {
+                        if (/\/.+\//.test(tokenizer[key])) {
+                            obj[key] = new RegExp(tokenizer[key]);
+                        } else {
+                            obj[key] = tokenizer[key];
+                        }
+                    } else {
+                        obj[key] = rehydrateRegexsInTokenizer(tokenizer[key]);
+                    }
+                    return obj;
+                }, {});
+            }
+
+            const mapOfCompletionRequests = {};
+
+            function registerCustomLanguage(customLanguageConfig) {
+                require(["vs/editor/editor.main"], function () {
+                    monaco.languages.register({
+                        id: customLanguageConfig.id
+                    });
+
+                    if (customLanguageConfig.tokenizer) {
+                        // regex's can't be passed as raw regex, so they're converted to strings, this
+                        // means we need to convert all regexs back to regexs
+                        const rehydratedTokenizer = rehydrateRegexsInTokenizer(customLanguageConfig
+                            .tokenizer);
+                        monaco.languages.setMonarchTokensProvider(customLanguageConfig.id,
+                            rehydratedTokenizer);
+                    }
+
+                    if (customLanguageConfig.completionItems && Array.isArray(customLanguageConfig
+                            .completionItems)) {
+                        monaco.languages.registerCompletionItemProvider(customLanguageConfig.id, {
+                            provideCompletionItems: () => {
+                                return customLanguageConfig.completionItems;
+                            }
+                        });
+                    } else if (customLanguageConfig.completionItems) {
+                        let currentMessageId = 0;
+                        monaco.languages.registerCompletionItemProvider(customLanguageConfig.id, {
+                            provideCompletionItems: (model, position) => {
+                                const word = model.getWordUntilPosition(position);
+                                const messageId = 'messageId-' + currentMessageId++;
+                                window.parent.postMessage({
+                                    message: _monacoId + "-provide-completion-items",
+                                    value: {
+                                        messageId: messageId,
+                                        textUntilPosition: model.getValueInRange({
+                                            startLineNumber: 1,
+                                            startColumn: 1,
+                                            endLineNumber: position.lineNumber,
+                                            endColumn: position.column
+                                        }),
+                                        range: {
+                                            startLineNumber: position.lineNumber,
+                                            endLineNumber: position.lineNumber,
+                                            startColumn: word.startColumn,
+                                            endColumn: word.endColumn
+                                        }
+                                    }
+                                }, "*");
+                                const promise = new Promise((resolve, reject) => {
+                                    mapOfCompletionRequests[messageId] = resolve;
+                                });
+                                return promise;
+                            }
+                        });
+                    }
+                });
+            }
+
+            function handleCompletionItems(response) {
+                const resolve = mapOfCompletionRequests[response.messageId];
+                resolve(response.completionItems);
+                mapOfCompletionRequests[response.messageId] = undefined;
+            }
+
+
+            window.isReady = true;
+        </script>
+    </body>
+
+</html>

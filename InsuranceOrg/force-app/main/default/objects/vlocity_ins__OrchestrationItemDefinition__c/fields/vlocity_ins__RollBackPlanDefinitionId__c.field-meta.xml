@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RollBackPlanDefinitionId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Rollback Plan Definition</label>
+    <referenceTo>vlocity_ins__OrchestrationPlanDefinition__c</referenceTo>
+    <relationshipLabel>Rollback Item Definitions</relationshipLabel>
+    <relationshipName>RollbackItemDefinitions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

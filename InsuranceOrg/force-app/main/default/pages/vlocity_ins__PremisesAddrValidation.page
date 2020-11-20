@@ -1,0 +1,8 @@
+<apex:page StandardController="vlocity_ins__Premises__c">
+	<c:AddressValidationComponent objectId="{!$CurrentPage.parameters.Id}"
+									streetAddressField="{!$ObjectType.vlocity_ins__Premises__c.Fields.vlocity_ins__StreetAddress__c.Name}"
+									cityField="{!$ObjectType.vlocity_ins__Premises__c.Fields.vlocity_ins__City__c.Name}"
+									stateField="{!$ObjectType.vlocity_ins__Premises__c.Fields.vlocity_ins__State__c.Name}"
+									postalCodeField="{!$ObjectType.vlocity_ins__Premises__c.Fields.vlocity_ins__PostalCode__c.Name}"
+									countryField="{!$ObjectType.vlocity_ins__Premises__c.Fields.vlocity_ins__Country__c.Name}"/>
+</apex:page>

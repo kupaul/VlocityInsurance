@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ReferredByContactId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the contact who referred this lead.</description>
+    <externalId>false</externalId>
+    <label>Referred By</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Leads (Referred By)</relationshipLabel>
+    <relationshipName>ReferredLeads</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>

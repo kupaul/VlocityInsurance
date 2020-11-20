@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Education Type --></label>
+    <name>vlocity_ins__EducationType__c</name>
+    <picklistValues>
+        <masterLabel>Annuities</masterLabel>
+        <translation><!-- Annuities --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Auto Insurance</masterLabel>
+        <translation><!-- Auto Insurance --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Business Insurance</masterLabel>
+        <translation><!-- Business Insurance --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ethics</masterLabel>
+        <translation><!-- Ethics --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Life Insurance</masterLabel>
+        <translation><!-- Life Insurance --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Life Training</masterLabel>
+        <translation><!-- Life Training --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Property Insurance</masterLabel>
+        <translation><!-- Property Insurance --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

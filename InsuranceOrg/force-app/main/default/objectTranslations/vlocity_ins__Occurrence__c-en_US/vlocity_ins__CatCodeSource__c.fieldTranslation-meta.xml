@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- CAT Code Source --></label>
+    <name>vlocity_ins__CatCodeSource__c</name>
+    <picklistValues>
+        <masterLabel>Carrier</masterLabel>
+        <translation><!-- Carrier --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FEMA</masterLabel>
+        <translation><!-- FEMA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FICO</masterLabel>
+        <translation><!-- FICO --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

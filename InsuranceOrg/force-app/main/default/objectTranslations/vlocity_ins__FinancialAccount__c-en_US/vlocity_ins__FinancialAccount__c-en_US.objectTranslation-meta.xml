@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <description><!-- Record type for Investment account type category --></description>
+        <label><!-- Investment --></label>
+        <name>vlocity_ins__Investment</name>
+    </recordTypes>
+</CustomObjectTranslation>

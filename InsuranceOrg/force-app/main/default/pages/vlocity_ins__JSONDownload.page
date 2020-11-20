@@ -1,0 +1,3 @@
+<apex:page controller="vlocity_ins.JSONDownloadController" contentType="application/json">
+{!jsonAsText}
+</apex:page>

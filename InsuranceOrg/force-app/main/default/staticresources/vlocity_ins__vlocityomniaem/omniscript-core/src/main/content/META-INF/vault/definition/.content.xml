@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:vlt="http://www.day.com/jcr/vault/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:created="{Date}2017-02-16T10:04:15.316-08:00"
+    jcr:createdBy="admin"
+    jcr:description="OmniScript Core"
+    jcr:lastModified="{Date}2017-02-16T10:04:15.316-08:00"
+    jcr:lastModifiedBy="admin"
+    jcr:primaryType="vlt:PackageDefinition"
+    buildCount="2"
+    builtWith="Adobe Experience Manager-6.2.0"
+    fixedBugs=""
+    group="Vlocity"
+    lastUnwrapped="{Date}2017-02-16T10:04:15.316-08:00"
+    lastUnwrappedBy="admin"
+    lastWrapped="{Date}2017-02-16T10:04:15.316-08:00"
+    lastWrappedBy="admin"
+    name="omniscript-core"
+    providerLink=""
+    providerName=""
+    providerUrl=""
+    testedWith=""
+    version="0.0.0">
+    <thumbnail.png/>
+    <filter jcr:primaryType="nt:unstructured">
+        <f0
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/apps/vloc"
+            rules="[include:/apps/vloc((/components(/\w+)?)|(/templates))(/omniUniversal(Cont)?(/.*)?)?]"/>
+        <f1
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/apps/vloc/clientlibs/oout"
+            rules="[]"/>
+        <f2
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/apps/vloc/clientlibs/ooutCustom"
+            rules="[]"/>
+        <f3
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/apps/vloc/clientlibs/Force"
+            rules="[exclude:/apps/vloc/clientlibs/ooutCustom(/.*)?]"/>
+        <f4
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/content/oout"
+            rules="[include:/content/oout/(.*[Uu]niversal(/.*)?)]"/>
+        <f5
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/apps/vloc/components/global/customTemplates"
+            rules="[include:/apps/vloc/components/global/customTemplates/(.*(([Ss]ample)|(readme)).*)?]"/>
+    </filter>
+</jcr:root>

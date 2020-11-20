@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProcessPrefillBundle__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Used when executing the campaign for each target via a Vlocity OmniScript. The Process Prefill Bundle specifies the prefill DataRaptor mapping bundle to use when launching the OmniScript.</description>
+    <externalId>false</externalId>
+    <label>Process Prefill Bundle</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

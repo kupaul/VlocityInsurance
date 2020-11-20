@@ -1,0 +1,111 @@
+<apex:page showHeader="true" sidebar="false"
+            standardStylesheets="false"
+            docType="html-5.0" applyBodyTag="false"
+            standardController="vlocity_ins__VlocityUILayout__c"
+            extensions="vlocity_ins.CardCanvasController,vlocity_ins.DRDataPackRunnerController"
+            recordSetVar="layouts"
+            tabStyle="VlocityCardHome__tab"
+            title="Vlocity Cards">
+  <head>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__jsforce_1_7, '/jsforce-core.min.js')}" />
+      <script>
+          window.conn = new jsforce.Connection({ accessToken: '{!$Api.Session_Id}', version: '45.0' });
+      </script>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ngInfiniteScroll, '/build/ng-infinite-scroll.min.js')}"/>
+      <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__CardUtil}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__CardHome}"/>
+      <apex:includeScript value="/support/console/42.0/integration.js"/>
+  </head>
+  <style>
+    html.Theme4d body,
+    html.Theme4u body {
+      margin: 0;
+    }
+    html:not(.Theme3) body.sfdcBody {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .bodyDiv .noSidebarCell{
+      padding: 0;
+    }
+  </style>
+  <script>
+    (function() {
+      document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+    })();
+  </script>
+  <body xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div ng-app="cardhome" class="via-slds ng-cloak {!$User.UIThemeDisplayed}" ng-controller="cardhome">
+      <slds-home
+                new-url="'{!newUrl}'"
+                page-title="'Layouts & Cards'"
+                s-object-type="'{!$ObjectType.VlocityUILayout__c.Name}'"
+                row-actions="rowActions"
+                min-height="'300px'"
+                id-prefix="cards-home"
+                default-columns="defaultColumns"
+                additional-table-buttons="additionalTableButtons"
+                additional-header-buttons="additionalHeaderButtons"
+                is-global-warnings="isGlobalWarnings"
+                show-global-warnings="showGlobalWarnings">
+      </slds-home>
+    </div>
+    <c:VFActionFunction />
+    <script>
+      window.cardsNewUrl = "{!newUrl}";
+      window.orgName = '{!$Organization.Name}';
+      window.toolingBaseUrl = '{!baseUrl}';
+      window.sessionId = '{!$Api.Session_ID}',
+      window.i18n = {
+        "SldsObjectHomeHeaderInfo": "{!$Label.vlocity_ins__sldsobjecthomeheaderinfo}",
+        "RefreshData": "{!$Label.vlocity_ins__refreshdata}",
+        "Export": "{!$Label.vlocity_ins__export}",
+        "New": "{!$Label.vlocity_ins__new}",
+        "FilterList": "{!$Label.vlocity_ins__filterlist}",
+        "Import": "{!$Label.vlocity_ins__import}",
+        "AdditionalActions": "{!$Label.vlocity_ins__additionalactions}",
+        "Delete": "{!$Label.vlocity_ins__delete}",
+        "Preview": "{!$Label.vlocity_ins__preview}",
+        "LastModified": "{!$Label.vlocity_ins__lastmodified}",
+        "Name": "{!$Label.vlocity_ins__name}",
+        "ModifiedOnBy": "{!$Label.vlocity_ins__modifiedonby}",
+        "DeleteLayout": "{!$Label.vlocity_ins__deletelayout}",
+        "InstallDataPack": "{!$Label.vlocity_ins__installdatapack}",
+        "DeleteLayoutConfirmation": "{!$Label.vlocity_ins__deletelayoutconfirmation}",
+        "Filters":"{!$Label.vlocity_ins__filters}",
+        "HideFilter":"{!$Label.vlocity_ins__hidefilter}",
+        "Cancel":"{!$Label.vlocity_ins__cancel}",
+        "Save":"{!$Label.vlocity_ins__save}",
+        "ShowMe":"{!$Label.vlocity_ins__showme}",
+        "MatchingAllOfTheseFilters":"{!$Label.vlocity_ins__matchingallofthesefilters}",
+        "Remove":"{!$Label.vlocity_ins__remove}",
+        "NewFilter":"{!$Label.vlocity_ins__newfilter}",
+        "AddFilter":"{!$Label.vlocity_ins__addfilter}",
+        "RemoveAll":"{!$Label.vlocity_ins__removeall}",
+        "Field":"{!$Label.vlocity_ins__field}",
+        "Operator":"{!$Label.vlocity_ins__operator}",
+        "Value":"{!$Label.vlocity_ins__value}",
+        "Done":"{!$Label.vlocity_ins__done}",
+        "AllType":"{!$Label.vlocity_ins__alltype}",
+        "MyType":"{!$Label.vlocity_ins__mytype}",
+        "WarningsTitle": "{!$Label.vlocity_ins__warningstitle}",
+        "RemoteSiteNotOnWarning": "{!$Label.vlocity_ins__remotesitenotonwarning}",
+        "FixWarnings": "{!$Label.vlocity_ins__fixwarnings}"
+      };
+
+      //Setting LEX tab icon and title
+      if(sforce.console && sforce.console.isInConsole()) {
+        sforce.console.setTabTitle("Vlocity Layouts & Cards");
+        sforce.console.setTabIcon("standard:product_item");
+      }
+
+    </script>
+  </body>
+
+</apex:page>

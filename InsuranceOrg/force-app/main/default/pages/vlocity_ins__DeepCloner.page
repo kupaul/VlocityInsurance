@@ -1,0 +1,28 @@
+<apex:page controller="vlocity_ins.DeepClonerController" action="{!initializeCloner}">
+  
+  <apex:sectionHeader title="Clone {!objectTypeName}: {!objectName}"/>
+
+  <apex:form id="theform" >{!$Label.vlocity_ins__cloneproductselect}<br/><br/>
+  
+    <apex:repeat value="{!objectChildren}" var="child">
+      <apex:PageBlock title="{!child.pluralLabel}"> 
+        <apex:pageBlockTable value="{!child.objectRows}" 
+                             var="objectRow">
+          <apex:column headerValue="{!$Label.vlocity_ins__clonecardbuttonlabel}" width="10%">
+            <apex:inputCheckbox value="{!objectRow.selected}"/>
+          </apex:column>
+           <apex:column headerValue="{!$Label.vlocity_ins__cloneitemid}" value="{!objectRow.Id}"
+                                          width="20%"/>
+          <apex:column headerValue="{!$Label.vlocity_ins__name}" value="{!objectRow.name}"
+                                          width="70%"/>
+        </apex:pageBlockTable>
+      </apex:PageBlock>
+    </apex:repeat>
+    
+    <apex:PageBlock >
+      <apex:commandButton action="{!doClone}" value="{!$Label.vlocity_ins__clonecardbuttonlabel}"/>
+      <apex:commandButton action="{!doCancel}" value="{!$Label.vlocity_ins__cancel}"/>
+    </apex:PageBlock>
+  </apex:form>  
+
+</apex:page>

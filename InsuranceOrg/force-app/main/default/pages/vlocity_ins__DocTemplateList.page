@@ -1,0 +1,542 @@
+<apex:page controller="vlocity_ins.DocTemplateListController" 
+    showHeader="true" 
+    sidebar="false" 
+    standardStylesheets="false" 
+    tabStyle="VlocityContractDocumentTemplate__tab" 
+    extensions="vlocity_ins.DRDataPackRunnerController" 
+    docType="html-5.0" 
+    applyBodyTag="false">
+    <head>
+        <meta charset="utf-8"/>
+
+        <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/>
+
+        <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+        <apex:includeScript value="/xdomain/xdomain.js"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ngInfiniteScroll, '/build/ng-infinite-scroll.min.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}"/>
+        <apex:includeScript value="/support/console/42.0/integration.js"/>
+    </head> 
+    <body>
+        <div ng-app="docTemplateListApp" ng-controller="docTemplateListController" class="vlocity via-slds ng-cloak {!$User.UIThemeDisplayed}">
+            <div class="slds-spinner_container" ng-show="vlcLoading">
+                <div class="slds-spinner slds-spinner_brand slds-spinner_large" aria-hidden="false" role="status">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+            <div ng-if="templateActionErrorMsg" class="slds-notify slds-notify_alert slds-theme_error slds-theme_alert-texture" role="alert">
+                <span class="slds-assistive-text">warning</span>
+                <span class="slds-icon_container slds-icon-utility-warning slds-m-right_medium" title="warning">
+                    <slds-svg-icon sprite="'utility'" icon="'warning'" size="'x-small'"></slds-svg-icon>
+                </span>
+                <h2 class="slds-m-right_small" ng-bind-html="templateActionErrorMsg"></h2>
+                <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" ng-click="clearTemplateActionErrorMsg()">
+                    <slds-svg-icon sprite="'utility'" icon="'close'" size="'x-small'"></slds-svg-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+            </div>
+            <slds-home new-url="'{!newUrl}'" s-object-type="'{!$ObjectType.DocumentTemplate__c.Name}'" row-actions="rowActions" id-prefix="document-home" default-columns="defaultColumns"></slds-home>
+            <script type="text/ng-template" id="confirm-delete-template-modal.tpl.html">
+                <div class="slds-modal slds-fade-in-open" tabindex="-1" role="dialog">
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <button class="slds-button slds-button_icon-inverse slds-modal__close" ng-click="$hide()">
+                                <slds-svg-icon sprite="'action'" icon="'close'" size="'medium'"></slds-svg-icon>
+                            </button>
+                            <h4 class="slds-text-heading_medium">{{labels.CLMTemplateDeleteTemplate}}</h4>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <div>
+                                <p>{{labels.CLMClauseAreYouSureDeleteTemplate}} '{{currentTemplateName}}'?</p>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <button type="button" class="slds-button slds-button_neutral" ng-click="$hide()">{{labels.CLMTemplateCancel}}</button>
+                            <button type="button" class="slds-button slds-button_destructive" ng-click="deleteDocumentTemplate(); $hide();">{{labels.CLMTemplateDeleteTemplate}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </script>
+        </div>
+        <c:VFActionFunction />
+
+        <script type="text/javascript">
+            window.docNewUrl = "{!newUrl}"; 
+            if (typeof sforce !== 'undefined') {
+                if (sforce.console && sforce.console.isInConsole()) {
+                    sforce.console.setTabTitle('Vlocity Document Template');
+                    sforce.console.setTabIcon('standard:document');
+                }
+            }
+            window.sessionId = '{!$Api.Session_ID}';
+
+            /* Labels */
+            window.i18n = {
+                "SldsObjectHomeHeaderInfo": "{!$Label.vlocity_ins__sldsobjecthomeheaderinfo}",
+                "RefreshData": "{!$Label.vlocity_ins__refreshdata}",
+                "Export": "{!$Label.vlocity_ins__export}",
+                "New": "{!$Label.vlocity_ins__new}",
+                "FilterList": "{!$Label.vlocity_ins__filterlist}",
+                "Import": "{!$Label.vlocity_ins__import}",
+                "AdditionalActions": "{!$Label.vlocity_ins__additionalactions}",
+                "Delete": "{!$Label.vlocity_ins__delete}",
+                "Preview": "{!$Label.vlocity_ins__preview}",
+                "LastModified": "{!$Label.vlocity_ins__lastmodified}",
+                "Name": "{!$Label.vlocity_ins__name}",
+                "ModifiedOnBy": "{!$Label.vlocity_ins__modifiedonby}",
+                "DeleteLayout": "{!$Label.vlocity_ins__deletelayout}",
+                "InstallDataPack": "{!$Label.vlocity_ins__installdatapack}",
+                "DeleteLayoutConfirmation": "{!$Label.vlocity_ins__deletelayoutconfirmation}",
+                "Filters": "{!$Label.vlocity_ins__filters}",
+                "HideFilter": "{!$Label.vlocity_ins__hidefilter}",
+                "Cancel": "{!$Label.vlocity_ins__cancel}",
+                "Save": "{!$Label.vlocity_ins__save}",
+                "ShowMe": "{!$Label.vlocity_ins__showme}",
+                "MatchingAllOfTheseFilters": "{!$Label.vlocity_ins__matchingallofthesefilters}",
+                "Remove": "{!$Label.vlocity_ins__remove}",
+                "NewFilter": "{!$Label.vlocity_ins__newfilter}",
+                "AddFilter": "{!$Label.vlocity_ins__addfilter}",
+                "RemoveAll": "{!$Label.vlocity_ins__removeall}",
+                "Field": "{!$Label.vlocity_ins__field}",
+                "Operator": "{!$Label.vlocity_ins__operator}",
+                "Value": "{!$Label.vlocity_ins__value}",
+                "Done": "{!$Label.vlocity_ins__done}",
+                "AllType": "{!$Label.vlocity_ins__alltype}",
+                "MyType": "{!$Label.vlocity_ins__mytype}"
+            };
+            var labels = {
+                'CLMTemplateCloneTemplate': '{!$Label.vlocity_ins__clmtemplateclonetemplate}',
+                'CLMTemplateActivate': '{!$Label.vlocity_ins__clmtemplateactivate}',
+                'CLMTemplateDeactivateTemplate': '{!$Label.vlocity_ins__clmtemplatedeactivatetemplate}',
+                'CLMTemplateCreateNewVersion': '{!$Label.vlocity_ins__clmtemplatecreatenewversion}',
+                'CLMTemplateDeleteTemplate': '{!$Label.vlocity_ins__clmtemplatedeletetemplate}',
+                'CLMTemplateSeeMoreContracts':'{!$Label.vlocity_ins__clmtemplateseemorecontracts}',
+                'CLMTemplateTheTemplate':'{!$Label.vlocity_ins__clmtemplatethetemplate}',
+                'CLMTemplateCannotBeDeletedUsed':'{!$Label.vlocity_ins__clmtemplatecannotbedeletedused}',
+                'CLMTemplateCannotBeDeactivatedUsed':'{!$Label.vlocity_ins__clmtemplatecannotbedeactivatedused}',
+                'CLMClauseAreYouSureDeleteTemplate': '{!$Label.vlocity_ins__clmclauseareyousuredeletetemplate}',
+                'CLMTemplateCancel': '{!$Label.vlocity_ins__clmtemplatecancel}'
+            };
+
+            /* Remote Actions */
+            var remoteActions = {
+                cloneDocumentTemplate: {
+                    action: '{!$RemoteAction.DocTemplateListController.cloneDocumentTemplate}',
+                    config: {escape: false}
+                },
+                deactivateDocumentTemplate: {
+                    action: '{!$RemoteAction.DocTemplateListController.deactivateDocumentTemplate}',
+                    config: {escape: false}
+                },
+                createNewVersion: {
+                    action: '{!$RemoteAction.DocTemplateListController.createNewVersionOfDocumentTemplate}',
+                    config: {escape: false}
+                },
+                deleteDocumentTemplate: {
+                    action: '{!$RemoteAction.DocTemplateListController.deleteDocumentTemplate}',
+                    config: {escape: false}
+                },
+                setTemplateContentVersion: {
+                    action: '{!$RemoteAction.DocTemplateListController.setTemplateContentVersion}',
+                    config: {escape: false}
+                },
+                getTemplateLanguages: {
+                        action: '{!$RemoteAction.DocTemplateListController.getTemplateLanguages}',
+                        config: {escape: false}
+                } 
+            };
+
+            // Angular Module
+            var docTemplateList = angular.module('docTemplateListApp', ['drvcomp', 'sldsangular', 'ngTable', 'vlocity', 'infinite-scroll'])
+            .config(['$localizableProvider', function($localizableProvider) {
+                'use strict';
+                $localizableProvider.setLocalizedMap(window.i18n);
+                $localizableProvider.setDebugMode(false);
+            }])
+            .config(['remoteActionsProvider', function(remoteActionsProvider) {
+                'use strict';
+                remoteActionsProvider.setRemoteActions(window.remoteActions || {});
+            }]);
+
+            // Angular Controller
+            docTemplateList.controller('docTemplateListController', ['$scope', '$filter', '$localizable', 'remoteActions', '$sldsModal', function($scope, $filter, $localizable, remoteActions, $sldsModal) {
+                'use strict';
+                var namespacePrefix = '{!namespacePrefix}';
+                var templateTypeCodeMap = {
+                    'Vlocity Web Template': 'web',
+                    'Microsoft Word .DOCX Template': 'docx',
+                    'Microsoft Powerpoint .PPTX Template': 'pptx'
+                };
+                var templateLanguageOptions = [];
+                $scope.vlcLoading = false;
+                $scope.templateActionErrorMsg = '';
+                $scope.labels = labels;
+
+                /**
+                 *  Returns displayValue for language column. ex: if langValue = "en_US", returns "English" as displayValue.
+                 */
+                function getLanguageDisplayValue(langValue) {
+                    for(var i=0; i<templateLanguageOptions.length; i++) {
+                        if(langValue === templateLanguageOptions[i].Value) {
+                            return templateLanguageOptions[i].Label;
+                        }
+                    }
+                }
+                // Language list.
+                $scope.getTemplateLanguages =function() {
+                    remoteActions.getTemplateLanguages().then(function(result) {
+                        templateLanguageOptions = result;
+                        //Adding 'None' option to the Language dropdown list.
+                        templateLanguageOptions.push({Label: "--None--",Value:"", isActive: true});
+                    });
+                 };
+                $scope.getTemplateLanguages();
+
+                $scope.cloneDocumentTemplate = function(documentTemplateId, contentVersionId) {
+                    $scope.vlcLoading = true;
+                    $scope.sourceTemplateId = documentTemplateId;
+                    remoteActions.cloneDocumentTemplate(documentTemplateId).then(function(result) {
+                        $scope.templateId = result.templateData.Id;
+                        var templateType = result.templateData[namespacePrefix + 'TemplateContentFormat__c'];
+                        $scope.templateTypeParam = (templateType ? '&templateType=' + templateTypeCodeMap[templateType] : '');
+
+                        if (templateType === 'Microsoft Word .DOCX Template' || templateType === 'Microsoft Powerpoint .PPTX Template') {
+                            $scope.globalKey = result.cvGlobalKey;
+                            $scope.getContentVersionData(contentVersionId);
+                        } else {
+                            location.href = '/apex/' + namespacePrefix + 'DocumentTemplate?templateId=' + $scope.templateId + $scope.templateTypeParam;
+                        }
+                    }, function(error) {
+                        $scope.templateActionErrorMsg = '<div><p>Visualforce Remoting Exception: ' + error.message + '</p></div>';
+                        $scope.vlcLoading = false;
+                    });
+                };
+
+                $scope.deactivateDocumentTemplate = function(documentTemplateId, documentTemplateName) {
+                    $scope.vlcLoading = true;
+                    remoteActions.deactivateDocumentTemplate(documentTemplateId).then(function(result) {
+                        if (result.length === 0) {
+                            location.href = '/apex/DocTemplateList';
+                        } else {
+                            $scope.showTemplateActionErrorMsg(result, documentTemplateName, 'DEACTIVATE');
+                            $scope.vlcLoading = false;
+                        }
+                    }, function(error) {
+                        $scope.templateActionErrorMsg = '<div><p>Visualforce Remoting Exception: ' + error.message + '</p></div>';
+                        $scope.vlcLoading = false;
+                    });
+                };
+
+                $scope.createNewVersion = function(documentTemplateId, contentVersionId) {
+                    $scope.vlcLoading = true;
+                    $scope.sourceTemplateId = documentTemplateId;
+                    remoteActions.createNewVersion(documentTemplateId).then(function(result) {
+                        $scope.templateId = result.templateData.Id;
+                        var templateType = result.templateData[namespacePrefix + 'TemplateContentFormat__c'];
+                        $scope.templateTypeParam = (templateType ? '&templateType=' + templateTypeCodeMap[templateType] : '');
+                        
+                        if (templateType === 'Microsoft Word .DOCX Template' || templateType === 'Microsoft Powerpoint .PPTX Template') {
+                            $scope.globalKey = result.cvGlobalKey;
+                            $scope.getContentVersionData(contentVersionId);
+                        } else {
+                            location.href = '/apex/' + namespacePrefix + 'DocumentTemplate?templateId=' + $scope.templateId + $scope.templateTypeParam;
+                        }
+                    }, function(error) {
+                        $scope.templateActionErrorMsg = '<div><p>Visualforce Remoting Exception: ' + error.message + '</p></div>';
+                        $scope.vlcLoading = false;
+                    });
+                };
+
+                $scope.confirmDeleteTemplate = function(templateId, templateName) {
+                    $scope.currentTemplateId = templateId;
+                    $scope.currentTemplateName = templateName;
+                    $sldsModal({
+                        templateUrl: 'confirm-delete-template-modal.tpl.html',
+                        container: 'div.vlocity',
+                        placement: 'center',
+                        html: true,
+                        scope: $scope
+                    });
+                };
+
+                $scope.deleteDocumentTemplate = function() {
+                    $scope.vlcLoading = true;
+                    remoteActions.deleteDocumentTemplate($scope.currentTemplateId).then(function(result) {
+                        if (result.length === 0) {
+                            location.href = '/apex/DocTemplateList';
+                        } else {
+                            $scope.showTemplateActionErrorMsg(result, $scope.currentTemplateName, 'DELETE');
+                            $scope.vlcLoading = false;
+                        }
+                    }, function(error) {
+                        $scope.templateActionErrorMsg = '<div><p>Visualforce Remoting Exception: ' + error.message + '</p></div>';
+                        $scope.vlcLoading = false;
+                    });
+                };
+
+                $scope.getContentVersionData = function(contentVersionId) {
+                    sforce.connection.sessionId = window.sessionId;
+                    var queryString = 'Select Id, Title, VersionData FROM ContentVersion where Id = \'' + contentVersionId + '\'';
+                    sforce.connection.query(queryString, {
+                        onSuccess: function(result) {
+                            var contentVersion = {
+                                'Id': result.records.Id,
+                                'Title': result.records.Title,
+                                'VersionData': result.records.VersionData
+                            }
+                            $scope.createContentVersion(contentVersion);
+                        },  
+                        onFailure: function(result) {
+                            var errorMsg = result.faultstring;
+                            console.error('errorMsg: ', errorMsg);
+                            $scope.templateActionErrorMsg = '<div><p>SOAP API Exception: ' + errorMsg + '</p></div>';
+                            $scope.vlcLoading = false;
+                        }
+                    });
+                };
+
+                $scope.createContentVersion = function(contentVersion) {
+                    var contentVersionSObj = new sforce.SObject('ContentVersion');
+                    contentVersionSObj.Title = contentVersion.Title;
+                    contentVersionSObj.PathOnClient = contentVersion.Title;
+                    contentVersionSObj.VersionData = contentVersion.VersionData;
+                    contentVersionSObj[namespacePrefix + 'GlobalKey__c'] = $scope.globalKey;
+
+                    sforce.connection.create([contentVersionSObj], {
+                        onSuccess: function(result) {
+                            var status = result[0].getBoolean('success');
+                            var generatedContentVersionId = result[0].id;
+                            console.log('generatedContentVersionId: ', generatedContentVersionId);
+                            $scope.setTemplateContentVersion($scope.templateId, generatedContentVersionId);
+                        },
+                        onFailure: function(result) {
+                            var errorMsg = result.faultstring;
+                            console.error('errorMsg: ', errorMsg);
+                            $scope.templateActionErrorMsg = '<div><p>SOAP API Exception: ' + errorMsg + '</p></div>';
+                            $scope.vlcLoading = false;
+                        }
+                    });
+                };
+
+                $scope.setTemplateContentVersion = function(templateId, contentVersionId) {
+                    remoteActions.setTemplateContentVersion(templateId, contentVersionId).then(function(result) {
+                        location.href = '/apex/' + namespacePrefix + 'DocumentTemplate?templateId=' + templateId + $scope.templateTypeParam;
+                    }, function(error) {
+                        $scope.templateActionErrorMsg = '<div><p>Visualforce Remoting Exception: ' + error.message + '</p></div>';
+                        $scope.vlcLoading = false;
+                    });
+                };
+
+                $scope.showTemplateActionErrorMsg = function(contractList, documentTemplateName, action) {
+                    var i, j, contracts, versions, versionNumbers;
+                    function sortNumber(a, b) {
+                        return a - b;
+                    }
+                    contracts = '';
+                    for (i = 0; i < contractList.length; i++) {
+                        versions = '';
+                        versionNumbers = contractList[i].contractversion.sort(sortNumber);
+                        for (j = 0; j < versionNumbers.length; j++) {
+                            if (j === contractList[i].contractversion.length - 1) {
+                                versions += versionNumbers[j] + '.';
+                            } else {
+                                versions += versionNumbers[j] + ', ';
+                            }
+                        }
+                        if (!contractList[i].contractname) {
+                            contractList[i].contractname  = '';
+                        }
+                        contracts += '<li class="slds-text-align_left">' + contractList[i].contractname + ' (<a href="/' + contractList[i].contractid + '" target="_blank">' + contractList[i].contractnumber + '</a>) - Versions: ' + versions;
+                    }
+
+                    if (action === 'DELETE') {
+                        $scope.templateActionErrorMsg = '<div><p class="slds-m-bottom_small">' + labels.CLMTemplateTheTemplate + ' ' + documentTemplateName + ' ' + labels.CLMTemplateCannotBeDeletedUsed + '</p><ul class="slds-list_dotted slds-p-left_small">' + contracts + '</ul></div>';
+                    } else if (action === 'DEACTIVATE') {
+                        $scope.templateActionErrorMsg = '<div><p class="slds-m-bottom_small">' + labels.CLMTemplateTheTemplate  + ' ' + documentTemplateName + ' ' + labels.CLMTemplateCannotBeDeactivatedUsed + '</p><ul class="slds-list_dotted slds-p-left_small">' + contracts + '</ul></div>';
+                    }
+                };
+
+                $scope.clearTemplateActionErrorMsg = function() {
+                    $scope.templateActionErrorMsg = '';
+                };
+
+                /* sldsHome directive data */
+                // row action config
+                $scope.rowActions = [
+                    {
+                        text: labels.CLMTemplateCloneTemplate,
+                        icon: {
+                            sprite: 'action',
+                            icon: 'clone'
+                        },
+                        click: function(row, group) {
+                            $scope.cloneDocumentTemplate(row.Id, row[namespacePrefix + 'TemplateContentVersionId__c']);
+                        },
+                        hide: function(row, group) {
+                            return (row[namespacePrefix + 'Status__c'] !== 'Active');
+                        }
+                    },
+                    {
+                        text: labels.CLMTemplateDeactivateTemplate,
+                        icon: {
+                            sprite: 'action',
+                            icon: 'remove'
+                        },
+                        click: function(row, group) {
+                            $scope.deactivateDocumentTemplate(row.Id, row.Name);
+                        },
+                        hide: function(row, group) {
+                            return (row[namespacePrefix + 'Status__c'] !== 'Active');
+                        }
+                    },
+                    /*{
+                        text: labels.CLMTemplateActivate,
+                        icon: {
+                            sprite: 'action',
+                            icon: 'check'
+                        },
+                        click: function(row, group) {
+                            $scope.activateDocumentTemplate(row.Id);
+                        },
+                        hide: function(row, group) {
+                            return (row[namespacePrefix + 'Status__c'] !== 'Draft');
+                        }
+                    },*/
+                    {
+                        text: labels.CLMTemplateCreateNewVersion,
+                        icon: {
+                            sprite: 'utility',
+                            icon: 'new'
+                        },
+                        click: function(row, group) {
+                            $scope.createNewVersion(row.Id, row[namespacePrefix + 'TemplateContentVersionId__c']);
+                        },
+                        hide: function(row, group) {
+                            return (row[namespacePrefix + 'Status__c'] === 'Draft');
+                        }
+                    },
+                    {
+                        text: labels.CLMTemplateDeleteTemplate,
+                        icon: {
+                            sprite: 'action',
+                            icon: 'delete'
+                        },
+                        click: function(row, group) {
+                            $scope.confirmDeleteTemplate(row.Id, row.Name);
+                        }
+                    },
+                    {
+                        type: 'export',
+                        drvType: 'DocumentTemplate'
+                    }
+                ];
+
+                // column config
+                $scope.defaultColumns = [
+                    {
+                        //field: $localizable('Name', 'Name'),
+                        field: 'Name',
+                        additionalFields: [namespacePrefix + 'VersionNumber__c'],
+                        dynamic: true,
+                        getValue: function($scope, row) {
+                            var templateTypeParam = row[namespacePrefix + 'TemplateContentFormat__c'] ? '&templateType=' + templateTypeCodeMap[row[namespacePrefix + 'TemplateContentFormat__c']] : '';
+                            var url = window.docNewUrl + '?templateId=' + row.Id + templateTypeParam;
+                            return '<a href="' +url+ '" ng-mousedown="$root.vlocityOpenUrl(\'' + url  + '\', $event)">' +
+                                _.escape(row.Name) + ' (Version ' + row[namespacePrefix + 'VersionNumber__c'] + ')</a>';
+
+                        },
+                        getGroupValue: function($scope, $group) {
+                            return '<span>' + _.escape($group.data[0].Name) + '</span>';
+                        }
+                    },
+                    {
+                        field: namespacePrefix + 'TemplateContentFormat__c',
+                        getValue: function() {
+                            return '';
+                        }
+                    },
+                    {
+                        field: namespacePrefix + 'LocaleCode__c',
+                        getValue: function($scope, row) {
+                            return getLanguageDisplayValue(row[namespacePrefix + 'LocaleCode__c']);
+                        },
+                        getGroupValue: function($scope, $group) {
+                            return getLanguageDisplayValue($group.data[0][namespacePrefix + 'LocaleCode__c']);
+                        }
+                    },
+                    {
+                        field: namespacePrefix + 'ApplicableTypes__c',
+                        getValue: function() {
+                            return '';
+                        }
+                    },
+                    {
+                        field: namespacePrefix + 'MappingType__c',
+                        getValue: function() {
+                            return '';
+                        }
+                    },
+                    /*{
+                        field: namespacePrefix + 'UsageType__c',
+                        getValue: function() {
+                            return '';
+                        }
+                    },*/
+                    {
+                        field: namespacePrefix + 'Status__c',
+                        getValue: function($scope, row) {
+                            return row[namespacePrefix + 'Status__c'];
+                        }
+                    },
+                    {
+                        //title: $localizable('LastModified', 'Last Modified'),
+                        field: 'LastModifiedDate',
+                        getValue: function($scope, row) {
+                            return 'Modified on ' + $filter('date')(row.LastModifiedDate) + ' by ' + _.escape(row.LastModifiedBy.Name);
+                        },
+                        getGroupValue: function($scope, $group) {
+                            var mostRecent = $group.data[0].LastModifiedDate;
+                            $group.data.forEach(function(data) {
+                                if (data.LastModifiedDate > mostRecent) {
+                                    mostRecent = data.LastModifiedDate;
+                                }
+                            });
+                            return $filter('date')(mostRecent);
+                        }
+                    },
+                    {
+                        field: namespacePrefix + 'IsActive__c',
+                        additionalFields: [namespacePrefix + 'Status__c', namespacePrefix + 'TemplateContentVersionId__c'],
+                        shrink: true,
+                        dynamic: true,
+                        getValue: function($scope, row) {
+                            if (row[namespacePrefix + 'IsActive__c']) {
+                                return '<span class="slds-icon_container" title="Is Active"><slds-svg-icon sprite="\'utility\'"' +
+                                        ' icon="\'success\'" size="\'x-small\'" extra-classes="\'slds-icon-text-default\'"></slds-svg-icon></span>';
+                            }
+                        },
+                        getGroupValue: function($scope, $group) {
+                            var hasAnActiveEntry = false;
+                            $group.data.forEach(function(row) {
+                                if (row[namespacePrefix + 'IsActive__c']) {
+                                    hasAnActiveEntry = true;
+                                    return false;
+                                }
+                            });
+                            if (hasAnActiveEntry) {
+                                return '<span class="slds-icon_container" title="Is Active"><slds-svg-icon sprite="\'utility\'"' +
+                                        ' icon="\'success\'" size="\'x-small\'" extra-classes="\'slds-icon-text-default\'"></slds-svg-icon></span>';
+                            }
+                        }
+                    }
+                ];
+            }]);
+        </script>
+    </body>
+</apex:page>

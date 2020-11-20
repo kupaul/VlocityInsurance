@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Min_greater_than_0</fullName>
+    <active>true</active>
+    <errorConditionFormula>vlocity_ins__MinQuantity__c  &lt;  0</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__MinQuantity__c</errorDisplayField>
+    <errorMessage>Min Quantity should be greater than or equal to 0</errorMessage>
+</ValidationRule>

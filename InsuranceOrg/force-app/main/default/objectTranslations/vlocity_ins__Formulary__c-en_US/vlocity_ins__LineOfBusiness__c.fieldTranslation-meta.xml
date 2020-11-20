@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Line Of Business --></label>
+    <name>vlocity_ins__LineOfBusiness__c</name>
+    <picklistValues>
+        <masterLabel>Group Dental</masterLabel>
+        <translation><!-- Group Dental --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Group Medical</masterLabel>
+        <translation><!-- Group Medical --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Group Vision</masterLabel>
+        <translation><!-- Group Vision --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Individual Dental</masterLabel>
+        <translation><!-- Individual Dental --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Individual Medical</masterLabel>
+        <translation><!-- Individual Medical --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Individual Vision</masterLabel>
+        <translation><!-- Individual Vision --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

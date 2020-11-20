@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ErrorType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A default value set in the data raptor bundle ex: Callout Error, Upsert Error</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A default value set in the data raptor bundle ex: Callout Error, Upsert Error</inlineHelpText>
+    <label>Error Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Callout Error</fullName>
+                <default>false</default>
+                <label>Callout Error</label>
+            </value>
+            <value>
+                <fullName>Upsert Error</fullName>
+                <default>false</default>
+                <label>Upsert Error</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

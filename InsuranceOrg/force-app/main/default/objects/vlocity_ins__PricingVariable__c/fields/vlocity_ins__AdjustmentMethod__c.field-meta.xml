@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AdjustmentMethod__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Adjustment Method</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Absolute</fullName>
+                <default>false</default>
+                <label>Absolute</label>
+            </value>
+            <value>
+                <fullName>Percent</fullName>
+                <default>false</default>
+                <label>Percent</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

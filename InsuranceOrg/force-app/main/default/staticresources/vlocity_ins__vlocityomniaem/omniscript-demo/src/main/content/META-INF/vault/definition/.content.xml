@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:vlt="http://www.day.com/jcr/vault/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:created="{Date}2017-02-16T10:36:16.656-08:00"
+    jcr:createdBy="admin"
+    jcr:description="OmniScipt Demo"
+    jcr:lastModified="{Date}2017-02-16T10:36:16.656-08:00"
+    jcr:lastModifiedBy="admin"
+    jcr:primaryType="vlt:PackageDefinition"
+    buildCount="5"
+    builtWith="Adobe Experience Manager-6.2.0"
+    fixedBugs=""
+    group="Vlocity"
+    lastUnwrapped="{Date}2017-02-16T10:36:16.656-08:00"
+    lastUnwrappedBy="admin"
+    lastWrapped="{Date}2017-02-16T10:36:16.656-08:00"
+    lastWrappedBy="admin"
+    name="omniscript-demo"
+    providerLink=""
+    providerName=""
+    providerUrl=""
+    testedWith=""
+    version="0.0.0">
+    <thumbnail.png/>
+    <filter jcr:primaryType="nt:unstructured">
+        <f0
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/apps/vloc"
+            rules="[include:/apps/vloc(/.*/)?(oauth|omni|SFCSAuth)(?!Universal)[^/]*(/.*)?]"/>
+        <f1
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/content/oout"
+            rules="[exclude:/content/oout/omniUniversal(/.*)?,exclude:/content/oout/scripts/.*]"/>
+        <f2
+            jcr:primaryType="nt:unstructured"
+            mode="replace"
+            root="/content/oout/scripts"
+            rules="[include:/content/oout/scripts/Membership_UsedPricing_English.json]"/>
+    </filter>
+</jcr:root>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RateFactor__c</fullName>
+    <deprecated>false</deprecated>
+    <description>If Fee Type is Rate Factor, this field will hold the factor as a percentage value. The Provider Fee for this entry will be calculated by multiplying the fee from the Base Fee Schedule for the same code, by this factor.</description>
+    <externalId>false</externalId>
+    <label>Rate Factor</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

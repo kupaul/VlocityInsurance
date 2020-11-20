@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EmbeddedTemplateId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Embedded Tempate (if any) associated with this section</description>
+    <externalId>false</externalId>
+    <label>Embedded Document Template</label>
+    <referenceTo>vlocity_ins__DocumentTemplate__c</referenceTo>
+    <relationshipLabel>Document Template Sections (Document Template)</relationshipLabel>
+    <relationshipName>Document_Template_Sections</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

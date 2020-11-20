@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Reason For Removal --></label>
+    <name>vlocity_ins__ReasonForRemoval__c</name>
+    <picklistValues>
+        <masterLabel>No Response</masterLabel>
+        <translation><!-- No Response --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not Eligible</masterLabel>
+        <translation><!-- Not Eligible --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

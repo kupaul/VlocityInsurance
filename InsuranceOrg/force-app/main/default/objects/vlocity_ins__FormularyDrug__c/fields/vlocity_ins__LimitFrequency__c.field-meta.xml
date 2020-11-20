@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__LimitFrequency__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Limit Frequency</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Plan Year</fullName>
+                <default>false</default>
+                <label>Plan Year</label>
+            </value>
+            <value>
+                <fullName>Month</fullName>
+                <default>false</default>
+                <label>Month</label>
+            </value>
+            <value>
+                <fullName>Quarter</fullName>
+                <default>false</default>
+                <label>Quarter</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

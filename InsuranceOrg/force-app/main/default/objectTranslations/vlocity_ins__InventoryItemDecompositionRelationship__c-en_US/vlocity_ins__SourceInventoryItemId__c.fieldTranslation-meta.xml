@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Source Inventory Item --></label>
+    <name>vlocity_ins__SourceInventoryItemId__c</name>
+    <relationshipLabel><!-- InventoryItemDecompositionRelationships (Source Inventory Item) --></relationshipLabel>
+</CustomFieldTranslation>

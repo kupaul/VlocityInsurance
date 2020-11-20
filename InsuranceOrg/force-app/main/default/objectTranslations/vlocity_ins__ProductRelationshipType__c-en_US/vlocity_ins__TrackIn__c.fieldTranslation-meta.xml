@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Track In --></label>
+    <name>vlocity_ins__TrackIn__c</name>
+    <picklistValues>
+        <masterLabel>Line Item Relationship</masterLabel>
+        <translation><!-- Line Item Relationship --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>None</masterLabel>
+        <translation><!-- None --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

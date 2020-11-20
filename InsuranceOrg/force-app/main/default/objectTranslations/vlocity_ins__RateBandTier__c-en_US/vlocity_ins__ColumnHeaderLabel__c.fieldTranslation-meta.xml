@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Column Header Label --></label>
+    <name>vlocity_ins__ColumnHeaderLabel__c</name>
+    <picklistValues>
+        <masterLabel>Self</masterLabel>
+        <translation><!-- Self --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Self + Child</masterLabel>
+        <translation><!-- Self + Child --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Self + Family</masterLabel>
+        <translation><!-- Self + Family --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Self + Spouse</masterLabel>
+        <translation><!-- Self + Spouse --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

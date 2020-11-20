@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DrugClassification__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A drug may be classified by the chemical type of the active ingredient or by the way it is used to treat a particular condition. Each drug can be classified into one or more drug classes.</description>
+    <externalId>false</externalId>
+    <label>Drug Classification</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

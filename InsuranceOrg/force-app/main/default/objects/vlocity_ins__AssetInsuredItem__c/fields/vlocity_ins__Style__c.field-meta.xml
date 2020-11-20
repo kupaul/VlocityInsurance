@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Style__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Style</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Cargo Truck</fullName>
+                <default>false</default>
+                <label>Cargo Truck</label>
+            </value>
+            <value>
+                <fullName>Convertible</fullName>
+                <default>false</default>
+                <label>Convertible</label>
+            </value>
+            <value>
+                <fullName>Farm Equipment</fullName>
+                <default>false</default>
+                <label>Farm Equipment</label>
+            </value>
+            <value>
+                <fullName>Hatchback</fullName>
+                <default>false</default>
+                <label>Hatchback</label>
+            </value>
+            <value>
+                <fullName>Light Truck</fullName>
+                <default>false</default>
+                <label>Light Truck</label>
+            </value>
+            <value>
+                <fullName>Minivan</fullName>
+                <default>false</default>
+                <label>Minivan</label>
+            </value>
+            <value>
+                <fullName>Motorcycle</fullName>
+                <default>false</default>
+                <label>Motorcycle</label>
+            </value>
+            <value>
+                <fullName>RV</fullName>
+                <default>false</default>
+                <label>RV</label>
+            </value>
+            <value>
+                <fullName>Sedan</fullName>
+                <default>false</default>
+                <label>Sedan</label>
+            </value>
+            <value>
+                <fullName>Semi Tractor</fullName>
+                <default>false</default>
+                <label>Semi Tractor</label>
+            </value>
+            <value>
+                <fullName>Semi-Trailer</fullName>
+                <default>false</default>
+                <label>Semi-Trailer</label>
+            </value>
+            <value>
+                <fullName>SUV</fullName>
+                <default>false</default>
+                <label>SUV</label>
+            </value>
+            <value>
+                <fullName>Trailer</fullName>
+                <default>false</default>
+                <label>Trailer</label>
+            </value>
+            <value>
+                <fullName>Van</fullName>
+                <default>false</default>
+                <label>Van</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Bass Boat</fullName>
+                <default>false</default>
+                <label>Bass Boat</label>
+            </value>
+            <value>
+                <fullName>Jet Ski / Water Scooter</fullName>
+                <default>false</default>
+                <label>Jet Ski / Water Scooter</label>
+            </value>
+            <value>
+                <fullName>Runabout</fullName>
+                <default>false</default>
+                <label>Runabout</label>
+            </value>
+            <value>
+                <fullName>Sailboat</fullName>
+                <default>false</default>
+                <label>Sailboat</label>
+            </value>
+            <value>
+                <fullName>Cabin Cruiser</fullName>
+                <default>false</default>
+                <label>Cabin Cruiser</label>
+            </value>
+            <value>
+                <fullName>Pontoon Boat</fullName>
+                <default>false</default>
+                <label>Pontoon Boat</label>
+            </value>
+            <value>
+                <fullName>Yacht</fullName>
+                <default>false</default>
+                <label>Yacht</label>
+            </value>
+            <value>
+                <fullName>Airboat</fullName>
+                <default>false</default>
+                <label>Airboat</label>
+            </value>
+            <value>
+                <fullName>Canoe</fullName>
+                <default>false</default>
+                <label>Canoe</label>
+            </value>
+            <value>
+                <fullName>Catamaran</fullName>
+                <default>false</default>
+                <label>Catamaran</label>
+            </value>
+            <value>
+                <fullName>Jet Boat</fullName>
+                <default>false</default>
+                <label>Jet Boat</label>
+            </value>
+            <value>
+                <fullName>Kayak</fullName>
+                <default>false</default>
+                <label>Kayak</label>
+            </value>
+            <value>
+                <fullName>Trawler</fullName>
+                <default>false</default>
+                <label>Trawler</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

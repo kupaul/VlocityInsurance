@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- A method, or route, of administration is the way the drug is taken into the body. Methods are usually classified by the location where the substance is applied, such as orally or intravenously. --></help>
+    <label><!-- Method --></label>
+    <name>vlocity_ins__Method__c</name>
+    <picklistValues>
+        <masterLabel>Buccal mucosa</masterLabel>
+        <translation><!-- Buccal mucosa --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dental</masterLabel>
+        <translation><!-- Dental --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Epidural</masterLabel>
+        <translation><!-- Epidural --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gingival</masterLabel>
+        <translation><!-- Gingival --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Implantation</masterLabel>
+        <translation><!-- Implantation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Inhalation</masterLabel>
+        <translation><!-- Inhalation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Injection</masterLabel>
+        <translation><!-- Injection --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intracavernosal</masterLabel>
+        <translation><!-- Intracavernosal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intradermal</masterLabel>
+        <translation><!-- Intradermal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intramuscular</masterLabel>
+        <translation><!-- Intramuscular --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intraocular</masterLabel>
+        <translation><!-- Intraocular --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intrapleural</masterLabel>
+        <translation><!-- Intrapleural --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intrathecal</masterLabel>
+        <translation><!-- Intrathecal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intratracheal</masterLabel>
+        <translation><!-- Intratracheal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intratympanic</masterLabel>
+        <translation><!-- Intratympanic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intrauterine</masterLabel>
+        <translation><!-- Intrauterine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intravenous</masterLabel>
+        <translation><!-- Intravenous --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Irrigation</masterLabel>
+        <translation><!-- Irrigation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multiple Routes</masterLabel>
+        <translation><!-- Multiple Routes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nasal</masterLabel>
+        <translation><!-- Nasal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ophthalmic</masterLabel>
+        <translation><!-- Ophthalmic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Oral</masterLabel>
+        <translation><!-- Oral --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Oromucosal</masterLabel>
+        <translation><!-- Oromucosal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Otic</masterLabel>
+        <translation><!-- Otic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rectal</masterLabel>
+        <translation><!-- Rectal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Subcutaneous</masterLabel>
+        <translation><!-- Subcutaneous --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sublingual</masterLabel>
+        <translation><!-- Sublingual --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Topical application</masterLabel>
+        <translation><!-- Topical application --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Transdermal</masterLabel>
+        <translation><!-- Transdermal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Urethral</masterLabel>
+        <translation><!-- Urethral --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Urinary bladder</masterLabel>
+        <translation><!-- Urinary bladder --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vaginal</masterLabel>
+        <translation><!-- Vaginal --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ParentItemId2__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Parent Item Id</label>
+    <referenceTo>QuoteLineItem</referenceTo>
+    <relationshipLabel>Quote Line Items (Parent Item Id)</relationshipLabel>
+    <relationshipName>ParentItems</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

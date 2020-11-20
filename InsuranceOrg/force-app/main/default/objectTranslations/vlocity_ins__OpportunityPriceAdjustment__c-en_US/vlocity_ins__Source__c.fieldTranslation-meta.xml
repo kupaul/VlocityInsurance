@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Source --></label>
+    <name>vlocity_ins__Source__c</name>
+    <picklistValues>
+        <masterLabel>ABP</masterLabel>
+        <translation><!-- ABP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Agent</masterLabel>
+        <translation><!-- Agent --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Base</masterLabel>
+        <translation><!-- Base --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Offer</masterLabel>
+        <translation><!-- Offer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Policy Action</masterLabel>
+        <translation><!-- Policy Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Promotion</masterLabel>
+        <translation><!-- Promotion --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

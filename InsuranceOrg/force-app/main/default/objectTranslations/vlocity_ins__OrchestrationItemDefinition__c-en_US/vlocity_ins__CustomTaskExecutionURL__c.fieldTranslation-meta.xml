@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Customization : url for custom VF page or Omni which would launch on selection of any task action/name of the item in a manual queue. --></help>
+    <label><!-- Custom Task Execution URL --></label>
+    <name>vlocity_ins__CustomTaskExecutionURL__c</name>
+</CustomFieldTranslation>

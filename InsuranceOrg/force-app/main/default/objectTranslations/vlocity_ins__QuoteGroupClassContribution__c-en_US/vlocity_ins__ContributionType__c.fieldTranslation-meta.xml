@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Contribution Type --></label>
+    <name>vlocity_ins__ContributionType__c</name>
+    <picklistValues>
+        <masterLabel>Amount</masterLabel>
+        <translation><!-- Amount --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Percent</masterLabel>
+        <translation><!-- Percent --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

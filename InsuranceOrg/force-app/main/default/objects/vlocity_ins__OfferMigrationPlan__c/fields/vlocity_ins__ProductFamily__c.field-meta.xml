@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProductFamily__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This picklist field can be subset or complete set of Product2 Family field. Users have to make sure of that.</description>
+    <externalId>false</externalId>
+    <label>Product Family</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>None</fullName>
+                <default>false</default>
+                <label>None</label>
+            </value>
+            <value>
+                <fullName>Broadband</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Broadband</label>
+            </value>
+            <value>
+                <fullName>Fixed Line</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Fixed Line</label>
+            </value>
+            <value>
+                <fullName>TV</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>TV</label>
+            </value>
+            <value>
+                <fullName>Wireless Mobile</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Wireless Mobile</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

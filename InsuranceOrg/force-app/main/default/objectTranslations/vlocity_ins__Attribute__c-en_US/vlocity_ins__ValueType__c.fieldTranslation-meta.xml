@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Value Type --></label>
+    <name>vlocity_ins__ValueType__c</name>
+    <picklistValues>
+        <masterLabel>Checkbox</masterLabel>
+        <translation><!-- Checkbox --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Currency</masterLabel>
+        <translation><!-- Currency --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Date</masterLabel>
+        <translation><!-- Date --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Datetime</masterLabel>
+        <translation><!-- Datetime --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lookup</masterLabel>
+        <translation><!-- Lookup --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multi Picklist</masterLabel>
+        <translation><!-- Multi Picklist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Number</masterLabel>
+        <translation><!-- Number --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Percent</masterLabel>
+        <translation><!-- Percent --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Picklist</masterLabel>
+        <translation><!-- Picklist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Text</masterLabel>
+        <translation><!-- Text --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

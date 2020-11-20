@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Policy Relationship --></label>
+    <name>vlocity_ins__PolicyPartyRelationshipId__c</name>
+    <relationshipLabel><!-- Customer Interaction Topics --></relationshipLabel>
+</CustomFieldTranslation>

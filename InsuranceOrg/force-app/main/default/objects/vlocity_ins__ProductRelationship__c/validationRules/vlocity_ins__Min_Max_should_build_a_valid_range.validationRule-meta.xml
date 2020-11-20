@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Min_Max_should_build_a_valid_range</fullName>
+    <active>true</active>
+    <description>Min &amp; Max should build a valid range</description>
+    <errorConditionFormula>NOT ( AND ( (vlocity_ins__MinQuantity__c  &lt;= vlocity_ins__MaxQuantity__c),(  vlocity_ins__DefaultQuantity__c &lt;= vlocity_ins__MaxQuantity__c),( vlocity_ins__DefaultQuantity__c &gt;= vlocity_ins__MinQuantity__c)) )</errorConditionFormula>
+    <errorMessage>Min Quantity should be less than or equal to Max Quantity And Default Quantity should be in between Min &amp; Max Quantity</errorMessage>
+</ValidationRule>

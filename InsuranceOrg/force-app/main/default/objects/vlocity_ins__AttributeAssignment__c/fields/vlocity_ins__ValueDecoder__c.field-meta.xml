@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ValueDecoder__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Used for representing the decoding rule of the multi-value picklist field type value. For example, an auto insurance liability could be represented as 100/300/50 (per person/ per incident/ property). Such special values should be broken down into value and value decoder, ‘100/300/50&apos; should be saved in the Value (Value__c) and the decoding rule &apos;per person/ per incident/ property’ should be stored in the Value Decoder (ValueDecoder__c).</description>
+    <externalId>false</externalId>
+    <label>Value Decoder</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

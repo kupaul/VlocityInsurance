@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The type of Attribute Assignment Rule. Supported Types are:
+Field - Field Value will be applied as the Attribute&apos;s Value.
+Formula - Result of the Formula will be applied as the Attributes Value. For On-Off Attributes, if formula resolves to &gt;= 1 or true then it will apply the Attribute. By Default all formulas have available all Fields on the SObject being evaluated. See below for further formula info.
+Tracking Formula - Same as above except that Tracking Formula&apos;s will be run against all Tracking entries related to the SObject being evaluated.</description>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Formula</fullName>
+                <default>false</default>
+                <label>Formula</label>
+            </value>
+            <value>
+                <fullName>Field</fullName>
+                <default>false</default>
+                <label>Field</label>
+            </value>
+            <value>
+                <fullName>Tracking Formula</fullName>
+                <default>false</default>
+                <label>Tracking Formula</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

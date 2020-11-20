@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__MarketingEventId__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This represents the specific Marketing Event, whose attendee was given a specific Marketing Material.</description>
+    <externalId>false</externalId>
+    <formula>vlocity_ins__MarketingEventRegistrationId__r.vlocity_ins__MarketingEventId__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Marketing Event</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

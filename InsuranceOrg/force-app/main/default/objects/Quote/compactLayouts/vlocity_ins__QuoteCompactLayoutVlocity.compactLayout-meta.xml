@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__QuoteCompactLayoutVlocity</fullName>
+    <fields>Name</fields>
+    <fields>QuoteNumber</fields>
+    <fields>ExpirationDate</fields>
+    <fields>OpportunityId</fields>
+    <fields>AccountId</fields>
+    <fields>vlocity_ins__RootItemTotal__c</fields>
+    <fields>vlocity_ins__TotalSumInsured__c</fields>
+    <label>Quote Compact Layout (Vlocity)</label>
+</CompactLayout>

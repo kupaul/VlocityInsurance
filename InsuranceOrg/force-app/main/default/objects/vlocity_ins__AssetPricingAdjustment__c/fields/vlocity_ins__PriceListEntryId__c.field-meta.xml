@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PriceListEntryId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Price list entry used to calculate the amount.</description>
+    <externalId>false</externalId>
+    <label>Tax/Fee Id</label>
+    <referenceTo>vlocity_ins__PriceListEntry__c</referenceTo>
+    <relationshipLabel>Policy Pricing Adjustments</relationshipLabel>
+    <relationshipName>PolicyPricingAdjustments</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Severity --></label>
+    <name>vlocity_ins__Severity__c</name>
+    <picklistValues>
+        <masterLabel>Error</masterLabel>
+        <translation><!-- Error --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fatal</masterLabel>
+        <translation><!-- Fatal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hard Disqualified</masterLabel>
+        <translation><!-- Hard Disqualified --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Qualified</masterLabel>
+        <translation><!-- Qualified --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Soft Disqualified</masterLabel>
+        <translation><!-- Soft Disqualified --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Soft Qualified</masterLabel>
+        <translation><!-- Soft Qualified --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Warning</masterLabel>
+        <translation><!-- Warning --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

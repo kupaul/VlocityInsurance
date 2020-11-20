@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SupplementalAction__c</fullName>
+    <deprecated>false</deprecated>
+    <description>If this is a supplemental order, this field represents the type of action that is requested on the superseded order.</description>
+    <externalId>false</externalId>
+    <label>Supplemental Action</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Amend</fullName>
+                <default>false</default>
+                <label>Amend</label>
+            </value>
+            <value>
+                <fullName>Cancel</fullName>
+                <default>false</default>
+                <label>Cancel</label>
+            </value>
+            <value>
+                <fullName>Follow On</fullName>
+                <default>false</default>
+                <label>Follow On</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

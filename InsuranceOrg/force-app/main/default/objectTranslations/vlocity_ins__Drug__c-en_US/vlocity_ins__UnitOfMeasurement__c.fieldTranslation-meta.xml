@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The Dosage can be expressed in Units, such as the weight of drug (e.g. 250 mg), volume of drug solution (e.g. 10 mL, 2 drops), the number of dosage forms (e.g. 1 capsule, 1 suppository) or some other quantity (e.g. 2 puffs). --></help>
+    <label><!-- Unit of Measure (UOM) --></label>
+    <name>vlocity_ins__UnitOfMeasurement__c</name>
+    <picklistValues>
+        <masterLabel>%</masterLabel>
+        <translation><!-- % --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Amb</masterLabel>
+        <translation><!-- Amb --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BAU</masterLabel>
+        <translation><!-- BAU --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Buccal mucosa</masterLabel>
+        <translation><!-- Buccal mucosa --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CELLS/ML</masterLabel>
+        <translation><!-- CELLS/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dental</masterLabel>
+        <translation><!-- Dental --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Epidural</masterLabel>
+        <translation><!-- Epidural --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gingival</masterLabel>
+        <translation><!-- Gingival --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IR</masterLabel>
+        <translation><!-- IR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Implantation</masterLabel>
+        <translation><!-- Implantation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Inhalation</masterLabel>
+        <translation><!-- Inhalation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Injection</masterLabel>
+        <translation><!-- Injection --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intracavernosal</masterLabel>
+        <translation><!-- Intracavernosal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intradermal</masterLabel>
+        <translation><!-- Intradermal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intramuscular</masterLabel>
+        <translation><!-- Intramuscular --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intraocular</masterLabel>
+        <translation><!-- Intraocular --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intrapleural</masterLabel>
+        <translation><!-- Intrapleural --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intrathecal</masterLabel>
+        <translation><!-- Intrathecal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intratracheal</masterLabel>
+        <translation><!-- Intratracheal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intratympanic</masterLabel>
+        <translation><!-- Intratympanic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intrauterine</masterLabel>
+        <translation><!-- Intrauterine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intravenous</masterLabel>
+        <translation><!-- Intravenous --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Irrigation</masterLabel>
+        <translation><!-- Irrigation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MCI/ML</masterLabel>
+        <translation><!-- MCI/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MEQ</masterLabel>
+        <translation><!-- MEQ --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MEQ/MG</masterLabel>
+        <translation><!-- MEQ/MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MEQ/ML</masterLabel>
+        <translation><!-- MEQ/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG</masterLabel>
+        <translation><!-- MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/ACTUAT</masterLabel>
+        <translation><!-- MG/ACTUAT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/HR</masterLabel>
+        <translation><!-- MG/HR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/MG</masterLabel>
+        <translation><!-- MG/MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/ML</masterLabel>
+        <translation><!-- MG/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/SQCM</masterLabel>
+        <translation><!-- MG/SQCM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ML</masterLabel>
+        <translation><!-- ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ML/ML</masterLabel>
+        <translation><!-- ML/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multiple Routes</masterLabel>
+        <translation><!-- Multiple Routes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nasal</masterLabel>
+        <translation><!-- Nasal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ophthalmic</masterLabel>
+        <translation><!-- Ophthalmic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Oral</masterLabel>
+        <translation><!-- Oral --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Oromucosal</masterLabel>
+        <translation><!-- Oromucosal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Otic</masterLabel>
+        <translation><!-- Otic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Picklist</masterLabel>
+        <translation><!-- Picklist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rectal</masterLabel>
+        <translation><!-- Rectal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Subcutaneous</masterLabel>
+        <translation><!-- Subcutaneous --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sublingual</masterLabel>
+        <translation><!-- Sublingual --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Topical application</masterLabel>
+        <translation><!-- Topical application --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Transdermal</masterLabel>
+        <translation><!-- Transdermal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNT</masterLabel>
+        <translation><!-- UNT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNT/MG</masterLabel>
+        <translation><!-- UNT/MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNT/ML</masterLabel>
+        <translation><!-- UNT/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Urethral</masterLabel>
+        <translation><!-- Urethral --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Urinary bladder</masterLabel>
+        <translation><!-- Urinary bladder --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vaginal</masterLabel>
+        <translation><!-- Vaginal --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

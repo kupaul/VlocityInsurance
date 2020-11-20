@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SpecificationSubType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field is used to configure the specification sub type of the product. Valid values are - Simple, Bundle. Null value is allowed when field is not yet configured, for backward compatibility. Default value is null.</description>
+    <externalId>false</externalId>
+    <label>Specification Sub Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Simple</fullName>
+                <default>false</default>
+                <label>Simple</label>
+            </value>
+            <value>
+                <fullName>Bundle</fullName>
+                <default>false</default>
+                <label>Bundle</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

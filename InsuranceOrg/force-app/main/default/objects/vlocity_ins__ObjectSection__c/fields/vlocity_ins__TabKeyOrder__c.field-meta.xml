@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__TabKeyOrder__c</fullName>
+    <deprecated>false</deprecated>
+    <description>For two column layouts, the Tab Key Order defines how tabbing through the section behaves. A Top-Down ordering first tabs down all the elements in the first column before returning to the top of the second column and tabbing down those elements. A Left-Right ordering tabs from the top-left element to the top-right element then down to the second row left element then to the second row right element, and so on.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Left-Right - tab right then down
+Top-Down - tab down then right</inlineHelpText>
+    <label>Tab Key Order</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Left-Right</fullName>
+                <default>false</default>
+                <label>Left-Right</label>
+            </value>
+            <value>
+                <fullName>Top-Down</fullName>
+                <default>false</default>
+                <label>Top-Down</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

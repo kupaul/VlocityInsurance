@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AllAssessmentTemplates</fullName>
+    <columns>NAME</columns>
+    <columns>vlocity_ins__Type__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>vlocity_ins__IsTemplate__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>All Assessment Templates</label>
+    <language>en_US</language>
+</ListView>

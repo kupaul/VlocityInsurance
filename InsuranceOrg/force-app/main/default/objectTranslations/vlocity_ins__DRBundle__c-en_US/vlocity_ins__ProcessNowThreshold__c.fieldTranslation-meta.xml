@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Number of records processed immediately (between 0-199) --></help>
+    <label><!-- Process Now Threshold --></label>
+    <name>vlocity_ins__ProcessNowThreshold__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Family --></label>
+    <name>vlocity_ins__Family__c</name>
+    <picklistValues>
+        <masterLabel>Installation</masterLabel>
+        <translation><!-- Installation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Modem</masterLabel>
+        <translation><!-- Modem --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Power Supply</masterLabel>
+        <translation><!-- Power Supply --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Repair Package</masterLabel>
+        <translation><!-- Repair Package --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Router</masterLabel>
+        <translation><!-- Router --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VOIP</masterLabel>
+        <translation><!-- VOIP --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Root OrderItem of a commercial Bundle --></help>
+    <label><!-- RootOrderItem --></label>
+    <name>vlocity_ins__RootOrderItemId__c</name>
+    <relationshipLabel><!-- Bundle Members --></relationshipLabel>
+</CustomFieldTranslation>

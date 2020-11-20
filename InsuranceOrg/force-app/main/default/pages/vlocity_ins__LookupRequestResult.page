@@ -1,0 +1,477 @@
+<apex:page controller="vlocity_ins.LookupRequestResultController" standardStylesheets="false" showHeader="false" sidebar="false" docType="html-5.0">
+<html xmlns:ng="http://angularjs.org" lang="en" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+    <head>
+        <title>Lookup Request Result</title>
+        <base target="_parent"/>
+        <meta charset="utf-8"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/v102/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__LookupRequestResult}"/>
+        <apex:includeScript value="/support/console/41.0/integration.js"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/>
+        <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+        <apex:stylesheet value="{!$Resource.vlocity_ins__LookupRequestResultCss}"/>
+    </head>
+    <body>
+        <div ng-app="lookuprequestresult" ng-controller="lookupController" class="via-slds preload" via-screen-height="viaScreenHeight">
+            <div class="lookup-container">
+                <div ng-class="{'show-loader': vlcLoading}" class="slds-spinner_container">
+                    <div class="slds-spinner--brand slds-spinner slds-spinner--medium" aria-hidden="false" role="alert">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+                <div class="slds-notify_container via-top-global-alert" ng-class="{'show-validation': validationErrorHandler.validation.message}">
+                    <div class="slds-notify slds-notify--alert slds-theme--alert-texture" role="alert" ng-class="{'slds-theme--error': validationErrorHandler.validation.type === 'error'}">
+                        <button class="slds-button slds-button--icon-inverse slds-notify__close" ng-click="validationErrorHandler.hideValidation()">
+                            <slds-button-svg-icon sprite="'utility'" icon="'close'" ></slds-button-svg-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <span class="slds-assistive-text">Error</span>
+                        <h2 ng-bind-html="validationErrorHandler.validation.message">
+                            <slds-svg-icon sprite="'utility'" icon="'ban'" size="'small'" extra-classes="'icon-text-email slds-m-right--x-small'" ng-show="validationErrorHandler.validation.type === 'error'"></slds-svg-icon>
+                        </h2>
+                    </div>
+                </div>
+                <div class="via-pane via-pane-0 via-pane-search" ng-class="{'via-pane-active': viaPane >= 0, 'via-pane-inactive': viaPane < 0}">
+                    <!-- First Pane with search form -->
+                    <div class="inner-pane-container">
+                        <div role="alertdialog" tabindex="-1" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal--prompt" ng-if="eventDrivenMode.eventDriven">
+                            <div class="slds-modal__container">
+                                <div class="slds-modal__header slds-theme--warning slds-theme--alert-texture">
+                                    <h2 class="slds-text-heading--small" id="prompt-heading-id">Warning</h2>
+                                </div>
+                                <div class="slds-modal__content slds-p-around--medium">
+                                    <div>
+                                        <p>{{eventDrivenMode.message}}</p>
+                                    </div>
+                                </div>
+                                <div class="slds-modal__footer slds-theme--default">
+                                    <button class="slds-button slds-button--neutral" ng-click="closeWidget()">{{liLabels.InteractionLauncher_OK}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-backdrop slds-backdrop--open" ng-if="eventDrivenMode.eventDriven"></div>
+                        <form class="search-form" ng-submit="getSearchResult(lookupRequests, contextIds, callerData)" autocomplete="off" ng-if="!eventDrivenMode.eventDriven">
+                            <div ng-if="!tabStyle" class="slds-form--horizontal lookup-request-form" ng-repeat="request in lookupRequests">
+                                <h3 class="slds-section-title--divider section-header">{{request.searchObjectLabel}}</h3>
+                                <div class="slds-form-element" ng-repeat="searchField in request.searchFieldList" ng-if="request.searchFieldsLabelTypeMap[searchField]" >
+                                    <label class="slds-form-element__label" for="{{searchField}}" ng-if="request.searchFieldsLabelTypeMap[searchField].datatype !== 'checkbox'">{{request.searchFieldsLabelTypeMap[searchField].label}}</label>
+                                    <div class="slds-form-element__control {{request.searchFieldsLabelTypeMap[searchField].datatype}}" ng-include="'LookupSearchForm.tpl.html'"></div>
+                                </div>
+                            </div>
+                           <div ng-if="tabStyle" slds-tabs="sldsTabs" class="custom-tab-style" >
+                                <div class="slds-form--horizontal lookup-request-form" ng-repeat="request in lookupRequests">
+                                    <div data-title="{{request.searchObjectLabel}}" name="{{request.searchObjectLabel + $index}}" slds-pane="sldsPane" class="slds-clearfix slds-grid slds-wrap ">
+                                        <div ng-repeat="searchField in request.searchFieldList" ng-if="request.searchFieldsLabelTypeMap[searchField]" class="slds-form-element">
+                                             <label class="slds-form-element__label" for="{{searchField}}" ng-if="request.searchFieldsLabelTypeMap[searchField].datatype !== 'checkbox'">{{request.searchFieldsLabelTypeMap[searchField].label}}</label>
+                                            <div class="slds-form-element__control {{request.searchFieldsLabelTypeMap[searchField].datatype}}" ng-include="'LookupSearchForm.tpl.html'"></div>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="request-form-footer" ng-class="{'active': lookupRequests.length && viaPane === 0}">
+                                <div class="slds-button-group" role="group" ng-if="!eventDrivenNonOverride">
+                                    <button type="button" class="slds-button slds-button--icon-border" ng-click="startNewSearch()">
+                                        <slds-button-svg-icon sprite="'utility'" icon="'redo'"></slds-button-svg-icon>
+                                        <span class="slds-assistive-text">Restart Search</span>
+                                    </button>
+                                </div>
+                                <button type="submit" class="slds-button slds-button--brand">{{liLabels.InteractionLauncher_Search}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="via-pane via-pane-1 via-pane-search-results" ng-class="{'via-pane-active': viaPane >= 1, 'via-pane-inactive': viaPane < 1}">
+                    <!-- Search Result Pane for Caller Identification Type -->
+                    <div class="inner-pane-container">
+                        <div class="slds-clearfix vloc-il-header-panel">
+                            <div class="slds-text-heading--medium slds-float--left">{{liLabels.InteractionLauncher_SearchResult}}</div>
+                            <p class="slds-float--right">Showing {{searchResult.length}} Results</p>
+                        </div>
+                        <h3 ng-if="actionFramework.resultActions.length" class="slds-section-title--divider via-result-actions slds-clearfix" fix-to-top="fix-to-top" scroll-element=".via-pane-1" top-sibling=".via-pane-1 .vloc-il-header-panel">
+                            <span ng-if="actionFramework.resultActions.length < 7" class="step-verification-actions-label">{{liLabels.InteractionLauncher_UnrelatedParty}}</span>
+                            <div class="slds-button-group" ng-class="{'slds-float--right': actionFramework.resultActions.length < 7}" role="group">
+                                <button class="slds-button slds-button--icon-border via-result-action-btn via-result-action-{{$index}} via-result-action-pane-1-{{$index}}-{{action.displayName.toLowerCase().split(' ').join('-')}}" ng-click="actionFramework.invokeAction(action)" ng-repeat="action in actionFramework.resultActions track by $index" slds-popover="{}" nubbin-direction="{{$index == actionFramework.resultActions.length -1 ? 'right' : 'bottom'}}" data-container=".via-pane-1" data-title="{{action.displayName}}" tooltip="true" ng-class="{'overflow': actionFramework.resultActions.length > 6}">
+                                    <i class="icon {{action.vlocityIcon}} slds-button__icon" ng-if="action.vlocityIcon && !action.imageRef"></i>
+                                    <img class="slds-button__icon" ng-src="{{action.imageRef}}" ng-if="action.imageRef"/>
+                                    <span class="slds-assistive-text">{{action.displayName}}</span>
+                                </button>
+                            </div>
+                        </h3>
+                        <div class="slds-notify_container no-search-results" ng-if="!searchResult.length && searchResultMessage">
+                            <div class="slds-notify slds-notify--alert slds-theme--{{searchResultMessage.type}}" role="alert">
+                                <span class="slds-assistive-text">Info</span>
+                                <h2>{{searchResultMessage.value}} <a href="javascript:void(0)" ng-click="startNewSearch()">Restart Search</a></h2>
+                            </div>
+                        </div>
+                        <section class="search-result-section" ng-repeat="result in searchResult">
+                            <div ng-repeat="field in result.resultFieldList" class="search-result-field {{formatLabelAsClass(result.resultFieldsLabelTypeMap[field].label)}}">
+                                <label ng-if="result.resultFieldsLabelTypeMap[field] && result.resultFieldsLabelTypeMap[field].label">{{result.resultFieldsLabelTypeMap[field].label}}: </label>
+                                <span class="search-result-field-value" ng-bind-html="result.resultValueMap[field] | maskField : result.resultFieldsLabelTypeMap[field].datatype: result.resultFieldsLabelTypeMap[field].label"></span>
+                            </div>
+                            <button class="slds-button slds-button--neutral" ng-click="verifySearchResult(result)">Verify</button>
+                        </section>
+                        <div class="pagination-buttons-container" ng-class="{'active': ((previousResults.length && (lastResultIndex > resultsPerPage)) || hasMoreResults) && viaPane === 1}">
+                            <div class="slds-button-group pagination-buttons" role="group">
+                                <button class="slds-button slds-button--neutral pagination-button pagination-previous" ng-click="getSearchResult(searchSection, contextIds, callerData, true);" ng-if="previousResults.length && (lastResultIndex > resultsPerPage)">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'back'" extra-classes="'slds-icon-text-default'"></slds-button-svg-icon>
+                                    <span>Previous Results</span>
+                                </button>
+                                <button class="slds-button slds-button--neutral pagination-button pagination-next" ng-click="getSearchResult(searchSection, contextIds, callerData, false); iconRotate = !iconRotate" ng-if="hasMoreResults" ng-class="{'rotate': iconRotate}">
+                                    <span>More Results</span>
+                                    <slds-button-svg-icon sprite="'utility'" icon="'sync'" extra-classes="'slds-icon-text-default'"></slds-button-svg-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="request-form-footer" ng-class="{'active': (searchResult.length || searchResultMessage) && viaPane === 1}">
+                            <div class="slds-button-group" role="group">
+                                <button class="slds-button slds-button--icon-border" ng-click="goBackOnePane()" ng-hide="previousResults.length && (lastResultIndex > resultsPerPage)">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'back'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Back</span>
+                                </button>
+                                <button class="slds-button slds-button--icon-border via-start-new-search" ng-click="startNewSearch()" ng-if="!eventDrivenNonOverride">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'redo'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Restart Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="via-pane via-pane-2 via-pane-related-parties" ng-class="{'via-pane-active': viaPane >= 2, 'via-pane-inactive': viaPane < 2}">
+                    <!-- Search Result Pane for Related Party Types  -->
+                    <div class="inner-pane-container">
+                        <div class="slds-clearfix vloc-il-header-panel">
+                            <div class="slds-text-heading--medium related-parties slds-float--left">{{liLabels.InteractionLauncher_RelatedParty}}</div>
+                            <p class="slds-float--right">Showing {{searchResult.length}} Results</p>
+                        </div>
+                        <h3 ng-if="actionFramework.resultActions.length" class="slds-section-title--divider via-result-actions slds-clearfix" fix-to-top="fix-to-top" scroll-element=".via-pane-2" top-sibling=".via-pane-2 .vloc-il-header-panel">
+                            <span ng-if="actionFramework.resultActions.length < 7" class="step-verification-actions-label">{{liLabels.InteractionLauncher_UnrelatedParty}}</span>
+                            <div class="slds-button-group" ng-class="{'slds-float--right': actionFramework.resultActions.length < 7}" role="group">
+                                <button class="slds-button slds-button--icon-border via-result-action-btn via-result-action-{{$index}} via-result-action-pane-2-{{$index}}-{{action.displayName.toLowerCase().split(' ').join('-')}}" ng-click="actionFramework.invokeAction(action)" ng-repeat="action in actionFramework.resultActions" slds-popover="{}" nubbin-direction="{{$index == actionFramework.resultActions.length -1  ? 'right' : 'bottom'}}" data-container=".via-pane-2" data-title="{{action.displayName}}" tooltip="true" ng-class="{'overflow': actionFramework.resultActions.length > 6}">
+                                    <i class="icon {{action.vlocityIcon}} slds-button__icon" ng-if="action.vlocityIcon && !action.imageRef"></i>
+                                    <img class="slds-button__icon" ng-src="{{action.imageRef}}" ng-if="action.imageRef"/>
+                                    <span class="slds-assistive-text">{{action.displayName}}</span>
+                                </button>
+                            </div>
+                        </h3>
+                        <div class="slds-notify_container no-search-results" ng-if="!searchResult.length && searchResultMessage">
+                            <div class="slds-notify slds-notify--alert slds-theme--{{searchResultMessage.type}}" role="alert">
+                                <span class="slds-assistive-text">Info</span>
+                                <h2>{{searchResultMessage.value}} <a href="javascript:void(0)" ng-click="startNewSearch()">Restart Search</a></h2>
+                            </div>
+                        </div>
+                        <ul class="slds-has-dividers--bottom">
+                            <li class="slds-item list-header">
+                                <div class="col"><span>{{searchResult[0].resultFieldsLabelTypeMap[searchResult[0].resultFieldList[0]].label}}</span></div>
+                                <div class="col"><span>{{searchResult[0].resultFieldsLabelTypeMap[searchResult[0].resultFieldList[1]].label}}</span></div>
+                                <div class="col"></div>
+                            </li>
+                            <li class="slds-item list-related-party" ng-repeat="result in searchResult">
+                                <div class="col" ng-repeat="field in result.resultFieldList" ng-if="$index < 2">
+                                    <span ng-bind-html="result.resultValueMap[field]"></span>
+                                </div>
+                                <div class="col">
+                                    <button class="slds-button slds-button--neutral" ng-click="verifySearchResult(result)">{{liLabels.InteractionLauncher_Verify}}</button>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="pagination-buttons-container" ng-class="{'active': ((previousResults.length && (lastResultIndex > resultsPerPage)) || hasMoreResults) && viaPane === 2}">
+                            <div class="slds-button-group pagination-buttons" role="group">
+                                <button class="slds-button slds-button--neutral pagination-button pagination-previous" ng-click="getSearchResult(searchSection, contextIds, callerData, true);" ng-if="previousResults.length && (lastResultIndex > resultsPerPage)">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'back'" extra-classes="'slds-icon-text-default'"></slds-button-svg-icon>
+                                    <span>Previous Results</span>
+                                </button>
+                                <button class="slds-button slds-button--neutral pagination-button pagination-next" ng-click="getSearchResult(searchSection, contextIds, callerData, false); iconRotate = !iconRotate" ng-if="hasMoreResults" ng-class="{'rotate': iconRotate}">
+                                    <span>More Results</span>
+                                    <slds-button-svg-icon sprite="'utility'" icon="'sync'" extra-classes="'slds-icon-text-default'"></slds-button-svg-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="request-form-footer" ng-class="{'active': (searchResult.length || searchResultMessage) && viaPane === 2}">
+                            <div class="slds-button-group" role="group">
+                                <button class="slds-button slds-button--icon-border" ng-click="goBackOnePane()" ng-hide="previousResults.length && (lastResultIndex > resultsPerPage)">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'back'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Back</span>
+                                </button>
+                                <button class="slds-button slds-button--icon-border" ng-click="startNewSearch()" ng-if="!eventDrivenNonOverride">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'redo'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Restart Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="via-pane via-pane-3 via-pane-verify-caller" ng-class="{'via-pane-active': viaPane >= 3, 'via-pane-inactive': viaPane < 3}">
+                    <!-- Verification Pane with field verification checks and scratchpad -->
+                    <div class="inner-pane-container">
+                        <div class="slds-clearfix vloc-il-header-panel">
+                            <div class="slds-text-heading--medium" ng-if="callerData.resultValueMap.Name">{{liLabels.InteractionLauncher_VerifyCaller}}: {{callerData.resultValueMap.Name}}</div>
+                            <div class="slds-text-heading--medium" ng-if="callerData.resultValueMap[nameSpacePrefix + 'RelatedParty__c']">{{liLabels.InteractionLauncher_VerifyCaller}}: {{callerData.resultValueMap[nameSpacePrefix + 'RelatedParty__c']}}</div>
+                            <div class="slds-text-heading--medium" ng-if="!callerData.resultValueMap.Name && !callerData.resultValueMap[nameSpacePrefix + 'RelatedParty__c']">{{liLabels.InteractionLauncher_VerifyCaller}}</div>
+                        </div>
+                        <h3 ng-if="actionFramework.verificationActions.length" class="slds-section-title--divider via-result-actions slds-clearfix" fix-to-top="fix-to-top" scroll-element=".via-pane-3" top-sibling=".via-pane-3 .slds-text-heading--medium">
+                            <span ng-if="actionFramework.verificationActions.length < 7" class="step-verification-actions-label">{{liLabels.InteractionLauncher_UnrelatedParty}}</span>
+                            <div class="slds-button-group" ng-class="{'slds-float--right': actionFramework.verificationActions.length < 7}" role="group">
+                                <button class="slds-button slds-button--icon-border via-result-action-btn via-result-action-{{$index}} via-result-action-pane-3-{{$index}}-{{action.displayName.toLowerCase().split(' ').join('-')}}" ng-click="actionFramework.invokeAction(action)" ng-repeat="action in actionFramework.verificationActions" slds-popover="{}" nubbin-direction="{{$index == actionFramework.verificationActions.length -1  ? 'right' : 'bottom'}}" data-container=".via-pane-3" data-title="{{action.displayName}}" tooltip="true" ng-class="{'overflow': actionFramework.verificationActions.length > 6}">
+                                    <i class="icon {{action.vlocityIcon}} slds-button__icon" ng-if="action.vlocityIcon && !action.imageRef"></i>
+                                    <img class="slds-button__icon" ng-src="{{action.imageRef}}" ng-if="action.imageRef"/>
+                                    <span class="slds-assistive-text">{{action.displayName}}</span>
+                                </button>
+                            </div>
+                        </h3>
+                        <h3 ng-if="callerData.verificationFieldList.length" class="slds-section-title--divider" ng-bind-html="liLabels.InteractionLauncher_VerifyHeading"></h3>
+                        <section ng-if="callerData.verificationFieldList.length" class="verification-section verification-section-verify" ng-repeat="vField in callerData.verificationFieldList" ng-class="{'last-section': $index === callerData.verificationFieldList.length - 1}">
+                            <div class="field-data">
+                                <label class="slds-text-heading--label section-item-label"><abbr class="slds-required" title="required" ng-class="{'verified': callerData.verificationResult.fields[vField]}">*</abbr>{{callerData.resultFieldsLabelTypeMap[vField].label}}</label>
+                                <span class="section-item-value" ng-bind-html="callerData.resultValueMap[vField]"></span>
+                            </div>
+                            <div class="verification-buttons">
+                                <button class="slds-button via-approve" ng-click="verifyField($event, true, vField)" ng-class="{'active': callerData.verificationResult.fields[vField] === true}">
+                                    <span class="slds-icon_container--circle slds-icon-standard-approval verification-icon" title="Approve Party Field">
+                                        <slds-svg-icon sprite="'action'" icon="'approval'"></slds-svg-icon>
+                                        <span class="slds-assistive-text">Approve Party Field</span>
+                                    </span>
+                                </button>
+                                <button class="slds-button via-reject" ng-click="verifyField($event, false, vField)" ng-class="{'active': callerData.verificationResult.fields[vField] === false}">
+                                    <span class="slds-icon_container--circle slds-icon-standard-approval verification-icon" title="Reject Party Field">
+                                        <slds-svg-icon sprite="'action'" icon="'reject'"></slds-svg-icon>
+                                        <span class="slds-assistive-text">Reject Party Field</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </section>
+                        <h3 ng-if="callerData.optionalVerificationFieldList.length" class="slds-section-title--divider">{{liLabels.InteractionLauncher_OptionalVerifyHeading}} <span>({{liLabels.InteractionLauncher_MustVerify}} {{callerData.numOfOptionalVerificationFields}})</span></h3>
+                        <section ng-if="callerData.optionalVerificationFieldList.length" class="verification-section verification-section-optional" ng-repeat="ovField in callerData.optionalVerificationFieldList" ng-class="{'last-section': $index === callerData.optionalVerificationFieldList.length - 1}">
+                            <div class="field-data">
+                                <label class="slds-text-heading--label section-item-label">{{callerData.resultFieldsLabelTypeMap[ovField].label}}</label>
+                                <span class="section-item-value" ng-bind-html="callerData.resultValueMap[ovField]"></span>
+                            </div>
+                            <div class="verification-buttons">
+                                <button class="slds-button via-approve" ng-click="verifyField($event, true, ovField)" ng-class="{'active': callerData.verificationResult.fields[ovField] === true}">
+                                    <span class="slds-icon_container--circle slds-icon-standard-approval verification-icon" title="Approve Party Field">
+                                        <slds-svg-icon sprite="'action'" icon="'approval'"></slds-svg-icon>
+                                        <span class="slds-assistive-text">Approve Party Field</span>
+                                    </span>
+                                </button>
+                                <button class="slds-button via-reject" ng-click="verifyField($event, false, ovField)" ng-class="{'active': callerData.verificationResult.fields[ovField] === false}">
+                                    <span class="slds-icon_container--circle slds-icon-standard-approval verification-icon" title="Reject Party Field">
+                                        <slds-svg-icon sprite="'action'" icon="'reject'"></slds-svg-icon>
+                                        <span class="slds-assistive-text">Reject Party Field</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </section>
+                        <section class="notes-section" ng-show="showScratchPad">
+                            <div class="slds-form-element">
+                                <label class="slds-text-heading--label section-item-label" for="notes-textarea">Notes</label>
+                                <div class="slds-form-element__control">
+                                    <textarea id="notes-textarea" class="slds-textarea" ng-model="callerData.verificationResult.note" placeholder="{{liLabels.InteractionLauncher_Scratchpad}}"></textarea>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="request-form-footer" ng-class="{'active': viaPane === 3 && (actionFramework.actions.length || callerData.request.continueSearch)}">
+                            <div class="slds-button-group" role="group">
+                                <button class="slds-button slds-button--icon-border" ng-click="goBackOnePane()">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'back'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Back</span>
+                                </button>
+                                <button class="slds-button slds-button--icon-border" ng-click="startNewSearch()" ng-if="!eventDrivenNonOverride">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'redo'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Restart Search</span>
+                                </button>
+                            </div>
+                            <button ng-if="!callerData.request.continueSearch" type="submit" class="slds-button slds-button--brand launch-console" ng-click="actionFramework.invokeAction()">
+                                <slds-button-svg-icon sprite="'utility'" icon="'tabset'" extra-classes="'slds-button__icon--left'"></slds-button-svg-icon>
+                                {{liLabels.InteractionLauncher_Launch}}
+                            </button>
+                            <button ng-if="callerData.request.continueSearch" type="submit" class="slds-button slds-button--brand launch-console" ng-click="getNextLookupRequests()">{{liLabels.InteractionLauncher_VerifyAndSearch}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="via-pane via-pane-4 via-pane-caller-verified" ng-class="{'via-pane-active': viaPane >= 4, 'via-pane-inactive': viaPane < 4}">
+                    <!-- This screen shows up after caller has been verified. Won't ever be seen in console -->
+                    <div class="inner-pane-container">
+                        <div class="slds-text-heading--medium" ng-if="callerData.resultValueMap.Name">{{callerData.resultValueMap.Name}} Verified</div>
+                        <div class="slds-text-heading--medium" ng-if="callerData.resultValueMap[nameSpacePrefix + 'RelatedParty__c']">{{callerData.resultValueMap[nameSpacePrefix + 'RelatedParty__c']}} Verified</div>
+                        <div class="slds-text-heading--medium" ng-if="!callerData">Verified Caller</div>
+                        <span class="slds-icon_container--circle slds-icon-standard-approval success-icon" title="The caller has been verified">
+                            <slds-svg-icon sprite="'action'" icon="'check'"></slds-svg-icon>
+                            <span class="slds-assistive-text">The caller has been verified</span>
+                        </span>
+                        <div class="slds-text-heading--small slds-text-align--center">The caller has been verified.</div>
+                        <button type="submit" class="slds-button slds-button--brand start-new-search" ng-click="startNewSearch()">Start New Search</button>
+                    </div>
+                </div>
+                <div class="via-pane via-pane-5 via-pane-search-policies" ng-class="{'via-pane-active': viaPane >= 5, 'via-pane-inactive': viaPane < 5}">
+                    <!-- Second Search Form -->
+                    <div class="inner-pane-container">
+                        <form class="search-form" ng-submit="getSearchResult(moreRequests, contextIds, nextLookupRequests[0], false, true)" autocomplete="off">
+                            <h3 class="slds-section-title--divider section-header no-margin-bottom">{{callerData.request.searchObjectLabel}}</h3>
+                            <section class="search-result-section verified-agent" ng-repeat="result in nextLookupRequests">
+                                <div ng-repeat="field in result.resultFieldList" class="search-result-field {{formatLabelAsClass(result.resultFieldsLabelTypeMap[field].label)}}">
+                                    <label ng-if="result.resultFieldsLabelTypeMap[field] && result.resultFieldsLabelTypeMap[field].label && field.indexOf('Name') < 0 && field.toLowerCase().indexOf('address') < 0">{{result.resultFieldsLabelTypeMap[field].label}}: </label>
+                                    <span class="search-result-field-value" ng-bind-html="result.resultValueMap[field]"></span>
+                                </div>
+                                <button type="button" class="slds-button slds-button--neutral" ng-click="actionFramework.invokeAction(undefined, nextLookupRequests[0])" ng-if="nextLookupRequests[0].interactionObjName">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'tabset'" extra-classes="'slds-button__icon--left'"></slds-button-svg-icon>
+                                    View
+                                </button>
+                            </section>
+                            <div class="slds-form--horizontal lookup-request-form" ng-repeat="request in moreRequests">
+                                <h3 class="slds-section-title--divider section-header">{{request.searchObjectLabel}}</h3>
+                                <div class="slds-form-element" ng-repeat="searchField in request.searchFieldList">
+                                    <label class="slds-form-element__label" for="{{searchField}}">{{request.searchFieldsLabelTypeMap[searchField].label}}</label>
+                                    <div class="slds-form-element__control {{request.searchFieldsLabelTypeMap[searchField].datatype}}" ng-include="'LookupSearchForm.tpl.html'"></div>
+                                </div>
+                            </div>
+                            <div class="request-form-footer" ng-class="{'active': lookupRequests.length && viaPane === 5}">
+                                <div class="slds-button-group" role="group" ng-if="!eventDrivenNonOverride">
+                                    <button type="button" class="slds-button slds-button--icon-border via-start-new-search" ng-click="startNewSearch()">
+                                        <slds-button-svg-icon sprite="'utility'" icon="'redo'"></slds-button-svg-icon>
+                                        <span class="slds-assistive-text">Restart Search</span>
+                                    </button>
+                                </div>
+                                <button type="submit" class="slds-button slds-button--brand" ng-show="moreRequests.length">{{liLabels.InteractionLauncher_Search}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="via-pane via-pane-6 via-pane-agent-search-results" ng-class="{'via-pane-active': viaPane >= 6, 'via-pane-inactive': viaPane < 6}">
+                    <!-- Search Results after second search -->
+                    <div class="inner-pane-container">
+                        <div class="slds-clearfix vloc-il-header-panel">
+                            <div class="slds-text-heading--medium slds-float--left">{{liLabels.InteractionLauncher_SearchResult}}</div>
+                            <p class="slds-float--right">Showing {{searchResult.length}} Results</p>
+                        </div>
+                        <h3 ng-if="actionFramework.resultActions.length" class="slds-section-title--divider via-result-actions slds-clearfix" fix-to-top="fix-to-top" scroll-element=".via-pane-6" top-sibling=".via-pane-6 .vloc-il-header-panel">
+                            <span ng-if="actionFramework.resultActions.length < 7" class="step-verification-actions-label">{{liLabels.InteractionLauncher_UnrelatedParty}}</span>
+                            <div class="slds-button-group" ng-class="{'slds-float--right': actionFramework.resultActions.length < 7}" role="group">
+                                <button class="slds-button slds-button--icon-border via-result-action-btn via-result-action-{{$index}} via-result-action-pane-6-{{$index}}-{{action.displayName.toLowerCase().split(' ').join('-')}}" ng-click="actionFramework.invokeAction(action)" ng-repeat="action in actionFramework.resultActions" slds-popover="{}" nubbin-direction="{{$index == actionFramework.resultActions.length -1 ? 'right' : 'bottom'}}" data-container=".via-pane-6" data-title="{{action.displayName}}" tooltip="true" ng-class="{'overflow': actionFramework.resultActions.length > 6}">
+                                    <i class="icon {{action.vlocityIcon}} slds-button__icon" ng-if="action.vlocityIcon && !action.imageRef"></i>
+                                    <img class="slds-button__icon" ng-src="{{action.imageRef}}" ng-if="action.imageRef"/>
+                                    <span class="slds-assistive-text">{{action.displayName}}</span>
+                                </button>
+                            </div>
+                        </h3>
+                        <div class="slds-notify_container no-search-results" ng-if="!searchResult.length && searchResultMessage">
+                            <div class="slds-notify slds-notify--alert slds-theme--{{searchResultMessage.type}}" role="alert">
+                                <span class="slds-assistive-text">Info</span>
+                                <h2>{{searchResultMessage.value}} <a href="javascript:void(0)" ng-click="goBackOnePane()">Restart Search</a></h2>
+                            </div>
+                        </div>
+                        <section class="search-result-section" ng-repeat="result in searchResult" ng-if="!searchResult[searchResult.length - 1].message">
+                            <div ng-repeat="field in result.resultFieldList" class="search-result-field {{formatLabelAsClass(result.resultFieldsLabelTypeMap[field].label)}}">
+                                <label ng-if="result.resultFieldsLabelTypeMap[field] && result.resultFieldsLabelTypeMap[field].label && field.indexOf('Name') < 0 && field.toLowerCase().indexOf('address') < 0">{{result.resultFieldsLabelTypeMap[field].label}}: </label>
+                                <span class="search-result-field-value" ng-bind-html="result.resultValueMap[field]"></span>
+                            </div>
+                            <button class="slds-button slds-button--neutral" ng-click="actionFramework.invokeAction(undefined, result)">
+                                <slds-button-svg-icon sprite="'utility'" icon="'tabset'" extra-classes="'slds-button__icon--left'"></slds-button-svg-icon>
+                                View
+                            </button>
+                        </section>
+                        <div class="pagination-buttons-container" ng-class="{'active': ((previousResults.length && (lastResultIndex > resultsPerPage)) || hasMoreResults) && viaPane === 6}">
+                            <div class="slds-button-group pagination-buttons" role="group">
+                                <button class="slds-button slds-button--neutral pagination-button pagination-previous" ng-click="getSearchResult(searchSection, contextIds, callerData, true);" ng-if="previousResults.length && (lastResultIndex > resultsPerPage)">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'back'" extra-classes="'slds-icon-text-default'"></slds-button-svg-icon>
+                                    <span>Previous Results</span>
+                                </button>
+                                <button class="slds-button slds-button--neutral pagination-button pagination-next" ng-click="getSearchResult(searchSection, contextIds, callerData, false); iconRotate = !iconRotate" ng-if="hasMoreResults" ng-class="{'rotate': iconRotate}">
+                                    <span>More Results</span>
+                                    <slds-button-svg-icon sprite="'utility'" icon="'sync'" extra-classes="'slds-icon-text-default'"></slds-button-svg-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="request-form-footer" ng-class="{'active': (searchResult.length || searchResultMessage) && viaPane === 6}">
+                            <div class="slds-button-group" role="group">
+                                <button class="slds-button slds-button--icon-border" ng-click="goBackOnePane()">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'back'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Back</span>
+                                </button>
+                                <button class="slds-button slds-button--icon-border" ng-click="startNewSearch()" ng-if="!eventDrivenNonOverride">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'redo'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Restart Search</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var nameSpacePrefix, remoteActions, baseRequestUrl, userName, showScratchPad, eventDrivenMode, liLabels;
+            nameSpacePrefix = '{!nameSpacePrefix}';
+            baseRequestUrl = '{!$Site.BaseRequestUrl}';
+            userName = '{!$User.Username}';
+            showScratchPad = '{!showScratchPad}';
+            tabStyle = '{!tabStyle}';
+            eventDrivenMode = '{!eventDrivenMode}';
+            remoteActions = {
+                getLookupRequests: {
+                    action: '{!$RemoteAction.LookupRequestResultController.getLookupRequests}',
+                    config: {escape: false}
+                },
+                getSearchResult: {
+                    action: '{!$RemoteAction.LookupRequestResultController.getSearchResult}',
+                    config: {escape: false}
+                },
+                getLookupVerificationAction: {
+                    action: '{!$RemoteAction.LookupRequestResultController.getLookupVerificationAction}',
+                    config: {escape: false}
+                },
+                invokeVOIMethod: {
+                    action: '{!$RemoteAction.LookupRequestResultController.invokeVOIMethod}',
+                    config: {escape: false}
+                },
+                getStepActions: {
+                    action: '{!$RemoteAction.LookupRequestResultController.getStepActions}',
+                    config: {escape: false}
+                },
+                getVerificationPaneActions: {
+                    action: '{!$RemoteAction.LookupRequestResultController.getVerificationPaneActions}',
+                    config: {escape: false}
+                },
+                getNextLookupRequests: {
+                    action: '{!$RemoteAction.LookupRequestResultController.getNextLookupRequests}',
+                    config: {escape: false}
+                },
+                getNextLookupRequestsWithoutSearch: {
+                    action: '{!$RemoteAction.LookupRequestResultController.getNextLookupRequestsWithoutSearch}',
+                    config: {escape: false}
+                },
+                getSearchResultById: {
+                    action: '{!$RemoteAction.LookupRequestResultController.getSearchResultById}',
+                    config: {escape: false}
+                },
+                getSearchResultByIds: {
+                    action: '{!$RemoteAction.LookupRequestResultController.getSearchResultByIds}',
+                    config: {escape: false}
+                }
+            };
+            liLabels = {
+                'InteractionLauncher_Launch':'{!$label.InteractionLauncher_Launch}',
+                'InteractionLauncher_OK':'{!$label.InteractionLauncher_OK}',
+                'InteractionLauncher_RelatedParty': '{!$label.InteractionLauncher_RelatedParty}',
+                'InteractionLauncher_Search':'{!$label.InteractionLauncher_Search}',
+                'InteractionLauncher_SearchResult':'{!$label.InteractionLauncher_SearchResult}',
+                'InteractionLauncher_UnrelatedParty': '{!$label.InteractionLauncher_UnrelatedParty}',
+                'InteractionLauncher_VerifyCaller': '{!$label.InteractionLauncher_VerifyCaller}',
+                'InteractionLauncher_Verify': '{!$label.InteractionLauncher_Verify}',
+                'InteractionLauncher_VerifyAndSearch': '{!$label.InteractionLauncher_VerifyAndSearch}',
+                'InteractionLauncher_Scratchpad': '{!$label.InteractionLauncher_Scratchpad}',
+                'InteractionLauncher_EnterSearchTerms': '{!$label.InteractionLauncher_EnterSearchTerms}',
+                'InteractionLauncher_NoSearchResults': '{!$label.InteractionLauncher_NoSearchResults}',
+                'InteractionLauncher_NoSearchResultsRecordId': '{!$label.InteractionLauncher_NoSearchResultsRecordId}',
+                'InteractionLauncher_CallerFields': '{!$label.InteractionLauncher_CallerFields}',
+                'InteractionLauncher_VerifyHeading': '{!$label.InteractionLauncher_VerifyHeading}',
+                'InteractionLauncher_OptionalVerifyHeading': '{!$label.InteractionLauncher_OptionalVerifyHeading}',
+                'InteractionLauncher_MustVerify': '{!$label.InteractionLauncher_MustVerify}',
+                'InteractionLauncher_NoLookupRequests': '{!$label.InteractionLauncher_NoLookupRequests}',
+                'InteractionLauncher_WildCardSupportDisabled' : '{!$label.InteractionLauncher_WildCardSupportDisabled}'
+            };
+        </script>
+    </body>
+</html>
+</apex:page>

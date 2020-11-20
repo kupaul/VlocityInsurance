@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Language__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Language</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Chinese (Simplified)</fullName>
+                <default>false</default>
+                <label>Chinese (Simplified)</label>
+            </value>
+            <value>
+                <fullName>Chinese (Traditional)</fullName>
+                <default>false</default>
+                <label>Chinese (Traditional)</label>
+            </value>
+            <value>
+                <fullName>Danish</fullName>
+                <default>false</default>
+                <label>Danish</label>
+            </value>
+            <value>
+                <fullName>Dutch</fullName>
+                <default>false</default>
+                <label>Dutch</label>
+            </value>
+            <value>
+                <fullName>English</fullName>
+                <default>false</default>
+                <label>English</label>
+            </value>
+            <value>
+                <fullName>Finnish</fullName>
+                <default>false</default>
+                <label>Finnish</label>
+            </value>
+            <value>
+                <fullName>French</fullName>
+                <default>false</default>
+                <label>French</label>
+            </value>
+            <value>
+                <fullName>German</fullName>
+                <default>false</default>
+                <label>German</label>
+            </value>
+            <value>
+                <fullName>Italian</fullName>
+                <default>false</default>
+                <label>Italian</label>
+            </value>
+            <value>
+                <fullName>Japanese</fullName>
+                <default>false</default>
+                <label>Japanese</label>
+            </value>
+            <value>
+                <fullName>Korean</fullName>
+                <default>false</default>
+                <label>Korean</label>
+            </value>
+            <value>
+                <fullName>Norwegian</fullName>
+                <default>false</default>
+                <label>Norwegian</label>
+            </value>
+            <value>
+                <fullName>Portuguese (Brazil)</fullName>
+                <default>false</default>
+                <label>Portuguese (Brazil)</label>
+            </value>
+            <value>
+                <fullName>Russian</fullName>
+                <default>false</default>
+                <label>Russian</label>
+            </value>
+            <value>
+                <fullName>Spanish</fullName>
+                <default>false</default>
+                <label>Spanish</label>
+            </value>
+            <value>
+                <fullName>Spanish (Mexico)</fullName>
+                <default>false</default>
+                <label>Spanish (Mexico)</label>
+            </value>
+            <value>
+                <fullName>Swedish</fullName>
+                <default>false</default>
+                <label>Swedish</label>
+            </value>
+            <value>
+                <fullName>Thai</fullName>
+                <default>false</default>
+                <label>Thai</label>
+            </value>
+            <value>
+                <fullName>Multi-Language</fullName>
+                <default>false</default>
+                <label>Multi-Language</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

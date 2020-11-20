@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__VendorId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>A place that can host organized events such as educational, marketing or sales events.</description>
+    <externalId>false</externalId>
+    <label>Vendor</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Venues</relationshipLabel>
+    <relationshipName>Venues</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

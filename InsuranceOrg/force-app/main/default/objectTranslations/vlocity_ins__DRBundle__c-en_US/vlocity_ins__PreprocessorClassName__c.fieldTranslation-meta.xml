@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Adapter Apex class that implements the IDRPreprocess Apex interface --></help>
+    <label><!-- Preprocessor Class Name --></label>
+    <name>vlocity_ins__PreprocessorClassName__c</name>
+</CustomFieldTranslation>

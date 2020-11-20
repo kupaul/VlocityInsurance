@@ -1,0 +1,14 @@
+{
+  "name": "nearley",
+  "homepage": "https://github.com/Hardmath123/nearley",
+  "_release": "e357680990",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "e3576809902ca7b721cc21f58c34e1ac3c74539b"
+  },
+  "_source": "git://github.com/Hardmath123/nearley.git",
+  "_target": "*",
+  "_originalSource": "Hardmath123/nearley",
+  "_direct": true
+}

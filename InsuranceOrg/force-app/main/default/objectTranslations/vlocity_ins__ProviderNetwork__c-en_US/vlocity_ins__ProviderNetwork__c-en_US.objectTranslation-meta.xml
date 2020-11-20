@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- ProviderNetworkSearch --></label>
+        <name>vlocity_ins__ProviderNetworkSearch</name>
+    </fieldSets>
+    <recordTypes>
+        <label><!-- Pharmacy --></label>
+        <name>vlocity_ins__Pharmacy</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Producer --></label>
+        <name>vlocity_ins__Producer</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Provider --></label>
+        <name>vlocity_ins__Provider</name>
+    </recordTypes>
+</CustomObjectTranslation>

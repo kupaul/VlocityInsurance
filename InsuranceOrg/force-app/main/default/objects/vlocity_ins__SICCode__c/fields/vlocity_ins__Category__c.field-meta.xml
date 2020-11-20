@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Category__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Dry Cleaners</fullName>
+                <default>false</default>
+                <label>Dry Cleaners</label>
+            </value>
+            <value>
+                <fullName>Food Stores</fullName>
+                <default>false</default>
+                <label>Food Stores</label>
+            </value>
+            <value>
+                <fullName>Hardware-Home Improvement</fullName>
+                <default>false</default>
+                <label>Hardware-Home Improvement</label>
+            </value>
+            <value>
+                <fullName>Printers-Copiers</fullName>
+                <default>false</default>
+                <label>Printers-Copiers</label>
+            </value>
+            <value>
+                <fullName>Repair</fullName>
+                <default>false</default>
+                <label>Repair</label>
+            </value>
+            <value>
+                <fullName>Retail</fullName>
+                <default>false</default>
+                <label>Retail</label>
+            </value>
+            <value>
+                <fullName>Office</fullName>
+                <default>false</default>
+                <label>Office</label>
+            </value>
+            <value>
+                <fullName>0100-0999	Agriculture, Forestry and Fishing</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>0100-0999	Agriculture, Forestry and Fishing</label>
+            </value>
+            <value>
+                <fullName>1000-1499	Mining</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>1000-1499	Mining</label>
+            </value>
+            <value>
+                <fullName>1500-1799	Construction</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>1500-1799	Construction</label>
+            </value>
+            <value>
+                <fullName>1800-1999	not used</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>1800-1999	not used</label>
+            </value>
+            <value>
+                <fullName>2000-3999	Manufacturing</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>2000-3999	Manufacturing</label>
+            </value>
+            <value>
+                <fullName>4000-4999	Transportation, Communications, Electric, Gas and Sanitary service</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>4000-4999	Transportation, Communications, Electric, Gas and Sanitary service</label>
+            </value>
+            <value>
+                <fullName>5000-5199	Wholesale Trade</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5000-5199	Wholesale Trade</label>
+            </value>
+            <value>
+                <fullName>5200-5999	Retail Trade</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>5200-5999	Retail Trade</label>
+            </value>
+            <value>
+                <fullName>6000-6799	Finance, Insurance and Real Estate</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>6000-6799	Finance, Insurance and Real Estate</label>
+            </value>
+            <value>
+                <fullName>7000-8999	Services</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>7000-8999	Services</label>
+            </value>
+            <value>
+                <fullName>9100-9729	Public Administration</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>9100-9729	Public Administration</label>
+            </value>
+            <value>
+                <fullName>9900-9999	Nonclassifiable</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>9900-9999	Nonclassifiable</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

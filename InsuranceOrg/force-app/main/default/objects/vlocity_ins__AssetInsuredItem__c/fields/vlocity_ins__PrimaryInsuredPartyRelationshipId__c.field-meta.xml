@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PrimaryInsuredPartyRelationshipId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Held Product Relationship</label>
+    <referenceTo>vlocity_ins__AssetPartyRelationship__c</referenceTo>
+    <relationshipLabel>Primary Insured Items</relationshipLabel>
+    <relationshipName>PrimaryInsuredItems</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

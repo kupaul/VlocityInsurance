@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PricingElementGlobalKey__c</fullName>
+    <deprecated>false</deprecated>
+    <description>For selected prices, charges or adjustments, the global key identifier of the selected pricing element. This global key reference is used to point to the currently active pricing element version among all the versions of this pricing element.</description>
+    <externalId>true</externalId>
+    <label>Pricing Element Global Key</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

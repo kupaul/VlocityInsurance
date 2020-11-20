@@ -1,0 +1,12 @@
+<apex:page standardController="vlocity_ins__VlocityStateModelVersion__c" extensions="vlocity_ins.StateModelVersionClonerController" showHeader="true" sidebar="true">
+    <apex:form >
+        <apex:pageMessages id="cloneMessages" />
+        <apex:sectionHeader title="Confirm Clone State Model Version" subtitle="{!cloneVersionMessage}" />
+        <apex:commandLink action="{!cloneVersion}" target="_blank" >
+            <apex:commandButton value="{!$Label.vlocity_ins__actionvalidationcontinue}" rerender="cloneMessages" />
+        </apex:commandLink>
+        <apex:commandLink action="{!cancel}" >
+            <apex:commandButton value="{!$Label.vlocity_ins__cancel}" />
+        </apex:commandLink>
+    </apex:form>
+</apex:page>

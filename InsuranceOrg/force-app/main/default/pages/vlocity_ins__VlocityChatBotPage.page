@@ -1,0 +1,14 @@
+<apex:page showHeader="false" sidebar="false" language="{!$CurrentPage.parameters.LanguageCode}">
+
+    <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+    <div ng-app="VlocityChatBot" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <c:VlocityChatBotComponent />
+
+        <script type="text/javascript">
+            var modules = ['vlocity-chat-bot'];
+            var myModule = angular.module('VlocityChatBot', modules);
+        </script>
+        
+    </div>
+<c:VFActionFunction />
+</apex:page>

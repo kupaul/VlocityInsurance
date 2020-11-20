@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ActionType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Text field used to log the latest action taken for this campaign member such as &apos;Call Attempted&apos;, &apos;Call Back Tomorrow&apos; etc. The values are up to the deploying company to choose.</description>
+    <externalId>false</externalId>
+    <label>Action Type</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

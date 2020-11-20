@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Location Type --></label>
+    <name>vlocity_ins__LocationType__c</name>
+    <picklistValues>
+        <masterLabel>Body Shop</masterLabel>
+        <translation><!-- Body Shop --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Incident Location</masterLabel>
+        <translation><!-- Incident Location --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Policyholder Home</masterLabel>
+        <translation><!-- Policyholder Home --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Repair Shop</masterLabel>
+        <translation><!-- Repair Shop --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Salvage Yard</masterLabel>
+        <translation><!-- Salvage Yard --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

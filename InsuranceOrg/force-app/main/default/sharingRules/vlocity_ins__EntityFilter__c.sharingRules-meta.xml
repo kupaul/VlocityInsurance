@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Vlocity_Entity_Filter_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Vlocity Entity Filter Access</label>
+        <sharedTo>
+            <group>Community_Users</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>Admin</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

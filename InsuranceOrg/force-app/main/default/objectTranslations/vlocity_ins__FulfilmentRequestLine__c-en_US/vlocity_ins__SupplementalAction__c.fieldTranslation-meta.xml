@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Supplemental Action --></label>
+    <name>vlocity_ins__SupplementalAction__c</name>
+    <picklistValues>
+        <masterLabel>Amend</masterLabel>
+        <translation><!-- Amend --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cancel</masterLabel>
+        <translation><!-- Cancel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Create</masterLabel>
+        <translation><!-- Create --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>No Change</masterLabel>
+        <translation><!-- No Change --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

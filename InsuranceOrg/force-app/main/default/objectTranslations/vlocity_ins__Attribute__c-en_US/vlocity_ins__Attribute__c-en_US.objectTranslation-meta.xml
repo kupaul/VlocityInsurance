@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Console Admin Search --></label>
+        <name>vlocity_ins__ConsoleAdminSearch</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- List Attributes for Export --></label>
+        <name>vlocity_ins__ListAttributesForExport</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- New Attribute --></label>
+        <name>vlocity_ins__NewAttribute</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- VlocityAdmin --></label>
+        <name>vlocity_ins__VlocityAdmin</name>
+    </fieldSets>
+    <validationRules>
+        <errorMessage><!-- Value must be a Boolean. --></errorMessage>
+        <name>vlocity_ins__BooleanType</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Value must be a valid DateTime Type YYYY-MM-DD . --></errorMessage>
+        <name>vlocity_ins__DateTimeType</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Value must be a valid Date Type YYYY-MM-DD. --></errorMessage>
+        <name>vlocity_ins__DateType</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Value must be a Number. --></errorMessage>
+        <name>vlocity_ins__NumberType</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Picklist must be selected for Picklist and Multi Picklist type attributes. --></errorMessage>
+        <name>vlocity_ins__PicklistType</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Export --></label>
+        <name>vlocity_ins__Export</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Merge --></label>
+        <name>vlocity_ins__Merge</name>
+    </webLinks>
+</CustomObjectTranslation>

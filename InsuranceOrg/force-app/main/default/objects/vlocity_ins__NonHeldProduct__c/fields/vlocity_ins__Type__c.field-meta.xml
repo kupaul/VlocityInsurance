@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The type of policy or financial account such as term life, auto, homeowners, variable annuity, 401(k), IRA, or money market.</description>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AD&amp;D</fullName>
+                <default>false</default>
+                <label>AD&amp;D</label>
+            </value>
+            <value>
+                <fullName>Auto</fullName>
+                <default>false</default>
+                <label>Auto</label>
+            </value>
+            <value>
+                <fullName>Boatowners</fullName>
+                <default>false</default>
+                <label>Boatowners</label>
+            </value>
+            <value>
+                <fullName>Business Owners</fullName>
+                <default>false</default>
+                <label>Business Owners</label>
+            </value>
+            <value>
+                <fullName>Condominium</fullName>
+                <default>false</default>
+                <label>Condominium</label>
+            </value>
+            <value>
+                <fullName>Crime</fullName>
+                <default>false</default>
+                <label>Crime</label>
+            </value>
+            <value>
+                <fullName>D&amp;O</fullName>
+                <default>false</default>
+                <label>D&amp;O</label>
+            </value>
+            <value>
+                <fullName>Equity−indexed annuity</fullName>
+                <default>false</default>
+                <label>Equity−indexed annuity</label>
+            </value>
+            <value>
+                <fullName>Fixed Annuity</fullName>
+                <default>false</default>
+                <label>Fixed Annuity</label>
+            </value>
+            <value>
+                <fullName>General Liability</fullName>
+                <default>false</default>
+                <label>General Liability</label>
+            </value>
+            <value>
+                <fullName>Homeowners</fullName>
+                <default>false</default>
+                <label>Homeowners</label>
+            </value>
+            <value>
+                <fullName>Inland Marine</fullName>
+                <default>false</default>
+                <label>Inland Marine</label>
+            </value>
+            <value>
+                <fullName>Ocean Marine</fullName>
+                <default>false</default>
+                <label>Ocean Marine</label>
+            </value>
+            <value>
+                <fullName>Permanent Life</fullName>
+                <default>false</default>
+                <label>Permanent Life</label>
+            </value>
+            <value>
+                <fullName>Pers/Scheduled Property</fullName>
+                <default>false</default>
+                <label>Pers/Scheduled Property</label>
+            </value>
+            <value>
+                <fullName>Property</fullName>
+                <default>false</default>
+                <label>Property</label>
+            </value>
+            <value>
+                <fullName>Renters</fullName>
+                <default>false</default>
+                <label>Renters</label>
+            </value>
+            <value>
+                <fullName>Term Life</fullName>
+                <default>false</default>
+                <label>Term Life</label>
+            </value>
+            <value>
+                <fullName>Umbrella Liability</fullName>
+                <default>false</default>
+                <label>Umbrella Liability</label>
+            </value>
+            <value>
+                <fullName>Unit Linked Life</fullName>
+                <default>false</default>
+                <label>Unit Linked Life</label>
+            </value>
+            <value>
+                <fullName>Universal Life</fullName>
+                <default>false</default>
+                <label>Universal Life</label>
+            </value>
+            <value>
+                <fullName>Universal Variable Life</fullName>
+                <default>false</default>
+                <label>Universal Variable Life</label>
+            </value>
+            <value>
+                <fullName>Variable Annuity</fullName>
+                <default>false</default>
+                <label>Variable Annuity</label>
+            </value>
+            <value>
+                <fullName>Variable Life</fullName>
+                <default>false</default>
+                <label>Variable Life</label>
+            </value>
+            <value>
+                <fullName>Workers Compensation</fullName>
+                <default>false</default>
+                <label>Workers Compensation</label>
+            </value>
+            <value>
+                <fullName>Claims-made</fullName>
+                <default>false</default>
+                <label>Claims-made</label>
+            </value>
+            <value>
+                <fullName>Occurrence</fullName>
+                <default>false</default>
+                <label>Occurrence</label>
+            </value>
+            <value>
+                <fullName>Modified Occurrence</fullName>
+                <default>false</default>
+                <label>Modified Occurrence</label>
+            </value>
+            <value>
+                <fullName>Claims-paid</fullName>
+                <default>false</default>
+                <label>Claims-paid</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

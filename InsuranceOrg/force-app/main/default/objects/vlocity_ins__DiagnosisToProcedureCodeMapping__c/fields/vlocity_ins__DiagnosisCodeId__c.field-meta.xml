@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DiagnosisCodeId__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the HealthCare Diagnosis code.</description>
+    <externalId>false</externalId>
+    <label>Diagnosis Code</label>
+    <referenceTo>vlocity_ins__VlocityCode__c</referenceTo>
+    <relationshipLabel>Diagnosis Code</relationshipLabel>
+    <relationshipName>DiagnosisCode</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

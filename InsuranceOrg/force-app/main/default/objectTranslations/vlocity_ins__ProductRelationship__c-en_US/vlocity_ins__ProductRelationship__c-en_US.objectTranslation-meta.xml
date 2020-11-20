@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <validationRules>
+        <errorMessage><!-- Default quantity should not be zero --></errorMessage>
+        <name>vlocity_ins__Default_quntity_cannot_be_zero</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Min Quantity should be less than or equal to Max Quantity And Default Quantity should be in between Min &amp; Max Quantity --></errorMessage>
+        <name>vlocity_ins__Min_Max_should_build_a_valid_range</name>
+    </validationRules>
+</CustomObjectTranslation>

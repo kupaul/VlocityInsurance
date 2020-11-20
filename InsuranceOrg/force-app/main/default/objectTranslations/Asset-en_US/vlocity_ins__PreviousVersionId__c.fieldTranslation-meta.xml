@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Previous Version Id --></label>
+    <name>vlocity_ins__PreviousVersionId__c</name>
+    <relationshipLabel><!-- Previous Version Id --></relationshipLabel>
+</CustomFieldTranslation>

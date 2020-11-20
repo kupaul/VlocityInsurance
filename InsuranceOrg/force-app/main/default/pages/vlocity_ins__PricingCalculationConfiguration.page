@@ -1,0 +1,470 @@
+<apex:page standardController="vlocity_ins__CalculationProcedureVersion__c" extensions="vlocity_ins.PricingCalculationConfController" standardStylesheets="false"
+    showHeader="false" sidebar="false" docType="html-5.0">
+    <html xmlns:ng="http://angularjs.org" lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <apex:includeScript value="/soap/ajax/37.0/connection.js" />
+        <apex:includeScript value="/xdomain/xdomain.js" />
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__iframeresizer, '/js/iframeResizer.contentWindow.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}" />
+        <apex:stylesheet value="{!$Resource.vlocity_ins__CalculationProcedureCss}" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT2}" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__SEGJS}" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__PricingCalculationConfigurationApp}" />
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css')}" />
+    </head>
+    <script type="text/javascript">
+        function TagToolTip()
+        {
+            this.showToolTip();
+        }
+        function DisableInputs()
+        {
+            this.disableAllInputs();
+        }
+        var $j = jQuery;
+        TagToolTip.prototype.showToolTip = function()
+        {
+            var tagItem = $j('.tag-item');
+            tagItem.each(function()
+            {
+                $j(this).hover(function()
+                {
+                    /*
+                    Make sure the tag is equal to or wider than 120px as that is where the ellipses kicks in,
+                    and make sure spanCreated data does not exist on the element yet to avoid duplication
+                    */
+                    if ($j(this).outerWidth() >= 120)
+                    {
+                        // Add hover class every time
+                        $j(this).addClass('hover');
+                        // Check for spanCreated data
+                        if (!$j(this).data('spanCreated'))
+                        {
+                            var tagText = $j(this).find('span.display-text').text();
+                            $j(this).append('<span class="tag-tooltip">' + tagText + '</span>');
+                            // Add spanCreated data to the element because we've already added the span element
+                            $j(this).data('spanCreated', true);
+                            var tooltip = $j(this).find('span.tag-tooltip'),
+                                tooltipW = tooltip.outerWidth(),
+                                tagW = $j(this).outerWidth(),
+                                differenceW = ((tooltipW - tagW) / 2) * -1;
+                            tooltip.css({'left': differenceW + 'px'});
+                        }
+                    }
+                }, function()
+                    {
+                        $j(this).removeClass('hover');
+                    });
+            });
+        };
+
+        DisableInputs.prototype.disableAllInputs = function()
+        {
+            var vlocity = $j('.vlocity');
+            if (vlocity.hasClass('vlocity-readonly'))
+            {
+                vlocity.find('input').prop('disabled', 'disabled');
+            }
+        };
+
+        angular.element(document).ready(function()
+        {
+            var tagToolTip = new TagToolTip(),
+                disableInputs = new DisableInputs();
+        });
+        $j(window).on('new-tag-added', function()
+        {
+            setTimeout(function()
+            {
+                var tagToolTip = new TagToolTip();
+            }, 100);
+        });
+    </script>
+
+    <body>
+        <!-- Detail HTML Content -->
+        <div ng-app="pricingCalculationConfigurationApp" ng-controller="pricingCalculationConfigurationCtrl" class="vlocity via-slds calculationPage ng-cloak"
+            ng-class="{'vlocity-readonly':versionEnabled}">
+            <div class="slds-spinner_container vloc-spinner_container vloc-show-loader" style="position: fixed; width: 100%; height: 100%;"
+                ng-if="validationWarning && validationErrors.length === 0">
+                <div class="slds-notify_container">
+                    <div class="slds-notify slds-notify--alert slds-theme--warning" role="alert">
+                        <div class="slds-notify__content">
+                            <h2 class="slds-text-heading--small" style="color: white">{{validationWarning}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-spinner--brand slds-spinner slds-spinner--medium" aria-hidden="false" role="alert" style="position:absolute; top:10rem">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+            <div class="readonly-check" ng-class="{'vlocity-readonly':versionEnabled}">
+                <button class="btn btn-primary" ng-click="savePricingStep()">{!$Label.CPSave}</button>
+                <div ng-repeat="validationError in validationErrors" class="alert alert-danger" role="alert">
+                    {{validationError}}
+                </div>
+                <uib-accordion close-others="false">
+                    <div uib-accordion-group="true" ng-init="isOneOpen = true" is-open="isOneOpen" ng-click="oneToggle = !oneToggle" ng-class="{'is-open': !oneToggle}">
+                        <uib-accordion-heading>
+                            <i class="icon icon-v-right-arrow"></i> {!$Label.Variables} {!$Label.and} {!$Label.Constants}
+                        </uib-accordion-heading>
+                        <div class="variables-constants-container">
+                            <div class="variables">
+                                <h3>{!$Label.Variables}</h3>
+                                <table class="table" onblur="disableAllVariableRows()">
+                                    <tr>
+                                        <th>{!$Label.Name}</th>
+                                        <th>{!$Label.Datatype}</th>
+                                        <th>{!$Label.Precision}</th>
+                                        <th>{!$Label.DefaultValue}</th>
+                                        <th>{!$Label.VariableId}</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr ng-click="makeVariableEditable($index)" ng-repeat="variable in variables track by $index">
+                                        <td ng-show="variable.isEditable">
+                                            <input type="text" class="form-control" ng-model="variable.name" ng-model-options="{ debounce: 800 }" ng-change="createVariableAlias('{{variable.name}}', $index)"
+                                                placeholder="Enter a Name" />
+                                        </td>
+                                        <td ng-show="variable.isEditable">
+                                            <select ng-model="variable.dataType" class="form-control" ng-options="variableType for variableType in variableTypes" ng-change="onVariableDataTypeChange('{{variable.name}}', $index)"
+                                                style="width: 144px">
+                                            </select>
+                                        </td>
+                                        <td ng-show="variable.isEditable && variable.dataType!='Text' && variable.dataType!='Boolean'  && variable.dataType!='Date'">
+                                            <input type="number" class="form-control" ng-model="variable.precision" placeholder="Enter Precision" />
+                                        </td>
+                                        <td ng-show="variable.isEditable && (variable.dataType == 'Text' || variable.dataType == 'Boolean' || variable.dataType == 'Date')">{{variable.precision}}</td>
+                                        <td ng-show="!variable.isEditable" ng-class="{'var-read-only':!variable.userDefined}">{{variable.name}}</td>
+                                        <td ng-show="!variable.isEditable" ng-class="{'var-read-only':!variable.userDefined}">{{variable.dataType}}</td>
+                                        <td ng-show="!variable.isEditable" ng-class="{'var-read-only':!variable.userDefined}">{{variable.precision}}</td>
+                                        <td ng-show="variable.isSelected">
+                                            <input type="text" class="form-control" ng-model="variable.defaultValue" placeholder="Enter Default Value" />
+                                        </td>
+                                        <td ng-show="!variable.isSelected" ng-class="{'var-read-only':false}" title="{{variable.defaultValue}}">{{variable.defaultValue}}</td>
+                                        <td ng-show="variable.isEditable">{{variable.alias}}</td>
+                                        <td ng-show="!variable.isEditable" ng-class="{'var-read-only':!variable.userDefined}" title="{{variable.alias}}">{{variable.alias}}</td>
+
+                                        <td>
+                                            <i ng-show="variable.userDefined" class="icon icon-v-trash" ng-click="deleteFromVariables(variable.name, $index)"></i>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <a class="add-link" ng-click="addVariableRow()">
+                                    <i class="icon icon-v-plus-circle"></i>
+                                    <span>{!$Label.AddVariable}</span>
+                                </a>
+
+                            </div>
+                            <div class="constants">
+                                <h3>{!$Label.Constants}</h3>
+                                <table class="table">
+                                    <tr>
+                                        <th>{!$Label.Name}</th>
+                                        <th>{!$Label.Datatype}</th>
+                                        <th>{!$Label.Precision}</th>
+                                        <th>{!$Label.Value}</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr ng-click="makeConstantEditable($index)" ng-blur="makeConstantEditable(-1)" ng-repeat="constant in constants track by $index">
+                                        <td ng-show="constant.isEditable">
+                                            <input type="text" class="form-control" ng-model="constant.name" ng-model-options="{ debounce: 800 }" ng-change="createConstantAlias('{{constant.name}}', $index)"
+                                                placeholder="Enter a Name" />
+                                        </td>
+                                        <td ng-show="constant.isEditable">
+                                            <select ng-model="constant.dataType" class="form-control" ng-options="variableType for variableType in constantTypes" ng-change="onConstantDataTypeChange('{{constant.name}}', $index)"
+                                                style="width: 144px">
+                                            </select>
+                                        </td>
+                                        <td ng-show="constant.isEditable && constant.dataType!='Text'">
+                                            <input type="number" class="form-control" ng-model="constant.precision" placeholder="Enter Precision" />
+                                        </td>
+                                        <td ng-show="constant.isEditable && constant.dataType == 'Text'">{{constant.precision}}</td>
+                                        <td ng-show="constant.isEditable">
+                                            <input type="text" class="form-control" ng-change="validateConstantValue($index)" ng-model="constant.value" bs-tooltip="true"
+                                                ng-attr-title="{{constant.valuePlaceHolder}}" placeholder="{{constant.valuePlaceHolder}}"
+                                            />
+                                        </td>
+                                        <td ng-show="!constant.isEditable">{{constant.name}}</td>
+                                        <td ng-show="!constant.isEditable">{{constant.dataType}}</td>
+                                        <td ng-show="!constant.isEditable">{{constant.precision}}</td>
+                                        <td ng-show="!constant.isEditable" title="{{constant.value}}">{{constant.value}}</td>
+                                        <td>
+                                            <i class="icon icon-v-trash" ng-click="deleteFromConstants(constant.name, $index)"></i>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <a class="add-link" ng-click="addConstantRow()">
+                                    <i class="icon icon-v-plus-circle"></i>
+                                    <span>{!$Label.AddConstant}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div uib-accordion-group="true" ng-click="twoToggle = !twoToggle" ng-class="{'is-open': twoToggle}">
+                        <uib-accordion-heading>
+                            <i class="icon icon-v-right-arrow"></i> {!$Label.CPPreProcClassName}
+                            <span class="optional">({!$Label.CPOptional})</span>
+                        </uib-accordion-heading>
+                        <div class="form-group class-form pre-class">
+                            <div>
+                                <span class="alert alert-warning" role="alert">{!$Label.CPProcClassWarning}</span>
+                            </div>
+                            <label for="preprocessor-class-name">
+                                <h5>{!$Label.CPEnterPreProcClassName}</h5>
+                            </label>
+                            <input type="text" id="preprocessor-class-name" class="form-control" placeholder="{!$Label.CPEnterClassPlaceholder}" ng-model="customClass.preProcessorClassName"
+                            />
+                            <!-- <i class="icon icon-v-information-line" tooltip-placement="right" tooltip="Adapter Apex class that implements the Vlocity Open Interface. The class must support the 'calculate' method."></i> -->
+                        </div>
+                    </div>
+                    <div uib-accordion-group="true" ng-init="isThreeOpen = true" is-open="isThreeOpen" ng-click="threeToggle = !threeToggle"
+                        ng-class="{'is-open': !threeToggle, 'is-dragging': dragging}">
+                        <uib-accordion-heading>
+                            <i class="icon icon-v-right-arrow"></i> {!$Label.CalculationSteps}
+                        </uib-accordion-heading>
+                        <div class="calc-steps">
+                            <h5>{!$Label.CPAddCalStep}</h5>
+                            <ul dnd-list="pricingStepInputs" dnd-drop="reorderSteps(index, item, 'pricing')" class="pricing-steps-list">
+                                <li ng-repeat="pricingStepInput in pricingStepInputs track by $index" ng-class="{'inserted-step': pricingStepInput.inserted}"
+                                    dnd-draggable="pricingStepInput" dnd-dragstart="startDragging()" dnd-dragend="endDragging()"
+                                    dnd-disable-if="versionEnabled" class="row draggable-items">
+                                    <i class="icon icon-v-grip" add-hover-class="true"></i>
+                                    <span class="row-index abs">{{$index + 1}}</span>
+                                    <div ng-if="!dragging" class="animate-if">
+                                        <div class="col-xs-2 calc-col">
+                                            <div class="radio-wrapper">
+                                                <input type="radio" id="matrix-lookup-{{$index+1}}" ng-model="pricingStepInput.functionType" value="Matrix Lookup" ng-change="functionTypeChanged($index)"
+                                                />
+                                                <label for="matrix-lookup-{{$index+1}}">{!$Label.MatrixLookup}</label>
+                                            </div>
+                                            <div class="radio-wrapper">
+                                                <input type="radio" id="calculation-{{$index+1}}" ng-model="pricingStepInput.functionType" value="Calculation" ng-change="functionTypeChanged($index)"
+                                                />
+                                                <label for="calculation-{{$index+1}}">{!$Label.Calculation}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 matrix-mode" ng-if="pricingStepInput.matrixMode">
+                                            <input class="form-control" ng-model="pricingStepInput.selectedMatrix" ng-click="updateMatrixList($index)" type="text" placeholder="Matrix Name"
+                                                value="pricingStepInput.selectedMatrix.Name" uib-typeahead="matrix as matrix.Name for matrix in pricingStepInput.matrixList | filter:{Name:$viewValue} | limitTo:8"
+                                                typeahead-on-select="matrixPicked(pricingStepInput.selectedMatrix,$index)" />
+                                            <tags-input placeholder="Inputs" ng-model="pricingStepInput.matrixInputTagList" read-Only="true" disable-Tag="true" on-tag-added="alert('asdf')"
+                                                add-from-autocomplete-only="true" allow-leftover-text="false">
+                                            </tags-input>
+                                            <!--Condition for Matrix -->
+                                            <div class="checkbox-wrapper checkbox-wrapper-conditional-section">
+                                                <input type="checkbox" id="show-conditional-section-{{$index+1}}" ng-model="pricingStepInput.conditionalStep" />
+                                                <label for="show-conditional-section-{{$index+1}}">{!$Label.ConditionalStep}</label>
+                                            </div>
+                                            <tags-input ng-model="pricingStepInput.conditionalInputExpressions" min-length="1" placeholder="Enter Condition" on-tag-added="addTooltipToTag()"
+                                                add-from-autocomplete-only="true" allow-leftover-text="false" replace-spaces-with-dashes="false"
+                                                allow-Duplicates="true" disable-Tag="true" bind-internal-input-to="variable"
+                                                class="matrix-condition-typeahead" ng-show="pricingStepInput.conditionalStep">
+                                                <auto-complete source="searchConditionInput($query,$index)" max-results-to-show="5" min-length="1" />
+                                            </tags-input>
+                                            <div style="clear:both;padding-top:13px" ng-if="pricingStepInput.selectedMatrix.Name">
+                                                <a ng-click="navigateMatrix(pricingStepInput.selectedMatrix.ObjectId)">{!$Label.CPNavigateToMatrix}{{pricingStepInput.selectedMatrix.Name}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 matrix-mode" ng-if="pricingStepInput.matrixMode">
+                                            <tags-input placeholder="Outputs" ng-model="pricingStepInput.matrixOutputTagList" read-Only="true" disable-Tag="true" add-from-autocomplete-only="true"
+                                                allow-leftover-text="false">
+                                            </tags-input>
+                                            <div class="checkbox-wrapper">
+                                                <input type="checkbox" id="include-calc-output-{{$index+1}}" ng-model="pricingStepInput.resultIncluded" />
+                                                <label for="include-calc-output-{{$index+1}}">{!$Label.IncludeinCalculationOutput}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 calc-mode" ng-if="pricingStepInput.calculationMode">
+                                            <tags-input ng-model="pricingStepInput.calculationInputExpressions" min-length="1" placeholder="Type or press space to see available inputs"
+                                                on-tag-added="addTooltipToTag()" add-from-autocomplete-only="true" allow-leftover-text="false"
+                                                replace-spaces-with-dashes="false" allow-Duplicates="true" disable-Tag="true"
+                                                bind-internal-input-to="variable">
+                                                <auto-complete source="searchCalculationInput($query,$index,'Calculation')" max-results-to-show="5" min-length="1" />
+                                            </tags-input>
+                                            <!-- Condition for Calculation-->
+                                            <div class="checkbox-wrapper checkbox-wrapper-conditional-section">
+                                                <input type="checkbox" id="show-conditional-section-{{$index+1}}" ng-model="pricingStepInput.conditionalStep" />
+                                                <label for="show-conditional-section-{{$index+1}}">{!$Label.ConditionalStep}</label>
+                                            </div>
+                                            <tags-input ng-model="pricingStepInput.conditionalInputExpressions" min-length="1" placeholder="Enter Condition" on-tag-added="addTooltipToTag()"
+                                                add-from-autocomplete-only="true" allow-leftover-text="false" replace-spaces-with-dashes="false"
+                                                allow-Duplicates="true" disable-Tag="true" bind-internal-input-to="variable"
+                                                class="matrix-condition-typeahead" ng-show="pricingStepInput.conditionalStep">
+                                                <auto-complete source="searchConditionInput($query,$index)" max-results-to-show="5" min-length="1" />
+                                            </tags-input>
+                                        </div>
+                                        <div class="col-xs-4 calc-mode" ng-if="pricingStepInput.calculationMode">
+                                            <tags-input ng-model="pricingStepInput.calculationOutput" min-length="1" placeholder="Type or press space to see available outputs"
+                                                on-tag-added="addTooltipToTag()" add-from-autocomplete-only="true" allow-leftover-text="false"
+                                                replace-spaces-with-dashes="false" allow-Duplicates="true" disable-Tag="true">
+                                                <auto-complete source="searchCalculationOutput($query,$index,'Calculation')" max-results-to-show="5" min-length="1" />
+                                            </tags-input>
+
+                                            <div class="checkbox-wrapper">
+                                                <input type="checkbox" id="include-calc-output-{{$index+1}}" ng-model="pricingStepInput.resultIncluded" />
+                                                <label for="include-calc-output-{{$index+1}}">{!$Label.IncludeinCalculationOutput}</label>
+                                            </div>
+                                        </div>
+                                        <span class="row-remove abs">
+                                            <i class="icon icon-v-trash" ng-click="deleteFromPricingStep($index)"></i>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- /.row -->
+
+                            <a class="add-link" ng-click="addPricingCalculationStep()">
+                                <i class="icon icon-v-plus-circle"></i>
+                                <span>{!$Label.AddStep}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div uib-accordion-group="true" ng-click="fourToggle = !fourToggle" ng-class="{'is-open': fourToggle, 'is-dragging': dragging}">
+                        <uib-accordion-heading>
+                            <i class="icon icon-v-right-arrow"></i> {!$Label.CPAggregationSteps}
+                            <span class="optional">({!$Label.CPOptional})</span>
+                        </uib-accordion-heading>
+                        <div class="calc-steps">
+                            <h5>{!$Label.CPAddAggStep}</h5>
+                            <ul dnd-list="aggregateStepInputs" dnd-drop="reorderSteps(index, item, 'aggregate')" class="pricing-steps-list">
+                                <li ng-repeat="aggregateStepInput in aggregateStepInputs track by $index" ng-class="{'inserted-step': aggregateStepInput.inserted}"
+                                    dnd-draggable="aggregateStepInput" dnd-dragstart="startDragging()" dnd-dragend="endDragging()"
+                                    dnd-disable-if="versionEnabled" class="row draggable-items">
+                                    <i class="icon icon-v-grip" add-hover-class="true"></i>
+                                    <span class="row-index abs">{{$index + 1}}</span>
+                                    <div ng-if="!dragging" class="animate-if">
+                                        <div class="col-xs-2 calc-col">
+                                            <div class="radio-wrapper">
+                                                <input type="radio" id="aggregation-{{$index+1}}" ng-model="aggregateStepInput.functionType" value="Aggregation" ng-change="aggregateFunctionTypeChanged($index)"
+                                                />
+                                                <label for="aggregation-{{$index+1}}">{!$Label.CPAggregation}</label>
+                                            </div>
+                                            <div class="radio-wrapper">
+                                                <input type="radio" id="aggregation-calculation-{{$index+1}}" ng-model="aggregateStepInput.functionType" value="Calculation"
+                                                    ng-change="aggregateFunctionTypeChanged($index)" />
+                                                <label for="aggregation-calculation-{{$index+1}}">{!$Label.Calculation}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 calc-mode" ng-if="aggregateStepInput.calculationMode">
+                                            <tags-input text="text1" ng-model="aggregateStepInput.calculationInputExpressions" min-length="1" placeholder="Type or press space to see available inputs"
+                                                on-tag-added="addTooltipToTag()" add-from-autocomplete-only="true" allow-leftover-text="false"
+                                                replace-spaces-with-dashes="false" allow-Duplicates="true" disable-Tag="true">
+                                                <auto-complete source="searchCalculationInput($query,$index,'Aggregation')" max-results-to-show="5" min-length="1" />
+                                            </tags-input>
+                                        </div>
+
+                                        <div class="col-xs-4 calc-mode" ng-if="aggregateStepInput.calculationMode">
+                                            <tags-input text="text" ng-model="aggregateStepInput.calculationOutput" min-length="1" placeholder="Type or press space to see available outputs"
+                                                on-tag-added="addTooltipToTag()" add-from-autocomplete-only="true" allow-leftover-text="false"
+                                                replace-spaces-with-dashes="false" allow-Duplicates="true" disable-Tag="true">
+                                                <auto-complete source="searchCalculationOutput($query,$index,'Aggregation')" max-results-to-show="5" min-length="1" />
+                                            </tags-input>
+                                            <div class="checkbox-wrapper">
+                                                <input type="checkbox" id="include-calc-aggregate-output-{{$index+1}}" ng-model="aggregateStepInput.resultIncluded" />
+                                                <label for="include-calc-aggregate-output-{{$index+1}}">{!$Label.IncludeinCalculationOutput}</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-6 calc-mode" ng-if="aggregateStepInput.aggregateMode">
+                                            <tags-input text="text2" ng-model="aggregateStepInput.aggregateInputExpressions" min-length="1" placeholder="Type or press space to see available inputs"
+                                                on-tag-added="addTooltipToTag()" add-from-autocomplete-only="true" allow-leftover-text="false"
+                                                replace-spaces-with-dashes="false" allow-Duplicates="true" disable-Tag="true">
+                                                <auto-complete source="searchAggregateInput($query,$index)" max-results-to-if="5" min-length="1" />
+                                            </tags-input>
+                                        </div>
+                                        <div class="col-xs-4 calc-mode" ng-if="aggregateStepInput.aggregateMode">
+                                            <tags-input ng-model="aggregateStepInput.aggregateOutput" min-length="1" placeholder="Type or press space to see available outputs"
+                                                on-tag-added="addTooltipToTag()" add-from-autocomplete-only="true" allow-leftover-text="false"
+                                                replace-spaces-with-dashes="false" allow-Duplicates="true" disable-Tag="true">
+                                                <auto-complete source="searchCalculationOutput($query,$index,'Aggregation')" max-results-to-show="5" min-length="1" />
+                                            </tags-input>
+                                            <div class="checkbox-wrapper">
+                                                <input type="checkbox" id="include-calc-aggregate-output-{{$index+1}}" ng-model="aggregateStepInput.resultIncluded" />
+                                                <label for="include-calc-aggregate-output-{{$index+1}}">{!$Label.IncludeinCalculationOutput}</label>
+                                            </div>
+                                        </div>
+                                        <span class="row-remove abs">
+                                            <i class="icon icon-v-trash" ng-click="deleteFromAggregationStep($index)"></i>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a class="add-link" ng-click="addAggregationStep()">
+                                <i class="icon icon-v-plus-circle"></i>
+                                <span>{!$Label.AddStep}</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div uib-accordion-group="true" ng-click="fiveToggle = !fiveToggle" ng-class="{'is-open': fiveToggle}">
+                        <uib-accordion-heading>
+                            <i class="icon icon-v-right-arrow"></i> {!$Label.CPPostProcClass}
+                            <span class="optional">({!$Label.CPOptional})</span>
+                        </uib-accordion-heading>
+                        <div class="form-group class-form post-class">
+                            <div>
+                                <span class="alert alert-warning" role="alert">{!$Label.CPProcClassWarning}</span>
+                            </div>
+                            <label for="preprocessor-class-name">
+                                <h5>{!$Label.CPEnterPostProcClassName}</h5>
+                            </label>
+                            <input type="text" id="preprocessor-class-name" class="form-control" placeholder="{!$Label.CPEnterClassPlaceholder}" ng-model="customClass.postProcessorClassName"
+                            />
+                            <!-- <i class="icon icon-v-information-line" tooltip-placement="right" tooltip="Adapter Apex class that implements the Vlocity Open Interface. The class must support the 'calculate' method."></i> -->
+                        </div>
+                    </div>
+                </uib-accordion>
+
+                <button class="btn btn-primary" ng-click="savePricingStep()">{!$Label.CPSave}</button>
+            </div>
+            <!-- /.readonly-check -->
+        </div>
+        <!-- /.vlocity-->
+        <script type="text/javascript">
+            const vlocCALC = {
+                namespacePrefix: '{!namespacePrefix}',
+                versionObj: '{!JSENCODE(pricingVersionObj)}',
+                svcSteps: '{!JSENCODE(serviceSteps)}',
+                BaseRequestUrl: '{!$Site.BaseRequestUrl}',
+                uiTheme: '{!$User.UIThemeDisplayed}',
+                labels: {
+                    variableNotUnique: '{!$Label.VariableNotUnique}',
+                    constantNotUnique: '{!$Label.ConstantNotUnique}',
+                    defaultValueInvalid: '{!$Label.DefaultValueInvalid}',
+                    variableEntryEmpty: '{!$Label.VariableEmpty}',
+                    constantEntryEmpty: '{!$Label.ConstantEmpty}',
+                    outputCalculationEmpty: '{!$Label.OutputCalculationEmpty}',
+                    inputCalculationEmpty: '{!$Label.InputCalculationEmpty}',
+                    inputCalculationTooLong: '{!$Label.CPInputFormulaTooLong}',
+                    matrixSelectionInvalid: '{!$Label.MatrixSelectionInvalid}'
+                },
+                remoteActions: {
+                    getPricingMatrixList: {
+                        action: '{!$RemoteAction.PricingCalculationConfController.getEnabledPricingMatrixList}',
+                        config: {escape: false}
+                    },
+                    getMatrixLookupTableHeaders: {
+                        action: '{!$RemoteAction.PricingCalculationConfController.getMatrixLookupTableHeaders}',
+                        config: {escape: false}
+                    },
+                    savePricingStepDetails: {
+                        action: '{!$RemoteAction.PricingCalculationConfController.savePricingStepDetails}',
+                        config: {escape: false}
+                    },
+                    getProcedureSettings: {
+                        action: '{!$RemoteAction.PricingCalculationConfController.getProcedureSettings}',
+                        config: {escape: false}
+                    }
+                }
+            };
+        </script>
+    </body>
+
+    </html>
+</apex:page>

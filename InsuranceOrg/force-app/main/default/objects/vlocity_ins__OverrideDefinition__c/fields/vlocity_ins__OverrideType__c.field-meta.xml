@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__OverrideType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Override Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Product Definition</fullName>
+                <default>false</default>
+                <label>Product Definition</label>
+            </value>
+            <value>
+                <fullName>Attribute</fullName>
+                <default>false</default>
+                <label>Attribute</label>
+            </value>
+            <value>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+                <label>Pricing</label>
+            </value>
+            <value>
+                <fullName>Pricing Component</fullName>
+                <default>false</default>
+                <label>Pricing Component</label>
+            </value>
+            <value>
+                <fullName>Pricing Element</fullName>
+                <default>false</default>
+                <label>Pricing Element</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

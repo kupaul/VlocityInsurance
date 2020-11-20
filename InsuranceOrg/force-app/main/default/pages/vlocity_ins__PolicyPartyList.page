@@ -1,0 +1,28 @@
+<apex:page StandardController="vlocity_ins__Policy__c" extensions="vlocity_ins.PolicyPartyListController" >
+<style>
+    .bPageBlock{
+			border-top: 1px solid #eaeaea !important;
+		}
+</style>
+	<apex:pageBlock >
+		<apex:pageBlockTable value="{!PolicyPartyList}"
+								var="party">
+			<apex:column >
+				<apex:facet name="header">Name</apex:facet>
+				<apex:outputField value="{!party.PartyId__r.Name}"/>
+			</apex:column>
+			<apex:column >
+				<apex:facet name="header">{!$ObjectType.vlocity_ins__PolicyPartyRelationship__c.fields.vlocity_ins__PartyRelationshipType__c.Label}</apex:facet>
+				<apex:outputField value="{!party.vlocity_ins__PartyRelationshipType__c}"/>
+			</apex:column>
+			<apex:column >
+				<apex:facet name="header">{!$ObjectType.vlocity_ins__PolicyPartyRelationship__c.fields.vlocity_ins__BeneficiaryPercentage__c.Label}</apex:facet>
+				<apex:outputField value="{!party.vlocity_ins__BeneficiaryPercentage__c}"/>
+			</apex:column>
+			<apex:column >
+				<apex:facet name="header">{!$ObjectType.vlocity_ins__PolicyPartyRelationship__c.fields.vlocity_ins__CommissionPercentage__c.Label}</apex:facet>
+				<apex:outputField value="{!party.vlocity_ins__CommissionPercentage__c}"/>
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageBlock>
+</apex:page>

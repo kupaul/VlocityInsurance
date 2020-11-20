@@ -1,0 +1,4 @@
+<apex:page tabStyle="FieldMapper__tab" controller="vlocity_ins.AdminUtilitiesController">
+	<apex:sectionHeader title="{!$Label.vlocity_ins__fieldmapper}"/>
+	<apex:iframe src="/apex/{!nsPrefix}FieldMapperComponent" scrolling="true" id="theIframe"/>
+</apex:page>

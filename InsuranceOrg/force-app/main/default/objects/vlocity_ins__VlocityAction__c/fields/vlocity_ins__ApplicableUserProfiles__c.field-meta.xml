@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ApplicableUserProfiles__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Applicable User Profile</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Vlocity Admin</fullName>
+                <default>false</default>
+                <label>Vlocity Admin</label>
+            </value>
+            <value>
+                <fullName>Vlocity Health</fullName>
+                <default>false</default>
+                <label>Vlocity Health</label>
+            </value>
+            <value>
+                <fullName>Vlocity Insurance</fullName>
+                <default>false</default>
+                <label>Vlocity Insurance</label>
+            </value>
+            <value>
+                <fullName>All</fullName>
+                <default>true</default>
+                <label>All</label>
+            </value>
+            <value>
+                <fullName>Vlocity Partner Community User</fullName>
+                <default>false</default>
+                <label>Vlocity Partner Community User</label>
+            </value>
+            <value>
+                <fullName>System Administrator</fullName>
+                <default>false</default>
+                <label>System Administrator</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

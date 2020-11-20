@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- For certain prescription drugs, additional coverage requirements may be in place to ensure that members use the drugs safely. --></help>
+    <label><!-- Has Prior Authorization --></label>
+    <name>vlocity_ins__HasPriorAuthorization__c</name>
+</CustomFieldTranslation>

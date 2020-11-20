@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <script src="js/fmwk/setting.js"
+          type="text/javascript"></script>
+  <script src="js/custom/custom_setting.js"
+          type="text/javascript"></script>
+
+  <link rel="stylesheet"
+        type="text/css"
+        href="assets/fmwk/css/vlocity-newport-design-system.min.css">
+
+
+  <script src="js/fmwk/vlocity_core_assets.js"
+          type="text/javascript"></script>
+  <script src="js/fmwk/angular_strap_bundle_1_6.js"
+          type="text/javascript"></script>
+  <script src="js/fmwk/OmniScriptLPThirdParty.js"
+          type="text/javascript"></script>
+  <script src="js/fmwk/VlocityPdf.min.js"
+          type="text/javascript"></script>
+  <script src="js/fmwk/VlocityExpressionEngine.min.js"
+          type="text/javascript"></script>
+  <script src="js/fmwk/ViaDirectives.min.js"
+          type="text/javascript"></script>
+  <script src="js/fmwk/VlocityDynamicForm.min.js"
+          type="text/javascript"></script>
+  <script src="js/fmwk/SldsAngular.min.js"
+          type="text/javascript"></script>
+  <script src="js/fmwk/BusinessProcessJS.min.js"
+          type="text/javascript"></script>
+  <script src="js/fmwk/BusinessProcessNewPortTemplates.min.js"
+          type="text/javascript"></script>
+
+  <script>
+    angular.module('miniApp', ["forceng", "vlocity-business-process"])
+      .controller('ContactListCtrl', function($scope, force, $location) {
+        $scope.showLink = false;
+
+        force.init({
+          proxyURL: 'https://omniproxy.herokuapp.com'
+        });
+        force.login().then(function(oauth) {
+          debugger;
+          console.log("force login");
+          $scope.showLink = true;
+        });
+      });
+  </script>
+  <style>
+    .test-container {
+      margin: 30px;
+      font-size: 30px;
+    }
+  </style>
+
+  <body ng-app="miniApp">
+    <div ng-controller="ContactListCtrl"
+         class='vlocity via-slds via-omni via-nds'
+         xmlns:xlink="http://www.w3.org/1999/xlink">
+      <div class='test-container'>
+        <b>Try out Vlocity process library</b>
+        <div ng-if='showLink'>
+          <a href="#/OmniScriptType/AAA/OmniScriptSubType/BBB/OmniScriptLang/English/ContextId//PrefillDataRaptorBundle//false"
+             target="_self">OS1</a>
+          <a href="#/OmniScriptType/Membership/OmniScriptSubType/UsedPricing/OmniScriptLang/English/ContextId//PrefillDataRaptorBundle//false"
+             target="_self">OS2</a>
+          <a href="#/OmniScriptType/B2C TV/OmniScriptSubType/Troubleshoot/OmniScriptLang/English/ContextId//PrefillDataRaptorBundle//false"
+             target="_self">OS3</a>
+        </div>
+      </div>
+
+      <div id='VlocityBP'>
+        <div ng-if='scriptNotFound1 || scriptNotFound2'
+             ng-include="'vlcSldsScriptNotFound.html'"></div>
+        <div class="mask vlc-slds-mask"
+             ng-show="loading">
+          <div class="center-block spinner"
+               vlc-slds-spinner="test"></div>
+        </div>
+        <ng-view id='VlocityBPView'
+                 autoscroll="true">
+        </ng-view>
+        <div ng-show='loading'
+             class='modal-backdrop fade in'></div>
+      </div>
+    </div>
+
+  </body>
+
+</html>

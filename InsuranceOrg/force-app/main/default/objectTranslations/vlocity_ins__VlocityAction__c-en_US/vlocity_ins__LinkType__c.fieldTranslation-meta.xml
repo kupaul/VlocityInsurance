@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Link Type --></label>
+    <name>vlocity_ins__LinkType__c</name>
+    <picklistValues>
+        <masterLabel>CommunityUrl</masterLabel>
+        <translation><!-- CommunityUrl --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ConsoleCards</masterLabel>
+        <translation><!-- ConsoleCards --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Document</masterLabel>
+        <translation><!-- Document --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LEXConsoleCards</masterLabel>
+        <translation><!-- LEXConsoleCards --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Layout</masterLabel>
+        <translation><!-- Layout --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OmniScript</masterLabel>
+        <translation><!-- OmniScript --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Role</masterLabel>
+        <translation><!-- Role --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Verification</masterLabel>
+        <translation><!-- Verification --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

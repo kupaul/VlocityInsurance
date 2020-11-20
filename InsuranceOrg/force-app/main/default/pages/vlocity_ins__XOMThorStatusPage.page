@@ -1,0 +1,330 @@
+<apex:page showHeader="true" sidebar="true" controller="vlocity_ins.XOMThorStatusControllerExtension" standardStylesheets="false" docType="html-5.0" >
+    <html docType="html-5.0"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org" ng-app="checkThorStatus">
+    <head>
+        <base href="/"/>
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds_2_5_0, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+
+        <script type="text/javascript" src="{!URLFOR($Resource.JQUERYJS)}"></script>
+        <script type="text/javascript" src="/support/console/31.0/integration.js"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/vlocity.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.SldsAngular)}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.XomThorIntegration)}"></script>
+
+        <style>
+            .icon {
+                margin-right: 5px;
+            }
+
+            .slds-item_label {
+                width: 15%!important;
+                margin-bottom: 5px;
+            }
+
+            .slds-item_detail {
+                width: 75%!important;
+            }
+
+            .param-block {
+                margin-top: 10px!important;
+            }
+
+            .om-status {
+                margin-right: 20px;
+                vertical-align: middle;
+            }
+
+            .om-status-error {
+                margin-top: 10px;
+                color: red;
+            }
+
+            .interval {
+                display: flex; flex: 10% 1 3
+            }
+
+            .input {
+                width: 100px;
+                margin-right: 10px;
+            }
+
+            .slds-form-element__label {
+                font-weight: bold;
+                width: 10%!important;
+                margin-right: 0px!important;
+            }
+
+        </style>
+
+        <script>
+
+            var app = angular.module('checkThorStatus', ["vlocity", "ngSanitize"]);
+
+            app.config(['remoteActionsProvider', function(remoteActionsProvider) {
+                remoteActionsProvider.setRemoteActions({
+                    checkEnvironmentStatus: {action: "{!$RemoteAction.XOMThorStatusControllerExtension.checkEnvironmentStatus}", config: {escape: false}},
+                    getEnvStatusJobInfo: "{!$RemoteAction.XOMThorStatusControllerExtension.getEnvStatusJobInfo}",
+                    startEnvStatusJobs: {action: "{!$RemoteAction.XOMThorStatusControllerExtension.startEnvStatusJobs}"},
+                    stopEnvStatusJobs: {action: "{!$RemoteAction.XOMThorStatusControllerExtension.stopEnvStatusJobs}"},
+                    suppressEnvStatusJobs: {action: "{!$RemoteAction.XOMThorStatusControllerExtension.suppressEnvStatusJobs}"}
+                });
+            }]);
+
+
+            app.controller ('myController', function ($scope, $timeout, remoteActions) {
+                $scope.envStatus = {};
+                $scope.envJobStatus = {};
+                $scope.envStatusJonInfoRequestInProgress = true;
+
+                $scope.checkEnvironmentStatus = function () {
+                    $scope.requestInProgress = true;
+                    remoteActions.checkEnvironmentStatus()
+                        .then(function (envStatus)
+                        {
+                            $scope.requestInProgress = false;
+                            $scope.envStatus.omplStatus = envStatus.omplStatus;
+                            $scope.envStatus.envStatus = envStatus.envStatus;
+                            $scope.thorEnv = envStatus.envStatus.thorEnv;
+                            console.log('Env Status', envStatus);
+                            $scope.loaded = true;
+                        })
+                        .catch(function(err) {
+                            console.error('Error occurred on check environment status', err);
+                            if (err.statusCode == 400)
+                            {
+                                $scope.alertMessage = {
+                                    // "heading" : 'Please contact System Administrator for assistance.',
+                                    "message" : 'Error: ' + err.message,
+                                    "type" : 'error',
+                                    "showAlert" : true
+                                }
+                            }
+                        })
+                };
+
+                $scope.getEnvStatusJobInfo = function ()
+                {
+                    remoteActions.getEnvStatusJobInfo().then(function (envJobStatus) {
+                        $scope.envStatusJonInfoRequestInProgress = false;
+                        $scope.envJobStatus.intervalMins = envJobStatus.intervalMins;
+                        $scope.envJobStatus.areJobsScheduled = envJobStatus.areJobsScheduled;
+                        $scope.envJobStatus.areJobsSuppressed = envJobStatus.areJobsSuppressed;
+                        $scope.envJobStatus.retrieved = true;
+                    });
+                }
+
+                $scope.scheduleEnvStatusJobs = function()
+                {
+                    $scope.scheduleRequestInProgress = true;
+                    remoteActions.startEnvStatusJobs($scope.envJobStatus.intervalMins).then(function(){
+                        $scope.scheduleRequestInProgress = false;
+                        $scope.getEnvStatusJobInfo();
+                    });
+                }
+
+                $scope.stopEnvStatusJobs = function()
+                {
+                    $scope.stopRequestInProgress = true;
+                    remoteActions.stopEnvStatusJobs().then(function(){
+                        $scope.stopRequestInProgress = false;
+                        $scope.getEnvStatusJobInfo();
+                    });
+                }
+
+                $scope.suppressEnvStatusJobs = function()
+                {
+                    $scope.suppressRequestInProgress = true;
+                    remoteActions.suppressEnvStatusJobs().then(function(){
+                        $scope.suppressRequestInProgress = false;
+                        $scope.getEnvStatusJobInfo();
+                    });
+                }
+
+                $scope.getReadyIcon = function(obj) {
+
+                    if (obj.ready) {
+                        return "{!URLFOR($Resource.slds_2_5_0, 'assets/icons/utility/check.svg')}";
+                    } else {
+                        return "{!URLFOR($Resource.slds_2_5_0, 'assets/icons/utility/error.svg')}";
+                    }
+
+                }
+
+                $scope.checkEnvironmentStatus();
+                $scope.getEnvStatusJobInfo();
+
+            });
+
+            app.directive('ready', function(){
+                return {
+                    restrict: 'E', //E = element, A = attribute, C = class, M = comment
+                    scope: {
+                        //@ reads the attribute value, = provides two-way binding, & works with functions
+                        ready: '=',
+                        size: '=?'
+                    },
+                    controller: function($scope){
+                        $scope.size = $scope.size || 20;
+                    },
+                    template: '<svg width="{{size}}" height="{{size}}" role="img" viewBox="0 0 52 52" '+
+                            'xmlns:xlink="http://www.w3.org/1999/xlink" class="icon">'+
+                            '<use xlink:href="{{ready?\'#check\':\'#error\'}}"/>'+
+                        '</svg>',
+                    link: function ($scope, element, attrs) { } //DOM manipulation
+                }
+            });
+
+        </script>
+
+    </head>
+    <body class="ng-cloak" ng-controller="myController" ng-init="">
+    <div class="via-slds">
+        <div ng-include="'notification.html'" ng-if="showNotification"/>
+        <div class="_slds-align--absolute-center">
+            <div class="slds-panel">
+                <div class="slds-panel__section slds-has-divider--bottom">
+                    <h2 class="slds-text-heading--large slds-m-bottom--large">OM+ Environment Status</h2>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="slds-panel">
+                <div class="slds-panel__section slds-has-divider--bottom" ng-if="!envStatusJonInfoRequestInProgress">
+                    <div class="slds-form">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element__horizontal">
+                                    <dl class="slds-list_horizontal slds-wrap param-block" ng-if="envStatus.envStatus">
+                                        <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">OM+ Status Jobs:</dt>
+                                        <dd class="slds-item_detail slds-truncate" title="Description for first label">{{envJobStatus.areJobsScheduled?'Running': (envJobStatus.areJobsSuppressed?'Suppressed':'Not Running')}}</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-slds-form-element_horizontal slds-is-editing interval" style="">
+                                    <label class="slds-form-element__label" for="horizontal-input-id-01">Checking Interval (mins):</label>
+                                    <div class="slds-form-element__control input">
+                                        <input type="text" id="horizontal-input-id-01" placeholder="" class="slds-input" ng-model="envJobStatus.intervalMins"/>
+                                    </div>
+                                    <div class="slds-form-element__control">
+                                        <a class="slds-button slds-button_brand" ng-click="scheduleEnvStatusJobs()">{{scheduleRequestInProgress?'Scheduling...':'Schedule OM+ Status Jobs'}}</a>
+                                        <a class="slds-button slds-button_brand" ng-click="stopEnvStatusJobs()">{{stopRequestInProgress?'Stopping...':'Stop OM+ Status Jobs'}}</a>
+                                        <a class="slds-button slds-button_brand" ng-click="suppressEnvStatusJobs()">{{suppressRequestInProgress?'Suppressing...':'Suppress OM+ Status Jobs'}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-panel__section slds-has-divider--bottom" ng-if="envStatusJonInfoRequestInProgress">
+                    Retrieving Monitoring Jobs Status...
+                </div>
+                <div class="slds-panel__section slds-has-divider--bottom" ng-if="!loaded">
+                    Retrieving OM+ Status...
+                </div>
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_{{alertMessage.type}}" role="alert" ng-show="alertMessage.showAlert" style="margin-bottom: 10px">
+                    <span class="slds-icon_container slds-icon-utility-{{alertMessage.type}} slds-m-right_x-small" title="{{alertMessage.message}}">
+                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true" ng-show="alertMessage.type == 'error'">
+                            <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#error')}"></use>
+                        </svg>
+                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true" ng-show="alertMessage.type == 'success'">
+                            <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#success')}"></use>
+                        </svg>
+                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true" ng-show="alertMessage.type == 'info'">
+                            <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+                        </svg>
+                        <svg class="slds-icon slds-icon_x-small" aria-hidden="true" ng-show="alertMessage.type == 'warning'">
+                            <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                        </svg>
+                    </span>
+                    <h2>{{alertMessage.heading}}</h2>
+                    <small>&nbsp; {{alertMessage.message}} </small>
+                    <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" ng-click="alertMessage.showAlert = false; ">
+                        <svg class="slds-button__icon" aria-hidden="true">
+                            <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+                <div class="slds-panel__section slds-has-divider--bottom" ng-if="loaded">
+                    <ready size="30" ready="envStatus.omplStatus == 'Operational'" ng-if="envStatus.envStatus"/>
+                    <span class="slds-text-heading_medium om-status" title="OM+ Status">{{envStatus.omplStatus}}</span>
+                    <a class="slds-button slds-button_brand" ng-click="checkEnvironmentStatus()">{{requestInProgress?'Retrieving OM+ Status...':'Check OM+ Status'}}</a>
+                    <div class="slds-text-heading_medium om-status-error" title="OM+ Status" ng-if="envStatus.envStatus.thorEnv.errorMessage">{{envStatus.envStatus.thorEnv.errorMessage}}</div>
+
+                    <dl class="slds-list_horizontal slds-wrap param-block" ng-if="envStatus.envStatus">
+                        <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Zero Label" ng-if="envStatus.envStatus.thorEnv.status">Environment Status Description: </dt>
+                        <dd class="slds-item_detail slds-truncate" title="Description for zero label" ng-if="envStatus.envStatus.thorEnv.status">{{envStatus.envStatus.thorEnv.status}}</dd>
+                        <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">CMT Package Version:</dt>
+                        <dd class="slds-item_detail slds-truncate" title="Description for first label">{{envStatus.envStatus.sfdcVersion}}</dd>
+                        <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label" ng-if="envStatus.envStatus.thorEnv.thorVersion">OM+ Build:</dt>
+                        <dd class="slds-item_detail slds-truncate" title="Description for second label" ng-if="envStatus.envStatus.thorEnv.thorVersion">{{envStatus.envStatus.thorEnv.thorVersion}}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div ng-if="envStatus.envStatus && thorEnv.deployments.length > 0">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Component">Component</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="No of ready/desired replicas">No of ready/desired replicas</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Version">Version</div>
+                    </th>
+                    <th scope="col">
+                        <div class="slds-truncate" title="Pods">Pods</div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class="slds-hint-parent" ng-repeat="deployment in thorEnv.deployments">
+                        <th data-label="Component" scope="row">
+                            <div class="slds-truncate"
+                                 title="{{deployment.name}}">
+                                <ready ready="deployment.ready"/>{{deployment.name}}</div>
+                        </th>
+                        <td data-label="No of ready/desired replicas">
+                            <div class="slds-truncate" title="{{deployment.readyReplicas}}">{{deployment.readyReplicas}}/{{deployment.desiredReplicas}}</div>
+                        </td>
+                        <td data-label="Version">
+                            <div class="slds-truncate" title="{{deployment.version}}">{{deployment.version}}</div>
+                        </td>
+                        <td data-label="Pods">
+                            <ul>
+                                <li ng-repeat="pod in deployment.pods">
+                                    <ul>
+                                        <li ng-repeat="container in pod.containers" ng-class="pod.ready?'green':'red'">
+                                            <ready ready="container.ready"/>{{container.name}}: {{container.image}}
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </td>
+                   </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        j$ = jQuery.noConflict();
+    </script>
+
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: none">
+        <symbol id="check" width="52" height="52" viewBox="0 0 52 52">
+            <path fill="#0f0" d="m19.1 42.5l-16.5-16.6c-0.6-0.6-0.6-1.6 0-2.2l2.2-2.2c0.6-0.6 1.6-0.6 2.2 0l12.4 12.5c0.4 0.4 1.1 0.4 1.5 0l24.3-24.5c0.6-0.6 1.6-0.6 2.2 0l2.2 2.2c0.6 0.6 0.6 1.6 0 2.2l-28.3 28.6c-0.6 0.7-1.6 0.7-2.2 0z"/>
+        </symbol>
+        <symbol id="error" width="52" height="52" viewBox="0 0 52 52">
+            <path xmlns="http://www.w3.org/2000/svg" fill="#f00" d="m26 2c-13.2 0-24 10.8-24 24s10.8 24 24 24 24-10.8 24-24-10.8-24-24-24z m11.9 25.7c-0.1 0.7-0.7 1.3-1.5 1.3h-20.8c-0.8 0-1.4-0.5-1.5-1.3-0.1-1.2-0.1-2.3 0-3.4 0.1-0.7 0.7-1.3 1.5-1.3h20.8c0.8 0 1.4 0.6 1.5 1.3 0.1 1.2 0.1 2.3 0 3.4z"/>
+        </symbol>
+    </svg>
+
+    </body>
+    </html>
+</apex:page>

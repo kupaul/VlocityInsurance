@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Property Type --></label>
+    <name>vlocity_ins__PropertyType__c</name>
+    <picklistValues>
+        <masterLabel>Boolean</masterLabel>
+        <translation><!-- Boolean --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Date</masterLabel>
+        <translation><!-- Date --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Datetime</masterLabel>
+        <translation><!-- Datetime --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Decimal</masterLabel>
+        <translation><!-- Decimal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Double</masterLabel>
+        <translation><!-- Double --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ID</masterLabel>
+        <translation><!-- ID --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Integer</masterLabel>
+        <translation><!-- Integer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>List&lt;Boolean&gt;</masterLabel>
+        <translation><!-- List&lt;Boolean&gt; --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>List&lt;Decimal&gt;</masterLabel>
+        <translation><!-- List&lt;Decimal&gt; --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>List&lt;String&gt;</masterLabel>
+        <translation><!-- List&lt;String&gt; --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Long</masterLabel>
+        <translation><!-- Long --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Map&lt;String, Boolean&gt;</masterLabel>
+        <translation><!-- Map&lt;String, Boolean&gt; --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Map&lt;String, String&gt;</masterLabel>
+        <translation><!-- Map&lt;String, String&gt; --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Object</masterLabel>
+        <translation><!-- Object --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>String</masterLabel>
+        <translation><!-- String --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

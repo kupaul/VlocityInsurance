@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Document Generation Mechanism --></label>
+    <name>vlocity_ins__DocumentGenerationMechanism__c</name>
+    <picklistValues>
+        <masterLabel>Default</masterLabel>
+        <translation><!-- Default --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VlocityClientSide</masterLabel>
+        <translation><!-- VlocityClientSide --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VlocityCloud</masterLabel>
+        <translation><!-- VlocityCloud --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

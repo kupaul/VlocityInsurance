@@ -1,0 +1,11 @@
+<apex:page controller="vlocity_ins.EPCAdminController" title="Product Relationships" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+    <html xmlns:ng="http://angularjs.org" ng-app="">
+        <head>
+            <base href="/"/>
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.vlocity_assets, '/css/vlocity.css')}" />
+        </head>
+        <body>
+            <div class="vlocity ng-cloak"></div>
+        </body>
+    </html>
+</apex:page>

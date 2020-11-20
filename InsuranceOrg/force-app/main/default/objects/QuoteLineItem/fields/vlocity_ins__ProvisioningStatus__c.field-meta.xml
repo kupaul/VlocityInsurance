@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProvisioningStatus__c</fullName>
+    <deprecated>false</deprecated>
+    <description>(NOTE: The functionality of this field is replaced by the Action, Sub-Action and Fulfilment Status fields.) The desired provisioning action for the asset identified on this line item. Values include New (add), Active (no change), Changed or Deleted.</description>
+    <externalId>false</externalId>
+    <label>Provisioning Status</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

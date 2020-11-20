@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DependencyType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Dependency Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Depends On</fullName>
+                <default>true</default>
+                <label>Depends On</label>
+            </value>
+            <value>
+                <fullName>Should Be Processed Before</fullName>
+                <default>false</default>
+                <label>Should Be Processed Before</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

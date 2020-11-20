@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Disclosure3__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Whether this customer is a company in the money lending or pawning business. Primarily relevant to financial services organizations using Vlocity, but may also be relevant for credit checks.</description>
+    <externalId>false</externalId>
+    <label>Money Lending/Pawning</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Vlocity_EPC_Work_Set_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>vlocity_ins__Status__c</fields>
+    <fields>vlocity_ins__IsActive__c</fields>
+    <fields>vlocity_ins__IsDefault__c</fields>
+    <fields>vlocity_ins__ProjectOwner__c</fields>
+    <fields>vlocity_ins__OriginalCreatedDate__c</fields>
+    <fields>vlocity_ins__OriginalLastModifiedDate__c</fields>
+    <label>Vlocity EPC Work Set Compact Layout</label>
+</CompactLayout>

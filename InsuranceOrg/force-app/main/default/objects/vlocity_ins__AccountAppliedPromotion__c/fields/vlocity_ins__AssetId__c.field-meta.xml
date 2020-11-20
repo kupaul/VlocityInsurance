@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AssetId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Identifies the asset to which the promotional pricing is applied. Used when a promotion is applied to a specific asset.</description>
+    <externalId>false</externalId>
+    <label>Asset</label>
+    <referenceTo>Asset</referenceTo>
+    <relationshipLabel>Applied Promotions</relationshipLabel>
+    <relationshipName>AppliedPromotions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

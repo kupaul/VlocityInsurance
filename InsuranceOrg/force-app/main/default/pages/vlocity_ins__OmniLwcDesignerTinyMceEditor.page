@@ -1,0 +1,365 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyBodyTag="false"
+           lightningStylesheets="false"
+           applyHtmlTag="false"
+           title="TinyMCE Editor"
+           controller="vlocity_ins.OmniScriptDesignerController"
+           cache="false">
+
+    <html xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          lang="en">
+          <head>
+            <meta http-equiv="X-UA-Compatible"
+                  content="IE=edge" />
+            <meta http-equiv="Content-Type"
+                  content="text/html;charset=utf-8" />
+            <style>
+                html,
+                body {
+                    overflow: hidden;
+                    padding: 0;
+                    margin: 0;
+                    border: 0;
+                    background: #fff;
+                }
+
+                .tox.tox-tinymce .tox-menubar,
+                .tox.tox-tinymce .tox-toolbar,
+                .tox.tox-tinymce .tox-statusbar {
+                    background-color: rgb(243, 242, 242);
+                }
+
+                .tox.tox-tinymce {
+                    border-radius: .4rem;
+                }
+            </style>
+        <script src="{!URLFOR($Resource.tinymce_5, '/tinymce.min.js')}"></script>
+    </head>
+
+    <body>
+
+        <textarea id="mytextarea"></textarea>
+
+        <script>
+            window.oid = "{!$Organization.Id}"
+            let _initialized;
+            let _config;
+            let _rteId;
+
+            window.addEventListener("message", receiveMessage, false);
+
+            function receiveMessage() {
+                switch (event.data.message) {
+                    case "render":
+                        _rteId = event.data.elementid;
+                        renderEditor(event.data.value, event.data.config);
+                        return;
+                    case "value-changed":
+                        updateValue(event.data.value);
+                        return;
+                    case "append-changed":
+                        appendValue(event.data.value);
+                        return;
+                    case "config-changed":
+                        updateEditor(event.data.value, event.data.config);
+                        return;
+                    case "set-mode":
+                        tinymce.activeEditor.setMode(event.data.value);
+                }
+            }
+
+            function renderEditor(value, config) {
+                config = setConfigDefaults(config);
+                document.getElementById("mytextarea").value = value;
+                if (_initialized) {
+                    tinymce.remove("#mytextarea");
+                }
+                tinymce.init(config);
+            }
+
+            function setConfigDefaults(config) {
+                return Object.assign({
+                    body_class: 'slds-rich-text-editor__output',
+                    content_style: 'html {background: #fff!important}',
+                    menubar: true,
+                    relative_urls: false,
+                    elementpath: false,
+                    plugins: [
+                        'code advlist autolink lists link image charmap hr anchor pagebreak',
+                        'searchreplace wordcount code',
+                        'insertdatetime table media nonbreaking directionality',
+                        'template paste textpattern imagetools smartlink',
+                    ],
+                    imagetools_toolbar: 'imageoptions',
+                    menu: {
+                        edit: {
+                            title: 'Edit',
+                            items: 'undo redo | cut copy paste pastetext | selectall',
+                        },
+                        insert: {
+                            title: 'Insert',
+                            items: 'link image | anchor hr charmap insertdatetime',
+                        },
+                        format: {
+                            title: 'Format',
+                            items: 'bold italic underline strikethrough superscript subscript | formats | removeformat',
+                        },
+                        table: {
+                            title: 'Table',
+                            items: 'inserttable tableprops deletetable | cell row column',
+                        },
+                        tools: {
+                            title: 'Tools',
+                            items: 'spellchecker code',
+                        },
+                    },
+                    default_link_target: '_blank',
+                    image_list: function(success) {
+                        success(self.imageDocs);
+                    },
+                    height: 450,
+                    toolbar1: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                    toolbar2: 'preview | forecolor backcolor | code | example | ltr rtl',
+                    extended_valid_elements: 'button[*],a[*],p[*],ul[*],input[*],li[*],nav[*],script[language|type|src|defer],select[*]',
+                    forced_root_block: 'p',
+                    resize: false
+                }, config, {
+                    selector: "#mytextarea",
+                    init_instance_callback: function (editor) {
+                        let changeHandler = debounce(function (e) {
+                            window.parent.postMessage({
+                                message: _rteId + "-change",
+                                value: editor.getContent()
+                            }, "*");
+                        }, 100);
+                        editor.on('keyup', changeHandler);
+                        editor.on('Change', changeHandler);
+                    },
+                    setup: function (editor) {
+                        editor.on('init', function (e) {
+                            _initialized = true;
+                            window.parent.postMessage({
+                                message: _rteId + "-initialized",
+                                value: editor.getContent()
+                            }, "*");
+                        });
+                    },
+                    images_upload_handler:function (blobInfo, success, failure) {
+                        uploadDocument(blobInfo.base64(), blobInfo.filename(), blobInfo.blob().type)
+                            .then(function(result) {
+                                success(`https://${window.location.hostname}/servlet/servlet.ImageServer?id=${result[0].Id}&docName=${result[0].DeveloperName}&oid=${window.oid}`);
+                            }).catch(function(fail) {
+                                failure(fail.message ? `{!$Label.ODCPropertyLabelErrUnexpected} ${fail.message}` : '.');
+                            });
+                    },
+                    image_uploadtab: true
+                });
+            }
+
+            function updateValue(value) {
+                tinymce.activeEditor.setContent(value);
+            }
+
+            function appendValue(value) {
+                tinymce.activeEditor.setContent(tinymce.activeEditor.getContent() + value);
+            }
+
+            getAllDocuments();
+            getLanguageCodeMap();
+
+            function getLanguageCodeMap() {
+                doRemoteCall('{!$RemoteAction.OmniScriptDesignerController.getLanguageCodeMap}').then(function(langCodeMap){
+                    var langMap = [];
+                    Object.keys(langCodeMap).forEach(key => {
+                        langMap.push({text: key, value: langCodeMap[key] });
+                    });
+
+                    window.tinymce.getLanguageCodeMap = function(){
+                        return langMap;
+                    };
+                });
+            }
+
+            function getAllDocuments() {
+                return doRemoteCall('{!$RemoteAction.OmniScriptDesignerController.GetAllDocuments}')
+                    .then(documents => {
+                        window.imageDocs = documents.filter(document => {
+                            return ((document.Type && document.Type.indexOf('image') !== -1) || ['png', 'gif', 'jpeg', 'jpg'].includes(document.Type)) && document.IsPublic;
+                        }).map(function(document) {
+                            return {
+                                value: `https://${window.location.hostname}/servlet/servlet.ImageServer?id=${document.Id}&docName=${document.DeveloperName}&oid=${window.oid}`,
+                                text: document.Name
+                            };
+                        });
+                    })
+            }
+
+            function uploadDocument(blobString, filename, type) {
+                return doRemoteCall('{!$RemoteAction.OmniScriptDesignerController.uploadDocument}', blobString, filename, type);
+            }
+
+            function getKnowledgeArticles(searchKey, status, langCode) {
+                return doRemoteCall('{!$RemoteAction.OmniScriptDesignerController.getKnowledgeArticles}', searchKey || '', status || '', langCode || '');
+            }
+
+            function doRemoteCall(actionName, params) {
+                return new Promise((resolve, reject) => {
+                    const cb = (result, event) => {
+                        if (event.statusCode < 400) {
+                            resolve(result);
+                        } else {
+                            reject(event);
+                        }
+                    };
+                    const invokeArgs = [];
+                    for (var i = 0; i < arguments.length; i++) {
+                        invokeArgs.push(arguments[i]);
+                    }
+                    invokeArgs.push(cb);
+                    var invokeAction = Visualforce.remoting.Manager.invokeAction;
+                    invokeAction.apply(Visualforce.remoting.Manager, invokeArgs);
+                });
+            }
+
+            function debounce(func, wait, immediate) {
+                let timeout;
+                return function() {
+                  let context = this
+                  let args = arguments;
+                  let later = function() {
+                    timeout = null;
+                    if (!immediate) func.call(context, args);
+                  };
+                  let callNow = immediate && !timeout;
+                  clearTimeout(timeout);
+                  // eslint-disable-next-line @lwc/lwc/no-async-operation
+                  timeout = setTimeout(later, wait);
+                  if (callNow) func.apply(context, args);
+                };
+              }
+
+        </script>
+        <script>
+            (function() {
+                'use strict';
+                window.tinymce.PluginManager.add('smartlink', function(editor, url) {
+
+                    editor.ui.registry.addButton('example', {
+                        icon: 'bookmark',
+                        tooltip: '{!$Label.ODCTinyMceAddLinkToArticle}',
+                        onAction: function() {
+                            editor.editorCommands.execCommand('openSmartLinkWindow');
+                        }
+                    });
+
+                    editor.addCommand('openSmartLinkWindow', function() {
+                        let matchingArticles = [];
+
+                        const smartLinkWindow = {
+                            title: '{!$Label.ODCTinyMceAddLinkToArticle}',
+                            initialData: {
+                                langCode: 'en_US',
+                                publishStatus: 'online'
+                            },
+                            body: {
+                                type: 'panel',
+                                items: [
+                                    {
+                                        type: 'selectbox',
+                                        label: '{!$Label.ODCTinyMceLabelPublishStatus}',
+                                        name: 'publishStatus',
+                                        items: [
+                                            {text: '{!$Label.ODCTinyMceLabelPublish}', value: 'online'},
+                                            {text: '{!$Label.ODCTinyMceLabelDraft}', value: 'draft'},
+                                            {text: '{!$Label.ODCTinyMceLabelDraftTranslation}', value: 'archived'},
+                                        ]
+                                    },{
+                                        type: 'selectbox',
+                                        label: '{!$Label.ODCTinyMceLabelLanguage}',
+                                        name: 'langCode',
+                                        items: window.tinymce.getLanguageCodeMap()
+                                    },{
+                                        type: 'input',
+                                        label: '{!$Label.ODCTinyMceLabelArticleName}',
+                                        name: 'name'
+                                    },
+                                    {
+                                        type: 'button',
+                                        text: '{!$Label.ODCTinyMceLabelSearchMatchingArticles}',
+                                        primary: true,
+                                        name: 'searchForArticles'
+                                    }, {
+                                        type: 'selectbox',
+                                        label: '{!$Label.ODCTinyMceLabelMatchingArticles}',
+                                        name: 'articles',
+                                        items: matchingArticles
+                                    }
+                                ]
+                            },
+                            buttons: [{
+                                type: 'cancel',
+                                text: '{!$Label.ODCCancelLabel}'
+                            }, {
+                                type: 'submit',
+                                text: '{!$Label.ODCSaveLabel}',
+                                primary: true
+                            }],
+                            onAction: function(api) {
+                                const data = api.getData();
+                                api.block('{!$Label.ODCTinyMceLabelSearching}');
+                                getKnowledgeArticles(data.name, data.publishStatus, data.langCode)
+                                    .then(results => {
+                                        const articles = JSON.parse(results.replace(/&quot;/g,'"'));
+
+                                        if (!articles.error) {
+                                            matchingArticles = articles.map(article => {
+                                                const displayName = article.urlName;
+                                                return {
+                                                    value: `/articles/${article.articleType}/${article.urlName}?popup=true`,
+                                                    text: displayName
+                                                };
+                                            });
+                                        } else {
+                                            matchingArticles = [];
+                                        }
+
+                                        api.redial(Object.assign(smartLinkWindow, {
+                                            initialData: data
+                                        }));
+                                        api.focus('articles');
+                                        api.unblock();
+                                    })
+                                    .catch(err => {
+                                        matchingArticles = [];
+                                        api.redial(Object.assign(smartLinkWindow, {
+                                            initialData: data
+                                        }));
+                                        api.unblock();
+                                    })
+                            },
+                            onSubmit: function(api) {
+                                const data = api.getData();
+
+                                if (!data.articles) {
+                                    return;
+                                }
+
+                                tinymce.activeEditor.execCommand('mceInsertContent', false, `<a class=mce-anchor href="${data.value}" target="_blank">${data.value}</a>&nbsp;`);
+                                api.close();
+                            }
+                        }
+                        editor.windowManager.open(smartLinkWindow);
+                    });
+                });
+
+            }());
+        </script>
+    </body>
+
+
+    </html>
+</apex:page>

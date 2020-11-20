@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsRootProductChildItem__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field will be used to identify the root product child item record.
+Only one will be allowed for each root product.</description>
+    <externalId>false</externalId>
+    <label>Is Root Product Child Item</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

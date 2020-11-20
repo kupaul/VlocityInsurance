@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__HouseholdId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the primary Household identified as this Party when the party is a Household. Where possible use Household.PartyId__c instead of this field to determine the Party which identifies any given Household.</description>
+    <externalId>false</externalId>
+    <label>Household</label>
+    <referenceTo>vlocity_ins__Household__c</referenceTo>
+    <relationshipName>Party</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PromotionId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>DEPRECATED. Use the Applied Promotion (OrderAppliedPromotionId__c) field to identify the promotion which is the source of this price or adjustment.</description>
+    <externalId>false</externalId>
+    <label>Promotion</label>
+    <referenceTo>vlocity_ins__Promotion__c</referenceTo>
+    <relationshipName>OrderPriceAdjustments</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

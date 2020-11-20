@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Layout --></label>
+    <name>vlocity_ins__ColumnLayout__c</name>
+    <picklistValues>
+        <masterLabel>1 Column</masterLabel>
+        <translation><!-- 1 Column --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2 Columns</masterLabel>
+        <translation><!-- 2 Columns --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

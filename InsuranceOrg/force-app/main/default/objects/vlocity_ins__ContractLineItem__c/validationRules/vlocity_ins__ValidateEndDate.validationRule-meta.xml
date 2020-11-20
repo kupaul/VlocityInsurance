@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ValidateEndDate</fullName>
+    <active>true</active>
+    <errorConditionFormula>DATEVALUE(vlocity_ins__EffectiveEndDate__c)  &gt;  vlocity_ins__ContractId__r.EndDate</errorConditionFormula>
+    <errorMessage>Contract Line Item Effective End Date has to be earlier than Contract End Date</errorMessage>
+</ValidationRule>

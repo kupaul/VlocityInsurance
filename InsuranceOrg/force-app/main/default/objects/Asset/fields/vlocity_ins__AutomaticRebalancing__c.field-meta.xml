@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AutomaticRebalancing__c</fullName>
+    <deprecated>false</deprecated>
+    <description>For annuities or investment accounts, whether automatic rebalancing of the holdings to match a target asset allocation is elected or not elected.</description>
+    <externalId>false</externalId>
+    <label>Automatic Rebalancing</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Elected</fullName>
+                <default>false</default>
+                <label>Elected</label>
+            </value>
+            <value>
+                <fullName>Not Elected</fullName>
+                <default>false</default>
+                <label>Not Elected</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

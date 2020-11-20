@@ -1,0 +1,16 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" docType="html-5.0"
+            controller="vlocity_ins.VFPageControllerBase" applyHtmlTag="false" applyBodyTag="false">
+    <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </head>
+        <body>
+            <c:OmniScriptUniversalComponent />
+            <apex:includeScript value="{!$Resource.vlocity_ins__InsRules}"/>
+            <script type="text/javascript">
+                angular.module('OmniScriptUniversal').requires.push('insRules');
+            </script>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocityouisldsdependency, 'vlocityouislds.css')}"/>
+        </body>
+   </html>
+</apex:page>

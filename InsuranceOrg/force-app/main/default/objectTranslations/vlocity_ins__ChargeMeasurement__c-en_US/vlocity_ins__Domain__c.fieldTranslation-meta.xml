@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Domain --></label>
+    <name>vlocity_ins__Domain__c</name>
+    <picklistValues>
+        <masterLabel>Internet</masterLabel>
+        <translation><!-- Internet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mobile</masterLabel>
+        <translation><!-- Mobile --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TV</masterLabel>
+        <translation><!-- TV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Voice</masterLabel>
+        <translation><!-- Voice --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

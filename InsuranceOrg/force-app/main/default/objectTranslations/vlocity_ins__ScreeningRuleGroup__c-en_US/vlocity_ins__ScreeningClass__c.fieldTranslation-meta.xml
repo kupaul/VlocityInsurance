@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Enter the Apex class used by the relevant Type to parse data in the correct structure to be compared against the Screening Rules. Either specify an existing class, or enter a new name and click &apos;Generate Screening Class&apos; to create the template class. --></help>
+    <label><!-- Screening Class --></label>
+    <name>vlocity_ins__ScreeningClass__c</name>
+</CustomFieldTranslation>

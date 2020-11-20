@@ -1,0 +1,103 @@
+<apex:page showHeader="true" sidebar="true" controller="vlocity_ins.XOMAdminPageController" extensions="vlocity_ins.XOMSyncDeltaControllerExtension" title="{!$Label.vlocity_ins__vlocityxomadministration}">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org" ng-app="xomadmin">
+        <head>
+            <base href="/"/>
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.XOMAdminCss)}" />
+            <script type="text/javascript" src="/support/console/31.0/integration.js"></script>
+            <script type="text/javascript" src="/soap/ajax/31.0/connection.js"></script>
+            <!-- Important ! Has to be loaded BEFORE vlocity_assets -->
+            <script type="text/javascript" src="{!URLFOR($Resource.JsForce)}" ></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/vlocity.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.SldsAngular)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.XOMAdmin)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.AngularRoute)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.JSZip)}" />
+            <script type="text/javascript" src="{!URLFOR($Resource.XomThorIntegration)}"></script>
+            <apex:includeScript value="{!$Resource.vlocity_ins__FileSaver}"/>
+        </head>
+        <!-- Angular Router is used instead of the controller -->
+        <body>
+            <div class="via-slds">
+                <div class="slds-page-header slds-theme--shade" role="banner">
+                    <div class="slds-media slds-media--center">
+                        <div class="slds-media__figure">
+                            <svg aria-hidden="true" class="slds-icon">
+                                <use xlink:href="{{SLDSICON.SETTINGS}}"></use>
+                            </svg>
+                        </div>
+                        <div class="slds-media__body">
+                            <p class="slds-page-header__title slds-truncate slds-align-middle" title="Vlocity XOM Admin">Vlocity XOM Administration</p>
+                            <p class="slds-text-body--small page-header__info">Upgrade and maintenance tasks for Vlocity XOM</p>
+                        </div>
+                    </div>
+                </div>
+                <ng-view></ng-view>
+            </div>
+            <script type="text/javascript">
+                'use strict';
+                window.j$ = jQuery.noConflict();
+                window.$ = jQuery.noConflict();
+
+                //Define remote actions.
+                var remoteActions = {
+                    getCountsForSyncDelta: {action: "{!$RemoteAction.XOMAdminPageController.getCountsForSyncDelta}", config: {timeout: 120000}},
+                    calcScopeForSyncDelta: {action: "{!$RemoteAction.XOMAdminPageController.calcScopeForSyncDelta}", config: {timeout: 120000}},
+                    restartSyncDeltaJob: {action: "{!$RemoteAction.XOMAdminPageController.restartSyncDeltaJob}", config: {timeout: 60000}},
+                    scheduleSyncDeltaJobForType: {action: "{!$RemoteAction.XOMAdminPageController.scheduleSyncDeltaJobForType}", config: {timeout: 120000}},
+                    getNumberOfBatches: {action: "{!$RemoteAction.XOMSyncDeltaControllerExtension.getNumberOfBatches}", config: {timeout: 120000}},
+                    getJobStatus: {action: "{!$RemoteAction.XOMAdminPageController.getJobStatus}", config: {timeout: 120000}},
+                    populateSyncDelta: {action: "{!$RemoteAction.XOMAdminPageController.populateSyncDelta}", config: {timeout: 120000}},
+                    ensureGlobalKeysBatch: {action: "{!$RemoteAction.XOMAdminPageController.ensureGlobalKeysBatch}", config: {timeout: 120000}},
+                    cleanupSyncDelta: {action: "{!$RemoteAction.XOMAdminPageController.cleanupSyncDelta}", config: {timeout: 120000}},
+                    createDataRaptorBundlesForBackSync: {action: "{!$RemoteAction.XOMAdminPageController.createDataRaptorBundlesForBackSync}", config: {timeout: 120000}},
+                    getBatch: {action: "{!$RemoteAction.XOMSyncDeltaControllerExtension.getBatch}", config: {escape: false}},
+                    refreshCustomLabelsCache: {action: "{!$RemoteAction.XOMAdminPageController.refreshCustomLabelsCache}", config: {timeout: 120000}},
+                    updateOrchQueuesCnt: {action: "{!$RemoteAction.XOMAdminPageController.updateOrchQueuesCnt}", config: {timeout: 120000}},
+                    scheduleJeopardyManagementJobs: {action: "{!$RemoteAction.XOMAdminPageController.scheduleJeopardyManagementJobs}", config: {timeout: 60000}},
+                    scheduleOrchestrationRecoveryJobs: {action: "{!$RemoteAction.XOMAdminPageController.scheduleOrchestrationRecoveryJobs}", config: {timeout: 60000}},
+                    checkOdinConfig: {action: "{!$RemoteAction.XOMAdminPageController.checkOdinConfig}", config: {timeout: 60000}},
+                    configureOdin: {action: "{!$RemoteAction.XOMAdminPageController.configureOdin}", config: {timeout: 60000}}
+                };
+
+                var labelsUrl = '{!JSENCODE(HTMLENCODE(labelsServicesUrl))}';
+                var debugLogsUIUrl = '{!JSENCODE(HTMLENCODE(debugLogsUIUrl))}';
+                var monitoringUIUrl = '{!JSENCODE(HTMLENCODE(monitoringUIUrl))}';
+                var uiServicesUrl = '{!JSENCODE(HTMLENCODE(uiServicesUrl))}';
+                
+                angular.module('xomadmin').constant('config', {
+                    isThorEnabled: '{!isThorEnabled}',
+                    isDeltaTrackingEnabled: '{!isDeltaTrackingEnabled}',
+                    isInsurance: '{!isInsurance}' == 'true',
+                    accessToken: '{!$API.Session_Id}',
+                    syncCatalogPage: '{!$Page.XOMSyncDeltaPage}',
+                    checkEnvStatusPage: '{!$Page.XOMThorStatusPage}',
+                    namespacePrefix: '{!namespacePrefix}',
+                    labelsUrl: labelsUrl,
+                    debugLogsUIUrl: debugLogsUIUrl,
+                    monitoringUIUrl: monitoringUIUrl,
+                    uiServicesUrl: uiServicesUrl
+                });
+
+                angular.module('xomadmin').service('labelsSyncService', ['$http', function ($http) {
+
+                    this.getLabels = function () {
+                        return $http.get(labelsUrl, {withCredentials: true});
+                    };
+
+                }]);
+
+                //Define ICONs
+                var SLDSICON = {
+                    'SETTINGS': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#settings")}',
+                    'RIGHT_ARROW': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#right")}',
+                    'SEARCH': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#search")}',
+                    'EDIT': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#edit")}',
+                    'ADD': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#add")}',
+                    'DELETE': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#delete")}',
+                    'CLOSE': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#close")}'
+                };
+            </script>
+        </body>
+    </html>
+</apex:page>

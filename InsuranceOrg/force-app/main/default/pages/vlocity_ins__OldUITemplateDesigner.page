@@ -1,0 +1,773 @@
+<apex:page standardStylesheets="false" showHeader="true"
+            sidebar="false" docType="html-5.0"
+            controller="vlocity_ins.CardCanvasController"
+            title="Vlocity UI Designer">
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css'/>
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/jquery/dist/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/angular-sanitize/angular-sanitize.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ngdraggable/ngDraggable.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/angular-filter/dist/angular-filter.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/forceng/forceng.js')}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__CardFramework}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__Sass, 'sass.js')}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'ace.js')}"/>
+    <!--Workers -->
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'mode-sass.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'worker-css.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'worker-html.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'worker-javascript.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'worker-json.js')}"/>
+    <!--themes-->
+    <!-- <apex:includeScript value="{!URLFOR($Resource.AceEditor, 'theme-textmate.js')}"/> -->
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'theme-monokai.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'ui-ace.min.js')}"/>
+
+    <!-- <apex:includeScript value="{!$Resource.AngularDragAndDropLists}"/> -->
+    
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css'/>
+    <!-- <apex:stylesheet value="{!$Resource.IonicVlocityCss}"/> -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>
+
+    <style type="text/css">
+        .vlocity div.ta-editor {
+            height: initial !important;
+        }
+
+        .vlocity textarea.ta-editor {
+            height: 300px;
+        }
+        .vlocity .template-meta label {
+            display:block;
+            padding-top:7px;
+            margin:0;
+            font-weight:bold;
+        }
+        .vlocity .template-meta input {
+            margin:7px 0px;
+        }
+
+        .vlocity .list-group-item-heading {
+            text-transform:  none;
+        }
+        .css-panel {
+            min-height: 10em;
+            width: 100%;
+        }
+
+        .ace_editor { 
+            min-height: 500px; 
+            font-family: monospace !important;
+            font-size: 12px !important;
+        }
+        .no-templates {
+            padding:10px;
+        }
+
+        #cards {
+              padding: 10px;
+              display: -webkit-flex;
+              -webkit-align-content: left;
+              -webkit-justify-content: left;
+              -webkit-flex-wrap: wrap;
+              flex-wrap: wrap;
+              width: 1000px;
+            }
+
+        ng-card {
+          display: block;
+          border: 1px solid black;
+          flex: 1;
+          height: 300px;
+          max-width: 300px;
+          min-width: 300px;
+          height: 300px;
+          margin: 5px;
+        }
+
+        card {
+          display: block;
+          flex: 1;
+          background: white;
+          height: inherit;
+          padding: 5px;
+          max-width: 300px;
+          min-width: 300px;
+        }
+        card .card-title {
+          border-bottom: 1px solid #DDD;
+        }
+        card .card-title h3 {
+          text-transform: uppercase;
+        }
+        card .card-body {
+          padding-top: 5px;
+        }
+
+        .vlocity .ace, .vlocity .ace > * {
+            font-family: monospace !important;
+        }
+
+        .ace_text-layer {
+          font-family: monospace !important;
+        }
+
+        .ace_line, span.ace_text.ace_xml, .ace_gutter-cell, .ace_paren .ace_rparen {
+            color: white;
+            font-family: monospace;
+        }
+
+        .ace_line > * {
+            font-family: monospace;
+            font-weight: light;
+            color: white;
+        }
+
+        .list-group-item {
+            margin:0; 
+            float: left; 
+            width: 100%;
+        }
+
+        .list-group-item > * {
+            cursor: pointer;
+        }
+
+        .menu-btn-group {
+            display: -webkit-flex !important;
+            width: 100%;
+        }
+
+        .menu-btn-group > *{
+            -webkit-flex: 2;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        Sass.setWorkerUrl("{!URLFOR($Resource.Sass, 'sass.worker.js')}");
+
+        // initialize a Sass instance
+        var sass = new Sass();
+
+    </script>
+        
+
+        <script type="text/javascript">
+        //var app = angular.module('myApp',["vlocity", "textAngular" ,"ngSanitize", "ui.ace"]);
+        var app = angular.module('myApp',["vlocity", "textAngular" ,"ngSanitize", "ui.ace", "CardFramework", "forceng","angular.filter"]);
+
+        // this is used for remoteActions config inside CardFramework
+        var nsPrefixDotNotation = "{!nsPrefixDotNotation}";
+        console.log('nsPrefixDotNotation fetched from CardCanvasController: ' + nsPrefixDotNotation);
+        localStorage.setItem('nsPrefixDotNotation', nsPrefixDotNotation);
+        console.log('nsPrefixDotNotation value stored in localStorage: ' + localStorage.getItem('nsPrefixDotNotation'));
+
+        app.run(["$sce","$templateCache","$rootScope","force","networkService", function($sce, $templateCache, $rootScope, force, networkService){
+            console.log('inside run');
+            //$rootScope.nsPrefix = '{!nsPrefix}';
+
+            //debugger;
+
+            force.init({
+                    accessToken: '{!$Api.Session_ID}',
+                    useProxy: false
+                });
+
+        }]);
+
+        app.filter('resource', function($interpolate, $rootScope){
+            return function(){
+                console.log('filter:::',arguments);
+                var resourceName = arguments[0];
+                return $rootScope.resources[resourceName];
+                //var result = $interpolate('{{value | ' + arguments[1] + '}}');
+                //return result({value:arguments[0]});
+                //return arguments[0];
+            };
+        });
+
+        app.filter("testf", function($timeout) {
+            var data = null, serviceInvoked = false;
+            
+            function realFilter(value) {
+                // REAL FILTER LOGIC, DISREGARDING PROMISES
+                return data;
+            }
+            
+            return function(value) {
+                if( data === null ) {
+                    if( !serviceInvoked ) {
+                        serviceInvoked = true;
+                        console.log("SIMULATION OF ASYNC CALL");
+                        $timeout(function() {
+                            var result = "Async: ";
+                            data = result;
+                        }, 2000);
+                    }
+                    return "-";
+                }
+                else return realFilter(value);
+            };
+        });
+
+        //app.controller('myController', function($scope,$templateCache, remoteActions, $rootScope, $interpolate, $http) {
+        app.controller('myController', function($scope,$templateCache, $rootScope, $interpolate, $http, nameSpaceService, configService, pageService) {
+            $scope.templates = [];
+            $scope.selectedTemplate;
+            $scope.selectedHTML = '';
+            //$scope.nsPrefix = $rootScope.nsPrefix;  // no need to assign this because $rootScope.nsPrefix is available to all child scopes
+            $scope.selectedTemplates = 0;
+
+
+            $scope.initializeData = function() {
+
+                nameSpaceService.getNameSpacePrefix().then(
+
+                    function(nsPrefix){
+
+                        $rootScope.nsPrefix = nsPrefix;
+
+                        // DO NOT insert CSS for the templates, otherwise they would all be uppercase
+                        var insertCSSIndicator = false;
+                        configService.getTemplates(insertCSSIndicator).then(
+
+                            function(templates) {
+
+                                console.log(templates);
+                                $scope.templates = templates;
+
+                                angular.forEach($scope.templates,function(template){
+                                    if(template[$rootScope.nsPrefix+'Type__c'] == 'mixin'){
+                                        var ngSass = template[$rootScope.nsPrefix+'Sass__c']? $interpolate(template[$rootScope.nsPrefix+'Sass__c'])($scope):'';
+                                        sass.writeFile(template.Name, ngSass);
+                                        console.log('adding mixin '+template.Name);
+                                    }
+                                    if(pageService.params.name === template.Name) {
+                                        $scope.selectTemplate(template);
+                                    }
+
+                                });
+
+                        });
+
+                        configService.getStaticResourcesUrl().then(
+
+                            function(resources) {
+
+                                console.log(resources);
+                                $rootScope.resources = resources;
+
+                        });
+
+                });     
+
+            };
+
+            // var editor;
+            $scope.selectTemplate = function(template){
+                console.log('selected template '+template.Name);
+                // console.log(template.HTML__c);
+                //template.HTML__c = htmlDecode(template.HTML__c);
+                $scope.selectedTemplate = template;
+            };
+
+            $scope.aceLoaded = function(_editor) {
+                // Options
+                console.log('ace loaded');
+                console.log(_editor);
+                //_editor.setReadOnly(true);
+            };
+
+            $scope.aceChanged = function(e) {
+                console.log('ace changed');
+                console.log(e);
+                //
+            };
+
+            $scope.aceOptions = {
+                useWrapMode : true,
+                showGutter: false,
+                theme:'monokai',
+                mode: 'html'
+            };
+
+            $scope.$watch('selectedTemplate['+$rootScope.nsPrefix+'CSS__c]',function(){
+                console.log('selectedTemplate.CSS__c changed');
+                //insertCSS($scope.selectedTemplate);
+            });
+            
+            $scope.newTemplate = function() {
+                var template = { 
+                        Name: 'New Template'
+                };
+                template[$rootScope.nsPrefix+'HTML__c'] = '<i>Insert HTML here</i>';
+                template[$rootScope.nsPrefix+'Type__c'] = '';
+                template[$rootScope.nsPrefix+'DisplayOn__c'] ='All';
+                $scope.templates.push(template);
+                $scope.selectTemplate(template);
+            };
+
+            $scope.saveTemplate = function(template, e) {
+                //delete template.$$hashKey; //remove the angular id
+                // console.log(template);
+                var originalText;
+                if(e){
+                    originalText = e.currentTarget.innerText;
+                    e.currentTarget.innerText = 'Saving...';
+                }
+                // console.log(template[$rootScope.nsPrefix+'Sass__c']);
+                // console.log(JSON.stringify(template[$rootScope.nsPrefix+'Sass__c']));
+
+                var ngSass = template[$rootScope.nsPrefix+'Sass__c']? $interpolate(template[$rootScope.nsPrefix+'Sass__c'])($scope):'';
+                // console.log('angular compiled sass: ',ngSass);
+
+                sass.compile(ngSass, function(result) {
+                    console.log('sass compiling for '+template.Name);
+                    //console.log(result);
+                    if(result.status === 1){
+                        console.error(template.Name, result);
+                    }
+                    if(template[$rootScope.nsPrefix+'Type__c'] == 'mixin'){
+                        console.info('creating a mixin');
+                        sass.writeFile(template.Name, ngSass);
+                    }
+
+                    if(!result.status || !template[$rootScope.nsPrefix+'Sass__c'] || !template[$rootScope.nsPrefix+'Sass__c'] === ''){ //Sass field is empty
+                        delete template.$$hashKey; //remove the angular id
+                        delete template.LastModifiedDate; //remove the system field
+                        console.log(template);
+
+                        template[$rootScope.nsPrefix+'CSS__c'] = result.text? result.text: '';
+                        //remoteActions.saveTemplate(template)
+                        configService.saveTemplate(template)
+                            .then(function(template) {
+                                //$scope.templates = templates;
+                                console.log('template saved!');
+                                console.log(template);
+                                if(e){
+                                    e.currentTarget.innerText = 'Saved!';
+                                    setTimeout(function(){ e.currentTarget.innerText = originalText; }, 1000);  
+                                }
+                                //data.HTML__c =  htmlDecode(data.HTML__c);
+                                //data.HTML__c = data[$rootScope.nsPrefix+'HTML__c'];
+                                $scope.selectedTemplate = template;
+                                $templateCache.put(template.Name,template[$rootScope.nsPrefix+'HTML__c']);
+                                localStorage.setItem(template.Name,template[$rootScope.nsPrefix+'HTML__c']); //save for caching purposes
+                        }); 
+                    } else {
+                        if(e){
+                            e.currentTarget.innerText = 'ERROR';
+                            setTimeout(function(){ e.currentTarget.innerText = originalText; }, 1000);
+                        }
+                    }
+                    
+                });
+                
+            };
+
+            $scope.cloneTemplate = function(template){
+                var clonedTemplate;
+                clonedTemplate = angular.copy(template);
+                clonedTemplate.Name = clonedTemplate.Name+'*';
+                delete clonedTemplate.Id;
+                $scope.templates.push(clonedTemplate);
+            };
+
+            $scope.deleteTemplate = function(template, index) {
+                if (window.confirm("Do you really want to delete " + template.Name + "?")) {
+                    delete template.$$hashKey; //remove the angular id
+
+                    if(!template.Id){ //not in DB
+                        //OrderBy in angular templates will not change the internal index, so find the index dynamically to delete.
+                        $scope.templates.splice($scope.templates.indexOf(template),1);
+                    }else {
+
+                        //remoteActions.deleteTemplate(template)
+                        configService.deleteTemplate(template)
+                            .then(function(data) {
+                                console.log('template deleted!');
+                                $scope.templates.splice($scope.templates.indexOf(template),1);
+                        });
+                    }
+                }
+            };
+
+            $scope.multiSelectTemplate = function(template, selected){
+                console.log(selected);
+                template.selected = selected;
+                if(selected){
+                    $scope.selectedTemplates++;
+                } else{
+                    $scope.selectedTemplates--;
+                }
+
+                console.log($scope.selectedTemplates);
+                
+            };
+
+            $scope.exportTemplates = function() {
+                var selected = [];
+                angular.forEach($scope.templates,function(template){
+                    if(template.selected){
+                        selected.push(template);    
+                    }
+                });
+                $scope.extractTemplate(selected);
+            };
+
+            $scope.extractTemplate = function(templates){
+                
+                angular.forEach(templates,function(template){
+                    delete template.$$hashKey; //remove the angular id
+                    delete template.Id; //remove the salesforce id
+                    delete template.selected; //remove the selected property
+                });
+
+                var extractedTemplatesJSON = JSON.stringify(templates, null, '\t'); //Using tab \t to pretty print for easier diff'ing
+                console.log($rootScope.nsPrefix);
+                var re = new RegExp($rootScope.nsPrefix, 'g');
+                extractedTemplatesJSON = extractedTemplatesJSON.replace(re,'');
+
+                console.log(JSON.parse(extractedTemplatesJSON));
+
+                var pom = document.createElement('a');
+                pom.setAttribute('href', 'data:application/zip;charset=utf-8,' + encodeURIComponent(extractedTemplatesJSON));
+                if(templates.length == 1){
+                    pom.setAttribute('download', templates[0].Name+'.json');    
+                } else {
+                    pom.setAttribute('download', 'templates.json');
+                }
+                
+
+                pom.style.display = 'none';
+                document.body.appendChild(pom);
+
+                pom.click();
+                document.body.removeChild(pom);
+            };
+
+            $scope.$watch('importScripts', function() {
+                if($scope.importScripts){
+                    $scope.importRecords($scope.importScripts);
+                }
+               
+           });
+
+            $scope.importRecords = function(importScripts, save){
+                console.log(importScripts);
+
+                importScripts.sort(function(template){
+                    console.log(template);
+                    return template['Type__c'] !== 'mixin';
+                });
+
+                console.log(importScripts);
+
+                //FIX: TEMPORARY SOLUTION
+                var myRegexp = /[A-z0-9_]+__c/g;
+                angular.forEach(importScripts,function(newScript, fieldName){
+                    var result = {};
+                    var scriptKey, resultkey;
+                    for(scriptKey in newScript){
+                        // console.log(scriptKey);
+                        var match = myRegexp.exec(scriptKey);
+                        while (match !== null) {
+                            //console.log(match[0]);
+                            result[match[0]] = $rootScope.nsPrefix+match[0];
+                            match = myRegexp.exec(scriptKey);
+                        }
+                    }
+                    
+                    for(resultkey in result){
+                        //console.log(resultkey);
+                        //console.log(result[resultkey]);
+                        var re = new RegExp(resultkey, 'g');
+                        newScript[result[resultkey]] = newScript[resultkey];
+                        if(result[resultkey] != resultkey){
+                            delete newScript[resultkey];
+                        }
+                        //importedJSON = importedJSON.replace(re,result[key]);
+                    }
+                });
+                var newTemplates = importScripts;
+                //END OF TEMPORARY SOLUTION
+
+                //var importedJSON = JSON.stringify(importScripts);
+
+                /*
+                var myRegexp = /[A-z0-9_]+__c/g;
+                var match = myRegexp.exec(importedJSON);
+                var result = {};
+                while (match != null) {
+                    console.log(match[0]);
+                    result[match[0]] = $rootScope.nsPrefix+match[0];
+                    match = myRegexp.exec(importedJSON);
+                }
+                for(key in result){
+                    console.log(key);
+                    console.log(result[key]);
+                    var re = new RegExp(key, 'g');
+                    importedJSON = importedJSON.replace(re,result[key]);
+
+                    //importedJSON = importedJSON.replace(key, result[key]);
+                }
+                */
+
+                //var newTemplates = JSON.parse(importedJSON);
+                
+                
+                console.log(newTemplates);
+
+
+                angular.forEach(newTemplates,function(template){
+                    if(save){
+                        template.Name = template.Name;
+                        delete template.Id;
+                        delete template.CurrencyIsoCode;
+                        delete template.LastModifiedDate;
+                        $scope.templates.push(template);
+                        $scope.saveTemplate(template);
+                    } else {
+                        template.Name = template.Name+'*';
+                        delete template.Id;
+                        delete template.CurrencyIsoCode;
+                        delete template.LastModifiedDate;
+                        $scope.templates.push(template);    
+                    }
+                    
+                });
+            };
+
+            $scope.importBaseTemplates = function(){
+
+                var baseUrl = $rootScope.resources['BaseUITemplates'];
+
+                $http.get(baseUrl).success(function(data){
+                    console.log(data);
+                    //$scope.logos = data;
+                    $scope.importRecords(data, true);
+                });
+
+                
+            };
+        });
+
+        app.filter('html', function($sce) {
+            return function(val) {
+                // console.log(val);
+                // console.log($sce.trustAsHtml(val));
+                return $sce.trustAsHtml(val);
+            };
+        });
+
+        app.directive('appFilereader', function($q) 
+        {
+            console.log('calling appFilereader');
+            var slice = Array.prototype.slice;        
+            return {
+                restrict: 'A',
+                require: '?ngModel',
+                link: function(scope, element, attrs, ngModel) {
+                    if (!ngModel){
+                        console.log('no ngModel');
+                        return; 
+                    } 
+
+                    ngModel.$render = function() {};
+
+                    element.bind('change', function(e) {
+                        var element = e.target;
+                        console.log('file input changed');
+                        if(!element.value) return;
+
+                        element.disabled = true;
+                        $q.all(slice.call(element.files, 0).map(readFile))
+                            .then(function(values) {
+                            if (element.multiple){
+                                ngModel.$setViewValue(JSON.parse(values));
+                            } 
+                            else ngModel.$setViewValue(values.length ? JSON.parse(values[0]) : null);
+                            element.value = null;
+                            element.disabled = false;
+                        });
+
+                        function readFile(file) {
+                            var deferred = $q.defer();
+
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                deferred.resolve(e.target.result);
+                            };
+                            reader.onerror = function(e) {
+                                deferred.reject(e);
+                            };
+                            reader.readAsText(file);
+
+                            return deferred.promise;
+                        }
+
+                    }); //change
+                } //link
+            }; //return
+        }); // appFilereader
+
+        app.directive('template', function($compile, $templateCache) {
+            return {
+                restrict: 'E',
+                scope: {
+                  customTemplate:"=",
+                  data:"="
+                },
+                //link: function(scope , element, attrs) {
+                controller: ["$scope", "$rootScope","$element", function($scope, $rootScope, $element) {
+                    console.log($scope.data);
+                    console.log($rootScope.testData);
+                    $scope.changeStatus = function(status) {
+                        console.log($scope.data.status);
+                        if(status){
+                            $scope.data.status = status;
+                        } else {
+                            $scope.data.status =  $scope.data.status == 'active'? 'disabled':'active';
+                        }       
+                    };
+
+                    $scope.performAction = function(action) {
+                        console.log(action);
+                        console.log('opening '+action.url);
+                        window.open(action.url);
+                    };
+                  
+                    $scope.$watch('data.status', function() {
+                        console.log('hey, scope.data.status has changed! to '+$scope.data.status);
+                        $element.html('');
+                        $scope.loadTemplate();
+                    });
+
+
+                    $rootScope.$on("templatesLoaded",function(event,data){
+                    // $scope.on("templatesLoaded",function(event,data){
+                        console.log('templates loaded');
+                        console.log($scope);
+                        $element.html('');
+                        $scope.loadTemplate();
+                    });
+                  
+                    $scope.loadTemplate = function() {
+                        var templateUrl = 'card.html';
+                        console.log(templateUrl);
+                        //element.replaceWith($compile($templateCache.get(templateUrl))(scope));
+                        console.log($templateCache.get(templateUrl));
+                        var templateContent = 'loading'; //put here temporary loading tmpl
+                        if($templateCache.get(templateUrl)){
+                            templateContent = $templateCache.get(templateUrl);
+                        }else if(localStorage.getItem(templateUrl)){
+                            templateContent = localStorage.getItem(templateUrl);
+                        }
+
+                        $element.append($compile(templateContent)($scope));
+                        
+                    };
+                }]
+            };
+    });
+
+    </script>
+
+     <body ng-app="myApp">
+        <!--div class="vlocity" ng-controller="myController" ng-init="getTemplates(); getStaticResources();"-->
+        <div class="vlocity" ng-controller="myController" ng-init="initializeData();">
+            <div class="">
+                <div class="col-md-3">
+                    <div class="menu-btn-group btn-group" role="group">
+                        <button class="btn btn-default" style="-webkit-flex:1" ng-click="newTemplate()">New</button>
+                        <button class="btn btn-default" onclick="document.getElementById('logo').click();" >
+                            Import Templates <input type="file" id="logo" style="display:none;" accept=".json" ng-model="importScripts" multiple="true" app-filereader="true"/>
+                        </button>
+                        <button class="btn btn-default" ng-click="exportTemplates()" ng-disabled="selectedTemplates == 0">Export Templates</button>
+                    </div>
+                    <div class="list-group" ng-show="templates.length > 0">
+                        
+                        <!-- <div class="list-group-item" ng-repeat="template in templates | groupBy: nsPrefix+'Type__c'" >
+                            <input type="checkbox" class="col-md-1" ng-model="selected" ng-change="multiSelectTemplate(template, selected)"/>
+                            <div ng-click="selectTemplate(template)" class="col-md-7">
+                                <h4 class="list-group-item-heading" ng-click="selectTemplate(template)">{{template.Name}}</h4>
+                                <p class="list-group-item-text">{{template[nsPrefix+'Type__c']}}</p>
+                            </div>
+                            <span class="glyphicon icon-v-document1-line col-md-2" ng-click="cloneTemplate(template)"></span>
+                            <span class="glyphicon icon-v-trash col-md-2" ng-click="deleteTemplate(template, $index)"></span>
+                        </div> -->
+
+                        <div class="panel list-group" ng-repeat="(key,value) in templates | groupBy: nsPrefix+'Type__c'">
+                             <a href="#" class="list-group-item active" ng-init="collapse = false" ng-click="collapse = !collapse">
+                             {{key}}
+                             </a>
+                             <div id="{{key}}-group" class="sublinks" ng-class="{'collapse': collapse}">
+                                <div class="list-group-item" ng-repeat="template in value">
+                                    <input type="checkbox" class="col-md-1" ng-model="selected" ng-change="multiSelectTemplate(template, selected)"/>
+                                    <div ng-click="selectTemplate(template)" class="col-md-7">
+                                        <h4 class="list-group-item-heading" ng-click="selectTemplate(template)">{{template.Name}}</h4>
+                                        <!-- <p class="list-group-item-text">{{template[nsPrefix+'Type__c']}}</p> -->
+                                    </div>
+                                    <span class="glyphicon icon-v-document1-line col-md-2" ng-click="cloneTemplate(template)"></span>
+                                    <span class="glyphicon icon-v-trash col-md-2" ng-click="deleteTemplate(template, $index)"></span>
+                                </div>
+                             </div>
+                        </div>
+
+                    </div>
+
+                    <div class="list-group no-templates" ng-show="templates.length == 0">
+                        No templates? Just <button class="btn btn-primary" ng-click="importBaseTemplates($event)">Import Base Templates</button>
+                    </div>
+
+                </div>
+                <div class="col-md-9 template-meta" ng-show="selectedTemplate">
+                    <h1>{{selectedTemplate.Name}}</h1>
+                    <button class="btn btn-primary" ng-click="extractTemplate([selectedTemplate])">Export</button>
+                    <label>Template Name</label><input type="text" class="form-control" ng-model="selectedTemplate.Name"/>
+                    <label>Template Type</label> <input type="text" class="form-control" ng-model="selectedTemplate[nsPrefix+'Type__c']"/>
+
+                    <!-- <div style="float:left; width: 100%;" ng-bind-html="selectedTemplate.HTML__c |html"></div> -->
+                    
+
+                    <!-- <div text-angular="test" ng-model="selectedTemplate[nsPrefix+'HTML__c']"></div> -->
+
+                    <div class="panel panel-sf">
+                        <div class="panel-heading">Sass</div>
+                        <div class="panel-body" style="padding: 0;">
+                            <!-- <textarea class="css-panel" ng-model="selectedTemplate.Sass__c"></textarea> -->
+                            <div class="" ui-ace="{
+                                useWrapMode : true,
+                                showGutter: true,
+                                theme:'monokai',
+                                mode: 'scss'
+                              }" ng-model="selectedTemplate[nsPrefix+'Sass__c']"></div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-sf">
+                        <div class="panel-heading">HTML</div>
+                        <div class="panel-body" style="padding: 0;">
+                            <div class="ace" ui-ace="{
+                                useWrapMode : true,
+                                showGutter: true,
+                                theme:'monokai',
+                                mode: 'html'
+                              }" ng-model="selectedTemplate[nsPrefix+'HTML__c']"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" ng-click="saveTemplate(selectedTemplate, $event)">Save Template</button>
+                </div>
+            </div>
+        </div>
+     </body>
+    
+</apex:page>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ResidenceType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Residence Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Single Family Home</fullName>
+                <default>false</default>
+                <label>Single Family Home</label>
+            </value>
+            <value>
+                <fullName>Multi-Family Dwelling</fullName>
+                <default>false</default>
+                <label>Multi-Family Dwelling</label>
+            </value>
+            <value>
+                <fullName>Apartment</fullName>
+                <default>false</default>
+                <label>Apartment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

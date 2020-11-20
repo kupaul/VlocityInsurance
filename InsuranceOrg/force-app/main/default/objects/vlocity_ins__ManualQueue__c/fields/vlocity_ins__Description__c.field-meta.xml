@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Description__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Additional notes describing the work queue.</description>
+    <externalId>false</externalId>
+    <label>Description</label>
+    <length>10000</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

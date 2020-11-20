@@ -1,0 +1,42 @@
+<apex:page docType="html-5.0" standardController="Campaign" extensions="vlocity_ins.CardCanvasController" applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+   <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="campaignCallList" class="ng-cloak" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+        <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <style type="text/css">
+            body {
+                margin: 0px !important;
+                padding: 0px !important;
+            }
+        </style>
+            <apex:includeScript value="/support/console/34.0/integration.js"/>
+             <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__angular_strap_bundle_1_6}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__CardFramework_Assets}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__CardFramework}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__CampaignCallList}"/>
+            <c:CardStyleLoaderComponent useClassicStylesByDefault="true" sldsVersion="2.2.2"></c:CardStyleLoaderComponent>
+
+        </head>
+        <body>
+           <div class="vlocity via-slds" via-screen-height="viaScreenHeight">
+                <vloc-layout layout-name="campaign-add-member" ctrl="CampaignAddMemberController"></vloc-layout>
+            </div>
+
+            <script type="text/javascript">
+                var sessionId = '{!$Api.Session_ID}';
+                //$rootScope.forcetkClient = new forcetk.Client();
+                //$rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+
+                var vlocCPQ = {
+                    'accessToken': '{!$Api.Session_ID}',
+                    'staticResourceURL' : {
+                        'slds': '{!URLFOR($Resource.slds_2_2_2)}',
+                    }
+                };
+            </script>
+        </body>
+    </html>
+
+</apex:page>

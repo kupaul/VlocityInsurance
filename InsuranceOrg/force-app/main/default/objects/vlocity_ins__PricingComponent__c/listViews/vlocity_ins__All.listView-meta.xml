@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__All</fullName>
+    <columns>NAME</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>vlocity_ins__SubType__c</columns>
+    <columns>vlocity_ins__CalculationMatrix__c</columns>
+    <columns>vlocity_ins__IsActive__c</columns>
+    <columns>vlocity_ins__CalculationType__c</columns>
+    <columns>vlocity_ins__Amount__c</columns>
+    <columns>vlocity_ins__Description__c</columns>
+    <columns>vlocity_ins__GlobalKey__c</columns>
+    <columns>vlocity_ins__AlterationValue__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

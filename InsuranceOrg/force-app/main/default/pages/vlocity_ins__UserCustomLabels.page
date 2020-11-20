@@ -1,0 +1,11 @@
+<!-- This page is used in User Custom Labels API-->
+<apex:page controller="vlocity_ins.UserCustomLabelsController" contentType="application/json" 
+	showHeader="false" sidebar="false"
+    language="{!lang}"      
+    standardStylesheets="false">
+
+    <apex:repeat value="{!labels}" var="labelName">
+    	"{!labelName}" : "{!SUBSTITUTE($Label[labelName],'\"','\\\"')}",
+    </apex:repeat>
+
+</apex:page>

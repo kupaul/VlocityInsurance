@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Unit Of Measurement --></label>
+    <name>vlocity_ins__UnitOfMeasurement__c</name>
+    <picklistValues>
+        <masterLabel>%</masterLabel>
+        <translation><!-- % --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Amb</masterLabel>
+        <translation><!-- Amb --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BAU</masterLabel>
+        <translation><!-- BAU --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CELLS/ML</masterLabel>
+        <translation><!-- CELLS/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>IR</masterLabel>
+        <translation><!-- IR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MCI/ML</masterLabel>
+        <translation><!-- MCI/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MEQ</masterLabel>
+        <translation><!-- MEQ --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MEQ/MG</masterLabel>
+        <translation><!-- MEQ/MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MEQ/ML</masterLabel>
+        <translation><!-- MEQ/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG</masterLabel>
+        <translation><!-- MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/ACTUAT</masterLabel>
+        <translation><!-- MG/ACTUAT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/HR</masterLabel>
+        <translation><!-- MG/HR --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/MG</masterLabel>
+        <translation><!-- MG/MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/ML</masterLabel>
+        <translation><!-- MG/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MG/SQCM</masterLabel>
+        <translation><!-- MG/SQCM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ML</masterLabel>
+        <translation><!-- ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ML/ML</masterLabel>
+        <translation><!-- ML/ML --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNT</masterLabel>
+        <translation><!-- UNT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNT/MG</masterLabel>
+        <translation><!-- UNT/MG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>UNT/ML</masterLabel>
+        <translation><!-- UNT/ML --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

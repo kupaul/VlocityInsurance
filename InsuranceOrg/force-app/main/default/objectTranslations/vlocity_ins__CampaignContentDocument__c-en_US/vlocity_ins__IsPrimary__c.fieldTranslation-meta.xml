@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Indicate if the content document is the primary content for the campaign. --></help>
+    <label><!-- Primary --></label>
+    <name>vlocity_ins__IsPrimary__c</name>
+</CustomFieldTranslation>

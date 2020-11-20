@@ -1,0 +1,3 @@
+<apex:page controller="vlocity_ins.PicklistTranslationController" contentType="application/x-JavaScript; charset=utf-8" showHeader="false" sidebar="false" language="{!$CurrentPage.parameters.LanguageCode}" standardStylesheets="false">
+    {!output}
+</apex:page>

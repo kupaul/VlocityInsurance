@@ -1,0 +1,11 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" docType="html-5.0"
+           controller="vlocity_ins.VFPageControllerBase" applyHtmlTag="false" applyBodyTag="false" language="{!$CurrentPage.parameters.LanguageCode}">
+    <html>
+        <head>
+        	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
+        </head>
+        <body>
+            <c:OmniScriptUniversalComponent />
+        </body>
+   </html>
+</apex:page>

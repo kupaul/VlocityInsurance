@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EntityFilterId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Entity filter that defines the condition</description>
+    <externalId>false</externalId>
+    <label>Vlocity Entity Filter</label>
+    <referenceTo>vlocity_ins__EntityFilter__c</referenceTo>
+    <relationshipLabel>Document Template Section Conditions</relationshipLabel>
+    <relationshipName>Document_Template_Section_Conditions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

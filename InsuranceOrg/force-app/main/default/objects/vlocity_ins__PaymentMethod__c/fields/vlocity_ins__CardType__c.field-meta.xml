@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CardType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Card Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>VISA</fullName>
+                <default>false</default>
+                <label>VISA</label>
+            </value>
+            <value>
+                <fullName>Master Card</fullName>
+                <default>false</default>
+                <label>Master Card</label>
+            </value>
+            <value>
+                <fullName>DISCOVER</fullName>
+                <default>false</default>
+                <label>DISCOVER</label>
+            </value>
+            <value>
+                <fullName>UCB</fullName>
+                <default>false</default>
+                <label>UCB</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

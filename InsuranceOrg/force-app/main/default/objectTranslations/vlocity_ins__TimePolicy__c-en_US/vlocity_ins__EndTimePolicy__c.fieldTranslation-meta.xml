@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- End Time Policy --></label>
+    <name>vlocity_ins__EndTimePolicy__c</name>
+    <picklistValues>
+        <masterLabel>Cycle End Date</masterLabel>
+        <translation><!-- Cycle End Date --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>End of Plan Duration</masterLabel>
+        <translation><!-- End of Plan Duration --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Last Day of Month</masterLabel>
+        <translation><!-- Last Day of Month --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Set by Order Management</masterLabel>
+        <translation><!-- Set by Order Management --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

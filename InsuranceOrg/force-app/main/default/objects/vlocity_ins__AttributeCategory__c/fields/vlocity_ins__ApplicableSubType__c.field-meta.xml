@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ApplicableSubType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Applicable Sub Types by functionality eg Profiling, Product Selection,Product Configuration</description>
+    <externalId>false</externalId>
+    <label>Applicable Sub Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Profile Attribute</fullName>
+                <default>true</default>
+                <label>Profile Attribute</label>
+            </value>
+            <value>
+                <fullName>Product Attribute</fullName>
+                <default>false</default>
+                <label>Product Attribute</label>
+            </value>
+            <value>
+                <fullName>Eligibility Attribute</fullName>
+                <default>false</default>
+                <label>Eligibility Attribute</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <validationRules>
+        <errorMessage><!-- Destination Queue is required for Manual Queue Assignment Type --></errorMessage>
+        <name>vlocity_ins__ManualQueueTypeValidation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Source Queue is required --></errorMessage>
+        <name>vlocity_ins__SourceQueueValidation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Source Task should be empty --></errorMessage>
+        <name>vlocity_ins__SourceTaskValidation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Destination User is required for User Assignment Type --></errorMessage>
+        <name>vlocity_ins__UserTypeValidation</name>
+    </validationRules>
+</CustomObjectTranslation>

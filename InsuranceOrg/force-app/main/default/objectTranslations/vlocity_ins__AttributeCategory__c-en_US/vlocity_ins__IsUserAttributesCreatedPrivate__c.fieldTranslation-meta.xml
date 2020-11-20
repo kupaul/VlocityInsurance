@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Set this to true if you want new user-created attributes to be private, which means other users will not see this attribute in the select list. --></help>
+    <label><!-- User Attributes Created Private --></label>
+    <name>vlocity_ins__IsUserAttributesCreatedPrivate__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Dependency Type --></label>
+    <name>vlocity_ins__DependencyType__c</name>
+    <picklistValues>
+        <masterLabel>Depends On</masterLabel>
+        <translation><!-- Depends On --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Should Be Processed Before</masterLabel>
+        <translation><!-- Should Be Processed Before --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

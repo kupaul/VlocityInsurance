@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ChargeType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Charge Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Recurring</fullName>
+                <default>false</default>
+                <label>Recurring</label>
+            </value>
+            <value>
+                <fullName>One-time</fullName>
+                <default>false</default>
+                <label>One-time</label>
+            </value>
+            <value>
+                <fullName>Usage</fullName>
+                <default>false</default>
+                <label>Usage</label>
+            </value>
+            <value>
+                <fullName>Adjustment</fullName>
+                <default>false</default>
+                <label>Adjustment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

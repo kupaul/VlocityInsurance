@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Vlocity_EPC_Price_List_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>vlocity_ins__Code__c</fields>
+    <fields>vlocity_ins__ParentPriceListId__c</fields>
+    <fields>vlocity_ins__Pricebook2Id__c</fields>
+    <fields>vlocity_ins__EffectiveFromDate__c</fields>
+    <fields>vlocity_ins__EffectiveUntilDate__c</fields>
+    <label>Vlocity EPC Price List Compact Layout</label>
+</CompactLayout>

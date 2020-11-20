@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SmallGroup</fullName>
+    <active>true</active>
+    <label>Small Group</label>
+    <picklistValues>
+        <picklist>vlocity_ins__Source__c</picklist>
+        <values>
+            <fullName>External</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

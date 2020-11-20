@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EndTimePolicy__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>End Time Policy</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>End of Plan Duration</fullName>
+                <default>false</default>
+                <label>End of Plan Duration</label>
+            </value>
+            <value>
+                <fullName>Cycle End Date</fullName>
+                <default>false</default>
+                <label>Cycle End Date</label>
+            </value>
+            <value>
+                <fullName>Set by Order Management</fullName>
+                <default>false</default>
+                <label>Set by Order Management</label>
+            </value>
+            <value>
+                <fullName>Last Day of Month</fullName>
+                <default>false</default>
+                <label>Last Day of Month</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

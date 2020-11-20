@@ -1,0 +1,328 @@
+<apex:page controller="vlocity_ins.DocClauseListController" 
+    showHeader="true" 
+    sidebar="false" 
+    standardStylesheets="false" 
+    tabStyle="VlocityDocumentClauses__tab" 
+    extensions="vlocity_ins.DRDataPackRunnerController"
+    docType="html-5.0" 
+    applyBodyTag="false">
+    <head>
+        <meta charset="utf-8"/>
+
+        <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/>
+
+        <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+        <apex:includeScript value="/xdomain/xdomain.js"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ngInfiniteScroll, '/build/ng-infinite-scroll.min.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}"/>
+        <apex:includeScript value="/support/console/42.0/integration.js"/>
+    </head> 
+    <body>
+        <div ng-app="docClauseListApp" ng-controller="docClauseListController" class="vlocity via-slds ng-cloak {!$User.UIThemeDisplayed}">
+            <div class="slds-spinner_container" ng-show="vlcLoading">
+                <div class="slds-spinner slds-spinner_brand slds-spinner_large" aria-hidden="false" role="status">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+            <div ng-if="clauseActionErrorMsg" class="slds-notify slds-notify_alert slds-theme_error slds-theme_alert-texture" role="alert">
+                <span class="slds-assistive-text">warning</span>
+                <span class="slds-icon_container slds-icon-utility-warning slds-m-right_medium" title="warning">
+                    <slds-svg-icon sprite="'utility'" icon="'warning'" size="'x-small'"></slds-svg-icon>
+                </span>
+                <h2 class="slds-m-right_small" ng-bind-html="clauseActionErrorMsg"></h2>
+                <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" ng-click="clearClauseActionErrorMsg()">
+                    <slds-svg-icon sprite="'utility'" icon="'close'" size="'x-small'"></slds-svg-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+            </div>
+            <slds-home new-url="'{!newUrl}'" s-object-type="'{!$ObjectType.DocumentClause__c.Name}'" row-actions="rowActions" 
+                id-prefix="clasue-home" 
+                group-by="false"
+                default-columns="defaultColumns"></slds-home>
+
+            <script type="text/ng-template" id="confirm-delete-clause-modal.tpl.html">
+                <div class="slds-modal slds-fade-in-open" tabindex="-1" role="dialog">
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <button class="slds-button slds-button_icon-inverse slds-modal__close" ng-click="$hide()">
+                                <slds-svg-icon sprite="'action'" icon="'close'" size="'medium'"></slds-svg-icon>
+                            </button>
+                            <h4 class="slds-text-heading_medium">{{labels.CLMClauseDeleteClause}}</h4>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <div>
+                                <p>{{labels.CLMClauseAreYouSureDelete}} {{currentClauseName}}? {{labels.CLMClauseActionNotUndone}}</p>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <button type="button" class="slds-button slds-button_neutral" ng-click="$hide()">{{labels.CLMClauseCancel}}</button>
+                            <button type="button" class="slds-button slds-button_destructive" ng-click="deleteClause(); $hide();">{{labels.CLMClauseDeleteClause}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </script>
+
+            <script type="text/ng-template" id="warning-active-clause.tpl.html">
+                <div class="slds-modal slds-fade-in-open" tabindex="-1" role="dialog">
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <button class="slds-button slds-button_icon-inverse slds-modal__close" ng-click="$hide()">
+                                <slds-button-svg-icon id="close-modal" sprite="'utility'" icon="'close'" size="'large'"></slds-button-svg-icon>
+                                <span class="slds-assistive-text">{{labels.CLMClauseClose}}</span>
+                            </button>
+                            <h2 id="header43" class="slds-text-heading_medium">{{labels.CLMClauseDeleteActiveClause}}</h2>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium slds-notify slds-notify_alert slds-theme_warning  slds-theme_alert-texture">
+                            <label class="slds-form-element__label"><slds-svg-icon id="clause-page-header_icon" sprite="'utility'" icon="'warning'" size="'small'" extra-classes="'slds-button__icon_left'"></slds-svg-icon>{{labels.CLMClauseDeleteActiveClause}}</label>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <button type="button" class="slds-button slds-button_neutral" ng-click="$hide()">{{labels.CLMClauseCancel}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </script>
+
+        </div>
+        <c:VFActionFunction />
+
+        <script type="text/javascript">
+            window.docNewUrl = "{!newUrl}"; 
+            if (typeof sforce !== 'undefined') {
+                if (sforce.console && sforce.console.isInConsole()) {
+                    sforce.console.setTabTitle('Vlocity Document Clause');
+                    sforce.console.setTabIcon('standard:document');
+                }
+            }
+            window.sessionId = '{!$Api.Session_ID}';
+
+            /* Labels */
+            window.i18n = {
+                "SldsObjectHomeHeaderInfo": "{!$Label.vlocity_ins__sldsobjecthomeheaderinfo}",
+                "RefreshData": "{!$Label.vlocity_ins__refreshdata}",
+                "Export": "{!$Label.vlocity_ins__export}",
+                "New": "{!$Label.vlocity_ins__new}",
+                "FilterList": "{!$Label.vlocity_ins__filterlist}",
+                "Import": "{!$Label.vlocity_ins__import}",
+                "AdditionalActions": "{!$Label.vlocity_ins__additionalactions}",
+                "Delete": "{!$Label.vlocity_ins__delete}",
+                "Preview": "{!$Label.vlocity_ins__preview}",
+                "LastModified": "{!$Label.vlocity_ins__lastmodified}",
+                "Name": "{!$Label.vlocity_ins__name}",
+                "ModifiedOnBy": "{!$Label.vlocity_ins__modifiedonby}",
+                "DeleteLayout": "{!$Label.vlocity_ins__deletelayout}",
+                "InstallDataPack": "{!$Label.vlocity_ins__installdatapack}",
+                "DeleteLayoutConfirmation": "{!$Label.vlocity_ins__deletelayoutconfirmation}",
+                "Filters": "{!$Label.vlocity_ins__filters}",
+                "HideFilter": "{!$Label.vlocity_ins__hidefilter}",
+                "Cancel": "{!$Label.vlocity_ins__cancel}",
+                "Save": "{!$Label.vlocity_ins__save}",
+                "ShowMe": "{!$Label.vlocity_ins__showme}",
+                "MatchingAllOfTheseFilters": "{!$Label.vlocity_ins__matchingallofthesefilters}",
+                "Remove": "{!$Label.vlocity_ins__remove}",
+                "NewFilter": "{!$Label.vlocity_ins__newfilter}",
+                "AddFilter": "{!$Label.vlocity_ins__addfilter}",
+                "RemoveAll": "{!$Label.vlocity_ins__removeall}",
+                "Field": "{!$Label.vlocity_ins__field}",
+                "Operator": "{!$Label.vlocity_ins__operator}",
+                "Value": "{!$Label.vlocity_ins__value}",
+                "Done": "{!$Label.vlocity_ins__done}",
+                "AllType": "{!$Label.vlocity_ins__alltype}",
+                "MyType": "{!$Label.vlocity_ins__mytype}"
+            };
+            var labels = {
+                'CLMClauseDeleteClause': '{!$Label.vlocity_ins__clmclausedeleteclause}',
+                'CLMClauseCancel': '{!$Label.vlocity_ins__clmclausecancel}',
+                'CLMClauseActionNotUndone': '{!$Label.vlocity_ins__clmclauseactionnotundone}',
+                'CLMClauseAreYouSureDelete': '{!$Label.vlocity_ins__clmclauseareyousuredelete}',
+                'CLMClauseDeleteActiveClause': '{!$Label.vlocity_ins__clmclausedeleteactiveclause}'
+            };
+
+            /* Remote Actions */
+            var remoteActions = {
+                getClauseLanguages: {
+                        action: '{!$RemoteAction.DocClauseListController.getClauseLanguages}',
+                        config: {escape: false}
+                },
+                deleteClause: {
+                    action: '{!$RemoteAction.DocClauseListController.deleteClause}',
+                    config: {escape: false}
+                },
+            };
+
+            // Angular Module
+            var docClauseList = angular.module('docClauseListApp', ['drvcomp', 'sldsangular', 'ngTable', 'vlocity', 'infinite-scroll'])
+            .config(['$localizableProvider', function($localizableProvider) {
+                'use strict';
+                $localizableProvider.setLocalizedMap(window.i18n);
+                $localizableProvider.setDebugMode(false);
+            }])
+            .config(['remoteActionsProvider', function(remoteActionsProvider) {
+                'use strict';
+                remoteActionsProvider.setRemoteActions(window.remoteActions || {});
+            }]);
+
+            // Angular Controller
+            docClauseList.controller('docClauseListController', ['$scope', '$filter', '$localizable', 'remoteActions', '$sldsModal', function($scope, $filter, $localizable, remoteActions, $sldsModal) {
+                'use strict';
+                var namespacePrefix = '{!namespacePrefix}';
+                $scope.vlcLoading = false;
+                $scope.labels = labels;
+                $scope.clauseActionErrorMsg = '';
+                var templateLanguageOptions =[];
+
+
+                /**
+                 *  Returns displayValue for language column. ex: if langValue = "en_US", returns "English" as displayValue.
+                 */
+                function getLanguageDisplayValue(langValue) {
+                    for(var i=0; i<templateLanguageOptions.length; i++) {
+                        if(langValue === templateLanguageOptions[i].Value) {
+                            return templateLanguageOptions[i].Label;
+                        }
+                    }
+                }
+                // Language list.
+                $scope.getClauseLanguages =function() {
+                    remoteActions.getClauseLanguages().then(function(result) {
+                        templateLanguageOptions = result;
+                        //Adding 'None' option to the Language dropdown list.
+                        templateLanguageOptions.push({Label: "--None--",Value:"", isActive: true});
+                    });
+                 };
+                $scope.getClauseLanguages();
+
+
+                $scope.confirmDeleteClause = function(clauseId, clauseName) {
+                    $scope.currentClauseId = clauseId;
+                    $scope.currentClauseName = clauseName;
+                    $sldsModal({
+                        templateUrl: 'confirm-delete-clause-modal.tpl.html',
+                        container: 'div.vlocity',
+                        placement: 'center',
+                        html: true,
+                        scope: $scope
+                    });
+                };
+
+
+                $scope.clearClauseActionErrorMsg = function() {
+                    $scope.clauseActionErrorMsg = '';
+                };
+
+                $scope.deleteClause = function() {
+                    $scope.vlcLoading = true;
+                    remoteActions.deleteClause($scope.currentClauseId).then(function(result) {
+                        if (result) {
+                            location.href = '/apex/DocClauseList';
+                        }else {
+                            $sldsModal({
+                                templateUrl: 'warning-active-clause.tpl.html',
+                                title: 'Active Clause',
+                                container: 'div.vlocity',
+                                placement: 'center',
+                                html: true,
+                                scope: $scope
+                            });
+                            $scope.vlcLoading = false;
+                        }
+                    }, function(error) {
+                        $scope.clauseActionErrorMsg = '<div><p>Visualforce Remoting Exception: ' + error.message + '</p></div>';
+                        $scope.vlcLoading = false;
+                    });
+                };
+
+                /* sldsHome directive data */
+                // row action config
+                $scope.rowActions = [
+                    {
+                        text: labels.CLMClauseDeleteClause,
+                        icon: {
+                            sprite: 'action',
+                            icon: 'delete'
+                        },
+                        click: function(row, group) {
+                            $scope.confirmDeleteClause(row.Id, row.Name);
+                        }
+                    },
+                    {
+                        type: 'export',
+                        drvType: 'DocumentClause'
+                    }
+                ];
+
+                // column config
+                $scope.defaultColumns = [
+                    {
+                        //field: $localizable('Name', 'Name'),
+                        field: 'Name',
+                        dynamic: true,
+                        getValue: function($scope, row) {
+                            //var templateTypeParam = row[namespacePrefix + 'TemplateContentFormat__c'] ? '&templateType=' + templateTypeCodeMap[row[namespacePrefix + 'TemplateContentFormat__c']] : '';
+                            var url = window.docNewUrl + '?clauseId=' + row.Id;
+                            return '<a href="' +url+ '" ng-mousedown="$root.vlocityOpenUrl(\'' + url  + '\', $event)">' +
+                                _.escape(row.Name) + '</a>';
+
+                        },
+                        getGroupValue: function($scope, $group) {
+                            return '<span>' + _.escape($group.data[0].Name) + '</span>';
+                        }
+                    },
+                    {
+                        field: namespacePrefix + 'Category__c'
+    
+                    },
+                    {
+                        field: namespacePrefix + 'IsRestricted__c',
+                        dynamic: true,
+                        getValue: function($scope, row) {
+                            if (row[namespacePrefix + 'IsRestricted__c']) {
+                                return '<span class="slds-icon_container" title="Is Restricted"><slds-svg-icon sprite="\'utility\'"' +
+                                        ' icon="\'success\'" size="\'x-small\'" extra-classes="\'slds-icon-text-default\'"></slds-svg-icon></span>'; 
+                            }
+                        }
+                    },
+                    {
+                        field: namespacePrefix + 'IsContentFormatted__c',
+                        dynamic: true,
+                        getValue: function($scope, row) {
+                            if (row[namespacePrefix + 'IsContentFormatted__c']) {
+                                return '<span class="slds-icon_container" title="Is ContentFormatted"><slds-svg-icon sprite="\'utility\'"' +
+                                        ' icon="\'success\'" size="\'x-small\'" extra-classes="\'slds-icon-text-default\'"></slds-svg-icon></span>';  
+                            }
+                        }
+                    },
+                    {
+                        field: namespacePrefix + 'LocaleCode__c',
+                        getValue: function($scope, row) {
+                            return getLanguageDisplayValue(row[namespacePrefix + 'LocaleCode__c']);
+                        }
+                    },
+                    {
+                        field: 'LastModifiedDate',
+                        getValue: function($scope, row) {
+                            return 'Modified on ' + $filter('date')(row.LastModifiedDate) + ' by ' + _.escape(row.LastModifiedBy.Name);
+                        }
+                    },
+                    {
+                        title: 'Archived',
+                        field:  namespacePrefix +'IsArchived__c',
+                        dynamic: true,
+                        getValue: function($scope, row) {
+                            if (row[namespacePrefix + 'IsArchived__c']) {
+                                return '<span class="slds-icon_container slds-icon-doctype-xml " title="Is Archived"><slds-svg-icon sprite="\'utility\'"' +
+                                        ' icon="\'success\'" size="\'x-small\'" extra-classes="\'slds-icon-text-default\'"></slds-svg-icon></span>';
+                            }
+                        }
+                    }
+                ];
+            }]);
+        </script>
+    </body>
+</apex:page>

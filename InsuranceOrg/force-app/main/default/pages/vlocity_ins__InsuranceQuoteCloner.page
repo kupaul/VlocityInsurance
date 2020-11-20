@@ -1,0 +1,9 @@
+<apex:page standardController="Quote" extensions="vlocity_ins.InsuranceClonerController">
+	<apex:form >
+        <apex:pageMessages id="cloneMessages" />
+        <apex:sectionHeader title="Confirm Clone Quote" subtitle="{!cloneProductMessage}" />
+        <apex:commandLink action="{!cloneQuote}" target="_blank" >
+            <apex:commandButton value="{!$Label.vlocity_ins__omnicontinue}" rerender="cloneMessages" />
+        </apex:commandLink>
+	</apex:form>
+</apex:page>

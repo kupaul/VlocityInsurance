@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Payment Method Type --></label>
+    <name>vlocity_ins__MethodType__c</name>
+    <picklistValues>
+        <masterLabel>Bank Account</masterLabel>
+        <translation><!-- Bank Account --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Credit Card</masterLabel>
+        <translation><!-- Credit Card --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

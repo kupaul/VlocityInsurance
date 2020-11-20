@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Record Type Names --></label>
+    <name>vlocity_ins__RecordTypeDeveloperNames__c</name>
+    <picklistValues>
+        <masterLabel>Contract</masterLabel>
+        <translation><!-- Contract --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ReadOnlyContract</masterLabel>
+        <translation><!-- ReadOnlyContract --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

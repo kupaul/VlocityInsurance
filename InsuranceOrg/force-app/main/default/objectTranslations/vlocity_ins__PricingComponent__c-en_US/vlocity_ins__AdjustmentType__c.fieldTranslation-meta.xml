@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Adjustment Type --></label>
+    <name>vlocity_ins__AdjustmentType__c</name>
+    <picklistValues>
+        <masterLabel>Discount</masterLabel>
+        <translation><!-- Discount --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Markup</masterLabel>
+        <translation><!-- Markup --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

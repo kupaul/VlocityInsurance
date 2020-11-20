@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>cartContext</masterLabel>
+        <translation><!-- cartContext --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>catalogCtxEligibilityResult</masterLabel>
+        <translation><!-- catalogCtxEligibilityResult --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>catalogCtxQualificationMap</masterLabel>
+        <translation><!-- catalogCtxQualificationMap --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>dataProfileResultItem</masterLabel>
+        <translation><!-- dataProfileResultItem --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>eligibilityContext</masterLabel>
+        <translation><!-- eligibilityContext --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>hierarchyResult</masterLabel>
+        <translation><!-- hierarchyResult --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>item</masterLabel>
+        <translation><!-- item --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>itemConfig</masterLabel>
+        <translation><!-- itemConfig --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>itemDetails</masterLabel>
+        <translation><!-- itemDetails --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>orderConfiguration</masterLabel>
+        <translation><!-- orderConfiguration --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>priceResult</masterLabel>
+        <translation><!-- priceResult --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ruleSetCombinationResultItem</masterLabel>
+        <translation><!-- ruleSetCombinationResultItem --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

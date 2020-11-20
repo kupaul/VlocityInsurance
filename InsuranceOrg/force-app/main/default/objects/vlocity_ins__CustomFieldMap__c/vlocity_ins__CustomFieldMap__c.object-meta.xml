@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>The Vlocity Field Map custom setting holds the field mappings required to clone one object to another.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Custom Field Map</label>
+    <visibility>Public</visibility>
+</CustomObject>

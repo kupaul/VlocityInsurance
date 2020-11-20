@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ViewOrder</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>View Order</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/19.0/connection.js&quot;)}
+var orderId = &apos;{!vlocity_ins__OrchestrationPlan__c.vlocity_ins__OrderIdId__c}&apos;;
+if(orderId !== null &amp;&amp; orderId !== &apos;&apos;)
+{
+parent.location.href = parent.location.origin+&apos;/&apos;+orderId;
+}
+else{
+alert(&apos;Orchestration Plan is not associated with an Order!&apos;);
+}</url>
+</WebLink>

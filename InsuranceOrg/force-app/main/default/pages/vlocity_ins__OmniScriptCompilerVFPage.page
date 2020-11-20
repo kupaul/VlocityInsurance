@@ -1,0 +1,119 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyBodyTag="false"
+           lightningStylesheets="false"
+           applyHtmlTag="false"
+           title="OmniScript Compiler VF Page"
+           cache="false"
+           controller="vlocity_ins.BusinessProcessDisplayController"
+           extensions="vlocity_ins.OmniScriptDesignerController">
+
+    <html xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          lang="en">
+
+    <head>
+        <meta http-equiv="x-ua-compatible"
+              content="ie=edge" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1" />
+        <script src="{!URLFOR($Resource.jsforce_1_7, '/jszip.min.js')}"></script>
+        <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-core.min.js')}"></script>
+        <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-api-tooling.min.js')}"></script>
+        <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-api-metadata.min.js')}"></script>
+        
+        <script src="{!URLFOR($Resource.vlocity_core_assets, '/latest/vlocity_core_assets.js')}"></script>
+        <script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+        <script src="{!URLFOR($Resource.fileSaver_2_0_1, '/fileSaver.js')}"></script>
+        <apex:includeLightning />
+        <apex:slds />
+        <apex:stylesheet value="{!$Resource.vlocity_ins__OmniScriptLwcCompilerCss}" />
+        <script type="text/javascript">
+            window.conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}', version: '45.0' });
+            conn.metadata.pollTimeout = 600000;  // 10 minute polling timeout
+            window.omniLwcCompilerConfig = {
+                accessToken: '{!$API.Session_Id}',
+                namespacePrefix: '{!sNS}',
+                isInsidePckg: '{!isInsidePckg}',
+                toolingBaseUrl: '{!baseUrl}',
+                remoteActions: {
+                    buildJSONWithPrefillV2: {
+                        action: "{!$RemoteAction.BusinessProcessDisplayController.BuildJSONWithPrefillV2}",
+                        config: { buffer: false, escape: false }
+                    },
+                    BuildJSONV3: {
+                        action: "{!$RemoteAction.BusinessProcessDisplayController.BuildJSONV3}",
+                        config: { buffer: false, escape: false }
+                    }
+                }
+            };
+        </script>
+        <script src="{!$Resource.OmniscriptLwcCompiler}"
+                crossorigin="use-credentials"></script>
+    </head>
+
+    <body ng-app="omniscriptLwcCompiler"
+          ng-controller="vfPageController">
+        <div class="vlocity ng-cloak">
+            <div ng-show="errors.length > 0"
+                 class="slds-scope">
+                <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error"
+                     role="alert">
+                    <span class="slds-icon_container"
+                          title="info">
+                        <svg aria-hidden="true"
+                             class="slds-icon slds-icon_x-small">
+                            <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#error')}"></use>
+                        </svg>
+                        <span class="slds-assistive-text">warning</span>
+                    </span>&nbsp;
+                    <h2>There was an error while deploying the LWC component</h2>
+                </div>
+
+                <div class="slds-scoped-notification slds-media slds-media_center"
+                     role="status">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container"
+                              title="info">
+                            <svg aria-hidden="true"
+                                 class="slds-icon slds-icon-text-default">
+                                <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Information</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <ul>
+                            <li ng-repeat="message in errors track by $index">{{message}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="previewPanel-wrapper">
+                <div id="lightning"
+                     class="component-preview" />
+                <div id="auraErrorMessage"
+                     class="ng-hide" />
+            </div>
+            <div ng-show="loading">
+                <div class="slds-scope">
+                    <div class="slds-spinner_container slds-is-fixed">
+                        <div role="status"
+                             class="slds-spinner--brand slds-spinner slds-spinner--large">
+                            <span class="slds-assistive-text">Loading</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var i18n = {
+        };
+        </script>
+    </html>
+</apex:page>

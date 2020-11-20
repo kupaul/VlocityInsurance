@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsActive__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The interaction is active if both the primary and the related drug are active.</description>
+    <externalId>false</externalId>
+    <formula>IF ( AND (vlocity_ins__PrimaryDrugId__r.vlocity_ins__IsActive__c , vlocity_ins__RelatedDrugId__r.vlocity_ins__IsActive__c) , True, False)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Active</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

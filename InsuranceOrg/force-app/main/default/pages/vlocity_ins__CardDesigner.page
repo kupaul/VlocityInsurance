@@ -1,0 +1,1375 @@
+<apex:page showHeader="true" sidebar="false" controller="vlocity_ins.CardCanvasController" extensions="vlocity_ins.CardCanvasController" 
+			standardStylesheets="false" docType="html-5.0" applyBodyTag="false">
+
+	<head>
+  		<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'ace.js')}"/>
+
+	    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'worker-json.js')}"/>
+	    <!--themes-->
+	    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'theme-textmate.js')}"/>
+	    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'ui-ace.min.js')}"/>
+
+        <apex:includeScript value="{!$Resource.vlocity_ins__CardFramework}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+		<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/forceng/forceng.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ForceTK/forcetk.js')}"/>
+
+        <style type="text/css">
+        	body {
+			  background: #fff;
+			}
+
+			.center {
+			  background: #ccc;
+			  display: flex;
+			  -webkit-align-content: center;
+			  -webkit-justify-content: center;
+			}
+
+			textarea.editor {
+				width: 100%;
+				min-height: 30em;
+				font-family: monospace;
+			}
+
+			.ace_editor { 
+				height: 500px;
+		    	min-height: 500px;
+		    	font-family: monospace !important;
+		    	font-size: 12px !important;
+		    }
+
+		    .list-group-item > * {
+		    	cursor: pointer;
+		    }
+
+		    .vlocity  *{
+				font-family: inherit;
+			}
+
+			.vlocity .panel {
+				margin-bottom: 0;
+			}
+
+			.navbar-brand > span {
+				padding-left: 10px;
+			}
+
+			button > span {
+				color: white !important;
+			}
+
+        </style>
+
+        <!--script type="text/javascript">
+
+           	var client = new forcetk.Client();
+
+	    	client.setSessionToken('{!$Api.Session_ID}','v34.0');
+
+    	</script-->
+
+    	<script>
+    		function countWatchers(){
+			  	var watchers, elementsWithScope, scope, i, len;
+			  	watchers = 0;
+			  	elementsWithScope = document.querySelectorAll('.ng-scope');
+			  	for (i = 0, len = elementsWithScope.length; i < len; i++) {
+			    	scope = angular.element(elementsWithScope[i]).scope();
+			    	if (scope.$$watchers != null) {
+			      		watchers += scope.$$watchers.length; 
+			    	} 
+			  	} 
+			  	return watchers;
+			};
+    	</script>
+
+        
+
+        <script type="text/javascript">
+        //var app = angular.module('myApp',["vlocity", "CardFramework" ,"ngSanitize", "ui.ace"]);
+        var app = angular.module('myApp',["vlocity", "CardFramework" ,"ngSanitize", "ui.ace", "forceng","mgcrea.ngStrap"]);
+
+		// this is used for remoteActions config inside CardFramework
+	    var nsPrefixDotNotation = "{!nsPrefixDotNotation}";
+        console.log('nsPrefixDotNotation fetched from CardCanvasController: ' + nsPrefixDotNotation);
+        localStorage.setItem('nsPrefixDotNotation', nsPrefixDotNotation);
+        console.log('nsPrefixDotNotation value stored in localStorage: ' + localStorage.getItem('nsPrefixDotNotation'));
+
+	  	app.run(["$sce","$templateCache","$rootScope","force","networkService", function($sce, $templateCache, $rootScope, force, networkService){
+	  		console.log('inside run');
+	  		//$rootScope.nsPrefix = '{!nsPrefix}';
+	  		
+	  		//debugger;
+
+		    force.init({
+		            accessToken: '{!$Api.Session_ID}',
+		            useProxy: false
+		        });
+
+		    $rootScope.forcetkClient = new forcetk.Client();
+		    $rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+		    var nsPrefixDotNotation = "{!nsPrefixDotNotation}";
+	        console.log('nsPrefixDotNotation fetched from CardCanvasController: ' + nsPrefixDotNotation);
+	        localStorage.setItem('nsPrefixDotNotation', nsPrefixDotNotation);
+	        console.log('nsPrefixDotNotation value stored in localStorage: ' + localStorage.getItem('nsPrefixDotNotation'));
+/*
+	  		//Support functions
+	  		function htmlDecode(input){
+			  	var e = document.createElement('div');
+			  	e.innerHTML = input;
+			  	return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+			}
+
+			function insertCSS(template){
+			    var head = document.getElementsByTagName('head')[0];
+			    var cssId = template.Name+'.css';
+			    if(!document.getElementById(cssId)){ //style does not exist
+			    	var s = document.createElement('style');
+				    s.setAttribute('type', 'text/css');
+				    s.setAttribute('id', cssId);
+				    if (s.styleSheet) {   // IE
+				        s.styleSheet.cssText = template.CSS__c;
+				    } else {                // the world
+				        s.appendChild(document.createTextNode(template.CSS__c));
+				    }
+				    head.appendChild(s);
+			    }
+			 }
+*/
+	  		
+	  	}]);
+
+		app.directive('jsonEdit', function() {
+			return {
+			    restrict: 'A', // only activate on element attribute
+			    require: 'ngModel', // get a hold of NgModelController
+			    link: function(scope, element, attrs, ngModelCtrl) {
+			    	function fromUser(text) {
+			        // Beware: trim() is not available in old browsers
+			        if (!text || text.trim() === '')
+			        	return {}
+			        else
+			          // TODO catch SyntaxError, and set validation error..
+			      	return angular.fromJson(text);
+			  	}
+
+			  	function toUser(object) {
+			        // better than JSON.stringify(), because it formats + filters $$hashKey etc.
+			        return angular.toJson(object, true);
+			     }
+			      
+			      // push() if faster than unshift(), and avail. in IE8 and earlier (unshift isn't)
+			      ngModelCtrl.$parsers.push(fromUser);
+			      ngModelCtrl.$formatters.push(toUser);
+			      
+			      // $watch(attrs.ngModel) wouldn't work if this directive created a new scope;
+			      // see http://stackoverflow.com/questions/14693052/watch-ngmodel-from-inside-directive-using-isolate-scope how to do it then
+			      scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+			      	if (newValue != oldValue) {
+			      		ngModelCtrl.$setViewValue(toUser(newValue));
+			          // TODO avoid this causing the focus of the input to be lost..
+			          ngModelCtrl.$render();
+			      }
+			      }, true); // MUST use objectEquality (true) here, for some reason..
+			}
+		};  
+		});
+
+		//app.controller('myController', function($scope,$rootScope, remoteActions, $templateCache) {
+		app.controller('myController', function($scope,$rootScope, $templateCache, $q, $modal,$interpolate,$http, nameSpaceService, configService, metaDataService, actionService, dataService) {
+			$scope.templates = [];
+			$scope.layouts = [];
+			$scope.cards = {};
+			$scope.layoutCards = {};
+			$scope.actions = {};
+			$scope.selectedLayout;
+			$scope.selectedTemplate = {};
+			$scope.activeTab = 'layouts';
+
+			$scope.dataSourceTypes = [
+				{'name':'Query', 'value':'Query'},
+				{'name':'DataRaptor', 'value':'DataRaptor'},
+				{'name':'ApexRest', 'value':'ApexRest'},
+				{'name':'REST', 'value':'REST'}
+			];
+
+			$scope.HTTPMethods = [
+				{'name':'GET', 'value':'GET'},
+				{'name':'POST', 'value':'POST'}
+			];
+
+
+			$scope.aceLoaded = function(_editor) {
+			    // Options
+			    console.log('ace loaded');
+			    console.log(_editor);
+			    //_editor.setReadOnly(true);
+			};
+
+			$scope.aceChanged = function(e) {
+			  	console.log('ace changed');
+			    console.log(e);
+			    //
+			};
+
+			$scope.aceOptions = {
+	            useWrapMode : false,
+	            showGutter: true,
+	            theme:'textmate',
+	            mode: 'json'
+	        };
+
+			$scope.init = function() {
+  				//Execute all async and do not care when they finish
+				nameSpaceService.getNameSpacePrefix().then(					
+				  function(nsPrefix) {
+
+				    $rootScope.nsPrefix = nsPrefix;
+
+
+				    /** THIS  PAGE IS DEPRECATED. REDIRECRTING TO NEW CARDS HOME PAGE **/
+
+				    window.location.href='/apex/' +$rootScope.nsPrefix +'cardhome';
+
+				    // DO NOT insert CSS for the templates, otherwise they would all be uppercase
+				    var insertCSSIndicator = false;
+				    configService.getTemplates(insertCSSIndicator).then(function(templates) {
+				      $scope.templates = templates;
+				    });
+
+				    configService.getLayouts().then(function(layouts) {
+		      		$scope.layouts = layouts;
+				    });
+
+				    configService.getCards().then(function(cards) {
+				      angular.forEach(cards,function(card){
+				        $scope.cards[card.Name] = card;
+				        $scope.layoutCards[card.Name] = card;
+				      });
+				    });
+
+				    actionService.getActionsInfo().then(function(actions){
+				      angular.forEach(actions,function(action){
+				          $scope.actions[action.Name] = action;
+				      });
+				    });
+
+				    metaDataService.getGlobalDescribeTk($rootScope.forcetkClient).then(function(sObjects){
+				      $scope.sObjects = sObjects.sobjects;
+				    });
+
+				  });				
+
+			};
+
+	  		$scope.$watch('selectedSO',function(){
+
+	  			if($scope.selectedDefinition){
+	  				if(!$scope.selectedDefinition.filter.attributes){
+		  				$scope.selectedDefinition.filter.attributes = {};
+		  			}
+		  			$scope.selectedDefinition.filter.attributes.type = $scope.selectedSO;
+		  			console.log($scope.selectedSO);
+		  			$scope.getDescribe($scope.selectedSO);
+	  			}
+	  			
+	  		})
+
+	  		$scope.$watch('cards',function(){
+	  			angular.forEach(cards,function(card){
+	      			$scope.layoutCards[card.Id] = card;
+	      		});
+	  		});
+
+	  		$scope.getDescribe = function(objType){
+	  			console.log('calling getDescribe ',objType);
+	  			if(objType) {
+/*	  				
+	  				client.describe(objType,
+			  			function(result){
+			  				console.log(result);
+			  				$scope.soFields = result.fields;
+			  				return result.fields;
+			  			},
+			  			function(error){
+			  				console.error(error)
+			  			}
+			  		);	
+*/
+					metaDataService.getDescribeTk(objType, $rootScope.forcetkClient).then(
+						function(sObjectTypeFields){
+							$scope.soFields = sObjectTypeFields.fields;
+					});
+
+	  			}
+	  		};
+        	
+	  		$scope.selectLayout = function(layout) {
+	  			console.log(layout);
+	  			$scope.selectedLayout = layout;
+	  			$scope.selectedLayout[$rootScope.nsPrefix+'Definition__c'] = typeof $scope.selectedLayout[$rootScope.nsPrefix+'Definition__c'] == 'string'? JSON.parse($scope.selectedLayout[$rootScope.nsPrefix+'Definition__c']) : $scope.selectedLayout[$rootScope.nsPrefix+'Definition__c'];
+	  		};
+
+	  		$scope.newLayout = function() {
+	  			var newLayout = {
+	  				"Name": "New Layout"
+				};
+
+				var defaultDefinition = {
+					  "Title": "New Layout",
+					  "Filter": "",
+					  "Context": "",
+					  "Cards": [],
+					  "templates": []
+				};
+
+				//newLayout.Definition__c = JSON.stringify(defaultDefinition);
+				newLayout[$rootScope.nsPrefix+'Definition__c'] = defaultDefinition;
+				$scope.selectedLayout = newLayout;
+
+				//$scope.selectedDefinition = JSON.parse($scope.selectedCard[$rootScope.nsPrefix+'Definition__c']);
+	  		};
+
+	  		$scope.addCardToLayout = function(cardId) {
+	  			$scope.selectedLayout[$rootScope.nsPrefix+'Definition__c'].Cards.push(cardId);
+	  		}
+
+	  		$scope.addTemplateToLayout  = function() {
+	  			if(!$scope.selectedLayout[$rootScope.nsPrefix+'Definition__c']['templates']) {
+	  				$scope.selectedLayout[$rootScope.nsPrefix+'Definition__c']['templates'] = [];
+	  			}
+	  			var newTemplate = {"filter":{},"templateUrl":""};
+	  			$scope.selectedLayout[$rootScope.nsPrefix+'Definition__c']['templates'].push(newTemplate);
+	  		}
+
+	  		$scope.toggleActivateLayout = function(e) {
+		        console.log($rootScope.layoutActive);
+		        if ($scope.selectedLayout[$rootScope.nsPrefix + 'Active__c']) {
+		            $scope.selectedLayout[$rootScope.nsPrefix + 'Active__c'] = false;
+		            //do deactivation stuff here
+		            //disableFormElements(true);
+		            $scope.saveLayout();
+
+		        } else {
+		           $scope.selectedLayout[$rootScope.nsPrefix + 'Active__c'] = true;
+		            //do activation stuff here
+		            //disableFormElements(false);
+		            configService.getLayoutByName($scope.selectedLayout.Name)
+						.then(function(activeLayout) {
+							if (activeLayout) {
+								console.log(activeLayout);
+								if (activeLayout[$rootScope.nsPrefix + 'Version__c'] !== $scope.selectedLayout[$rootScope.nsPrefix + 'Version__c']) {
+									activeLayout[$rootScope.nsPrefix + 'Active__c'] = false;
+									console.log('found the layout',activeLayout);
+									
+									$scope.saveLayout(null, activeLayout);
+								}
+							}
+							
+							$scope.saveLayout();
+						});
+		        }
+
+		        console.log('$scope.rootLayout',$scope.rootLayout);
+
+		        $rootScope.layoutActive = $scope.selectedLayout[$rootScope.nsPrefix + 'Active__c'];
+
+		        console.log($rootScope.layoutActive);
+		    };
+
+	  		$scope.saveLayout = function(e, otherLayout) {
+
+	  			console.log($scope.selectedLayout);
+
+	  			//$scope.selectedLayout[$rootScope.nsPrefix+'Definition__c'] = JSON.stringify($scope.selectedLayout[$rootScope.nsPrefix+'Definition__c']);
+	  			if(e){
+	  				var originalText = e.currentTarget.innerText;
+	  				e.currentTarget.innerText = 'Saving...';	
+	  			}
+	  			
+	  			var tmpLayout = otherLayout;
+		        if(!tmpLayout){ //if no layout passed to the function
+					tmpLayout = $scope.selectedLayout;	
+		        }
+				tmpLayout[$rootScope.nsPrefix + 'Definition__c'] = JSON.stringify(tmpLayout[$rootScope.nsPrefix + 'Definition__c']);
+
+		        delete tmpLayout.LastModifiedDate;
+		        delete tmpLayout.templates;
+		        delete tmpLayout.Deck;
+		        delete tmpLayout.LastModifiedBy;
+		        delete tmpLayout.Loaded;
+		        delete tmpLayout.dataSource;
+		        delete tmpLayout.LastModifiedById;
+		        delete tmpLayout.CreatedDate;
+		        delete tmpLayout.CreatedById;
+		        delete tmpLayout.CreatedBy;
+
+	  			//remoteActions.saveLayout($scope.selectedLayout)
+	  			configService.saveLayout(tmpLayout)
+			      	.then(function(layout) {
+			      		console.log(layout);
+			      		if(e) {
+			      			e.currentTarget.innerText = 'Saved!'
+			      			setTimeout(function(){ e.currentTarget.innerText = originalText; }, 1000);
+			      		}
+			      		layout[$rootScope.nsPrefix+'Definition__c'] = JSON.parse(layout[$rootScope.nsPrefix+'Definition__c']);
+			      		$scope.selectedLayout = layout;
+			      		var replacementIndex = -1;
+			      		$scope.layouts.forEach(function(layout, index){
+			      			if (layout.Name === $scope.selectedLayout.Name && 
+			      					layout[$rootScope.nsPrefix + 'Version__c'] === $scope.selectedLayout[$rootScope.nsPrefix + 'Version__c']) {
+										replacementIndex = index;
+										return false;
+			      			}
+			      		});
+			      		if (replacementIndex > -1) {
+							$scope.layouts.splice(replacementIndex, 1, $scope.selectedLayout);
+			      		} else {
+			      			$scope.layouts.push($scope.selectedLayout);
+			      		}
+			    });	
+	  		};
+
+	  		$scope.deleteLayout = function(layout){
+	  			console.log(layout);
+	  			function deleteMatchingLayout(toDelete) {
+	      		var replacementIndex = -1;
+	      		$scope.layouts.forEach(function(layout, index){
+	      			if (layout.Name === toDelete.Name && 
+	      					layout[$rootScope.nsPrefix + 'Version__c'] === toDelete[$rootScope.nsPrefix + 'Version__c']) {
+								replacementIndex = index;
+								return false;
+	      			}
+	      		});
+	      		if (replacementIndex > -1) {
+							$scope.layouts.splice(replacementIndex, 1);
+	      		}
+	  			}
+
+	  			if(layout.Id){
+	  				//remoteActions.deleteLayout(layout)
+	  				configService.deleteLayout(layout)
+			      	.then(function(result) {
+			      		console.log(result);
+			      		deleteMatchingLayout(layout.Name);
+			   		});
+	  			} else {
+	  				deleteMatchingLayout(layout.Name);
+	  			}
+	  		};
+
+	  		$scope.cloneLayout = function(layout){
+	  			var cloneLayout;
+	  			cloneLayout = angular.copy(layout);
+	  			cloneLayout.Name = cloneLayout.Name+'*';
+	  			delete cloneLayout.Id;
+	  			$scope.layouts.push(cloneLayout);
+	  		};
+
+	  		$scope.selectCard = function(card) {
+	  			console.log(card);
+	  			$scope.selectedCard = card;
+	  			$scope.selectedDefinition = JSON.parse($scope.selectedCard[$rootScope.nsPrefix+'Definition__c']);
+	  			console.log($scope.selectedDefinition.filter);
+	  			if($scope.selectedDefinition.filter.attributes){
+	  				$scope.selectedSO = $scope.selectedDefinition.filter['attributes']['type'];
+	  			} else {
+	  				$scope.selectedSO = undefined;
+	  			}
+	  			console.log($scope.selectedDefinition.filter);
+	  			
+	  		};
+
+	  		$scope.cloneCard = function(card){
+	  			var cloneCard;
+	  			cloneCard = angular.copy(card);
+	  			cloneCard.Name = cloneCard.Name+'*';
+	  			delete cloneCard.Id;
+	  			$scope.cards[cloneCard.Name] = cloneCard;
+	  		};
+
+	  		$scope.deleteCard = function(card){
+	  			console.log(card);
+	  			console.log($scope.cards);
+	  			console.log($scope.cards[card.Id]);
+	  			if(card.Id){
+	  				//remoteActions.deleteCard(card)
+	  				configService.deleteCard(card)
+			      	.then(function(result) {
+			      		console.log(result);
+			      		delete $scope.cards[card.Name];
+			   		});	
+	  			} else {
+	  				delete $scope.cards[card.Name];
+	  			}
+	  			
+	  		};
+
+	  		$scope.addFilterField = function(selectedField){
+	  			console.log(selectedField);
+	  			$scope.selectedDefinition.filter[selectedField.key] = selectedField.value;
+	  		}
+
+	  		$scope.deleteFilterField = function(fieldName){
+	  			console.log(fieldName);
+	  			delete $scope.selectedDefinition.filter[fieldName];
+	  		}
+
+	  		$scope.addSOField = function(selectedField){
+	  			console.log(selectedField);
+	  			if(!$scope.selectedDefinition.fields) {
+	  				$scope.selectedDefinition.fields = [];
+	  			}
+	  			$scope.selectedDefinition.fields.push(selectedField);
+	  		}
+
+	  		$scope.addDefinedAction = function() {
+	  			if(!$scope.selectedDefinition.definedActions) {
+	  				$scope.selectedDefinition.definedActions = [];
+	  			}
+	  			var newAction = {"filter":"","actionIds":[]};
+	  			$scope.selectedDefinition.definedActions.push(newAction);
+	  		};
+
+	  		$scope.addSelectedAction = function(defAction, actionId) {
+	  			console.log(actionId);
+	  			var newVlocAction = {"type":"Vlocity Action", "id":actionId};
+	  			//defAction.actionIds.push(actionId);
+	  			defAction.actionIds.push(newVlocAction);
+	  		};
+
+	  		$scope.addCustomAction = function(defAction, customAction) {
+	  			console.log(customAction);
+	  			customAction.type = 'Custom';
+	  			defAction.actionIds.push(customAction);
+	  		};
+
+	  		$scope.addTemplate = function() {
+	  			if(!$scope.selectedDefinition.templates) {
+	  				$scope.selectedDefinition.templates = [];
+	  			}
+	  			var newTemplate = {"filter":"","templateUrl":""};
+	  			$scope.selectedDefinition.templates.push(newTemplate);
+	  		};
+
+	  		$scope.removeActions = function() {
+	  			delete $scope.selectedDefinition.definedActions;
+	  		};
+
+	  		$scope.saveCard = function(e) {
+
+	  			console.log(e);
+
+	  			//set saving tag for now
+	  			var originalText = e.currentTarget.innerText;
+	  			e.currentTarget.innerText = 'Saving...';
+
+	  			console.log($scope.selectedCard);
+	  			delete $scope.selectedCard.LastModifiedDate; //can't override system fields
+	  			$scope.selectedCard[$rootScope.nsPrefix+'Definition__c'] = JSON.stringify($scope.selectedDefinition);
+
+	  			//remoteActions.saveCard($scope.selectedCard)
+	  			configService.saveCard($scope.selectedCard)
+			      	.then(function(card) {
+			      		console.log(card);
+			      		e.currentTarget.innerText = 'Saved!'
+			      		setTimeout(function(){ e.currentTarget.innerText = originalText; }, 1000);
+			      		$scope.selectedCard = card;
+			      		$scope.cards[$scope.selectedCard.Name] = $scope.selectedCard;
+
+			    });	
+	  		};
+	  		//Temporary function to save the card in new format with states object.
+	  		$scope.saveNewCard = function(e) {
+
+	  			console.log(e);
+
+	  			//set saving tag for now
+	  			var originalText = e.currentTarget.innerText;
+	  			e.currentTarget.innerText = 'Saving...';
+
+	  			console.log($scope.selectedCard);
+	  			delete $scope.selectedCard.LastModifiedDate; //can't override system fields
+
+	  			$scope.selectedDefinition.states=[];
+	  			//Just a temporary function, intentionally kept elaborate
+
+	  			//Template mapping
+	  			$scope.selectedDefinition.states = angular.copy($scope.selectedDefinition.templates);
+
+	  			//Flyout and alerts mapping
+	  			$scope.selectedDefinition.states.forEach(function(state, index){
+	  				state.flyout = $scope.selectedDefinition.flyout || '';
+	  				state.alerts = $scope.selectedDefinition.Alerts || [];
+	  				state.fields = $scope.selectedDefinition.fields || [];
+
+	  				//When definedActions are Empty, just add empty array for states
+		  			if($scope.selectedDefinition.definedActions && $scope.selectedDefinition.definedActions.length <=0) {
+		  				state.definedActions = [];
+		  			}
+	  			});
+
+	  			//Action mapping
+	  			$scope.selectedDefinition.definedActions.forEach(function(action){
+	  				$scope.selectedDefinition.states.forEach(function(state, index){
+		  				if(state.filter === action.filter){
+		  					state.definedActions = state.definedActions || {};
+		  					state.definedActions.actions = action.actionIds || [];
+		  				}
+		  			});
+	  			});
+
+	  			$scope.selectedCard[$rootScope.nsPrefix+'Definition__c'] = angular.toJson($scope.selectedDefinition);
+
+	  			console.log("New card format JSON", $scope.selectedDefinition);
+	  			//remoteActions.saveCard($scope.selectedCard)
+
+	  			configService.saveCard($scope.selectedCard)
+			      	.then(function(card) {
+			      		console.log(card);
+			      		e.currentTarget.innerText = 'Saved!'
+			      		setTimeout(function(){ e.currentTarget.innerText = originalText; }, 1000);
+			      		$scope.selectedCard = card;
+			      		$scope.cards[$scope.selectedCard.Name] = $scope.selectedCard;
+
+			    });
+	  		};
+
+	  		$scope.newCard = function() {
+	  			var newCard = {
+	  				"Name": "New Card",
+				};
+				newCard[$rootScope.nsPrefix+'Definition__c'] = '';
+				newCard[$rootScope.nsPrefix+'Type__c'] = '';
+
+				var defaultDefinition = {
+					"title": "New Card",
+					"filter": {},
+					"definedActions": [],
+					"templates": [],
+					"Alerts": []
+				};
+
+				newCard[$rootScope.nsPrefix+'Definition__c'] = JSON.stringify(defaultDefinition);
+				
+				$scope.selectCard(newCard);
+	  		};
+
+	  		$scope.setActive = function(id) {
+	  			$scope.activeTab = id;
+	  		};
+
+	  		$scope.addDataSource = function(record) {
+	  			console.log(record);
+	  			if(!record[$rootScope.nsPrefix+'Definition__c']['dataSource']) {
+	  				record[$rootScope.nsPrefix+'Definition__c']['dataSource'] = {};
+	  			}
+	  			record[$rootScope.nsPrefix+'Definition__c']['dataSource'] = {"type":"","value":""};
+	  			//$scope.selectedDefinition.definedActions.push(newAction);
+	  		};
+
+	  		$scope.deleteDataSource = function(obj){
+	  			if(obj == 'card') {
+	  				delete $scope.selectedDefinition.dataSource;
+	  			} else if(obj == 'layout'){
+	  				delete $scope.selectedLayout[$rootScope.nsPrefix+'Definition__c']['dataSource'];
+	  			}
+	  			
+	  		}
+
+	  		
+
+	  		$scope.testDataSource = function(dataSource, ctxId) {
+	  			console.log('dataSource: ',dataSource,' ctxId: ',ctxId);
+	  			$scope.ctxId = ctxId;
+	  			switch(dataSource.type){
+	  				case 'Query':
+	  					var query = dataSource.value.query;
+	  					query = $interpolate(query)($scope);
+	  					dataService.getRecords(query).then(
+                        function(records) {
+                            console.log(records);
+                            var modal = $modal({title: 'Query Result', content: JSON.stringify(records), show: false});
+	  						modal.$promise.then(modal.show);
+                        });
+                        break;
+                    case 'DataRaptor':
+                    	var cardBundle =dataSource.value.bundle;
+                    	dataService.getDataRaptorBundle(cardBundle,ctxId, $rootScope.forcetkClient).then(
+                        function(records) {
+                            console.log(records);
+                            var modal = $modal({title: 'DR Result', content: JSON.stringify(records), show: false});
+	  						modal.$promise.then(modal.show);
+                        });
+                        break;
+                    case 'ApexRest':
+                    	var endpoint =  $interpolate(dataSource.value.endpoint)($scope);
+                    	var method = dataSource.value.method;
+                    	var payload = dataSource.value.body ? $interpolate(dataSource.value.body)($scope) : null;
+                    	console.info(endpoint);
+                    	dataService.getApexRest(endpoint,method,payload, $rootScope.forcetkClient).then(
+                        function(records) {
+                            if (dataSource.value.resultVar) {
+                                records = eval('records.' + dataSource.value.resultVar);
+                            }
+                            console.log(records);
+                            var modal = $modal({title: 'ApexRest Result', content: JSON.stringify(records), show: false});
+	  						modal.$promise.then(modal.show);
+                        });
+                        break;
+                    case 'REST':
+                    	var payload = dataSource.value.body ? JSON.parse($interpolate(dataSource.value.body)($scope)) : null;
+
+	                    var req = {
+	                        method: dataSource.value.methodType,
+	                        url: $interpolate(dataSource.value.endpoint)($scope),
+	                        headers: {},
+	                        data: payload
+	                    };
+
+	                    console.log(req);
+
+                   		 $http(req).then(
+	                        function(records) {
+	                            if (dataSource.value.resultVar) {
+	                                records = eval('records.' + dataSource.value.resultVar);
+	                            }
+	                            console.log(records);
+                            	var modal = $modal({title: 'ApexRest Result', content: JSON.stringify(records), show: false});
+	  							modal.$promise.then(modal.show);
+	                        },
+                        	function(error) {
+                            	console.info('rest error',error);
+                        	});
+                        break;
+                    default:
+                    	console.log('bad data source');
+                    	break;
+	  			}
+	  			 /*
+	  			}
+  			    if ($scope.data.dataSource.type == 'Query') {
+                    var cardQuery = $scope.data.dataSource.value.query;
+                    cardQuery = $interpolate(cardQuery)($scope);
+
+                    dataService.getRecords(cardQuery).then(
+                        function(records) {
+                            $scope.records = records;
+                            console.log('$scope.records:');
+                            console.log($scope.records);
+                            //$scope.loaded = true;
+                            loadLayout('query');
+                        });
+                }
+                //DATA RAPTOR CALL
+                else if ($scope.data.dataSource.type == 'DataRaptor') {
+                    //DO DR
+                    var cardBundle = $scope.data.dataSource.value.bundle;
+                    var cardCtxId = eval($scope.data.dataSource.value.ctxId);
+
+                    dataService.getDataRaptorBundle(cardBundle,cardCtxId, $rootScope.forcetkClient).then(
+                        function(records) {
+                            $scope.records = records;
+                            console.log('$scope.records:');
+                            console.log($scope.records);
+                            //$scope.loaded = true;
+                            loadLayout('dr');
+                        });
+                }
+                //APEXREST CALL
+                else if ($scope.data.dataSource.type == 'ApexRest') {
+                    var endpoint =  $interpolate($scope.data.dataSource.value.endpoint)($scope);
+                    var method = $scope.data.dataSource.value.method;
+                    var payload = $scope.data.dataSource.value.body ? $interpolate($scope.data.dataSource.value.body)($scope) : null;
+                    console.info(endpoint);
+                    dataService.getApexRest(endpoint,method,payload, $rootScope.forcetkClient).then(
+                        function(records) {
+                            if ($scope.data.dataSource.value.resultVar) {
+                                $scope.records = eval('records.' + $scope.data.dataSource.value.resultVar);
+                            } else {
+                                $scope.records = records;
+                            }
+                            console.log('$scope.records:');
+                            console.log($scope.records);
+
+                            loadLayout('apexRest');
+                        });
+                }
+                //REST
+                else if ($scope.data.dataSource.type == 'REST') {
+
+                    var payload = $scope.data.dataSource.value.body ? JSON.parse($interpolate($scope.data.dataSource.value.body)($scope)) : null;
+
+                    var req = {
+                        method: $scope.data.dataSource.value.methodType,
+                        url: $interpolate($scope.data.dataSource.value.endpoint)($scope),
+                        headers: {},
+                        data: payload
+                    };
+
+                    console.log(req);
+
+                    $http(req).then(
+                        function(result) {
+                            if ($scope.data.dataSource.value.resultVar) {
+                                $scope.records = eval('result.' + $scope.data.dataSource.value.resultVar);
+                            } else {
+                                $scope.records = result;
+                            }
+
+                            console.log('$scope.records:');
+                            console.log($scope.records);
+                            loadLayout('REST');
+                        },
+                        function(error) {
+                            console.info('rest error',error);
+                        });
+                } else {
+                    console.log('dataSource not implemented');
+                }
+                */
+	  		}
+
+	  		$scope.deleteFlyout = function() {
+	  			console.log($scope.layouts);
+	  			delete $scope.selectedDefinition.flyout;
+	  		}
+
+			
+
+ 		});
+
+    </script>
+    
+
+  </head>
+  <body ng-app="myApp">
+
+  	<div class="vlocity" ng-controller="myController" ng-init="init();">
+		<h1 style="color:red;">~~ This page is deprecated. Use New Card  Designer ~~</h1>
+
+	  	<ul class="nav nav-tabs">
+		  	<li role="presentation" class="tab" ng-class="{'active': activeTab == 'layouts'}" ng-click="setActive('layouts');"><a href="#">Layouts</a></li>
+		  	<li role="presentation" class="tab" ng-class="{'active': activeTab == 'cards'}" ng-click="setActive('cards');"><a href="#">Cards</a></li>
+		</ul>
+
+		<!----------------------------------------------------LAYOUTS-------------------------------------------------------------------------- -->
+		<div id="layouts" ng-show="activeTab == 'layouts'">
+	  		<div class="col-md-3">
+	  			<h2>Layouts</h2> <button class="btn btn-primary" ng-click="newLayout()">New Layout</button>
+	  			<div class="list-group">
+				  	<div class="list-group-item" style="margin:0; float: left; width: 100%;" ng-repeat="(key, layout) in layouts">
+				    	<h4 class="list-group-item-heading col-md-8" ng-click="selectLayout(layout)">{{layout.Name}}</h4>
+				    	<span class="glyphicon icon-v-document1-line col-md-2" ng-click="cloneLayout(layout)"></span>
+				    	<span class="glyphicon icon-v-trash col-md-2" ng-click="deleteLayout(layout)"></span>
+				  	</div>
+				</div>
+	  		</div>
+
+	  		<div class="col-md-9" ng-show="selectedLayout">
+	  			<!-- <h2> {{selectedLayout.Name}}</h2>
+	  			<label>Name</label>
+	  			<input type="text" ng-model="selectedLayout.Name"/> -->
+	  			<nav class="navbar navbar-default">
+			      <div class="container-fluid">
+			        <div class="navbar-header">
+			          <a class="navbar-brand" href="#"> 
+			          	{{selectedLayout.Name}}
+			          	<span>Version {{selectedLayout[nsPrefix+'Version__c'] | number:1}}</span>
+			          </a>
+			          
+			        </div>
+			        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			        	<button class="btn btn-primary navbar-btn navbar-right" ng-click="toggleActivateLayout($event)" style="margin-left:10px;">
+			        		<span ng-show="!selectedLayout[nsPrefix+'Active__c']">Activate</span>
+        					<span ng-show="selectedLayout[nsPrefix+'Active__c']">De-activate</span>
+			        	</button>
+			          	<button class="btn btn-primary navbar-btn navbar-right" ng-click="saveLayout($event)">Save Layout</button>
+			        </div>
+			      </div>
+			    </nav>
+
+			    <!-- Layout Info -->
+			    <div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showLayoutInfo = true" ng-click="showLayoutInfo = !showLayoutInfo">
+				        Layout Information
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showLayoutInfo, 'icon-v-down-arrow': showLayoutInfo}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showLayoutInfo}" collapse="collapse">
+				    	<div class="form-group col-md-4" >
+						    <label for="layoutName">Layout Name</label>
+						    <input type="text" class="form-control" id="layoutName"  ng-model="selectedLayout.Name"/>
+						 </div>
+				    </div>
+			    </div>
+
+	  			<!-- Cards-->
+	  			<div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showLayoutCards = false" ng-click="showLayoutCards = !showLayoutCards">
+				        Cards
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showLayoutCards, 'icon-v-down-arrow': showLayoutCards}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showLayoutCards}" collapse="collapse">
+				    	<label>Cards</label>
+	  					<select class="form-control" ng-options="card.Name as card.Name for (key, card) in layoutCards" ng-model="selectedCardId"/>
+	  					<button class="btn btn-default" ng-disabled="!selectedCardId" ng-click="addCardToLayout(selectedCardId)">Add Card</button>
+	  					<div class="panel panel-sf">
+  							<div class="panel-heading">Cards</div>
+  							<div class="panel-body">
+  								<div ng-repeat="cardId in selectedLayout[nsPrefix+'Definition__c']['Cards'] track by $index">
+			  						<div>
+				  						<label>
+				  							{{layoutCards[cardId].Name}}
+				  							<span class="glyphicon icon-v-trash" ng-click="selectedLayout[nsPrefix+'Definition__c']['Cards'].splice($index,1)">
+				  							</span>
+				  						</label>
+				  					</div>
+			  					
+
+			  					</div>
+  							</div>
+  						</div>
+				    </div>
+			    </div>
+			    <!-- Templates-->
+	  			<div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showLayoutTemplates = false" ng-click="showLayoutTemplates = !showLayoutTemplates">
+				        Templates
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showLayoutTemplates, 'icon-v-down-arrow': showLayoutTemplates}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showLayoutTemplates}" collapse="collapse">
+				    	<label>Templates</label> <button ng-click="addTemplateToLayout()">Add</button>
+	  					<div ng-repeat="defTemplates in selectedLayout[nsPrefix+'Definition__c']['templates'] track by $index">
+	  						<input type="text" class="form-control" ng-model="defTemplates.filter"/>
+	  						<span class="glyphicon icon-v-trash" ng-click="selectedLayout[nsPrefix+'Definition__c']['templates'].splice($index,1)">
+				  							</span>
+	  						<select class="form-control" ng-options="template.Name as template.Name for template in templates" ng-model="defTemplates.templateUrl" ng-init="defTemplates.templateUrl"/>
+	  					</div>
+				    </div>
+			    </div>
+			    <!-- Data Source-->
+	  			<div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showLayoutDataSource = false" ng-click="showLayoutDataSource = !showLayoutDataSource">
+				        Data Source
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showLayoutDataSource, 'icon-v-down-arrow': showLayoutDataSource}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showLayoutDataSource}" collapse="collapse">
+				    	<label>Data Source</label> 
+	  					<button ng-show="!selectedLayout[nsPrefix+'Definition__c']['dataSource']" ng-click="selectedLayout[nsPrefix+'Definition__c']['dataSource'] = {}">Add</button>
+				    	<button ng-show="selectedLayout[nsPrefix+'Definition__c']['dataSource']" 
+				    	ng-click="deleteDataSource('layout')">Remove</button>
+				    	<label for="ctxId"> Context Id</label>
+				    	<input id="ctxId" type="text" ng-model="contextId"/>
+				    	<button ng-show="selectedLayout[nsPrefix+'Definition__c']['dataSource']" 
+				    	ng-click="testDataSource(selectedLayout[nsPrefix+'Definition__c']['dataSource'] , contextId)">Test Data Source</button>
+
+<!-- 	  					<div ng-if="selectedLayout[nsPrefix+'Definition__c']['dataSource']">
+	  						<select class="form-control" ng-options="srcType.name as srcType.value for srcType in dataSourceTypes" 
+	  						ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['type']" ng-init="selectedLayout[nsPrefix+'Definition__c']['dataSource']['type']"/>
+	  						<textarea class="form-control" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']"/>
+	  					</div> -->
+	  					<div ng-if="selectedLayout[nsPrefix+'Definition__c']['dataSource']">
+	  						<select class="form-control" ng-options="srcType.name as srcType.value for srcType in dataSourceTypes" 
+	  						ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['type']" ng-init="selectedLayout[nsPrefix+'Definition__c']['dataSource']['type']"/>
+
+	  						<textarea class="form-control" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['query']"
+	  							 ng-show="selectedLayout[nsPrefix+'Definition__c']['dataSource']['type'] == 'Query'"/>
+
+	  						<div ng-show="selectedLayout[nsPrefix+'Definition__c']['dataSource']['type'] == 'DataRaptor'">
+	  							<div class="form-group col-md-4" >
+								    <label for="cardBundle">Bundle</label>
+								    <input type="text" class="form-control" id="cardBundle" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['bundle']"/>
+								 </div>
+								 <div class="form-group col-md-4">
+								    <label for="cardCtxId">Context Id</label>
+								    <input type="text" class="form-control" id="cardCtxId" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['ctxId']"/>
+								 </div>
+	  						</div>
+
+	  						<div ng-show="selectedLayout[nsPrefix+'Definition__c']['dataSource']['type'] == 'ApexRest'">
+	  							<div class="form-group col-md-7" >
+								    <label for="cardBundle">Endoint</label>
+								    <textarea class="form-control" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['endpoint']"/>
+								 </div>
+								 <div class="form-group col-md-3" >
+								    <label for="cardBundle">Method</label>
+								    <select class="form-control" ng-options="srcType.name as srcType.value for srcType in HTTPMethods" 
+	  									ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['methodType']" 
+	  									ng-init="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['methodType']"/>
+								 </div>
+								 <div class="form-group col-md-2">
+								    <label for="cardBundle">Result Variable</label>
+								    <input type="text" class="form-control" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['resultVar']"/>
+								 </div>
+								 <div class="form-group col-md-12" ng-show="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['methodType'] == 'POST'">
+								    <label for="cardBundle">Body</label>
+								    <textarea class="form-control" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['body']"/>
+								 </div>
+	  						</div>
+
+	  						<div ng-show="selectedLayout[nsPrefix+'Definition__c']['dataSource']['type'] == 'REST'">
+	  							<div class="form-group col-md-7" >
+								    <label for="cardBundle">Endoint</label>
+								    <textarea class="form-control" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['endpoint']"/>
+								 </div>
+								 <div class="form-group col-md-3" >
+								    <label for="cardBundle">Method</label>
+								    <select class="form-control" ng-options="srcType.name as srcType.value for srcType in HTTPMethods" 
+	  									ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['methodType']" 
+	  									ng-init="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['methodType']"/>
+								 </div>
+								 <div class="form-group col-md-2">
+								    <label for="cardBundle">Result Variable</label>
+								    <input type="text" class="form-control" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['resultVar']"/>
+								 </div>
+								 <div class="form-group col-md-12" ng-show="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['methodType'] == 'POST'">
+								    <label for="cardBundle">Body</label>
+								    <textarea class="form-control" ng-model="selectedLayout[nsPrefix+'Definition__c']['dataSource']['value']['body']"/>
+								 </div>
+	  						</div>
+	  					</div>
+				    </div>
+			    </div>
+
+	  			<div class="panel panel-sf">
+				  	<div class="panel-heading" ng-init="showLayoutDefinition = true" ng-click="showLayoutDefinition = !showLayoutDefinition">
+				  		Definition
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showLayoutDefinition, 'icon-v-down-arrow': showLayoutDefinition}"></i>
+				  	</div>
+				  	<div class="panel-body" style="padding: 0;" ng-class="{'collapse': !showLayoutDefinition}" collapse="collapse">
+			  			<div ui-ace="aceOptions" json-edit="true" ng-model="selectedLayout[nsPrefix+'Definition__c']"></div>
+			  			<!-- <textarea class="editor" ng-model="selectedLayout.Definition__c"></textarea> -->
+					</div>
+				</div>
+				<nav class="navbar navbar-default">
+			      <div class="container-fluid">
+			        <div class="navbar-header">
+			          <a class="navbar-brand" href="#"> {{selectedLayout.Name}}</a>
+			        </div>
+			        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			          <button class="btn btn-primary navbar-btn navbar-right" ng-click="saveLayout($event)">Save Layout</button>
+			        </div>
+			      </div>
+			    </nav>
+	  			
+	  		</div>
+
+	  	</div>
+
+	  	<!----------------------------------------------------CARDS-------------------------------------------------------------------------- -->
+
+	  	<!--div id="cards" ng-show="activeTab == 'cards'" ng-init="getActions('Account',null); getGlobalDescribe();"-->
+	  	<div id="cards" ng-show="activeTab == 'cards'">
+	  		<div class="col-md-3">
+	  			<h2>Cards</h2> <button class="btn btn-primary" ng-click="newCard()">New Card</button>
+	  			<div class="list-group">
+				  	<div  class="list-group-item" style="margin:0; float: left; width: 100%;" ng-repeat="(key, card) in cards" >
+				    	<h4 class="list-group-item-heading col-md-8" ng-click="selectCard(card)">{{card.Name}}</h4>
+				    	<span class="glyphicon icon-v-document1-line col-md-2" ng-click="cloneCard(card)"></span>
+				    	<span class="glyphicon icon-v-trash col-md-2" ng-click="deleteCard(card)"></span>
+				    	<!-- <p class="list-group-item-text">{{template.Type__c}}</p> -->
+				  	</div>
+				</div>
+	  		</div>
+
+	  		<div class="col-md-9" ng-show="selectedCard">
+	  			
+	  			<nav class="navbar navbar-default">
+			      <div class="container-fluid">
+			        <div class="navbar-header">
+			          <a class="navbar-brand" href="#"> {{selectedCard.Name}}</a>
+			        </div>
+			        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			          <button class="btn btn-primary navbar-btn navbar-right" ng-click="saveCard($event)">Save Card</button>
+			        </div>
+			      </div>
+			    </nav>
+			    <nav class="navbar navbar-default">
+			      <div class="container-fluid">
+			        <div class="navbar-header">
+			          <a class="navbar-brand" href="#"> Developer Zone</a>
+			        </div>
+			        <div class="collapse navbar-collapse">
+			          <button class="btn btn-primary navbar-btn" ng-click="saveNewCard($event)">Save New Card Format (states)</button>&#160;
+			        </div>
+			      </div>
+			    </nav>
+			    <!-- Card Info -->
+			    <div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showCardInfo = true" ng-click="showCardInfo = !showCardInfo">
+				        Card Information
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showCardInfo, 'icon-v-down-arrow': showCardInfo}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showCardInfo}" collapse="collapse">
+				    	<div class="form-group col-md-4" >
+						    <label for="cardName">Card Name</label>
+						    <input type="text" class="form-control" id="cardName" ng-model="selectedCard.Name"/>
+						 </div>
+						 <div class="form-group col-md-4">
+						    <label for="cardTitle">Card Title</label>
+						    <input type="text" class="form-control" id="cardTitle" ng-model="selectedDefinition.title"/>
+						 </div>
+						 <!-- <div class="form-group col-md-4">
+						    <label for="cardTitle">Card Subtitle</label>
+						    <input type="text" class="form-control" id="cardTitle" ng-model="selectedDefinition.subtitle"/>
+						 </div> -->
+						 <!-- <label>Type</label>
+				  			<input type="text" ng-model="selectedCard[nsPrefix+'Type__c']"/> -->
+				  			<!-- <label>Id</label>
+				  			<p>{{selectedCard.Id}}</p> -->
+				    </div>
+			    </div>
+	  			<!-- Filter-->
+	  			<div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showCardFilter = false" ng-click="showCardFilter = !showCardFilter">
+				        Filter Panel
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showCardFilter, 'icon-v-down-arrow': showCardFilter}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showCardFilter}" collapse="collapse" >
+				    	<button class="btn btn-default" ng-init="showCardCustomFilter = false" ng-click="showCardCustomFilter = !showCardCustomFilter">
+				    		<span ng-show="!showCardCustomFilter">Filter by JSON (Data Raptor and Custom) </span>
+				    		<span ng-show="showCardCustomFilter"> Filter by SObject </span>
+				    	</button>
+				    	<div ng-show="!showCardCustomFilter">
+				    		<Label>SObject</Label> <select class="form-control" ng-options="sObject.name as sObject.name for sObject in sObjects" ng-model="selectedSO"/>
+		  					<Label>Field</Label> <select class="form-control" ng-options="soField.name as soField.name for soField in soFields" ng-model="selectedField.key"/>
+		  					<Label>Value</Label> <input type="text" class="form-control" ng-model="selectedField.value"/>
+		  					<button ng-click="addFilterField(selectedField)">Add Field</button>
+		  					<div class="panel panel-default">
+	  							<div class="panel-heading">Fields</div>
+	  							<div class="panel-body">
+	  								<div ng-repeat="(key, value) in selectedDefinition.filter track by $index">
+				  						<div ng-show="key != 'attributes'">
+					  						<label>{{key}}</label><span class="glyphicon icon-v-trash" ng-click="deleteFilterField(key)"></span>
+					  						<input type="text" class="form-control" ng-model="selectedDefinition.filter[key]"/>
+					  					</div>
+				  					</div>
+	  							</div>
+		  					</div>
+		  				</div>
+	  					<textarea json-edit="true" class="editor" ng-model="selectedDefinition.filter" ng-show="showCardCustomFilter"></textarea>
+				    </div>
+			    </div>
+			    <!-- Fields -->
+			    <div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showCardFields = false" ng-click="showCardFields = !showCardFields">
+				        Fields
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showCardFields, 'icon-v-down-arrow': showCardFields}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showCardFields}" collapse="collapse">
+				    	<select class="form-control" ng-options="soField as soField.label for soField in soFields | orderBy: soField.label" ng-model="selectedFieldToAdd"/>
+	  					<button ng-click="addSOField(selectedFieldToAdd)">Add Field</button>
+	  					<div class="panel panel-default">
+  							<div class="panel-heading">Fields</div>
+  							<div class="panel-body">
+  								<ul>
+  									<li ng-repeat="field in selectedDefinition.fields"> 
+  										{{field.label}} <span class="glyphicon icon-v-trash" ng-click="selectedDefinition.fields.splice($index,1)"></span>
+  									</li>
+				  				</ul>
+  							</div>
+  						</div>
+				    </div>
+			    </div>
+			    <!-- Actions -->
+			    <div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showCardActions = false" ng-click="showCardActions = !showCardActions">
+				        Actions
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showCardActions, 'icon-v-down-arrow': showCardActions}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showCardActions}" collapse="collapse">
+				    	<button ng-click="addDefinedAction()">Add Actions</button>
+				    	<button ng-click="removeActions()" ng-show="selectedDefinition.definedActions">Remove Actions</button>
+	  					<div class="panel panel-default" ng-repeat="definedAction in selectedDefinition.definedActions track by $index">
+	  						<div class="panel-heading">Action {{$index+1}}</div>
+  							<div class="panel-body">
+	  							<label>Filter</label>
+		  						<input type="text" class="form-control" ng-model="definedAction.filter"/>
+		  						<h4 ng-init="vlocityAction == false" ng-click="vlocityAction = !vlocityAction"> 
+		  							Add Vlocity Action <span class="icon" ng-class="{'icon-v-up-caret': vlocityAction, 'icon-v-down-caret': !vlocityAction}"></span>
+		  						</h4>
+		  						<div ng-show="vlocityAction">
+			  						<select class="form-control" ng-options="action.Name as action.Name for (key, action) in actions" ng-model="selectedAction"/>
+			  						<button class="btn btn-block btn-default" ng-click="addSelectedAction(definedAction, selectedAction)">Add Selected</button>
+			  					</div>
+		  						
+		  						<h4 ng-init="showCustomAction == false" ng-click="showCustomAction = !showCustomAction">
+		  							Add Custom Action <span class="icon" ng-class="{'icon-v-up-caret': showCustomAction, 'icon-v-down-caret': !showCustomAction}"></span>
+		  						</h4>
+		  						<div ng-show="showCustomAction">
+	  								<label>Name</label>
+	  								<input class="form-control" ng-model="customAction.name"/>
+		  							<label>Label</label>
+		  							<input class="form-control" ng-model="customAction.displayName"/>
+		  							<label>Action JS</label>
+		  							<input class="form-control" ng-model="customAction.action"/>
+		  							<label>Icon</label>
+		  							<input class="form-control" ng-model="customAction.vlocityIcon"/>
+		  							<button class="btn btn-block btn-default" ng-click="addCustomAction(definedAction, customAction)">Add Custom Action</button>
+		  						</div>
+	  							<div ng-repeat="action in definedAction.actionIds">
+	  								<div ng-show="action.type == 'Vlocity Action'">
+	  									{{action.id}}
+	  									<span class="glyphicon icon-v-trash" ng-click="definedAction.actionIds.splice($index,1)"></span>
+	  								</div>
+	  								<div ng-show="action.type == 'Custom'">
+	  									c - {{action.name}}
+	  									<span class="glyphicon icon-v-trash" ng-click="definedAction.actionIds.splice($index,1)"></span>
+	  								</div>
+	  							</div>
+		  					</div>
+	  					</div>
+				    </div>
+			    </div>
+			    <!-- Templates -->
+			    <div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showCardTemplates = false" ng-click="showCardTemplates = !showCardTemplates">
+				        Templates
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showCardTemplates, 'icon-v-down-arrow': showCardTemplates}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showCardTemplates}" collapse="collapse">
+				    	<label>Templates</label> <button ng-click="addTemplate()">Add</button>
+	  					<div ng-repeat="defTemplates in selectedDefinition.templates track by $index">
+	  						<input type="text" class="form-control" ng-model="defTemplates.filter"/>
+	  						<span class="glyphicon icon-v-trash" ng-click="selectedDefinition.templates.splice($index,1)">
+				  							</span>
+	  						<select class="form-control" ng-options="template.Name as template.Name for template in templates" ng-model="defTemplates.templateUrl" ng-init="defTemplates.templateUrl"/>
+	  					</div>
+				    </div>
+			    </div>
+			    <!-- Data Source -->
+			    <div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showCardDataSource = false" ng-click="showCardDataSource = !showCardDataSource">
+				        Data Source
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showCardDataSource, 'icon-v-down-arrow': showCardDataSource}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showCardDataSource}" collapse="collapse">
+				    	<label>Data Source</label> 
+				    	<button ng-show="!selectedDefinition['dataSource']" ng-click="selectedDefinition['dataSource'] = {}">Add</button>
+				    	<button ng-show="selectedDefinition['dataSource']" ng-click="deleteDataSource('card')">Remove</button>
+	  					<div ng-if="selectedDefinition['dataSource']">
+	  						<select class="form-control" ng-options="srcType.name as srcType.value for srcType in dataSourceTypes" 
+	  						ng-model="selectedDefinition['dataSource']['type']" ng-init="selectedDefinition['dataSource']['type']"/>
+
+	  						<textarea class="form-control" ng-model="selectedDefinition['dataSource']['value']['query']"
+	  							 ng-show="selectedDefinition['dataSource']['type'] == 'Query'"/>
+
+	  						<div ng-show="selectedDefinition['dataSource']['type'] == 'DataRaptor'">
+	  							<div class="form-group col-md-4" >
+								    <label for="cardBundle">Bundle</label>
+								    <input type="text" class="form-control" id="cardBundle" ng-model="selectedDefinition['dataSource']['value']['bundle']"/>
+								 </div>
+								 <div class="form-group col-md-4">
+								    <label for="cardCtxId">Context Id</label>
+								    <input type="text" class="form-control" id="cardCtxId" ng-model="selectedDefinition['dataSource']['value']['ctxId']"/>
+								 </div>
+	  						</div>
+
+	  						<div ng-show="selectedDefinition['dataSource']['type'] == 'ApexRest'">
+	  							<div class="form-group col-md-7" >
+								    <label for="cardBundle">Endpoint</label>
+								    <textarea class="form-control" ng-model="selectedDefinition['dataSource']['value']['endpoint']"/>
+								 </div>
+								 <div class="form-group col-md-3" >
+								    <label for="cardBundle">Method</label>
+								    <select class="form-control" ng-options="srcType.name as srcType.value for srcType in HTTPMethods" 
+	  									ng-model="selectedDefinition['dataSource']['value']['methodType']" 
+	  									ng-init="selectedDefinition['dataSource']['value']['methodType']"/>
+								 </div>
+								 <div class="form-group col-md-2">
+								    <label for="cardBundle">Result Variable</label>
+								    <input type="text" class="form-control" ng-model="selectedDefinition['dataSource']['value']['resultVar']"/>
+								 </div>
+								 <div class="form-group col-md-12" ng-show="selectedDefinition['dataSource']['value']['methodType'] == 'POST'">
+								    <label for="cardBundle">Body</label>
+								    <textarea class="form-control" ng-model="selectedDefinition['dataSource']['value']['body']"/>
+								 </div>
+	  						</div>
+
+	  						<div ng-show="selectedDefinition['dataSource']['type'] == 'REST'">
+	  							<div class="form-group col-md-7" >
+								    <label for="cardBundle">Endpoint</label>
+								    <textarea class="form-control" ng-model="selectedDefinition['dataSource']['value']['endpoint']"/>
+								 </div>
+								 <div class="form-group col-md-3" >
+								    <label for="cardBundle">Method</label>
+								    <select class="form-control" ng-options="srcType.name as srcType.value for srcType in HTTPMethods" 
+	  									ng-model="selectedDefinition['dataSource']['value']['methodType']" 
+	  									ng-init="selectedDefinition['dataSource']['value']['methodType']"/>
+								 </div>
+								 <div class="form-group col-md-2">
+								    <label for="cardBundle">Result Variable</label>
+								    <input type="text" class="form-control" ng-model="selectedDefinition['dataSource']['value']['resultVar']"/>
+								 </div>
+								 <div class="form-group col-md-12" ng-show="selectedDefinition['dataSource']['value']['methodType'] == 'POST'">
+								    <label for="cardBundle">Body</label>
+								    <textarea class="form-control" ng-model="selectedDefinition['dataSource']['value']['body']"/>
+								 </div>
+	  						</div>
+	  					</div>
+				    </div>
+			    </div>
+			    <!-- Flyout -->
+			    <div class="panel panel-sf">
+		  			<div class="panel-heading" ng-init="showCardFlyout = false" ng-click="showCardFlyout = !showCardFlyout">
+				        Flyout
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showCardFlyout, 'icon-v-down-arrow': showCardFlyout}"></i>
+				    </div>
+				    <div class="panel-body" ng-class="{'collapse': !showCardFlyout}" collapse="collapse">
+				    	<label>Flyout</label> 
+				    	<button ng-show="!selectedDefinition['flyout']" ng-click="selectedDefinition['flyout'] = {}">Add</button>
+				    	<button ng-show="selectedDefinition['flyout']" ng-click="deleteFlyout()">Remove</button>
+	  					<div ng-if="selectedDefinition['flyout']">
+	  						<input type="text" class="form-control" ng-model="selectedDefinition.flyout.data"/>
+	  						<select class="form-control" ng-options="layout.Name as layout.Name for (key, layout) in layouts" ng-model="selectedDefinition.flyout.layout"/>
+	  					</div>
+				    </div>
+			    </div>
+	  			<!-- <textarea class="editor"  ng-model="selectedCard.Definition__c"></textarea> -->
+	  			<div class="panel panel-sf">
+				  	<div class="panel-heading" ng-init="showCardDefinition = true" ng-click="showCardDefinition = !showCardDefinition">
+				  		Definition
+				        <i aria-hidden="true" class="icon pull-right" ng-class="{'icon-v-right-arrow': !showCardDefinition, 'icon-v-down-arrow': showCardDefinition}"></i>
+				  	</div>
+				  	<div class="panel-body" style="padding: 0;" ng-class="{'collapse': !showCardDefinition}" collapse="collapse">
+		  			<div ui-ace="aceOptions" json-edit="true" ng-model="selectedDefinition"></div>
+		  			<!-- <textarea class="editor" ng-model="selectedCard.Definition__c"></textarea> -->
+		  			<!-- <textarea json-edit="true" class="editor" ng-model="selectedDefinition"></textarea> -->
+					</div>
+				</div>
+	  			<nav class="navbar navbar-default">
+			      <div class="container-fluid">
+			        <div class="navbar-header">
+			          <a class="navbar-brand" href="#"> {{selectedCard.Name}}</a>
+			        </div>
+			        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			          <button class="btn btn-primary navbar-btn navbar-right" ng-click="saveCard($event)">Save Card</button>
+			        </div>
+			      </div>
+			    </nav>
+			    <br/>
+			    <nav class="navbar navbar-default">
+			      <div class="container-fluid">
+			        <div class="navbar-header">
+			          <a class="navbar-brand" href="#"> Developer Zone</a>
+			        </div>
+			        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+			          <button class="btn btn-primary navbar-btn" ng-click="saveNewCard($event)">Save New Card Format (states)</button>&#160;
+			        </div>
+			      </div>
+			    </nav>
+	  		</div>
+
+	  	</div>
+
+
+
+  	</div>
+
+  </body>
+	
+</apex:page>

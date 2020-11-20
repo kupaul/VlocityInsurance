@@ -1,0 +1,17 @@
+ Copyright (C) 2014-2020 Vlocity, Inc.
+ __________________
+
+ All Rights Reserved.
+ Confidential.
+
+ NOTICE:  All information contained herein is, and remains
+ the property of Vlocity, Inc. and its suppliers,
+ if any. The intellectual and technical concepts contained
+ herein are proprietary to Vlocity, Inc. and its suppliers and may be
+ covered by U.S. and Foreign Patents, patents in process, and are
+ protected by trade secret or copyright law. Dissemination of this
+ information and reproduction, modification or reverse-engineering
+ of this material, is prohibited unless prior written permission
+ is obtained from Vlocity, Inc.
+
+

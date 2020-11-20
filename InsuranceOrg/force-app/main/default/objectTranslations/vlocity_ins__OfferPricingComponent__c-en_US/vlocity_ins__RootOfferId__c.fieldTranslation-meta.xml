@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Root Offer --></label>
+    <name>vlocity_ins__RootOfferId__c</name>
+    <relationshipLabel><!-- Offer Pricing Components (Root Offer) --></relationshipLabel>
+</CustomFieldTranslation>

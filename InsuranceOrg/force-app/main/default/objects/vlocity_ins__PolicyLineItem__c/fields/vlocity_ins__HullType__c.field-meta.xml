@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__HullType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Hull Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Flat</fullName>
+                <default>false</default>
+                <label>Flat</label>
+            </value>
+            <value>
+                <fullName>Smooth Curve</fullName>
+                <default>false</default>
+                <label>Smooth Curve</label>
+            </value>
+            <value>
+                <fullName>Chined</fullName>
+                <default>false</default>
+                <label>Chined</label>
+            </value>
+            <value>
+                <fullName>Displacement</fullName>
+                <default>false</default>
+                <label>Displacement</label>
+            </value>
+            <value>
+                <fullName>Planing</fullName>
+                <default>false</default>
+                <label>Planing</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

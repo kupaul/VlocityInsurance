@@ -1,0 +1,182 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyBodyTag="false"
+           lightningStylesheets="false"
+           applyHtmlTag="false"
+           title="OmniScript Compiler VF Page"
+           cache="false"
+           standardController="vlocity_ins__OmniScript__c"
+           extensions="vlocity_ins.OmniScriptDesignerController">
+
+    <html xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          lang="en">
+
+    <head>
+        <meta http-equiv="x-ua-compatible"
+              content="ie=edge" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1" />
+        <script src="{!URLFOR($Resource.jsforce_1_7, '/jszip.min.js')}"></script>
+        <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-core.min.js')}"></script>
+        <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-api-tooling.min.js')}"></script>
+        <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-api-metadata.min.js')}"></script>
+
+        <script src="{!URLFOR($Resource.vlocity_core_assets, '/latest/vlocity_core_assets.js')}"></script>
+        <script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+        <script src="{!URLFOR($Resource.fileSaver_2_0_1, '/fileSaver.js')}"></script>
+        <apex:includeLightning />
+        <script type="text/javascript">
+            window.conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}', version: '45.0' });
+            conn.metadata.pollTimeout = 600000;  // 10 minute polling timeout
+            window.omniLwcCompilerConfig = {
+                accessToken: '{!$API.Session_Id}',
+                namespacePrefix: '{!namespace}',
+                isInsidePckg: '{!isInsidePckg}',
+                toolingBaseUrl: '{!baseUrl}',
+                remoteActions: {
+                    buildJSONWithPrefillV2: {
+                        action: "{!$RemoteAction.OmniScriptDesignerController.BuildJSONWithPrefillV2}",
+                        config: { buffer: false, escape: false }
+                    },
+                    BuildJSONV3: {
+                        action: "{!$RemoteAction.OmniScriptDesignerController.BuildJSONV3}",
+                        config: { buffer: false, escape: false }
+                    }
+                }
+            };
+            const ACTIVATE = '{!$CurrentPage.parameters.activate}' === 'true';
+            const DEACTIVATE = '{!$CurrentPage.parameters.activate}' === 'false';
+            const DOWNLOAD = '{!$CurrentPage.parameters.download}' === 'true';
+            const OMNISCRIPT_ID = '{!$CurrentPage.parameters.id}';
+            const POST_MESSAGE_ENABLED = '{!$CurrentPage.parameters.postmessage}' === 'true';
+            const POST_MESSAGE_KEY = '{!$CurrentPage.parameters.postmessagekey}';
+        </script>
+        <script src="{!$Resource.OmniscriptLwcCompiler}"
+                crossorigin="use-credentials"></script>
+    </head>
+
+    <body>
+        <p ng-app="omniLwcCompile" id="compiler-message"></p>
+
+        <script>
+            const messageEl = document.getElementById('compiler-message');
+            angular.module('omniLwcCompile', ['omniscriptLwcCompiler'])
+                .value('OmniScriptJson', JSON.parse('{!JSENCODE(omniscriptJSON)}'))
+                .run((compilerService, toolingService, bpService, OmniScriptJson) => {
+                    if (!OMNISCRIPT_ID) {
+                        setMessage('ERROR: Missing id query parameter');
+                        throw new Error('Missing id query parameter');
+                    }
+                    // here we'll do the actual deploy.
+                    const lwcName = compilerService.getLwcName(OmniScriptJson.{!namespace}__Type__c, OmniScriptJson.{!namespace}__SubType__c, OmniScriptJson.{!namespace}__Language__c);
+            if (ACTIVATE) {
+                executeActivation(true)
+                    .then(response => {
+                        if (response.error === "OK") {
+                            setMessage('COMPILING...');
+                            return bpService.loadActiveLwc(OmniScriptJson.{!namespace}__Type__c, OmniScriptJson.{!namespace}__SubType__c, OmniScriptJson.{!namespace}__Language__c);
+                        }
+                        throw response;
+                    })
+                    .then(jsonObj => compilerService.compileActivated(lwcName, jsonObj, window.omniLwcCompilerConfig.isInsidePckg, window.omniLwcCompilerConfig.namespacePrefix))
+                    .then(resources => {
+                        setMessage('DEPLOYING...');
+                        return toolingService.deployResources(lwcName, resources, OMNISCRIPT_ID);
+                    })
+                    .then(() => {
+                        setMessage('DONE');
+                    })
+                    .catch(err => {
+                        setMessage('ERROR: ' + err);
+                    })
+            } else if (DEACTIVATE) {
+                executeActivation(false)
+                .then(() => {
+                    setMessage('DONE');
+                })
+                .catch(err => {
+                    setMessage('ERROR: ' + err);
+                })
+            } else if (DOWNLOAD) {
+                const type = OmniScriptJson.{!namespace}__Type__c,
+                    subType = OmniScriptJson.{!namespace}__SubType__c,
+                    language = OmniScriptJson.{!namespace}__Language__c,
+                    lwcName = compilerService.getLwcName(type, subType, language),
+                    addRuntimeNamespace = window.omniLwcCompilerConfig.isInsidePckg,
+                    namespace = window.omniLwcCompilerConfig.namespacePrefix;
+
+                setMessage('COMPILING...');
+                let promise = OmniScriptJson.{!namespace}__IsActive__c ?
+                    bpService.loadActiveLwc(type, subType, language) :
+                    bpService.loadInactiveLwc(OmniScriptJson.Id);
+
+                promise
+                    .then(jsonObj => {
+                        setMessage('ZIPPING...');
+                        return compilerService.getComponentZip(lwcName, jsonObj, addRuntimeNamespace, namespace);
+                    })
+                    .then(stream => saveAs(b64toFile(stream), lwcName + '.zip'))
+                    .catch(error => {
+                        setMessage('ERROR: {!$Label.OmniDesLwcDeployError}');
+                    })
+                    .finally(() => {
+                        setMessage('DONE');
+                    });
+            } else {
+                setMessage('ERROR: Missing activate query parameter');
+            }
+        });
+
+            function setMessage(message) {
+                messageEl.innerText = message;
+                postMessageIfEnabled();
+            }
+
+            function postMessageIfEnabled() {
+                if (POST_MESSAGE_ENABLED) {
+                    window.parent.postMessage({
+                        key: POST_MESSAGE_KEY,
+                        status: messageEl.innerText
+                    }, '*');
+                }
+            }
+
+            function executeActivation(isActivate) {
+                setMessage(isActivate ? 'ACTIVATING...' : 'DEACTIVATING...');
+                // Execute the request
+                return vlocityVFActionFunctionControllerHandlers.runServerMethod('{!namespace}.BusinessProcessController.BusinessProcessControllerOpen', isActivate ? 'ActivateVersion' : 'DeactivateVersion',
+                    JSON.stringify({
+                        Id: OMNISCRIPT_ID
+                    }), JSON.stringify({
+                        url: 'omniscriptdesigner'
+                    }), false)
+                    .then(response => JSON.parse(response));
+            }
+
+            function b64toFile(b64Data, filename, contentType) {
+                var sliceSize = 512;
+                var byteCharacters = atob(b64Data);
+                var byteArrays = [];
+
+                for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                    var slice = byteCharacters.slice(offset, offset + sliceSize);
+                    var byteNumbers = new Array(slice.length);
+
+                    for (var i = 0; i < slice.length; i++) {
+                        byteNumbers[i] = slice.charCodeAt(i);
+                    }
+                    var byteArray = new Uint8Array(byteNumbers);
+                    byteArrays.push(byteArray);
+                }
+                var file = new File(byteArrays, filename, { type: contentType });
+                return file;
+            }
+        </script>
+        <c:VFActionFunction />
+    </body>
+
+    </html>
+</apex:page>

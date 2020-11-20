@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Accident Report</masterLabel>
+        <translation><!-- Accident Report --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fire Report</masterLabel>
+        <translation><!-- Fire Report --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Incident Report</masterLabel>
+        <translation><!-- Incident Report --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Police Report</masterLabel>
+        <translation><!-- Police Report --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

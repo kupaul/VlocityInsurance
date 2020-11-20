@@ -1,0 +1,3 @@
+<apex:page standardController="Account" extensions="vlocity_ins.XOMFRLineAndInventoryItemController" showHeader="false" sidebar="false">
+	 <c:XOMInventoryComponent listType="Billing" />  
+</apex:page>

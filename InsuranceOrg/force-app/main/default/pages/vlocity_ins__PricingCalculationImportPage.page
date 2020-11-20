@@ -1,0 +1,203 @@
+<apex:page showHeader="false" sidebar="false"  controller="vlocity_ins.PricingCalculationImportExportController">
+  <html xmlns:ng="http://angularjs.org" ng-app="calculationProcedureImport" lang="en">
+	  <head>  
+           <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+		   <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+                
+	  </head>
+	  
+	  <script type="text/javascript">
+	 	function createCalculationProcedure(contents, callback)
+        {
+        	Visualforce.remoting.Manager.invokeAction(
+        					'{!$RemoteAction.PricingCalculationImportExportController.createCalculationProcedure}',
+        					contents,callback,
+        					{escape: false} );
+        }
+        
+        function turnOffCPTrigger(callback)
+        {
+        	Visualforce.remoting.Manager.invokeAction(
+        		'{!$RemoteAction.PricingCalculationImportExportController.turnOffCPTrigger}',callback,
+        		{escape:false} );
+        }
+        
+        function removeCPTrigger(callback)
+        {
+        	Visualforce.remoting.Manager.invokeAction(
+        		'{!$RemoteAction.PricingCalculationImportExportController.removeCPTrigger}',callback,
+        		{escape:false} );
+        }
+       
+	  	<!-- Name of the application -->
+        var myapp = angular.module('calculationProcedureImport',[]);
+        
+        myapp.directive('appFilereader', function($q) 
+        {
+        	console.log('calling appFilereader');
+            var slice = Array.prototype.slice;        
+            return {
+		      restrict: 'A',
+		      require: '?ngModel',
+		      link: function(scope, element, attrs, ngModel) {
+		        if (!ngModel){
+		        	console.log('no ngModel');
+		        	return;	
+		        } 
+
+		        ngModel.$render = function() {}
+
+		        element.bind('change', function(e) {
+		          var element = e.target;
+		          console.log('file input changed');
+		          if(!element.value) return;
+
+		          element.disabled = true;
+		          $q.all(slice.call(element.files, 0).map(readFile))
+		            .then(function(values) {
+		              //console.log('number of files read in: ' + values.length);
+		              //console.log('file contents: ' + values);
+		              if (element.multiple)
+		              {
+		              	ngModel.$setViewValue(values);
+		              } 
+		              else ngModel.$setViewValue(values.length ? values[0] : null);
+		              element.value = null;
+		              element.disabled = false;
+		            });
+
+		          function readFile(file) {
+		            var deferred = $q.defer();
+
+		            var reader = new FileReader()
+		            reader.onload = function(e) 
+		            {
+		              deferred.resolve(e.target.result);
+		            }
+		            reader.onerror = function(e) {
+		              deferred.reject(e);
+		            }
+		            reader.readAsText(file);
+
+		            return deferred.promise;
+		          }
+
+		        }); //change
+
+		      } //link
+
+		    }; //return
+        }); // appFilereader
+        
+        myapp.factory('calcProcImportService',function($q,$rootScope)
+        {
+        	var factory = {};
+        	
+        	factory.importCP = function(input)
+        	{
+           		var deferred = $q.defer();  
+                
+                createCalculationProcedure(input,function(result)
+                {  
+                    $rootScope.$apply(function()
+                    {  
+                        deferred.resolve(result); 
+                        
+                    });  
+                });
+                return deferred.promise; 
+            };
+            
+            factory.turnOffCPTrigger = function()
+            {
+            	var deferred = $q.defer();
+            	turnOffCPTrigger( function(result)
+            	{
+            		$rootScope.$apply(function()
+                    {  
+                        deferred.resolve(result);
+                        console.log('turn off trigger.' );                      
+                    });
+            	});         	
+            };
+            
+            factory.removeCPTrigger = function()
+            {
+            	var deferred = $q.defer();
+            	removeCPTrigger( function(result)
+            	{
+            		$rootScope.$apply(function()
+                    {  
+                        deferred.resolve(result);
+                        console.log('remove temp trigger.' );                      
+                    });
+            	});         	
+            };
+                    
+           return factory;
+        });
+        
+        myapp.controller('ctrlCalcProcImport', function($scope, $filter,$q,calcProcImportService) 
+        {
+        	//$scope.exportData = [];
+        	$scope.ctx = { objectId : "{!$CurrentPage.parameters.Id}" };
+        	$scope.importCalcProc = null;
+        	$scope.importMessage = '';
+        	//$scope.importProgress = '';
+        	$scope.errorMessage = null;
+        	
+        	
+        	$scope.$watch('importCalcProc', function()
+        	{
+				if($scope.importCalcProc)
+				{
+					console.log('file is picked, will call import');
+				
+					$scope.import();
+				}
+	   		});
+	   		
+	   		$scope.import = function()
+	   		{	
+				calcProcImportService.turnOffCPTrigger();
+				
+				calcProcImportService.importCP($scope.importCalcProc).then(function(result, event)
+				{
+					if(result)
+					{
+						console.log('New CP is imported and Id is: ' + result );
+						$scope.importMessage = 'Import Calculation Procedure succeeded';
+					}
+					else
+					{
+						$scope.errorMessage = 'Import Calculation Procedure failed';
+					}
+				
+				});
+				
+				calcProcImportService.removeCPTrigger();				
+			}
+	   		
+        	
+        });
+    
+	  </script>
+	  
+	  <body>
+	  	<div class="vlocity"  ng-controller="ctrlCalcProcImport" >
+		  	<div class="panel">
+	  			<div class="panel-body">
+	    			<button class="btn btn-primary" onclick="document.getElementById('logo').click();" >
+						Choose File <input type="file" id="logo" style="display:none;" accept=".json" ng-model="importCalcProc" multiple="" app-filereader="true"/>
+					</button>
+					
+	  			</div>
+	  			<div style="margin-top:10px">
+	  				<p ng-show="importMessage">{{importMessage}}</p>
+					<p ng-show="errorMessage">{{errorMessage}}</p>
+	  			</div>					 		
+		  	</div>  
+	  	</div>
+	  </body>
+	</html>
+</apex:page>

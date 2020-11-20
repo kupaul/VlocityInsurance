@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Dosage__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The dose is the amount of drug taken at any one time.</description>
+    <externalId>false</externalId>
+    <label>Dosage</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

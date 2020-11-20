@@ -1,0 +1,110 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false" controller="vlocity_ins.CardCanvasController" standardStylesheets="false">
+<apex:includeLightning />
+<html dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}"  lang="{!language}" xml:lang="{!language}">
+    <head>
+        <style type="text/css">
+            body {
+                margin: 0px !important;
+                padding: 0px !important;
+                background: transparent;
+                position:relative;
+            }
+        </style>
+        <script>
+            window.iFrameResizer = {
+                messageCallback: function(message) {
+                    try {
+                        if (window.vlocityUniversalCardPage && window.vlocityUniversalCardPage.handleExternalEvent) {
+                            window.vlocityUniversalCardPage.handleExternalEvent(message);
+                        }
+                    } catch (e) {};
+                }
+            };
+        </script>
+
+        <c:CardStyleLoaderComponent useClassicStylesByDefault="true"></c:CardStyleLoaderComponent>
+        <!-- Common scripts -->
+        <script src="{!URLFOR($Resource.vlocity_core_assets, '/latest/vlocity_core_assets.js')}"></script>
+        <script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+        <script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework_assets.js')}"></script>
+        <script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework.js')}"></script>
+        <script src="{!$Resource.SldsAngular}"></script>
+
+    </head>
+    <body>
+    <div class="vlocity via-slds" ng-app="universalApp" ng-controller="rootController">
+        <vloc-layout layout-name="{{layoutName}}" layout-id="{{layoutId}}"  />
+    </div>
+    <script type="text/javascript">
+        var localeFileUrlPattern = "{!URLFOR($Resource.angular_i18n, '/angular-locale_{{locale}}.js')}";
+        var elements = location.hostname.split(".");
+        var instance = (elements.length == 3) ? elements[0] : elements[1];
+        // Are we on a Community page?
+        var baseURL = '{!$Site.BaseUrl}' || null;
+        var instanceURL =  baseURL || ('https://' + instance + '.salesforce.com');
+        var sessionId = '{!$Api.Session_ID}';
+        var mydomainUrl = '{!JSENCODE(domainUrl)}';
+
+        var vlocCommunities = {
+            'localeFileUrlPattern': localeFileUrlPattern,
+            'sfInstanceUrl': instanceURL,
+            'currentInstanceUrlWithPath': '{!currentInstanceUrlWithPath}',
+            'nsPrefix': '{!nsPrefix}',
+            'nsPrefixDotNotation': '{!nsPrefixDotNotation}',
+            'accessToken': '{!$Api.Session_ID}',
+            'loggedUser': JSON.parse('{!JSENCODE(loggedUser)}'),
+            'staticResourceURL' : {
+                'communityHeader': '{!URLFOR($Resource.communityHeader)}',
+                'logo': '{!URLFOR($Resource.CommunityLogo)}',
+                'communityAds': '{!URLFOR($Resource.CommunityAds)}'
+            }
+        };
+
+        localStorage.setItem('nsPrefixDotNotation', "{!nsPrefixDotNotation}");
+        localStorage.setItem('nsPrefix', vlocCommunities.nsPrefix);
+        var _$provide = null;
+        angular
+            .module('universalApp', ['CardFramework', 'vlocity', 'forceng', 'cfp.hotkeys', 'tmh.dynamicLocale'])
+            .config(['tmhDynamicLocaleProvider',function(tmhDynamicLocaleProvider) {
+                var localeFileUrlPattern = vlocCommunities.localeFileUrlPattern;
+
+                /* Set the pattern that locale files follow */
+                tmhDynamicLocaleProvider.localeLocationPattern(localeFileUrlPattern);
+            }])
+            .run(["$rootScope", "force", "API_VERSION", 'userProfileService', 'tmhDynamicLocale', function ($rootScope, force, API_VERSION, userProfileService, tmhDynamicLocale) {
+                var proxy = '/services/proxy';
+                var proxyURL = baseURL ? (baseURL + proxy) : proxy;
+
+                force.init({
+                    accessToken: vlocCommunities.accessToken,
+                    apiVersion: API_VERSION,
+                    useProxy: false //removed instance url as force will takecare of it.
+                });
+
+                $rootScope.staticResourceURL = vlocCommunities.staticResourceURL;
+                $rootScope.isCommunity = '{!isCommunity}';
+                $rootScope.isCommunity = $rootScope.isCommunity === 'true' ? true : false;
+                localStorage.setItem('sfInstanceUrl', vlocCommunities.sfInstanceUrl);
+                localStorage.setItem('currentInstanceUrlWithPath', vlocCommunities.currentInstanceUrlWithPath);
+
+                $rootScope.loggedUser = vlocCommunities.loggedUser;
+                $rootScope.nsPrefix = vlocCommunities.nsPrefix;
+
+                userProfileService.userInfoPromise().then(
+                    function(data) {
+                        //set the i18n file path based on the user's locale in sfdc
+                        //added a check for hebrew old anlocale
+                        tmhDynamicLocale.set(data.anlocale === "iw-il" ? "he-il" : data.anlocale);
+                        moment.locale(data.anlocale);
+
+                    });
+            }])
+            .controller('rootController', ['$scope', 'pageService', function ($scope, pageService) {
+                $scope.layoutName = pageService.params.layout;
+                $scope.layoutId = pageService.params.layoutId;
+                $scope.id = $scope.Id = pageService.params.id || pageService.params.Id;
+            }]);
+    </script>
+    </body>
+</html>
+</apex:page>

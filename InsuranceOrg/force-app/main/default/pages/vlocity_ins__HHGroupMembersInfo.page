@@ -1,0 +1,103 @@
+<apex:page StandardController="vlocity_ins__Household__c" extensions="vlocity_ins.HHGroupMembersInfoController">
+  <html xmlns:ng="http://angularjs.org" ng-app="groupmemberlist" lang="en">
+  <head>
+            <meta charset="utf-8"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__AngularJS}" />  
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/javascripts/bootstrap.min.js')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/css/styles.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__IcoMoonIconPack, 'style.css')}"/>
+  </head>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/javascripts/bootstrap.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/css/styles.css')}"/>
+    <style>
+
+        .bPageBlock{
+            border-top: 1px solid #eaeaea !important;
+        }
+    </style>    
+    <script type='text/javascript'>
+            function disableAndUncheckAll()
+            {
+                //Disable and uncheck all the check boxes to get rid of ghost effect 
+                var checkboxes = document.getElementsByTagName('input');
+                eventSrcID=(event.srcElement)?event.srcElement.id:'undefined';
+                for (var i=0; i<checkboxes.length; i++) 
+                {
+                    checkboxes[i].disabled=true;
+                    checkboxes[i].checked=false;
+                }
+                //Check the selected value. 
+                var selectedCheckBox = document.getElementById(eventSrcID);
+                selectedCheckBox.checked= true;
+            }
+            
+            <!-- Name of the application -->
+            var myapp = angular.module('groupmemberlist', []);   
+            var contrl = myapp.controller('ctrlContactList', function ($scope, $window) 
+            {
+                    $scope.isSforce = (typeof sforce != 'undefined' && typeof sforce.one != 'undefined')?(true):(false);   
+                    console.log('is force variable is '+  $scope.isSforce);
+            }); 
+            
+    </script>
+    <apex:form >
+        <apex:pageMessages />
+        <apex:outputText value="{!vlocity_ins__Household__c.vlocity_ins__PartyId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Household__c.vlocity_ins__PrimaryContactId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Household__c.vlocity_ins__PrimaryAccountId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Household__c.vlocity_ins__PrimaryPartyId__c}" rendered="false" />
+        <apex:outputPanel layout="none" id="idMemberInfoBlock">
+           <div ng-controller="ctrlContactList" class="vlocity">
+                <div class="panel panel-default">
+                    <div class="panel-heading">&nbsp;
+                            <apex:commandButton value="{!$Label.vlocity_ins__addmember}" onClick="window.top.location.href = '{!$Site.BaseRequestUrl}{!AddMemberLink}'" styleClass="btn-primary btn-xs"/>
+                    </div>
+                    <apex:dataTable styleClass="table table-bordered" var="member" value="{!HouseholdMembers}">
+                        <apex:column >                      
+                            <span aria-hidden="true" class="icon-v-trash-line" onClick="removeMemberAssociation('{!member.memberFieldValues["Id"]}')" style="cursor: pointer; font-size: 16px"/>
+                        </apex:column>
+                        <apex:column style="width:50px">
+                            <apex:facet name="header">{!$Label.vlocity_ins__primary}</apex:facet>      
+                             <apex:inputCheckbox id="inputCheckBox"
+                                                disabled="{!member.isPrimary}"
+                                                value="{!member.isPrimary}"
+                                                onclick="disableAndUncheckAll()"
+                                                onchange="doMakePrimary('{!member.memberFieldValues["Id"]}');"/>                                            
+                        </apex:column>
+                        <apex:column >
+                            <apex:facet name="header">{!$Label.vlocity_ins__role}</apex:facet>
+                            <apex:outputText value="{!member.roleString}"/>
+                        </apex:column>
+                        
+                        <apex:column >
+                            <apex:facet name="header">{!$Label.vlocity_ins__membername}</apex:facet>
+                            <a ng-if="!isSforce" onClick="window.top.location.href='{!$Site.BaseRequestUrl}/{!member.entityId}'; return false;">{!member.memberFieldValues["Name"]}</a> 
+                            <a ng-if="isSforce" href="javascript:sforce.one.navigateToURL('{!$Site.BaseRequestUrl}/{!member.entityId}')">{!member.memberFieldValues["Name"]}</a> 
+                        </apex:column>
+                        <apex:repeat value="{!fieldList}" var="fld"> 
+                        <apex:column >
+                            <apex:facet name="header">{!fieldLabel[fld]}</apex:facet>
+                            <apex:outputText value="{!member.memberFieldValues[fld]}"/>
+                        </apex:column> 
+                      </apex:repeat>
+                    </apex:dataTable>
+                </div>
+            </div>
+        </apex:outputPanel>
+        <apex:actionFunction name="doMakePrimary"
+                                action="{!makePrimaryMember}"
+                                rerender="idMemberInfoBlock">
+            <apex:param name="primaryMemberId"
+                        value=""/>
+        </apex:actionFunction>  
+        <apex:actionFunction name="removeMemberAssociation"
+                                action="{!doRemoveMemberAssociation}"
+                                rerender="idMemberInfoBlock"
+                                oncomplete="window.top.location.href = '{!$Site.BaseRequestUrl}/{!householdId}'">
+            <apex:param name="firstParam"
+                        assignTo="{!memberId}"
+                        value=""/>
+        </apex:actionFunction>  
+    </apex:form>
+     </html>
+</apex:page>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsConditionFailed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Is Condition failed prevents Attributes propagation, but still allows tracing a Destination FRL created following decomposition rules (ex. Scope, Soft Cancel...)</description>
+    <externalId>false</externalId>
+    <label>Is Condition Failed</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

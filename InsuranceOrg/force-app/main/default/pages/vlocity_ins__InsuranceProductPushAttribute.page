@@ -1,0 +1,20 @@
+<apex:page docType="html-5.0" standardController="Product2" extensions="vlocity_ins.InsuranceProductPushAttributeController" applyHtmlTag="false" showHeader="false" sidebar="false" applyBodyTag="false">
+    <apex:slds />
+    <apex:form >
+        <br/><h2>{!pushAttributeMessage}</h2><br/><br/>
+        <apex:commandLink action="{!pushAttribute}">
+            <apex:commandButton value="{!$Label.vlocity_ins__omnicontinue}"/>
+        </apex:commandLink>
+        <br/><br/><apex:outputText value="{!resultMessage}" rendered="{!isPushed}"/><br/>
+        <apex:repeat value="{!updatedProducts}" var="prod">
+            <apex:outputText value="{!prod.Name}"/><br/>
+        </apex:repeat>
+        <br/><br/><apex:outputText value="{!failedPushMessage}" rendered="{!isFailedPush}"/><br/>
+        <apex:repeat value="{!failedPushProducts}" var="fprod">
+            <apex:outputText value="{!fprod.Name}"/><br/>
+        </apex:repeat>
+        <br/><br/><apex:outputText value="{!noProductsMessage}" rendered="{!isNotPushed}"/><br/>
+        <br/><br/><apex:outputText value="{!exceptionMessage}" rendered="{!hasException}"/><br/>
+        <br/><br/><apex:outputText value="{!$Label.vlocity_ins__insproductpushattributebatchsubmitted}" rendered="{!isBatchSubmitted}"/><br/>            
+    </apex:form>
+</apex:page>

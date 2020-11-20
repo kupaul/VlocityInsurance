@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Service__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Identifies the formula used to identify qualifying profile attribute subjects (e.g. qualifying Accounts or Contacts).</description>
+    <externalId>false</externalId>
+    <label>Service</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

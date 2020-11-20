@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsPONRReached__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This is an internal flag used in Pont-of-No-Return calculations</description>
+    <externalId>false</externalId>
+    <label>Is PONR Reached</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

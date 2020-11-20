@@ -1,0 +1,2 @@
+<apex:page standardController="Opportunity" extensions="vlocity_ins.CreateUpdateContractController" action="{!doCreateContract}" showHeader="false" sidebar="false" docType="html-5.0"> 
+</apex:page>

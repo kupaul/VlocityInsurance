@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__OrderItemId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Identifies the line item (therefore asset) to which the promotional pricing will be applied. Used when a promotion will be applied to a specific asset.</description>
+    <externalId>false</externalId>
+    <label>Order Item</label>
+    <referenceTo>OrderItem</referenceTo>
+    <relationshipLabel>Order Applied Promotions</relationshipLabel>
+    <relationshipName>OrderAppliedPromotions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

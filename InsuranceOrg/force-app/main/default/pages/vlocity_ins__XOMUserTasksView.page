@@ -1,0 +1,31 @@
+<!-- Displays Manual Tasks assigned to a User in off-platform -->
+<apex:page showHeader="true" sidebar="true" standardController="User" extensions="vlocity_ins.XOMOffPlatformAccessConfigController" standardStylesheets="false" docType="html-5.0">
+    <apex:slds />
+    <script type="text/javascript" src="{!URLFOR($Resource.ThorJsBundle)}"></script>
+    <!-- <script src="https://localhost:8443/main.js"></script> -->
+    <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/components/remoteActions.js')}"></script>
+    <link rel="stylesheet" href="{!URLFOR($Resource.ThorBundleCss)}" />   
+    <div class="slds-scope">
+        <ng-view id="xomApplicationContainer">loading...</ng-view>
+    </div>
+    <script type="application/javascript">
+        angular.module('xomServices')
+            .config(['remoteActionsProvider', function(remoteActionsProvider) 
+            {
+                remoteActionsProvider.setRemoteActions({
+                    getThorBackendUrl: "{!$RemoteAction.XOMOffPlatformAccessConfigController.getOffplatformUrl}"
+                });
+            }])
+            .value('thorLayoutConfig', 
+            {
+            hideObjectHierarchy: true,
+            hideHeader: true,
+            hideLogoutButton: true,
+            activeTabId: 976718169186102319, //My Tasks tab
+            showCurrentTabOnly: true
+            });
+
+            window.location.hash = "!/user/";
+        
+    </script>
+</apex:page>

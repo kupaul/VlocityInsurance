@@ -1,0 +1,1 @@
+body{max-width:1200px;min-width:300px;margin:0 auto!important}.vlocity .community .h2{margin:10px 0}

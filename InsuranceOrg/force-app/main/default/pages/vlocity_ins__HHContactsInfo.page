@@ -1,0 +1,107 @@
+<apex:page StandardController="vlocity_ins__Household__c" extensions="vlocity_ins.HHContactsInfoController">
+  <html xmlns:ng="http://angularjs.org" ng-app="contactlist" lang="en">
+  <head>
+            <meta charset="utf-8"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__AngularJS}" />  
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/javascripts/bootstrap.min.js')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/css/styles.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__IcoMoonIconPack, 'style.css')}"/>
+  </head>
+
+    <style>
+        .icon-remove2{
+            cursor: pointer;
+        }
+        .bPageBlock{
+            border-top: 1px solid #eaeaea !important;
+        }
+    </style>    
+    <script type='text/javascript'>
+        <!-- Name of the application -->
+       var myapp = angular.module('contactlist', []);   
+       var contrl = myapp.controller('ctrlContactList', function ($scope, $window) 
+       {
+                $scope.isSforce = (typeof sforce != 'undefined' && typeof sforce.one != 'undefined')?(true):(false);     
+       });
+       
+        function disableAndUncheckAll()
+        {
+            //Disable and uncheck all the check boxes to get rid of ghost effect 
+            var checkboxes = document.getElementsByTagName('input');
+            eventSrcID=(event.srcElement)?event.srcElement.id:'undefined';
+            for (var i=0; i<checkboxes.length; i++) 
+            {
+                checkboxes[i].disabled=true;
+                checkboxes[i].checked=false;
+            }
+            //Check the selected value. 
+            var selectedCheckBox = document.getElementById(eventSrcID);
+            selectedCheckBox.checked= true; 
+        } 
+        
+    </script>
+    <apex:form >
+        <apex:pageMessages />
+        <apex:outputText value="{!vlocity_ins__Household__c.vlocity_ins__PartyId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Household__c.vlocity_ins__PrimaryContactId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Household__c.vlocity_ins__PrimaryPartyId__c}" rendered="false" />
+        <apex:outputPanel layout="none" id="idContactInfoBlock"> 
+         <div ng-controller="ctrlContactList" class="vlocity">
+            <apex:pageBlock >
+                <apex:pageBlockButtons location="top">
+                <!-- PS 492: Adding sforce changes for mobiles s -->
+                    <!-- <apex:commandButton value="{!$Label.vlocity_ins__addcontact}" onClick="window.top.location.href = '{!$Site.BaseRequestUrl}{!AddContactLink}'"/> -->
+                     <a ng-if="!isSforce"><apex:commandButton value="{!$Label.vlocity_ins__addcontact}" onClick="window.top.location.href = '{!$Site.BaseRequestUrl}{!AddContactLink}'"/></a>
+                     <a ng-if="isSforce"> <apex:commandButton value="{!$Label.vlocity_ins__addcontact}" onClick="javascript:sforce.one.navigateToURL('{!AddContactLink}')"/></a>
+                    <!-- PS 492: Adding sforce changes for mobiles s -->
+                </apex:pageBlockButtons>
+                
+                <apex:pageBlockTable var="contact"
+                                value="{!HouseholdContacts}">
+                    <apex:column >
+                        <i class="icon icon-v-trash-line" style="cursor: pointer" onClick="removeContactAssociation('{!contact.contactSO.Id}')"/>
+                    </apex:column>
+                    <apex:column style="width:50px">
+                        <apex:facet name="header">{!$Label.vlocity_ins__primary}</apex:facet>
+                        <apex:inputCheckbox id="inputCheckBox"
+                                            disabled="{!contact.isPrimary}"
+                                            value="{!contact.isPrimary}"
+                                            onclick="disableAndUncheckAll()"
+                                            onchange="doMakePrimary('{!contact.contactSO.Id}');"/>
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">{!$ObjectType.Contact.fields.Name.Label}</apex:facet>
+                           <a ng-if="!isSforce" onClick="window.top.location.href = '{!$Site.BaseRequestUrl}/{!contact.contactSO.Id}'; return false;">{!contact.contactSO.Name}</a>
+                           <a ng-if="isSforce" href="javascript:sforce.one.navigateToURL('/{!contact.contactSO.Id}')">{!contact.contactSO.Name}</a> 
+                    </apex:column>
+                    <apex:column >
+                        <apex:facet name="header">{!$Label.vlocity_ins__role}</apex:facet>
+                        <apex:outputText value="{!contact.roleString}"/>
+                    </apex:column>
+                    <apex:repeat value="{!fieldList}" var="fld"> 
+                        <apex:column >
+                            <apex:facet name="header">{!fieldLabel[fld]}</apex:facet>
+                            <apex:outputField value="{!contact.contactSO[fld]}"/>
+                        </apex:column> 
+                      </apex:repeat>
+                </apex:pageBlockTable>
+            </apex:pageBlock>
+            </div>
+        </apex:outputPanel>
+        <apex:actionFunction name="doMakePrimary"
+                                action="{!makePrimaryContact}"
+                                oncomplete="window.top.location.href = '{!$Site.BaseRequestUrl}/{!householdId}'; return false;" >                          
+            <apex:param name="primaryContactId"
+                        value=""/>
+        </apex:actionFunction>  
+        <apex:actionFunction name="removeContactAssociation"
+                                action="{!doRemoveContactAssociation}"
+                                rerender="idContactInfoBlock"
+                                oncomplete="window.top.location.href = '{!$Site.BaseRequestUrl}/{!householdId}'">
+            <apex:param name="firstParam"
+                        assignTo="{!contactId}"
+                        value=""/>
+        </apex:actionFunction>  
+    </apex:form>
+    </html>
+</apex:page>

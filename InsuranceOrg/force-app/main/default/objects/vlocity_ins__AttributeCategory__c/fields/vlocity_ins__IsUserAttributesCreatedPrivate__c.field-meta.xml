@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsUserAttributesCreatedPrivate__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>When true, new user-created attributes in this category will be defined as private, which means that other users will not be able to see this attribute in the list of available attributes.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Set this to true if you want new user-created attributes to be private, which means other users will not see this attribute in the select list.</inlineHelpText>
+    <label>User Attributes Created Private</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

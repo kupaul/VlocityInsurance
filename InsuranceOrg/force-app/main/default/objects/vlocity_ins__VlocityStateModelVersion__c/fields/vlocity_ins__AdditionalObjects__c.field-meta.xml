@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AdditionalObjects__c</fullName>
+    <deprecated>false</deprecated>
+    <description>long text field to store additional objects which user can use to write conditions and the relationship field to StateModel__c.ObjectAPIName__c.  This is used to pull data from parent to all applicable child objects.</description>
+    <externalId>false</externalId>
+    <label>Additional Objects</label>
+    <length>1000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

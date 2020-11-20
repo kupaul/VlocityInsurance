@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FieldsAvailableInRules</fullName>
+    <description>This fieldset comprises of the fields available for Vlocity State Transition Rules, to be used in workflow processing of Applications based on Vlocity State Models.</description>
+    <displayedFields>
+        <field>vlocity_ins__AccountId__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>vlocity_ins__Status__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>vlocity_ins__ApplicationReferenceNumber__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>vlocity_ins__PrimaryContactId__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>vlocity_ins__Type__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>FieldsAvailableInRules</label>
+</FieldSet>

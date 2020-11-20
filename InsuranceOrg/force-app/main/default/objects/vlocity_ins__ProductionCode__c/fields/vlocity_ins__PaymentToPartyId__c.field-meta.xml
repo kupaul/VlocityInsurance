@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PaymentToPartyId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The party that will be paid for producing via this code.</description>
+    <externalId>false</externalId>
+    <label>Payment To</label>
+    <referenceTo>vlocity_ins__Party__c</referenceTo>
+    <relationshipLabel>Production Codes</relationshipLabel>
+    <relationshipName>ProductionCodes</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

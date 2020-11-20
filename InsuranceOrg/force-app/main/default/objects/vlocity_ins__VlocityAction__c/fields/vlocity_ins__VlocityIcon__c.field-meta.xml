@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__VlocityIcon__c</fullName>
+    <defaultValue>&apos;icon-v-document1-line&apos;</defaultValue>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <inlineHelpText>Choose an icon from the list of icons below the Vlocity Action Detail (will not show up in Vlocity Action Edit) by copying its class name here (i.e. icon-v-document1-line). Use attachment to load custom image.</inlineHelpText>
+    <label>Vlocity Icon</label>
+    <length>100</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

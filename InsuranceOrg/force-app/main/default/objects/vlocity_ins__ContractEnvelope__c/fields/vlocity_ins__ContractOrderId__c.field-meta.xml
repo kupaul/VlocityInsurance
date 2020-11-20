@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ContractOrderId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Order for which this envelope was created</description>
+    <externalId>false</externalId>
+    <label>Order</label>
+    <referenceTo>Order</referenceTo>
+    <relationshipLabel>Contract Document Envelopes</relationshipLabel>
+    <relationshipName>ContractEnvelopes</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

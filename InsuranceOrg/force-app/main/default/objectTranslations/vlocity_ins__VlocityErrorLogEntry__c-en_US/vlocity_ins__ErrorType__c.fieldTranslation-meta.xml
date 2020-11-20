@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- A default value set in the data raptor bundle ex: Callout Error, Upsert Error --></help>
+    <label><!-- Error Type --></label>
+    <name>vlocity_ins__ErrorType__c</name>
+    <picklistValues>
+        <masterLabel>Callout Error</masterLabel>
+        <translation><!-- Callout Error --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Upsert Error</masterLabel>
+        <translation><!-- Upsert Error --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

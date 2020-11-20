@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ImportExport</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Import/Export</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/connection.js&quot;)} 
+
+{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/apex.js&quot;)} 
+
+var namespace_prefix = &apos;&apos;; 
+
+
+
+var result = sforce.connection.describeGlobal(); 
+
+var TOKEN_OBJ = &quot;Party__c&quot;; 
+
+var sobjects = result.getArray(&quot;sobjects&quot;); 
+
+
+
+for(var i=0; i&lt;sobjects.length; i++) { 
+
+var sobjName = sobjects[i].name; 
+
+var str = sobjName.split(&quot;__&quot;); 
+
+//if there are 3 values there is a namespace 
+
+if (str.length == 3){ 
+
+//Is it one of ours? 
+
+var sobj = str[1].valueOf() +&apos;__c&apos;; 
+
+if(sobj == TOKEN_OBJ) { 
+
+namespace_prefix = str[0].valueOf(); 
+
+} 
+
+} 
+
+} 
+
+if(namespace_prefix != &quot;&quot;){ 
+
+namespace_prefix+= &apos;__&apos;; 
+
+} 
+window.location = &apos;apex/&apos;+namespace_prefix+&apos;StateModelImportExport?Id=&apos; +&apos;{!vlocity_ins__VlocityStateModel__c.Id}&apos;;</url>
+</WebLink>

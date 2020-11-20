@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Fulfilment Request --></help>
+    <label><!-- Fulfilment Request Id --></label>
+    <name>vlocity_ins__FulfilmentRequestID__c</name>
+    <relationshipLabel><!-- Fulfillment Request Lines --></relationshipLabel>
+</CustomFieldTranslation>

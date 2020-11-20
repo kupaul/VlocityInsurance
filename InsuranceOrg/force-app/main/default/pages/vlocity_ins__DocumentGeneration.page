@@ -1,0 +1,317 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="vlocity_ins.ContractDocumentCreationController" >  
+<html xmlns:ng="http://angularjs.org" lang="en">
+        <apex:includeScript value="/support/console/31.0/integration.js"/>  
+        <apex:includeScript value="/xdomain/xdomain.js"/>  
+        <apex:includeScript value="{!$Resource.vlocity_ins__JQUERYJS}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>           
+        <apex:includeScript value="{!$Resource.vlocity_ins__AngularJS}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/jszip/jszip.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/jszip-utils.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/file-saver.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/build/docxtemplater.v3.5.0.min.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__DocXContentTypes}"/>
+    <style>       
+        .svg-wrapper {
+            width: 100%;
+            position: relative;
+            padding: 50px 0;
+        }
+        .svg-wrapper svg {
+            width: 40px;
+            position: absolute;
+            left: 50%;
+            margin-left: -14px;
+        }
+        .svg-wrapper span.finishing {
+            display: block;
+            text-align: center;
+            padding-top: 50px;
+            color: #8c8c8c;
+        }
+    </style>
+    <script type="text/javascript">
+        (function() {
+            'use strict';
+            function CustomEvent(event, params) {
+                var evt;
+                params = params || {bubbles: false, cancelable: false, detail: undefined};
+                evt = document.createEvent('CustomEvent');
+                evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+                return evt;
+            }
+
+            CustomEvent.prototype = window.Event.prototype;
+
+            window.CustomEvent = CustomEvent;
+        })();
+
+        function savePdf(objId, callback) {
+            'use strict';
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ContractDocumentCreationController.savePdf}', objId, callback, {buffer: false, escape: false});
+        }
+
+        function attachDocx(objId, doc, callback) {
+            'use strict';
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ContractDocumentCreationController.saveDocx}', objId, doc, callback, {buffer: false, escape: false});
+        }
+
+        function downloadDocx(objId, rels, callback) {
+            'use strict';
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ContractDocumentCreationController.getContractVersionDocument}', objId, rels, callback, {buffer: false, escape: false});
+        }
+
+        function getDocxTemplate(objId, callback) {
+            'use strict';
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ContractDocumentCreationController.getDocTemplateForContractType}', objId, callback, {buffer: false, escape: false});
+        }
+
+        /**
+         * 
+         */
+        function updateLinkContentVersionFromContractVersion(inputMap, callback) {
+             'use strict';
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ContractDocumentCreationController.updateLinkContentVersionFromContractVersion}', inputMap, callback, {buffer: false, escape: false});
+        }
+
+        function getTemplateZip(result) {
+            'use strict';
+            var zip = new JSZip(result.templateEncoded, {base64: true});
+            return zip;
+        }
+
+        function getRelsFile(zip) {
+            'use strict';
+            var file = zip.file('word/_rels/document.xml.rels');
+            if (file !== null) {
+                return file.asText();
+            }
+            return '';
+        }
+
+        function generateDocx(result, type, zip) {
+            'use strict';
+            var i, doc, out;
+            var contractData = result.contractData;
+            var imageCount = result.imageData.numImages;
+            
+            for (i = 0; i < imageCount; i++) {
+                if (typeof result.imageData['imageData' + i] !== 'undefined' && result.imageData['imageData' + i] !== null) {
+                    zip.file('word/media/imageData' + i + '.png', result.imageData['imageData' + i], {base64: true});
+                }
+            }
+            zip.remove('word/numbering.xml');
+            zip.file('word/numbering.xml',result.contractData.numberingXML,{});
+            if (typeof result.contractData.DocxRels !== 'undefined' && result.contractData.DocxRels !== null) {
+                zip.remove('word/_rels/document.xml.rels');
+                zip.file('word/_rels/document.xml.rels', result.contractData.DocxRels, {});
+            }
+            doc = new Docxtemplater();
+            doc.loadZip(zip);
+            doc.setData(contractData);
+            doc.render();
+
+            if (type === 'blob') {
+                out = doc.getZip().generate({type: 'blob'});
+            } else {
+                out = doc.getZip().generate({type: 'base64'});
+            }
+            return out;
+        }
+
+        function b64toBlob(b64Data, contentType, sliceSize) {
+            'use strict';
+            var offset, slice, byteNumbers, i, byteArray, blob;
+            var byteCharacters = atob(b64Data);
+            var byteArrays = [];
+            contentType = contentType || '';
+            sliceSize = sliceSize || 512;
+
+            for (offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                byteNumbers = new Array(slice.length);
+                for (i = 0; i < slice.length; i++) {
+                    byteNumbers[i] = slice.charCodeAt(i);
+                }
+
+                byteArray = new Uint8Array(byteNumbers);
+
+                byteArrays.push(byteArray);
+            }
+
+            blob = new Blob(byteArrays, {type: contentType});
+            return blob;
+        }
+
+        var contractVersionPdfApp = angular.module('contractVersionPdfApp', []);
+        contractVersionPdfApp.factory('contractVersionPdfService', function($q, $rootScope) {
+            'use strict';
+            var factory = {};
+            factory.savePdf = function(objId) {
+                var deferred = $q.defer();
+                savePdf(objId, function(result) {
+                    $rootScope.$apply(function() {
+                        deferred.resolve(result);
+                    });
+                });
+                return deferred.promise;
+            };
+
+            factory.downloadPdf = function(objId, docName) {
+                var deferred = $q.defer();
+                downloadPdf(objId, docName, function(result) {
+                    $rootScope.$apply(function() {
+                        deferred.resolve(result);
+                    });
+                });
+                return deferred.promise;
+            };
+
+            factory.downloadDocx = function(objId, rels) {
+                var deferred = $q.defer();
+                downloadDocx(objId, rels, function(result) {
+                    $rootScope.$apply(function() {
+                        deferred.resolve(result);
+                    });
+                });
+                return deferred.promise;
+            };
+
+            factory.attachDocx = function(objId, data) {
+                var deferred = $q.defer();
+                attachDocx(objId, data, function(result) {
+                    $rootScope.$apply(function() {
+                        deferred.resolve(result);
+                    });
+                });
+                return deferred.promise;
+            };
+
+            factory.getDocxTemplate = function(objId) {
+                var deferred = $q.defer();
+                getDocxTemplate(objId, function(result) {
+                    $rootScope.$apply(function() {
+                        deferred.resolve(result);
+                    });
+                });
+                return deferred.promise;
+            };
+
+            factory.updateLinkContentVersionFromContractVersion = function(objId) {
+                var deferred = $q.defer();
+                updateLinkContentVersionFromContractVersion(objId, function(result) {
+                    $rootScope.$apply(function() {
+                        deferred.resolve(result);
+                    });
+                });
+                return deferred.promise;
+            }
+
+            return factory;
+        });
+
+        contractVersionPdfApp.controller('contractVersionPdfController', function($scope, contractVersionPdfService) {
+            'use strict';
+            $scope.parentId = '{!parentId}';
+            $scope.sourceId = '{!sourceId}';
+            $scope.nameSpaceprefix = '{!nameSpacePrefix}';
+            $scope.isSforce = (typeof sforce !== 'undefined' && typeof sforce.one !== 'undefined') ? (true) : (false);
+            $scope.docName = '{!JSENCODE(documentName)}';
+            $scope.docType = '{!JSENCODE(attachDocType)}';
+            $scope.containsRedlines = '{!containsRedlines}';
+            $scope.templateType = '{!templateType}';
+            console.log('$scope.docType ' + $scope.docType);
+
+            $scope.attachPdf = function() {
+                contractVersionPdfService.savePdf($scope.parentId).then(function(result) {
+                    $scope.dispatchEvent();
+                });
+            };
+
+            $scope.saveDocx = function() {
+                window.top.location.href = '{!$Site.BaseRequestUrl}/apex/' + $scope.nameSpaceprefix + 'ContractVersionDocxGen?Id=' + $scope.parentId;
+            };
+
+            $scope.attachDocx = function() {
+                contractVersionPdfService.getDocxTemplate($scope.parentId).then(function(result) {
+                    var zip, gendocx;
+                    if (result.errorString !== undefined) {
+                        alert(result.errorString);
+                    } else {
+                        zip = getTemplateZip(result);
+                        parseContentTypes(zip); // parse the document content to convert all jpeg/jpg images to png
+                        
+                        contractVersionPdfService.downloadDocx($scope.parentId, getRelsFile(zip)).then(function(result) {
+                            if (result.errorString !== undefined) {
+                                alert(result.errorString);
+                            } else {
+                                gendocx = generateDocx(result, 'base64', zip);
+                                contractVersionPdfService.attachDocx($scope.parentId, gendocx).then(function() {
+                                    $scope.dispatchEvent();
+                                });
+                            }
+                        });
+                    }
+                });
+            };
+            $scope.dispatchEvent = function() {
+                 var event = new CustomEvent('ContractDocumentAttachDone', {
+                        detail: true
+                    });
+                window.parent.dispatchEvent(event);
+                window.close();
+            }
+            $scope.generateFile = function() {
+                if ($scope.docType.search(/WORD/i) > -1 && $scope.docType.search(/PDF/i) > -1) {
+                    contractVersionPdfService.savePdf($scope.parentId).then(function(result) {
+                        console.log(result);
+                        $scope.attachDocx();
+                    });
+                } else if ($scope.docType.search(/PDF/i) > -1) {
+                    $scope.attachPdf();
+                } else if ($scope.docType.search(/WORD/i) > -1) {
+                    $scope.attachDocx();
+                } else if ($scope.docType.search(/NONE/i) > -1) {
+                   $scope.dispatchEvent();
+                }
+            };
+            $scope.loading = true;
+
+            if ($scope.templateType === 'Vlocity Web Template') {
+                $scope.generateFile();
+            } else {
+                console.log('### docx');
+                var inputMap = {
+                    'parentId' : $scope.parentId,
+                    'attachmentType' : $scope.docType
+                };
+
+                contractVersionPdfService.updateLinkContentVersionFromContractVersion(inputMap).then(function() {
+                    $scope.dispatchEvent();
+                });
+            }
+            
+        });
+    </script>
+    <body>
+        <div class="vlocity" ng-app="contractVersionPdfApp" ng-controller="contractVersionPdfController">          
+            <div class="svg-wrapper">
+                <svg x="0px" y="0px" width="40" height="40" viewBox="0 0 48 48">
+                    <g width="48" height="48">
+                        <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 24 24" to="360 24 24" dur="0.75s" repeatCount="indefinite"/>
+                         <path fill="#dedede" d="M24,45C12.4,45,3,35.6,3,24S12.4,3,24,3V0l0,0C10.7,0,0,10.7,0,24c0,13.3,10.7,24,24,24V45z"/>
+                         <path fill="#05a6df" d="M24,3c11.6,0,21,9.4,21,21s-9.4,21-21,21v3l0,0c13.3,0,24-10.7,24-24C48,10.7,37.3,0,24,0V3z"/>
+                    </g>
+                </svg>
+                <span class="finishing">Creating Contract...</span>
+            </div>
+        </div> 
+    </body>
+</html>
+</apex:page>

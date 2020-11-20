@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EmploymentStatus__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Employment Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Employed Full-Time</fullName>
+                <default>false</default>
+                <label>Employed Full-Time</label>
+            </value>
+            <value>
+                <fullName>Employed Part-Time</fullName>
+                <default>false</default>
+                <label>Employed Part-Time</label>
+            </value>
+            <value>
+                <fullName>Self-Employed</fullName>
+                <default>false</default>
+                <label>Self-Employed</label>
+            </value>
+            <value>
+                <fullName>Unemployed</fullName>
+                <default>false</default>
+                <label>Unemployed</label>
+            </value>
+            <value>
+                <fullName>Student</fullName>
+                <default>false</default>
+                <label>Student</label>
+            </value>
+            <value>
+                <fullName>Retired</fullName>
+                <default>false</default>
+                <label>Retired</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

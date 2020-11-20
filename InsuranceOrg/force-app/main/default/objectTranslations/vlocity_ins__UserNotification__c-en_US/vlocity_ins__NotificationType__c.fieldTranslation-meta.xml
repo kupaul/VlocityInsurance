@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__NotificationType__c</name>
+    <picklistValues>
+        <masterLabel>ASSISTIVE_NOTIFICATION</masterLabel>
+        <translation><!-- ASSISTIVE_NOTIFICATION --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ERROR_MESSAGE</masterLabel>
+        <translation><!-- ERROR_MESSAGE --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>WARNING_MESSAGE</masterLabel>
+        <translation><!-- WARNING_MESSAGE --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

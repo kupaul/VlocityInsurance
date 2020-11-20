@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Entity Filter --></label>
+    <name>vlocity_ins__EntityFilterId__c</name>
+    <relationshipLabel><!-- Rule Actions --></relationshipLabel>
+</CustomFieldTranslation>

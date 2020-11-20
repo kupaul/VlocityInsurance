@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DestinationInventoryItemId__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Destination Inventory Item</description>
+    <externalId>false</externalId>
+    <label>Destination Inventory Item</label>
+    <referenceTo>vlocity_ins__InventoryItem__c</referenceTo>
+    <relationshipLabel>InventoryItemDecompositionRelationships</relationshipLabel>
+    <relationshipName>InventoryItemDecompositionRelationships</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,3 @@
+<apex:page standardController="Quote" showHeader="false" sidebar="false" docType="html-5.0">
+ <c:FrameContract objId="{!Quote.Id}"/>
+</apex:page>

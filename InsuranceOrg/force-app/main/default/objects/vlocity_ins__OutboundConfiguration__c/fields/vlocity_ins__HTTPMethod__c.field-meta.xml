@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__HTTPMethod__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>HTTP Method</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>POST</fullName>
+                <default>true</default>
+                <label>POST</label>
+            </value>
+            <value>
+                <fullName>GET</fullName>
+                <default>false</default>
+                <label>GET</label>
+            </value>
+            <value>
+                <fullName>DELETE</fullName>
+                <default>false</default>
+                <label>DELETE</label>
+            </value>
+            <value>
+                <fullName>HEAD</fullName>
+                <default>false</default>
+                <label>HEAD</label>
+            </value>
+            <value>
+                <fullName>PUT</fullName>
+                <default>false</default>
+                <label>PUT</label>
+            </value>
+            <value>
+                <fullName>TRACE</fullName>
+                <default>false</default>
+                <label>TRACE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

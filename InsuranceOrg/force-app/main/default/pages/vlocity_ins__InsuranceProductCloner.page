@@ -1,0 +1,15 @@
+<apex:page standardController="Product2" extensions="vlocity_ins.InsuranceProductClonerController" applyHtmlTag="false" showHeader="false" sidebar="false" applyBodyTag="false">
+<apex:slds />
+	<apex:form >
+        <apex:pageMessages id="cloneMessages" rendered="{!isClonable}"/>
+        <br/><h2>{!cloneProductMessage}</h2><br/><br/>
+        <apex:pageMessages id="noCloneMessages" rendered="!{!isClonable}"/>
+        <br/><h2>{!NoCloneMessage}</h2><br/><br/>
+        <apex:commandLink action="{!cloneProduct}" target="_blank" rendered="{!isClonable}">
+            <apex:commandButton value="{!$Label.vlocity_ins__omnicontinue}" rerender="cloneMessages" />
+        </apex:commandLink>
+        <apex:commandLink action="{!cancel}" rendered="{!isClonable}">
+            <apex:commandButton value="{!$Label.vlocity_ins__cancel}" />
+        </apex:commandLink>
+	</apex:form>
+</apex:page>

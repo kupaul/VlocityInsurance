@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Open URL in --></label>
+    <name>vlocity_ins__OpenUrlMode__c</name>
+    <picklistValues>
+        <masterLabel>Current Window</masterLabel>
+        <translation><!-- Current Window --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>New Tab / Window</masterLabel>
+        <translation><!-- New Tab / Window --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

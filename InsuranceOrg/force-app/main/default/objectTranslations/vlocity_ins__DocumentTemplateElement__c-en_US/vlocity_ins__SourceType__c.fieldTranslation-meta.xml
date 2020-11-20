@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Source Type --></label>
+    <name>vlocity_ins__SourceType__c</name>
+    <picklistValues>
+        <masterLabel>Content</masterLabel>
+        <translation><!-- Content --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>External</masterLabel>
+        <translation><!-- External --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

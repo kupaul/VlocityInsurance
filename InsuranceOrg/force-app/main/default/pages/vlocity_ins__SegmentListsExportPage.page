@@ -1,0 +1,18 @@
+<apex:page StandardController="vlocity_ins__Attribute__c" extensions="vlocity_ins.SegmentListsExportController" recordSetVar="segments" action="{!getSelectedSegments}">
+  	<apex:outputPanel id="idErrorMessages">
+        <apex:pageMessages />
+  	</apex:outputPanel>  	
+  	<apex:form >
+	  	<apex:pageBlock title="Export">
+			<apex:selectRadio value="{!selectedObjectType}" legendText="Pick an Object Type to Export">         
+	         	<apex:selectOptions value="{!objectTypes}"/>
+	        </apex:selectRadio><p/>
+	        
+	        <apex:pageBlockButtons location="bottom">
+             <apex:commandButton value="Export" action="{!doExport}" rendered="{!NOT(ISNULL(selectedSegments))}"/>
+             <apex:commandButton value="Cancel"  action="{!cancel}" rendered="{!ISNULL(selectedSegments)}"/>             
+             <apex:commandButton value="Done"  action="{!done}" rendered="{!NOT(ISNULL(selectedSegments))}"/>
+       </apex:pageBlockButtons>
+	  	</apex:pageBlock>
+  	</apex:form>  	
+</apex:page>

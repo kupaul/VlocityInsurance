@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RankOrder__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A ranking (e.g. 0-999) for displaying promotions in a particular order (within a level). In the example, 0 is the highest rank and 999 is lowest.</description>
+    <externalId>false</externalId>
+    <label>Rank Order</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

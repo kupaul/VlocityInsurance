@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Console Admin Search --></label>
+        <name>vlocity_ins__ConsoleAdminSearch</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- New Price List --></label>
+        <name>vlocity_ins__NewPriceList</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- ProductTaxAndFeeAdminFields --></label>
+        <name>vlocity_ins__ProductTaxAndFeeAdminFields</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- TaxAndFeeAdminFields --></label>
+        <name>vlocity_ins__TaxAndFeeAdminFields</name>
+    </fieldSets>
+    <validationRules>
+        <errorMessage><!-- Effective Until Date should be greater than or equal to Effective From Date. --></errorMessage>
+        <name>vlocity_ins__EffectiveFromDate_Greater_UntilDate</name>
+    </validationRules>
+</CustomObjectTranslation>

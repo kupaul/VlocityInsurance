@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- License Type --></label>
+    <name>vlocity_ins__LicenseType__c</name>
+    <picklistValues>
+        <masterLabel>Non-Resident Insurance Producer</masterLabel>
+        <translation><!-- Non-Resident Insurance Producer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Resident Insurance Producer</masterLabel>
+        <translation><!-- Resident Insurance Producer --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

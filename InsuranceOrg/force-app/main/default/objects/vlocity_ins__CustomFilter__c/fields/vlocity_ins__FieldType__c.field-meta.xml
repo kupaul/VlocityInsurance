@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FieldType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Field&apos;s type</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Field&apos;s type</inlineHelpText>
+    <label>Field Type</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

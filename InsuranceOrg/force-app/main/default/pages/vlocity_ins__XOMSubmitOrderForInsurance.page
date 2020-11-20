@@ -1,0 +1,4 @@
+<apex:page docType="html-5.0" applyBodyTag="false" standardController="Order" extensions="vlocity_ins.SimpleDecompositionController" action="{!submitOrder}">
+	<apex:pageMessages />
+    <apex:detail subject="{!orderIdVar}" relatedList="true" title="false"/>
+</apex:page>

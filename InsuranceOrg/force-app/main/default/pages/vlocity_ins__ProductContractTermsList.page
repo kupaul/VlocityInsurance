@@ -1,0 +1,263 @@
+<apex:page controller="vlocity_ins.ContractTermsListController" 
+    showHeader="true" 
+    sidebar="false" 
+    standardStylesheets="false" 
+    tabStyle="VlocityContractTerms__tab" 
+    extensions="vlocity_ins.DRDataPackRunnerController"
+    docType="html-5.0" 
+    applyBodyTag="false">
+    <head>
+        <meta charset="utf-8"/>
+        <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/>
+
+        <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+        <apex:includeScript value="/xdomain/xdomain.js"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ngInfiniteScroll, '/build/ng-infinite-scroll.min.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ClmProductAttributes}"/>
+        <apex:includeScript value="/support/console/42.0/integration.js"/>
+    </head> 
+    <body>
+        <div ng-app="contractTermsListApp" ng-controller="contractTermsListController" class="vlocity via-slds ng-cloak {!$User.UIThemeDisplayed}">
+            <div class="slds-spinner_container" ng-show="vlcLoading">
+                <div class="slds-spinner slds-spinner_brand slds-spinner_large" aria-hidden="false" role="status">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+            <div ng-if="productActionErrorMsg" class="slds-notify slds-notify_alert slds-theme_error slds-theme_alert-texture" role="alert">
+                <span class="slds-assistive-text">warning</span>
+                <span class="slds-icon_container slds-icon-utility-warning slds-m-right_medium" title="warning">
+                    <slds-svg-icon sprite="'utility'" icon="'warning'" size="'x-small'"></slds-svg-icon>
+                </span>
+                <h2 class="slds-m-right_small" ng-bind-html="productActionErrorMsg"></h2>
+                <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" ng-click="clearProductActionErrorMsg()">
+                    <slds-svg-icon sprite="'utility'" icon="'close'" size="'x-small'"></slds-svg-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+            </div>
+            <slds-home new-url="'{!newUrl}'" page-title="'Contract Terms'" s-object-type="'{!$ObjectType.Product2.Name}'" row-actions="rowActions" 
+                group-by="false"
+                id-prefix="contract-terms" 
+                default-columns="defaultColumns"
+                extra-filters="extraFilters"></slds-home>
+
+            <script type="text/ng-template" id="confirm-delete-product-modal.tpl.html">
+                <div class="slds-modal slds-fade-in-open" tabindex="-1" role="dialog">
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <button class="slds-button slds-button_icon-inverse slds-modal__close" ng-click="$hide()">
+                                <slds-svg-icon sprite="'action'" icon="'close'" size="'medium'"></slds-svg-icon>
+                            </button>
+                            <h4 class="slds-text-heading_medium">{{labels.CLMContractDeleteTermLabel}}</h4>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <div>
+                                <p> {{labels.CLMTermAreYouSureDelete}} {{currentProductName}}? {{labels.CLMTermActionNotUndone}}</p>
+                            </div>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <button type="button" class="slds-button slds-button_neutral" ng-click="$hide()">{{labels.CLMTermCancel}}</button>
+                            <button type="button" class="slds-button slds-button_destructive" ng-click="deleteProduct(); $hide();">{{labels.CLMTermDelete}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </script>
+
+        </div>
+        <c:VFActionFunction />
+
+        <script type="text/javascript">
+                    //group-by="false"
+            if (typeof sforce !== 'undefined') {
+                if (sforce.console && sforce.console.isInConsole()) {
+                    sforce.console.setTabTitle('Vlocity Contract Terms');
+                    sforce.console.setTabIcon('standard:document');
+                }
+            }
+            window.docNewUrl = '{!newUrl}';
+            window.sessionId = '{!$Api.Session_ID}';
+
+            /* Labels */
+            window.i18n = {
+                "SldsObjectHomeHeaderInfo": "{!$Label.vlocity_ins__sldsobjecthomeheaderinfo}",
+                "RefreshData": "{!$Label.vlocity_ins__refreshdata}",
+                "Export": "{!$Label.vlocity_ins__export}",
+                "New": "{!$Label.vlocity_ins__new}",
+                "FilterList": "{!$Label.vlocity_ins__filterlist}",
+                "Import": "{!$Label.vlocity_ins__import}",
+                "AdditionalActions": "{!$Label.vlocity_ins__additionalactions}",
+                "Delete": "{!$Label.vlocity_ins__delete}",
+                "Preview": "{!$Label.vlocity_ins__preview}",
+                "LastModified": "{!$Label.vlocity_ins__lastmodified}",
+                "Name": "{!$Label.vlocity_ins__name}",
+                "ModifiedOnBy": "{!$Label.vlocity_ins__modifiedonby}",
+                "DeleteLayout": "{!$Label.vlocity_ins__deletelayout}",
+                "InstallDataPack": "{!$Label.vlocity_ins__installdatapack}",
+                "DeleteLayoutConfirmation": "{!$Label.vlocity_ins__deletelayoutconfirmation}",
+                "Filters": "{!$Label.vlocity_ins__filters}",
+                "HideFilter": "{!$Label.vlocity_ins__hidefilter}",
+                "Cancel": "{!$Label.vlocity_ins__cancel}",
+                "Save": "{!$Label.vlocity_ins__save}",
+                "ShowMe": "{!$Label.vlocity_ins__showme}",
+                "MatchingAllOfTheseFilters": "{!$Label.vlocity_ins__matchingallofthesefilters}",
+                "Remove": "{!$Label.vlocity_ins__remove}",
+                "NewFilter": "{!$Label.vlocity_ins__newfilter}",
+                "AddFilter": "{!$Label.vlocity_ins__addfilter}",
+                "RemoveAll": "{!$Label.vlocity_ins__removeall}",
+                "Field": "{!$Label.vlocity_ins__field}",
+                "Operator": "{!$Label.vlocity_ins__operator}",
+                "Value": "{!$Label.vlocity_ins__value}",
+                "Done": "{!$Label.vlocity_ins__done}",
+                "AllType": "{!$Label.vlocity_ins__alltype}",
+                "MyType": "{!$Label.vlocity_ins__mytype}"
+            };
+            var labels = {
+                'CLMTermDelete': '{!$Label.vlocity_ins__clmtermdelete}',
+                'CLMTermAreYouSureDelete': '{!$Label.vlocity_ins__clmtermareyousuredelete}',
+                'CLMTermActionNotUndone': '{!$Label.vlocity_ins__clmtermactionnotundone}',
+                'CLMTermCancel': '{!$Label.vlocity_ins__clmtermcancel}',
+                'CLMContractDeleteTermLabel': '{!$Label.vlocity_ins__clmcontractdeletetermlabel}'
+            };
+            /* Remote Actions */
+            var remoteActions = {
+                deleteProduct: {
+                    action: '{!$RemoteAction.ContractTermsListController.deleteProduct}',
+                    config: {escape: false}
+                },
+            };
+
+            // Angular Module
+            var contractTermList = angular.module('contractTermsListApp', ['drvcomp', 'sldsangular', 'ngTable', 'vlocity', 'infinite-scroll'])
+            .config(['$localizableProvider', function($localizableProvider) {
+                'use strict';
+                $localizableProvider.setLocalizedMap(window.i18n);
+                $localizableProvider.setDebugMode(false);
+            }])
+            .config(['remoteActionsProvider', function(remoteActionsProvider) {
+                'use strict';
+                remoteActionsProvider.setRemoteActions(window.remoteActions || {});
+            }]);
+
+            // Angular Controller
+            contractTermList.controller('contractTermsListController', ['$scope', '$filter', '$localizable', 'remoteActions', '$sldsModal', function($scope, $filter, $localizable, remoteActions, $sldsModal) {
+                'use strict';
+                var namespacePrefix = '{!namespacePrefix}';
+                $scope.vlcLoading = false;
+                $scope.labels = labels;
+
+                $scope.clearProductActionErrorMsg = function() {
+                    $scope.productActionErrorMsg = '';
+                };
+
+                $scope.confirmDeleteProduct = function(prodId, prodName) {
+                    $scope.currentProdId = prodId;
+                    $scope.currentProductName = prodName;
+                    $sldsModal({
+                        templateUrl: 'confirm-delete-product-modal.tpl.html',
+                        container: 'div.vlocity',
+                        placement: 'center',
+                        html: true,
+                        scope: $scope
+                    });
+                };
+
+                $scope.deleteProduct = function() {
+                    $scope.vlcLoading = true;
+                    remoteActions.deleteProduct($scope.currentProdId).then(function(result) {
+                        if (result) {
+                            location.href = '/apex/ProductContractTermsList';
+                        }
+                    }, function(error) {
+                        $scope.productActionErrorMsg = '<div><p>Visualforce Remoting Exception: ' + error.message + '</p></div>';
+                        $scope.vlcLoading = false;
+                    });
+                };
+                /* sldsHome directive data */
+                //row action config
+                $scope.rowActions = [
+                    {
+                        text:  labels.CLMTermDelete,
+                        icon: {
+                            sprite: 'action',
+                            icon: 'delete'
+                        },
+                        click: function(row, group) {
+                            $scope.confirmDeleteProduct(row.Id, row.Name);
+                        }
+                    },
+                    {
+                        type: 'export',
+                        drvType: 'Product2'
+                    }
+                ];
+
+                // column config
+                $scope.defaultColumns = [     
+                    {
+                        title : 'Name',
+                        field: 'Name',
+                        dynamic: true,
+                        getValue: function($scope, row) {  
+                            var url = window.docNewUrl + '?id=' + row.Id;
+                            return '<a href="' +url+ '" ng-mousedown="$root.vlocityOpenUrl(\'' + url  + '\', $event)">' +
+                                _.escape(row.Name) + '</a>';
+
+                        },
+                        getGroupValue: function($scope, $group) {
+                            return '<span>' + _.escape($group.data[0].Name) + '</span>';
+                        }
+                    },
+                    {
+                        title : 'Code',
+                        field: 'ProductCode'
+                    },
+                    {
+                        title : 'Description',
+                        field: 'Description'
+
+                    },
+                    {
+                        field : 'IsActive',
+                        dynamic: true,
+                        getValue: function($scope, row) {
+                            if (row.IsActive) {
+                                return '<span class="slds-icon_container slds-icon-doctype-xml " title="Is Active"><slds-svg-icon sprite="\'utility\'"' +
+                                        ' icon="\'success\'" size="\'x-small\'" extra-classes="\'slds-icon-text-default\'"></slds-svg-icon></span>';
+                            }
+                        }
+                    },
+                    {
+                        field: 'LastModifiedDate',
+                        getValue: function($scope, row) {
+                            return 'Modified on ' + $filter('date')(row.LastModifiedDate) + ' by ' + _.escape(row.LastModifiedBy.Name);
+                        },
+                        getGroupValue: function($scope, $group) {
+                            var mostRecent = $group.data[0].LastModifiedDate;
+                            $group.data.forEach(function(data) {
+                                if (data.LastModifiedDate > mostRecent) {
+                                    mostRecent = data.LastModifiedDate;
+                                }
+                            });
+                            return $filter('date')(mostRecent);
+                        }
+                    }
+
+                ];
+                $scope.extraFilters = [
+                {
+                    name: {
+                        Name: 'RecordType.DeveloperName'
+                    },
+                    operator: '=',
+                    value: 'TermSpec'
+                }];
+            }]);
+        </script>
+    </body>
+</apex:page>

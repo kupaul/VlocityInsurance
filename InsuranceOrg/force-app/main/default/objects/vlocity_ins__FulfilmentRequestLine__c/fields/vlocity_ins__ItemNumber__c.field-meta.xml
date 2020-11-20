@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ItemNumber__c</fullName>
+    <deprecated>false</deprecated>
+    <displayFormat>{000000}</displayFormat>
+    <externalId>false</externalId>
+    <label>Fulfilment Request Line Item Number</label>
+    <trackTrending>false</trackTrending>
+    <type>AutoNumber</type>
+</CustomField>

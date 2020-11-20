@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DecomposeOrder</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Decompose Order</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/apex.js&quot;)}
+
+var namespace_prefix = &apos;&apos;;
+var result = sforce.connection.describeGlobal();
+var TOKEN_OBJ = &quot;Party__c&quot;;
+var sobjects = result.getArray(&quot;sobjects&quot;);
+
+for(var i=0; i&lt;sobjects.length; i++) {
+    var sobjName = sobjects[i].name;
+    var str = sobjName.split(&quot;__&quot;);
+
+    //if there are 3 values there is a namespace
+    if (str.length == 3) {
+        //Is it one of ours?
+        var sobj = str[1].valueOf() +&apos;__c&apos;;
+        if(sobj == TOKEN_OBJ) {
+            namespace_prefix = str[0].valueOf();
+            break;
+        }
+    }
+}
+
+var simpleDecompControllerNamespace = &apos;&apos;;
+var simpleDecompPageNamespace = &apos;&apos;;
+if(namespace_prefix != &quot;&quot;) {
+    simpleDecompControllerNamespace = namespace_prefix + &apos;.&apos;;
+    simpleDecompPageNamespace = namespace_prefix + &apos;__&apos;;
+}
+
+var result = sforce.apex.execute(simpleDecompControllerNamespace+&quot;SimpleDecompositionController&quot;,&quot;decompose&quot;, {orderId: &apos;{!Order.Id}&apos;}, false);
+if(result == &apos;OK&apos;) {
+    // trim ID because we&apos;re sending Order IDs to thor in 15-length
+    window.location.href = &apos;/apex/&apos; + simpleDecompPageNamespace + &apos;XOMViewOrderDecomposition?id={!LEFT(Order.Id, 15)}&apos;;
+} else {
+    console.error(result);
+    alert(result);
+}</url>
+</WebLink>

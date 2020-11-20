@@ -1,0 +1,127 @@
+<apex:page controller="vlocity_ins.EPCAdminController" title="Product Details" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+	<html xmlns:ng="http://angularjs.org" ng-app="productdetails">
+		<head>
+			<base href="/"/>
+			<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.vlocity_assets, '/css/vlocity.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.ProductDetailsCss)}" />
+		</head>
+		<body class="vlocity ng-cloak" ng-controller="ProductDetailsController">
+			<div ng-if="(mode === 'view' || mode === 'override')">
+				<form ng-class="{'form-horizontal': true, 'inactive': !editMode}">
+                    <div class="product-hd clearfix">
+                        <div class="pull-left"><h1 class="product-name">{{product.Name}}</h1></div>
+                        <div class="pull-right text-right" ng-show="!editMode">
+                            <button type="button" class="btn btn-default" ng-click="updateProduct()">Edit</button>
+                        </div>
+                        <div class="pull-right text-right" ng-show="editMode">
+                            <button type="button" class="btn btn-primary" ng-click="saveProduct($event)">Save</button>
+                            <button type="button" class="btn btn-default" ng-click="cancelEdit()">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="product-layout">
+    					<div class="product-info" ng-init="getAttachments(productId)">
+    						<vloc-img-carousel attachments="productAttachments"></vloc-img-carousel>
+    					</div>
+    					<div class="product-details">
+    						<div ng-if="fieldSet !== null" class="row product-fields" ng-repeat="fieldSetRow in fieldSetRows">
+                                <div ng-repeat="field in fieldSetRow">
+                                    <div ng-class="{'col-sm-2 field-label': true, 'col-sm-offset-1': ($index === 1)}">
+                                        <label ng-if="editMode" for="{{objectFields[field.fieldPath].label}}" class="control-label">{{objectFields[field.fieldPath].label}}<span ng-if="field.isRequired" class="required"> *</span></label>
+                                        <span ng-if="!editMode">{{objectFields[field.fieldPath].label}}</span>
+                                    </div>
+                                    <div class="col-sm-3 field-value" ng-if="editMode">
+                                        <vloc-obj-field display-mode="'edit'" parent-obj="editProduct" field="field" field-info="objectFields[field.fieldPath]" obj-picklists="objectPicklists[field.fieldPath.toLowerCase()]"></vloc-obj-field>
+                                    </div>
+                                    <div class="col-sm-3 field-value" ng-if="!editMode">
+                                        <vloc-obj-field display-mode="'view'" parent-obj="product" field="field" field-info="objectFields[field.fieldPath]" obj-picklists="objectPicklists[field.fieldPath.toLowerCase()]"></vloc-obj-field>
+                                    </div>
+                                </div>
+                            </div>
+    					</div>
+    				</div>
+                </form>
+			</div>
+
+            <div ng-if="mode === 'new'">
+                <p>Enter product details. Mark products as Active if you want them to be added to price books, opportunities, or quotes.</p>
+                <p class="req-msg"><span class="required">*</span> indicates required field.</p>
+                <form class="form-horizontal new-product">
+                    <div class="form-group" ng-repeat="field in fieldSet">
+                        <label for="{{objectFields[field.fieldPath].label}}" class="col-sm-2 control-label">{{objectFields[field.fieldPath].label}}<span ng-if="field.isRequired" class="required"> *</span></label>
+                        <div class="col-sm-3">
+                            <vloc-obj-field display-mode="'edit'" parent-obj="newProduct" field="field" field-info="objectFields[field.fieldPath]" obj-picklists="objectPicklists[field.fieldPath.toLowerCase()]"></vloc-obj-field>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" ng-click="createProduct($event)">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__JQUERYJS)}"/>
+			<apex:includeScript value="/support/console/31.0/integration.js"/>
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ProductDetails)}"/>
+			<script>
+				j$ = jQuery.noConflict();
+				j$(document).ready(function() {
+					if (window.frameElement !== null) {
+						// create a iframe resize event binding with the parent
+						window.parent.bindIframeResize(window.frameElement.id);
+					}
+				});
+
+                function updateActiveTab(tabName) {
+                    if (window.frameElement !== null) {
+                        window.parent.updateActiveTab(tabName);
+                    }
+                }
+
+				var remoteActions = {
+					getObject: {
+						action: "{!$RemoteAction.EPCAdminController.getObject}",
+						config: {escape: false}
+					},
+					getObjectPicklistsByName: {
+                        action: "{!$RemoteAction.EPCAdminController.getObjectPicklistsByName}",
+                        config: {escape: false}
+                    },
+                    describeObjectbyId: {
+						action: "{!$RemoteAction.EPCAdminController.describeObjectbyId}",
+						config: {escape: false}
+					},
+					describeObject: {
+                        action: "{!$RemoteAction.EPCAdminController.describeObject}",
+                        config: {escape: false}
+                    },
+                    getAttachments: {
+						action: "{!$RemoteAction.EPCAdminController.getAttachments}",
+						config: {escape: false}
+					},
+					getFieldSets: {
+						action: "{!$RemoteAction.EPCAdminController.getFieldSets}",
+						config: {escape: false}
+					},
+                    getFieldSetsByName: {
+                        action: "{!$RemoteAction.EPCAdminController.getFieldSetsByName}",
+                        config: {escape: false}
+                    },
+                    createObject: {
+                        action: "{!$RemoteAction.EPCAdminController.createObject}",
+                        config: {escape: false}
+                    },
+                    updateObject: {
+                        action: "{!$RemoteAction.EPCAdminController.updateObject}",
+                        config: {escape: false}
+                    },
+                    deleteObject: {
+                        action: "{!$RemoteAction.EPCAdminController.deleteObject}",
+                        config: {escape: false}
+                    }
+				};
+			</script>
+		</body>
+	</html>
+</apex:page>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Lookup Object Type --></label>
+    <name>vlocity_ins__LookupObjectTypeId__c</name>
+    <relationshipLabel><!-- Attribute Assignments (Lookup Object Type) --></relationshipLabel>
+</CustomFieldTranslation>

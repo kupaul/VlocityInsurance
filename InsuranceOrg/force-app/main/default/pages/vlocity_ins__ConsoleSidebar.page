@@ -1,0 +1,375 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false" controller="vlocity_ins.CardCanvasController" standardStylesheets="false">
+<html dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+<style type="text/css">
+			body {
+				margin: 0px !important;
+				padding: 0px !important;
+			}
+</style>
+<apex:includeScript value="/support/console/34.0/integration.js"/>
+<apex:includeLightning />
+<c:CardStyleLoaderComponent useClassicStylesByDefault="true"></c:CardStyleLoaderComponent>
+
+
+<div class="vlocity via-slds" ng-app="sidebarApp" ng-controller="accountCtrl">
+    <!-- Sidebar layout-->
+    <vloc-layout layout-name="{{layoutName}}" layout-id="{{layoutId}}"/>
+
+    <!-- <vloc-cmp name="sidebar" customtemplate="console-sidebar" loaded="true"></vloc-cmp> -->
+    <!-- <vloc-card name="profile-account" ctrl="accountCtrl"/>
+    <vloc-cmp name="accountInfo" customtemplate="left-account-info" loaded="true" records="[account]"/>
+    <vloc-cmp name="story" customtemplate="left-story" ctrl="storyCtrl" loaded="true"/>
+    <vloc-cmp name="profileTags" customtemplate="left-profile-tag" ctrl="attributeCtrl" loaded="true"/>     -->
+</div>
+
+<script src="{!URLFOR($Resource.vlocity_core_assets, '/v102/vlocity_core_assets.js')}"></script>
+<script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+<script src="{!$Resource.CardFramework_Assets}"></script>
+<script src="{!$Resource.CardFramework}"></script>
+<script src="{!$Resource.SldsAngular}"></script>
+
+<script type="text/javascript">
+    //var sideBarModule = angular.module('sidebarApp',['CardFramework', 'vlocity']);
+    var sideBarModule = angular.module('sidebarApp',['CardFramework', 'vlocity', 'forceng', 'cfp.hotkeys']);
+
+    sideBarModule.config(['$localizableProvider', function($localizableProvider) {
+      'use strict';
+      $localizableProvider.setLocalizedMap(window.i18n);
+      $localizableProvider.setDebugMode(window.ns === '');
+    }]);
+
+    // this is used for remoteActions config inside CardFramework
+    // this is duplicated in both ConsoleSidebar.page and CardLayoutComponent.component to facilitate
+    // independent testing of the left handside vs right handside of the console
+    var nsPrefixDotNotation = "{!nsPrefixDotNotation}";
+    console.log('nsPrefixDotNotation fetched from CardCanvasController: ' + nsPrefixDotNotation);
+    localStorage.setItem('nsPrefixDotNotation', nsPrefixDotNotation);
+    console.log('nsPrefixDotNotation value stored in localStorage: ' + localStorage.getItem('nsPrefixDotNotation'));
+
+    sideBarModule.filter('phoneNumber', function() {
+        return function(phoneNumber) {
+          phoneNumber = phoneNumber || '';
+          //Removes all special charaters in phonenumber except numbers and +
+          phoneNumber = phoneNumber.replace(/[^\d\+]/g,"");
+          return phoneNumber;
+        };
+    });
+
+    sideBarModule.run(["$sce","$rootScope","force","timeStampInSeconds", function($sce, $rootScope, force, timeStampInSeconds){
+        console.log('inside run');
+
+        force.init({
+            accessToken: '{!$Api.Session_ID}',
+            useProxy: false
+        });
+
+        $rootScope.forcetkClient = new forcetk.Client();
+        $rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+
+        $rootScope.staticResourceURL = {
+                        'consoleSidebarProfile': '{!URLFOR($Resource.ConsoleSidebarProfile)}'
+        };
+
+     }]);
+
+    sideBarModule.controller('accountCtrl', ['$scope', '$rootScope', 'timeStampInSeconds','dataService', 'pageService', '$localizable', function($scope, $rootScope, timeStampInSeconds, dataService, pageService, $localizable) {
+        //Used to load layout based on url params
+        //TBD: remove !layout
+        $scope.layoutName = pageService.params.layout? pageService.params.layout: 'console-sidebar';
+        $scope.layoutId = pageService.params.layoutId;
+
+        $scope.actionList = '{!consoleActionList}';
+        $scope.init = function () {
+
+            function load(result) {
+
+                // in the case user creates a new account, there is no account id,
+                // so the rest should not be loaded.
+                // console sets result.id to a string with "null" value when creating new Acount
+                if (result.id === 'null') {
+                    $rootScope.entitySelected = false;
+                    return;
+                }
+
+                // As part of CARD-185, we are using params.id in cards which contains account id.
+                $rootScope.accountId = $scope.accountId = result.id;
+                $rootScope.entitySelected = true;
+                //we no longer pass the objType as we differ it inside of apex to make Console Cards actions agnostic
+                $scope.consoleCardsAction = JSON.parse($scope.actionList);
+                if($scope.consoleCardsAction.length === 0){
+                    console.error('Either Vlocity Action has not been setup or it is not activated, so cards cannot be presented');
+                    return;
+                }
+                console.log('action completed:',$scope.consoleCardsAction);
+                sforce.console.getEnclosingPrimaryTabId(openSubtab);
+
+            }
+
+            if(sforce.console.isInConsole()) {
+                console.info('inside console');
+                sforce.console.getEnclosingPrimaryTabObjectId(load);
+            } else {
+                console.info('outside console');
+                var result = { id:'0013t00001a7uq4' };
+                load(result);
+            }
+        };
+
+        $scope.init();
+
+        var openSubtab = function openSubtab(result) {
+            $scope.primaryTabId = result.id;
+            var subTabName = $scope.consoleCardsAction['name'];
+            sforce.console.getSubtabIds($scope.primaryTabId , showTabId);
+            //sforce.console.focusSubtabByNameAndPrimaryTabId(subTabName, $scope.primaryTabId,focusSuccess);
+        };
+
+        var focusSuccess = function focusSuccess(result) {
+            console.log('openSuccess:',result);
+
+            // detect if the consoleCardActions layout name has changed such that a new
+            // layout will be used in the ConsoleCards (if not user has to close the account
+            // and select the same account again in order for ConsoleCards to reflect change
+            // of layout name being used)
+            // var originalLayoutName = localStorage.getItem('consoleCardsLayoutName');
+            // var url = $scope.consoleCardsAction.url;
+            // var consoleCardsActionLayoutParams = url.substring(url.indexOf('&layout')).split('=');
+            // var consoleCardsActionLayoutName = consoleCardsActionLayoutParams[1];
+            if (!result.success || originalLayoutName !== consoleCardsActionLayoutName) {
+                // AccountConsoleCards subtab is NOT open. We need to open a new one and focus it OR layoutName changed
+                angular.forEach($scope.consoleCardsAction, function(action){
+                    var originalLayoutName = localStorage.getItem('consoleCardsLayoutName');
+                    var url = action.url;
+                    var consoleCardsActionLayoutParams = url.substring(url.indexOf('&layout')).split('=');
+                    var consoleCardsActionLayoutName = consoleCardsActionLayoutParams[1];
+                    var tabLabel = action['displayName'];
+                    var subTabName = action['name'];
+                    sforce.console.openSubtab($scope.primaryTabId, url, true, tabLabel, null, openSuccess, subTabName);
+                });
+                // var tabLabel = $scope.consoleCardsAction['displayName'];
+                // var subTabName = $scope.consoleCardsAction['name'];
+                // sforce.console.openSubtab($scope.primaryTabId, url, true, tabLabel, null, openSuccess, subTabName);
+            }
+        };
+
+        var showTabId = function showTabId(result) {
+            //Display the subtab IDs
+            var subtabId = localStorage.getItem('subtabId');
+            if(result.ids.indexOf(subtabId) > -1){
+                // console.error('found the tab ');
+            } else {
+                // console.error('didnt find it, open it');
+                var subTabName = $scope.consoleCardsAction['name'];
+                sforce.console.focusSubtabByNameAndPrimaryTabId(subTabName, $scope.primaryTabId,focusSuccess);
+            }
+        };
+
+        var openSuccess = function openSuccess(result) {
+            // console.error('opening subtab');
+            if(result.success){
+                var subtabId = localStorage.getItem('subtabId');
+                if(subtabId != result.Id){
+                    localStorage.setItem('subtabId',result.id);
+                    sforce.console.focusSubtabById(result.id);
+                }
+            }
+        };
+
+        // this will prevent the sidebar in loading itself twice, reducing api calls by 50%
+        var eventHandler = function eventHandler(result) {
+           // just do nothing so I do not refresh :)
+        };
+        sforce.console.onEnclosingTabRefresh(eventHandler);
+
+    }]);
+
+    //////////////  Controller: Attribute Ctrl to get profile tags ////////////
+    sideBarModule.controller('attributeCtrl', ['$scope', '$rootScope', 'relationshipMgmtService', function($scope, $rootScope, relationshipMgmtService) {
+        $scope.init = function () {
+
+            function load(result) {
+
+                // in the case user creates a new account, there is no account id,
+                // so the rest should not be loaded.
+                // console sets result.id to a string with "null" value when creating new Acount
+                if (result.id === 'null') {
+                    return;
+                }
+
+                $scope.accountId = result.id;
+
+                    relationshipMgmtService.getAttributesTk(result.id, $rootScope.forcetkClient).then(
+                        function(attributeCategories){
+
+                            $scope.categories = [];
+
+                            angular.forEach(attributeCategories,function(attributeCategory){
+
+                                if(attributeCategory.UIType == 'On-Off' && attributeCategory.ChildSegmentElements){
+
+                                    var returnCategory = {};
+                                    returnCategory.CategoryCode = attributeCategory.CategoryCode;
+                                    returnCategory.Name = attributeCategory.Name;
+                                    returnCategory.attrList = [];
+                                    angular.forEach(attributeCategory.ChildSegmentElements,function(attribute){
+
+                                        var returningAttribute = {};
+                                        returningAttribute.SegmentCode = attribute.SegmentCode;
+                                        returningAttribute.Name = attribute.Name;
+                                        returnCategory.attrList.push(returningAttribute);
+
+                                    });
+                                    $scope.categories.push(returnCategory);
+
+                                }
+                            });
+
+                            console.log('$scope.categories: ' + $scope.categories);
+
+                    });
+
+            }
+
+            if(sforce.console.isInConsole()) {
+                console.info('inside console');
+                sforce.console.getEnclosingPrimaryTabObjectId(load);
+            } else {
+                console.info('outside console');
+                var result = { id:'0013t00001a7uq5' };
+                load(result);
+            }
+        };
+
+        // this is not needed anymore, as vloc-cmp is initialized inside the directive via
+        // if($scope.ready && $scope.importedScope){ $scope.importedScope.init(); }
+        // otherwise, duplicated init() will result in duplicated service api calls!!!
+        //$scope.init();
+
+        $scope.categoryFilter = function (category) {
+            console.log('categoryFilter,attribute1'+category.CategoryCode);
+            return function(attribute) {
+                console.log('categoryFilter,attribute'+category.CategoryCode);
+                return attribute.CategoryCode===category.CategoryCode;
+            };
+        };
+
+    }]);
+
+    //////////////  Controller: Story Ctrl to get Stories and handle story click ////////////
+    sideBarModule.controller('storyCtrl', ['$scope', '$rootScope', 'timeStampInSeconds','relationshipMgmtService', function($scope, $rootScope, timeStampInSeconds, relationshipMgmtService) {
+
+        var uniqueStoryListLoaded = false;
+        var nsPrefix = "{!nsPrefix}";
+        $scope.uniqueStoryList = [];
+        $scope.numberOfDays = null;
+        $scope.selectedStory = null;
+
+
+        function loadStories(accountId) {
+
+            // objType is label for the select dropdown; objAPIName is the actual api to call the backend
+            relationshipMgmtService.getStoriesTk(accountId, $rootScope.forcetkClient, $scope.numberOfDays,
+                                                $scope.selectedStory?$scope.selectedStory.objAPIName:null).then(
+                function(result){
+                    $scope.stories = result['Stories'];
+                    // only load uniqueStoryList (which feeds the story type dropdown) the first time
+                    // when there is data
+                    if (!uniqueStoryListLoaded && $scope.stories.length > 0) {
+                        angular.forEach($scope.stories,function(story){
+                            var unique = true;
+                            angular.forEach($scope.uniqueStoryList,function(uniqueStory){
+                                if (story.objAPIName === uniqueStory.objAPIName) {
+                                    unique = false;
+                                }
+                            });
+                            if (unique) {
+                                $scope.uniqueStoryList.push(story);
+                            }
+                        });
+                        uniqueStoryListLoaded = true;
+                    }
+                    console.log('$scope.stories: ' + $scope.stories);
+                    console.log('$scope.uniqueStoryList: ' + $scope.uniqueStoryList);
+            });
+
+        }
+
+        $scope.init = function () {
+            function load(result) {
+
+                // in the case user creates a new account, there is no account id,
+                // so the rest should not be loaded.
+                // console sets result.id to a string with "null" value when creating new Acount
+                if (result.id === 'null') {
+                    return;
+                }
+
+                $scope.accountId = result.id;
+
+                loadStories($scope.accountId);
+
+            }
+
+            if(sforce.console.isInConsole()) {
+                console.info('inside console');
+                sforce.console.getEnclosingPrimaryTabObjectId(load);
+            } else {
+                console.info('outside console');
+                var result = { id:'0013t00001a7uq5' };
+                load(result);
+            }
+        };
+
+        // this is not needed anymore, as vloc-cmp is initialized inside the directive via
+        // if($scope.ready && $scope.importedScope){ $scope.importedScope.init(); }
+        // otherwise, duplicated init() will result in duplicated service api calls!!!
+        //$scope.init();
+
+        // when user selects another objType, we MUST make a backend call as the story api
+        // returns stories in pages and we cannot filter out the objType on client as the page
+        // returned may not contain all the stories
+        $scope.change = function() {
+            loadStories($scope.accountId);
+        };
+
+        $scope.onNavigate = function(objId, objType, navigateLink) {
+            $scope.storyObjId = objId;
+            $scope.storyObjType = objType;
+            // if objType is "Saved Omniscript", this is the url to launch saved Omniscript
+            $scope.navigateLink = navigateLink;
+            // if objType is "Order", this is the url to launch HybridCPQ page
+            if (objType === 'Opportunity' || objType === 'Quote' || objType === 'Order') {
+                $scope.navigateLink = '{!$Site.BaseRequestUrl}/apex/'+nsPrefix+'HybridCPQ?id='+objId;
+            }
+
+            if (sforce.console.isInConsole()){
+                //First find the ID of the primary tab to put the new subtab in
+                sforce.console.getEnclosingPrimaryTabId(openSubtab);
+            }
+            else {
+                if (objType === 'Note') {
+                    sforce.one.navigateToURL('{!$Site.BaseRequestUrl}/ContentNote/home');
+                } else {
+                    if (navigateLink === undefined || navigateLink === null) {
+                        sforce.one.navigateToURL('{!$Site.BaseRequestUrl}/'+objId);
+                    } else {
+                        // launching saved Omniscript or HybridCPQ for Order
+                        sforce.one.navigateToURL(navigateLink);
+                    }
+                }
+            }
+        };
+
+        var openSubtab = function openSubtab(result) {
+            var primaryTabId = result.id;
+            //console.log('primary tab id' + primaryTabId);
+            if($scope.navigateLink === undefined || $scope.navigateLink === null) {
+                sforce.console.openSubtab(primaryTabId , './'+$scope.storyObjId, true, $scope.storyObjType);
+            } else {
+                sforce.console.openSubtab(primaryTabId ,$scope.navigateLink, true, $scope.storyObjType);
+            }
+        };
+    }]);
+</script>
+</html>
+</apex:page>

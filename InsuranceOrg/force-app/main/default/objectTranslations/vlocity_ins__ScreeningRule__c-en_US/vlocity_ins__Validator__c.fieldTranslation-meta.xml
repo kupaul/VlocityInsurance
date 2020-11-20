@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Enter the Apex class that will be used to validate the Application against this particular Screening Rule. Either specify an existing class, or enter a new name and click button &apos;Generate Validator Class&apos; to create the class. --></help>
+    <label><!-- Validator Class --></label>
+    <name>vlocity_ins__Validator__c</name>
+</CustomFieldTranslation>

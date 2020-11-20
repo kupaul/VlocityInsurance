@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- UI Control Type --></label>
+    <name>vlocity_ins__UIControlType__c</name>
+    <picklistValues>
+        <masterLabel>1-5 scale</masterLabel>
+        <translation><!-- 1-5 scale --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3-state</masterLabel>
+        <translation><!-- 3-state --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>On-Off</masterLabel>
+        <translation><!-- On-Off --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TextComment</masterLabel>
+        <translation><!-- TextComment --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

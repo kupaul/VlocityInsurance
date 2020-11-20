@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Console Admin Search --></label>
+        <name>vlocity_ins__ConsoleAdminSearch</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- New Picklist --></label>
+        <name>vlocity_ins__NewPicklist</name>
+    </fieldSets>
+    <validationRules>
+        <errorMessage><!-- Effective Until Date should be greater than or equal to Effective From Date. --></errorMessage>
+        <name>vlocity_ins__EffectiveFrom_Greater_EffectiveUntil</name>
+    </validationRules>
+</CustomObjectTranslation>

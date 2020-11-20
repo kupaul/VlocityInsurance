@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Role --></label>
+    <name>vlocity_ins__Role__c</name>
+    <picklistValues>
+        <masterLabel>Dependent - Child</masterLabel>
+        <translation><!-- Dependent - Child --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Head of Household</masterLabel>
+        <translation><!-- Head of Household --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Partner</masterLabel>
+        <translation><!-- Partner --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

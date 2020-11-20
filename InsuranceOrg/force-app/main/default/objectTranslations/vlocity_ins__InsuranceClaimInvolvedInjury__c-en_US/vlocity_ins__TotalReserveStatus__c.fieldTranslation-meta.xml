@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Total Reserve Status --></label>
+    <name>vlocity_ins__TotalReserveStatus__c</name>
+    <picklistValues>
+        <masterLabel>Approved</masterLabel>
+        <translation><!-- Approved --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ApprovedRollup</masterLabel>
+        <translation><!-- ApprovedRollup --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pending</masterLabel>
+        <translation><!-- Pending --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reverted</masterLabel>
+        <translation><!-- Reverted --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

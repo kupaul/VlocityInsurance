@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Description__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A description of why the substituted drug can replace the primary drug.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A description of why the substituted drug can replace the primary drug.</inlineHelpText>
+    <label>Description</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

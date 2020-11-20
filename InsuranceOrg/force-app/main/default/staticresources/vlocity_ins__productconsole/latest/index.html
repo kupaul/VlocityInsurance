@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Vlocity Product Designer">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>Vlocity Product Designer</title>
+  <meta name="description" content="Vlocity Product Designer">
+
+  <!--
+      The `<base>` tag below is present to support two advanced deployment options:
+      1) Differential serving. 2) Serving from a non-root path.
+
+      Instead of manually editing the `<base>` tag yourself, you should generally either:
+      a) Add a `basePath` property to the build configuration in your `polymer.json`.
+      b) Use the `--base-path` command-line option for `polymer build`.
+
+      Note: If you intend to serve from a non-root path, see [polymer-root-path] below.
+    -->
+  <base href="/">
+
+  <!--TODO: add vlocity icons-->
+  <link rel="icon" href="images/favicon.ico">
+  <meta name="theme-color" content="#3f51b5">
+
+  <script>/**
+     * [polymer-root-path]
+     *
+     * Leave this line unchanged if you intend to serve your app from the root
+     * path (e.g., with URLs like `my.domain/` and `my.domain/view1`).
+     *
+     * If you intend to serve your app from a non-root path (e.g., with URLs
+     * like `my.domain/my-app/` and `my.domain/my-app/view1`), edit this line
+     * to indicate the path from which you'll be serving, including leading
+     * and trailing slashes (e.g., `/my-app/`).
+     */window.VlocityProductConsoleAppGlobals={rootPath:"/"};// Load and register pre-caching Service Worker
+// Note: Not using service worker for now
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', function () {
+//     navigator.serviceWorker.register('service-worker.js', {
+//       scope: VlocityProductConsoleAppGlobals.rootPath
+//     });
+//   });
+// }</script>
+
+  <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
+  <script src="latest/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+  <!-- Load Vlocity SDK's -->
+  <!-- Run the simple http server on via_sdk dist folder to make this proxy work -->
+  <script src="http://127.0.0.1:8080/latest/datasource/datasource.sdk.js"></script>
+  <script src="http://127.0.0.1:8080/latest/productconsole/productconsole.sdk.js"></script>
+  <script src="latest/node_modules/d3/dist/d3.min.js"></script>
+
+  <!-- Load your application shell -->
+  <script type="module" src="src/vlocity-product-console.js"></script>
+
+  <!-- TODO: Replace  this file with vlocity SLDS-->
+  <link type="text/css" rel="stylesheet" href="https://lightningdesignsystem.com/assets/styles/slds-large.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+
+  <!-- Add any global styles for body, document, etc. -->
+  <style>body{margin:0;font-family:"Salesforce Sans", Arial, sans-serif;line-height:1.5;min-height:100vh;background-color:#ffffff;}</style>
+</head>
+
+<body>
+  <vlocity-product-console></vlocity-product-console>
+  <noscript>
+    Please enable JavaScript to view Vlocity Product Designer.
+  </noscript>
+
+
+
+</body></html>

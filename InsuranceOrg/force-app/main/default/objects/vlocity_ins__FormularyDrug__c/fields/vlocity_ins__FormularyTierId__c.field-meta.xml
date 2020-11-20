@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FormularyTierId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>A link to the related Formulary, allowing for a Drug to be linked to one or more Formulary.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>A link to the related Formulary, allowing for a Drug to be linked to one or more Formulary.</inlineHelpText>
+    <label>Formulary Tier</label>
+    <referenceTo>vlocity_ins__FormularyTier__c</referenceTo>
+    <relationshipLabel>Formulary Drugs</relationshipLabel>
+    <relationshipName>FormularyDrugs</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

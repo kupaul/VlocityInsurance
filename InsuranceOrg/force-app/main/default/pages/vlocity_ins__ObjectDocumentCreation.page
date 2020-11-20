@@ -1,0 +1,101 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="vlocity_ins.ObjectDocumentCreationController">
+<html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="objectDocumentCreation" class="ng-cloak">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <style type="text/css">
+            body {
+                margin: 0px !important;
+                padding: 0px !important;
+            }
+        </style>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__docxtemplater}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__JSZip}"/> 
+        <apex:includeScript value="{!$Resource.vlocity_ins__FileSaver}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ObjectDocumentCreation}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+        <apex:stylesheet value="{!$Resource.vlocity_ins__ObjectDocumentCreationCss}"/>
+    </head>
+    <body>
+        <div class="vlocity via-slds objdoc-creation" ng-controller="objectDocumentCreationController">
+            <div class="objdoc-container slds-p-around_xx-small">
+                <div class="slds-notify_container objdoc-notification slds-m-bottom_medium" ng-class="{'active': objDocCreationService.notification.active}">
+                    <div class="slds-notify slds-notify_alert slds-theme_{{objDocCreationService.notification.type}}" role="alert">
+                        <button class="slds-button slds-notify__close slds-button_icon-inverse" title="Close" ng-click="objDocCreationService.clearNotification()">
+                            <slds-button-svg-icon size="'medium'" sprite="'utility'" icon="'close'" extra-classes="'objdoc-close-notification'"></slds-button-svg-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <span class="slds-assistive-text">Info</span>
+                        <h2 ng-bind-html="objDocCreationService.notification.message"></h2>
+                    </div>
+                </div>
+                <div class="objdoc-block slds-p-around_x-small slds-clearfix slds-is-relative objdoc-block-{{objDocCreationService.documentType}}" ng-click="objDocCreationService.previewAttachment($event)" ng-class="{'generated': objDocCreationService.documentGenerated}">
+                    <slds-svg-icon size="'medium'" sprite="'doctype'" icon="objDocCreationService.documentType" extra-classes="'slds-float_left'" ng-if="objDocCreationService.documentType === 'attachment'"></slds-svg-icon>
+                    <slds-svg-icon size="'medium'" sprite="'doctype'" icon="objDocCreationService.documentType" extra-classes="'slds-float_left'" ng-if="objDocCreationService.documentType === 'pdf'"></slds-svg-icon>
+                    <slds-svg-icon size="'medium'" sprite="'doctype'" icon="objDocCreationService.documentType" extra-classes="'slds-float_left'" ng-if="objDocCreationService.documentType === 'word'"></slds-svg-icon>
+                    <span class="objdoc-label slds-p-left_x-small slds-float_left">{{objDocCreationService.objDocLabel}}</span>
+                    <div class="slds-spinner_container objdoc-spinner_container" ng-class="{'active': $root.loading}">
+                        <div role="status" class="slds-spinner slds-spinner_small slds-spinner_brand objdoc-spinner">
+                            <span class="slds-assistive-text">Loading</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                    <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open slds-float_right objdoc-generate-doc-trigger" ng-class="{'slds-is-open': generateBtns.show, 'active': !objDocCreationService.documentGenerated}" ng-hide="$root.loading" ng-if="objDocCreationService.documentType === 'attachment'">
+                        <button class="slds-button slds-button_icon objdoc-generate-doc-btn" title="Generate Document" ng-click="generateBtns.show = !generateBtns.show" dropdown-handler="generateBtns.show = false">
+                            <slds-button-svg-icon size="'large'" sprite="'utility'" icon="'add'" extra-classes="'objdoc-generate-doc-btn-icon'"></slds-button-svg-icon>
+                            <span class="slds-assistive-text">Generate Document</span>
+                        </button>
+                        <div class="slds-dropdown slds-dropdown_right objdoc-generate-doc-dropdown" ng-class="{'active': generateBtns.show === true}">
+                            <ul class="slds-dropdown__list" role="menu">
+                                <li class="slds-dropdown__item objdoc-generate-doc-dropdown-item" role="presentation" ng-repeat="item in dropdownItems">
+                                    <a href="javascript:void(0);" role="menuitem" tabindex="0" ng-click="objDocCreationService.attachPdf()" ng-if="item.type === 'pdf'">
+                                        <span class="slds-truncate">{{item.label}}</span>
+                                    </a>
+                                    <a href="javascript:void(0);" role="menuitem" tabindex="0" ng-click="objDocCreationService.attachDocx()" ng-if="item.type === 'word'">
+                                        <span class="slds-truncate">{{item.label}}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="slds-button slds-button_icon slds-float_right objdoc-generate-doc-single-btn" title="Generate Document" ng-click="objDocCreationService.attachPdf()" ng-if="objDocCreationService.documentType === 'pdf'" ng-class="{'active': !objDocCreationService.documentGenerated}">
+                        <slds-button-svg-icon size="'large'" sprite="'utility'" icon="'add'" extra-classes="'objdoc-generate-doc-btn-icon'"></slds-button-svg-icon>
+                        <span class="slds-assistive-text">Generate Document</span>
+                    </button>
+                    <button class="slds-button slds-button_icon slds-float_right objdoc-generate-doc-single-btn" title="Generate Document" ng-click="objDocCreationService.attachDocx()" ng-if="objDocCreationService.documentType === 'word'" ng-class="{'active': !objDocCreationService.documentGenerated}">
+                        <slds-button-svg-icon size="'large'" sprite="'utility'" icon="'add'" extra-classes="'objdoc-generate-doc-btn-icon'"></slds-button-svg-icon>
+                        <span class="slds-assistive-text">Generate Document</span>
+                    </button>
+                    <div class="slds-button-group objdoc-generate-doc-button-group slds-float_right" role="group" ng-class="{'active': objDocCreationService.documentGenerated}">
+                        <button class="slds-button slds-button_neutral objdoc-generate-doc-btn objdoc-generate-doc-btn-download" ng-click="objDocCreationService.downloadAttachment(objDocCreationService.documentType)">
+                            <slds-button-svg-icon size="'medium'" sprite="'utility'" icon="'download'" extra-classes="'slds-m-right_xx-small'"></slds-button-svg-icon>
+                            <span>Download</span>
+                        </button>
+                        <button class="slds-button slds-button_neutral objdoc-generate-doc-btn objdoc-generate-doc-btn-delete" ng-click="objDocCreationService.deleteAttachment()">
+                            <slds-button-svg-icon size="'medium'" sprite="'utility'" icon="'delete'" extra-classes="'slds-m-right_xx-small'"></slds-button-svg-icon>
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <iframe width="0" height="0" name="objectPdf" src="{!pdfPageReference}" id="objectPdf" style="display: none; opacity: 0; visibility: none;"></iframe>
+        </div>
+        <script type="text/javascript">
+            var parentId = '{!parentId}';
+            var contextId = '{!JSENCODE(contextId)}';
+            var templateId = '{!templateId}';
+            var documentName = '{!JSENCODE(documentName)}';
+            var vlocObjDocCreation = {
+                parentId: parentId,
+                contextId: contextId,
+                templateId: templateId,
+                documentName: documentName
+            };
+        </script>
+    </body>
+</html>
+</apex:page>

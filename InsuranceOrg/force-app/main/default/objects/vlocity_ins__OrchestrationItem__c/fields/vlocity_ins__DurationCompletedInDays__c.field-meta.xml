@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DurationCompletedInDays__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Duration Completed (in days)</description>
+    <externalId>false</externalId>
+    <formula>IF (TEXT ( vlocity_ins__State__c ) = &quot;Completed&quot;, vlocity_ins__DurationInDays__c, IF ( ISNULL(vlocity_ins__PercentageComplete__c), 0, ( vlocity_ins__PercentageComplete__c * vlocity_ins__DurationInDays__c ) ) )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Duration Completed (in days)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

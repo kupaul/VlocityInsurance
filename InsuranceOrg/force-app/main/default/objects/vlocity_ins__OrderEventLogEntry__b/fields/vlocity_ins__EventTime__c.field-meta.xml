@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EventTime__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field describes the time at which event occurred</description>
+    <externalId>false</externalId>
+    <label>Event Time</label>
+    <required>true</required>
+    <type>DateTime</type>
+</CustomField>

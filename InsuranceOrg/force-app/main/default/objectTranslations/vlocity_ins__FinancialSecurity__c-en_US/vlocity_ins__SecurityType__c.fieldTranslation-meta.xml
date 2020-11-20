@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Security Type --></label>
+    <name>vlocity_ins__SecurityType__c</name>
+    <picklistValues>
+        <masterLabel>Debt</masterLabel>
+        <translation><!-- Debt --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mutual Fund</masterLabel>
+        <translation><!-- Mutual Fund --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Option</masterLabel>
+        <translation><!-- Option --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stock</masterLabel>
+        <translation><!-- Stock --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

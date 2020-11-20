@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Asset$Account</field>
+    </columns>
+    <columns>
+        <field>Asset$Name</field>
+    </columns>
+    <columns>
+        <field>Asset$Product2.ProductCode</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Asset.vlocity_ins__AssetTransactions__r$vlocity_ins__Amount__c</field>
+    </columns>
+    <columns>
+        <field>Asset.vlocity_ins__AssetTransactions__r$Name</field>
+    </columns>
+    <columns>
+        <field>Asset.vlocity_ins__AssetTransactions__r$vlocity_ins__Type__c</field>
+    </columns>
+    <description>Policy Transactions grouped by period</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>MonthInYear</dateGranularity>
+        <field>Asset.vlocity_ins__AssetTransactions__r$vlocity_ins__TransactionDate__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Policy Transaction by Period</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Policy_Transaction_by_Period__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Asset$vlocity_ins__EffectiveDate__c</dateColumn>
+        <interval>INTERVAL_CURFY</interval>
+    </timeFrameFilter>
+</Report>

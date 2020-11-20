@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- If an image is uploaded here, it will take precedent over the Vlocity Icon. The image will automatically be resized to 22px wide in the Action. --></help>
+    <label><!-- Custom Icon --></label>
+    <name>vlocity_ins__ActionIcon__c</name>
+</CustomFieldTranslation>

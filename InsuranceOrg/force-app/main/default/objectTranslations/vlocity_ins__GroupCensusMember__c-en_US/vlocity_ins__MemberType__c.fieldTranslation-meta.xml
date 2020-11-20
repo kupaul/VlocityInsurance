@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__MemberType__c</name>
+    <picklistValues>
+        <masterLabel>Cobra</masterLabel>
+        <translation><!-- Cobra --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Declined</masterLabel>
+        <translation><!-- Declined --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Full Time</masterLabel>
+        <translation><!-- Full Time --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Part Time</masterLabel>
+        <translation><!-- Part Time --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

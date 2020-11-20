@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__StatesProvinces__c</fullName>
+    <deprecated>false</deprecated>
+    <description>ISO codes for State/Province for the Jurisdiction.</description>
+    <externalId>false</externalId>
+    <label>States/Provinces</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>vlocity_ins__VlocityStateProvince</valueSetName>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

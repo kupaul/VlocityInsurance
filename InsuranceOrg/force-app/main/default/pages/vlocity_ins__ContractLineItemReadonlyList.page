@@ -1,0 +1,7 @@
+<apex:page standardController="Contract"  docType="html-5.0">
+    <c:VFReadOnlyList objectName="ContractLineItem__c"    
+                      linkToParentField="ContractId__c" 
+                      drilldownField="Name" 
+                      fieldSet="ContractLineItemReadOnlyList"
+                      sortClause=" ORDER BY CreatedDate DESC"/>               
+</apex:page>

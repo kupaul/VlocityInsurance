@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/vloc">
+        <include pattern="/apps/vloc(/.*/)?(oauth|omni|SFCSAuth)(?!Universal)[^/]*(/.*)?"/>
+    </filter>
+    <filter root="/content/oout">
+        <exclude pattern="/content/oout/omniUniversal(/.*)?"/>
+        <exclude pattern="/content/oout/scripts/.*"/>
+    </filter>
+    <filter root="/content/oout/scripts">
+        <include pattern="/content/oout/scripts/Membership_UsedPricing_English.json"/>
+    </filter>
+</workspaceFilter>

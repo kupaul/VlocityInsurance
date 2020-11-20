@@ -1,0 +1,12 @@
+<!-- This page is used in User Custom Labels API-->
+<apex:page controller="vlocity_ins.ObjectFieldLabelController" contentType="application/json" 
+	showHeader="false" sidebar="false"
+    language="{!lang}"      
+    standardStylesheets="false">
+    <apex:variable var="APIName" value="{!apiName}"/>
+
+    <apex:repeat value="{!fieldNames}" var="fieldName">
+    	"{!fieldName}" : "{!$ObjectType[APIName].fields[fieldName].Label}",
+    </apex:repeat>
+
+</apex:page>

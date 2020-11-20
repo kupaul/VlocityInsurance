@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="137px" height="58px" viewBox="0 0 137 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <ellipse id="path-1" cx="26.5" cy="40.5" rx="12.5" ry="13.5"></ellipse>
+        <ellipse id="path-2" cx="101.5" cy="40.5" rx="12.5" ry="13.5"></ellipse>
+    </defs>
+    <g id="Mockups" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Coverage" transform="translate(-423.000000, -2423.000000)">
+            <g id="Group" transform="translate(491.500000, 2452.000000) scale(-1, 1) translate(-491.500000, -2452.000000) translate(425.000000, 2425.000000)">
+                <path d="M87.7647244,16.1259624 L69.7745394,5.73741052 C68.4192311,1.91247017 68.4192311,-1.73949512e-12 69.7745394,0 C71.8075018,2.60895819e-12 87.1506404,8.06143543 97.1939923,13.4592786 C99.1624343,14.4416586 123.666586,15.6192642 132.009751,21.5152895 C134.185736,28.6870526 132.46735,35.4914287 129.833766,38.0103447 C128.078043,39.6896221 123.726073,40.6836988 116.777856,40.9925749 C116.633522,41.0085822 100.965867,40.9939297 100.820634,40.9925749 L25.6885384,40.2464564 C25.6423783,40.2460258 18.0466366,39.5006552 2.9013132,38.0103447 C0.967104401,33.5984605 0,30.2516377 0,27.9698763 C0,27.0643813 1.4506566,26.347205 4.35196981,25.8183474 C4.35196981,23.4479618 6.04440251,19.8620802 9.42926791,15.0607026 L27.5624754,13.4592786 C31.430893,13.4592786 34.8157584,13.4592786 37.7170716,13.4592786 C42.0690415,13.4592786 43.3925972,10.0404684 47.1463396,10.0404684 C49.1084085,10.0404684 51.3219122,15.7895072 54.3996226,16.1259624 C59.4726562,16.6805463 70.5943568,16.6805463 87.7647244,16.1259624 Z" id="Path-2" stroke="#1564BF" stroke-width="3" fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+                <g id="Oval-2">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <ellipse stroke="#1564BF" stroke-width="3" cx="26.5" cy="40.5" rx="11" ry="12"></ellipse>
+                    <ellipse stroke="#FFFFFF" stroke-width="2" cx="26.5" cy="40.5" rx="13.5" ry="14.5"></ellipse>
+                </g>
+                <g id="Oval-2">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <ellipse stroke="#1564BF" stroke-width="3" cx="101.5" cy="40.5" rx="11" ry="12"></ellipse>
+                    <ellipse stroke="#FFFFFF" stroke-width="2" cx="101.5" cy="40.5" rx="13.5" ry="14.5"></ellipse>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

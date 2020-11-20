@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Pricing Procedure Version (Vlocity 108)</layout>
+        <sections>
+            <label><!-- Data Configuration --></label>
+            <section>Data Configuration</section>
+        </sections>
+        <sections>
+            <label><!-- Looping Configuration --></label>
+            <section>Looping Configuration</section>
+        </sections>
+    </layouts>
+    <webLinks>
+        <label><!-- CreateNewVersion --></label>
+        <name>vlocity_ins__CreateNewVersion</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Simulate --></label>
+        <name>vlocity_ins__Simulate</name>
+    </webLinks>
+</CustomObjectTranslation>

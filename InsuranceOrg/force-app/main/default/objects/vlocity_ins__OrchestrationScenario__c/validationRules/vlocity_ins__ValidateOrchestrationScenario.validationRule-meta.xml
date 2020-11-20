@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ValidateOrchestrationScenario</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(ISBLANK( vlocity_ins__Action__c ), ISNULL( vlocity_ins__Action__c) )</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__Action__c</errorDisplayField>
+    <errorMessage>Action cannot be blank</errorMessage>
+</ValidationRule>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>USD</fullName>
+        <default>true</default>
+        <label>USD</label>
+    </customValue>
+    <description>Currency Code: this picklist is use to store all possible currency code used.</description>
+    <masterLabel>Currency Code</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

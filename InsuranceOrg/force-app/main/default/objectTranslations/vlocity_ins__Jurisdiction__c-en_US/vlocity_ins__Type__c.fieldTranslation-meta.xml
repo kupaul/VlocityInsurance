@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Producer</masterLabel>
+        <translation><!-- Producer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Provider</masterLabel>
+        <translation><!-- Provider --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rating Area</masterLabel>
+        <translation><!-- Rating Area --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sales</masterLabel>
+        <translation><!-- Sales --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Service</masterLabel>
+        <translation><!-- Service --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

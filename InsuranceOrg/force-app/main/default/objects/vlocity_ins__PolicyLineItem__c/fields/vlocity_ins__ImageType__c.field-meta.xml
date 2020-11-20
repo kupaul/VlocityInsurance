@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ImageType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF( (RecordType.DeveloperName = &apos;Animal&apos; || RecordType.DeveloperName  = &apos;Crop&apos;  || RecordType.DeveloperName  = &apos;Livestock&apos; || RecordType.DeveloperName = &apos;BusinessOperation&apos;), RecordType.DeveloperName, 
+ CASE( TEXT(vlocity_ins__Type__c) , 
+       &apos;Recreational Vehicle&apos;, &apos;AntiqueClassicVehicle&apos;, 
+       &apos;Single Family Home&apos;, &apos;Home&apos;,
+       &apos;Multi-Family Home&apos;, &apos;Home&apos;,
+       &apos;Condominium&apos;, &apos;Home&apos;,
+       &apos;Commercial - Office&apos;, &apos;CommercialProperty&apos;,
+       &apos;Commercial - Warehouse&apos;, &apos;CommercialProperty&apos;,
+       &apos;Commercial - Storefront&apos;, &apos;CommercialProperty&apos;,
+       &apos;Commercial - Garage&apos;, &apos;CommercialProperty&apos;,
+       &apos;Business - Owned&apos;, &apos;Business&apos;,
+       &apos;Business - Leased&apos;, &apos;Business&apos;,
+       &apos;Outbuilding&apos;, &apos;Home&apos;,
+       &apos;Houseboat&apos;, &apos;Boat&apos;,
+       &apos;Company&apos;, &apos;CommercialProperty&apos;,
+       &apos;Fishing Boat&apos;, &apos;Boat&apos;,
+       &apos;Pleasure Boat&apos;, &apos;Boat&apos;,
+       &apos;Trailer&apos;, &apos;MobileHome&apos;,
+       &apos;Scheduled Personal Property&apos;, &apos;Other&apos;,
+       TEXT(vlocity_ins__Type__c)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Image Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

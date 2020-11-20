@@ -1,0 +1,18 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" docType="html-5.0"
+            controller="vlocity_ins.VFPageControllerBase" applyHtmlTag="false" applyBodyTag="false">
+    <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </head>
+        <body>
+            <c:OmniScriptUniversalComponent />
+            <apex:includeScript value="{!$Resource.vlocity_ins__InsRules}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__SheetJS}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__FileSaver}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/papaparse/papaparse.js')}"/>
+            <script type="text/javascript">
+                angular.module('OmniScriptUniversal').requires.push('insRules');
+            </script>
+        </body>
+   </html>
+</apex:page>

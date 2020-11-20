@@ -1,0 +1,60 @@
+<apex:page controller="vlocity_ins.EPCAdminController" title="Product Versions" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+	<html xmlns:ng="http://angularjs.org" ng-app="productversion">
+		<head>
+			<base href="/"/>
+			<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.vlocity_assets, '/css/vlocity.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.ProductVersionCss)}" />
+		</head>
+		<body>
+			<div class="vlocity ng-cloak" ng-controller="ProductVersionController">
+				<table class="table version-history">
+					<thead>
+						<tr>
+							<th>Current Record</th>
+							<th>Product</th>
+							<th>Version</th>
+							<th>From Version</th>
+							<th>Effective Date</th>
+							<th>End Date</th>
+							<th>Status</th>
+							<th>Active</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="version in versions">
+							<td>{{version.currentRecord}}</td>
+							<td>{{version.prod.Name}}</td>
+							<td>{{version.prod[nsp+'VersionNumber__c']}}</td>
+							<td>{{version.fromVersion}}</td>
+							<td>{{version.prod[nsp+'EffectiveDate__c']}}</td>
+							<td>{{version.prod[nsp+'EndDate__c']}}</td>
+							<td>{{version.prod[nsp+'Status__c']}}</td>
+							<td>{{version.prod.IsActive}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__JQUERYJS)}"/>
+			<apex:includeScript value="/support/console/31.0/integration.js"/>
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ProductVersion)}"/>
+			<script>
+				j$ = jQuery.noConflict();
+				j$(document).ready(function() {
+					if (window.frameElement !== null) {
+						// create a iframe resize event binding with the parent
+						window.parent.bindIframeResize(window.frameElement.id);
+					}
+				});
+
+				var remoteActions = {
+					getProductVersions: {
+						action: "{!$RemoteAction.EPCAdminController.getProductVersions}",
+						config: {escape: false}
+					}
+				};
+			</script>
+		</body>
+	</html>
+</apex:page>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Geolocation__c</fullName>
+    <deprecated>false</deprecated>
+    <displayLocationInDecimal>true</displayLocationInDecimal>
+    <externalId>false</externalId>
+    <label>Geolocation</label>
+    <required>false</required>
+    <scale>15</scale>
+    <trackTrending>false</trackTrending>
+    <type>Location</type>
+</CustomField>

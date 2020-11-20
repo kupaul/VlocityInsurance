@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EndOfLifeDate__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This datetime sets product life to end after which it is not expected to support/order/maintain.</description>
+    <externalId>false</externalId>
+    <label>End of Life Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

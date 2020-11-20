@@ -1,0 +1,54 @@
+<apex:page showHeader="false" sidebar="false" standardController="vlocity_ins__Application__c" extensions="vlocity_ins.PDFControllerExt" docType="html-5.0">
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/v102/vlocity_core_assets.js')}"/>
+        <script type="text/javascript">
+
+        $(document).ready(function() {
+            var json =   $('[id$=templateId]')[0].value;
+            if (json) {
+                insertValues($.parseJSON(json),'','');
+            }
+        });
+
+        /* Loops through JSON and builds $JQuery elements.
+            * HTML fields should have id names be prepended
+            * with their object name and field number.
+            * ____________________________________________
+            * Example:
+            * <div id="Contact_1_Last_Name"></div>
+            * <div id="Contact_1_First_Name"></div>
+            * <div id="Contact_2_Last_Name"></div>
+            * <div id="Contact_2_First_Name"></div>
+            * <div id="Case_1_CHIP_Case_No"></div>
+            * <input type="checkbox" id="Case_1_US_Citizen">
+            * ____________________________________________
+            */
+        function insertValues(json,nodeName,childNum) {
+            $.each(json, function (k, v) {
+                if (typeof v === "object" && isNaN(k)) {
+                    insertValues(v,k,'');
+                }
+                if (typeof v === "object" && (isNaN(k) === false) ) {
+                    insertValues(v,nodeName,(k +1));
+                }
+                else {
+                    if (nodeName !== '') {
+                        $el = $('#' + nodeName + '_' + childNum + '_' + k )
+                        if ($el.is(":checkbox")) {
+                            $el.prop('checked', v === 'true');
+                            $el.attr("disabled", true);
+                        }
+                        else {
+                            $el.html(v);
+                        }
+                    };
+                }
+            });
+        }
+
+    </script>
+
+    <apex:outputText value="{!vlocity_ins__Application__c.ApplicationTemplateId__r.vlocity_ins__HtmlBlob__c}" escape="false"/>
+    <apex:form >
+        <apex:inputHidden value="{!vlocity_ins__Application__c.vlocity_ins__Content__c}" id="templateId"/>
+    </apex:form>
+</apex:page>

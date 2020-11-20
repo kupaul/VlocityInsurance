@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Billing Notice</masterLabel>
+        <translation><!-- Billing Notice --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cancelled</masterLabel>
+        <translation><!-- Cancelled --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Changed/Endorsed</masterLabel>
+        <translation><!-- Changed/Endorsed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Endorsement Charge</masterLabel>
+        <translation><!-- Endorsement Charge --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Initiate Grace Period</masterLabel>
+        <translation><!-- Initiate Grace Period --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lapse</masterLabel>
+        <translation><!-- Lapse --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Premium Charge</masterLabel>
+        <translation><!-- Premium Charge --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Premium Paid</masterLabel>
+        <translation><!-- Premium Paid --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reinstatement</masterLabel>
+        <translation><!-- Reinstatement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Renewal</masterLabel>
+        <translation><!-- Renewal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sold Policy</masterLabel>
+        <translation><!-- Sold Policy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Surrender</masterLabel>
+        <translation><!-- Surrender --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

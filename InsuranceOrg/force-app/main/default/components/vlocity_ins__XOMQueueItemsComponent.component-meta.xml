@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>45.0</apiVersion>
+    <description>Component for displaying OrchestrationItems assigned to a queue or to a user</description>
+    <label>XOMQueueItemsComponent</label>
+</ApexComponent>

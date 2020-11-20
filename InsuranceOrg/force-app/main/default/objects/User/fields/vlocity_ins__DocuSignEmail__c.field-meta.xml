@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DocuSignEmail__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>DocuSign Email</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Email</type>
+    <unique>false</unique>
+</CustomField>

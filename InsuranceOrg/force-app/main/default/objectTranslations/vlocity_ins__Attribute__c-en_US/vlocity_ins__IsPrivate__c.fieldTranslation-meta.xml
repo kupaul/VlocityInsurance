@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Is this attribute private to the owner (not visible to other users)? --></help>
+    <label><!-- Private --></label>
+    <name>vlocity_ins__IsPrivate__c</name>
+</CustomFieldTranslation>

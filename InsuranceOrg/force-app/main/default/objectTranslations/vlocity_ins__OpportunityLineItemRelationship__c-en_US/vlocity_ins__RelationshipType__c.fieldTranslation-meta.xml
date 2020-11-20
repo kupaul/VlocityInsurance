@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Relationship Type --></label>
+    <name>vlocity_ins__RelationshipType__c</name>
+    <picklistValues>
+        <masterLabel>Movement</masterLabel>
+        <translation><!-- Movement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reassignment</masterLabel>
+        <translation><!-- Reassignment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Relies On</masterLabel>
+        <translation><!-- Relies On --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Replacement</masterLabel>
+        <translation><!-- Replacement --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

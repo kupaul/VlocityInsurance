@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- DestinationFulfilmentRequestLineId --></help>
+    <label><!-- Destination Fulfilment Request Line --></label>
+    <name>vlocity_ins__DestinationFulfilmentRequestLineId__c</name>
+    <relationshipLabel><!-- Source Decomposition Relationships --></relationshipLabel>
+</CustomFieldTranslation>

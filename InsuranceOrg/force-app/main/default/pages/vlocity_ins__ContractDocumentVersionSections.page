@@ -1,0 +1,70 @@
+<apex:page standardController="vlocity_ins__ContractVersion__c" extensions="vlocity_ins.ContractDocumentDisplayController" standardStylesheets="true" showHeader="false" sidebar="false" docType="html-5.0">
+<html xmlns:ng="http://angularjs.org" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_utils_pagination, '/dirPagination.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ContractDocumentVersionSectionsApp}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+        <apex:stylesheet value="{!$Resource.vlocity_ins__ContractDocumentVersionSectionsCss}"/>
+    </head>
+    <body>
+        <div class="vlocity contract-template-sections" ng-app="contractDocumentVersionSectionsApp" ng-controller="contractDocumentVersionCtrl">
+            <div ng-show="vlcLoading" class="vlc-overlay">
+                <vlc-loader ng-show="!isInternetExplorer" class="ng-hide"></vlc-loader>
+                <span ng-show="isInternetExplorer" class="spinner ng-hide"></span>
+            </div>
+            <div class="top-container">
+                <div class="form-group version-template">
+                    <label for="version-template">Select a template to attach to this Version:</label>
+                    <select class="form-control" id="version-template" ng-model="versionData.template" ng-options="template as template.templateLabel for template in contractTemplates"></select>
+                </div>
+                <button type="button" class="btn btn-primary attach-template" ng-disabled="!versionData.template.templateId || validationMessage.content" ng-click="saveNewDocumentSections()">Attach Template</button>
+            </div>
+            <div ng-if="validationMessage.content" class="alert {{validationMessage.type}}" role="alert">
+                {{validationMessage.content}}
+            </div>
+            <div class="panel panel-sf" ng-if="versionData.template.templateId && !validationMessage.error">
+                <div class="panel-heading">Sections for {{versionData.template.templateLabel}}</div>
+                <table class="table sections-table">
+                    <thead>
+                        <tr>
+                            <th class="name">Name</th>
+                            <th class="type">Type</th>
+                            <th class="content">Content</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="section in versionData.sections | itemsPerPage: 5">
+                            <td>{{section.sectionName}}</td>
+                            <td>{{section.sectionType}}</td>
+                            <td>{{section.sectionContent}}</td>
+                        </tr>
+                    </tbody>
+                </table>                
+            </div>
+            <dir-pagination-controls ng-if="versionData.template.templateId && !validationMessage.error" template-url="dir-pagination-controls.tpl.html"></dir-pagination-controls>
+        </div>
+        <script type="text/javascript">
+            var nameSpacePrefix, remoteActions, contractVersionId;
+            nameSpacePrefix = '{!nameSpacePrefix}';
+            contractVersionId = '{!$CurrentPage.parameters.Id}';
+            remoteActions = {
+                getTemplateList: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getTemplateList}',
+                    config: {escape: false}
+                },
+                createContractSectionsforVersion: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.createContractSectionsforVersion}',
+                    config: {escape: false}
+                },
+                saveNewDocumentSections: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.saveNewDocumentSections}',
+                    config: {escape: false}
+                }
+            };
+        </script>
+    </body>
+</html>
+</apex:page>

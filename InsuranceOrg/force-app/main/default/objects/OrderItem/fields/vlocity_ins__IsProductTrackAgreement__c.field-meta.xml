@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsProductTrackAgreement__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Denotes if product is tracked as part of agreement</description>
+    <externalId>false</externalId>
+    <formula>PricebookEntry.Product2.vlocity_ins__TrackAsAgreement__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Product Track Agreement</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

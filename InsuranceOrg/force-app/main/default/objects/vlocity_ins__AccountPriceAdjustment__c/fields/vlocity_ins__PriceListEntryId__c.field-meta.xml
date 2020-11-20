@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PriceListEntryId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>(Optional) Id of the source price list entry when the pricing is based on a price list entry.</description>
+    <externalId>false</externalId>
+    <label>Price List Entry</label>
+    <referenceTo>vlocity_ins__PriceListEntry__c</referenceTo>
+    <relationshipName>AccountPricingAdjustments</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

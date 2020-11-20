@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__MarketingEventDetailSessionDateRule</fullName>
+    <active>true</active>
+    <description>This rule checks that the Session Date for a given Marketing Event Detail is within that Event&apos;s Start and End Dates.</description>
+    <errorConditionFormula>AND((vlocity_ins__SessionDate__c  &gt;=  vlocity_ins__MarketingEventId__r.vlocity_ins__EventStartDate__c),(vlocity_ins__SessionDate__c  &lt;=  vlocity_ins__MarketingEventId__r.vlocity_ins__EventEndDate__c))</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__SessionDate__c</errorDisplayField>
+    <errorMessage>The Session Date for a given Marketing Event Detail must be within that Event&apos;s Start and End Dates.</errorMessage>
+</ValidationRule>

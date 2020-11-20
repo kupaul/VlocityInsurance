@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Screen</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Screen</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/apex.js&quot;)} 
+var namespace_prefix = &apos;&apos;; 
+var gettingnamespace = sforce.connection.query(&quot;SELECT NamespacePrefix FROM ApexClass WHERE Name=&apos;ApplicationUtilities&apos; LIMIT 1&quot;); 
+var getname = gettingnamespace.getArray(&quot;records&quot;);
+var className = &quot;ScreenApplication&quot;;
+if(getname.length &gt; 0) 
+{ 
+namespace_prefix = getname[0].NamespacePrefix; 
+className = namespace_prefix + &quot;.ScreenApplication&quot;;
+}
+var res=sforce.apex.execute(className,&quot;Screen&quot;,{sAppId:&quot;{!vlocity_ins__Application__c.Id}&quot;, sType:&quot;{!vlocity_ins__Application__c.vlocity_ins__Type__c }&quot;});  
+alert(res);</url>
+</WebLink>

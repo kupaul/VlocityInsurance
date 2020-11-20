@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EnableAutoApplyPromotion__c</fullName>
+    <defaultValue>true</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Whether this promotion should be automatically applied to qualifying customer orders without the customer specifically requesting it.</description>
+    <externalId>false</externalId>
+    <label>Auto-Apply Promotion</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

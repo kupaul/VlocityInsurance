@@ -1,0 +1,26 @@
+<apex:page standardController="vlocity_ins__GroupCensus__c" extensions="vlocity_ins.CensusWarningController">
+  <style>
+
+  warning {
+	font-weight:bold;
+	width: 99%; 
+	display: inline-block;
+	border: 1px solid;
+	margin: 1px 1px;
+	padding:5px 5px 5px 5px;
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	color: #00529B;
+	background-color: #BDE5F8; 
+  }
+  
+  </style>
+  
+  <apex:form rendered="{!vlocity_ins__GroupCensus__c.vlocity_ins__DisplayAlert__c==true}">
+      <div class="warning">
+      <span class="vlocity-censuswarning"> {!$Label.vlocity_ins__censusinactivatewarning}</span>
+       <apex:commandLink value="Dismiss" action="{!Dismiss}" />
+      </div>
+     
+  </apex:form>
+</apex:page>

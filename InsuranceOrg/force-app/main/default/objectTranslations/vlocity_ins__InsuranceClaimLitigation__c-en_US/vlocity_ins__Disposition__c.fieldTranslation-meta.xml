@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Disposition --></label>
+    <name>vlocity_ins__Disposition__c</name>
+    <picklistValues>
+        <masterLabel>Dismissed</masterLabel>
+        <translation><!-- Dismissed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Settle During Trial</masterLabel>
+        <translation><!-- Settle During Trial --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Settle Prior Trial</masterLabel>
+        <translation><!-- Settle Prior Trial --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Verdict for Defendant</masterLabel>
+        <translation><!-- Verdict for Defendant --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Verdict for Plaintiff</masterLabel>
+        <translation><!-- Verdict for Plaintiff --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

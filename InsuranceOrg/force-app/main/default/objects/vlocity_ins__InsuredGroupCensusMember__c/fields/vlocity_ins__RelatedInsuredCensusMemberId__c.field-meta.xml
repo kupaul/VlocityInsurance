@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RelatedInsuredCensusMemberId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Primary Census Member</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>$Source.vlocity_ins__InsuredGroupCensusId__c</field>
+            <operation>equals</operation>
+            <valueField>vlocity_ins__InsuredGroupCensusMember__c.vlocity_ins__InsuredGroupCensusId__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>vlocity_ins__InsuredGroupCensusMember__c.vlocity_ins__IsPrimaryMember__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>vlocity_ins__InsuredGroupCensusMember__c</referenceTo>
+    <relationshipLabel>Insured Group Census Member</relationshipLabel>
+    <relationshipName>InsuredCensusMember</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FulfilmentRequestNumber__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Fulfilment Request Number</description>
+    <displayFormat>{00000000}</displayFormat>
+    <externalId>false</externalId>
+    <inlineHelpText>Fulfilment Request Number</inlineHelpText>
+    <label>Fulfilment Request Number</label>
+    <trackTrending>false</trackTrending>
+    <type>AutoNumber</type>
+</CustomField>

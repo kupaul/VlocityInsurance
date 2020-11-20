@@ -1,0 +1,71 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" controller="vlocity_ins.CardCanvasController" action="{!checkAuth}">
+<html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}"  lang="{!language}" xml:lang="{!language}">
+  <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <!-- Common stylesheets -->
+        <c:CardStyleLoaderComponent useClassicStylesByDefault="true"></c:CardStyleLoaderComponent>
+
+        <style type="text/css">
+            body {
+                max-width: 1200px;
+                min-width: 300px;
+                margin: 0 auto !important;
+            }
+
+            .vlocity .community .h2 {
+                margin: 10px 0px;
+            }
+        </style>
+    </head>
+    <body ng-app="communityApp">
+
+        <div class="vlocity via-slds" ng-controller="CommunityController">
+            <vloc-cmp name="Community" customtemplate="community-grid" loaded="true" ng-if="!$root.layoutName"> </vloc-cmp>
+            <vloc-layout layout-name="{{$root.layoutName}}" layout-id="{{$root.layoutId}}" ng-if="$root.layoutName"> </vloc-layout>
+        </div>
+
+        <!-- Common Vlocity Global variables -->
+        <script type="text/javascript">
+
+            var localeFileUrlPattern = "{!URLFOR($Resource.angular_i18n, '/angular-locale_{{locale}}.js')}";
+
+            var vlocCommunities = {
+                'localeFileUrlPattern': localeFileUrlPattern,
+                'sfInstanceUrl': '{!sfInstanceUrl}',
+                'currentInstanceUrlWithPath': '{!currentInstanceUrlWithPath}',
+                'nsPrefix': '{!nsPrefix}',
+                'nsPrefixDotNotation': '{!nsPrefixDotNotation}',
+                'accessToken': '{!$Api.Session_ID}',
+                'loggedUser': JSON.parse('{!JSENCODE(loggedUser)}'),
+                'staticResourceURL' : {
+                    'communityHeader': '{!URLFOR($Resource.communityHeader)}',
+                    'logo': '{!URLFOR($Resource.CommunityLogo)}',
+                    'communityAds': '{!URLFOR($Resource.CommunityAds)}'
+                }
+            };
+
+            // this is used for remoteActions config inside CardFramework
+            var nsPrefixDotNotation = vlocCommunities.nsPrefixDotNotation;
+            var nsPrefix = vlocCommunities.nsPrefix;
+            console.log('nsPrefixDotNotation fetched from CardCanvasController: ' + nsPrefixDotNotation);
+            localStorage.setItem('nsPrefixDotNotation', nsPrefixDotNotation);
+            localStorage.setItem('nsPrefix', nsPrefix);
+            console.log('nsPrefixDotNotation value stored in localStorage: ' + localStorage.getItem('nsPrefixDotNotation'));
+
+        </script>
+
+        <!-- Common scripts -->
+        <script src="{!URLFOR($Resource.vlocity_core_assets, '/latest/vlocity_core_assets.js')}"></script>
+        <script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+
+        <script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework_assets.js')}"></script>
+        <script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework.js')}"></script>
+        <script src="{!$Resource.SldsAngular}"/>
+
+        <!-- App specific scripts-->
+        <script src="{!$Resource.community}"></script>
+
+    </body>
+</html>
+</apex:page>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ViewOrchestrationPlan</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>View Orchestration Plan</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/19.0/connection.js&quot;)}
+            {!REQUIRESCRIPT(&quot;/soap/ajax/30.0/apex.js&quot;)}
+
+            var namespace_prefix = &apos;&apos;;
+            var result = sforce.connection.describeGlobal();
+            var TOKEN_OBJ = &quot;Party__c&quot;;
+            var sobjects = result.getArray(&quot;sobjects&quot;);
+
+            for(var i=0; i&lt;sobjects.length; i++) {
+                var sobjName = sobjects[i].name;
+                var str = sobjName.split(&quot;__&quot;);
+
+                //if there are 3 values there is a namespace
+                if (str.length == 3) {
+                    //Is it one of ours?
+                    var sobj = str[1].valueOf() +&apos;__c&apos;;
+                    if (sobj == TOKEN_OBJ) {
+                        namespace_prefix = str[0].valueOf();
+                        break;
+                    }
+                }
+            }
+
+            var simpleDecompControllerNamespace = &apos;&apos;;
+            var simpleDecompPageNamespace = &apos;&apos;;
+            if(namespace_prefix != &quot;&quot;) {
+                simpleDecompControllerNamespace = namespace_prefix + &apos;.&apos;;
+                simpleDecompPageNamespace = namespace_prefix + &apos;__&apos;;
+            }
+
+var orderId = &apos;{!Order.Id }&apos;;
+var planId = &apos;{!Order.vlocity_ins__orchestrationPlanIdId__c}&apos;;
+var thorPlanId = &apos;{!Order.vlocity_ins__OrchestrationPlanReferenceId__c}&apos;;
+var fulfilmentStatus = &apos;{!Order.vlocity_ins__FulfilmentStatus__c}&apos;;
+if(planId !== null &amp;&amp; planId !== &apos;&apos;)
+{
+    parent.location.href = parent.location.origin+&apos;/&apos;+planId;
+} else if (thorPlanId !== null &amp;&amp; thorPlanId !== &apos;&apos;)
+{
+   parent.location.href =  &apos;/apex/&apos; + simpleDecompPageNamespace +&apos;OrchestrationPlanViewCommon?id=&apos; + thorPlanId;
+} else if(fulfilmentStatus ==&apos;Draft&apos;)
+{
+    alert(&apos;Order is not associated with any Orchestration Plan!&apos;);
+} else
+{
+    parent.location.href =  &apos;/apex/&apos; + simpleDecompPageNamespace +&apos;OrchestrationPlanViewCommon?id=&apos; + orderId;
+}</url>
+</WebLink>

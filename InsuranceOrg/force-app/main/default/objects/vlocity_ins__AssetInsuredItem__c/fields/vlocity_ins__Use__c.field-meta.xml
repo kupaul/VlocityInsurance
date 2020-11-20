@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Use__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Use</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Primary Dwelling</fullName>
+                <default>false</default>
+                <label>Primary Dwelling</label>
+            </value>
+            <value>
+                <fullName>Second Home</fullName>
+                <default>false</default>
+                <label>Second Home</label>
+            </value>
+            <value>
+                <fullName>Recreational Use</fullName>
+                <default>false</default>
+                <label>Recreational Use</label>
+            </value>
+            <value>
+                <fullName>Investment Property</fullName>
+                <default>false</default>
+                <label>Investment Property</label>
+            </value>
+            <value>
+                <fullName>Business - Owned</fullName>
+                <default>false</default>
+                <label>Business - Owned</label>
+            </value>
+            <value>
+                <fullName>Business - Leased</fullName>
+                <default>false</default>
+                <label>Business - Leased</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>Pleasure</fullName>
+                <default>false</default>
+                <label>Pleasure</label>
+            </value>
+            <value>
+                <fullName>Business</fullName>
+                <default>false</default>
+                <label>Business</label>
+            </value>
+            <value>
+                <fullName>Mixed Use</fullName>
+                <default>false</default>
+                <label>Mixed Use</label>
+            </value>
+            <value>
+                <fullName>Farming</fullName>
+                <default>false</default>
+                <label>Farming</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,230 @@
+<apex:page extensions="vlocity_ins.InteractionSummaryController" standardController="vlocity_ins__CustomerInteraction__c" doctype="html-5.0" showheader="false" sidebar="false" standardstylesheets="false">
+    <html lang="en" xmlns="http://www.w3.org/2000/svg" xmlns:ng="http://angularjs.org" xmlns:xlink="http://www.w3.org/1999/xlink" class="interaction-summary-subtab" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+
+    <head>
+        <base target="_parent" />
+        <meta charset="utf-8" />
+        <apex:includeScript value="/support/console/41.0/integration.js" />
+        <apex:includeScript value="/soap/ajax/41.0/connection.js" />
+        <apex:includescript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework.js')}"/>
+        <apex:includescript value="{!URLFOR($Resource.vlocity_ins__svg4everybody, '/dist/svg4everybody.js')}" />
+        <c:CardStyleLoaderComponent ></c:CardStyleLoaderComponent>
+        <apex:includescript value="/soap/ajax/41.0/apex.js" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__InteractionSummary}"/>
+        <script type="text/javascript">
+        function testSetTabTitle() {
+            //Set the current tab's title
+            'use strict';
+            sforce.console.setTabTitle("{!$Label.Interaction}");
+        }
+        var pageLoad = window.onload;
+        window.onload = function() {
+            'use strict';
+            if (pageLoad) {
+                pageLoad();
+            }
+            testSetTabTitle();
+        };
+        </script>
+    </head>
+
+    <body>
+        <div class="via-slds" ng-app="interactionSummary" ng-controller="InteractionSummaryController" ng-init="getInteractionObject();getTrackingEntries()">
+            <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                <div class="slds-notify_container slds-m-bottom--medium ng-hide" ng-show="notification.message">
+                    <div class="slds-notify slds-notify--alert slds-theme--alert-texture" role="alert">
+                        <span class="slds-assistive-text">Info</span>
+                        <h2>{{notification.message}}</h2>
+                    </div>
+                </div>
+                <div class="task-details-form-container slds-p-left--small slds-p-right--medium slds-size--7-of-12">
+                    <fieldset class="slds-form--compound">
+                        <h3 class="slds-section__title slds-has-divider--bottom slds-m-bottom--small">{!$label.InteractionDetail}</h3>
+                        <div class="form-element__group">
+                            <div class="slds-form-element__row" ng-repeat="field in interactionObj.fieldList">
+                                <div class="slds-form-element slds-size--1-of-2" ng-if="field !== namespacePrefix + 'Description__c'">
+                                    <label class="slds-form-element__label" for="{{field}}">{{interactionObj.fieldLabelTypeMap[field].label}}</label>
+                                    <input ng-if="interactionObj.fieldLabelTypeMap[field].datatype === 'text'" id="{{field}}" ng-model="interactionObj.fieldValueMap[field]" class="slds-input" type="text" />
+                                    <div class="slds-select_container" ng-if="interactionObj.fieldLabelTypeMap[field].datatype === 'picklist'">
+                                        <select id="{{field}}" ng-model="interactionObj.fieldValueMap[field]" class="slds-select"  ng-options="picklist.value as picklist.label for picklist in interactionObj.fieldPicklistValues[field]"><option value=""></option></select>
+                                    </div>
+                                    <div class="slds-checkbox" ng-if="interactionObj.fieldLabelTypeMap[field].datatype === 'checkbox'">
+                                        <input ng-model="interactionObj.fieldValueMap[field]" type="checkbox"  id="{{field}}" ng-checked="interactionObj.fieldValueMap[field]" />
+                                    </div>
+                                    <div class="slds-grid slds-clearfix" ng-if="interactionObj.fieldLabelTypeMap[field].datatype === 'datetime'">
+                                        <input ng-model="datetimeDisplay[field]" id="{{field}}" class="slds-input slds-float--left slds-size--1-of-2 slds-m-right--small" type="text" bs-datepicker="true" />
+                                        <input  ng-model="datetimeDisplay[field]" id="{{field}}--timepicker" class="slds-input slds-float--left slds-size--1-of-2 slds-m-left--small" type="text" bs-timepicker="true" />
+                                    </div>
+                                    <input ng-if="interactionObj.fieldLabelTypeMap[field].datatype === 'number'" id="{{field}}" ng-model="interactionObj.fieldValueMap[field]" type="number" class="slds-input"/>
+                                    <input ng-if="interactionObj.fieldLabelTypeMap[field].datatype === 'date'" id="{{field}}" ng-model="datetimeDisplay[field]" type="text" class="slds-input" bs-datepicker="true" />
+                                </div>
+
+                                <div class="slds-form-element" ng-if="field === namespacePrefix + 'Description__c'">
+                                    <label class="slds-form-element__label" for="{{field}}">{{interactionObj.fieldLabelTypeMap[field].label}}</label>
+                                    <textarea ng-model="interactionObj.fieldValueMap[field]" class="slds-textarea" type="text" id="{{field}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="slds-grid slds-grid--align-end slds-p-top--small slds-buttons-group">
+                        <div class="slds-col">
+                            <button type="button" class="slds-button slds-button--neutral" ng-click="interactionAction('Cancel')">Cancel Interaction</button>
+                        </div>
+                        <div class="slds-col">
+                            <button type="button" class="slds-button slds-button--brand" ng-click="interactionAction('Completed')">Complete Interaction</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-feed-container slds-p-left--medium slds-p-right--small slds-size--5-of-12">
+                    <h3 class="slds-section__title slds-has-divider--bottom slds-m-bottom--small">
+                        Activity
+                        <div class="slds-icon_container" ng-click="refreshFrame()">
+                            <slds-svg-icon size="'x-small'" sprite="'utility'" icon="'refresh'"></slds-svg-icon>
+                        </div>
+                    </h3>
+                    <ul>
+                        <li ng-repeat="activity in activityFeed">
+                            <span class="slds-assistive-text">{{activity.Type}}</span>
+                            <div class="slds-media">
+                                <div class="slds-media__body">
+                                    <div class="slds-media slds-media--timeline slds-timeline__media--task">
+                                        <div class="slds-media__figure slds-timeline__icon">
+                                            <div class="slds-icon_container">
+                                                <slds-svg-icon size="'small'" sprite="'utility'" icon="activity.Icon" extra-classes="'slds-icon-standard-task'"></slds-svg-icon>
+                                            </div>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <p ng-if="activity.Category === 'Console'" class="activity-description"><strong>{{activity.Type}}</strong> <em>as</em> <strong>{{activity.Name}}</strong> <em>for {{activity.EntityLabel}}</em> {{activity.EntityName}}</p>
+                                            <p ng-if="activity.Category === 'OmniScript'" class="activity-description">{{activity.Type}}: <strong>{{activity.Name}}</strong> ({{activity.Elapsedtime}})</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            sforce.connection.sessionId = '{!$Api.Session_ID}';
+            var listener = function(result) {
+                'use strict';
+                window.location.reload();
+            };
+            //Add a listener for the 'SampleEvent' event type
+            sforce.console.addEventListener('refreshActivityLog', listener);
+
+            var vlocConsole = {
+                'accessToken': '{!$Api.Session_ID}',
+                'staticResourceURL': {
+                    'slds': '{!URLFOR($Resource.slds)}',
+                }
+            };
+
+            var namespacePrefix, interactionId, remoteActions;
+            namespacePrefix = '{!namespacePrefix}';
+            //actionListString = '{!actionListString}';
+            interactionId = '{!$CurrentPage.parameters.Id}';
+            remoteActions = {
+                updateTask: {
+                    action: '{!$RemoteAction.InteractionSummaryController.updateTask}',
+                    config: {escape: false}
+                },
+                getInteractionObject: {
+                    action: '{!$RemoteAction.InteractionSummaryController.getInteractionObject}',
+                    config: {escape: false}
+                },
+                getTrackingEntries: {
+                    action: '{!$RemoteAction.InteractionSummaryController.getTrackingEntries}',
+                    config: {escape: false}
+                }
+            };
+        </script>
+
+        <style>
+            html.interaction-summary-subtab {
+                height: 100%;
+                background-color: #fff;
+            }
+
+            html.interaction-summary-subtab body {
+                height: 100%;
+                margin: 0;
+                padding: 20px;
+            }
+
+            html.interaction-summary-subtab .via-slds,
+
+            html.interaction-summary-subtab .task-details-form-container,
+            html.interaction-summary-subtab .activity-feed-container {
+                height: 100%;
+            }
+
+            html.interaction-summary-subtab .slds-notify_container {
+                position: static;
+            }
+
+            html.interaction-summary-subtab .collapse {
+                display: none;
+            }
+
+            html.interaction-summary-subtab .task-details-form-container {
+                border-right: 1px solid #d8dde6;
+            }
+
+            html.interaction-summary-subtab .activity-feed-container h3.slds-section__title {
+                position: relative;
+            }
+
+            html.interaction-summary-subtab .activity-feed-container h3.slds-section__title .slds-icon_container {
+                position: absolute;
+                top: -2px;
+                right: 5px;
+                cursor: pointer;
+            }
+
+            html.interaction-summary-subtab[dir="rtl"] .activity-feed-container h3.slds-section__title .slds-icon_container {
+                right: auto;
+                left: 5px;
+            }
+
+            html.interaction-summary-subtab .activity-feed-container h3.slds-section__title .slds-icon_container svg {
+                fill: #A7B8D1;
+                transition: fill 100ms ease-in;
+            }
+
+            html.interaction-summary-subtab .activity-feed-container h3.slds-section__title .slds-icon_container svg:hover {
+                fill: #54698d;
+            }
+
+            html.interaction-summary-subtab .activity-feed-container h3.slds-section__title .slds-icon_container svg:active {
+                fill: #4BC076;
+            }
+
+            html.interaction-summary-subtab .task-details-form-container .form-buttons-group .slds-button {
+                width: 100%;
+            }
+
+            html.interaction-summary-subtab .via-slds .slds-timeline__media--task:before {
+                background: #d8dde6;
+            }
+
+            html.interaction-summary-subtab .via-slds .slds-icon-standard-task {
+                background-color: #fff;
+                fill: #9faab5;
+            }
+
+            html.interaction-summary-subtab .activity-description {
+                color: #00396B;
+                font-size: 0.75rem;
+            }
+        </style>
+    </body>
+
+    </html>
+</apex:page>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AllowIndependentLifeCycle__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Identifies child items and its hierarchy (if any) whose asset lifecycle can be managed independently from the root level offer.</description>
+    <externalId>false</externalId>
+    <label>Allow Independent Life Cycle</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

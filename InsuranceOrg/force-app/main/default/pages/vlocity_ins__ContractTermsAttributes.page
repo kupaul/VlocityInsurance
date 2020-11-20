@@ -1,0 +1,172 @@
+<apex:page docType="html-5.0" controller="vlocity_ins.CardCanvasController" showHeader="true" sidebar="false" standardStylesheets="false" tabStyle="VlocityContractTerms__tab">
+    <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  ng-app="clmProductAttributes" class="ng-cloak" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <style type="text/css">
+                td.noSidebarCell {
+                        padding: 0px;
+                }
+            </style>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_touch, '/angular-touch.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_carousel, '/dist/angular-carousel.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ClmProductAttributes}"/>
+            <c:CardStyleLoaderComponent ></c:CardStyleLoaderComponent>
+            <apex:includeScript value="{!$Resource.vlocity_ins__VlocityExpressionEngine}"/>
+
+
+        </head>
+        <body>
+            <div class="vlocity via-slds preload" ng-controller="initTermCtrl">
+                <div class="slds-spinner_container" ng-show="vlcLoading">
+                    <div class="slds-spinner slds-spinner_brand slds-spinner_large" aria-hidden="false" role="status">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+                <div ng-if="params.id">
+                    <vloc-layout  params='params' ctrl="ClmTermAttributesController" layout-name="clm-product-attributes-header-container" is-loaded="isHeaderLoaded"></vloc-layout>
+                    <div style="border-top:1px solid #dddbda">
+                        <vloc-layout  params='params' ctrl="ClmProductAttributesController" class="clm-product-attributes-container" id="clm-product-attributes-container" layout-name="clm-product-attributes-container" is-loaded="isProdAttrLoaded"></vloc-layout>
+                        <div class="slds-text-align_center slds-m-vertical_medium" ng-if="!isProdAttrLoaded || !isHeaderLoaded">
+                            <div class="slds-spinner_container">
+                                <div class="slds-spinner_brand slds-spinner slds-spinner_medium" aria-hidden="false" role="alert">
+                                    <div class="slds-spinner__dot-a"></div>
+                                    <div class="slds-spinner__dot-b"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="params && !params.id" ng-controller="ClmTermAttributesController" class="demo-only" style="height: 640px;">
+                    <div class="slds-spinner_container" ng-show="vlcLoading">
+                        <div class="slds-spinner slds-spinner_brand slds-spinner_large" aria-hidden="false" role="status">
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                    <div role="dialog" tabindex="-1" ctrl="ClmTermAttributesController" aria-labelledby="header43" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <div class="slds-modal__header" id="modalHeader">
+                                <button class="slds-button slds-modal__close slds-button_icon-inverse" id="close-icon" ng-click="returnHomePage()">
+                                    <slds-button-svg-icon id="close-modal" sprite="'utility'" icon="'close'" size="'large'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="header" class="slds-text-heading_medium">{!$Label.CLMNewContractTermLabel}</h2>
+                            </div>
+                            <div class="slds-modal__content slds-p-around_medium slds-grid slds-wrap">
+
+                                <div class="vloc-attr-config-grid slds-p-bottom_small slds-size_1-of-1 ng-scope">
+                                    <div id="form-name_validation" ng-if="validationErrors.termName" class="slds-popover slds-nubbin_bottom-left slds-theme_error" role="alert" aria-live="polite" style="top: 10px;max-width: 100%;width:auto">
+                                        <div id="form-name_popover" class="slds-popover__body slds-text-longform">
+                                            <p id="form-name_popovertext">{!$Label.CLMTermEmptyName}</p>
+                                        </div>
+                                    </div>
+                                    <div class="vloc-attr-config-row slds-small-show slds-p-top_small">
+                                        <div class="vloc-attr-title-cell slds-truncate slds-form-element__label" id="contractTermName" title="{!$Label.CLMContractTermName}">
+                                            <abbr class="slds-required" title="required">*</abbr><span class="ng-binding">{!$Label.CLMContractTermName}</span>
+                                        </div>
+                                        <div>
+                                            <input id="term-name" type="text" ng-model="termData.termName" placeholder='{!$Label.CLMContractTermEnterName}' class="slds-input ng-pristine ng-untouched ng-valid ng-empty"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="vloc-attr-config-grid slds-p-bottom_small slds-size_1-of-1 ng-scope">
+                                    <div id="form-code_validation" ng-if="validationErrors.termCode" class="slds-popover slds-nubbin_bottom-left slds-theme_error" role="alert" aria-live="polite" style="top: 10px;max-width: 100%;width:auto">
+                                        <div id="form-code_popover" class="slds-popover__body slds-text-longform">
+                                            <p id="form-code_popovertext">{!$Label.CLMTermEmptyCode}</p>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form-element__control slds-size_2-of-3 slds-show_inline-block">
+                                        <div class="vloc-attr-title-cell slds-truncate slds-form-element__label" id="contractTermCode" title="{!$Label.CLMContractTermCode}">
+                                            <abbr class="slds-required" title="required">*</abbr><span class="ng-binding">{!$Label.CLMContractTermCode}</span>
+                                        </div>
+                                        <div>
+                                            <input id="term-code" type="text" ng-model="termData.termCode" placeholder='{!$Label.CLMContractTermEnterCode}' class="slds-input ng-pristine ng-untouched ng-valid ng-empty" />
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-form-element__control slds-p-left_large slds-size_1-of-6 slds-show_inline-block">
+                                        <div class="vloc-attr-title-cell slds-truncate slds-form-element__label" id="contractTermActive" title="{!$Label.CLMContractTermActive}">
+                                            <span class="ng-binding">{!$Label.CLMContractTermActive}</span>
+                                        </div>
+                                        <label class="slds-checkbox" id="term-active">
+                                            <input class="term-active-checkbox slds-input" type="checkbox" ng-model="termData.termActive" ng-value="false"/>
+                                            <span class="slds-checkbox_faux"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="vloc-attr-config-row vloc-attr-config-row_description slds-small-show slds-p-bottom_small slds-size_1-of-1 ng-scope">
+                                    <div data.fields="" class="vloc-attr-title-cell slds-truncate slds-form-element__label" id="contractTermDesc" title="{!$Label.CLMContractTermDesc}">
+                                        <span class="ng-binding">{!$Label.CLMContractTermDesc}</span>
+                                    </div>
+                                    <div>
+                                        <input id="term-desc" type="text" ng-model="termData.termDesc" class="slds-input ng-pristine ng-untouched ng-valid ng-empty" placeholder='{!$Label.CLMContractTermEnterDesc}' />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-modal__footer">
+                                <button class="slds-button slds-button_neutral" id="cancel-button" ng-click="returnHomePage()">{!$Label.CLMTermCancel}</button>
+                                <button class="slds-button slds-button_brand" id="save-button" ng-click="createNewTerm()">{!$Label.CLMTermSave}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </div>
+            </div>
+            <script type="text/javascript">
+
+                var sessionId = '{!$Api.Session_ID}';
+                var vlocCLM = {
+                    'accessToken': '{!$Api.Session_ID}',
+                        'staticResourceURL' : {
+                        'slds': '{!URLFOR($Resource.slds)}',
+                    }
+                };
+                var userId = '{!$User.Id}';
+                angular.module('clmProductAttributes').controller('initTermCtrl', ['$scope',function($scope) {
+                    $scope.vlcLoading = false;
+                    'use strict';
+                    $scope.params = {
+                        'id': '{!JSENCODE($CurrentPage.parameters.id)}' || ''
+                    };
+                }]);
+                var modalLabels = {
+                    'CLMTermSave': '{!$Label.CLMTermSave}',
+                    'CLMTermCancel': '{!$Label.CLMTermCancel}',
+                    'CLMTermEmptyName':'{!$Label.CLMTermEmptyName}',
+                    'CLMTermEmptyCode':'{!$Label.CLMTermEmptyCode}',
+                    'CLMNewContractTermLabel':'{!$Label.CLMNewContractTermLabel}',
+                    'CLMContractTermName':'{!$Label.CLMContractTermName}',
+                    'CLMContractTermCode':'{!$Label.CLMContractTermCode}',
+                    'CLMContractTermActive':'{!$Label.CLMContractTermActive}',
+                    'CLMContractTermDesc':'{!$Label.CLMContractTermDesc}',
+                    'CLMContractTermEnterName': '{!$Label.CLMContractTermEnterName}',
+                    'CLMContractTermEnterCode': '{!$Label.CLMContractTermEnterCode}',
+                    'CLMContractTermEnterDesc': '{!$Label.CLMContractTermEnterDesc}',
+                    'CLMTemplateBackToList': '{!$Label.CLMTemplateBackToList}',
+                    'CLMTermDelete': '{!$Label.CLMTermDelete}',
+                    'CLMContractTermCodeLabel': '{!$Label.CLMContractTermCodeLabel}',
+                    'CLMContractTermDescLabel': '{!$Label.CLMContractTermDescLabel}',
+                    'CLMContractTermNewLabel': '{!$Label.CLMContractTermNewLabel}',
+                    'CLMContractTermNewAttribute': '{!$Label.CLMContractTermNewAttribute}',
+                    'CLMContractTermUpdate': '{!$Label.CLMContractTermUpdate}',
+                    'CLMContractTermSelectCategory': '{!$Label.CLMContractTermSelectCategory}',
+                    'CLMContractTermSelectAttribute': '{!$Label.CLMContractTermSelectAttribute}',
+                    'CLMContractTermMin': '{!$Label.CLMContractTermMin}',
+                    'CLMContractTermMax': '{!$Label.CLMContractTermMax}',
+                    'CLMContractTermStartValue': '{!$Label.CLMContractTermStartValue}',
+                    'CLMContractTermDefault': '{!$Label.CLMContractTermDefault}',
+                    'CLMContractTermDisplayValue': '{!$Label.CLMContractTermDisplayValue}',
+                    'CLMContractTermValue': '{!$Label.CLMContractTermValue}',
+                    'CLMContractTermAdd': '{!$Label.CLMContractTermAdd}'
+                };
+            </script>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Policy Term --></label>
+    <name>vlocity_ins__AssetTermId__c</name>
+    <relationshipLabel><!-- Policy Term Tracking Entry --></relationshipLabel>
+</CustomFieldTranslation>

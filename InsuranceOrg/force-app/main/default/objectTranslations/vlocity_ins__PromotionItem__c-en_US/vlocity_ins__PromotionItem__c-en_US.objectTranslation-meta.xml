@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- DiscountItem --></label>
+        <name>vlocity_ins__DiscountItem</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- PromotionItem --></label>
+        <name>vlocity_ins__PromotionItem</name>
+    </fieldSets>
+    <validationRules>
+        <errorMessage><!-- Default Quantity should be greater than or equal to 0 --></errorMessage>
+        <name>vlocity_ins__Default_greater_than_0</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Default Quantity must be greater than or equal to Min Quantity --></errorMessage>
+        <name>vlocity_ins__Default_greater_than_Min</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Default Quantity must be less than or equal to Max Quantity --></errorMessage>
+        <name>vlocity_ins__Default_less_than_Max</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Effective Until Date should be greater than or equal to Effective From Date. --></errorMessage>
+        <name>vlocity_ins__EffectiveUntil_Greater_EffectiveFrom</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Max Quantity should be greater than or equal to 0 --></errorMessage>
+        <name>vlocity_ins__Max_greater_than_0</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Max Quantity must be greater than or equal to Min Quantity --></errorMessage>
+        <name>vlocity_ins__Max_less_than_Min</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Min Quantity should be greater than or equal to 0 --></errorMessage>
+        <name>vlocity_ins__Min_greater_than_0</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Min Quantity must be less than or equal to Max Quantity --></errorMessage>
+        <name>vlocity_ins__Min_greater_than_Max</name>
+    </validationRules>
+</CustomObjectTranslation>

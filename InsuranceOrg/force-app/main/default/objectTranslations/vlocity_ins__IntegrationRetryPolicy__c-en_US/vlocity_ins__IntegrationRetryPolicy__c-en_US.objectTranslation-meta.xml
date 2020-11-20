@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <label><!-- Monotonous Forever Retry Policy --></label>
+        <name>vlocity_ins__MonotonousForeverRetryPolicy</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Monotonous Retry Policy --></label>
+        <name>vlocity_ins__MonotonousRetryPolicy</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- No Retry Policy --></label>
+        <name>vlocity_ins__NoRetryPolicy</name>
+    </recordTypes>
+</CustomObjectTranslation>

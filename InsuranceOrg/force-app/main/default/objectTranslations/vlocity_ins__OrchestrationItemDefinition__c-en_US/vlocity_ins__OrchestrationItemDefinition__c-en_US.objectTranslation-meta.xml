@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <label><!-- Auto Task --></label>
+        <name>vlocity_ins__AutoTask</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Callout --></label>
+        <name>vlocity_ins__Callout</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Manual Task --></label>
+        <name>vlocity_ins__ManualTask</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Milestone --></label>
+        <name>vlocity_ins__Milestone</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Pull Event --></label>
+        <name>vlocity_ins__PullEvent</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Push Event --></label>
+        <name>vlocity_ins__PushEvent</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Sub-plan --></label>
+        <name>vlocity_ins__SubPlan</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- Timeout cannot be negative. --></errorMessage>
+        <name>vlocity_ins__TimeoutMinValueValidation</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Debug --></label>
+        <name>vlocity_ins__Debug</name>
+    </webLinks>
+</CustomObjectTranslation>

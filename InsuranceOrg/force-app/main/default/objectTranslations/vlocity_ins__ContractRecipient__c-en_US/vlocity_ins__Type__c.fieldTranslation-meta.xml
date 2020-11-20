@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Carbon Copy</masterLabel>
+        <translation><!-- Carbon Copy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Certified Delivery</masterLabel>
+        <translation><!-- Certified Delivery --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Host In Person</masterLabel>
+        <translation><!-- Host In Person --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Signer</masterLabel>
+        <translation><!-- Signer --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

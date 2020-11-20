@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Product2Id__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Identifies the subject product for which this relationship is defined. For an &quot;Excludes&quot; relationship, this identifies the product that excludes another product. For a &quot;Relies On&quot; relationship, this identifies the product which has a dependency on another product.</description>
+    <externalId>false</externalId>
+    <label>Product</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Product Relationships</relationshipLabel>
+    <relationshipName>RelatedProduct</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

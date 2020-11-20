@@ -1,0 +1,8 @@
+@font-face {
+  unicode-range: u+e425-e427, u+e429-e429, u+e203-e203, u+e42e-e42f, u+e437-e442, u+e446-e447, u+2780-2793, u+e466-e46b, u+e46e-e47e, u+e48b-e492, u+e49d-e4c4;
+  symbol-range: u+4a-4c, u+4e-4e, u+51-51, u+54-55, u+6c-77, u+7d-7e, u+80-93, u+9e-a3, u+a6-b6, u+c3-ca, u+d7-fe;
+  font-family: 'Open Symbol';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Symbol'), url({{URLTOKEN}}/OpenSymbol.ttf?orgId=00D3i000000rhp6) format('truetype');
+}

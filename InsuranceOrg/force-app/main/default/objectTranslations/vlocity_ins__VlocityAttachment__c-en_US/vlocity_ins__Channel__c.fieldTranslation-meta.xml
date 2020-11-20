@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Channel --></label>
+    <name>vlocity_ins__Channel__c</name>
+    <picklistValues>
+        <masterLabel>Any</masterLabel>
+        <translation><!-- Any --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Call Center</masterLabel>
+        <translation><!-- Call Center --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mobile</masterLabel>
+        <translation><!-- Mobile --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Partner</masterLabel>
+        <translation><!-- Partner --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Web</masterLabel>
+        <translation><!-- Web --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Charge Type --></label>
+    <name>vlocity_ins__ChargeType__c</name>
+    <picklistValues>
+        <masterLabel>Adjustment</masterLabel>
+        <translation><!-- Adjustment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>One-time</masterLabel>
+        <translation><!-- One-time --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recurring</masterLabel>
+        <translation><!-- Recurring --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Usage</masterLabel>
+        <translation><!-- Usage --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__OverflowSequence__c</fullName>
+    <deprecated>false</deprecated>
+    <description>In case the response size exceeds the size of ApiResponse__c field, it is split into multiple CachedAPIResponse__c records with incrementing the overflowsequence.</description>
+    <externalId>false</externalId>
+    <label>Overflow Sequence</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AppliedDateTime__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Datetime on which rules were applied to target object.</description>
+    <externalId>false</externalId>
+    <label>Applied Datetime</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

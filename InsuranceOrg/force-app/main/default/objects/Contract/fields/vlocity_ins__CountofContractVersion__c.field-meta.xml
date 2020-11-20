@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CountofContractVersion__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The number of document versions that have been created for this contract</description>
+    <externalId>false</externalId>
+    <label>Count of Contract Document</label>
+    <summaryForeignKey>vlocity_ins__ContractVersion__c.vlocity_ins__ContractId__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <type>Summary</type>
+</CustomField>

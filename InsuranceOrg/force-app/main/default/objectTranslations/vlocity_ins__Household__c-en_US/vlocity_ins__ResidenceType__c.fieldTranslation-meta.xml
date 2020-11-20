@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Residence Type --></label>
+    <name>vlocity_ins__ResidenceType__c</name>
+    <picklistValues>
+        <masterLabel>Apartment</masterLabel>
+        <translation><!-- Apartment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multi-Family Dwelling</masterLabel>
+        <translation><!-- Multi-Family Dwelling --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Single Family Home</masterLabel>
+        <translation><!-- Single Family Home --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

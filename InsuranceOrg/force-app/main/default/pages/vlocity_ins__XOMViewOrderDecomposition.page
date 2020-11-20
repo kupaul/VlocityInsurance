@@ -1,0 +1,1355 @@
+<apex:page docType="html-5.0" applyBodyTag="false" standardController="Order" extensions="vlocity_ins.SimpleDecompositionController,vlocity_ins.XOMOffPlatformAccessConfigController">
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="decomposeApp">
+<head>
+    <title>Decompose Order</title>
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <apex:includeScript value="/soap/ajax/31.0/connection.js" />
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+    <script src="{!URLFOR($Resource.vlocity_assets, '/javascripts/vlocity.js')}"></script>
+    <script src="{!$Resource.SldsAngular}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.XomThorIntegration)}"></script>
+    <script src="{!URLFOR($Resource.XOMNodeView)}"></script>
+    
+    <apex:stylesheet value="{!$Resource.vlocity_ins__XOMCss}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__CollapsibleLists)}" /><!-- /*XOM-1419s*/ -->
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__TreeViewCss, 'TreeViewCss/TreeView.css')}"/><!-- /*XOM-1419e*/ -->
+    <style type="text/css">
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+
+        .vlocity .vlc-overlay {
+            position: fixed;
+            z-index: 1038;
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 100%;
+            height: 100%; }
+            .vlocity .vlc-overlay .spinner {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                margin-top: -14px;
+                margin-left: -14px;
+            }
+            .modal-body p {
+                word-wrap: break-word;
+            }
+            .modal-backdrop, .am-fade {
+                display: none;
+            }
+            .tooltip-inner{
+                max-width:350em !important;
+                max-height:150px;
+                width:auto;
+                overflow-wrap: break-word;
+                overflow:visible;
+                z-index:10000;
+            }
+            .vlocity .tooltip.top-left{
+                max-width:200px;
+                white-space:normal;
+            }
+
+            .panel-title .tooltip-inner {
+                width:auto;
+                max-width:2000px !important;
+                whitespace:no-wrap;
+                overflow-wrap: break-word;
+                overflow:visible;
+                z-index:10000;
+            }
+            .order .field-value, .node-title {
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+            }
+
+            .icon-v-link, .icon{
+                position:relative;
+                float:left;
+            }
+            /*XOM-1419s*/
+            .collapsibleList li{
+                cursor : auto;
+            }
+            li.collapsibleListOpen{
+               cursor  : pointer;
+            }
+            li.collapsibleListClosed{
+               cursor  : pointer;
+            }
+            .vlocity ul {
+               list-style:none;
+               margin-top: 0.5%;
+               z-index:0;
+            }
+            .vlocity li {
+               border-left:1px solid lightblue;
+               margin-left:1%;
+               padding-left:3% !important;
+               background-position-y : 32px;
+               border-bottom:1px solid lightblue;
+            }
+            .vlocity a {
+               padding-left:1.8%;
+            }
+            .treeView li.collapsibleListOpen{
+               background-image: none;
+               background-position-y : 32px;
+            }
+            .treeView ul ul
+            {
+                background:none;
+            }
+            .treeView li li
+            {
+                background-image: none;
+            }
+            .treeView li
+            {
+                background-image: none;
+            }
+            .correction{
+                float:left;
+            }
+            .node-title{
+                background:#e5f8fe;
+                font-size:20px;
+                font-weight:bolder;
+            }
+            node-view{
+                padding:0.5%;
+            }
+            .field{
+                text-overflow:ellipsis;
+                overflow:hidden;
+            }
+            .node-supp-action{
+                padding-top: 8px;
+                padding-bottom: 4px;
+            }
+            .node-supp-field-value{
+                background-color: #005fb2;
+                font-weight: 700;
+                line-height: normal;
+                padding: 4px 7px 5px 7px;
+                white-space: nowrap;
+                border-radius: 20px;
+                color: #fff;
+                width: fit-content;
+            }
+            .vlocity h1{
+                background: #C1DDF3;
+                line-height: 2.1em;
+                text-transform: capitalize;
+                margin-left: 1.7em;
+                padding-left: 0.8em;
+                margin-top: 10px !important;
+                margin-bottom: 3px !important;
+                font-size:22px;
+                font-weight:bolder;
+                overflow:hidden;
+                white-space:nowrap;
+                text-overflow:ellipsis;
+            }
+            .btn-toolbar{
+                margin-left: 1.7em;
+            }
+            .node-subtitle{
+                color:grey;
+            }
+            .vlocity .col-xs-6:first-child{
+                border-right:2px dashed #C1DDF3;
+            }
+            .field-label{
+                color:grey;
+                font-weight:bold;
+                font-size:12px;
+                line-height:1.6em;
+            }
+            .field-value{
+                font-size:12px;
+                line-height:1.6em;
+             }
+             .tooltip-inner{
+                font-size:inherit;
+
+             }
+             .node-title-frLine{
+            }
+            .node-frLine{
+
+            }
+            .fields, .field-value, .field-label{
+                word-break:break-word;
+                text-overflow:ellipsis;
+                overflow:hidden;
+                white-space: normal;
+            }
+            /*XOM-1419; XOM-1714*/
+            .vlocity .col-xs-12 {
+                max-width: 100%;
+                white-space: nowrap !important;
+                overflow: hidden;
+            }
+            .vlocity .col-xs-6 {
+                padding-left:0px;;
+                width:50%;
+                min-width: 50%;
+                white-space: nowrap;
+                display: inline-block !important;
+                float: none;
+            }
+            .orders{
+                float: left !important;
+            }
+            .treeView ul{
+                margin: 0 0 0 -1.01em;
+                padding: 0 0 0 1.5em;
+            }
+            .vlocity .vlc-overlay#emptyOrder{
+                opacity: 0.2;
+                background-color: black;
+                display: none;
+                width: 73%;
+                height: 40px;
+                display: none;
+                align-items: center;
+            }
+             .vlocity .vlc-overlay#emptyOrder div{
+                margin: 0 auto;
+             }
+            .vlocity .vlc-overlay#emptyOrder h3{
+                color: white;
+            }
+            /*XOM-1714*/
+            /* RTL css */ 
+            html[dir="rtl"] .vlocity .btn-toolbar .btn-group,html[dir="rtl"] .orders,html[dir="rtl"] .icon{
+                float:right !important;
+            }
+            html[dir="rtl"] .vlocity .col-xs-6:first-child{
+                border:none;
+                border-left:2px dashed #C1DDF3;
+                padding-right:0px;
+            }
+            html[dir="rtl"] .vlocity .col-xs-12{
+                padding-left: 0px;
+                padding-right:0px;
+            }
+            html[dir="rtl"] .vlocity .col-xs-6{
+                padding-left:5px;
+                padding-right: 46px;
+            }
+            html[dir="rtl"] .vlocity .col-xs-6.frs{
+                padding-left:15px;
+            }
+            html[dir="rtl"] .vlocity h1{
+                margin-right:0px;
+                padding-right:0.8em;
+                margin-left: 10px;
+
+            }
+            html[dir="rtl"] .frs h1{
+                margin-left:0px;
+                padding-left: 0px;
+                width: 98%
+            }
+            html[dir="rtl"] .vlocity li
+            {
+                border-left: none;
+                border-right: 1px solid lightblue;
+                margin-right: 1%;
+                padding-right: 3% !important;
+                margin-left: 10px;
+                padding-left: 0px !important;
+            }
+            html[dir="rtl"] .vlocity .treeView ul{
+                padding-left: 2px;
+            }
+            html[dir="rtl"] .node-title{
+                margin-right:-10px;
+                margin-left: 10px;
+            }
+            html[dir="rtl"] .frs .node-title{
+                margin-left: 10px;
+            }
+            html[dir="rtl"] .vlocity .panel-group{
+                padding-right: 0px;
+            }
+            html[dir="rtl"] .vlocity .node-subtitle{
+                position:absolute;
+                overflow: hidden;
+                white-space:nowrap;
+                text-overflow:ellipsis;
+                width:250px;
+                display:inline-block;
+                margin-right:4px;
+            }
+	       #viewMoreLink:hover, #viewLessLink:hover{
+                text-decoration:underline;
+           }
+           #viewMoreLink,.viewMoreLink{
+                color: #008ab3;
+                text-decoration: none;
+                float: right;
+                position: absolute;
+                right: 0px;
+                background: white;
+                
+           }
+           #viewLessLink{
+                color: #008ab3;
+                text-decoration: none;
+                float: right;
+                margin-right: 20px; 
+           }
+           .vlocity .tooltip.top-left .tooltip-arrow{
+                bottom:5px;
+                border-top-color:#7c7c7c;
+                margin-left:0px;
+           }
+           .vlocity .tooltip.bottom-left .tooltip-arrow{
+                top:5px;
+                border-bottom-color:#7c7c7c;
+                margin-left:0px;
+           }
+           .decompositionView{
+                padding-left:0;
+                margin-left:40px;
+           }
+           .vlocity .panel-group {
+               margin-left: 0;
+               padding-left: 0;
+           }
+            
+    </style>
+    </head>
+    <body>
+        <div class="vlocity" ng-controller="SimpleDecompositionController">
+                <div ng-show="showSpinner" class="vlc-overlay">
+                    <div class="spinner"></div>
+                </div>
+                <div class="via-slds">
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_{{alertMessage.type}}" role="alert" ng-show="alertMessage.showAlert" style="margin-bottom: 10px">
+                        <span class="slds-icon_container slds-icon-utility-{{alertMessage.type}} slds-m-right_x-small" title="{{alertMessage.message}}">
+                            <svg class="slds-icon slds-icon_x-small" aria-hidden="true" ng-show="alertMessage.type == 'error'">
+                                <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#error')}"></use>
+                            </svg>
+                            <svg class="slds-icon slds-icon_x-small" aria-hidden="true" ng-show="alertMessage.type == 'success'">
+                                <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#success')}"></use>
+                            </svg>
+                            <svg class="slds-icon slds-icon_x-small" aria-hidden="true" ng-show="alertMessage.type == 'info'">
+                                <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#info')}"></use>
+                            </svg>
+                            <svg class="slds-icon slds-icon_x-small" aria-hidden="true" ng-show="alertMessage.type == 'warning'">
+                                <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#warning')}"></use>
+                            </svg>
+                        </span>
+                        <h2>{{alertMessage.heading}}</h2>
+                        <small>&nbsp; {{alertMessage.message}} </small>
+                        <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" ng-click="alertMessage.showAlert = false; ">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="{!URLFOR($Resource.slds, '/assets/icons/utility-sprite/svg/symbols.svg#close')}"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="container-fluid" ng-if="showSpinner==false && orderDecomposed==true">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group actions" role="group">
+                            <a class="submit-button"
+                            ng-click="viewOriginalOrder();"><i class="icon icon-v-cart"></i><span>{{$root.translatedLabels['XOMDecomViewOriginalOrder']}}</span></a>
+                        </div>
+                        <div class="btn-group actions" role="group">
+                            <a class="submit-button" ng-if="orchestrationPlanId==null"
+                            ng-click="startOrchestrationPlan()"><i class="icon icon-v-play"></i><span>{{$root.translatedLabels['XOMDecomStartOrchestrationPlan']}}</span></a>
+                            <a class="submit-button" ng-if="orchestrationPlanId!=null"
+                            ng-click="navigateToSFDCPlan(orchestrationPlanId)"><i class="icon icon-v-play"></i><span>{{$root.translatedLabels['XOMDecomViewOrchestrationPlan']}}</span></a>
+                        </div>
+                    </div>
+                    <p id="message"></p>
+                    <div class="row">
+                        <div  class="col-xs-12">
+                            <div class="col-xs-6 orders" name="">
+                                <h1>{{$root.translatedLabels['XOMDecomSourceOrders']}}</h1>
+                                <node-view parent="originalOrders" orders="originalOrders" frs="fulfilmentRequests"></node-view>
+                            </div>
+                            <div class="col-xs-6 frs" name="">
+                                <h1>{{$root.translatedLabels['XOMDecomDecomposedFulfilmentRequests']}}</h1>
+                                <node-view parent="fulfilmentRequests" orders="originalOrders" frs="fulfilmentRequests"></node-view>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <script src="/support/console/34.0/integration.js"></script>
+            <script src="{!URLFOR($Resource.vlocity_assets, '/bower_components/forceng/forceng.js')}"></script>
+            <script src="{!URLFOR($Resource.vlocity_assets, '/bower_components/ForceTK/forcetk.js')}"></script>
+
+            <script src="{!URLFOR($Resource.AngularStrapJS_2_3_6)}"></script>
+            <script src="{!URLFOR($Resource.AngularStrapTplJS_2_3_6)}"></script>
+             
+             <script type="text/javascript">
+            (function () 
+            {
+                'use strict';//changed the name of module from camel case vloc.xomNodeView since grunt is not detecting the module while injecting the dependency and needs to have the same module name as present in the folder structure
+                var remoteActions = {
+                    viewDecomposedOrder : {action: '{!$RemoteAction.SimpleDecompositionController.viewDecomposedOrder}', config: {escape: false}},
+                    getSourceOrderAssetInfo : {action: '{!$RemoteAction.SimpleDecompositionController.getSourceOrderAssetInfo}', config: {escape: false}},
+                    isOffplatformMode : '{!$RemoteAction.XOMOffPlatformAccessConfigController.isOffplatformMode}',
+                    startOrchestrationPlan : '{!$RemoteAction.SimpleDecompositionController.startOrchestrationPlan}',
+                    getOffplatformUrl: "{!$RemoteAction.XOMOffPlatformAccessConfigController.getOffplatformUrl}",
+                    startOffPlatformOrchestrationPlan : '{!$RemoteAction.SimpleDecompositionController.startOffPlatformOrchestrationPlan}',
+                    getOrderOrchestrationPlanReferenceId : '{!$RemoteAction.SimpleDecompositionController.getOrderOrchestrationPlanReferenceId}',
+                    getSfIdByGlobalKey: '{!$RemoteAction.SimpleDecompositionController.getSfIdByGlobalKey}',
+                    isSfdcDecomposedOrder: '{!$RemoteAction.SimpleDecompositionController.isSfdcDecomposedOrder}',
+                    isDraftOrder: '{!$RemoteAction.SimpleDecompositionController.isDraftOrder}',
+                    thorInfo:'{!$RemoteAction.SimpleDecompositionController.thorInfo}',
+                    getMappingDetails:'{!$RemoteAction.SimpleDecompositionController.getMappingDetails}',
+                    getCustomLabels: "{!$RemoteAction.SimpleDecompositionController.getCustomLabels}"
+                    
+                };
+
+                var app = angular.module('decomposeApp', ["vlocity","ngSanitize", "forceng","mgcrea.ngStrap",'ngAnimate', 'vloc.xomNodeView', 'thorIntegration']);
+
+                app.config(function($tooltipProvider) 
+                {
+                  angular.extend($tooltipProvider.defaults, {
+                    delay: { show: 0, hide: 0 },
+                  });
+                });
+                //config data...
+                app.value('configData',{
+                    orderId : '{!LEFT($CurrentPage.parameters.Id, 15)}'
+                });
+
+                app.config(["remoteActionsProvider", function(remoteActionsProvider)
+                {
+                        remoteActionsProvider.setRemoteActions(remoteActions); // configure the remoteActionsProvider
+                    }]);
+
+                app.config(function($provide) 
+                {
+                    $provide.decorator('remoteActions', function($delegate, $http, thorIntegrationService,configData)
+                    {
+                        var originalRemoteActions = $delegate;
+                        // override the remoteActions methods you know may be off platform
+                        var potentiallyOffPlatformCalls = ['viewDecomposedOrder'];
+                        potentiallyOffPlatformCalls.forEach(function(remoteActionName) 
+                        {
+                            var remoteActionCallFn = originalRemoteActions[remoteActionName];
+                            // override getOrchestrationPlan by using $http service to fetch Offplatform data
+                            originalRemoteActions[remoteActionName] = function() 
+                            {
+                                var args = [].slice.call(arguments);
+                                var recordId = args[0];
+                                // var uiMode = true;
+                                return (originalRemoteActions['getOrderOrchestrationPlanReferenceId'](recordId))
+                                    .then (function(refId) 
+                                    {
+                                        //if (refId !== null) 
+                                        //{
+                                            return (thorIntegrationService.isOffplatformMode(originalRemoteActions))
+                                                .then(function(uiMode) 
+                                                {
+                                                if (uiMode) 
+                                                {
+                                                    // Thor data surce mode - fetch data via $http
+                                                    return thorIntegrationService.getOffplatformUrl(originalRemoteActions)
+                                                        .then(function(uiServiceUrl) 
+                                                        {  
+                                                            return thorIntegrationService.retryOperationInCaseAuthenticationError(
+                                                                    function() 
+                                                                    {
+                                                                        return $http({method: 'GET', url: uiServiceUrl + '/ordermanagement/v1/orders/' + recordId + '/decompose', withCredentials: true})
+                                                                                 .then(function success(response)
+                                                                                 {
+                                                                                    return response.data;
+                                                                                    }).catch(function failure(response)
+                                                                                    {
+                                                                                        if (response.data != undefined && response.data.customMessage != undefined)
+                                                                                        {
+
+                                                                                            if (response.data.customMessage == "Decomposition is not available as order is not decomposed yet") {
+                                                                                                return {sucCode:"1", message:"Order is not yet decomposed. Waiting for the plan to be frozen", type:"info"};
+                                                                                            }
+                                                                                            if (response.data.customMessage == "Decomposition is not available as order is rejected") {
+                                                                                                return {sucCode:"10", message:"Decomposition is not available as order is rejected", type:"info"};
+                                                                                            }
+
+                                                                                            // something is wrong, check if the order is in Draft status
+                                                                                            return originalRemoteActions['isDraftOrder'](recordId).then(function(isDraftOrder) 
+                                                                                            {
+                                                                                                if(isDraftOrder) {
+                                                                                                    return {sucCode:"10", message:"Order is not yet decomposed.", type:"info"};
+                                                                                                }
+                                                                                                return {sucCode:"1", message:"Order is still processing...", type:"info"};    
+                                                                                            });
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            throw response;
+                                                                                        }
+                                                                                    });
+                                                                    },
+                                                                    uiServiceUrl
+                                                                )
+                                                        })
+                                                        .catch(function failure(response)
+                                                        {
+                                                            console.error("Error response during the decompose request:", response);
+                                                            if (response.data !=undefined && response.data.message != undefined){
+                                                                var missingIdMessage = "Order is not found by id";
+                                                                if (response.status == 404 && response.data.message.includes(missingIdMessage)){
+                                                                    var errorObj = {sucCode:"5", message:"Order is queued and will start processing shortly.", type:"warning"};
+                                                                    return errorObj;
+                                                                }
+                                                            }
+                                                            alert("Error occurred during the decompose request to Thor. Please see the error log for details.");
+                                                        });
+                                                }
+                                                else 
+                                                { // On-platform mode - fetch data using VF Remote manager (use origina function)
+                                                    return remoteActionCallFn.apply(this, args);
+                                                }
+                                                });
+                                        /*}
+                                        else 
+                                        {
+                                            return remoteActionCallFn.apply(this, args);
+                                        }*/
+                                    });
+
+                            }
+                        });
+                        return $delegate;
+                    })
+                });
+
+                app.controller('SimpleDecompositionController', function($scope,$rootScope, $templateCache, $q, $modal, $interpolate,$http, $sce, remoteActions, configData) 
+                {
+
+                    console.log('processing Order id ', configData.orderId);
+                    $scope.nsp = '{!nsp}';
+                    $scope.userLocal = '{!userLocal}';
+                    $scope.showSpinner = true;
+                    $scope.orderDecomposed=false;
+                    $scope.originalOrders = {
+                        nodes: []
+                    };
+
+                    $scope.fulfilmentRequests = {
+                        nodes: []
+                    };
+                    $scope.getCustomLabels =function ()
+                    {
+                    var labelNamesQueue= [];
+                    $rootScope.translatedLabels= [];
+                    
+                  var idx = labelNamesQueue.push("XOMDecomViewOriginalOrder","XOMDecomStartOrchestrationPlan","XOMDecomViewOrchestrationPlan","XOMDecomSourceOrders","XOMDecomProduct","XOMDecomStatus","XOMDecomDecomposedFulfilmentRequests","XOMDecomAssetInventoryItem","XOMDecomNotAssoDownstreamProduct","XOMDecomShowHideAttriPanel","XOMDecomDefaultValue","XOMDecomSupplementalAction");
+                        remoteActions['getCustomLabels'](labelNamesQueue,$scope.userLocal)
+                            .then(function(translation) 
+                            { 
+                                console.log('received translations for ' +labelNamesQueue.length + ' labels', translation);
+                                var idx = 1;
+                                   var  decodedTranslations= translation.replace(/&#39/g, '\/');
+                                   decodedTranslations = JSON.parse(decodedTranslations.replace(/(&quot\;)/g,"\""));
+                                for (var key in decodedTranslations) 
+                                {
+                                  if (decodedTranslations.hasOwnProperty(key)) 
+                                  {
+                                    if(key !=="language")
+                                    {
+                                        $rootScope.translatedLabels[key] = decodedTranslations[key];
+                                        idx++;
+                                    }
+                                  }
+                                }
+                            });
+                            console.log("Here is the custom label values :",$rootScope.translatedLabels);
+                    };
+                    
+                    $scope.getCustomLabels();
+                    $scope.viewOriginalOrder = function () 
+                    {
+                        console.log(configData.orderId);
+                        //window.location = parent.location.origin+'/'+configData.orderId;
+                        //window.open(parent.location.origin+'/'+configData.orderId, "_blank");
+                        window.open( '/' + configData.orderId, '_blank'); //XOM-4707
+                    };
+
+                    $scope.displayOrderDecomposition = function() 
+                    {
+                        $scope.showSpinner = $scope.keepPolling==true? false:true; //OMUI-357
+                        var ordersString;
+                        $scope.globalKeyToSFIDMap = {};
+                        var allSpecIds;
+
+                        remoteActions.isOffplatformMode().then(function(offPlatformFlag)
+                        {
+                            // fetch asset info from off-platform
+                            remoteActions.getSourceOrderAssetInfo(configData.orderId).then(function(sourceOrderItemToAssetMap)
+                            {
+                                console.log('on-platform order item to asset map ', sourceOrderItemToAssetMap);
+                                
+                                //Add 15 char version to map to fix id inconsistencies
+                                //Object.keys(sourceOrderItemToAssetMap).forEach(key => sourceOrderItemToAssetMap[key.substring(0,15)] = sourceOrderItemToAssetMap[key]);
+
+                                Object.keys(sourceOrderItemToAssetMap).forEach(function(key)
+                                {
+                                sourceOrderItemToAssetMap[key.substring(0,15)] = sourceOrderItemToAssetMap[key];
+                                });
+                                remoteActions.viewDecomposedOrder(configData.orderId).then(function(orders)
+                                {
+                                    console.log('viewDecomposedOrder: orders', orders);
+                                    $scope.orders = orders;
+                                    $scope.orchestrationPlanId = orders.orchestrationPlanId;
+                                    $scope.orderStatus = orders.orderStatus;
+                                    ordersString = JSON.stringify(orders);
+
+                                    remoteActions.thorInfo(configData.orderId, ordersString, offPlatformFlag).then(function(thorDRInfo)
+                                    {
+                                        if (thorDRInfo!=null && thorDRInfo!='') 
+                                        {
+                                            thorDRInfo        = thorDRInfo.replace(/\&\quot;/g, '"');
+                                            thorDRInfo        = JSON.parse(thorDRInfo);
+                                            $scope.drDetails  = thorDRInfo.upstreamDecompRules;
+                                            $scope.globalKeyToSFIDMap = thorDRInfo.globalKeyToSFIDMap;
+                                        }
+
+                                        function populateFRLineDRs (node) 
+                                        {
+                                            //debugger;//XOM-830
+                                            var oiId;
+                                            if (node.nodes)
+                                            {
+                                              for (var i = 0; i < node.nodes.length; i++)
+                                              {
+                                                node.nodes[i].oiToFRLinesMap = node.oiToFRLinesMap;
+                                                populateFRLineDRs (node.nodes[i]);
+                                              }
+                                            }
+                                            return node;
+                                        }//populateFRLineDRs
+
+                                        function getRefIdForSpec (node)
+                                        {
+                                            var refId;
+                                            for (var i=0; i<node.fields.length && refId==null; i++) 
+                                            {
+                                                if (node.fields[i].name == 'Product')
+                                                {
+                                                    refId = node.fields[i].refId;
+                                                    return refId;
+                                                }
+                                        }
+                                        }//getRefIdForSpec
+
+                                        function attachDRtoNode(node, upstreamDecompRules, nsp, globalKeyToSFIDMap, allSpecs)
+                                        { //XOM-1419
+
+                                            //console.log('[attachDRtoNode]==============================================')
+
+                                            var dr, mappingsArray, mapping, key, val, temp, downstreamFRL, currDestSpecId;
+
+                                            console.log('ITERATING NODES ', node);
+
+                                            if(upstreamDecompRules != null)
+                                            {
+
+                                                for(var i = 0; i < upstreamDecompRules.length; i++)
+                                                {
+
+                                                    dr = upstreamDecompRules[i];
+
+                                                    var foundFlag = null;
+
+                                                    if(node.specId != null &&
+                                                            (node.specId == dr[nsp + 'SourceProductId__c'] || node.specId == dr[nsp + 'DestinationProductId__c'])
+                                                            && allSpecs.indexOf(dr[nsp + 'SourceProductId__c']) != -1
+                                                            && allSpecs.indexOf(dr[nsp + 'DestinationProductId__c']) != -1)
+                                                    {
+
+                                                        /*if (node.specId == dr[nsp+'SourceProductId__c'])
+                                                        { //XOM-3078 Fixed
+                                                            if (node.oiToFRLinesMap[node.id]==null)
+                                                            {
+                                                                node.oiToFRLinesMap[node.id] = [];
+                                                                currDestSpecId = dr[nsp+'DestinationProductId__c'];
+                                                                downstreamFRL = node.specToNode[currDestSpecId]; 
+                                                                node.oiToFRLinesMap[node.id].push(downstreamFRL);
+                                                            }
+                                                            
+                                                        }
+                                                        //XOM-3078 Fixed
+                                                        */
+                                                        foundFlag = "foundBySpecId";
+
+                                                     }
+                                                     else
+                                                     {
+                                                         //not found, let's try checking parent class...
+                                                         if(node.specId != null && node.parentClassId != null
+                                                                 && node.parentClassId == dr[nsp + 'SourceProductId__c']
+                                                                 && allSpecs.indexOf(node.specId) != -1)
+                                                         {
+                                                             foundFlag = "foundByParentClassId";
+                                                         }
+
+                                                     }
+
+                                                     if(foundFlag != null)
+                                                     {
+
+                                                         console.log('ITERATING DRs: ', dr);
+                                                         console.log('DR BY NAME: ' + dr[nsp + 'SourceProductId__r'].Name + ' to ' + dr[nsp + 'DestinationProductId__r'].Name);
+                                                         console.log('DR BY ID: ' + dr[nsp + 'SourceProductId__c'] + ' to ' + dr[nsp + 'DestinationProductId__c']);
+
+                                                         if(dr[nsp+'MappingsData__c'] != null && dr[nsp+'MappingsData__c'] != '')
+                                                        {
+                                                            mappingsArray = JSON.parse(dr[nsp + 'MappingsData__c']);
+
+                                                            for(var j = 0; j < mappingsArray.length; j++)
+                                                            {
+                                                                mapping = mappingsArray[j];
+                                                                val = {};
+
+                                                                if(mapping['source_type'] == 'Attribute')
+                                                                {
+
+                                                                    // XOM-4543 find by source instead of destination
+                                                                    if (node.specId == dr[nsp+'SourceProductId__c'] || foundFlag == "foundByParentClassId")
+                                                                    {
+
+                                                                        var destSpecId = dr[nsp+'DestinationProductId__c'] + '';
+                                                                        var sourceSpecId = node.id;
+
+                                                                        key = 'attr_'+ destSpecId + '_' + mapping['destination_attr_name'];
+
+                                                                        console.log('attempting to set an attr map: ', mapping);
+
+                                                                        //temp = node.decompRule.orderItem!=null?node.decompRule.orderItem:node.decompRule.srcFrLine;
+                                                                        //val.highlightId = 'attr_'+temp+'_'+mapping['source_attr_name'];
+
+                                                                        val.srcOrderItemId = node.specId;
+                                                                        val.srcOrderItemName = dr[nsp + 'SourceProductId__r']['Name'];
+                                                                        val.highlightId = 'attr_'+node.specId + '_' + mapping['source_attr_name'];
+                                                                        val.mappingObj = mapping;
+
+                                                                        //node.attrMappings[key] = val;
+
+                                                                        console.log('finding destination: ' + destSpecId);
+
+                                                                        findAndAttachAttrMappings($scope.originalOrders, sourceSpecId, destSpecId, key, val);
+                                                                        findAndAttachAttrMappings($scope.fulfilmentRequests, sourceSpecId, destSpecId, key, val);
+
+                                                                    }
+                                                                }
+                                                                else if(mapping['source_type'] == 'Field')
+                                                                {
+
+                                                                    key = 'attr_'+node.specId+'_' + mapping['destination_attr_name'];
+                                                                    val.highlightId = 'nodeName_' + dr[nsp + 'SourceProductId__c'];
+                                                                    val.srcFieldName   = mapping['source_field_name'];
+                                                                    val.srcOrderItemId = dr[nsp + 'SourceProductId__c'];
+                                                                    val.srcOrderItemName = dr[nsp + 'SourceProductId__r']['Name'];
+                                                                    val.mappingObj = mapping;
+                                                                    node.fieldMappings = node.fieldMappings || {};
+                                                                    node.fieldMappings[key]=[];
+                                                                    node.fieldMappings[key].push(val);
+
+                                                                }
+                                                                else
+                                                                {
+
+                                                                    if(node.specId == dr[nsp+'DestinationProductId__c'])
+                                                                    {
+
+                                                                        key = 'attr_' + node.specId + '_' + mapping['destination_attr_name'];
+                                                                        val.srcOrderItemId = dr[nsp + 'SourceProductId__c'];
+                                                                        val.srcOrderItemName = dr[nsp + 'SourceProductId__r']['Name'];
+                                                                        val.mappingObj = mapping;
+                                                                        node.staticMappings = node.staticMappings || {};
+                                                                        node.staticMappings[key] =[];
+                                                                        node.staticMappings[key].push(val);
+
+                                                                    }
+
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                //});//getSfIdByGlobalKey
+                                            }
+
+                                            // debugger;
+
+                                            //console.log('[/attachDRtoNode]==============================================')
+                                        } //attachDRtoNode
+
+
+                                        /**
+                                         * finds a particular node using destSpecId (rescursive),
+                                         * and validates if sourceSpecId exists on the node's decompRuleList
+                                         *
+                                         * attaches attrMapping afterwards
+                                         */
+                                        function findAndAttachAttrMappings(node, sourceSpecId, destSpecId, key, val) {
+
+                                            if(node.specId)
+                                            {
+                                                if(node.specId == destSpecId)
+                                                {
+                                                    console.log('found a match, validating if DR exists');
+
+                                                    if(node.decompRuleList && node.decompRuleList.length)
+                                                    {
+                                                        var drExists = false;
+
+                                                        for (var i in node.decompRuleList)
+                                                        {	
+                                                            if(node.decompRuleList[i].srcFrLine == sourceSpecId
+                                                                    || node.decompRuleList[i].orderItem == sourceSpecId)
+                                                            {
+                                                                drExists = true;
+                                                            }
+                                                        }
+
+                                                        if(drExists)
+                                                        {
+                                                            if (!node.attrMappings)
+                                                            {
+                                                                node.attrMappings = {};
+                                                            }
+                                                            if (node.attrMappings[key]){
+                                                                node.attrMappings[key].push(val);
+                                                            } else {
+                                                                node.attrMappings[key] = [];
+                                                                node.attrMappings[key].push(val);
+                                                            }
+                                                            console.log('an attr mapping was set up', key);
+                                                        }
+                                                        else
+                                                        {
+                                                            console.log('found a match, but no DR found');
+                                                        }
+
+                                                    }
+                                                }
+
+                                            }
+
+                                            if(node.nodes)
+                                            {
+                                                for(var i in node.nodes)
+                                                {
+                                                    findAndAttachAttrMappings(node.nodes[i], sourceSpecId, destSpecId, key, val);
+                                                }
+                                            }
+
+                                        }
+                                        
+                                        function restructureNode (node)
+                                        {
+                                            var tempField;
+                                            var newFields = [];
+                                            if (node.fields!=null && node.fields.length>0)
+                                            {
+                                                for (var i=0; i<node.fields.length; i++)
+                                                {
+                                                   tempField = node.fields[i];
+                                                   if (tempField!=null && tempField.name!=null && tempField.name!='')
+                                                   {
+                                                       switch (tempField.name)
+                                                       {
+                                                           case "Line Number": node.lineNumber = tempField.value; break;
+                                                           case "Action"     : node.action     = tempField.value; break;
+                                                           case "SubAction"  : node.subAction  = tempField.value; break;
+                                                           default           : newFields.push(tempField);break;
+                                                       }
+                                                   }
+                                                }
+                                            }
+                                            node.fields = newFields;
+                                            return node;
+                                        }//restructureNode
+
+                                        function expandAll (node, upstreamDecompRules, nsp, globalKeyToSFIDMap, specDR, isNthLevel, allSpecs, specToNode)
+                                        {
+                                            //XOM-830
+                                            var orderItemId;
+                                            var oiToFRLinesMapLocal = node.oiToFRLinesMap;
+                                            var allSpecsLocal = node.allSpecs;
+                                            var refId;
+
+                                            // set asset links from on-platform
+                                            if (node.type === "Order Item")
+                                            {
+                                            
+                                                refId   = getRefIdForSpec(node);
+                                                node.specId = (node.specId==null && globalKeyToSFIDMap!=null) ? globalKeyToSFIDMap[refId]: node.specId;
+                                                
+                                                if (node.specId!=null)
+                                                { //1714
+                                                    if ($scope.specDR[node.specId]==null)
+                                                    {
+                                                        $scope.specDR[node.specId]=[];
+                                                    }
+                                                    if(!isNthLevel)
+                                                    {
+                                                        allSpecs.push(node.specId);
+                                                        if(node.parentClassId)
+                                                        {
+                                                            allSpecs.push(node.parentClassId);
+                                                        }
+                                                    }
+                                                    specToNode[node.specId] = node.id;
+                                                }//1714
+                                                
+                                                if (sourceOrderItemToAssetMap[node.id])
+                                                {
+                                                    node.assetId = sourceOrderItemToAssetMap[node.id].id;
+                                                    node.assetName = sourceOrderItemToAssetMap[node.id].name;
+                                                }
+                                                //XOM-1389 adding else block below to avoid showing the node with blank asset
+                                                else {
+                                                    node.assetId = null;
+                                                    node.assetName = null;
+                                                }
+                                                if (isNthLevel)
+                                                {
+                                                   attachDRtoNode(node, upstreamDecompRules, nsp, globalKeyToSFIDMap, allSpecs);
+                                                }
+                                                node = restructureNode(node);
+                                            }
+
+                                            if(node.type!=null && node.type ==="Fulfilment Request Line" )
+                                            {//mapping orderItemId with corresponding FRLine(s);
+
+                                                refId   = getRefIdForSpec(node);
+                                                node.specId = (node.specId==null && globalKeyToSFIDMap!=null) ? globalKeyToSFIDMap[refId]: node.specId;
+                                                if (node.specId!=null)
+                                                { //1714
+                                                    if (specDR[node.specId]==null)
+                                                    {
+                                                        specDR[node.specId]=[];
+                                                    }
+                                                    if(!isNthLevel)
+                                                    {
+                                                        allSpecs.push(node.specId);
+                                                        if(node.parentClassId)
+                                                        {
+                                                            allSpecs.push(node.parentClassId);
+                                                        }
+                                                    }
+                                                    specToNode[node.specId] = node.id;
+                                                }//1714
+                                                // M:1 support. use decompRuleList instead of decompRule
+                                                if(node.decompRuleList && node.decompRuleList.length)
+                                                {
+
+                                                    for (var i=0; i<node.decompRuleList.length; i++) 
+                                                    {
+
+                                                        var decompRule = node.decompRuleList[i];
+
+                                                        orderItemId = decompRule.orderItem;
+                                                        if(oiToFRLinesMapLocal[orderItemId]==null)
+                                                        {
+                                                            oiToFRLinesMapLocal[orderItemId] = [];
+                                                        }
+                                                        if (decompRule.isConditionFailed==false || decompRule.isConditionFailed=="false"){
+                                                            oiToFRLinesMapLocal[orderItemId].push({'frLine' : decompRule.frLine, 'isConditionFailed' : decompRule.isConditionFailed});
+                                                        }
+
+                                                        if(node.decompRule==null){
+                                                            node.decompRule={};
+                                                            node.decompRule.orderItem = decompRule.orderItem;
+                                                            node.decompRule.frLine = decompRule.frLine;
+                                                        }
+                                                        
+                                                        if (isNthLevel)
+                                                        {
+                                                            attachDRtoNode(node, upstreamDecompRules, nsp, globalKeyToSFIDMap, allSpecs);
+                                                        }
+                                                    }
+                                                } 
+                                                else 
+                                                {
+                                                    // old implementation
+                                                    if(node.decompRule!=null)
+                                                    {
+                                                        orderItemId = node.decompRule.orderItem!=null? node.decompRule.orderItem: node.decompRule.srcFrLine;
+                                                        if(oiToFRLinesMapLocal[orderItemId]==null)
+                                                        {
+                                                            oiToFRLinesMapLocal[orderItemId] = [];
+                                                        }
+                                                        oiToFRLinesMapLocal[orderItemId].push(node.decompRule.frLine);
+
+                                                        if (isNthLevel)
+                                                        {
+                                                            attachDRtoNode(node, upstreamDecompRules, nsp, globalKeyToSFIDMap, allSpecs);
+                                                        }
+                                                    }
+                                                }
+
+                                                node = restructureNode(node);
+                                            }
+                                            node.oiToFRLinesMap = oiToFRLinesMapLocal;
+                                            node.allSpecs = allSpecsLocal;
+                                            node.specToNode = specToNode;
+                                            //debugger;//XOM-830
+
+                                            // console.log ('Expanding', node);
+
+                                            node.activeNodes = [];
+
+                                            // console.log ('Reset active nodes', node);
+                                            //
+                                            // console.log ('Node nodes', node.nodes);
+
+                                            if (node.nodes)
+                                            {
+                                              for (var i = 0; i < node.nodes.length; i++)
+                                              {
+                                                // console.log ('Pushing ', i, 'into', node);
+                                                node.activeNodes.push(i);
+                                                node.nodes[i].oiToFRLinesMap = node.oiToFRLinesMap;
+                                                node.nodes[i].specToNode = node.specToNode;
+                                                expandAll (node.nodes[i], $scope.upstreamDecompRules, $scope.nsp, $scope.globalKeyToSFIDMap, $scope.specDR, isNthLevel, $scope.allSpecs, $scope.specToNode);
+                                                node.oiToFRLinesMap = node.nodes[i].oiToFRLinesMap;
+                                                node.allSpecs = node.nodes[i].allSpecs;
+                                                node.specToNode = node.nodes[i].specToNode;
+                                              }
+                                            }
+
+                                            // console.log ('Expanded', node, node.activeNodes);
+
+                                            node.isPanelExpanded=true;
+                                            return node;
+
+                                        }//expandAll
+                                        // console.log ('Orders', orders);
+                                        if(orders.sucCode == 0)
+                                        {
+                                            if($scope.alertMessage!=null){
+                                                $scope.alertMessage.showAlert = false;
+                                            }
+                                            $scope.loaded = true;
+                                            $scope.originalOrders =
+                                            {
+                                                nodes: orders.originalOrders.nodes,
+                                                activeNodes: []
+                                            };
+                                            $scope.specDR = {};
+                                            $scope.allSpecs = [];
+                                            $scope.specToNode = {}; ////XOM-3078 Fixed
+                                            $scope.upstreamDecompRules = $scope.originalOrders!=null && $scope.originalOrders.nodes!=null && $scope.originalOrders.nodes.length>0
+                                                                         ? $scope.originalOrders.nodes[0].upstreamDecompRules:null;//SFDC mode
+                                            if ($scope.upstreamDecompRules==null && $scope.drDetails!=null)
+                                            {
+                                                $scope.upstreamDecompRules = $scope.drDetails;//Thor mode
+                                            }
+
+                                            if ($scope.upstreamDecompRules != null)
+                                            { // do not parse when null. will cause a js error
+                                                $scope.upstreamDecompRules = $scope.upstreamDecompRules.replace(/\&\quot;/g, '"');
+                                                $scope.upstreamDecompRules = JSON.parse($scope.upstreamDecompRules);
+                                            }
+
+                                            expandAll ($scope.originalOrders, $scope.upstreamDecompRules, $scope.nsp, $scope.globalKeyToSFIDMap, $scope.specDR, false, $scope.allSpecs, $scope.specToNode);
+                                            $scope.specToNode = $scope.originalOrders.specToNode;
+
+                                            $scope.fulfilmentRequests =
+                                            {
+                                                nodes: (orders.fulfilmentRequests && orders.fulfilmentRequests.nodes ) ? orders.fulfilmentRequests.nodes : [],
+                                                activeNodes: []
+                                            };
+
+                                            $scope.fulfilmentRequests.oiToFRLinesMap = {};
+                                            expandAll ($scope.fulfilmentRequests,$scope.upstreamDecompRules, $scope.nsp, $scope.globalKeyToSFIDMap, $scope.specDR, false, $scope.allSpecs, $scope.specToNode);
+                                            $scope.specToNode = $scope.fulfilmentRequests.specToNode;
+                                            
+                                            //1714
+                                            
+                                            allSpecIds = Object.keys($scope.specDR);
+                                            remoteActions.getMappingDetails(allSpecIds, offPlatformFlag).then(function(mappingInfo)
+                                            {
+                                                if (mappingInfo!=null) 
+                                                {
+                                                    mappingInfo = mappingInfo.replace(/\&\quot;/g, '"');
+                                                    mappingInfo = JSON.parse(mappingInfo);
+                                                    $scope.upstreamDecompRules = JSON.parse(mappingInfo.upstreamDecompRules);
+                                                    expandAll ($scope.fulfilmentRequests,$scope.upstreamDecompRules, $scope.nsp, $scope.globalKeyToSFIDMap, $scope.specDR, true, $scope.allSpecs, $scope.specToNode);
+                                                    $scope.specToNode = $scope.fulfilmentRequests.specToNode;
+                                                    expandAll ($scope.originalOrders, $scope.upstreamDecompRules, $scope.nsp, $scope.globalKeyToSFIDMap, $scope.specDR, true, $scope.allSpecs, $scope.specToNode);
+                                                    $scope.specToNode = $scope.originalOrders.specToNode;
+                                                }
+                                            });
+                                            //1714
+
+                                            var recursivelySortFRLines = function(parent)
+                                            {
+                                                if(parent && parent.nodes)
+                                                {
+                                                    parent.nodes.forEach(recursivelySortFRLines);
+                                                    parent.nodes = parent.nodes.sort(function(a, b)
+                                                    {
+                                                        return a.lineNumber.localeCompare(b.lineNumber)
+                                                    });
+                                                }
+                                            };
+                                            $scope.mySort = function(a, b)
+                                            {
+                                                return a.name.localeCompare(b.name)
+                                            };
+                                            if($scope.fulfilmentRequests && $scope.fulfilmentRequests.nodes)
+                                            {
+                                                $scope.fulfilmentRequests.nodes = $scope.fulfilmentRequests.nodes.sort($scope.mySort);
+                                                $scope.fulfilmentRequests.nodes.forEach(recursivelySortFRLines);
+                                            }
+
+                                            $scope.originalOrders.oiToFRLinesMap  = $scope.fulfilmentRequests.oiToFRLinesMap ;
+                                            populateFRLineDRs($scope.originalOrders);
+
+                                            $scope.debugMode = orders.debugMode;
+                                            $scope.orderDecomposed=true;
+                                            $scope.showSpinner = false;
+                                        }
+                                        else 
+                                        {
+                                            $scope.orderDecomposed=false;
+                                            $scope.showSpinner = false;
+                                            $('.container-fluid').hide();
+                                            $scope.alertMessage = {
+                                                "heading" : orders.message,
+                                                "message" : null,
+                                                "type" : 'error',
+                                                "showAlert" : true
+                                            }
+                                            if (orders.sucCode == '5' || orders.sucCode == '1'){
+                                                $scope.alertMessage.type = 'warning';
+                                                $scope.showSpinner = false;
+                                                $scope.keepPolling = true;
+                                                $scope.waitOnQueuedOrders();
+                                            } else if (orders.sucCode == '10') {
+                                                $scope.alertMessage.type = 'warning';
+                                                $scope.showSpinner = false;
+                                                $scope.keepPolling = false;
+                                                $scope.loaded = true;
+                                            }
+                                        }
+                                        // console.log ('Scope', $scope);
+                                    })
+                                    .catch(function handleThorInfoException(response)
+                                    {
+                                        console.error("Error during the thorInfo VFRemote call", response);
+                                        $scope.alertMessage = {
+                                            "heading" : "Internal error occurred during fetching the information from Thor. Please check the error log for details.",
+                                            "message" : null,
+                                            "type" : 'error',
+                                            "showAlert" : true
+                                        }
+                                    })
+                                    ;//remote call thorInfo
+                                });//remote call viewDecomposedOrder
+                            });//remote call getSourceOrderAssetInfo
+                        });//remote call isOffPlatformMode
+                    };//displayOrderDecomposition fn
+                    
+                    $scope.waitOnQueuedOrders = function(){
+                        function poll(){
+                            window.setTimeout(function(){
+                                console.log('keep polling');
+                                if($scope.keepPolling){
+                                    $scope.displayOrderDecomposition();
+                                }
+                                else{
+                                    if ($scope.alertMessage.showAlert==true){
+                                        $scope.alertMessage.showAlert = false;
+                                    }
+                                }
+                            }, 1000);
+                        }
+                        poll();
+                    };
+
+                    $scope.waitForOrderSubmitCompletion = function() 
+                    {
+                        function keepWaiting() 
+                        {
+                            window.setTimeout(function() 
+                            {
+                                remoteActions.getOrderOrchestrationPlanReferenceId(configData.orderId).then(function(planId) 
+                                {
+                                    if (planId !== null && planId != '-')
+                                    {
+                                        $scope.displayOrderDecomposition();
+                                    } else 
+                                    {
+                                        keepWaiting();
+                                    }
+                                });
+                            }, 1000);
+                        }
+                        keepWaiting();
+                    };
+
+                    $scope.fetchOrders = function () 
+                    {
+                        $scope.showSpinner = true;
+
+                        remoteActions.isSfdcDecomposedOrder(configData.orderId).then(function(sfdcOrder) 
+                        {
+                            if (sfdcOrder) 
+                            {
+                                $scope.displayOrderDecomposition();
+                            } else 
+                            {
+                                remoteActions.getOrderOrchestrationPlanReferenceId(configData.orderId).then(function(planId) 
+                                {
+                                    if (planId === null || planId === '-') 
+                                    {
+                                        $scope.waitForOrderSubmitCompletion();
+                                    } 
+                                    else 
+                                    {
+                                        $scope.displayOrderDecomposition();
+                                    }
+                                });
+                            }
+                        });
+
+                    };
+
+                    $scope.redirectToPlanViewPage = function(planId) 
+                    {
+                        //window.location = "/apex/OrchestrationPlanViewCommon?id=" + planId;
+                        window.open( "/apex/OrchestrationPlanViewCommon?id=" + planId, "_blank");
+                        $scope.showSpinner = false;
+                    };
+
+                    $scope.startOrchestrationPlan = function () 
+                    {
+
+                        remoteActions.isOffplatformMode().then(function(offPlatformFlag) 
+                        {
+                            $scope.showSpinner = true;
+                            if (offPlatformFlag) 
+                            {
+                                remoteActions.isSfdcDecomposedOrder(configData.orderId).then(function(sfdcOrder) 
+                                {
+                                    if (sfdcOrder) 
+                                    {
+                                        remoteActions.startOrchestrationPlan(configData.orderId).then(function(planId) 
+                                        {
+                                            //window.location = "/" + planId;
+                                            window.open("/" + planId, "_blank");
+                                            $scope.showSpinner = false;
+                                        });
+                                    } 
+                                    else 
+                                    {
+                                        remoteActions.getOrderOrchestrationPlanReferenceId(configData.orderId).then(function(planId) {
+                                            if (offPlatformPlanId === null) 
+                                            {
+                                                $scope.waitForPlanAvailability();
+                                            } 
+                                            else 
+                                            {
+                                                $scope.redirectToPlanViewPage(offPlatformPlanId);
+                                            }
+                                        });
+                                    }
+                                });
+                            } 
+                            else 
+                            {
+                                remoteActions.startOrchestrationPlan(configData.orderId).then(function(planId) 
+                                {
+                                    //window.location = "/" + planId;
+                                    window.open("/" + planId, "_blank");
+                                    $scope.showSpinner = false;
+                                });
+                            }
+                        });
+                    };
+
+                    $scope.resolveNavigate = function(recordId)
+                    {
+                        var isExternalId = !isNaN(parseFloat(recordId)) && isFinite(recordId);
+                        if(!isExternalId)
+                        {
+                            //window.location = '/' + recordId;
+                            window.open( '/' + recordId, '_blank');
+                        } else
+                        {
+                            $scope.redirectToPlanViewPage(recordId);
+                        }
+                    };
+
+                    $scope.navigateToSFDCPlan = function(planId)
+                    {
+                        $scope.resolveNavigate(planId);
+                    };
+
+                    $scope.waitForPlanAvailability = function() 
+                    {
+                        function keepWaiting() 
+                        {
+                            window.setTimeout(function() 
+                            {
+                                remoteActions.getOrderOrchestrationPlanReferenceId(configData.orderId).then(function(planId) 
+                                {
+                                    if (planId !== null && planId !== '-') 
+                                    {
+                                        $scope.redirectToPlanViewPage(planId);
+                                    } 
+                                    else 
+                                    {
+                                        keepWaiting();
+                                    }
+                                });
+                            }, 1000); //Changing from 5 seconds to 1 second as per requirements on OMUI-307
+                        }
+                        keepWaiting();
+                    };
+
+                    $scope.fetchOrders();
+                    
+                    angular.element(document).ready(function () 
+                    {
+                        CollapsibleLists.apply();
+                        //CollapsibleLists.applyTo(document.getElementsByName('newList'));
+                    });
+                    
+                });
+
+                app.run(["$sce","$templateCache","$rootScope","force", function($sce, $templateCache, $rootScope, force)
+                {
+                    // console.log('inside run');
+
+                    force.init(
+                    {
+                        accessToken: '{!$Api.Session_ID}',
+                        useProxy: false
+                    });
+
+                    $rootScope.forcetkClient = new forcetk.Client();
+                    $rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+
+                }]);
+
+            })();
+
+        </script>
+
+    </div>
+
+
+</body>
+</html>
+
+</apex:page>

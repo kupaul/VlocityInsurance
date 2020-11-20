@@ -1,0 +1,60 @@
+<apex:page standardController="vlocity_ins__AttributeCategory__c" extensions="vlocity_ins.VlocityAttributeCategoryEditCtrl,vlocity_ins.DRDataPackRunnerController" showHeader="true" sidebar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false">
+  <head>
+      <apex:includeScript value="{!$Resource.vlocity_ins__angular_bundle_1_6}"/>
+      <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__AttributeCategoryEdit}" />
+      <apex:includeScript value="/support/console/42.0/integration.js"/>
+  </head>
+  <style>
+    html.Theme4d body,
+    html.Theme4u body {
+      margin: 0;
+    }
+    html:not(.Theme3) body.sfdcBody {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .bodyDiv .noSidebarCell{
+      padding: 0;
+    }
+    .Theme3 .slds-grid.slds-grid--frame {
+      min-width: auto;
+      max-width: calc(100vw - 2.2em);
+    }
+  </style>
+  <script>
+    (function() {
+      document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+    })();
+  </script>
+  <body xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div class="via-slds {!$User.UIThemeDisplayed}" >
+      <div class="slds-grid slds-grid--frame" style="max-height: 100vh">
+        <div ng-app="attributeCategoryEdit" class="slds-col slds-grid slds-grid--vertical slds-grid--vertical-stretch" ng-controller="vlocAttrCategory as ctrl">
+          <slds-record-home-header sprite="standard" icon="quotes" icon-bg-class="slds-icon-standard-feed" object-type="'{!sObjectType}'" object-type-label="'{!sObjectTypeLabel}'" instance="ctrl.attributeCategory" fields="ctrl.visibleFields" buttons="ctrl.buttons" field-metadata="ctrl.fields"></slds-record-home-header>
+          <div class="slds-col slds-grid slds-grid--vertical-stretch" style="overflow:hidden">
+            <div class="slds-col slds-size--1-of-4 slds-grid category-value-sidebar"
+                style="background: #edf0f6;"
+                attributes="ctrl.attributeCategory.$$attributes"
+                attribute-category="ctrl.attributeCategory"
+                selected-attribute="ctrl.selectedAttribute"></div>
+            <div class="slds-col slds-size--3-of-4 slds-grid category-edit-pane"
+                attribute-category="ctrl.attributeCategory"
+                attribute="ctrl.selectedAttribute" on-delete="ctrl.onAttributeDeleted(attribute)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      angular.module('attributeCategoryEdit')
+        .value('attributeCategory', JSON.parse("{!JSENCODE(attributeCategoryJson)}"))
+        .value('$$attributes', JSON.parse("{!JSENCODE(categoryValues)}"))
+        .value('fieldMetadata', {!fieldMetadata})
+        .value('fieldSetMetadata', {!fieldSetMetadata});
+    </script> 
+  </body>
+
+</apex:page>

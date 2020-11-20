@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Party__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Formula: a hyperlink to the detail page for the related party based on the type of party.</description>
+    <externalId>false</externalId>
+    <formula>IF( ISBLANK(vlocity_ins__PartyId__r.vlocity_ins__AccountId__r.Id), HYPERLINK(&quot;/&quot; &amp; vlocity_ins__PartyId__r.vlocity_ins__ContactId__r.Id, vlocity_ins__PartyId__r.Name  , &quot;_parent&quot;), HYPERLINK(&quot;/&quot; &amp; vlocity_ins__PartyId__r.vlocity_ins__AccountId__r.Id, vlocity_ins__PartyId__r.Name , &quot;_parent&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Party</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

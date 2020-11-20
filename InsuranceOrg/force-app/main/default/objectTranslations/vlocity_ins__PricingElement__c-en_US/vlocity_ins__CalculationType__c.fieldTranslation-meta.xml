@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Calculation Type --></label>
+    <name>vlocity_ins__CalculationType__c</name>
+    <picklistValues>
+        <masterLabel>Matrix-Based</masterLabel>
+        <translation><!-- Matrix-Based --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Simple</masterLabel>
+        <translation><!-- Simple --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

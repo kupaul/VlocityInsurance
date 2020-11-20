@@ -1,0 +1,212 @@
+<apex:page controller="vlocity_ins.ContentListDisplayController" standardstylesheets="false" showHeader="false" sidebar="false">
+<html xmlns:ng="http://angularjs.org" ng-app="contentListApp" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <!-- <apex:includeScript value="{!$Resource.JQUERYJS}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vstrap2, '/javascripts/bootstrap.min.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vstrap2, '/css/styles.css')}"/>
+
+        <apex:includeScript value="{!$Resource.AngularJS}"/>
+        <apex:includeScript value="{!$Resource.ANGULARBOOT}"/> -->
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+        <apex:stylesheet value="{!$Resource.vlocity_ins__ngtablemin}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ngtableminjs}"/>
+                
+    </head>
+    <style type="text/css">
+        .vlocity * {
+            font-family: Arial, sans-serif;
+        }
+        .vlocity table.table tr td {
+            cursor: default;
+            border-color: rgba(0,0,0,0.05);
+        }
+        .vlocity .table.ng-table>thead>tr>th {
+            border-color: rgba(0,0,0,0.10);
+        }
+        .vlocity .table.ng-table>thead>tr>th>div {
+            padding: 0;
+            font-weight: bold;
+            color: rgba(0,0,0,.35);
+        }
+        .pointer{
+            cursor:pointer;
+        }
+        input-group.input-search {
+            width: 100%;
+            padding: 8px;
+        }
+
+        .input-group.input-search .input-group-btn {
+            float: left;
+            width: 10%;
+            margin-right: 10px;
+        }
+
+        .input-group.input-search .v-label {
+            line-height: 28px;
+            float: left;
+            margin-right: 8px;
+        }
+        .vlocity .input-group input.form-control {            
+            float: left;
+            width: auto;
+            margin-bottom: 0;
+        }
+        .vlocity .input-group .v-ddown {
+            float: left;
+        }
+        .vlocity .input-group:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .vlocity .panel {
+            position: relative;
+        }
+        .vlocity .panel div[ng-table-pagination="params"] {
+            position: absolute;
+            bottom: 6px;
+            width: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+            var contentList = angular.module('contentListApp', ['ngTable']);
+            var contrl=contentList.controller('content', function ($scope, $filter,ngTableParams){
+                var contentAndLibraryList = JSON.parse('{!JSENCODE(contentList)}');
+                var data = contentAndLibraryList.ContentWrapperList;
+                $scope.libraryList = [];
+                var allLibraries = {
+                        'Name' : 'All Libraries',
+                        'Id' : 'All'
+                };
+                $scope.selectedLibrary = allLibraries;
+                $scope.libraryList.push(allLibraries);
+                var libraryMap = contentAndLibraryList.LibraryMap;
+                //Iterate through the library map and construct the arraylist
+                for (var key in libraryMap)
+                {
+                    if (libraryMap.hasOwnProperty(key)) 
+                    {
+                        var library = {
+                            'Name' : libraryMap[key],
+                            'Id' : key
+                        };
+                        $scope.libraryList.push(library);
+                    }
+                }
+
+                $scope.tableParams = new ngTableParams({
+                    page: 1,            // show first page
+                    count: 25           // count per page
+                    }, 
+                    {
+                        total: data.length, // length of data
+                        getData: function($defer, params) {
+                            var dataSize = data.length;
+                            var filter = params.filter();
+                            var filterParams = filter['Title'];
+                            var orderedData = params.filter() ?$filter('filter')(data, params.filter()) :data;
+                            var orderedData = params.sorting() ?$filter('orderBy')(orderedData, params.orderBy()) :orderedData;
+                            if (filterParams!==undefined && filterParams!='')
+                            {
+                                dataSize =  orderedData.length;
+                                params.$params.page = 1;
+                            }
+                                
+                            var pagesize = 25;
+                            var currentPage = params.page();
+                            
+                            var minRecord = (params.page() - 1) * params.count() + 1;
+                            var maxRecord = params.page() * params.count();
+                            if (maxRecord > dataSize)
+                                maxRecord = dataSize;
+                            $scope.message = minRecord+' - '+ maxRecord+' of '+dataSize;
+                            $scope.users = orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count());
+                            params.total(orderedData.length); // set total for recalc pagination
+                            $defer.resolve($scope.users);
+                        }
+                });
+            
+                $scope.navigate = function(id)
+                {
+                    window.top.location.href = 'ContentDetail?id='+id;
+                }
+
+                $scope.selectedItemChanged = function(selectedLibrary)
+                {
+                    data = [];
+                    for (var i=0;i<contentAndLibraryList.ContentWrapperList.length;i++)
+                    {
+                        var item = contentAndLibraryList.ContentWrapperList[i];
+                        if (item.LibraryId==selectedLibrary.Id || selectedLibrary.Id == 'All')
+                            data.push(item);
+                    }
+                    $scope.tableParams.reload();
+                }           
+            });
+    </script>
+    <script>
+        $(document).ready(function () {
+        var height = document .body.scrollHeight;
+        window.parent.setFrameStylesFromParent(height + 'px');     
+        })
+    </script>
+    <body>
+        <div ng-controller="content" class="vlocity">
+            <div class="panel panel-sf">
+                <div class="panel-heading">Vlocity Content Attributes</div>
+                <div style="width: 100%; background: #f8f8f8; border-bottom: 1px solid #ddd">
+                    <div class="input-group input-search" style="width: 100%; padding: 8px">
+                        <input type="text" class="form-control" placeholder="Search Title" ng-model="tableParams.filter()['Title']"></input>
+                        <div class="input-group-btn">
+                            <button class="btn btn-link"><i class="icon icon-v-search"></i></button>
+                        </div>
+                        <div class="v-label">
+                            Libraries
+                        </div>                        
+                        <div class="v-ddown">
+                            <select ng-model="selectedLibrary"  class="form-control"
+                                    ng-options="library.Name for library in libraryList"
+                                    ng-change="selectedItemChanged(selectedLibrary)" style="width: 144px"/>
+                        </div>                        
+                    </div>
+                </div>
+                <table ng-table="tableParams" template-pagination="custom/pager" class="table">
+                    <tr ng-repeat="item in $data">
+                        <td data-title="'Title'" sortable="'Title'">
+                            <a src="#" class="pointer" ng-click="navigate(item.Id)">{{item.Title}}</a>
+                        </td>
+                        <td data-title="'File Type'">{{item.FileType}}</td>
+                        <td data-title="'Author'" sortable="'OwnerName'">{{item.OwnerName}}</td>
+                        <td data-title="'Description'">{{item.Description}}</td>
+                        <td data-title="'Version'">{{item.VersionNumber}}</td>
+                        <td data-title="'Last Modified'" sortable="'LastModifiedDate'">{{item.LastModifiedDate}}</td>
+                    </tr>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">{{message}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <script type="text/ng-template" id="custom/pager">
+                
+                <ul class="pager" style="margin: 0">
+                    <li ng-repeat="page in pages"
+                        ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+                        ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+                        <button type="button" class="btn btn-link btn-xs" ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</button>
+                        <button type="button" class="btn btn-link btn-xs" ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</button>
+                    </li>
+                </ul>
+                            
+            </script>
+            <script type="text/ng-template" id="custom/noPager">
+                
+            </script>
+        </div>
+    </body>
+</html> 
+</apex:page>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__GenerateJSONParserClass</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Generate JSON Parser Class</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/31.0/apex.js&quot;)}
+var gettingnamespace = sforce.connection.query(&quot;SELECT NamespacePrefix FROM ApexClass WHERE Name =&apos;ApplicationUtilities&apos; LIMIT 1&quot;);
+var getname = gettingnamespace.getArray(&quot;records&quot;);
+var classname = &quot;ScreeningClassBuilder&quot;;
+if(getname.length &gt; 0)
+{
+var namespace_prefix = getname[0].NamespacePrefix;
+if(namespace_prefix != null &amp;&amp; namespace_prefix != &apos;&apos;)
+{
+classname = getname[0].NamespacePrefix +&quot;.&quot; + classname;
+}
+}
+var res=sforce.apex.execute(classname,&quot;BuildJSONParserClass&quot;,{sRuleGroupId:&quot;{!vlocity_ins__ScreeningRuleGroup__c.Id  }&quot;});
+alert(res);</url>
+</WebLink>

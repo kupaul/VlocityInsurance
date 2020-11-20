@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__BlackListed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked this object type will not be cloned.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Use this to prevent unnecessary duplicates.</inlineHelpText>
+    <label>Black Listed</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

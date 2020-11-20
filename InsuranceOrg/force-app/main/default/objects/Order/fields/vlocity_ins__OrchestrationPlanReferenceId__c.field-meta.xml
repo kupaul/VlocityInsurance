@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__OrchestrationPlanReferenceId__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Orchestration Plan Reference Id</label>
+    <length>19</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

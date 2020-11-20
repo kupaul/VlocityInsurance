@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Contract Death Benefit --></label>
+    <name>vlocity_ins__ContractDeathBenefit__c</name>
+    <picklistValues>
+        <masterLabel>COL Death Benefit</masterLabel>
+        <translation><!-- COL Death Benefit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Enhanced Death Benefit</masterLabel>
+        <translation><!-- Enhanced Death Benefit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Escalating Death Benefit</masterLabel>
+        <translation><!-- Escalating Death Benefit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Standard Death Benefit</masterLabel>
+        <translation><!-- Standard Death Benefit --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

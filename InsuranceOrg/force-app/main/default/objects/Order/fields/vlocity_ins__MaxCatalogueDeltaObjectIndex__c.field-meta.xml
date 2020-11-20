@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__MaxCatalogueDeltaObjectIndex__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Maximum Sync Delta Object Index / Name. Populated by order management during order submit in case if catalogue is out of sync with OMplus.</description>
+    <externalId>false</externalId>
+    <label>Maximum Catalogue Delta Object Index</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

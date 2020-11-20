@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ActionType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Action Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Launch</fullName>
+                <default>false</default>
+                <label>Launch</label>
+            </value>
+            <value>
+                <fullName>ResultPane</fullName>
+                <default>false</default>
+                <label>ResultPane</label>
+            </value>
+            <value>
+                <fullName>SecondResultPane</fullName>
+                <default>false</default>
+                <label>SecondResultPane</label>
+            </value>
+            <value>
+                <fullName>VerificationPane</fullName>
+                <default>false</default>
+                <label>VerificationPane</label>
+            </value>
+            <value>
+                <fullName>VerifyAction</fullName>
+                <default>false</default>
+                <label>VerifyAction</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

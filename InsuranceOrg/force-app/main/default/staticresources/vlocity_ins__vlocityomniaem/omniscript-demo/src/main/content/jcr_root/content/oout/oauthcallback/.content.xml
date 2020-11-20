@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2016-12-14T16:07:37.764-08:00"
+        cq:lastModifiedBy="admin"
+        cq:template="/apps/vloc/templates/oauthPageT"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Oauth Page"
+        sling:resourceType="vloc/components/page/oauth"/>
+</jcr:root>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Relationship Type --></label>
+    <name>vlocity_ins__RelationshipType__c</name>
+    <picklistValues>
+        <masterLabel>Auto-Add</masterLabel>
+        <translation><!-- Auto-Add --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Auto-Remove</masterLabel>
+        <translation><!-- Auto-Remove --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Auto-Replace</masterLabel>
+        <translation><!-- Auto-Replace --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Excludes</masterLabel>
+        <translation><!-- Excludes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Modify Attributes</masterLabel>
+        <translation><!-- Modify Attributes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recommends</masterLabel>
+        <translation><!-- Recommends --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Requires</masterLabel>
+        <translation><!-- Requires --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Resource</masterLabel>
+        <translation><!-- Resource --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Service</masterLabel>
+        <translation><!-- Service --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Specification</masterLabel>
+        <translation><!-- Specification --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

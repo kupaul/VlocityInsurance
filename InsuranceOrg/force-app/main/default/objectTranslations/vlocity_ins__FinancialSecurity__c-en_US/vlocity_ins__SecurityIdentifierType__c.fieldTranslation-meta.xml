@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Security Identifier Type --></label>
+    <name>vlocity_ins__SecurityIdentifierType__c</name>
+    <picklistValues>
+        <masterLabel>CUSIP</masterLabel>
+        <translation><!-- CUSIP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ISIN</masterLabel>
+        <translation><!-- ISIN --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RIC</masterLabel>
+        <translation><!-- RIC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SEDOL</masterLabel>
+        <translation><!-- SEDOL --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

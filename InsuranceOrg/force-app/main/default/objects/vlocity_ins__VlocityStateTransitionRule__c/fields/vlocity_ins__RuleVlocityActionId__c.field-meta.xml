@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RuleVlocityActionId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This is an optional action associating with the rule. If rule evaluation is true, this action is executed.</description>
+    <externalId>false</externalId>
+    <label>Transition Rule Action</label>
+    <referenceTo>vlocity_ins__VlocityAction__c</referenceTo>
+    <relationshipLabel>Vlocity State Transition Rules</relationshipLabel>
+    <relationshipName>StateTransitionRuleActions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

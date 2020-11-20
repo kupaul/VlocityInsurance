@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Caller Identification</masterLabel>
+        <translation><!-- Caller Identification --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>More Information Needed</masterLabel>
+        <translation><!-- More Information Needed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Related Party</masterLabel>
+        <translation><!-- Related Party --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

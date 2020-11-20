@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__BillingAccountId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the account responsible for paying for the subscription.</description>
+    <externalId>false</externalId>
+    <label>Billing Account</label>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Billed Subscriptions</relationshipLabel>
+    <relationshipName>BilledSubscriptions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

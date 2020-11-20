@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AdjustmentPricingVariableId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Id of the adjustment pricing variable. Used for write-in price adjustments to identify details of how to calculate the adjustment. Must be an adjustment pricing variable that applies to the adjusted pricing variable also defined on this record. This value is null for pricing using a selected pricing element since the adjustment pricing variable is defined by the selected pricing element.</description>
+    <externalId>false</externalId>
+    <label>Adjustment Pricing Variable</label>
+    <referenceTo>vlocity_ins__PricingVariable__c</referenceTo>
+    <relationshipName>AccountPricingAdjustments2</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

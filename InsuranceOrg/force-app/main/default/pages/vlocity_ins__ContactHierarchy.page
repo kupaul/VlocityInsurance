@@ -1,0 +1,15 @@
+<apex:page standardController="Contact" showHeader="false" sidebar="false" docType="html-5.0">
+<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__IcoMoonIconPack, 'style.css')}"/>
+    <apex:outputPanel style="text-align:center" >
+        <apex:form >
+            <br/>
+            <apex:outputLink style="text-decoration: none;" value="{!$Page.vlocity_ins__RelateParties}?id={!contact.vlocity_ins__PartyId__c}&returnURL={!$CurrentPage.Name}" styleClass="btn">{!$Label.vlocity_ins__editrelationships}</apex:outputLink>
+            <span style="text-align:right" > 
+                <button id="zoom_in"  class="zoomb"><span aria-hidden="true" class="icon-zoomin" data-icon="&amp;#xe600;" ></span></button>
+                <button id="zoom_out"  class="zoomb"><span aria-hidden="true" class="icon-zoomout" data-icon="&amp;#xe601;" ></span></button>
+           </span>
+        </apex:form>
+    </apex:outputPanel>
+    <br/>
+    <c:PartyHierarchy secondaryRootTitle="Title" secondaryChildTitle="ContactId__r.Title"/>   
+</apex:page>

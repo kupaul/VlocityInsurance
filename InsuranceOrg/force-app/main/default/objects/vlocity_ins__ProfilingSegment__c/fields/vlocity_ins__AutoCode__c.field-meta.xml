@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AutoCode__c</fullName>
+    <deprecated>false</deprecated>
+    <displayFormat>SEGMENT-{0}</displayFormat>
+    <externalId>false</externalId>
+    <label>Auto Code</label>
+    <trackTrending>false</trackTrending>
+    <type>AutoNumber</type>
+</CustomField>

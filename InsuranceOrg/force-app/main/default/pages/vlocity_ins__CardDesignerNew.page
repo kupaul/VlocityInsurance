@@ -1,0 +1,262 @@
+<apex:page standardStylesheets="false" showHeader="true"
+            sidebar="false" docType="html-5.0"
+            tabStyle="VlocityCardHome__tab"
+            title="Vlocity Card Designer"
+            standardController="vlocity_ins__VlocityUILayout__c"
+            extensions="vlocity_ins.CardCanvasController">
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__jsforce_1_7, '/jszip.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__fileSaver_2_0_1, '/fileSaver.js')}" />
+
+    <apex:stylesheet value="{!$Resource.vlocity_ins__CardDesignerCss}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/clipboard/dist/clipboard.min.js')}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework_assets.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework.js')}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__CardUtil}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__CardDesigner}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__iframeresizer, '/js/iframeResizer.js')}"/>
+    <apex:includeScript value="/support/console/42.0/integration.js"/>
+    <script>
+    // Overriding the auto set focus by salesforce
+    function setFocusOnLoad() {}
+
+    (function() {
+       document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+    })();
+    </script>
+    <div class="vloc-body ng-cloak {!$User.UIThemeDisplayed}" ng-app="carddesigner" ng-controller="cardDesignerController" dir="ltr">
+        <div class="vlocity carddesigner-back-button" ng-hide="isInConsole || newLayout">
+            <a class="btn btn-link btn-xs" href="{!homeUrl}" target="_self"><i class="icon icon-v-left-caret"></i>Go Back</a>
+        </div>
+        <div ng-show="newLayout" ng-include="'NewLayoutModal.tpl.html'"></div>
+        <div ng-hide="newLayout" class="vloc-container vlocity">
+            <apex:sectionHeader subtitle="{{$root.layout.Name}}"
+                                id="sectionHeader"
+                                title="{{ ::'CardDesCardDesigner' | localize:'Vlocity Cards'}}"/>
+            <div prevent-delete-back="preventDeleteBack" via-screen-height="viaScreenHeight"
+                                >
+                <div class="container">
+                    <div class="three-col-body" ng-class="{'collapse-left-col': collapsePalette, 'fullScreen': fullScreen}">
+                        <div class="left-col palette"
+                            ng-controller="layoutController" via-screen-height="viaScreenHeight" >
+                            <h4>{{ ::'CardDesLayouts' | localize:'Layout' }}
+                                <i ng-if="$root.layout.saving || $root.layout.savinglwc" class="pull-right spinner"></i>
+                                    <i class="icon icon-v-claim text-danger" ng-if="(($root.layout.errors.length > 0) || ($root.lightningwebcomponents.errors && $root.lightningwebcomponents.errors.length > 0))"
+                                        data-container=".container"
+                                        data-type="danger" bs-tooltip="$root.layout.errors.length ? $root.layout : $root.lightningwebcomponents"
+                                        bs-enabled="true"
+                                        data-html = "true"
+                                        data-title="{{errors[0].message}}"></i></h4>
+                            <button type="button" class="btn btn-default btn-sm collapse-btn pull-right" ng-click="toggleCollapsePalette()">
+                                <i class="icon collapse-caret" ng-class="{'icon-v-double-caret-left': !collapsePalette, 'icon-v-double-caret-right': collapsePalette}"></i>
+                            </button>
+                            <a ng-click="showJsonEditor()"
+                            ng-if="!$root.layout[nsPrefix + 'Active__c'] && !$root.lockedLayout"
+                            class="btn btn-link pull-right">{{ ::'CardDesEditJson' | localize:'Edit JSON' }}</a>
+                            <div class="col-body">
+                                <div ng-include="'LayoutProperties.tpl.html'"></div>
+                            </div>
+                        </div>
+
+                        <!-- CENTER CANVAS -->
+                        <div class="center-col" ng-controller="cardController" via-screen-height="viaScreenHeight">
+                            <div class="col-body" >
+                                <h4 ng-init="zoneSectionCollapse = true" ng-show="isZonesAvailable()">
+                                    <i class="icon icon-v-right-arrow"
+                                            ng-show="zoneSectionCollapse"
+                                            ng-click="zoneSectionCollapse= !zoneSectionCollapse;"></i>
+                                    <i class="icon icon-v-down-arrow"
+                                            ng-show="!zoneSectionCollapse"
+                                            ng-click="zoneSectionCollapse = !zoneSectionCollapse;"></i>
+                                    {{ ::'DesignerZones' | localize:'Zones' }}
+                                </h4>
+
+                                <ul class="drop-zone"
+                                    ng-show="!zoneSectionCollapse"
+                                    ng-if="$root.layout.Id && $root.layout[nsPrefix+'Definition__c']['zones']"
+                                    dnd-list="$$root.layout[nsPrefix+'Definition__c']['zones']"
+                                    dnd-allowed-types="['zone']"
+                                    dnd-disable-if="$parent.$parent.$root.layout[nsPrefix + 'Active__c']  || $root.lockedLayout"
+                                    dnd-dragover="onDNDMove(event, index, item, external, type, 'itemType')"
+                                    dnd-drop="dropCardCallback(event, index, item, external, type, allowedType)">
+                                    <!-- WARNING: don't use track by $index here or it breaks the dnd -->
+                                    <li class="card-wrapper"
+                                        id="zone-{{$index}}"
+                                        ng-repeat="zone in $root.layout[nsPrefix+'Definition__c']['zones']"
+                                        ng-init="setDraggable($index,zone, this)"
+                                        ng-include="'ZoneTemplate.tpl.html'"></li>
+                                </ul>
+
+                                <h4>
+                                    <i class="icon icon-v-right-arrow"
+                                            ng-show="cardSectionCollapse"
+                                            ng-click="cardSectionCollapse= !cardSectionCollapse;"></i>
+                                    <i class="icon icon-v-down-arrow"
+                                            ng-show="!cardSectionCollapse"
+                                            ng-click="cardSectionCollapse = !cardSectionCollapse;"></i>
+                                    {{ ::'CardDesCanvas' | localize:'Cards' }}
+                                </h4>
+                                <!--<h4></h4>-->
+                                <ul class="drop-zone"
+                                    ng-if="$root.layout.Id"
+                                    ng-show="!cardSectionCollapse"
+                                    dnd-list="$root.layoutCards"
+                                    dnd-allowed-types="['card']"
+                                    dnd-disable-if="$parent.$parent.$root.layout[nsPrefix + 'Active__c']  || $root.lockedLayout || isLockedCard(card)"
+                                    dnd-dragover="onDNDMove(event, index, item, external, type, 'itemType')"
+                                    dnd-drop="dropCardCallback(event, index, item, external, type, allowedType)">
+                                    <!-- WARNING: don't use track by $index here or it breaks the dnd -->
+                                    <li class="card-wrapper"
+                                        id="card-{{$index}}"
+                                        ng-class="{'active': activeCard == card}"
+                                        ng-repeat="card in $root.layoutCards track by $index"
+                                        draggable="{{card.drag}}"
+                                        ng-init="setDraggable($index,card, this)"
+                                        dnd-disable-if="$parent.$parent.$root.layout[nsPrefix + 'Active__c']  || $root.lockedLayout || isLockedCard(card)"
+                                        dnd-draggable="card"
+                                        dnd-effect-allowed="move"
+                                        dnd-type="'card'"
+                                        data-test="{{card.drag}}"
+                                        ng-click="onCardClick(card)"
+                                        ng-include="'CardTemplate.tpl.html'"></li>
+                                    <div class="dndPlaceholder">
+                                    <!-- This is used to create a bigger and more visible drop shadow placeholder.  The default one from dnd-list be difficult for user to see and hence may think that dnd not working properly.  This would depend on the CSS defined in CardDesigner.scss -->
+                                    <div></div>
+                                    </div>
+                                </ul>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <button class="btn btn-primary pull-right" ng-click="openAddCardModal()" ng-disabled="!$root.layout.Id || $root.layout[nsPrefix + 'Active__c'] || lwcUpdateStatus.isCreating || $root.lockedLayout">{{ ::'CardDesAddCard' | localize:'+ Add Card'}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PROPERTIES TABS-->
+                        <div class="right-col" via-screen-height="viaScreenHeight" ng-controller="tabController">
+                            <div bs-active-pane="tabs.activeTab" bs-tabs="bs-tabs" class="right-tabs">
+                                <div ng-repeat="tab in tabs" title="{{tab.title}}" disabled="" ng-bind="tab.content" bs-pane="bs-pane">
+                                </div>
+                            </div>
+                            <!-- This actions appear on the right of the current tab -->
+                            <div class="actions form-inline" ng-show="tabs.activeTab === 0">
+                                </div>
+                            <div class="actions form-inline" ng-show="tabs.activeTab === 1">
+
+                                <label ng-if="tabs.previewError" class="text-danger card-prev-error"><i ng-show="!collapsePalette" class="icon icon-v-warning-circle-line text-danger"
+                                data-container=".container"
+                                data-type="info" bs-tooltip="card"
+                                bs-enabled="true"
+                                data-html = "true"
+                                data-title= "No card is active to preview." ></i>
+                                <span ng-show="collapsePalette" class="text-danger">{{ ::'CardPrevError' | localize:'No card is active to preview.' }}</span>
+                                </label>
+
+                                <!--button class="btn btn-link pull-right" type="button"
+                                        ng-click="showDataPanel = !showDataPanel">{<span>{{ ::'OmniDesData' | localize }}</span>}</button -->
+                                <button class="btn btn-link pull-right" type="button"
+                                        ng-click="showCustomPageModal()">+ Add Custom Page  <a href="javascript:void(0);" class="pull-right" ng-click="helpNode.helpNodeModal($event, 'customPage');$event.stopPropagation();"><i class="icon icon-v-information-line"></i></a>
+                                        </button>
+                                <select class="form-control pull-right preview-mode" ng-options="field.label group by field.group for field in previewModes | orderBy: ['group','label']" ng-model="previewMode" ></select>
+                                <!--button class="btn btn-link pull-right" type="button"
+                                        ng-click="toggleFullScreen()"><i class="icon icon-v-expand"></i></button -->
+                                <button class="btn btn-link pull-right" type="button"
+                                        ng-click="reload()"><i class="icon icon-v-refresh"></i></button>
+                                <a class="btn btn-link pull-right" href="{{previewUrl}}" target="_blank"><i class="icon icon-v-expand-box"></i></a>
+
+                                <button class="btn btn-link pull-right no-margin-padding" ng-click="helpNode.helpNodeModal($event, 'previewType');$event.stopPropagation();"><i class="icon icon-v-information-line"></i></button>
+                                <select ng-show="!collapsePalette" class="form-control pull-right preview-type" ng-model="$root.layout[nsPrefix + 'Definition__c'].previewType" ng-options="type.name as type.label disable when ((type.name == 'designTime' && $root.layout[nsPrefix + 'Active__c']) || ($root.layout[nsPrefix+'Definition__c'].enableLwc && type.name == 'runTime' && !$root.layout[nsPrefix + 'Active__c'])) for type in previewTypes" ></select>
+                                <div ng-show="collapsePalette" class="btn-group pull-right" ng-model="$root.layout[nsPrefix + 'Definition__c'].previewType" bs-radio-group="bs-radio-group">
+                                <label ng-repeat="type in previewTypes"  class="btn no-margin" 
+                                        ng-class="$root.layout[nsPrefix + 'Definition__c'].previewType == type.name ? 'btn-primary' : 'btn-default'"
+                                        ng-disabled="($root.layout[nsPrefix + 'Active__c'] && type.name == 'designTime' || ($root.layout[nsPrefix+'Definition__c'].enableLwc && !$root.layout[nsPrefix + 'Active__c'] && type.name == 'runTime'))">
+                                    <input type="radio" class="btn btn-default" value="{{type.name}}"/>{{type.label}}
+                                </label>
+                                </div>
+
+                            </div>
+
+                            <div class="col-body" ng-show="tabs.activeTab === 0" ng-controller="statesController">
+                                <ul ng-if="$root.layout.Id"
+                                    dnd-list="states"
+                                    dnd-allowed-types="['state']"
+                                    dnd-disable-if="$parent.$parent.$root.layout[nsPrefix + 'Active__c'] || $root.lockedLayout"
+                                    dnd-dragover="onDNDMove(event, index, item, external, type, 'itemType')"
+                                    dnd-drop="dropStateCallback(event, index, item, external, type, allowedType)">
+                                    <!-- WARNING: don't use track by $index here or it breaks the dnd -->
+                                    <li class="template-wrapper"
+                                        ng-class="{'active': activeState == state}"
+                                        id="state{{$index}}"
+                                        ng-init="setDraggable('state'+$index,state)"
+                                        ng-repeat="state in states"
+                                        ng-click="onStateClick($parent.state)"
+                                        ng-include="'StateTemplate.tpl.html'"
+                                        draggable="{{state.collapse}}"
+                                        dnd-disable-if="$parent.$parent.$root.layout[nsPrefix + 'Active__c'] || !state.collapse || $root.lockedLayout"
+                                        dnd-draggable="state"
+                                        dnd-effect-allowed="move"
+                                        dnd-type="'state'"></li>
+                                    <div class="dndPlaceholder">
+                                    <!-- This is used to create a bigger and more visible drop shadow placeholder.  The default one from dnd-list be difficult for user to see and hence may think that dnd not working properly.  This would depend on the CSS defined in CardDesigner.scss -->
+                                    <div></div>
+                                    </div>
+                                </ul>
+                                <button class="btn btn-primary" ng-click="addState()" ng-disabled="$root.layout[nsPrefix + 'Active__c'] || !card || card[nsPrefix + 'Active__c'] || $root.lockedLayout">{{ ::'addState' | localize:'+ Add State'}}</button>
+                                <div class="cover-layer" ng-if="!isStateEditable()">Please fetch the data to edit states.</div>
+                            </div>
+                            <div class="col-body" ng-show="tabs.activeTab === 1">
+                                <div class="text-info" ng-if="$root.layout[nsPrefix+'Definition__c'].enableLwc && ($root.lwcCreatePendingRequests.length > 0 || $root.lwcUpdatePendingRequests.length > 0)">
+                                    <i class="icon icon-v-warning-circle-line"></i> {{ ::'DeployLatestPreviewError' | localize:'Please deploy to see latest preview.' }}
+                                    <button type="button" class="btn btn-default always-active" ng-click="doLwcDeploy()">Deploy</button>
+                                </div>
+                                <div class="previewPanel-wrapper">
+                                    <div ng-show="loadIframe" class="iframe-holder"></div>
+                                    <div ng-hide="loadIframe" class="iframe-holder">
+                                    There is an error. No component(s) named {{pendingCards}}.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var nsPrefix = '{!nsPrefix}',
+            sessionId = '{!$Api.Session_ID}',
+            orgName = '{!$Organization.Name}',
+            toolingBaseUrl = '{!baseUrl}',
+            mydomainUrl = '{!JSENCODE(domainUrl)}';
+        /* START_VLOC_I18N */
+        var i18n = {
+            "CardDesTabStates": "{!$Label.CardDesTabStates}",
+            "editCardJSONIconLabel": "{!$Label.editCardJSONIconLabel}",
+            "CardDesLayouts": "{!$Label.CardDesLayouts}",
+            "CardDesCardDesigner": "{!$Label.CardDesCardDesigner}",
+            "Preview": "{!$Label.Preview}",
+            "Active": "{!$Label.Active}",
+            "NewLayout": "{!$Label.NewLayout}",
+            "CardDesNewCard": "{!$Label.CardDesNewCard}",
+            "ConfirmDeletionTitle": "{!$Label.ConfirmDeletionTitle}",
+            "ConfirmCardDeleteContent": "{!$Label.ConfirmCardDeleteContent}",
+            "ConfirmStateDeleteContent": "{!$Label.ConfirmStateDeleteContent}",
+            "ApexClassNotOpenInterface": "{!$Label.ApexClassNotOpenInterface}",
+            "deletecardIconLabel": "{!$Label.deletecardIconLabel}"
+        };
+        /* END_VLOC_I18N */
+
+        //Setting LEX tab icon
+        if(sforce.console && sforce.console.isInConsole()) {
+            sforce.console.setTabIcon("standard:product_item");
+        }
+    </script>
+</apex:page>

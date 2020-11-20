@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ObjectClassId__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Vlocity Object Class</label>
+    <referenceTo>vlocity_ins__ObjectClass__c</referenceTo>
+    <relationshipLabel>Vlocity Object Layouts</relationshipLabel>
+    <relationshipName>VlocityObjectLayouts</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PropertyType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Antique / Classic</fullName>
+                <default>false</default>
+                <label>Antique / Classic</label>
+            </value>
+            <value>
+                <fullName>Apartment</fullName>
+                <default>false</default>
+                <label>Apartment</label>
+            </value>
+            <value>
+                <fullName>Business Leased</fullName>
+                <default>false</default>
+                <label>Business Leased</label>
+            </value>
+            <value>
+                <fullName>Business Owned</fullName>
+                <default>false</default>
+                <label>Business Owned</label>
+            </value>
+            <value>
+                <fullName>Cargo</fullName>
+                <default>false</default>
+                <label>Cargo</label>
+            </value>
+            <value>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+                <label>Commercial</label>
+            </value>
+            <value>
+                <fullName>Commercial Garage</fullName>
+                <default>false</default>
+                <label>Commercial Garage</label>
+            </value>
+            <value>
+                <fullName>Commercial Office</fullName>
+                <default>false</default>
+                <label>Commercial Office</label>
+            </value>
+            <value>
+                <fullName>Commercial Storefront</fullName>
+                <default>false</default>
+                <label>Commercial Storefront</label>
+            </value>
+            <value>
+                <fullName>Commercial Warehouse</fullName>
+                <default>false</default>
+                <label>Commercial Warehouse</label>
+            </value>
+            <value>
+                <fullName>Condominium</fullName>
+                <default>false</default>
+                <label>Condominium</label>
+            </value>
+            <value>
+                <fullName>Farm</fullName>
+                <default>false</default>
+                <label>Farm</label>
+            </value>
+            <value>
+                <fullName>Houseboat</fullName>
+                <default>false</default>
+                <label>Houseboat</label>
+            </value>
+            <value>
+                <fullName>Multi Family Home</fullName>
+                <default>false</default>
+                <label>Multi Family Home</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Outbuilding</fullName>
+                <default>false</default>
+                <label>Outbuilding</label>
+            </value>
+            <value>
+                <fullName>Personal</fullName>
+                <default>false</default>
+                <label>Personal</label>
+            </value>
+            <value>
+                <fullName>Recreational</fullName>
+                <default>false</default>
+                <label>Recreational</label>
+            </value>
+            <value>
+                <fullName>Scheduled Personal Property</fullName>
+                <default>false</default>
+                <label>Scheduled Personal Property</label>
+            </value>
+            <value>
+                <fullName>Single Family Home</fullName>
+                <default>false</default>
+                <label>Single Family Home</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

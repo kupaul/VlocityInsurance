@@ -1,0 +1,356 @@
+<apex:page id="XOMDSIDebugPage" standardController="vlocity_ins__OrchestrationItemDefinition__c"
+           extensions="vlocity_ins.XOMDSIDebugControllerExtension"
+           docType="html-5.0" applyBodyTag="false" sideBar="false">
+    <html ng-app="DSIDebugApp" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <head>
+        <title>Default System Interface Workbench</title>
+        <apex:includeScript value="/soap/ajax/31.0/connection.js" />
+        <apex:includeScript value="/support/console/31.0/integration.js"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/forceng/forceng.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ForceTK/forcetk.js')}"/>
+        <apex:includeScript value="{!URLFor($Resource.vlocity_ins__SldsAngular)}" />
+
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <apex:slds />
+
+        <style>
+
+            .slds-scope {
+                margin: 20px;
+            }
+
+            .slds-textarea {
+                height: 800px;
+            }
+
+            .slds-text-heading_large {
+                margin-bottom: 20px;
+            }
+
+            .slds-text-heading_medium {
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+
+            .slds-grid_vertical {
+                margin-left: 1.5rem;
+                margin-right: 1.5rem;
+            }
+
+            #top_form {
+                width: 800px;
+                min-width: 800px;
+                margin-left: 1.5rem;
+                margin-right: 1.5rem;
+            }
+
+            .slds-text-heading_small {
+                margin-top: 10px;
+            }
+
+            .slds-text-heading_small button {
+                margin-left: 30px;
+            }
+
+        </style>
+        <script>
+            (function () {
+                'use strict';
+                var remoteActions = {
+                    generateRequest : {action: '{!$RemoteAction.XOMDSIDebugControllerExtension.generateRequest}', config: {escape: false}},
+                    processResponse : {action: '{!$RemoteAction.XOMDSIDebugControllerExtension.processResponse}', config: {escape: false}},
+                    getItemDefDetails: '{!$RemoteAction.XOMDSIDebugControllerExtension.getItemDefDetails}',
+                    findOrdersAndFRs: '{!$RemoteAction.XOMDSIDebugControllerExtension.findOrdersAndFRs}'
+                };
+
+                var app = angular.module('DSIDebugApp', ["vlocity", "ngSanitize", "forceng", "sldsangular"]);
+
+                //config data...
+                app.value('configData',{
+                    itemDefId : '{!LEFT($CurrentPage.parameters.Id, 15)}'
+                });
+
+                app.config(["remoteActionsProvider", function(remoteActionsProvider){
+                    remoteActionsProvider.setRemoteActions(remoteActions); // configure the remoteActionsProvider
+                }]);
+
+
+
+                app.controller('DSIDebugController', function($scope, remoteActions, configData) {
+
+                    console.log('In controller');
+                    $scope.orderName = '';
+                    $scope.requestItemsInput = 'Please select an Order/Fulfilment Request';
+                    $scope.requestItemsResult = 'Please select an Order/Fulfilment Request';
+                    $scope.requestResult = 'Please select an Order/Fulfilment Request';
+
+                    $scope.response = '';
+
+                    $scope.orders = [];
+
+                    $scope.itemDef = {
+                        vlocityDataRaptorBundleId: '',
+                        vlocityDataRaptorBundleName: '',
+                        requestItemsVlocityDataRaptorBundleId: '',
+                        requestItemsVlocityDataRaptorBundleName: ''
+                    }
+
+                    $scope.generateRequest = function ()
+                    {
+                        console.log('Submitting debug ', $scope.orderName);
+                        remoteActions.generateRequest(configData.itemDefId, $scope.orderName).then(function(res)
+                        {
+                            $scope.requestItemsInput = res.requestItemsInput;
+                            $scope.requestItemsOutput = res.requestItemsOutput;
+                            $scope.requestInput = res.requestInput;
+                            $scope.requestOutput = res.requestOutput;
+                            $scope.error = res.error;
+                        });
+                    }
+
+                    $scope.processResponse = function ()
+                    {
+                        console.log('Submitting debug ', $scope.orderName);
+                        console.log('Response', $scope.response);
+                        remoteActions.processResponse(configData.itemDefId, $scope.orderName, $scope.response).then(function(res)
+                        {
+                            $scope.responseAttrsInput = res.responseAttrsInput;
+                            $scope.responseAttrsOutput = res.responseAttrsOutput;
+                            $scope.responseItemsInput = res.responseItemsInput;
+                            $scope.responseItemsOutput = res.responseItemsOutput;
+                            $scope.responseInput = res.responseInput;
+                            $scope.responseOutput = res.responseOutput;
+                            $scope.error = res.error;
+                        });
+                    }
+
+                    $scope.getItemDefDetails = function ()
+                    {
+                        remoteActions.getItemDefDetails(configData.itemDefId).then(function(data)
+                        {
+                            $scope.vlocityDataRaptorBundleId = data['vlocityDataRaptorBundleId'];
+                            $scope.vlocityDataRaptorBundleName = data['vlocityDataRaptorBundleName'];
+                            $scope.requestItemsVlocityDataRaptorBundleId = data['requestItemsVlocityDataRaptorBundleId'];
+                            $scope.requestItemsVlocityDataRaptorBundleName = data['requestItemsVlocityDataRaptorBundleName'];
+                            $scope.vlocityDataRaptorBundleName = data.vlocityDataRaptorBundleName;
+                            $scope.vlocityDataRaptorBundleId = data.vlocityDataRaptorBundleId;
+                            $scope.requestItemsVlocityDataRaptorBundleName = data.requestItemsVlocityDataRaptorBundleName;
+                            $scope.requestItemsVlocityDataRaptorBundleId = data.requestItemsVlocityDataRaptorBundleId;
+                            $scope.responseVlocityDataRaptorBundleId = data.responseVlocityDataRaptorBundleId;
+                            $scope.responseVlocityDataRaptorBundleName = data.responseVlocityDataRaptorBundleName;
+                            $scope.responseItemsVlocityDataRaptorBundleId = data.responseItemsVlocityDataRaptorBundleId;
+                            $scope.responseItemsVlocityDataRaptorBundleName = data.responseItemsVlocityDataRaptorBundleName;
+                            $scope.responseAttrsVlocityDataRaptorBundleId = data.responseAttrsVlocityDataRaptorBundleId;
+                            $scope.responseAttrsVlocityDataRaptorBundleName = data.responseAttrsVlocityDataRaptorBundleName;
+                            console.log('ItemDef ', data, $scope);
+                        });
+                    }
+
+                    $scope.findOrdersAndFRs = function (substr)
+                    {
+                        console.log('findOrdersAndFRs', substr);
+                        if (substr.length >= 2) {
+                            return remoteActions.findOrdersAndFRs(substr, 6);
+                        }
+                        else
+                        {
+                            return [];
+                        }
+                    }
+
+                    $scope.getItemDefDetails();
+
+                });
+
+                app.run(['$rootScope', 'force', function($rootScope, force){
+
+                    console.log('In run');
+                    force.init({
+                        accessToken: '{!$Api.Session_ID}',
+                        useProxy: false
+                    });
+
+                    $rootScope.forcetkClient = new forcetk.Client();
+                    $rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+
+                }]);
+
+            })();
+        </script>
+    </head>
+    <body ng-controller="DSIDebugController">
+    <div class="slds-scope">
+        <!-- Hackaround to prevent SObject row was retrieved via SOQL without querying the requested field: vlocity_cmt__OrchestrationItemDefinition__c.Name -->
+        <apex:outputField value="{!vlocity_ins__OrchestrationItemDefinition__c.name}" rendered="false"/>
+        <apex:outputField value="{!vlocity_ins__OrchestrationItemDefinition__c.id}" rendered="false"/>
+        <div class="slds-text-heading_large">Default System Interface Workbench</div>
+        <form>
+            <div id="top_form" class="slds-form slds-form_compound">
+                <div class="slds-form-element__group">
+                    <div class="slds-form-element__row">
+                        <div class="slds-form-element slds-size_1-of-2">
+                            <label class="slds-form-element__label" for="input-id-01">Orchestration Item Definition</label>
+                            <div class="slds-form-element__control">
+                                <a href="/{!vlocity_ins__OrchestrationItemDefinition__c.id}">{!vlocity_ins__OrchestrationItemDefinition__c.name}</a>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 ng-class:{ 'slds-has-error': error };">
+                            <label class="slds-form-element__label" for="input-id-01"><abbr class="slds-required" title="required">*</abbr>Order/Fulfilment Request</label>
+                            <div class="slds-form-element__control">
+                                <input type="text" class="slds-input" required="" ng-model="orderName"
+                                                data-animation="am-flip-x"
+                                                slds-options="o.name as o.name for o in findOrdersAndFRs($viewValue)"
+                                                watch-options="1"
+                                                placeholder="Enter Order Number/Fulfilment Request Name" slds-typeahead="1"/>
+                            </div>
+                            <div class="slds-form-element__help" ng-show="error" ng-bind="error"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form>
+            <div class="slds-text-heading_medium">Requests Preparation</div>
+            <div class="slds-text-heading_small">
+                <a ng-href="{!$Page.drmapper}?id={{requestItemsVlocityDataRaptorBundleId}}"
+                   ng-bind="requestItemsVlocityDataRaptorBundleName" ng-if="requestItemsVlocityDataRaptorBundleId"></a>
+                <span ng-if="!requestItemsVlocityDataRaptorBundleId">Request Items DR Bundle (no specified)</span>
+                <button class="slds-button slds-button_brand" ng-disabled="!orderName" ng-click="generateRequest()">Execute DR Bundle</button>
+            </div>
+            <div class="slds-grid_vertical">
+                <div class="slds-form slds-form_vertical">
+                    <div class="slds-grid slds-wrap slds-grid_pull-padded-large">
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Input</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true" ng-model="requestItemsInput"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Output</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true"  ng-model="requestItemsOutput"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-text-heading_small">
+                <a ng-href="{!$Page.drmapper}?id={{vlocityDataRaptorBundleId}}"
+                   ng-bind="vlocityDataRaptorBundleName" ng-if="vlocityDataRaptorBundleId"></a>
+                <span ng-if="!vlocityDataRaptorBundleId">Request DR Bundle (no specified)</span>
+                <button class="slds-button slds-button_brand" ng-disabled="!orderName" ng-click="generateRequest()">Execute DR Bundle</button>
+            </div>
+            <div class="slds-grid_vertical">
+                <div class="slds-form slds-form_vertical">
+                    <div class="slds-grid slds-wrap slds-grid_pull-padded-large">
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Input</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true" ng-model="requestInput"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Output</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true"  ng-model="requestOutput"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-text-heading_medium">Response Processing</div>
+            <div class="slds-grid_vertical">
+                <div class="slds-form slds-form_vertical">
+                    <div class="slds-grid slds-wrap slds-grid_pull-padded-large">
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Response</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" ng-model="response"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-text-heading_small">
+                <a ng-href="{!$Page.drmapper}?id={{responseAttrsVlocityDataRaptorBundleId}}"
+                   ng-bind="responseAttrsVlocityDataRaptorBundleName" ng-if="responseAttrsVlocityDataRaptorBundleId"></a>
+                <span ng-if="!responseAttrsVlocityDataRaptorBundleId">Response Attrs DR Bundle (no specified)</span>
+                <button class="slds-button slds-button_brand" ng-disabled="!orderName && !response" ng-click="processResponse()">Execute DR Bundle</button>
+            </div>
+            <div class="slds-grid_vertical">
+                <div class="slds-form slds-form_vertical">
+                    <div class="slds-grid slds-wrap slds-grid_pull-padded-large">
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Input</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true" ng-model="responseAttrsInput"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Output</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true"  ng-model="responseAttrsOutput"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-text-heading_small">
+                <a ng-href="{!$Page.drmapper}?id={{responseItemsVlocityDataRaptorBundleId}}"
+                   ng-bind="responseItemsVlocityDataRaptorBundleName" ng-if="responseItemsVlocityDataRaptorBundleId"></a>
+                <span ng-if="!responseItemsVlocityDataRaptorBundleId">Response Items DR Bundle (no specified)</span>
+                <button class="slds-button slds-button_brand" ng-disabled="!orderName && !response" ng-click="processResponse()">Execute DR Bundle</button>
+            </div>
+            <div class="slds-grid_vertical">
+                <div class="slds-form slds-form_vertical">
+                    <div class="slds-grid slds-wrap slds-grid_pull-padded-large">
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Input</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true" ng-model="responseItemsInput"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Output</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true"  ng-model="responseItemsOutput"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-text-heading_small">
+                <a ng-href="{!$Page.drmapper}?id={{responseVlocityDataRaptorBundleId}}"
+                   ng-bind="responseVlocityDataRaptorBundleName" ng-if="responseVlocityDataRaptorBundleId"></a>
+                <span ng-if="!responseVlocityDataRaptorBundleId">Response DR Bundle (no specified)</span>
+                <button class="slds-button slds-button_brand" ng-disabled="!orderName && !response" ng-click="processResponse()">Execute DR Bundle</button>
+            </div>
+            <div class="slds-grid_vertical">
+                <div class="slds-form slds-form_vertical">
+                    <div class="slds-grid slds-wrap slds-grid_pull-padded-large">
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Input</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true" ng-model="responseInput"/>
+                            </div>
+                        </div>
+                        <div class="slds-form-element slds-size_1-of-2 cell slds-p-horizontal_medium">
+                            <label class="slds-form-element__label" for="input-id-01">Output</label>
+                            <div class="slds-form-element__control">
+                                <textarea type="text" id="input-id-01" class="slds-textarea" readOnly="true"  ng-model="responseOutput"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </body>
+
+    </html>
+
+</apex:page>

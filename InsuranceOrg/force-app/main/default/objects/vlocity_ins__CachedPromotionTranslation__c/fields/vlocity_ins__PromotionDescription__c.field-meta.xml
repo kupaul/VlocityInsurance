@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PromotionDescription__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field store translated value of Description field of Promotion object.</description>
+    <externalId>false</externalId>
+    <label>Translated Promotion Description</label>
+    <length>131072</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

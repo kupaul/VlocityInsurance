@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DestinationFulfilmentRequestId__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Destination Fulfilment Request</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Destination Fulfilment Request</inlineHelpText>
+    <label>DestinationFulfilmentRequestId</label>
+    <referenceTo>vlocity_ins__FulfilmentRequest__c</referenceTo>
+    <relationshipLabel>Source Decomposition Relationships</relationshipLabel>
+    <relationshipName>FulfilmentRequestDecompRelationships</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

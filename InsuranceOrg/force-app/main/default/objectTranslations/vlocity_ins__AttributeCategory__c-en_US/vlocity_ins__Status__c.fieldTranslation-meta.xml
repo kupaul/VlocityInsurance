@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>vlocity_ins__Status__c</name>
+    <picklistValues>
+        <masterLabel>Draft</masterLabel>
+        <translation><!-- Draft --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Obsolete</masterLabel>
+        <translation><!-- Obsolete --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pre-Production</masterLabel>
+        <translation><!-- Pre-Production --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Production</masterLabel>
+        <translation><!-- Production --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retired</masterLabel>
+        <translation><!-- Retired --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Test</masterLabel>
+        <translation><!-- Test --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

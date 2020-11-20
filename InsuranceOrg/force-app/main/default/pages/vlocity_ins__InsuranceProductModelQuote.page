@@ -1,0 +1,45 @@
+<apex:page docType="html-5.0" controller="vlocity_ins.CardCanvasController" applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+    <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  ng-app="insProductModel" class="ng-cloak" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <style type="text/css">
+                body {
+                    margin: 0px !important;
+                    padding: 0px !important;
+                    min-height: 100vh;
+                }
+            </style>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__InsValidationHandler}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__VlocityDynamicForm}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__InsProductModel}"/>
+            <c:CardStyleLoaderComponent ></c:CardStyleLoaderComponent>
+        </head>
+        <body>
+            <div class="vlocity via-slds">
+                <div class="slds-spinner_container vloc-ins-product-model-initial-spinner">
+                    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+                <vloc-layout ctrl="InsProductModelController" class="ins-product-model-container ins-product-model-quote-container" layout-name="ins-product-model-quote-container"></vloc-layout>
+            </div>
+            <script type="text/javascript">
+                var sessionId = '{!$Api.Session_ID}';
+                var vlocINS = {
+                    'accessToken': '{!$Api.Session_ID}',
+                    'staticResourceURL' : {
+                        'slds': '{!URLFOR($Resource.slds)}',
+                    }
+                };
+                var userId = '{!$User.Id}';
+            </script>
+        </body>
+    </html>
+</apex:page>

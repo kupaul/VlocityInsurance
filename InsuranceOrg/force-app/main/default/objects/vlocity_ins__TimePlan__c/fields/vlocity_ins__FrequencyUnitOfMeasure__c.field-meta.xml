@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FrequencyUnitOfMeasure__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Reserved for future use.</description>
+    <externalId>false</externalId>
+    <label>Frequency UoM</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

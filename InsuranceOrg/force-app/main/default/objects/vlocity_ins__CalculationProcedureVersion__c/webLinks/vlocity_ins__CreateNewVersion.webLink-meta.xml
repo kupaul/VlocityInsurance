@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CreateNewVersion</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Create New Version</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}
+
+var namespace_prefix_dot = &apos;&apos;;
+var gettingnamespace = sforce.connection.query(&quot;SELECT NamespacePrefix FROM ApexClass where Name = &apos;ApplicationUtilities&apos; LIMIT 1&quot;);
+var getname = gettingnamespace.getArray(&quot;records&quot;);
+if(getname.length &gt; 0 &amp;&amp; getname[0].NamespacePrefix)
+{
+namespace_prefix_dot = getname[0].NamespacePrefix+&quot;.&quot;;
+}
+
+var result = sforce.apex.execute(namespace_prefix_dot+&quot;VlocityVersionManager&quot;,&quot;incrementVersion2&quot;, {toIncrement: &quot;{!vlocity_ins__CalculationProcedureVersion__c.Id}&quot;, headerIdField:&apos;CalculationProcedureId__c&apos;,childObjectType1:&apos;CalculationProcedureStep__c&apos;, childObjectMasterDetailField1: &apos;CalculationProcedureVersionId__c&apos;,childObjectType2:&apos;CalculationProcedureVariable__c&apos;, childObjectMasterDetailField2: &apos;CalculationProcedureVersionId__c&apos;}  );
+console.log(result);
+
+if (result != null)
+{
+window.location.href = &apos;/&apos; + result;
+}
+else
+{
+alert(&apos;Creating a new Version Failed&apos;);
+}</url>
+</WebLink>

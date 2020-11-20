@@ -1,0 +1,31 @@
+<!-- Displays a Thor UI page on Parameters tab-->
+<apex:page showHeader="false" sidebar="false" controller="vlocity_ins.XOMOffPlatformAccessConfigController" standardStylesheets="false" docType="html-5.0">
+    <apex:slds />
+    <script type="text/javascript" src="{!URLFOR($Resource.ThorJsBundle)}"></script>
+    <!--<script src="https://localhost:8443/main.js"></script>-->
+    <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/components/remoteActions.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.XomThorIntegration)}"></script>
+    <!--<link rel="stylesheet" href="https://localhost:8443/main.css" />-->
+    <link rel="stylesheet" href="{!URLFOR($Resource.ThorBundleCss)}" />
+    <div class="slds-scope">
+        <ng-view ng-app="xom">loading...</ng-view>
+    </div>
+    <script type="application/javascript">
+        angular.module('xom')
+        .config(['remoteActionsProvider', function(remoteActionsProvider) 
+        {
+            remoteActionsProvider.setRemoteActions(
+            {
+                getThorBackendUrl: "{!$RemoteAction.XOMOffPlatformAccessConfigController.getOffplatformUrl}"
+            });
+        }])
+        .value('thorLayoutConfig', 
+        {
+            hideObjectHierarchy: true,
+            hideHeader: true,
+            hideLogoutButton: true,
+            defaultTabId: "976718169186106517", // Characteristics tab
+            hideInactiveTabsForObjectTypes: ["4412964684870137466"] // Object Type Ids to display default tab only
+        });    
+    </script>
+</apex:page>

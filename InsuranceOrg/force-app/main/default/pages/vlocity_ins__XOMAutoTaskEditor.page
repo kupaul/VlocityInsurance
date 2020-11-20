@@ -1,0 +1,8 @@
+<apex:page sidebar="false" 
+           showHeader="false" 
+           docType="html-5.0" 
+           applyHtmlTag="false"
+           standardcontroller="vlocity_ins__OrchestrationItemDefinition__c">
+<c:XOMAceEditor recordId="{!$CurrentPage.parameters.Id}" 
+                recordFieldName="AutoTaskParameters__c"/>
+</apex:page>

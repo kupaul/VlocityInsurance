@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Canvas</masterLabel>
+        <translation><!-- Canvas --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Card</masterLabel>
+        <translation><!-- Card --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Input</masterLabel>
+        <translation><!-- Input --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OmniScript</masterLabel>
+        <translation><!-- OmniScript --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OmniScript Modal</masterLabel>
+        <translation><!-- OmniScript Modal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OmniScript Redirect</masterLabel>
+        <translation><!-- OmniScript Redirect --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OmniScript Selectable Items</masterLabel>
+        <translation><!-- OmniScript Selectable Items --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

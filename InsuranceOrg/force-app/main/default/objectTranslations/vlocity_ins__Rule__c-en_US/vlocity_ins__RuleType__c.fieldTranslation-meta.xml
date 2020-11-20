@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Rule Type --></label>
+    <name>vlocity_ins__RuleType__c</name>
+    <picklistValues>
+        <masterLabel>Evaluation</masterLabel>
+        <translation><!-- Evaluation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Penalty</masterLabel>
+        <translation><!-- Penalty --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Qualification</masterLabel>
+        <translation><!-- Qualification --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

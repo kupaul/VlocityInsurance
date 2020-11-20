@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__GlobalKey__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The globally unique identifier of the Product. Used to identify the product across Salesforce instances.</description>
+    <externalId>false</externalId>
+    <label>Global Key</label>
+    <length>80</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

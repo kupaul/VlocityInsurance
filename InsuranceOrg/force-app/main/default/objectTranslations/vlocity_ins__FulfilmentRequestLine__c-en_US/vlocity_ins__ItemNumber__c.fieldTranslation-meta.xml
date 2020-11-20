@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Fulfilment Request Line Item Number --></label>
+    <name>vlocity_ins__ItemNumber__c</name>
+</CustomFieldTranslation>

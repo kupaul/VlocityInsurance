@@ -1,0 +1,2 @@
+Name,BatchSize__c,DRMapName__c,DeleteOnSuccess__c,Description__c,IgnoreErrors__c,InterfaceObject__c,IsDefaultForInterface__c,IsProcessSuperBulk__c,OuboundStagingObjectDataField__c,OutboundConfigurationField__c,OutboundConfigurationName__c,OutboundStagingObjectName__c,PreprocessorClassName__c,ProcessNowThreshold__c,TargetOutJson__c,TargetOutPdfDocName__c,Type__c
+ProductAttribute,200,ProductAttribute,FALSE,,FALSE,Interface_ProductAttribute__c,TRUE,FALSE,,,,,,199,,,Load (Object)

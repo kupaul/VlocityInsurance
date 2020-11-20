@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Source Party Type --></label>
+    <name>vlocity_ins__SourcePartyType__c</name>
+    <picklistValues>
+        <masterLabel>Account</masterLabel>
+        <translation><!-- Account --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Asset</masterLabel>
+        <translation><!-- Asset --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Claim</masterLabel>
+        <translation><!-- Claim --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contact</masterLabel>
+        <translation><!-- Contact --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Group</masterLabel>
+        <translation><!-- Group --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Household</masterLabel>
+        <translation><!-- Household --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

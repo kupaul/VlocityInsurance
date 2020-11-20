@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SourceOrderId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Source Order</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Source Order</inlineHelpText>
+    <label>Source Order</label>
+    <referenceTo>Order</referenceTo>
+    <relationshipLabel>Decomposition Relationships</relationshipLabel>
+    <relationshipName>FulfilmentRequestDecompRelationships</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

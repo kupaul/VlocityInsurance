@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__NumberType</fullName>
+    <active>true</active>
+    <errorConditionFormula>(( TEXT( vlocity_ins__ValueType__c )  = &apos;Number&apos;)|| ( TEXT( vlocity_ins__ValueType__c )  = &apos;Percent&apos;) || ( TEXT( vlocity_ins__ValueType__c )  = &apos;Currency&apos;))  &amp;&amp;  NOT( ISBLANK( vlocity_ins__Value__c ))  &amp;&amp; NOT( ISNUMBER( vlocity_ins__Value__c ))</errorConditionFormula>
+    <errorMessage>Value must be a Number.</errorMessage>
+</ValidationRule>

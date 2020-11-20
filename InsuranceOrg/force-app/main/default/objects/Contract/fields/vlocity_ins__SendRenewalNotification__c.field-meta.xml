@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SendRenewalNotification__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, indicates that a renewal notification message would be sent on the renewal notification date.</description>
+    <externalId>false</externalId>
+    <label>Send Renewal Notification</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

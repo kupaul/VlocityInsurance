@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>This is to define the pair of address field from household and contact that will be used to decide contacts that are in the same address of household. The value will be in this format: HouseholdAddrField:ContactAddrField.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Household Address Match</label>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,68 @@
+<apex:page standardStylesheets="false" showHeader="false" 
+            sidebar="false" docType="html-5.0"
+            standardController="vlocity_ins__VlocityUITemplate__c"
+            extensions="vlocity_ins.TemplateController"
+            tabStyle="VlocityUITemplateDesigner__tab"
+            title="Template Designer">
+
+<html dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}" lang="{!language}" xml:lang="{!language}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<head>
+  <meta charset="utf-8"></meta>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"></meta>
+  <title>Vlocity Template Designer</title>
+
+  <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+  <style>
+    body {
+      height: 100vh; /*IE/EDGE template editor not able to focus/edit issue fix*/
+    }
+  </style>
+  <script src="{!URLFOR($Resource.Sass, 'sass.js')}"></script>
+  <script src="{!URLFOR($Resource.monaco, '/min/vs/loader.js')}"></script>
+  
+  <script>
+    window.orgName = '{!$Organization.Name}';
+    require.config({
+      baseUrl: "{!URLFOR($Resource.monaco, '/min')}"
+    });
+
+    // Before loading vs/editor/editor.main, define a global MonacoEnvironment that overwrites
+    // the default worker url location (used when creating WebWorkers). The problem here is that
+    // HTML5 does not allow cross-domain web workers, so we need to proxy the instantiation of
+    // a web worker through a same-domain script
+    
+    window.MonacoEnvironment = {
+      getWorkerUrl: function(workerId, label) {
+        return "{!URLFOR($Resource.vlocity_template_designer ,'assets/monaco-editor-worker-loader-proxy.js')}";
+      }
+    };
+
+    (function() {
+       document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+    })();
+  </script>
+  <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__iframeresizer, '/js/iframeResizer.js')}"/>
+  <apex:includeScript value="/support/console/42.0/integration.js"/>
+</head>
+<body>
+
+  <vlocity-template-editor class="via-slds" record-id=""></vlocity-template-editor>
+
+  <script>
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      // auto-unregister service worker during dev mode
+      navigator.serviceWorker.ready.then(function(registration) {
+        registration.unregister().then(function() { location.reload(true) });
+      });
+    }
+  </script>
+  
+  <!-- For browsers supporting type=module -->
+  <script type="module" id="templateEditorScript" crossorigin="use-credentials" src="{!URLFOR($Resource.vlocity_ins__vlocity_template_designer , '/build/vlocity-template-editor.js')}"></script>
+
+  <!-- For older browsers not supporting module -->
+  <apex:includeScript id="templateEditorScript" html-crossorigin="use-credentials" html-nomodule="" value="{!URLFOR($Resource.vlocity_ins__vlocity_template_designer , '/build/vlocity-template-editor.js')}"/>
+  
+</body>
+</html>
+</apex:page>

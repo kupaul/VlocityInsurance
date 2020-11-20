@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__BlackListedFields__c</fullName>
+    <deprecated>false</deprecated>
+    <description>For blacklist object this is for specific field(s), comma separated, that should have their values blanked out. For whitelist object, this is the field that is the FK to the root object. It is typically a polymorphic Id so it is not picked up in the usual FK logic that GraphClone.cls uses. This must be the field API name including namespace.</description>
+    <externalId>false</externalId>
+    <label>Fields To Skip Or Force</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>8</visibleLines>
+</CustomField>

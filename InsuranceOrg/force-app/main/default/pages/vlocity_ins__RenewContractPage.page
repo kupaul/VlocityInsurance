@@ -1,0 +1,2 @@
+<apex:page standardController="Contract" extensions="vlocity_ins.RenewContractController" action="{!doCreateQuote}" showHeader="false" sidebar="false" docType="html-5.0"> 
+</apex:page>

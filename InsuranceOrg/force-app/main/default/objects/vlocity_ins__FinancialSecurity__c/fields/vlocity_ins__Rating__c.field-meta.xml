@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Rating__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Rating</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Buy</fullName>
+                <default>false</default>
+                <label>Buy</label>
+            </value>
+            <value>
+                <fullName>Sell</fullName>
+                <default>false</default>
+                <label>Sell</label>
+            </value>
+            <value>
+                <fullName>Hold</fullName>
+                <default>false</default>
+                <label>Hold</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

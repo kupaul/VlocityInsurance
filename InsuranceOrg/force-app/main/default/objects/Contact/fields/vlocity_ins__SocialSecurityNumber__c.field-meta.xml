@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SocialSecurityNumber__c</fullName>
+    <deprecated>false</deprecated>
+    <description>An 11-character encrypted text field useful for storing the tax identifier of this individual.</description>
+    <externalId>false</externalId>
+    <label>Social Security Number</label>
+    <length>11</length>
+    <maskChar>X</maskChar>
+    <maskType>ssn</maskType>
+    <required>false</required>
+    <type>EncryptedText</type>
+</CustomField>

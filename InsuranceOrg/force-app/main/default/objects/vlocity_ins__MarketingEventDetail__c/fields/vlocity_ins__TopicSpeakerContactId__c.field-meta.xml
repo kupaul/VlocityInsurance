@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__TopicSpeakerContactId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The Contact who will be presenting the topic at the Marketing Event.</description>
+    <externalId>false</externalId>
+    <label>Topic Speaker</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Marketing Event Details</relationshipLabel>
+    <relationshipName>MarketingEventDetails</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

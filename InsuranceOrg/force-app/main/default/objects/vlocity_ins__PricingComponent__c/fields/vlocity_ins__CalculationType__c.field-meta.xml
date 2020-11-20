@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CalculationType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Calculation Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Simple</fullName>
+                <default>true</default>
+                <label>Simple</label>
+            </value>
+            <value>
+                <fullName>Attribute Based</fullName>
+                <default>false</default>
+                <label>Attribute Based</label>
+            </value>
+            <value>
+                <fullName>Tier Based</fullName>
+                <default>false</default>
+                <label>Tier Based</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

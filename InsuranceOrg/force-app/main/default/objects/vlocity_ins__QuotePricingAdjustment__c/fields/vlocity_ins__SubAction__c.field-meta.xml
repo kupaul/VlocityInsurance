@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SubAction__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The sub-action requested in this quote for this price, charge or adjustment with values such as Move or Cancel.</description>
+    <externalId>false</externalId>
+    <label>Sub Action</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Move</fullName>
+                <default>false</default>
+                <label>Move</label>
+            </value>
+            <value>
+                <fullName>Cancel</fullName>
+                <default>false</default>
+                <label>Cancel</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

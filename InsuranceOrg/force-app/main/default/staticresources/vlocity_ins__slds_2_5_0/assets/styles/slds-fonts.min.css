@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url(../fonts/webfonts/SalesforceSans-Light.woff2?orgId=00D3i000000rhp6) format("woff2"), url(../fonts/webfonts/SalesforceSans-Light.woff?orgId=00D3i000000rhp6) format("woff");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url(../fonts/webfonts/SalesforceSans-LightItalic.woff2?orgId=00D3i000000rhp6) format("woff2"), url(../fonts/webfonts/SalesforceSans-LightItalic.woff?orgId=00D3i000000rhp6) format("woff");
+  font-style: italic;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url(../fonts/webfonts/SalesforceSans-Regular.woff2?orgId=00D3i000000rhp6) format("woff2"), url(../fonts/webfonts/SalesforceSans-Regular.woff?orgId=00D3i000000rhp6) format("woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url(../fonts/webfonts/SalesforceSans-Italic.woff2?orgId=00D3i000000rhp6) format("woff2"), url(../fonts/webfonts/SalesforceSans-Italic.woff?orgId=00D3i000000rhp6) format("woff");
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url(../fonts/webfonts/SalesforceSans-Bold.woff2?orgId=00D3i000000rhp6) format("woff2"), url(../fonts/webfonts/SalesforceSans-Bold.woff?orgId=00D3i000000rhp6) format("woff");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Salesforce Sans';
+  src: url(../fonts/webfonts/SalesforceSans-BoldItalic.woff2?orgId=00D3i000000rhp6) format("woff2"), url(../fonts/webfonts/SalesforceSans-BoldItalic.woff?orgId=00D3i000000rhp6) format("woff");
+  font-style: italic;
+  font-weight: 700;
+}

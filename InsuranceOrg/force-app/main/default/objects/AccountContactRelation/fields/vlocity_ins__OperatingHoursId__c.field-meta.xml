@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__OperatingHoursId__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Operating Hours for a Contact, specific to an Account. For example, the Operating Hours of a Provider at a specific Provider Location.</description>
+    <externalId>false</externalId>
+    <label>Operating Hours</label>
+    <length>80</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

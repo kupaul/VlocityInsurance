@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Priority --></label>
+    <name>vlocity_ins__Priority__c</name>
+    <picklistValues>
+        <masterLabel>1. High</masterLabel>
+        <translation><!-- 1. High --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2. Normal</masterLabel>
+        <translation><!-- 2. Normal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3. Low</masterLabel>
+        <translation><!-- 3. Low --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

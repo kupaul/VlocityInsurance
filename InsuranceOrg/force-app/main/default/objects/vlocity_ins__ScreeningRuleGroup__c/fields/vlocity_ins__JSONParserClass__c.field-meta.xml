@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__JSONParserClass__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Enter the Apex class used by the relevant Type to parse data in the correct structure to be compared against the Screening Rules. Either specify an existing class, or enter a new name and click &apos;Generate JSON Parser Class&apos; to create the class based on the custom setting &apos;Application Flow Setting&apos;.</description>
+    <externalId>false</externalId>
+    <label>JSON Parser Class</label>
+    <length>40</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

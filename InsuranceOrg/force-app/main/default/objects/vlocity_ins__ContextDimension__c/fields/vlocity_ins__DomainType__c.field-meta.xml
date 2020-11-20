@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DomainType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Domain Type describes how rule condition values appear when creating a rule condition. Picklist allows you to select rule condition values from a Vlocity Picklist. Object Lookup allows you to select a specific record from an sObject. Type In allows you to enter free form strings.</description>
+    <externalId>false</externalId>
+    <label>Domain Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Picklist</fullName>
+                <default>false</default>
+                <label>Picklist</label>
+            </value>
+            <value>
+                <fullName>Object Lookup</fullName>
+                <default>false</default>
+                <label>Object Lookup</label>
+            </value>
+            <value>
+                <fullName>Type in</fullName>
+                <default>false</default>
+                <label>Type in</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

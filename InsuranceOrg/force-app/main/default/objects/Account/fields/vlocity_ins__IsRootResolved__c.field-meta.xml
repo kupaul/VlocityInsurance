@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsRootResolved__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Used in conjunction with RootAccountId__c, this flag is used by the Vlocity TelcoAccount trigger to determine if the RootAccountId__c value has been determined. When false, the RootAccountId__c may not reflect the actual ultimate (or root) parent account of this account.</description>
+    <externalId>false</externalId>
+    <label>Is Root Resolved</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

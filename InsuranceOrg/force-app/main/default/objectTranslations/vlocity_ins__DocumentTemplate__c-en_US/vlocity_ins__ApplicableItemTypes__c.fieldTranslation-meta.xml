@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Applicable Item Types --></label>
+    <name>vlocity_ins__ApplicableItemTypes__c</name>
+    <picklistValues>
+        <masterLabel>ContractLineItem__c</masterLabel>
+        <translation><!-- ContractLineItem__c --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OpportunityLineItem</masterLabel>
+        <translation><!-- OpportunityLineItem --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OrderItem</masterLabel>
+        <translation><!-- OrderItem --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>QuoteLineItem</masterLabel>
+        <translation><!-- QuoteLineItem --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

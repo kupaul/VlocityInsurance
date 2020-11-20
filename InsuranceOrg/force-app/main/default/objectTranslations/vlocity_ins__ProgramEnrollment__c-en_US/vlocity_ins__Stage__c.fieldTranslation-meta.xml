@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Stage --></label>
+    <name>vlocity_ins__Stage__c</name>
+    <picklistValues>
+        <masterLabel>Approved for Waitlist</masterLabel>
+        <translation><!-- Approved for Waitlist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Closed</masterLabel>
+        <translation><!-- Closed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pending Review</masterLabel>
+        <translation><!-- Pending Review --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Waitlist</masterLabel>
+        <translation><!-- Waitlist --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

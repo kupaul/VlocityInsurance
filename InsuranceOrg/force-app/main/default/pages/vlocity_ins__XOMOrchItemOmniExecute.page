@@ -1,0 +1,43 @@
+<apex:page standardController="vlocity_ins__OrchestrationItem__c" extensions="vlocity_ins.CardCanvasController">
+    <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="launchOS" class="ng-cloak" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+        <head>
+		 	<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+       
+       <script src="{!URLFOR($Resource.vlocity_core_assets, '/latest/vlocity_core_assets.js')}"></script>
+       <script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+        
+        <apex:stylesheet value="{!$Resource.vlocity_ins__PlanViewCss}"/>
+        <script src="{!$Resource.JQuery_1_5_1}"></script>
+        <script src="{!$Resource.Cometd_2_2_0}"></script>
+        <script src="{!$Resource.JQueryCometd_2_2_0}"></script>
+        <script src="{!$Resource.core}"></script>
+        <script src="{!$Resource.communications}"></script>
+        <apex:includeLightning />
+        <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+
+        <script type="text/javascript" src="{!URLFOR($Resource.SldsAngular)}"></script>
+        <script src="{!$Resource.CardFramework_Assets}"></script>
+        <script src="{!$Resource.VlocityDynamicForm}"></script>        
+        <script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework_assets.js')}"></script>
+        <script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework.js')}"></script>
+  
+        <script type="text/javascript" src="{!URLFOR($Resource.XomThorIntegration)}"></script>
+        <script src="{!$Resource.PlanView}"></script>
+        <apex:stylesheet value="{!$Resource.vlocity_ins__XOMCss}"/>
+             <script type="text/javascript">
+             	var app = angular.module('launchOS', 
+    				['vlocity','CardFramework' , 'sldsangular', 'ngSanitize', 'forceng', 'tmh.dynamicLocale',
+     					'cfp.hotkeys', 'VlocityDynamicForm', 'thorIntegration'])
+    				.config(['remoteActionsProvider', function(remoteActionsProvider) {
+        				remoteActionsProvider.setRemoteActions(window.remoteActions || {});
+    				}]);
+            </script>
+		</head>
+		<body>
+			<div class="vlocity via-slds">
+				<vloc-layout layout-name="xom-orch-item-omni-execute"></vloc-layout>
+			</div>
+		</body>
+    </html>
+</apex:page>

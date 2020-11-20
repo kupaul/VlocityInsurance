@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ReserveAdjustment</fullName>
+    <active>true</active>
+    <label>Reserve Adjustment</label>
+    <picklistValues>
+        <picklist>vlocity_ins__Type__c</picklist>
+        <values>
+            <fullName>Adjustor Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Close</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FNOL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subrogation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

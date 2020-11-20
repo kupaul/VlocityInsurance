@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>FileVault Package Properties</comment>
+<entry key="createdBy">admin</entry>
+<entry key="name">omniscript-demo</entry>
+<entry key="lastModified">2017-02-16T10:36:16.656-08:00</entry>
+<entry key="lastModifiedBy">admin</entry>
+<entry key="created">2017-02-16T10:36:16.747-08:00</entry>
+<entry key="buildCount">5</entry>
+<entry key="version">0.0.0</entry>
+<entry key="dependencies"/>
+<entry key="packageFormatVersion">2</entry>
+<entry key="description">OmniScipt Demo</entry>
+<entry key="lastWrapped">2017-02-16T10:36:16.656-08:00</entry>
+<entry key="group">Vlocity</entry>
+<entry key="lastWrappedBy">admin</entry>
+</properties>

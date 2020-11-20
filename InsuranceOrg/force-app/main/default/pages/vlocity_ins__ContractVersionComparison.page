@@ -1,0 +1,252 @@
+<apex:page standardController="vlocity_ins__ContractVersion__c" extensions="vlocity_ins.ContractDocumentDisplayController" standardStylesheets="true" showHeader="true" sidebar="false" docType="html-5.0">
+<html xmlns:ng="http://angularjs.org" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+        <apex:includeScript value="/support/console/42.0/integration.js"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__htmldiff, '/js/htmldiff.js')}"/> 
+        <apex:includeScript value="{!$Resource.vlocity_ins__ContractVersionComparisonApp}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SEGJS}" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/> 
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+        <apex:stylesheet value="{!$Resource.vlocity_ins__ContractVersionComparisonCss}"/>
+    </head>
+    <body>
+    <div class="vloc-body ng-cloak" ng-app="contractVersionComparisonApp" ng-controller="contractVersionComparisonCtrl">
+        <div class="vlocity via-slds" prevent-delete-back="preventDeleteBack" via-screen-height="viaScreenHeight" via-affix="top" style="min-height:1000px">
+            <div class="slds-spinner_container" ng-show="vlcLoading === true">
+                <div class="slds-spinner slds-spinner_medium" aria-hidden="false" role="alert">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+            <!-- Page Header -->
+            <div class="slds-page-header" role="banner">
+                <div class="slds-media slds-media_center">
+                    <div class="slds-media__figure">
+                        <slds-svg-icon id="document-customization-icon" sprite="'standard'" icon="'drafts'" size="'medium'" extra-classes="'slds-icon-standard-contract'"></slds-svg-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <h1 class="slds-page-header__title custom slds-m-right_small slds-align-middle slds-truncate" title="Contract Document Creation">{!$label.CLMDocCompContractVerComp}</h1>
+                        <p class="slds-text-heading_label slds-line-height_reset">{{version_a[nameSpacePrefix + 'DocumentTemplateName__c']}}</p>
+                    </div>
+                    <div class="slds-media__figure slds-media__figure_reverse">
+                        <div class="slds-button-group slds-float_right" role="group">
+                            <button ng-click="goBack()" class="slds-button slds-button_neutral via-compare-versions-go-back">
+                                <slds-svg-icon sprite="'utility'" icon="'back'" size="'x-small'" extra-class="'slds-m-bottom_xxx-small'" style="fill:#0070d2"></slds-svg-icon>
+                                {!$Label.CLMDocGenGoBackToContract}
+                            </button>
+                            <button class="slds-button slds-button_neutral via-compare-versions-compare-versions" ng-click="compareVersions()" ng-disabled="(!versionData[version_b.Id] || !versionData[version_a.Id]) ">
+                                <span ng-if="compareBtnText ==='Compare'">{!$label.CLMDocCompCompare}</span>
+                                <span ng-if="compareBtnText ==='Show Redlines'"> {!$Label.CLMDocCompShowRedlines}</span>
+                            </button>
+                            <button ng-disabled="showOnlyRight" ng-click="hideDiff()" ng-if="compareBtnText == 'Show Redlines'" class="slds-button slds-button_neutral via-compare-versions-hide-diff">
+                                {!$Label.CLMDocCompHideRedline}
+                            </button>
+                            <button class="slds-button slds-button_neutral via-compare-versions-toggle-tooltip" ng-click="showToolTip ? showToolTip = false : showToolTip = true">
+                                <slds-svg-icon ng-if="!showToolTip" sprite="'utility'" icon="'info'" size="'x-small'" style="fill:#0070d2;"></slds-svg-icon>
+                                <slds-svg-icon ng-if="showToolTip" sprite="'utility'" icon="'ban'" size="'x-small'" style="fill:#0070d2;"></slds-svg-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Warning Message -->
+            <div ng-if="warningMessage">
+                <div class="slds-notify slds-notify_alert slds-theme_warning" role="alert">
+                    <span class="slds-assistive-text">warning</span>
+                    <span class="slds-icon_container slds-icon-utility-warning slds-m-right_medium" title="warning">
+                        <slds-svg-icon sprite="'utility'" icon="'warning'" size="'x-small'"></slds-svg-icon>
+                    </span>
+                    <h2 class="slds-m-right_small">{{warningMessage}}</h2>
+                    <button class="slds-button slds-button_icon slds-notify__close slds-button_icon-inverse" title="Close" ng-click="hideWarningMessage()">
+                        <slds-svg-icon sprite="'utility'" icon="'close'" size="'x-small'"></slds-svg-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Page Content -->
+            <div class="outer-container" ng-show="showComparisonContainers">
+                <!-- Version Select: -->
+                <div class="slds-grid select-versions" ng-show="version_a.Id">
+                    <!-- Version_A: -->
+                    <div class="slds-col slds-col-wrap slds-size_1-of-2">
+                        <div class="slds-form-element">
+                            <div class="slds-select_container">
+                                <select class="slds-select via-compare-versions-get-sections-for-version-a" ng-model="version_a" ng-options="version.Name for version in versions | orderBy:'version.Name'" ng-change="getSectionsForVersion('version_a'); compareBtnTextHelper()">
+                                 </select>
+                            </div>
+                            <div class="slds-grid slds-align-middle slds-m-top_small slds-box">
+                                <div class="slds-size_1-of-4"><p class="slds-text-heading_label version-info">{!$Label.CLMDocCompTemplateAttached}</p>
+                                    <p class="slds-text-body_small page-header__info"> {{version_a[nameSpacePrefix + 'DocumentTemplateName__c']}}</p>
+                                </div>
+                                <div class="slds-p-left_small slds-size_1-of-4"><p class="slds-text-heading_label version-info">{!$Label.CLMDocCompMethodCreated}</p>
+                                    <p class="slds-text-body_small page-header__info"> {{version_a[nameSpacePrefix + 'DocumentCreationSource__c']}}</p>
+                                 </div>
+                                <div class="slds-col_padded slds-size_1-of-4"><p class="slds-text-heading_label version-info"> {!$Label.CLMDocCompDateCreated}</p>
+                                    <p class="slds-text-body_small page-header__info">{{version_a.createdDateStr}}</p></div>
+                                <div class="slds-col_padded slds-size_1-of-4"><p class="slds-text-heading_label version-info"> {!$Label.CLMDocCompDateModified}</p>
+                                    <p class="slds-text-body_small page-header__info"> {{version_a.modifiedDateStr}} </p>
+                                </div>
+                             </div> 
+                        </div>
+                    </div>
+                    <div class="slds-page-header__title vs">vs</div>
+                    <!-- Version_B: -->
+                    <div class="slds-col slds-col-wrap slds-size_1-of-2">
+                        <span ng-if="showToolTip && (versionData[version_b.Id] && versionData[version_a.Id])" class="slds-popover slds-nubbin_bottom popover-redline" role="tooltip">
+                            <div class="slds-popover__body">
+                                <span class="slds-text-heading_label redline">
+                                    {!$Label.CLMDocCompRedlineKey}
+                                </span>
+                                <div class="slds-m-top_xx-small">
+                                    {!$Label.CLMDocCompExample}<ins class="diff-cmp">{!$Label.CLMDocCompUserInserted}</ins> {!$Label.CLMDocCompInAContract} <del class="diff-cmp">{!$Label.CLMDocCompUserDeleted}</del>.
+                                </div>
+                            </div>
+                        </span>
+                        <span ng-if="showToolTip && !versionData[version_b.Id]" class="slds-popover slds-nubbin_bottom popover-version" role="tooltip">
+                            <div class="slds-popover__body">
+                                <div>
+                                    {!$label.CLMDocCompSelectVerComp}
+                                </div>
+                            </div>
+                        </span>
+                        <div class="slds-form-element">
+                            <div class="slds-select_container">
+                                <select class="slds-select via-compare-versions-get-sections-for-version-b" ng-model="version_b" ng-options="version.Name for version in versionsRange() | orderBy:'version.Name'" ng-change="getSectionsForVersion('version_b'); compareBtnTextHelper()">
+                                </select>
+                            </div>
+                            <div class="slds-grid slds-align-middle slds-m-top_small slds-box">
+                                <div class="slds-size_1-of-4"><p class="slds-text-heading_label version-info">{!$Label.CLMDocCompTemplateAttached}</p>
+                                    <p class="slds-text-body_small page-header__info"> {{version_b[nameSpacePrefix + 'DocumentTemplateName__c']}}</p>
+                                </div>
+                                <div class="slds-p-left_small slds-size_1-of-4"><p class="slds-text-heading_label version-info">{!$Label.CLMDocCompMethodCreated}</p>
+                                    <p class="slds-text-body_small page-header__info"> {{version_b[nameSpacePrefix + 'DocumentCreationSource__c']}}</p>
+                                </div>
+                                <div class="slds-col_padded slds-size_1-of-4"><p class="slds-text-heading_label version-info"> {!$Label.CLMDocCompDateCreated}</p>
+                                    <p class="slds-text-body_small page-header__info">{{version_b.createdDateStr}}</p></div>
+                                <div class="slds-col_padded slds-size_1-of-4"><p class="slds-text-heading_label version-info"> {!$Label.CLMDocCompDateModified}</p>
+                                    <p class="slds-text-body_small page-header__info"> {{version_b.modifiedDateStr}} </p>
+                                </div>
+                            </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Version Comparison: -->
+                    <div class="slds-grid version-comparison-container" id="version-comparison-container">
+                        <!-- version_a sections: -->
+                        <div class="slds-col slds-size_1-of-2 doc-side-by-side left slds-box" id="version_a" ng-class="{'hide': showOnlyRight, 'zoom': showOnlyLeft}" ng-show="!showDiff">
+                            <div class="slds-spinner_container" ng-show="loadingVersion_a === true">
+                                <div class="slds-spinner slds-spinner_medium" aria-hidden="false" role="alert">
+                                    <div class="slds-spinner__dot-a"></div>
+                                    <div class="slds-spinner__dot-b"></div>
+                                </div>
+                            </div>
+                            <div ng-show="versionData[version_a.Id]">
+                                <slds-svg-icon sprite="'utility'" icon="'expand'" size="'x-small'" ng-click="toggleOnlyLeft(true)" ng-if="!showOnlyLeft" style="fill:#54698d; cursor:pointer" extra-classes="'slds-float_right via-compare-versions-show-only-left'"></slds-svg-icon>
+                                <slds-svg-icon sprite="'utility'" icon="'contract'" size="'x-small'" ng-click="toggleOnlyLeft(false)" ng-if="showOnlyLeft" style="fill:#54698d; cursor:pointer" extra-classes="'slds-float_right scroll via-compare-versions-show-only-right'"></slds-svg-icon>
+                            </div>
+                            <div class="doc-paragraph left" ng-show="versionData[version_a.Id]" ng-repeat="section_a in versionData[version_a.Id]">
+                                <div class="slds-text-heading_medium" ng-show="showSectionNo">{!$label.CLMDocCompsection} {{$index}}:</div><p ng-bind-html="trustAsHtml(section_a.sectionContent)"></p>
+                            </div>
+                        </div>
+                        <!-- html diff version_a v. version_b -->
+                        <div class="slds-col slds-size_1-of-2 doc-side-by-side html-diff slds-box" id="html-diff" ng-class="{'hide': showOnlyRight, 'zoom': showOnlyLeft}" ng-show="showDiff">
+                            <div ng-show="versionData[version_b.Id]">
+                                <slds-svg-icon sprite="'utility'" icon="'expand'" size="'x-small'" ng-click="toggleOnlyLeft(true)" ng-if="!showOnlyLeft" style="fill:#54698d; cursor:pointer" extra-classes="'slds-float_right scroll'"></slds-svg-icon>
+                                <slds-svg-icon sprite="'utility'" icon="'contract'" size="'x-small'" ng-click="toggleOnlyLeft(false)" ng-if="showOnlyLeft" style="fill:#54698d; cursor:pointer" extra-classes="'slds-float_right scroll'"></slds-svg-icon>
+                            </div>
+                            <div class="doc-paragraph html-diff" ng-show="versionDiff[version_a.Id + ' x ' + version_b.Id]" ng-repeat="section_diff in versionDiff[version_a.Id + ' x ' + version_b.Id]">
+                                <p ng-bind-html="trustAsHtml(section_diff)"></p>
+                            </div>
+                        </div>
+                        <div class="slds-page-header__title vs divider" ng-hide="showOnlyRight || showOnlyLeft">vs</div>
+                        <!-- version_b sections: -->
+                        <div class="slds-col slds-size_1-of-2 doc-side-by-side right slds-box" id="version_b" ng-class="{'hide': showOnlyLeft, 'zoom': showOnlyRight}">
+                            <div class="slds-spinner_container" ng-show="loadingVersion_b === true">
+                                <div class="slds-spinner slds-spinner_medium" aria-hidden="false" role="alert">
+                                    <div class="slds-spinner__dot-a"></div>
+                                    <div class="slds-spinner__dot-b"></div>
+                                </div>
+                            </div>
+                            <div ng-show="versionData[version_b.Id]">
+                                <slds-svg-icon sprite="'utility'" icon="'expand'" size="'x-small'" ng-click="toggleOnlyRight(true)" ng-if="!showOnlyRight" style="fill:#54698d; cursor:pointer" extra-classes="'slds-float_right scroll'"></slds-svg-icon>
+                                <slds-svg-icon sprite="'utility'" icon="'contract'" size="'x-small'" ng-click="toggleOnlyRight(false)" ng-if="showOnlyRight" style="fill:#54698d; cursor:pointer" extra-classes="'slds-float_right scroll'"></slds-svg-icon>
+                            </div>
+                            <div class="doc-paragraph right" ng-show="versionData[version_b.Id]" ng-repeat="section_b in versionData[version_b.Id]">
+                                <p ng-bind-html="trustAsHtml(section_b.sectionContent)"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var nameSpacePrefix, remoteActions, versionId, sourceId, baseRequestUrl, labels;
+            nameSpacePrefix = '{!nameSpacePrefix}';
+            versionId = '{!$CurrentPage.parameters.Id}';
+            sourceId = '{!sourceId}';
+            baseRequestUrl = '{!$Site.BaseRequestUrl}';
+            remoteActions = {
+                getContractVersions: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getContractVersions}',
+                    config: {escape: false}
+                },
+                getActiveVersion: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getActiveVersion}',
+                    config: {escape: false}
+                },
+                getContractVersionDocumentActions: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getContractVersionDocumentActions}',
+                    config: {escape: false}
+                },
+                invokeVOIMethod: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.invokeVOIMethod}',
+                    config: {escape: false}
+                },
+                getContractVersionAttachments: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getContractVersionAttachments}',
+                    config: {escape: false}
+                },
+                deleteContractDocumentAttachment: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.deleteContractDocumentAttachment}',
+                    config: {escape: false}
+                },
+                handleWordDocImport: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.handleWordDocImport}',
+                    config: {escape: false}
+                },
+                checkInDocument: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.checkInDocument}',
+                    config: {escape: false}
+                },
+                removeCustomSetting: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.deleteCustomSetting}',
+                    config: {escape: false}
+                },
+                getContractSectionsForVersion: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getContractSectionsForVersion}',
+                    config: {escape: false}
+                },
+                getContractIdFromVersion: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getContractIdFromVersion}',
+                    config: {escape: false}
+                },
+                formatProductSection: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.formatProductSection}',
+                    config: {escape: false}
+                }
+            };
+            var labels = {
+                'CLMDocCompWarningMsg': '{!$label.CLMDocCompWarningMsg}',
+                'CLMDocCompWarningNoVersions': '{!$label.CLMDocCompWarningNoVersions}',
+                'CLMDocCompWarningOneVersion': '{!$label.CLMDocCompWarningOneVersion}'
+            };
+        </script>
+    </body>
+</html>
+</apex:page>

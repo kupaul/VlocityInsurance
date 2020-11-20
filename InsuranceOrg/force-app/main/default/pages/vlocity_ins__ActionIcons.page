@@ -1,0 +1,79 @@
+<apex:page standardController="vlocity_ins__VlocityAction__c" docType="html-5.0">
+    <head>
+        <meta charset="utf-8"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocityicons.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+        <script type="text/javascript">
+            var vlocityIcons = angular.module("vlocityIcons", []);
+            
+            vlocityIcons.controller("vlocityIconsCtrl", function($scope) {
+                $scope.icons = vlocityIconsArray;
+            });
+        </script>
+        <style type="text/css">
+            /*
+             * Glyphicons
+             *
+             * Special styles for displaying the icons and their classes in the docs.
+             */
+
+            .bs-glyphicons {
+              margin: 0 -10px 20px;
+              overflow: hidden;
+            }
+            .bs-glyphicons-list {
+              padding-left: 0;
+              list-style: none;
+            }
+            .bs-glyphicons li {
+              float: left;
+              width: 25%;
+              height: 60px;
+              margin: 0;
+              padding: 10px;
+              font-size: 10px;
+              line-height: 1.4;
+              text-align: center;
+              background-color: #fff;
+              border: 1px solid #fff;
+              color: #05a6df;
+            }
+            .bs-glyphicons .glyphicon {
+              margin-top: 5px;
+              margin-bottom: 10px;
+              font-size: 24px;
+            }
+            .bs-glyphicons .glyphicon-class {
+              display: block;
+              color: #000;
+              text-align: center;
+              word-wrap: break-word; /* Help out IE10+ with class names */
+            }
+            .bs-glyphicons li:hover {
+              background-color: #f9f9f9;
+            }
+
+            @media (min-width: 768px) {
+              .bs-glyphicons {
+                margin-right: 0;
+                margin-left: 0;
+              }
+              .bs-glyphicons li {
+                width: 12.5%;
+                font-size: 12px;
+              }
+            }
+        </style>
+    </head>
+    <body ng-app="vlocityIcons">
+        <div class="bs-glyphicons" ng-controller="vlocityIconsCtrl">
+            <ul class="bs-glyphicons-list">
+                <li ng-repeat="icon in icons">
+                  <span class="glyphicon {{icon}}" aria-hidden="true"></span>
+                  <span class="glyphicon-class">{{icon}}</span>
+                </li>
+            </ul>
+        </div>
+    </body>
+</apex:page>

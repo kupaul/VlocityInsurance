@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ActivateVersion</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Activate Version</masterLabel>
+    <openType>replace</openType>
+    <page>vlocity_ins__BusinessProcessActivateVersionPage</page>
+    <protected>false</protected>
+</WebLink>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ValueType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>For product attributes, identifies the data type of this attribute (e.g., number, percent, text, or checkbox).</description>
+    <externalId>false</externalId>
+    <label>Value Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Currency</fullName>
+                <default>false</default>
+                <label>Currency</label>
+            </value>
+            <value>
+                <fullName>Percent</fullName>
+                <default>false</default>
+                <label>Percent</label>
+            </value>
+            <value>
+                <fullName>Text</fullName>
+                <default>true</default>
+                <label>Text</label>
+            </value>
+            <value>
+                <fullName>Number</fullName>
+                <default>false</default>
+                <label>Number</label>
+            </value>
+            <value>
+                <fullName>Checkbox</fullName>
+                <default>false</default>
+                <label>Checkbox</label>
+            </value>
+            <value>
+                <fullName>Date</fullName>
+                <default>false</default>
+                <label>Date</label>
+            </value>
+            <value>
+                <fullName>Datetime</fullName>
+                <default>false</default>
+                <label>Datetime</label>
+            </value>
+            <value>
+                <fullName>Picklist</fullName>
+                <default>false</default>
+                <label>Picklist</label>
+            </value>
+            <value>
+                <fullName>Multi Picklist</fullName>
+                <default>false</default>
+                <label>Multi Picklist</label>
+            </value>
+            <value>
+                <fullName>Lookup</fullName>
+                <default>false</default>
+                <label>Lookup</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

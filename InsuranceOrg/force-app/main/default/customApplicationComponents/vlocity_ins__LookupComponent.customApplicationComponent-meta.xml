@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplicationComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <buttonText>Launch Interaction</buttonText>
+    <height>655</height>
+    <isHeightFixed>true</isHeightFixed>
+    <isHidden>false</isHidden>
+    <isWidthFixed>true</isWidthFixed>
+    <visualforcePage>vlocity_ins__LookupRequestResult</visualforcePage>
+    <width>400</width>
+</CustomApplicationComponent>

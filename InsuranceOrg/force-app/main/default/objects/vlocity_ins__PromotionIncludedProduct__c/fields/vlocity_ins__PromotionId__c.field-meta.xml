@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PromotionId__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Promotion</label>
+    <referenceTo>vlocity_ins__Promotion__c</referenceTo>
+    <relationshipLabel>Promotion Included Products</relationshipLabel>
+    <relationshipName>PromotionIncludedProducts</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

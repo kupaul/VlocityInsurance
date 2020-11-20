@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Disable the Streaming API datasource at the org level --></help>
+    <label><!-- Disable Streaming API --></label>
+    <name>vlocity_ins__DisableStreamingAPI__c</name>
+</CustomFieldTranslation>

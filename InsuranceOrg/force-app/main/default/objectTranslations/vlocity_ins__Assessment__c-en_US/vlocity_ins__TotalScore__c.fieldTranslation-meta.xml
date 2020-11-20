@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- This is calculated based on the values of the responses to all scorable Questions in the Assessment. --></help>
+    <label><!-- Total Score --></label>
+    <name>vlocity_ins__TotalScore__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CampaignOmniScriptURL__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>&quot;/apex/%nsp%OmniScriptUniversalPage?layout=lightning&amp;id=&quot; &amp; Id &amp; &quot;&amp;campaignId=&quot; &amp;  CampaignId &amp; &quot;#/OmniScriptType/&quot; &amp;  Campaign.vlocity_ins__ProcessType__c &amp; &quot;/OmniScriptSubType/&quot; &amp; Campaign.vlocity_ins__ProcessSubType__c &amp; &quot;/OmniScriptLang/&quot; &amp; Campaign.vlocity_ins__ProcessLanguage__c &amp; &quot;/ContextId/&quot;&amp; Id &amp; &quot;/PrefillDataRaptorBundle/&quot;+ Campaign.vlocity_ins__ProcessPrefillBundle__c +&quot;/false&quot;</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Campaign OmniScript URL</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

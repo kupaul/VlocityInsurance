@@ -1,0 +1,5 @@
+<apex:page StandardController="vlocity_ins__Attribute__c" extensions="vlocity_ins.SegmentListsExportController" recordSetVar="segments" action="{!getListObjects}" cache="true" contentType="application/x-excel#{!selectedObjectType}ListExport.csv">{!header}
+    <apex:repeat value="{!objectRecList}" var="obj">
+        {!obj}
+    </apex:repeat>
+</apex:page>

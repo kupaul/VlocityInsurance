@@ -1,0 +1,110 @@
+<apex:page docType="html-5.0" applyHtmlTag="false" showQuickActionVfHeader="false" showHeader="false" sidebar="false" standardStylesheets="false"
+    standardController="vlocity_ins__Picklist__c" extensions="vlocity_ins.ProductConsoleControllerV2">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Vlocity product console" />
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" />
+        <meta name="description" content="Vlocity product console" />
+        <title>Vlocity Product Console</title>
+        <!-- SLDS-->
+        <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"
+        />
+
+        <!-- Common scripts -->
+        <apex:includeScript value="/support/console/44.0/integration.js" />
+
+        <!-- Load Script to access Lightening DOM -->
+        <script type='text/javascript' src='/canvas/sdk/js/publisher.js'></script>
+
+        <!--
+            The `<base>` tag below is present to support two advanced deployment options:
+            1) Differential serving. 2) Serving from a non-root path.
+      
+            Instead of manually editing the `<base>` tag yourself, you should generally either:
+            a) Add a `basePath` property to the build configuration in your `polymer.json`.
+            b) Use the `--base-path` command-line option for `polymer build`.
+      
+            Note: If you intend to serve from a non-root path, see [polymer-root-path] below.
+          -->
+        <base href="/" />
+
+        <!--TODO: add vlocity icons-->
+        <link rel="icon" href="images/favicon.ico" />
+
+        <script>
+            /**
+             * [polymer-root-path]
+             *
+             * Leave this line unchanged if you intend to serve your app from the root
+             * path (e.g., with URLs like `my.domain/` and `my.domain/view1`).
+             *
+             * If you intend to serve your app from a non-root path (e.g., with URLs
+             * like `my.domain/my-app/` and `my.domain/my-app/view1`), edit this line
+             * to indicate the path from which you'll be serving, including leading
+             * and trailing slashes (e.g., `/my-app/`).
+             */
+            window.VlocityProductConsoleAppGlobals = {
+                rootPath: '/'
+            };
+
+            // Load and register pre-caching Service Worker
+            // Note: Not using service worker for now
+            // if ('serviceWorker' in navigator) {
+            //   window.addEventListener('load', function () {
+            //     navigator.serviceWorker.register('service-worker.js', {
+            //       scope: VlocityProductConsoleAppGlobals.rootPath
+            //     });
+            //   });
+            // }
+        </script>
+
+        <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
+        <script src="{!URLFOR($Resource.productconsole, 'latest/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js')}"></script>
+
+        <!-- Load Vlocity SDK's -->
+        <script src="{!URLFOR($Resource.vlocitysdk, 'latest/datasource/datasource.sdk.js')}"></script>
+        <script src="{!URLFOR($Resource.vlocityupcsdk, 'latest/productconsole/productconsole.sdk.js')}"></script>
+        <script src="{!URLFOR($Resource.vlocitysdk, 'latest/translation/translation.sdk.js')}"></script>
+
+        <!-- Load your application shell -->
+        <script type="module" crossorigin="use-credentials" src="{!URLFOR($Resource.productconsole, 'latest/src/vlocity-product-console.js')}"></script>
+    </head>
+
+    <body>
+        <div class="via-slds">
+            <apex:outputpanel rendered="{!isProductConsoleEnabled}">
+                <vlocity-product-console namespaceprefix="{!NSP}" sfinstanceurl="{!SalesForceInstanceURL}" sessionid="{!$Api.Session_ID}"
+                    userlocale="{!UserLocale}" islanguageRTL="{!isLanguageRTL}" sfcontentinstanceurl="{!SalesForceContentInstanceUrl}">
+                    <template id="vpcMainContent">
+                        <vlocity-pc-picklist-values picklistid="{!$CurrentPage.parameters.id}"></vlocity-pc-picklist-values>
+                    </template>
+                </vlocity-product-console>
+            </apex:outputpanel>
+
+            <apex:outputpanel rendered="{!!isProductConsoleEnabled}">
+                <vlocity-pc-feature-unavailable></vlocity-pc-feature-unavailable>
+            </apex:outputpanel>
+        </div>
+        <noscript>
+            Please enable JavaScript to view Vlocity Product Console.
+        </noscript>
+
+        <script>
+            sforce.console.onEnclosingTabRefresh(function() {
+                /**
+                 * This is to ensure that when user changes something from the salesforce edit popup, we refresh our web component also.
+                 * For example, If something like Object Type changes, then the entire view of the product should update.
+                 */
+                var picklistValues = document.getElementsByTagName("vlocity-pc-picklist-values");
+                if(picklistValues && picklistValues.length > 0) {
+                    picklistValues[0].refresh();
+                }
+            })
+        </script>
+
+    </body>
+
+    </html>
+</apex:page>

@@ -1,0 +1,54 @@
+<apex:page standardStylesheets="false" sidebar="false" showHeader="false" standardController="vlocity_ins__VqMachine__c" extensions="vlocity_ins.VqController" >
+	<head>
+		<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+		<!--<apex:includeScript value="{!URLFOR($Resource.vlocity_assets, '/bower_components/angular-rangeslider/angular.rangeSlider.js')}" />-->
+
+		<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+		<!--<apex:stylesheet value="{!URLFOR($Resource.vlocity_assets, '/bower_components/angular-rangeslider/angular.rangeSlider.css')}" />-->
+		<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+		<apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+	</head>
+	<body>
+	<div ng-app="VqMachineConfiguration" class="ng-cloak" ng-controller="VqMachineConfigurationController">
+		<div class="vlocity">
+			<div ng-repeat="scoreInt in machineConfig.scoringInterfaces">
+				<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3" ng-repeat="(key, value) in scoreInt.categoryWeights" ng-if="scoreInt.categoryLabels[key] != null">
+					<label>{{ scoreInt.categoryLabels[key] }}</label>
+					<input type="range" min="0" max="10" ng-model="scoreInt.categoryWeights[key]" ng-change="saveMachineConfig()" bs-tooltip="scoreInt.categoryWeights[key]" />
+				</div>
+			</div>
+		</div>
+	</div>
+	</body>
+	<script>
+		angular.module('VqMachineConfiguration', ['vlocity', 'mgcrea.ngStrap', 'ngSanitize']).controller('VqMachineConfigurationController', function VqMachineConfigurationController($scope, $window, $modal, $localizable) {
+
+			$scope.loadMachineConfig = function() {
+				Visualforce.remoting.Manager.invokeAction( 
+	              '{!$RemoteAction.VqController.loadMachine}',
+	                angular.toJson({ Id: '{!machineId}', Name: '{!machineName}' }), function(result, event)
+	                {
+	                	$scope.machineConfig = JSON.parse(result);
+	                	$scope.machineConfig.Id = '{!machineId}';
+	                	$scope.machineConfig.Name = '{!machineName}';
+
+	                	$scope.$apply();
+	                }, { escape: false });
+			}
+
+			$scope.saveMachineConfig = function() {
+				Visualforce.remoting.Manager.invokeAction( 
+	              '{!$RemoteAction.VqController.saveMachine}',
+	                angular.toJson($scope.machineConfig), function(result, event)
+	                {
+	                	console.log(result);
+	                }, { escape: false });
+			}
+
+			$scope.min = 0;
+			$scope.max = 10;
+
+			$scope.loadMachineConfig();
+		});
+	</script>
+</apex:page>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsNewTemplateVersionAvailable__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Indicates if a newer version of the template than used for generating the document is available</description>
+    <externalId>false</externalId>
+    <label>New Template Version Available</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

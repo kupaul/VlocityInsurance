@@ -1,0 +1,222 @@
+<apex:page controller="vlocity_ins.XOMOffPlatformAccessConfigController">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org" ng-app="OffPlatformAccessConfig">
+    <head>
+        <base href="/"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__Jquery, 'jquery-1.8.2.min.js')}"/>
+
+        <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+        <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/vlocity.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.SldsAngular)}"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <style type="text/css">
+            .popover{
+                position:absolute !important;
+            }
+            .shrink{
+                min-width:950px;
+                overflow-x:auto;
+            }
+            .compress{
+                max-width:320px !important;
+                width:320px !important;
+            }
+            .compress-lim{
+                max-width:140px !important;
+                width:140px !important;
+            }
+        </style>
+
+        <script type="text/javascript">
+
+            j$ = jQuery.noConflict();
+            var app = angular.module('OffPlatformAccessConfig', ["vlocity", "ngSanitize"]);
+            var remoteActions = {
+                saveXOMSetupCustomSettings : '{!$RemoteAction.XOMOffPlatformAccessConfigController.saveXOMSetupCustomSettings}',
+            };
+
+            app.config(["remoteActionsProvider", function(remoteActionsProvider)
+            {
+                remoteActionsProvider.setRemoteActions(remoteActions); // configure the remoteActionsProvider
+            }]);
+
+            app.controller('OffPlatformAccessConfigCtrl', function($scope, $sce, remoteActions, $timeout)
+            {
+
+                // Sequencing of controls
+                $scope.controls = [
+                    'ThorOrchestrationPlan',
+                    'ThorCalloutRegion',
+                    'ThorCalloutURL',
+                    'ThorCalloutService',
+                    'ThorCalloutAccessKey',
+                    'ThorCalloutSecretKey'
+                ];
+
+                $scope.init = function()
+                {
+                    $scope.nsPrefix = '{!nsPrefix}';
+                    var responseStr = $scope.convertToJson('{!JSENCODE(XOMSetupCustomSettings)}');
+                    if (responseStr!=='Exception' || responseStr !== '')
+                    {
+                        $scope.keyCSPair = {};
+                        $scope.response = responseStr;
+
+                        console.log('Response: ' + $scope.response);
+
+                        var requiredKeys = Object.keys($scope.response.keyNameMap); //filter out only the admin access setup keys needed
+
+                        angular.forEach($scope.response, function(value, key)
+                        {
+                            //$scope.response contains keys of all custom settings since no filter is added into the query.
+                            //But there would be additional cs(s) along with the ones that are needed for admin access setup. Hence filtering.
+                            if (requiredKeys.indexOf(key)!==-1)
+                            {
+                                $scope.keyCSPair[key] = value;
+                            }
+                        }, $scope.keyCSPair);
+
+                        angular.forEach(requiredKeys, function(key)
+                        {
+                            $scope.keyCSPair[key] =  $scope.keyCSPair[key]==null ? $scope.keyCSPair[key] = {}:$scope.keyCSPair[key];
+
+                            if(requiredKeys.indexOf(key) !== -1)
+                            {
+                                $scope.keyCSPair[key].Name 		= $scope.response.keyNameMap[key];
+                                $scope.keyCSPair[key].Key__c  	= key;
+                            }
+
+                        });
+
+                        if ($scope.response['ThorSystemId'] == null || $scope.response['ThorSystemId']['Value__c'] === null
+                                || $scope.response['ThorSystemId']['Value__c']==='')
+                        {
+                            $scope.error = 'Warning: Cannot fetch/persist URL. Please run the required Post-Install script in order to create an instance of the custom setting ThorSystemId.';
+                        }
+                    }
+                    else
+                    {
+                        $scope.error = 'Error occurred in fetching the custom settings.';
+                    }
+                }
+                $scope.convertToJson = function(str)
+                {
+                    try
+                    {
+                        return JSON.parse(str);
+                    } catch (e)
+                    {
+                        return "";
+                    }
+                }
+
+                $scope.save = function()
+                {
+
+                    console.log($scope.keyCSPair);
+
+                    remoteActions.saveXOMSetupCustomSettings(JSON.stringify($scope.keyCSPair)).then(function(saveResponse)
+                    {
+
+                        if(saveResponse==='1')
+                        {
+                            j$('#msgDiv').show();
+
+                            $scope.msg = 'Saved!';
+
+                            $timeout(function()
+                            {
+                                $scope.msg = '';
+                            }, 3000);
+
+                            //window.location.reload(true);
+                        }
+                        else if (saveResponse==='Exception')
+                        {
+                            $scope.error = 'Error occurred in saving the custom settings.';
+                        }
+                    });
+                };
+            });
+        </script>
+    </head>
+
+    <body ng-controller="OffPlatformAccessConfigCtrl" ng-init="init()">
+    <div class="via-slds">
+        <div class="slds-p-around--large slds-page-header" role="banner">
+            <p class="slds-page-header__title slds-truncate">
+                Thor Access Setup
+            </p>
+        </div>
+        <div class="slds-m-around--small">
+            <span id="msgDiv" class="slds-text-body--regular slds-text-color--default slds-p-around--small" ng-bind="msg" ng-if="msg"></span>
+            <span id="errorDiv" class="slds-text-body--regular slds-text-color--error slds-p-around--small" ng-bind="error"></span>
+        </div>
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_info" role="alert" ng-if="msg">
+            <span class="slds-assistive-text">info</span>
+            <h2 ng-bind="msg"></h2>
+        </div>
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert" ng-if="error">
+            <span class="slds-assistive-text">error</span>
+            <h2 ng-bind="error"></h2>
+        </div>
+        <div class="slds-grid slds-wrap shrink">
+            <div class="slds-form slds-size--4-of-5">
+                <div class="slds-form--inline slds-form--horizontal slds-size--12-of-12"
+                     ng-repeat="key in controls track by $index"
+                     ng-init="showHelp[$index]=false">
+                    <div class="slds-form-element slds-size--12-of-12">
+
+                        <label class="slds-form-element__label slds-p-right--x-small slds-size--1-of-9 slds-p-around--small" for="">{{response.keyLabelMap[key]}}: </label>
+                        <div class="slds-form-element__control slds-size--8-of-9 slds-p-around--small" data-toggle="tooltip" title="{{response['keyExampleMap'][key]}}" ng-if="key!=='ThorCalloutURL'">
+                            <input id="{{key}}" class="slds-input" type="text" placeholder="{{keyCSPair[key][nsPrefix+'Value__c']}}"
+                                   ng-model="keyCSPair[key][nsPrefix+'Value__c']" ng-focus="showHelp[$index] = true" ng-blur="showHelp[$index] = false"
+                                    ng-if="key != 'ThorOrchestrationPlan'"/>
+                            <input id="{{key}}" class="slds-input" type="checkbox" placeholder="{{keyCSPair[key][nsPrefix+'Value__c']}}"
+                                   ng-model="keyCSPair[key][nsPrefix+'Value__c']" ng-focus="showHelp[$index] = true" ng-blur="showHelp[$index] = false"
+                                   ng-if="key == 'ThorOrchestrationPlan'"
+                                   ng-true-value="'true'" ng-false-value="'false'"/>
+                        </div>
+                        <div class="slds-form-element__control slds-size--8-of-9 slds-p-around--small" data-toggle="tooltip" title="{{response['keyExampleMap'][key]}}" ng-if="key==='ThorCalloutURL'">
+                            <input id="{{key}}" class="slds-input" type="text" placeholder="{{keyCSPair[key][nsPrefix+'URL__c']}}"
+                                   ng-model="keyCSPair[key][nsPrefix+'URL__c']" ng-focus="showHelp[$index] = true" ng-blur="showHelp[$index] = false"/>
+                        </div>
+                        <div id="help_{{key}}" ng-class="(key==='ThorCalloutURL')? 'compress': 'compress-lim'"
+                             class="slds-popover slds-popover--tooltip slds-nubbin--left slds-size--2-of-12 popover slds-text-align--left"
+                             ng-show="showHelp[$index] && response.keyExampleMap[key]!==null" role="tooltip" aria-live="polite">
+                            <div class="slds-popover__body slds-text-longform">
+                                <p>{{response.keyExampleMap[key]}}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-size--1-of-3 slds-clearfix slds-m-around--medium">
+            <button class="slds-button slds-button--brand slds-float--left slds-m-left--small slds-size--2-of-3" ng-click="save()">Save</button>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+        'use strict';
+        //Config data from APEX
+        var configData = {
+            waitingImage: "{!$Resource.WAITGIF}",
+            nsPrefix: ''
+        }
+
+        var SLDSICON = {
+            'SETTINGS': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#settings")}',
+            'RIGHT_ARROW': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#right")}',
+            'SEARCH': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#search")}',
+            'EDIT': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#edit")}',
+            'ADD': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#add")}',
+            'DELETE': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#delete")}',
+            'CLOSE': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#close")}'
+        };
+    </script>
+    </body>
+    </html>
+</apex:page>

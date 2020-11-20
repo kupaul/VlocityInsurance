@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Disable the ApexRemote Datasource at the org level. --></help>
+    <label><!-- Disable Datasource ApexRemote --></label>
+    <name>vlocity_ins__DisableDatasourceApexRemote__c</name>
+</CustomFieldTranslation>

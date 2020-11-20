@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IndicatorImageName__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Formula: Calculated &quot;indicator&quot; image name based on the priority and status of this Case. Used to display an indicator image on this case when shown in the user interface.</description>
+    <externalId>false</externalId>
+    <formula>IF(TEXT(Priority)==&apos;High&apos; &amp;&amp; TEXT(Status)!= &apos;Closed&apos;, &apos;highpriorityopen&apos;, (IF(TEXT(Priority)==&apos;High&apos; &amp;&amp; TEXT(Status)==&apos;Closed&apos;, &apos;highpriorityclose&apos;, (IF(TEXT(Priority)==&apos;Medium&apos; &amp;&amp; TEXT(Status)!= &apos;Closed&apos;, &apos;mediumpriorityopen&apos;, (IF(TEXT(Priority)==&apos;Medium&apos; &amp;&amp; TEXT(Status) == &apos;Closed&apos;, &apos;mediumpriorityclose&apos;, (IF(TEXT(Priority)==&apos;Low&apos; &amp;&amp; TEXT(Status)!=&apos;Closed&apos;, &apos;lowpriorityopen&apos;, IF(TEXT(Priority)==&apos;Low&apos; &amp;&amp; TEXT(Status) ==&apos;Closed&apos;, &apos;lowpriorityclose&apos;,&apos;&apos; ))) )))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Indicator Image Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

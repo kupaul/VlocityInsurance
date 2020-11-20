@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PremisesType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Premises Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Duplex</fullName>
+                <default>false</default>
+                <label>Duplex</label>
+            </value>
+            <value>
+                <fullName>Condominium</fullName>
+                <default>false</default>
+                <label>Condominium</label>
+            </value>
+            <value>
+                <fullName>Commercial Building</fullName>
+                <default>false</default>
+                <label>Commercial Building</label>
+            </value>
+            <value>
+                <fullName>Floor</fullName>
+                <default>false</default>
+                <label>Floor</label>
+            </value>
+            <value>
+                <fullName>Floor Section</fullName>
+                <default>false</default>
+                <label>Floor Section</label>
+            </value>
+            <value>
+                <fullName>Apartment Building</fullName>
+                <default>false</default>
+                <label>Apartment Building</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

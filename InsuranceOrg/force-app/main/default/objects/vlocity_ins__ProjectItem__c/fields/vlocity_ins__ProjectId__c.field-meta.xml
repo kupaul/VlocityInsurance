@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProjectId__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Master-detail reference to the parent project.</description>
+    <externalId>false</externalId>
+    <label>Project</label>
+    <referenceTo>vlocity_ins__Project__c</referenceTo>
+    <relationshipLabel>Project Items</relationshipLabel>
+    <relationshipName>ProjectItems</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

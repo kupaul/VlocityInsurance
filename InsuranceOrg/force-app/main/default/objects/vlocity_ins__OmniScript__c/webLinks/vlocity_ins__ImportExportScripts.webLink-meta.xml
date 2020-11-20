@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ImportExportScripts</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Import / Export Scripts</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>{!REQUIRESCRIPT(&quot;/jslibrary/1424969980000/sfdc/VFRemote.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/32.0/apex.js&quot;)}
+
+var selected = {!GETRECORDIDS($ObjectType.vlocity_ins__OmniScript__c)};
+
+if(selected.length &gt; 0) {
+ selected = &apos;&amp;recs=&apos;+selected;
+}
+
+
+
+var result = sforce.connection.describeGlobal();
+var TOKEN_OBJ = &quot;OmniScript__c&quot;;
+var sobjects = result.getArray(&quot;sobjects&quot;);
+var ns = &quot;&quot;;
+
+for(var i=0; i&lt;sobjects.length; i++) {
+     var sobjName = sobjects[i].name;
+     //sforce.debug.log(&apos;Object Found: &apos; + sobjName);
+     //describeResult = sforce.connection.describeSObject(sobjName);
+//dont call this makes it reallt slow
+   //  sforce.debug.log(&apos;Is Custom: &apos; + describeResult.custom);
+
+     var str = sobjName.split(&quot;__&quot;);
+      //if there are 3 values there is a namespace
+     if (str.length == 3){
+         //Is it one of ours?
+         var sobj = str[1].valueOf() +&apos;__c&apos;;
+         if(sobj == TOKEN_OBJ) {
+            ns = str[0].valueOf();
+         } else{
+            //sforce.debug.log(sobjName + &apos; is not in my namespace&apos;);
+         }
+
+     }else{
+        //sforce.debug.log(sobjName + &apos; has no namespace&apos;);
+     }
+
+}
+if(ns != &quot;&quot;){ ns+= &apos;__&apos;;
+    //sforce.debug.log(&apos;I have a namespace called &apos; + ns);
+} else {
+    //alert(&apos;no namespace&apos;);
+}
+
+function showSimpleDialog(){
+   var sd = new SimpleDialog(&quot;Import Export&quot;+Dialogs.getNextId(), false);
+   sd.setTitle(&quot;Import/Export &lt;button style=&apos;float:right;&apos; class=&apos;btn&apos; onclick=&apos;window.parent.sd.hide(); return false;&apos;&gt;X&lt;/button&gt;&quot;);
+   sd.createDialog();
+   window.parent.sd = sd;
+   sd.setContentInnerHTML(&quot;&lt;iframe src=&apos;/apex/&quot;+ns+&quot;ImportExportOmni?wrapMassAction=1&amp;scontrolCaching=1&quot;+selected+&quot;&apos; style=&apos;border:none&apos; width=&apos;100%&apos;/&gt;&lt;/p&gt;&quot;);
+   sd.show();
+ }
+ showSimpleDialog(); //open the popup</url>
+</WebLink>

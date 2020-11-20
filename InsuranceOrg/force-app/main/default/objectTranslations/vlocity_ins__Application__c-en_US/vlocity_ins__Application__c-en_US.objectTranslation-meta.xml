@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- ApplicationChildListFieldSet --></label>
+        <name>vlocity_ins__ApplicationChildListFieldSet</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- FieldsAvailableInRules --></label>
+        <name>vlocity_ins__FieldsAvailableInRules</name>
+    </fieldSets>
+    <webLinks>
+        <label><!-- Review --></label>
+        <name>vlocity_ins__Review</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Screen --></label>
+        <name>vlocity_ins__Screen</name>
+    </webLinks>
+</CustomObjectTranslation>

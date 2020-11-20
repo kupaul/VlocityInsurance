@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The number of fiil limit forms per refill for this drug on this formulary definition. --></help>
+    <label><!-- Quantity Per Refill --></label>
+    <name>vlocity_ins__QuantityPerRefill__c</name>
+</CustomFieldTranslation>

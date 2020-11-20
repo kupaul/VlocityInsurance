@@ -1,0 +1,359 @@
+<apex:page controller="vlocity_ins.EPCAdminController" title="Product Attributes" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+    <html xmlns:ng="http://angularjs.org" ng-app="productattributes">
+        <head>
+            <base href="/"/>
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.vlocity_assets, '/css/vlocity.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.ProductAttributeAdminCss)}" />
+        </head>
+        <body class="vlocity ng-cloak" ng-controller="ProductAttributesController">
+            <div class="product-attributes-wrapper">
+                <div class="wrapper-inner">
+                    <div class="wrapper-col">
+                        <div class="attributes-value">
+                            <div class="category" ng-if="categories.length === 0">
+                                There are no attributes assigned to this product yet.
+                            </div>
+                            <div class="category" ng-repeat="category in categories | orderBy:'displaySequence'">
+                                <h3 class="cat-name">{{category.name}}</h3>
+                                <div ng-repeat="attribute in category.attributes" ng-class="{'attribute': true, 'selected': (attribute.Id === selectedAttrId)}" ng-click="openPanel(attribute)">
+                                    <a href="javascript:void(0)" class="attr-del" ng-click="unassignAttribute(attribute.Id);$event.stopPropagation();">
+                                        <span class="glyphicon icon-v-minus-line" bs-tooltip="tooltip" data-title="Delete Attribute" data-trigger="hover focus" data-placement="right"></span>
+                                    </a>
+                                    <div class="attr-name">
+                                        {{(attribute.overrideObj ? attribute.overrideObj[nsp+'AttributeDisplayName__c'] : attribute[nsp+'AttributeDisplayName__c'])}}
+                                    </div>
+                                    <div class="attr-value" ng-if="attribute.isTypePicklist">
+                                        <select ng-model="attribute.defaultPicklistItemId" class="form-control" ng-click="$event.stopPropagation()">
+                                            <option ng-repeat="p in picklistItemMap[attribute[nsp+'PicklistId__c']]" ng-selected="p.Id === attribute.defaultPicklistItemId" value="{{p.Id}}" disabled="disabled">{{p[nsp+'TextValue__c']}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="attr-value" ng-if="!attribute.isTypePicklist">
+                                        <span ng-class="{'strikethrough': attribute.overrideObj}">{{attribute[nsp+'Value__c']}}</span>
+                                    </div>
+                                    <div class="attr-override" ng-if="mode === 'override' && attribute.overrideObj && attribute.isTypePicklist">
+                                        <select ng-model="attribute.overrideObj.defaultPicklistItemId" class="form-control" ng-click="$event.stopPropagation()">
+                                            <option ng-repeat="p in picklistItemMap[attribute[nsp+'PicklistId__c']]" ng-if="!p.excluded" ng-selected="p.Id === attribute.overrideObj.defaultPicklistItemId" value="{{p.Id}}" disabled="disabled">{{p[nsp+'TextValue__c']}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="attr-override" ng-if="mode === 'override' && attribute.overrideObj && !attribute.isTypePicklist">{{attribute.overrideObj[nsp+'Value__c']}}</div>
+                                </div>
+                            </div>
+                            <div class="clearfix">
+                                <a href="javascript:void(0)" ng-click="openAssgnPanel()">Add Attribute &raquo;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper-col" ng-if="showAttrAssgn">
+                        <div class="attribute-assign">
+                            <div class="panel panel-default panel-assign">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Add Attribute</h3>
+                                    <span class="glyphicon icon-v-close-circle-line" ng-click="closeAssgnPanel()"></span>
+                                </div>
+                                <table class="table add-attr">
+                                    <thead>
+                                        <tr>
+                                            <th class="cat">Category</th>
+                                            <th class="attr">Attribute</th>
+                                            <th class="action"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="attr in allAttributes">
+                                            <td class="cat">{{attr[nsp+'AttributeCategoryName__c']}}</td>
+                                            <td class="attr">{{attr['Name']}}</td>
+                                            <td class="action">
+                                                <button type="button" class="btn btn-default" ng-click="assignAttribute(attr.Id, $event)">Add</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper-col" ng-if="showAttrEdit">
+                        <div class="attribute-edit">
+                            <div class="panel panel-default panel-edit">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{panelTitle}}</h3>
+                                    <span class="glyphicon icon-v-close-circle-line" ng-click="closeEditPanel()"></span>
+                                </div>
+                                <div class="panel-body">
+                                    <form>
+                                        <div class="field form-group">
+                                            <label for="name">{{objectFields[nsp+'AttributeName__c'].label}}</label>
+                                            <input type="text" id="name" ng-model="selectedAttr[nsp+'AttributeName__c']" class="form-control" disabled="disabled" />
+                                        </div>
+                                        <div class="field form-group">
+                                            <label for="active">{{objectFields[nsp+'Active__c'].label}}</label>&nbsp;&nbsp;&nbsp;<input type="checkbox" id="active" ng-model="selectedAttr[nsp+'Active__c']" />
+                                        </div>
+                                        <div class="field form-group">
+                                            <label for="confg">{{objectFields[nsp+'IsConfigurable__c'].label}}</label>&nbsp;&nbsp;&nbsp;<input type="checkbox" id="confg" ng-model="selectedAttr[nsp+'IsConfigurable__c']" />
+                                        </div>
+                                        <div class="field form-group">
+                                            <label for="valuetype">{{objectFields[nsp+'ValueDataType__c'].label}}</label>
+                                            <select id="valuetype" ng-model="selectedAttr[nsp+'ValueDataType__c']" ng-change="changeValueDataType(selectedAttr)" class="form-control">
+                                                <option ng-repeat="p in objectPicklists['valuedatatype__c']" ng-selected="p.value === selectedAttr[nsp+'ValueDataType__c']" value="{{p.value}}">{{p.label}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="field form-group" ng-if="!selectedAttr.isTypePicklist">
+                                            <label for="value">{{objectFields[nsp+'Value__c'].label}}</label>
+                                            <input type="text" id="value" ng-model="selectedAttr[nsp+'Value__c']" class="form-control" />
+                                        </div>
+                                        <div class="field form-group" ng-if="selectedAttr.isTypePicklist">
+                                            <label for="ui_dis_type">{{objectFields[nsp+'UIDisplayType__c'].label}}</label>
+                                            <select id="ui_dis_type" ng-model="selectedAttr[nsp+'UIDisplayType__c']" class="form-control">
+                                                <option ng-selected="selectedAttr[nsp+'UIDisplayType__c'] === 'Dropdown'" value="Dropdown">Dropdown</option>
+                                                <option ng-if="selectedAttr[nsp+'ValueDataType__c'] === 'Picklist'" ng-selected="selectedAttr[nsp+'UIDisplayType__c'] === 'Radiobutton'" value="Radiobutton">Radio Button</option>
+                                                <option ng-if="selectedAttr[nsp+'ValueDataType__c'] === 'Multi Picklist'" ng-selected="selectedAttr[nsp+'UIDisplayType__c'] === 'Checkbox'" value="Checkbox">Checkbox</option>
+                                            </select>
+                                        </div>
+                                        <div class="field form-group" ng-if="selectedAttr.isTypePicklist">
+                                            <label for="picklists">{{objectFields[nsp+'PicklistId__c'].label}}</label>
+                                            <select id="picklists" ng-model="selectedAttr[nsp+'PicklistId__c']" class="form-control" ng-change="setPicklistItems(selectedAttr)">
+                                                <option ng-repeat="p in picklists" ng-selected="p.Id === selectedAttr[nsp+'PicklistId__c']" value="{{p.Id}}">{{p.Name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="field form-group" ng-if="selectedAttr.isTypePicklist" ng-init="setPicklistItems(selectedAttr)">
+                                            <label for="picklistitems">Picklist Items</label>
+                                            <select id="picklistitems" ng-model="selectedAttr.defaultPicklistItemId" class="form-control">
+                                                <option ng-repeat="p in picklistItems" ng-selected="p.Id === selectedAttr.defaultPicklistItemId" value="{{p.Id}}">{{p[nsp+'TextValue__c']}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="field">
+                                            <button type="button" class="btn btn-primary" ng-click="saveAttribute($event)">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper-col" ng-if="showAttrOverride">
+                        <div class="attribute-override">
+                            <div class="panel panel-default panel-override">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">{{panelTitle}}</h3>
+                                    <span class="glyphicon icon-v-close-circle-line" ng-click="closeOverridePanel()"></span>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="override-btn clearfix" ng-if="!selectedAttr.overrideObj">
+                                        <button type="button" class="pull-right btn btn-default" ng-click="createOverride()">Create an override</button>
+                                    </div>
+                                    <form>
+                                        <table class="attr">
+                                            <tr>
+                                                <th class="lbl">Property</th>
+                                                <th class="value">Value</th>
+                                                <th class="override" ng-if="selectedAttr.overrideObj">Override Value</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="lbl">{{objectFields[nsp+'AttributeName__c'].label}}</td>
+                                                <td class="value">{{selectedAttr[nsp+'AttributeName__c']}}</td>
+                                                <td class="override" ng-if="selectedAttr.overrideObj">
+                                                    <input type="text" id="dis_name" ng-model="selectedAttr.overrideObj[nsp+'AttributeDisplayNameOverride__c']" class="form-control" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="lbl">{{objectFields[nsp+'Active__c'].label}}</td>
+                                                <td class="value">
+                                                    <input type="checkbox" id="active" ng-model="selectedAttr[nsp+'Active__c']" disabled="disabled" />
+                                                </td>
+                                                <td class="override" ng-if="selectedAttr.overrideObj">
+                                                    <input type="checkbox" id="active" ng-model="selectedAttr.overrideObj[nsp+'Active__c']" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="lbl">{{objectFields[nsp+'IsConfigurable__c'].label}}</td>
+                                                <td class="value">
+                                                    <input type="checkbox" id="confg" ng-model="selectedAttr[nsp+'IsConfigurable__c']" disabled="disabled" />
+                                                </td>
+                                                <td class="override" ng-if="selectedAttr.overrideObj">
+                                                    <input type="checkbox" id="confg" ng-model="selectedAttr.overrideObj[nsp+'IsConfigurable__c']" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="lbl">{{objectFields[nsp+'ValueDataType__c'].label}}</td>
+                                                <td class="value">
+                                                    <select id="valuetype" ng-model="selectedAttr[nsp+'ValueDataType__c']" class="form-control" disabled="disabled">
+                                                        <option ng-repeat="p in objectPicklists['valuedatatype__c']" ng-selected="p.value === selectedAttr[nsp+'ValueDataType__c']" value="{{p.value}}">{{p.label}}</option>
+                                                    </select>
+                                                </td>
+                                                <td class="override" ng-if="selectedAttr.overrideObj">
+                                                    <select id="valuetype" ng-model="selectedAttr.overrideObj[nsp+'ValueDataType__c']" ng-change="changeValueDataType(selectedAttr.overrideObj)" class="form-control">
+                                                        <option ng-repeat="p in objectPicklists['valuedatatype__c']" ng-selected="p.value === selectedAttr.overrideObj[nsp+'ValueDataType__c']" value="{{p.value}}">{{p.label}}</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="!selectedAttr.isTypePicklist">
+                                                <td class="lbl">{{objectFields[nsp+'Value__c'].label}}</td>
+                                                <td class="value">{{selectedAttr[nsp+'Value__c']}}</td>
+                                                <td class="override" ng-if="selectedAttr.overrideObj">
+                                                    <input type="text" id="value" ng-model="selectedAttr.overrideObj[nsp+'Value__c']" class="form-control" />
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="selectedAttr.isTypePicklist">
+                                                <td class="lbl">{{objectFields[nsp+'UIDisplayType__c'].label}}</td>
+                                                <td class="value">
+                                                    <select ng-model="selectedAttr[nsp+'UIDisplayType__c']" class="form-control" disabled="disabled">
+                                                        <option ng-selected="selectedAttr[nsp+'UIDisplayType__c'] === 'Dropdown'" value="Dropdown">Dropdown</option>
+                                                        <option ng-if="selectedAttr[nsp+'ValueDataType__c'] === 'Picklist'" ng-selected="selectedAttr[nsp+'UIDisplayType__c'] === 'Radiobutton'" value="Radiobutton">Radio Button</option>
+                                                        <option ng-if="selectedAttr[nsp+'ValueDataType__c'] === 'Multi Picklist'" ng-selected="selectedAttr[nsp+'UIDisplayType__c'] === 'Checkbox'" value="Checkbox">Checkbox</option>
+                                                    </select>
+                                                </td>
+                                                <td class="override" ng-if="selectedAttr.overrideObj">
+                                                    <select id="ui_dis_type" ng-model="selectedAttr.overrideObj[nsp+'UIDisplayType__c']" class="form-control">
+                                                        <option ng-selected="selectedAttr.overrideObj[nsp+'UIDisplayType__c'] === 'Dropdown'" value="Dropdown">Dropdown</option>
+                                                        <option ng-if="selectedAttr.overrideObj[nsp+'ValueDataType__c'] === 'Picklist'" ng-selected="selectedAttr.overrideObj[nsp+'UIDisplayType__c'] === 'Radiobutton'" value="Radiobutton">Radio Button</option>
+                                                        <option ng-if="selectedAttr.overrideObj[nsp+'ValueDataType__c'] === 'Multi Picklist'" ng-selected="selectedAttr.overrideObj[nsp+'UIDisplayType__c'] === 'Checkbox'" value="Checkbox">Checkbox</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="selectedAttr.isTypePicklist">
+                                                <td class="lbl">{{objectFields[nsp+'PicklistId__c'].label}}</td>
+                                                <td class="value">
+                                                    <select id="picklists" ng-model="selectedAttr[nsp+'PicklistId__c']" class="form-control" ng-init="setPicklistItems(selectedAttr)" disabled="disabled">
+                                                        <option ng-repeat="p in picklists" ng-selected="p.Id === selectedAttr[nsp+'PicklistId__c']" value="{{p.Id}}">{{p.Name}}</option>
+                                                    </select>
+                                                </td>
+                                                <td class="override" ng-if="selectedAttr.overrideObj">
+                                                    <select id="picklists" ng-model="selectedAttr.overrideObj[nsp+'PicklistId__c']" class="form-control" ng-init="setPicklistItems(selectedAttr)" disabled="disabled">
+                                                        <option ng-repeat="p in picklists" ng-selected="p.Id === selectedAttr.overrideObj[nsp+'PicklistId__c']" value="{{p.Id}}">{{p.Name}}</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="selectedAttr.isTypePicklist">
+                                                <td class="lbl">Picklist Items</td>
+                                                <td class="value">
+                                                    <table class="picklist-items">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="name">Item</th>
+                                                                <th>Default</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="item in picklistItemMap[selectedAttr[nsp+'PicklistId__c']]">
+                                                                <td class="name">{{item[nsp+'TextValue__c']}}</td>
+                                                                <td><input type="radio" name="{{'radio_'+item[nsp+'OwnerId']}}" ng-model="selectedAttr.defaultPicklistItemId" value="{{item.Id}}" disabled="disabled" /></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td class="override" ng-if="selectedAttr.overrideObj">
+                                                    <table class="picklist-items">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="name">Item</th>
+                                                                <th>Exclude</th>
+                                                                <th>Default</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="item in picklistItemMap[selectedAttr[nsp+'PicklistId__c']]">
+                                                                <td class="name">{{item[nsp+'TextValue__c']}}</td>
+                                                                <td><input type="checkbox" ng-model="item.excluded" /></td>
+                                                                <td><input type="radio" name="{{'radio_default_'+item[nsp+'OwnerId']}}" ng-model="selectedAttr.overrideObj.defaultPicklistItemId" value="{{item.Id}}" /></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="selectedAttr.overrideObj">
+                                                <td colspan="3" class="text-right">
+                                                    <button type="button" class="btn btn-primary" ng-click="saveOverride($event)">Save</button>&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-default" ng-click="deleteOverride()">Delete Override</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__JQUERYJS)}"/>
+            <apex:includeScript value="/support/console/31.0/integration.js"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__IframeResize)}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ProductAttributes)}"/>
+            <script>
+                j$ = jQuery.noConflict();
+                j$(document).ready(function() {
+                    if (window.frameElement !== null) {
+                        // create a iframe resize event binding with the parent
+                        window.parent.bindIframeResize(window.frameElement.id);
+                    }
+                });
+
+                var remoteActions = {
+                    getAssignedAttributes: {
+                        action: "{!$RemoteAction.EPCAdminController.getAssignedAttributes}",
+                        config: {escape: false}
+                    },
+                    getObject: {
+                        action: "{!$RemoteAction.EPCAdminController.getObject}",
+                        config: {escape: false}
+                    },
+                    describeObject: {
+                        action: "{!$RemoteAction.EPCAdminController.describeObjectbyId}",
+                        config: {escape: false}
+                    },
+                    getObjectPicklists: {
+                        action: "{!$RemoteAction.EPCAdminController.getObjectPicklists}",
+                        config: {escape: false}
+                    },
+                    updateObject: {
+                        action: "{!$RemoteAction.EPCAdminController.updateObject}",
+                        config: {escape: false}
+                    },
+                    getAllCategories: {
+                        action: "{!$RemoteAction.EPCAdminController.getAllCategories}",
+                        config: {escape: false}
+                    },
+                    getAllAttributes: {
+                        action: "{!$RemoteAction.EPCAdminController.getAllAttributes}",
+                        config: {escape: false}
+                    },
+                    getAllPicklists: {
+                        action: "{!$RemoteAction.EPCAdminController.getAllPicklistsAndEntries}",
+                        config: {escape: false}
+                    },
+                    getPicklistValues: {
+                        action: "{!$RemoteAction.EPCAdminController.getPicklistValues}",
+                        config: {escape: false}
+                    },
+                    assignAttribute: {
+                        action: "{!$RemoteAction.EPCAdminController.createAttributeAssignment}",
+                        config: {escape: false}
+                    },
+                    unassignAttribute: {
+                        action: "{!$RemoteAction.EPCAdminController.deleteAttributeAssignment}",
+                        config: {escape: false}
+                    },
+                    saveAttribute: {
+                        action: "{!$RemoteAction.EPCAdminController.saveAttributeAssignment}",
+                        config: {escape: false}
+                    },
+                    getOverride: {
+                        action: "{!$RemoteAction.EPCAdminController.getOverride}",
+                        config: {escape: false}
+                    },
+                    createOverride: {
+                        action: "{!$RemoteAction.EPCAdminController.createOverride}",
+                        config: {escape: false}
+                    },
+                    saveOverride: {
+                        action: "{!$RemoteAction.EPCAdminController.saveOverride}",
+                        config: {escape: false}
+                    },
+                    deleteOverride: {
+                        action: "{!$RemoteAction.EPCAdminController.deleteOverride}",
+                        config: {escape: false}
+                    }
+                };
+            </script>
+        </body>
+    </html>
+</apex:page>

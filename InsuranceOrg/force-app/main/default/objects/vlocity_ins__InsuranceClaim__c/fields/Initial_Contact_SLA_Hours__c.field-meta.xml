@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Initial_Contact_SLA_Hours__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(NOT(ISNULL(Adjuster_Assigned__c)),
+IF(NOT(ISNULL(Initial_Contact__c)), (Initial_Contact__c - Adjuster_Assigned__c)*24, 
+IF(NOT(OR(ISPICKVAL(vlocity_ins__ClaimStatus__c, &quot;FNOL&quot;),ISPICKVAL(vlocity_ins__ClaimStatus__c, &quot;Closed&quot;),ISPICKVAL(vlocity_ins__ClaimStatus__c, &quot;Reopened&quot;))), (NOW() - Adjuster_Assigned__c)*24, NULL)),NULL)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Initial Contact SLA Hours</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

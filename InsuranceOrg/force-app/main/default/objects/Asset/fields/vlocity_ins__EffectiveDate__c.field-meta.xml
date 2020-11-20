@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EffectiveDate__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The beginning of the most recent term for this policy. This defines when the responsibilities of, and benefits to, all parties kick in for the most recent term. For policies subject to periodic renewal, the effective date reflects the most recent renewal.</description>
+    <externalId>false</externalId>
+    <label>Effective Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

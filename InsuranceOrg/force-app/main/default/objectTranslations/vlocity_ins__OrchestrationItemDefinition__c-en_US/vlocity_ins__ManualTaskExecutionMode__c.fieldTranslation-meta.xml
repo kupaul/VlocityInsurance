@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Manual Task Execution Mode (Deprecated) --></label>
+    <name>vlocity_ins__ManualTaskExecutionMode__c</name>
+    <picklistValues>
+        <masterLabel>Omniscript</masterLabel>
+        <translation><!-- Omniscript --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VisualForce Page</masterLabel>
+        <translation><!-- VisualForce Page --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

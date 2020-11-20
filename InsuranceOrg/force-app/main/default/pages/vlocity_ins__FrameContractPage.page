@@ -1,0 +1,167 @@
+<apex:page standardStylesheets="false" showHeader="true" sidebar="false" controller="vlocity_ins.FrameContractDisplayController">
+      <html xmlns:ng="http://angularjs.org" ng-app="frameContractApp" lang="en">
+            <apex:includeScript value="{!$Resource.vlocity_ins__JQUERYJS}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>           
+            <apex:includeScript value="{!$Resource.vlocity_ins__AngularJS}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT}"/>         
+       
+        
+        
+        <script type="text/javascript">
+        	function getFrameContractList(objId, accountValue, callback)
+            {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.FrameContractDisplayController.getFrameContractList}', objId, accountValue, callback,
+                                {buffer: false, escape: false}); 
+            }
+            
+            function setFrameContract(objId, frameContractId, callback)
+            {
+            	Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.FrameContractDisplayController.setFrameContract}', objId, frameContractId, callback,
+                                {buffer: false, escape: false}); 
+            }
+            
+           
+            var frameContractApp = angular.module("frameContractApp", []);
+            
+            frameContractApp.factory('frameContractService', function($q, $rootScope)
+            {
+            	var factory = {};
+            	factory.getListFrameContracts = function(objId,accountValue)
+            	{
+            		var deferred = $q.defer();
+                    getFrameContractList(objId, accountValue, function(result){
+                        $rootScope.$apply(function() {
+                            deferred.resolve(result);
+                        });
+                    });
+                    return deferred.promise;
+            	};
+            	
+            	factory.setFrameContract = function(objId, frameContractId)
+            	{
+            		var deferred = $q.defer();
+            		setFrameContract(objId, frameContractId, function(result){
+            			$rootScope.$apply(function() {
+            				deferred.resolve(result);
+            			});
+            		});
+            		return deferred.promise;
+            	};           	
+            	
+            	return factory;
+            });
+            
+            frameContractApp.controller('frameContractController', function($scope, frameContractService)
+            {
+            	$scope.parentId = '{!JSENCODE(parentId)}';
+            	$scope.accountValue = '{!JSENCODE(accountValue)}';
+            	$scope.isSforce = (typeof sforce != 'undefined' && typeof sforce.one != 'undefined')?(true):(false);
+            	            	
+            	$scope.frameContractObjs = [];
+            	$scope.selectedContract = {};
+            	$scope.fieldList = [];
+            	$scope.fieldLabels =[];
+            	
+                 
+                frameContractService.getListFrameContracts($scope.parentId,$scope.accountValue).then(function(result, event)
+                {
+                	var contractfieldsValues = angular.fromJson(result);
+                	if(typeof contractfieldsValues !== 'undefined')
+                	{
+                		$scope.frameContractObjs = contractfieldsValues.formattedObjList;
+                		$scope.fieldList=contractfieldsValues.objFields.fieldList;
+                		$scope.fieldLabels = contractfieldsValues.objFields.fieldLableMap;
+               
+                        $scope.frameContractObjs[0].selected = $scope.frameContractObjs[0].Id;
+                        $scope.selectedContract = $scope.frameContractObjs[0];
+                    
+                  		if ($scope.frameContractObjs.length > 1)
+                    	{
+							for(var i = 1; i< $scope.frameContractObjs.length; i++)
+							{
+								$scope.frameContractObjs[i].selected = '';
+							}
+						}
+					}
+											                   	
+                });
+            	       	
+            	
+                $scope.onSelectContract = function(frameContract)
+                {
+                    $scope.selectedContract = frameContract;
+                    for(var i=0; i<$scope.frameContractObjs.length; i++)
+                    {
+                         	if ($scope.frameContractObjs[i].Id !== frameContract.Id && $scope.frameContractObjs[i].selected !== '')
+                            {
+                                 $scope.frameContractObjs[i].selected = '';
+                             }  
+                     }               
+                };
+                
+                
+                $scope.pickedContract = function()
+                {	
+                
+                	frameContractService.setFrameContract($scope.parentId, $scope.selectedContract.selected).then(function(result, event)
+	                {
+	                	//navigate back to page	                	
+	                 	$scope.navigateBack();
+	                });
+	              }; 
+	              
+	            $scope.navigateBack = function()
+	             {
+	              	//navigate back to page that issue send
+	                	if(!$scope.isSforce)
+	                 	{
+	                 		window.top.location.href = '{!$Site.BaseRequestUrl}/'+$scope.parentId;
+	                 		return false;
+	                 	}
+	                 	else ($scope.isSforce)
+	                 	{
+	                 		sforce.one.navigateToURL('{!$Site.BaseRequestUrl}/'+$scope.parentId);
+	                 	}
+	              };          	    
+                
+            });
+            
+        
+        </script>
+
+   		<body>
+   			<div class="vlocity" ng-controller="frameContractController">
+				
+				<div class="panel panel-sf" id="frame-contract-select">  	
+  				  <div class="panel-heading">Frame Contracts</div>	              
+	                <table class="table">
+	                	<thead><tr>
+	                	   <th class="contract">
+	                	      <span> Select </span>
+	                	   </th>
+	                	   <th class="contract" ng-repeat="field in fieldList">
+	                			<span>{{fieldLabels[field]}} </span>
+	               		    </th>
+	                    </tr></thead>
+	                    <tbody>
+	                       <tr class="contractdata1" ng-repeat="frame in frameContractObjs">
+	                          <td class="contract-select" >
+	                           
+	                              <input type="radio" name="frame" ng-model="frame.selected" ng-change="onSelectContract(frame)" value="{{frame.Id}}"/> 
+	                            
+	                          </td>
+	                          <td class="contractdata2" ng-repeat="field in fieldList">
+	                              {{frame[field]}}
+	                          </td>
+	                       </tr>   
+	                    </tbody>
+	                </table>
+	             </div>  
+	             <button type="button" class="btn btn-default" ng-click="pickedContract()">OK</button>		             
+		         <button type="button" class="btn btn-default" ng-click="navigateBack()">Cancel</button>  
+   			</div>
+   		</body>   
+   		</html>     
+</apex:page>

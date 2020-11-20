@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__TotalFeeTermDifference__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Difference between current and original fee for term.</description>
+    <externalId>false</externalId>
+    <formula>vlocity_ins__TotalFeeForTerm__c - vlocity_ins__OriginalFeeForTerm__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Fee for Term Difference</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

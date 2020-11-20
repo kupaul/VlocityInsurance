@@ -1,0 +1,1050 @@
+<apex:page standardController="vlocity_ins__EntityFilter__c" standardStylesheets="false" extensions="vlocity_ins.AdminUtilitiesController" showHeader="false" sidebar="false" applyBodyTag="false" applyHtmlTag="false">
+	<html xmlns:ng="http://angularjs.org" ng-app="filterConditionsApp" class="ng-cloak" style="height:100%" > 
+		<head>
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__jquery_2_2_4, '/jquery.js')}"/>
+    		<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__Jquery, '/ui/jquery-ui-1.9.1.custom.min.js')}"/>
+		   	<apex:includeScript value="/soap/ajax/31.0/connection.js" />
+			<apex:includeScript value="{!$Resource.vlocity_ins__AngularJS}"/>
+		   	<apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT}"/>
+		   	<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__bootstrap, '/bootstrap-3.2.0-dist/css/bootstrap.min.css')}"/>
+		   	<apex:includeScript value="{!$Resource.vlocity_ins__FieldLookupAngDirective}"/>
+		   	<apex:includeScript value="{!$Resource.vlocity_ins__AttributeLookupAngDirective}"/>
+
+		   	<style>
+				div[class^="fieldsContainer"]{
+		   			overflow-x: auto;
+				    width:188px;
+				    height:235px;
+				    display: inline-block;
+				    border:1.5px solid rgb(224, 222, 222);
+				}
+				.referenceContainer{
+				    width:575px;
+				    overflow-x: auto;
+				    height:250px;
+				    white-space: nowrap;
+				}
+				
+				.attributeReferenceContainer{
+				    width:450px;
+				    overflow-x: auto;
+				    height:250px;
+				    white-space: nowrap;
+				}
+				
+				.attributeContainer{
+		   			overflow-x: auto;
+				    width:220px;
+				    height:235px;
+				    display: inline-block;
+				    border:1.5px solid rgb(224, 222, 222);;
+				}
+				
+				#overlay {
+				    position: absolute;
+				    background: white;				    
+				    width: 188px;
+				    height: 235px;
+				    opacity: 0.7;
+				    
+				}
+				#loading {
+				    position: absolute;
+				    top: 105px;
+					left: 75px;
+				}
+
+				#contentOverlay {
+					position: fixed;
+				    background: white;			
+				    opacity: 0.7;
+				    z-index: 1000;
+				    text-align: center;
+				    
+				}
+				
+				.fullHeight {
+					display: inline-block;
+					height: 100%;
+					vertical-align: middle;
+				
+				}
+
+                .form-control-static{
+                    text-align: center;
+                }
+
+                .req-field{
+                    border-color: red;
+                }
+
+                .ellipsis-text{
+                    text-overflow: ellipsis;
+                }
+
+                .tooltip-inner {
+                    width: 100% !important;
+                    max-width: 300px !important;
+                }
+			
+		   	</style>
+		   	<script>
+		   		sforce.connection.sessionId = '{!$Api.Session_ID}';
+		   		j$ = jQuery.noConflict();
+                
+                function getObjectFieldsDescribe(objectNames, callback){ 
+                	var parameters = {};
+                	parameters['methodName'] =  'getObjectFieldsDescribe';
+                	parameters['objectNames'] = objectNames;
+                				
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+					Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                   	callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                
+                function getFilterConditions(parentId, callback){ 
+                	var parameters = {};
+                	parameters['methodName'] =  'getFilterConditions';
+                	parameters['parentId'] =  parentId;
+                				
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+					Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                   	callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function saveFilterConditions(settingsToUpsert, callback){ 
+                	var parameters = {};
+                	parameters['methodName'] =  'saveFilterConditions';
+                	parameters['settingsToUpsert'] = JSON.stringify(settingsToUpsert);
+                				
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+					Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                   	callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function deleteFilterConditions(settingIdsToDelete, callback){ 
+                	var parameters = {};
+                	parameters['methodName'] =  'deleteFilterConditions';
+                	parameters['settingIdsToDelete'] = JSON.stringify(settingIdsToDelete);
+                				
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+					Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                   	callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                
+                function getFilterConditionTypes(callback){ 
+                	var parameters = {};
+                	parameters['methodName'] =  'getFilterConditionTypes';
+                				
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+					Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                   	callback,
+                                    {buffer: false, escape: false}); 
+                }
+
+                function getFilterConditionFieldTypes(callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'getFilterConditionFieldTypes';
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function getEntityFilterList(callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'getEntityFilterList';
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function getObjectInfo(objectId, callback){
+                	var parameters = {};
+                	parameters['methodName'] =  'getObjectInfo';
+                	parameters['objectId'] = objectId; 
+                			
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+					Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                   	callback,
+                                    {buffer: false, escape: false}); 
+                
+                }
+
+                function getAllObject(callback){
+                    var parameters = {};
+                    parameters['methodName'] =  'getGlobalDescribe';   
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                
+                }
+                
+                
+                // This module is necessary to pass salesforce merged valued to directives in static resources.
+                //used for the field Lookup Directive
+                angular.module('parameters',[])
+                	.factory('ParametersFactory', function(){
+                		var factory = {};
+                		factory.getRemoteInvokeMethod = function(){
+                			return '{!$RemoteAction.AdminUtilitiesController.invokeMethod}';
+                		
+                		}
+                		
+                		factory.getClassType = function(){
+                			return '{!classType}';
+                		
+                		}
+                		
+                		factory.getLoadingImg = function(){
+                			return '{!$Resource.WAITGIF}';
+                		}
+                		
+                		factory.getNsPrefix = function(){
+                			return '{!nsPrefix}';
+                		}
+                		
+                		return factory;
+                	
+                	})
+		   			
+		   		var filterConditionsApp = angular.module('filterConditionsApp', ['ui.bootstrap', 'fieldLookupUI', 'attributeLookupUI']);
+				filterConditionsApp.factory('fieldMapperService',function($q,$rootScope){  
+		        	var factory = {};
+                    
+                    factory.getObjectFieldsDescribe = function(objectNames) {
+                            var deferred = new j$.Deferred();
+                            getObjectFieldsDescribe(objectNames, function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.getFilterConditions = function(parentId) {
+                            var deferred = new j$.Deferred();
+                            getFilterConditions(parentId, function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.saveFilterConditions = function(settingsToUpsert) {
+                            var deferred = new j$.Deferred();
+                            saveFilterConditions(settingsToUpsert, function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.deleteFilterConditions = function(settingIdsToDelete) {
+                            var deferred = new j$.Deferred();
+                            deleteFilterConditions(settingIdsToDelete, function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.getFilterConditionTypes = function() {
+                            var deferred = new j$.Deferred();
+                            getFilterConditionTypes(function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+
+                    factory.getFilterConditionFieldTypes = function() {
+                            var deferred = new j$.Deferred();
+                            getFilterConditionFieldTypes(function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.getEntityFilterList = function() {
+                            var deferred = new j$.Deferred();
+                            getEntityFilterList(function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.getObjectInfo = function(objectId){
+                    	var deferred = new j$.Deferred();
+						getObjectInfo(objectId, function(result){  
+						    $rootScope.$apply(function(){ 
+						        var sresult =[];
+						        if ( result){
+						            sresult = angular.fromJson(result); 
+						        }
+						        deferred.resolve(sresult);  
+						
+						    });  
+						});  
+						return deferred.promise();  
+                    	
+                    }
+
+                    factory.getAllObject = function(){
+                        var deferred = new j$.Deferred();
+                        getAllObject(function(result){  
+                            $rootScope.$apply(function(){ 
+                                var sresult =[];
+                                if ( result){
+                                    sresult = angular.fromJson(result); 
+                                }
+                                deferred.resolve(sresult);  
+                        
+                            });  
+                        });  
+                        return deferred.promise();  
+                        
+                    }
+                    
+                    return factory;
+		        });
+		        
+				filterConditionsApp.controller('filterConditionsAppController', function ($scope, $modal, $q, fieldMapperService, attributeLookupService) {
+					$scope.filterConditionsList = [];
+					$scope.filterOperators = ['=','≠','<','≤','>','≥','starts with','ends with','contains','not contains','in','not in','of type','not of type','contains all','contains any'];
+					$scope.nsPrefix = '{!nsPrefix}';
+					$scope.selectedItemIndex = null;
+					$scope.sobjectTypes = [];
+					$scope.filterConditionObject = null;
+					$scope.filterConditionTypes = [];
+                    $scope.filterConditionFieldTypes = [];
+                    $scope.functionDataSets = ["Parent of this item", "Siblings of this item","Root of this item", "Items in this bundle", "Items in cart"];
+                    $scope.entityFilterList = [];
+					//$scope.filterConditionTypes.push({label:"Attribute", value:"Attribute"});
+					//$scope.filterConditionTypes.push({label:"Field", value:"Field"});
+					$scope.parentId = '{!entityFilterId}';
+                    $scope.relatedObjectFields = [];
+                    $scope.allObjectList = [];
+                    $scope.promises = [];
+
+                    $scope.promises.push(fieldMapperService.getFilterConditions($scope.parentId).then(function(result){
+                        $scope.filterConditionsList = result.entityFilterConditionsList; 
+                    }));
+
+                    $scope.promises.push(fieldMapperService.getObjectFieldsDescribe(['{!JSENCODE(entityFilter.FilterOnObjectName__c)}']).then(function(result){
+                        $scope.filterConditionObject = result.objectNameToFieldDescribes['{!JSENCODE(entityFilter.FilterOnObjectName__c)}'];
+                    }));
+                    $scope.promises.push(fieldMapperService.getAllObject().then(function(result){
+                        //Weird character '\n' coming in response, to get rid this using replace function.
+                        $scope.allObjectList = JSON.parse(result.objectsDescribeListJSON.toString().replace('\n', ''));
+                    }));
+
+                    $q.all($scope.promises).then(function(results){
+                        $scope.initializeFilterCondition();
+                    });
+					
+					fieldMapperService.getFilterConditionTypes().then(function(result){
+						for(i = 0; i < result.filterConditionTypes.length; i++){
+							$scope.filterConditionTypes.push({label:result.filterConditionTypes[i].label, value:result.filterConditionTypes[i].value});
+							
+						}
+						
+					})
+
+                    fieldMapperService.getFilterConditionFieldTypes().then(function(result){
+                    if(result.filterConditionFieldTypes.length > 0){
+                        for(i = 0; i < result.filterConditionFieldTypes.length; i++){
+                            $scope.filterConditionFieldTypes.push({label:result.filterConditionFieldTypes[i].label, value:result.filterConditionFieldTypes[i].value});
+                            
+                        }
+                    }else{
+                    	$scope.filterConditionFieldTypes.push({label:'currency', value:'currency'});
+                    	$scope.filterConditionFieldTypes.push({label:'double', value:'double'});
+                    	$scope.filterConditionFieldTypes.push({label:'percent', value:'percent'});
+                    	$scope.filterConditionFieldTypes.push({label:'int', value:'int'});
+                    	$scope.filterConditionFieldTypes.push({label:'datetime', value:'datetime'});
+                    	$scope.filterConditionFieldTypes.push({label:'date', value:'date'});
+                    	$scope.filterConditionFieldTypes.push({label:'boolean', value:'boolean'});
+                    	$scope.filterConditionFieldTypes.push({label:'id', value:'id'});
+                    	$scope.filterConditionFieldTypes.push({label:'reference', value:'reference'});
+                    	$scope.filterConditionFieldTypes.push({label:'string', value:'string'});
+                    	$scope.filterConditionFieldTypes.push({label:'base64', value:'base64'});
+                    	$scope.filterConditionFieldTypes.push({label:'textarea', value:'textarea'});
+                    	$scope.filterConditionFieldTypes.push({label:'phone', value:'phone'});
+                    	$scope.filterConditionFieldTypes.push({label:'url', value:'url'});
+                    	$scope.filterConditionFieldTypes.push({label:'email', value:'email'});
+                    	$scope.filterConditionFieldTypes.push({label:'combobox', value:'combobox'});
+                    	$scope.filterConditionFieldTypes.push({label:'picklist', value:'picklist'});
+                    	$scope.filterConditionFieldTypes.push({label:'multipicklist', value:'multipicklist'});
+                    	$scope.filterConditionFieldTypes.push({label:'anyType', value:'anyType'});
+                    	$scope.filterConditionFieldTypes.push({label:'location', value:'location'});
+                    }
+                        
+                    })
+                    
+                    fieldMapperService.getEntityFilterList().then(function(result){
+                        for(i = 0; i < result.entityFilterList.length; i++){
+                            $scope.entityFilterList.push({id:result.entityFilterList[i].Id, name:result.entityFilterList[i].Name});
+                            
+                        }
+                        
+                    })
+  					
+  					$scope.formatInput = function(index) {
+							return ($scope.filterConditionsList[index][$scope.nsPrefix + 'ValueLabel__c']);
+					}
+        			
+        			$scope.onSelect = function (index, model, label) {
+        						 $scope.filterConditionsList[index][$scope.nsPrefix + 'ValueLabel__c'] = label;
+        			}
+        					
+        						 
+					
+					$scope.getObjectInfo = function(objectId){
+						$scope.objectInfo = {};
+						$scope.objectInfo.Name = 'Loading ...';
+						fieldMapperService.getObjectInfo(objectId).then(function(result){
+							$scope.objectInfo = result.objectInfo;
+						})
+						
+					
+					}
+					
+					$scope.navigateToObject = function(objectId){
+                        if(objectId && objectId !== ''){
+                            window.open('/' + objectId);
+                        }
+					}
+					
+					$scope.addFilterCondition = function () {
+						var customSetting ={};
+						customSetting[$scope.nsPrefix + 'EntityFilterId__r']= {};
+						customSetting[$scope.nsPrefix + 'EntityFilterId__r'][$scope.nsPrefix + 'FilterOnObjectName__c'] = '{!JSENCODE(entityFilter.FilterOnObjectName__c)}';
+						customSetting[$scope.nsPrefix + 'Type__c'] = 'Field';
+						customSetting[$scope.nsPrefix + 'EntityFilterId__c'] = '{!EntityFilter__c.Id}';
+					    $scope.filterConditionsList.push(customSetting);
+					    
+					};
+					
+					$scope.addAttributeFilterCondition = function () {
+						var customSetting ={};
+						customSetting[$scope.nsPrefix + 'EntityFilterId__r']= {};
+						customSetting[$scope.nsPrefix + 'EntityFilterId__r'][$scope.nsPrefix + 'FilterOnObjectName__c'] = '{!JSENCODE(entityFilter.FilterOnObjectName__c)}';
+						customSetting[$scope.nsPrefix + 'EntityFilterId__c'] = '{!EntityFilter__c.Id}';
+					    $scope.filterConditionsList.push(customSetting);
+					    
+					};
+					
+					$scope.changeConditionType = function(index){
+						delete $scope.filterConditionsList[index][$scope.nsPrefix + 'FieldName__c'];
+						delete $scope.filterConditionsList[index][$scope.nsPrefix + 'FieldType__c'];
+						delete $scope.filterConditionsList[index][$scope.nsPrefix + 'Operator__c'];
+						delete $scope.filterConditionsList[index][$scope.nsPrefix + 'Value__c'];
+						delete $scope.filterConditionsList[index][$scope.nsPrefix + 'ValueLabel__c'];
+
+                        // disable other two dropdown.
+                        if($scope.filterConditionsList[index][$scope.nsPrefix + 'Type__c']==='Filter'){
+                            $scope.disableRelatedObjectField[index] = true;
+                            $scope.disableRelatedObject[index] = true;
+                        }
+						
+					}
+
+                    $scope.changeConditionFilterType = function(index){
+                        delete $scope.filterConditionsList[index][$scope.nsPrefix + 'FieldName__c'];
+                        delete $scope.filterConditionsList[index][$scope.nsPrefix + 'Operator__c'];
+                        delete $scope.filterConditionsList[index][$scope.nsPrefix + 'Value__c'];
+                        delete $scope.filterConditionsList[index][$scope.nsPrefix + 'ValueLabel__c'];
+                    }
+
+                    $scope.validationForFitlerType = function(){
+                        for(i=0; i <  $scope.filterConditionsList.length; i++){
+                            if($scope.filterConditionsList[i][$scope.nsPrefix + 'Type__c'] === 'Filter'){
+                                if(!$scope.filterConditionsList[i][$scope.nsPrefix + 'FieldName__c'] || $scope.filterConditionsList[i][$scope.nsPrefix + 'FieldName__c'] === ''){
+                                    return false;
+                                }
+                                if(!$scope.filterConditionsList[i][$scope.nsPrefix + 'Value__c'] || $scope.filterConditionsList[i][$scope.nsPrefix + 'Value__c'] === ''){
+                                    return false;
+                                }
+                            }
+                        }
+                        return true;
+                    };
+
+					$scope.saveFilterConditions = function (){
+                        if(!$scope.validationForFitlerType()){
+                            return;
+                        }
+                        $scope.displayWaitDialog();
+						var settingsToUpsert =[];
+					    for(i=0; i <  $scope.filterConditionsList.length; i++){
+					    	var customSetting = new sforce.SObject($scope.nsPrefix + "EntityFilterCondition__c");
+				    		customSetting[$scope.nsPrefix + 'EntityFilterId__c'] = $scope.filterConditionsList[i][$scope.nsPrefix + 'EntityFilterId__c'];
+				    		customSetting[$scope.nsPrefix + 'FieldName__c'] = $scope.filterConditionsList[i][$scope.nsPrefix + 'FieldName__c'];  
+				    		customSetting[$scope.nsPrefix + 'FieldType__c'] = $scope.filterConditionsList[i][$scope.nsPrefix + 'FieldType__c'];
+				    		customSetting[$scope.nsPrefix + 'Index__c'] = $scope.filterConditionsList[i][$scope.nsPrefix + 'Index__c'];
+				    		customSetting[$scope.nsPrefix + 'Type__c'] = $scope.filterConditionsList[i][$scope.nsPrefix + 'Type__c'];
+				    		customSetting[$scope.nsPrefix + 'Operator__c'] = $scope.filterConditionsList[i][$scope.nsPrefix + 'Operator__c'];
+				    		customSetting[$scope.nsPrefix + 'Value__c'] = $scope.filterConditionsList[i][$scope.nsPrefix + 'Value__c'];
+				    		customSetting[$scope.nsPrefix + 'ValueLabel__c'] = $scope.filterConditionsList[i][$scope.nsPrefix + 'ValueLabel__c'];
+				    		customSetting['Id'] = $scope.filterConditionsList[i].Id;
+				    		customSetting[$scope.nsPrefix + 'Index__c'] = i;
+				    		//remove the type field from the object
+				    		delete customSetting.type;
+					    	settingsToUpsert.push(customSetting);
+					    	
+					    }
+					    
+				    	fieldMapperService.saveFilterConditions(settingsToUpsert).then(function(result){
+				    		fieldMapperService.getFilterConditions($scope.parentId).then(function(result2){
+								$scope.filterConditionsList = result2.entityFilterConditionsList;
+								$scope.removeWaitDialog();
+								
+							})	
+				    	})
+						
+					}
+					
+					$scope.deleteFilterConditions = function () {
+						$scope.displayWaitDialog();
+				    	var settingIdsToDelete =[];
+				    	var filterConditionsList = [];
+				    	var somethingToDelete = false;
+				    	
+				    	for(i=0; i <  $scope.filterConditionsList.length; i++){
+					    	if($scope.filterConditionsList[i].isSelected === true){
+					    		somethingToDelete = true;
+					    		settingIdsToDelete.push($scope.filterConditionsList[i].Id);
+					    		
+					    	} else {
+					    		filterConditionsList.push($scope.filterConditionsList[i]);
+					    	}
+					    } 
+					    
+					    if(!somethingToDelete){
+					    	filterConditionsList = [];
+					    	settingIdsToDelete = [];
+					    	$scope.removeWaitDialog('idDeleteButton');
+					    	return;		
+					    }
+					    
+					    for(i=0; i <  filterConditionsList.length; i++){
+					    	filterConditionsList[i][$scope.nsPrefix + 'Index__c'] = i;
+					    	delete filterConditionsList[i][$scope.nsPrefix + 'EntityFilterId__r'];
+					    	
+					    }
+					    
+					    fieldMapperService.deleteFilterConditions(settingIdsToDelete).then(function(){
+					    	fieldMapperService.saveFilterConditions(filterConditionsList).then(function(result){
+					    		fieldMapperService.getFilterConditions($scope.parentId).then(function(result2){
+									$scope.filterConditionsList = result2.entityFilterConditionsList;
+                                    $scope.initializeFilterCondition();
+									$scope.removeWaitDialog();
+									
+								})	
+								
+					    	})
+					    
+					    })
+						
+					};
+					
+					$scope.displayWaitDialog = function(){
+						var over = j$('<div id="contentOverlay"><span class="fullHeight"></span>' +
+								            '<img id="contentLoading" src="'+'{!$Resource.WAITGIF}'+'">' +
+								            '</div>');
+						var div = j$('#idFiltersContent');
+						over.css('top', div.offset().top);
+						over.css('left', div.offset().left);
+						over.css('width', div.width());
+						over.css('height', div.height());
+				        j$(over).appendTo(div);
+
+					}
+					
+					$scope.removeWaitDialog = function(){
+						j$('#contentOverlay').remove();
+						
+					}
+					
+					$scope.openFieldSelection = function (elementIndex) {
+						$scope.selectedItemIndex = elementIndex;
+						var modalInstance = $modal.open({
+						  templateUrl: 'fieldSelectionModal.html',
+						  controller: FieldModalInstanceCtrl,
+						  resolve: {
+						    items: function () {
+						      return [$scope.filterConditionsList[elementIndex], $scope.nsPrefix];
+						    }
+						  }
+						});
+						modalInstance.result.then(function (fieldInfo) {
+							//save change and clear destination field
+							$scope.filterConditionsList[$scope.selectedItemIndex][$scope.nsPrefix + 'FieldName__c'] = fieldInfo.fullFieldName;
+							$scope.filterConditionsList[$scope.selectedItemIndex][$scope.nsPrefix + 'FieldType__c'] = fieldInfo.fieldType;
+							delete $scope.filterConditionsList[$scope.selectedItemIndex][$scope.nsPrefix + 'Value__c'];
+							}, function () {
+								//console.log.info('Modal dismissed at: ' + new Date());
+						});
+					};
+					
+					$scope.openAttributeSelection = function (elementIndex) {
+						$scope.selectedItemIndex = elementIndex;
+						var modalInstance = $modal.open({
+						  templateUrl: 'attributeSelectionModal.html',
+						  controller: AttributeModalInstanceCtrl,
+						  resolve: {
+						    items: function () {
+						      return [$scope.filterConditionsList[elementIndex], $scope.nsPrefix];
+						    }
+						  }
+						});
+						modalInstance.result.then(function (fieldInfo) {
+							//save change and clear destination field
+							$scope.filterConditionsList[$scope.selectedItemIndex][$scope.nsPrefix + 'FieldName__c'] = fieldInfo.fullFieldName;
+							//TODO Change to actualy type field when implemented
+							//$scope.filterConditionsList[$scope.selectedItemIndex][$scope.nsPrefix + 'FieldType__c'] = fieldInfo.fieldType;
+							//$scope.filterConditionsList[$scope.selectedItemIndex][$scope.nsPrefix + 'FieldType__c'] = 'string';
+							delete $scope.filterConditionsList[$scope.selectedItemIndex][$scope.nsPrefix + 'Value__c'];
+							}, function () {
+								//console.log.info('Modal dismissed at: ' + new Date());
+						});
+					};
+                    $scope.filterObjectFieldSelection = function (index) {
+                        var modalInstance = $modal.open({
+                          templateUrl: 'fieldSelectionModal.html',
+                          controller: FilterFieldModalCtrl,
+                          resolve: {
+                            items: function () {
+                              return [$scope.filterConditionsList[index], $scope.nsPrefix, $scope.selectedfilterObjectField[index]];
+                            }
+                          }
+                        });
+                        modalInstance.result.then(function (fieldInfo) {
+                            //save change
+                            $scope.selectedfilterObjectField[index] = fieldInfo.fullFieldName;
+                            $scope.disableRelatedObjectField[index] = true;
+                            $scope.relatedObjectFields[index] = [];
+                            $scope.disableRelatedObject[index] = false;
+                            }, function () {
+                                //console.log.info('Modal dismissed at: ' + new Date());
+                        });
+                    };
+
+                    $scope.changeRelatedObject = function(selectedRelatedObject, index){
+                        $scope.selectedRelatedObjectField[index] = '';
+                        $scope.disableRelatedObjectField[index] = false;
+                    };
+
+                    $scope.relatedObjectFieldSelection = function (index) {
+                        var modalInstance = $modal.open({
+                          templateUrl: 'fieldSelectionModal.html',
+                          controller: RelatedObjectFieldModalCtrl,
+                          resolve: {
+                            items: function () {
+                              return [$scope.selectedRelatedObject[index].name, $scope.nsPrefix, $scope.selectedRelatedObjectField[index]];
+                            }
+                          }
+                        });
+                        modalInstance.result.then(function (fieldInfo) {
+                            //save change
+                            $scope.selectedRelatedObjectField[index] = fieldInfo.fullFieldName;
+                            $scope.filterConditionsList[index][$scope.nsPrefix + 'FieldName__c'] = $scope.selectedfilterObjectField[index]+ ',' + $scope.selectedRelatedObject[index].name + ',' + $scope.selectedRelatedObjectField[index];
+                            }, function () {
+                                //console.log.info('Modal dismissed at: ' + new Date());
+                        });
+                    };
+
+                    $scope.initializeFilterCondition = function(){
+                        $scope.selectedfilterObjectField = [];
+                        $scope.selectedRelatedObject = [];
+                        $scope.selectedRelatedObjectField = [];
+                        $scope.disableRelatedObjectField = [];
+                        $scope.disableRelatedObject = [];
+                        var indexes = [];
+                        var objects = [];
+                        for(var index=0;index<$scope.filterConditionsList.length;index++){
+                            var filter = $scope.filterConditionsList[index];
+                            if(filter[$scope.nsPrefix + 'Type__c'] !== 'Filter'){
+                                continue;
+                            }
+                            //disable 2nd and 3rd dropdown
+                            $scope.disableRelatedObjectField[index] = true;
+                            $scope.disableRelatedObject[index] = true;
+                            var name = filter[$scope.nsPrefix + 'FieldName__c'];
+                            if(name && name !== ''){
+                                var filterNames = name.split(',');
+                                //find value of field selection
+                                if(filterNames.length>0 && filterNames[0]){
+                                    $scope.selectedfilterObjectField[index] = filterNames[0];   
+                                }
+                                //find value of related object field
+                                if(filterNames.length>2 && filterNames[2]){
+                                    $scope.selectedRelatedObjectField[index] = filterNames[2];
+                                    $scope.disableRelatedObjectField[index] = false;
+                                }
+                                //find value of related object
+                                if(filterNames.length>1 && filterNames[1]){                                    
+                                    for(var i=0;i<$scope.allObjectList.length;i++){
+                                        if($scope.allObjectList[i].name===filterNames[1]){
+                                            $scope.selectedRelatedObject[index] = $scope.allObjectList[i];
+                                            //enable 2nd dropdown
+                                            $scope.disableRelatedObject[index] = false;
+                                            break;
+                                        }
+                                    }    
+                                }
+                            }
+                        }
+                    }
+                });
+                var RelatedObjectFieldModalCtrl = function ($scope, $modalInstance, fieldLookupService, items) {
+                    $scope.selectedItem = items[0];
+                    $scope.nsPrefix = items[1];
+                    $scope.selectedRelatedObjectField = items[2];
+                    $scope.objectName = $scope.selectedItem;
+                    if(!$scope.selectedRelatedObjectField){
+                        $scope.selectedRelatedObjectField = '';
+                    }
+                    $scope.fieldName = $scope.selectedRelatedObjectField;
+                    $scope.selectedFields = [];
+                    
+                    $scope.save = function () {
+                        $modalInstance.close(fieldLookupService.parseFields($scope.selectedFields));
+                    };
+                
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                        
+                    };
+                };
+				var FilterFieldModalCtrl = function ($scope, $modalInstance, fieldLookupService, items) {
+                    $scope.selectedItem = items[0];
+                    $scope.nsPrefix = items[1];
+                    $scope.selectedfilterObjectField = items[2];
+                    $scope.objectName = $scope.selectedItem[$scope.nsPrefix + 'EntityFilterId__r'][$scope.nsPrefix + 'FilterOnObjectName__c'];
+                    if(!$scope.selectedfilterObjectField){
+                        $scope.selectedfilterObjectField = '';
+                    }
+                    $scope.fieldName = $scope.selectedfilterObjectField;
+                    $scope.selectedFields = [];
+                    
+                    $scope.save = function () {
+                        $modalInstance.close(fieldLookupService.parseFields($scope.selectedFields));
+                    };
+                
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                        
+                    };
+                };
+				var FieldModalInstanceCtrl = function ($scope, $modalInstance, fieldLookupService, items) {
+					$scope.selectedItem = items[0];
+					$scope.nsPrefix = items[1];
+					$scope.objectName = $scope.selectedItem[$scope.nsPrefix + 'EntityFilterId__r'][$scope.nsPrefix + 'FilterOnObjectName__c'];
+					$scope.fieldName = $scope.selectedItem[$scope.nsPrefix + 'FieldName__c'];
+					$scope.selectedFields = [];
+					
+					$scope.save = function () {
+						$modalInstance.close(fieldLookupService.parseFields($scope.selectedFields));
+					};
+				
+					$scope.cancel = function () {
+						$modalInstance.dismiss('cancel');
+						
+					};
+				};
+				
+				var AttributeModalInstanceCtrl = function ($scope, $modalInstance, attributeLookupService, items) {
+					$scope.selectedItem = items[0];
+					$scope.nsPrefix = items[1];
+					$scope.objectName = $scope.selectedItem[$scope.nsPrefix + 'EntityFilterId__r'][$scope.nsPrefix + 'FilterOnObjectName__c'];;
+					$scope.fieldName = $scope.selectedItem[$scope.nsPrefix + 'FieldName__c'];
+					$scope.selected = {};
+					
+					
+					$scope.save = function () {
+						console.log('selected');
+						console.log($scope.selected);
+						$modalInstance.close(attributeLookupService.parseFields($scope.selected));
+					};
+				
+					$scope.cancel = function () {
+						$modalInstance.dismiss('cancel');
+						
+					};
+				};
+		   		
+			</script> 
+			
+		</head>
+		<body ng-controller="filterConditionsAppController">
+			<div style="min-height:450px; overflow:auto;" class="container-fluid">
+				<div style="margin: 5px;" class="panel panel-default">
+					<!-- <div class="panel-heading">Filter by:</div> -->
+
+					<div ng-if="filterConditionsList.length != 0">
+						<table style="margin-bottom:5px" id="idFiltersContent" class="table">
+							<tr>
+                                <th></th>
+								<th>{!$Label.FConditionsIndex}</th>
+								<th>{!$Label.FConditionsType}</th>
+                                <th>{!$Label.FConditionsFieldType}</th>
+								<th>{!$Label.FConditionsName}</th>
+								<th>{!$Label.FConditionsOperator}</th>
+								<th>{!$Label.FConditionsValue}</th>
+							</tr>
+							<tr ng-repeat="filter in filterConditionsList track by $index">
+                                <td style="width: 3%;">
+                                    <span class="selectbox">
+                                        <input ng-model="filter.isSelected" type="checkbox" style="margin-top: 11px;" />
+                                    </span>
+                                </td>
+							  	<td style=" width: 2%;">
+								  	<p ng-model="filter[nsPrefix + 'Index__c']" class="form-control-static">{{$index}}</p>
+							  	</td>
+							  	<td style=" width: 10%;">
+								  	<select class="form-control" ng-change="changeConditionType($index)" data-ng-options="type.value as type.label for type in filterConditionTypes" data-ng-model="filter[nsPrefix + 'Type__c']"/>
+							  	</td>
+
+                                <td style=" width: 15%;" ng-if="filter[nsPrefix + 'Type__c'] !== 'Filter'">
+                                    <select class="form-control" ng-change="changeConditionFilterType($index)" ng-disabled="filter[nsPrefix + 'Type__c'] != 'Attribute'" data-ng-options="type.value as type.label for type in filterConditionFieldTypes" data-ng-model="filter[nsPrefix + 'FieldType__c']" tooltip="Select Field"/>
+                                </td>
+                                <td style="width: 20%;" ng-if="filter[nsPrefix + 'Type__c'] === 'Filter'">
+                                    <div class="input-group" tooltip="{{ !selectedfilterObjectField[$index] || selectedfilterObjectField[$index] == ''? 'Select Field': selectedfilterObjectField[$index] }}" >
+                                        <input ng-model="selectedfilterObjectField[$index]" type="text" class="form-control ellipsis-text" disabled="true" ng-class="!selectedfilterObjectField[$index] || selectedfilterObjectField[$index] == ''? 'req-field': '' " />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" ng-click="filterObjectFieldSelection($index);" type="button">{!$Label.Select}</button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td style="width: 20%;" ng-if="filter[nsPrefix + 'Type__c'] === 'Filter'">
+                                    <select class="form-control filter-select ml" ng-change="changeRelatedObject(selectedRelatedObject[$index], $index)" data-ng-options="object as object.label for object in allObjectList" data-ng-model="selectedRelatedObject[$index]" ng-disabled="disableRelatedObject[$index]" tooltip="{{ !selectedRelatedObject[$index] || selectedRelatedObject[$index] == ''? 'Select Related Object': selectedRelatedObject[$index].label }}" ng-class="!selectedRelatedObject[$index] || selectedRelatedObject[$index] == ''? 'req-field': '' ">
+                                    </select>
+                                </td>
+                                <td style="width: 20%;" ng-if="filter[nsPrefix + 'Type__c'] === 'Filter'">
+                                    <div class="input-group" tooltip="{{ !selectedRelatedObjectField[$index] || selectedRelatedObjectField[$index] == '' ? 'Select Related Object Field': selectedRelatedObjectField[$index] }}">
+                                        <input ng-model="selectedRelatedObjectField[$index]" type="text" class="form-control ellipsis-text" disabled="true" ng-class="!selectedRelatedObjectField[$index] || selectedRelatedObjectField[$index] == ''? 'req-field': '' "/>
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" ng-click="relatedObjectFieldSelection($index);" type="button" ng-disabled="disableRelatedObjectField[$index]">{!$Label.Select}</button>
+                                        </span>
+                                    </div>
+                                </td>
+								<td style="width: 30%;" ng-if="filter[nsPrefix + 'Type__c'] === 'Field' || filter[nsPrefix + 'Type__c'] === 'Attribute'">
+									<div class="input-group">
+                                        <!-- CMT-325: this checkbox is moved to first td.
+										<span class="input-group-addon">
+											<input ng-model="filter.isSelected" type="checkbox"/>
+										</span>
+                                        -->
+										<input ng-if="filter[nsPrefix + 'Type__c'] != 'Filter'" ng-model="filter[nsPrefix + 'FieldName__c']" type="text" class="form-control" disabled="true"/>
+                                        <!-- CMT-325: No more this input is required.
+										<input 	placeholder="Field holding the parent object Id, Related Object Type, Lookup field from related object to parent object" 
+												title="Field holding the parent object Id, Related Object Type, Lookup field from related object to parent object"
+												ng-if="filter[nsPrefix + 'Type__c'] == 'Filter'" 
+												ng-model="filter[nsPrefix + 'FieldName__c']" 
+												type="text" 
+												class="form-control filterFieldTooltip"/>
+                                        -->
+										<span class="input-group-btn">
+											<button ng-if="filter[nsPrefix + 'Type__c'] == 'Field'" class="btn btn-primary" ng-click="openFieldSelection($index);" type="button">{!$Label.Select}</button>
+											<button ng-if="filter[nsPrefix + 'Type__c'] == 'Attribute'" class="btn btn-primary" ng-click="openAttributeSelection($index);" type="button">{!$Label.Select}</button>
+                                            <button ng-if="!filter[nsPrefix + 'Type__c'] || filter[nsPrefix + 'Type__c'] == ''" class="btn btn-primary" type="button" disabled="disabled">{!$Label.Select}</button>
+										</span>
+									</div>
+								</td>
+								<td style="width: 30%;" ng-if="filter[nsPrefix + 'Type__c'] === 'Function'">
+									<select class="form-control" data-ng-options="dataSet for dataSet in functionDataSets" data-ng-model="filter[nsPrefix + 'FieldName__c']" tooltip="Select Data Set"/>
+								</td>
+								<td style="width: 10%; margin-right: -2px;" ng-if="filter[nsPrefix + 'Type__c'] === 'Attribute' || filter[nsPrefix + 'Type__c'] === 'Field'">
+									<select class="form-control" data-ng-options="operator for operator in filterOperators" data-ng-model="filter[nsPrefix + 'Operator__c']" tooltip="Select Operator"/>
+								</td>
+								<td style="width: 10%; margin-right: -2px;" ng-if="filter[nsPrefix + 'Type__c'] === 'Function'">
+									<input ng-model="filter[nsPrefix + 'Operator__c']" type="text" class="form-control" disabled="true" placeholder="Satisfy the filter"/>
+								</td>
+								<td style="width: 15%;" >
+									<div class="input-group" style="width: 100%;">
+										<span ng-if="filter[nsPrefix + 'FieldType__c'] == 'id' || filter[nsPrefix + 'FieldType__c'] == 'reference' || filter[nsPrefix + 'Type__c'] == 'Filter' || filter[nsPrefix + 'Type__c'] == 'Function'" class="input-group-btn">
+											<span   class="glyphicon glyphicon-edit btn btn-primary" ng-click="navigateToObject(filter[nsPrefix + 'Value__c'])" ng-mouseover="getObjectInfo(filter[nsPrefix + 'Value__c']);" tooltip-placement="right" tooltip-trigger="mouseenter" tooltip="{{objectInfo.Name}}"></span>
+										</span>
+										<input ng-if="filter[nsPrefix + 'Type__c'] == 'Filter' || filter[nsPrefix + 'Type__c'] == 'Function'" ng-model="filter[nsPrefix + 'Value__c']" type="text" typeahead-editable="false" typeahead="entity.id as entity.name for entity in entityFilterList | filter:$viewValue" typeahead-input-formatter="formatInput($index)" typeahead-on-select="onSelect($index, $model, $label)" class="form-control" ng-class="!filter[nsPrefix + 'Value__c'] || filter[nsPrefix + 'Value__c'] ==='' ? 'req-field':''"/>
+										<input ng-if="filter[nsPrefix + 'Type__c'] == 'Attribute' || filter[nsPrefix + 'Type__c'] == 'Field'" ng-model="filter[nsPrefix + 'Value__c']" type="text"  class="form-control"/>									
+									    <input ng-show="false" ng-model="filter[nsPrefix + 'ValueLabel__c']" type="text"  class="form-control"/>
+									</div>
+									
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div ng-if="filterConditionsList.length == 0">
+						<alert>{!$Label.NoFilters}</alert>
+					</div>
+					
+				</div>
+				<div class="col-md-12 text-center"> 
+					<div class="btn-group">
+						<button type="button" ng-click="addFilterCondition();" class="btn btn-primary btn-sm">{!$Label.Add}</button>
+						<button type="button" ng-click="saveFilterConditions();" class="btn btn-primary btn-sm">{!$Label.Save}</button>
+						<button type="button" ng-click="deleteFilterConditions();" class="btn btn-primary btn-sm">{!$Label.Delete}</button>
+					</div>
+				</div>
+			</div>
+				
+		  	<script type="text/ng-template" id="fieldSelectionModal.html">
+				<div class="modal-header">
+					<button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">{!$Label.Close}</span></button>
+					<h4 class="modal-title" id="myModalLabel">{!$Label.FieldSelection}</h4>
+				</div>
+				<field-Lookup object-name="objectName" field-name="fieldName" selected-fields="selectedFields"> </field-Lookup>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="save()">{!$Label.Save}</button>
+					<button type="button" class="btn btn-warning" ng-click="cancel()">{!$Label.Cancel}</button>	
+				</div>
+			</script>
+			<script type="text/ng-template" id="fieldLookup.html">
+				<div class="modal-body">
+					<div class="referenceContainer">
+						<div class="fieldsContainer-{{$index}}"  ng-repeat="fieldSet in fieldSets track by $index" ng-init="outerIndex = $index">
+							<select class="form-control" style="overflow-x: scroll; max-height: 233px; border:none;" size="500" ng-change="populateNextTable($index, selectedFields[$index])" data-ng-options="field as field.label+'<'+field.name+'>' for field in fieldSet | orderBy:'label'" data-ng-model="selectedFields[$index]"></select>							
+						</div>
+					</div>
+				</div>
+			</script>
+			
+			
+			<script type="text/ng-template" id="attributeSelectionModal.html">
+				<div class="modal-header">
+					<button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">{!$Label.Close}</span></button>
+					<h4 class="modal-title" id="myModalLabel">{!$Label.AttributeSelection}</h4>
+				</div>
+				<attribute-Lookup  field-name="fieldName" selected="selected"> </attribute-Lookup>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="save()">{!$Label.Save}</button>
+					<button type="button" class="btn btn-warning" ng-click="cancel()">{!$Label.Cancel}</button>	
+				</div>
+			</script>
+			<script type="text/ng-template" id="attributeLookup.html">
+				<div class="modal-body">
+					<div class="attributeReferenceContainer">
+						<div class="attributeContainer">
+							<select class="form-control" style="overflow-x: scroll; max-height: 233px; border:none;" size="500" ng-change="populateAttributes()" data-ng-options="category as category.Name for category in attributeCategoriesList | orderBy:'Name'" data-ng-model="selected.category"></select>							
+						</div>
+						<div class="attributeContainer">
+							<select class="form-control" style="overflow-x: scroll; max-height: 233px; border:none;" size="500" data-ng-options="attribute as attribute.Name for attribute in attributesList | orderBy:'label'" data-ng-model="selected.attribute"></select>							
+						</div>
+					</div>
+				</div>
+			</script>
+			
+			
+			<script type="text/ng-template" id="ObjectInfoToolip.html">
+				<span>{{objectInfo.Name}}</span>
+			</script>
+			
+			<script type="text/ng-template" id="FilterFieldNameTooltip.html">
+				<p>This field should hold 3 comma delimited values.</p>
+				<p>The first value should hold the API fieldname containing the Id of the parent object.</p>
+				<p>The second value should hold the API Object Name of the object to run the filter condition against.</p>
+				<p>The third value should hold the API fieldname from the related object to the header object.</p>
+			</script>
+		</body>
+	</html>
+</apex:page>

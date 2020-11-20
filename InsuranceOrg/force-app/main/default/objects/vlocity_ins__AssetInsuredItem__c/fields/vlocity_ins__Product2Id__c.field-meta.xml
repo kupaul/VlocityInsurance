@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Product2Id__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Identifies the specific insurance product that provides coverage for this insured item.</description>
+    <externalId>false</externalId>
+    <label>Insured Item Spec</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Insured Items</relationshipLabel>
+    <relationshipName>InsuredItems</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

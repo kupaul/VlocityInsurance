@@ -1,0 +1,62 @@
+<apex:page controller="vlocity_ins.ManualTaskExecutionController">
+    <html  ng-app="manualTaskExecutionApp"  xmlns:ng="http://angularjs.org" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+        
+        <script type="text/javascript">
+        		var app = angular.module('manualTaskExecutionApp', ['vlocity', 'ngSanitize']);
+        		var remoteActions = {
+				      executeTask   : "{!$RemoteAction.ManualTaskExecutionController.executeTask}",
+				};
+				    
+				app.config(function(remoteActionsProvider) {
+				      remoteActionsProvider.setRemoteActions(remoteActions);
+				});
+				
+        		app.controller('manualTaskExecutionCtrl', function($scope, remoteActions){
+        			$scope.avlblActions = ['Pick up', 'Complete', 'Retry'];
+        			var inputMap = {};
+        			var outMap = {};
+        			var options = {};
+        			var toBeTaskState = {};
+        			toBeTaskState['Pick up'] = 'Running';
+        			toBeTaskState['Complete'] = 'Completed';
+        			toBeTaskState['Suspend'] = 'Suspended';
+        			toBeTaskState['Retry'] = 'Ready';
+        			var paramTaskId = '{!paramTaskId}';
+        			console.log('ContextId'+paramTaskId);
+        			
+        			console.log($scope.userSelectedAction);
+        			$scope.submit = function(){
+        				console.log('ContextId in submit'+paramTaskId);
+						inputMap['userSelectedAction'] =  $scope.userSelectedAction;
+						inputMap['toBeTaskState'] 		=  toBeTaskState[$scope.userSelectedAction];
+						inputMap['ContextId'] = paramTaskId;
+			 			remoteActions.executeTask(inputMap, outMap, options).then(function(response){
+				 			console.log('Apex Error: '+response['error']);
+				 			console.log('Result: '+response['redirectURL']);
+							window.location.href = response['redirectURL'];
+				        });
+        			}
+        		});
+        		
+    	</script>
+    </head> 
+    
+    <body class="vlocity" ng-controller="manualTaskExecutionCtrl">
+       	 <apex:form >
+       	 <apex:pageBlock mode="edit"> 
+           	 	<apex:pageBlockSection title="Manual Task Execution" columns="1">
+            		Action:
+                	<select class="form-control" ng-model="userSelectedAction"  ng-click="$event.stopPropagation();" data-toggle="toggle" ng-options="avlblAction as  avlblAction for avlblAction in avlblActions" required="true">
+            		</select>
+            		<button type="button" class="btn" ng-click="submit() ; $event.stopPropagation();">Submit</button>
+            	</apex:pageBlockSection> 
+            </apex:pageBlock>
+    		</apex:form>
+    </body>
+    </html>
+  	
+</apex:page>

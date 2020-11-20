@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Relationship Type --></label>
+    <name>vlocity_ins__RelationshipType__c</name>
+    <picklistValues>
+        <masterLabel>Follow On</masterLabel>
+        <translation><!-- Follow On --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

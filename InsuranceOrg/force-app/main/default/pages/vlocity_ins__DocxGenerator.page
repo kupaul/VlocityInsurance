@@ -1,0 +1,229 @@
+<apex:page docType="html-5.0" standardStylesheets="false" showHeader="false" sidebar="false" controller="vlocity_ins.DocxGeneratorController" >
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/jszip/jszip.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/jszip-utils.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/file-saver.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/build/docxtemplater.v3.5.0.min.js')}"/>
+    <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+    <script type="text/javascript">
+        var docxGeneratorApp = angular.module("docxGeneratorApp", ['vlocity']);
+            docxGeneratorApp.config(['remoteActionsProvider', function(remoteActionsProvider) {
+                'use strict';
+                var nsPrefixDotNotation = '{!namespaceDotNotation}';
+                console.log('nsPrefixDotNotation: '+nsPrefixDotNotation);
+                var remoteActions = {
+                    getWMLData:{
+                        action: nsPrefixDotNotation + 'DocxGeneratorController.getWMLData',
+                        config: {escape: false,  buffer: false}
+                    },
+                    getSectionSize:{
+                        action: nsPrefixDotNotation + 'DocxGeneratorController.getSectionSize',
+                        config: {escape: false, buffer: false}
+                    },
+                    getDocTemplateResource:{
+                        action: nsPrefixDotNotation + 'DocxGeneratorController.getDocTemplateResource',
+                        config: {escape: false, buffer: false}
+                    },
+                    getDocMetadata:{
+                        action: nsPrefixDotNotation + 'DocxGeneratorController.getDocMetadata',
+                        config: {escape: false, buffer: false}
+                    },
+                    downloadPdf:{
+                        action: nsPrefixDotNotation + 'DocxGeneratorController.downloadPdf',
+                        config: {escape: false, buffer: false}
+                    }
+                };
+                remoteActionsProvider.setRemoteActions(remoteActions || {});
+                console.log('remoteActions: '+remoteActions);
+            }]);
+
+
+            docxGeneratorApp.controller('docxGeneratorAppController',
+                                        function($scope, remoteActions, $q){
+                $scope.objId = '{!objId}';
+                console.log('$scope.objId: '+$scope.objId);
+                $scope.recordSize = 0;
+                $scope.wordDocxStaticTemplate = null;
+
+                // Create promise for this function
+                $scope.downloadDocx = function (isAttachCall) {
+                    var deferred = $q.defer();
+                    remoteActions.getSectionSize($scope.objId).then(function (result, event){
+                        $scope.sectionLength = result;
+                        //Make a call to get the static resource for Docx Template
+                        remoteActions.getDocTemplateResource($scope.objId).then(function(result, event){
+                            console.log('Fetched the static Word Document Template');
+                            $scope.wordDocxStaticTemplate = result;
+                            var zip = $scope.getTemplateZip(result);
+                            //var headerString = $scope.getRelsFile(zip);
+                            if (result.errorString !== undefined) {
+                                console.log(result.errorString);
+                            } else {
+                                //Retrieve docx Metadata
+                                remoteActions.getDocMetadata($scope.objId).then (function (result, event){
+                                    //Construct Images and Bullet List Metadata
+                                    $scope.wmlMetadataMap = result;
+                                    var contractData = {};
+                                    contractData = result.contentDataMap;
+                                    var imageCount = result.imageDataMap.numImages;
+                                    for (i = 0; i < imageCount; i++) {
+                                        if (typeof result.imageDataMap['imageData' + i] !== 'undefined' && result.imageDataMap['imageData' + i] !== null) {
+                                            zip.file('word/media/imageData' + i + '.png', result.imageDataMap['imageData' + i], {base64: true});
+                                        }
+                                    }
+                                    if (result.contentDataMap.numberingXML !== null && result.contentDataMap.numberingXML !== '') {
+                                        zip.remove('word/numbering.xml');
+                                        zip.file('word/numbering.xml',result.contentDataMap.numberingXML,{});
+                                    }
+                                    if (typeof result.contentDataMap.DocxRels !== 'undefined' && result.contentDataMap.DocxRels !== null) {
+                                        zip.remove('word/_rels/document.xml.rels');
+                                        zip.file('word/_rels/document.xml.rels', result.contentDataMap.DocxRels, {});
+                                    }
+                                    doc = new Docxtemplater();
+                                    doc.loadZip(zip);
+                                    $scope.startIndex = 0;
+                                    $scope.wmlContents = '';
+                                    var startTime = new Date();
+                                    console.log('Start time: '+startTime.getHours() + ":" + startTime.getMinutes() + ":" + startTime.getSeconds());
+                                    if (isAttachCall === undefined || isAttachCall === null) {
+                                        $scope.fetchWML(doc, contractData, false, 'blob');
+                                    } else {
+                                        $scope.fetchWML(doc, contractData, true, 'base64');
+                                        $scope.$on('wordFileContents', function (event,data){
+                                            deferred.resolve(data);
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    return deferred.promise;
+                };
+
+                $scope.retrieveAttachments = function() {
+                    var attachmentId = '00P3t00001NXv9P';
+                    sforce.connection.sessionId = '{!$Api.Session_ID}';
+                    sforce.connection.query( "SELECT Id, Name, Body, ContentType FROM Attachment WHERE Id = \'" + attachmentId + "\'", {
+                        onSuccess: function(result){
+                            var base64EncodedContents = result.records.Body;
+                            console.log('Successfully Obtained Body contents for attachment');
+                        },
+                        onFailure: function(result){
+
+                        }
+                    });
+                }
+
+                $scope.attachDocx = function() {
+                    $scope.downloadDocx(true).then(function(result, event){
+                        var wordContents = result;
+                        console.log('Invoking uploadFile server call');
+                        //uploadFile(wordContents, $scope.objId, 'Test');
+                        sforce.connection.sessionId = '{!$Api.Session_ID}';
+                        var attachmentSObj = new sforce.SObject("Attachment");
+                        attachmentSObj.Body = wordContents;
+                        attachmentSObj.IsPrivate = false;
+                        attachmentSObj.Name = "Test.docx";
+                        attachmentSObj.ParentId = $scope.objId;
+                        attachmentSObj.ContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+                        sforce.connection.create([attachmentSObj], {
+                            onSuccess: function(result){
+                               alert('Successfully uploaded the attachment');
+                            },
+                            onFailure: function(result){
+                                alert('Error while uploading the attachment');
+                            }
+                        });
+                    });
+                };
+
+                $scope.fetchWML = function (doc, contractData, isAttachCall, docType) {
+                    $scope.recordsSize = 100;
+                    console.log('Fetching records with startIndex: '+$scope.startIndex);
+                    remoteActions.getWMLData($scope.objId,$scope.startIndex, $scope.recordsSize).then(function(result,event){
+                        $scope.wmlContents = $scope.wmlContents + result;
+                        $scope.startIndex = $scope.startIndex + $scope.recordsSize;
+                        if ($scope.startIndex < $scope.sectionLength) {
+                            $scope.fetchWML(doc, contractData, isAttachCall, docType);
+                        } else {
+                            var out;
+                            contractData.ContractData = $scope.wmlContents;
+                            doc.setData(contractData);
+                            doc.render();
+                            if (docType === 'blob') {
+                                out = doc.getZip().generate({type: 'blob', compression: "DEFLATE", compressionOptions:{level: 9}});
+                            } else {
+                                out = doc.getZip().generate({type: 'base64', compression: "DEFLATE", compressionOptions:{level: 9}});
+                            }
+                            var time = new Date();
+                            console.log('End time: '+time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+                            if (!isAttachCall) {
+                                saveAs(out, 'Test.docx');
+                            } else {
+                                $scope.$emit('wordFileContents', out);
+                            }
+                        }
+                    },function(error){
+                        console.log(error);
+                    });
+                };
+
+                $scope.getTemplateZip = function(result) {
+                    var zip = new JSZip(result, {base64: true});
+                    return zip;
+                };
+
+                $scope.getRelsFile = function(zip) {
+                    var file = zip.file('word/_rels/document.xml.rels');
+                    if (file != null) {
+                        return file.asText();
+                    }
+                    return '';
+                };
+
+                $scope.downloadPdf = function() {
+                    remoteActions.downloadPdf($scope.objId).then(function(result, event) {
+                        var data = result;
+                        var blob = $scope.b64toBlob(data, 'application/pdf');
+                        saveAs(blob,'Test.pdf');
+                    });
+                };
+
+                $scope.b64toBlob = function (b64Data, contentType) {
+                    contentType = contentType || '';
+                    var sliceSize = 512;
+                    var byteCharacters = atob(b64Data);
+                    var byteArrays = [];
+                    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                        var slice = byteCharacters.slice(offset, offset + sliceSize);
+                        var byteNumbers = new Array(slice.length);
+                        for (var i = 0; i < slice.length; i++) {
+                            byteNumbers[i] = slice.charCodeAt(i);
+                        }
+                        var byteArray = new Uint8Array(byteNumbers);
+                        byteArrays.push(byteArray);
+                    }
+                    var blob = new Blob(byteArrays, {type: contentType});
+                    return blob;
+                }
+
+            });
+    </script>
+    <div ng-app="docxGeneratorApp" class="vlocity" ng-controller="docxGeneratorAppController">
+        <div>
+            <button type="button" class="btn btn-default" ng-click="downloadDocx()">Download Word</button>
+            <button type="button" class="btn btn-default" ng-click="attachDocx()">Attach Word</button>
+        </div>
+        <apex:form >
+            <apex:actionfunction name="uploadFile" action="{!submitFile}" reRender="" oncomplete="attachmentComplete()">
+                <apex:param name="fileContents" value="" assignTo="{!fileData}"/>
+                <apex:param name="objId" value="" assignTo="{!parentId}"/>
+                <apex:param name="docName" value="" assignTo="{!documentName}"/>
+            </apex:actionfunction>
+        </apex:form>
+    </div>
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page standardController="Product2" extensions="vlocity_ins.VlocityAttachmentController" docType="html-5.0" showHeader="false" standardStylesheets="false" sidebar="false">
+	<c:AttachmentsComponent stanController="{!stdController}"/>
+</apex:page>

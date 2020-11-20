@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EventData__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field is used to store the whole Notification message</description>
+    <externalId>false</externalId>
+    <label>Event Data</label>
+    <length>131072</length>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

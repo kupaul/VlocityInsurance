@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__TotalFeeAmount__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Total amount of itemized fees for Quote.</description>
+    <externalId>false</externalId>
+    <label>Total Fee Amount</label>
+    <summarizedField>vlocity_ins__QuotePricingAdjustment__c.vlocity_ins__Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>vlocity_ins__QuotePricingAdjustment__c.vlocity_ins__AdjustmentType__c</field>
+        <operation>equals</operation>
+        <value>Fee</value>
+    </summaryFilterItems>
+    <summaryForeignKey>vlocity_ins__QuotePricingAdjustment__c.vlocity_ins__QuoteId__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,4 @@
+<apex:page standardController="vlocity_ins__ProductTemplate__c" showHeader="false" sidebar="false"   >
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__bootstrap, '/bootstrap-3.2.0-dist/css/sfboot.min.css')}"/>
+    <c:ProductDefintionComponent />      
+</apex:page>

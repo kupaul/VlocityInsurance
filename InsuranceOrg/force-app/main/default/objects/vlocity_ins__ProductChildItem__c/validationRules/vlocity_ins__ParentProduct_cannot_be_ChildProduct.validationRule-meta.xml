@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ParentProduct_cannot_be_ChildProduct</fullName>
+    <active>true</active>
+    <errorConditionFormula>vlocity_ins__ParentProductId__c == vlocity_ins__ChildProductId__c</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__ChildProductId__c</errorDisplayField>
+    <errorMessage>Parent Product cannot be added as Child Product</errorMessage>
+</ValidationRule>

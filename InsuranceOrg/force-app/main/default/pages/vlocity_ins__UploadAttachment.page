@@ -1,0 +1,81 @@
+<apex:page controller="vlocity_ins.UploadAttachmentController">
+
+ <apex:sectionHeader title="{!parentObjectName}" subtitle="Attach File"/>
+ 
+ <apex:form id="form_Upload">
+ <apex:pageBlock >
+
+ <apex:pageBlockButtons >
+   <apex:commandButton action="{!processUpload}" value="Save" id="uploadBtn"  />
+   <apex:commandButton action="{!back}" value="Back to {!parentObjectName}"/>
+   <apex:commandButton action="{!back}" value="Cancel"/>
+ </apex:pageBlockButtons>
+ <apex:pageMessages />
+ 
+  <apex:pageBlockSection columns="1">
+  
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="File" for="file_File"/>
+      <apex:inputFile id="file_File" value="{!fileBody}" filename="{!fileName}"/>
+    </apex:pageBlockSectionItem>
+    
+    <apex:pageBlockSectionItem >
+    	<apex:outputLabel value="OR" />
+    </apex:pageBlockSectionItem>
+
+     <apex:pageBlockSectionItem >
+    	<apex:outputLabel value="URL" for="urlLong"/>
+		<apex:inputText value="{!urlLong}"/>
+    </apex:pageBlockSectionItem>
+             
+     <apex:pageBlockSectionItem >
+    	<apex:outputLabel value="URL Name" for="attachName"/>
+		<apex:inputText value="{!attachName}"/>
+    </apex:pageBlockSectionItem>
+  
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="Content Type" for="contentType"/>
+      <apex:selectList value="{!selContentType}" size="1" id="type"> 
+         <apex:selectOptions value="{!contentTypes}" /> 
+      </apex:selectList>
+    </apex:pageBlockSectionItem>  
+    
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="Channel" for="channel"/>
+      <apex:selectList value="{!selChannels}" multiselect="true" size="{!cntChannels}" id="channel"> 
+			<apex:selectOptions value="{!channels}"/>
+      </apex:selectList>
+    </apex:pageBlockSectionItem>    
+ 
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="Is Default Image" for="visible"/>
+ <!--     <apex:inputCheckbox value="{!isDefaultImage}" size="1"/>   --> 
+        <apex:selectList value="{!isDefaultImage}" size="1" id="visible">
+        <apex:selectOption itemValue="false" itemLabel="No"/>
+        <apex:selectOption itemValue="true" itemLabel="Yes"/>       
+      </apex:selectList>
+    </apex:pageBlockSectionItem>    
+    
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="Description" for="description"/> 
+      <apex:inputTextarea id="description" value="{!description}" rows="4" cols="50"/>
+    </apex:pageBlockSectionItem>
+    
+     <apex:pageBlockSectionItem >
+    	<apex:outputLabel value="Sequence Number" for="sequenceNumber"/>
+		<apex:inputText value="{!sequenceNumber}"/>
+    </apex:pageBlockSectionItem>    
+ <!--     
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="" for="uploadBtn"/> 
+      <apex:commandButton id="uploadBtn" value="Save" action="{!processUpload}" />
+    </apex:pageBlockSectionItem>    
+-->    
+  </apex:pageBlockSection>
+ 
+ </apex:pageBlock>
+
+
+ </apex:form>
+
+</apex:page>

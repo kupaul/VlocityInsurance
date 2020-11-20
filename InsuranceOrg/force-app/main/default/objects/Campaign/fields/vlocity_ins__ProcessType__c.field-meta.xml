@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProcessType__c</fullName>
+    <defaultValue>&apos;Campaign&apos;</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Used to associate a Vlocity OmniScript to run when executing the campaign for each target. Process Type specifies the Type value of the OmniScript.</description>
+    <externalId>false</externalId>
+    <label>Process Type</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

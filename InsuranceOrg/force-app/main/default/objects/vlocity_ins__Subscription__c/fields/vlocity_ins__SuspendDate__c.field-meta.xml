@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SuspendDate__c</fullName>
+    <deprecated>false</deprecated>
+    <description>If the services for this subscription are suspended, the date and time when the services were suspended.</description>
+    <externalId>false</externalId>
+    <label>Date Suspended</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

@@ -1,0 +1,10 @@
+<apex:page StandardController="vlocity_ins__AttributeCategory__c"  extensions="vlocity_ins.AttributeListController" standardstylesheets="false" showHeader="true" sidebar="true"  >
+ <apex:sectionHeader title="{!$ObjectType.vlocity_ins__Attribute__c.label}" subtitle="{!$Label.vlocity_ins__mergeattributes}"/>
+ <apex:form >
+		<apex:outputPanel layout="block" style="text-align:left; padding-bottom: 20px;">
+			<apex:commandlink style="text-decoration: None;color: #015ba7;" action="{!doDone}" immediate="true" value="{!goBackLabel}" />
+		</apex:outputPanel>
+	</apex:form>
+  <c:AttributeListComponent bIncludeCounts="true"
+ 							bMerge="true"/>
+</apex:page>

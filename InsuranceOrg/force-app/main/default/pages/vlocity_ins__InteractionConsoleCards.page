@@ -1,0 +1,101 @@
+<apex:page controller="vlocity_ins.InteractionTrackingController" docType="html-5.0" applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+    <html lang="en" xmlns="http://www.w3.org/2000/svg" xmlns:ng="http://angularjs.org" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://www.w3.org/2000/svg" ng-app="InteractionConsoleCards" class="ng-cloak"  style="height:100%">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <style type="text/css">
+            body {
+                margin: 0px !important;
+                padding: 0px !important;
+                background: #f9f9f9;
+            }
+        </style>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+        <apex:includeScript value="/support/console/34.0/integration.js"/>
+    </head>       
+    <body>
+        <div ng-app="InteractionConsoleCards" ng-controller="vlocityInteractionCtrl" >
+            <!-- Component loads the vloc-layout and cards - defaults to Grid if no layout parameter is present -->
+            <!-- <c:CardLayoutComponent layout="Grid" controllers="myCtrl" modules="myApp"/> -->
+            <c:CardLayoutComponent layout="AnotherGrid" controllers="vlocityInteractionCtrl" modules="InteractionConsoleCards"/>
+        </div>
+        <script type="text/javascript">
+            var remoteActions = {
+                trackChanges: {
+                    action: '{!$RemoteAction.InteractionTrackingController.trackChanges}',
+                    config: {escape: false}
+                }
+            };
+
+            var InteractionConsoleCards = angular.module('InteractionConsoleCards',['forceng','consoleCards']).config(['remoteActionsProvider', function(remoteActionsProvider) {
+                'use strict';
+                remoteActionsProvider.setRemoteActions(window.remoteActions || {});
+            }]);
+                  
+            InteractionConsoleCards.controller('vlocityInteractionCtrl', function($scope, remoteActions) {
+                'use strict';
+               
+                $scope.nps = '{!nsp}';
+                $scope.entityLabel = '';
+                $scope.checkedEntity = false;              
+                              
+                $scope.VlocityTrack = function (data, fieldAction, trackingEvent) {
+                    console.log('fieldAction', fieldAction);
+                    console.log('data', data);
+                    console.log('trackingEvent', trackingEvent);
+                     
+                    var rawData = data.obj;
+                    var trackingData={};
+                    var trackingDataSend = [];
+
+                    if (!$scope.checkedEntity) {
+                        $scope.getEntityLabel(data.fields);
+                    }
+
+                    console.log('Raw',rawData);                     
+                    var date = new Date();
+                    trackingData.TrackingService = 'VlocityCards';
+                    trackingData.TrackingEvent = trackingEvent;
+                    trackingData.Timestamp = date.toISOString();
+                    trackingData.EntityName = rawData.Name;
+                    trackingData.EntityLabel = $scope.entityLabel;  
+                    trackingData.CustomerInteractionId = rawData.InteractionId;                   
+                    trackingData.CardElement = (trackingEvent === 'Field')? fieldAction.label : fieldAction[$scope.nps + 'DisplayLabel__c'];
+                    trackingDataSend.push(trackingData);
+
+                    remoteActions.trackChanges(trackingDataSend).then(function(result) {
+                        sforce.console.fireEvent('refreshActivityLog', 'Refresh');
+                        if ('parentIFrame' in window) {
+                            parentIFrame.sendMessage({
+                                message:'ltng:event',
+                                event : 'e.'+$scope.nps.replace('__', '')+':vlocityCardEvent',
+                                params : {
+                                    'layoutName' : 'interaction-feed-layout',
+                                    'message' : {event : 'reload'}
+                                }
+                            });
+                        }
+                    }, function(error){
+                        console.log('Error calling tracking service.');
+                    });
+                }; 
+
+                $scope.getEntityLabel = function(fields) {
+                    if(fields && fields.length > 0) {
+                        for (var i = 0; i < fields.length; i++) {
+                            if (fields[i].name === "['Name']" ) {
+                                $scope.entityLabel = fields[i].label;
+                                break;
+                            }
+                        }
+                        console.log('$scope.entityLabel', $scope.entityLabel);
+                        $scope.checkedEntity = true;
+                    }
+                };
+
+
+
+            });
+            </script>
+        </body>
+    </html>
+</apex:page>

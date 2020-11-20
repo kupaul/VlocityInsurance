@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProRatedPremiumAmount__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Prorated amount of premium base on the remaining days of the modified Coverage</description>
+    <externalId>false</externalId>
+    <label>Prorated Premium</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

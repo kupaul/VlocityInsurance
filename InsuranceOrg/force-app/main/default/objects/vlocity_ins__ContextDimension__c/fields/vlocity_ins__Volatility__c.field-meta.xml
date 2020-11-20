@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Volatility__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A TTL (time to live) for this context dimension value.</description>
+    <externalId>false</externalId>
+    <label>Volatility</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Session</fullName>
+                <default>true</default>
+                <label>Session</label>
+            </value>
+            <value>
+                <fullName>Always</fullName>
+                <default>false</default>
+                <label>Always</label>
+            </value>
+            <value>
+                <fullName>OnDemand</fullName>
+                <default>false</default>
+                <label>OnDemand</label>
+            </value>
+            <value>
+                <fullName>Order</fullName>
+                <default>false</default>
+                <label>Order</label>
+            </value>
+            <value>
+                <fullName>Order Line</fullName>
+                <default>false</default>
+                <label>Order Line</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

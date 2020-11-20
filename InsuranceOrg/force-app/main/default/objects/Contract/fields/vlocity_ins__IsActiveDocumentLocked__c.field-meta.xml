@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsActiveDocumentLocked__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicates whether the active version of the contract document of this contract is locked</description>
+    <externalId>false</externalId>
+    <formula>vlocity_ins__ActiveContractVersionId__r.vlocity_ins__IsDocumentLocked__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Active Document Locked</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

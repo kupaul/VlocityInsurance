@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Vlocity_EPC_Discount_List</fullName>
+    <columns>vlocity_ins__IsActive__c</columns>
+    <columns>NAME</columns>
+    <columns>vlocity_ins__Code__c</columns>
+    <columns>vlocity_ins__PriceListId__c</columns>
+    <columns>vlocity_ins__EffectiveStartDate__c</columns>
+    <columns>vlocity_ins__EffectiveEndDate__c</columns>
+    <columns>UPDATEDBY_USER</columns>
+    <columns>UPDATEDBY_USER.ALIAS</columns>
+    <columns>LAST_UPDATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>vlocity_ins__Promotion__c.vlocity_ins__Discount</value>
+    </filters>
+    <label>Discount List</label>
+</ListView>

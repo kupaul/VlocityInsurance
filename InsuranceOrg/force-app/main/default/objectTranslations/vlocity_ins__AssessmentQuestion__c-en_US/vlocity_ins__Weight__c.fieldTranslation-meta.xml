@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Indicates whether a Question is weighted more (i.e. 1.5) or less (i.e. 0.75) when scoring the Assessment. --></help>
+    <label><!-- Weight --></label>
+    <name>vlocity_ins__Weight__c</name>
+</CustomFieldTranslation>

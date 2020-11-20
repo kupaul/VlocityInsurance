@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Arbitration</masterLabel>
+        <translation><!-- Arbitration --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Litigation</masterLabel>
+        <translation><!-- Litigation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Salvage</masterLabel>
+        <translation><!-- Salvage --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Subrogation</masterLabel>
+        <translation><!-- Subrogation --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

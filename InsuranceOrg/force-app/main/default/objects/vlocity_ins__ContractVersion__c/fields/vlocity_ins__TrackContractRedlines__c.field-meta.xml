@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__TrackContractRedlines__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Document version status - active or inactive</description>
+    <externalId>false</externalId>
+    <formula>vlocity_ins__DocumentTemplateId__r.vlocity_ins__TrackContractRedlines__c</formula>
+    <label>Track Contract Redlines</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

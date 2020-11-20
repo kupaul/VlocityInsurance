@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Using this configuration, users can control Heap, Cpu, Soql resource allocation and logging for the graph API execution.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Relationship Graph Configuration Setup</label>
+    <visibility>Public</visibility>
+</CustomObject>

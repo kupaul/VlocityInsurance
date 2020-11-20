@@ -1,0 +1,74 @@
+<apex:page standardStylesheets="false"
+            showHeader="false"
+            sidebar="false" docType="html-5.0" >
+<html>
+    <head>
+            <meta charset="utf-8"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+    </head>
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+            background-color: #f5f5f5;
+        }
+        .vlocity{
+            position: relative;
+            width: 61%;
+            top: 31%;
+            left: 20%;
+        }
+        .vlocity .panel{
+            display: block;
+            border-radius: 5px;
+            border: 2px solid;
+            color: #059dd3;
+            background-color: #f5f5f5;
+            border-color: #059dd3;
+            padding: 0px 13px 10px 10px;
+            height: 170px;
+        }
+        .vlocity .panel h3{
+            font-weight: normal;
+        }
+        .vlocity #signing_complete,
+        .vlocity #signing_failed{
+            display: none;
+         }
+    </style>
+    <script type='text/javascript'>
+        window.addEventListener('DOMContentLoaded', function(event){
+            var domClass = '';
+            var searchStr = event.currentTarget.location.search;
+
+            searchStr = searchStr.substring(searchStr.indexOf('&event='), searchStr.length);
+            searchStr = searchStr.substring(searchStr.indexOf('=') + 1,searchStr.length);
+
+            if(searchStr === 'signing_complete') {
+                domClass = document.getElementById('signing_complete');
+                domClass.style.display = 'block';
+            } else {
+                domClass = document.getElementById('signing_failed');
+                domClass.style.display = 'block';
+            }
+            //Using object to fix OMNI-5324 because handle_message function of BusinessProcessJS expecting string object to parse
+            window.parent.postMessage(JSON.stringify({docusignStatus: searchStr}), '*');
+        });
+    </script>
+
+    <body>
+        <div class='vlocity'>
+            <div id='signing_complete' class='panel'>
+                <h3>{!$Label.OmniDocuSignSuccessMsg}</h3>
+                <h3>{!$Label.OmniDocuSignCloseMsg}</h3>
+            </div>
+            <div id='signing_failed' class='panel'>
+                <h3>{!$Label.OmniDocuSignFailMsg}</h3>
+                <h3>{!$Label.OmniDocuSignCloseMsg}</h3>
+            </div>
+        </div>
+    </body>
+</html>
+</apex:page>

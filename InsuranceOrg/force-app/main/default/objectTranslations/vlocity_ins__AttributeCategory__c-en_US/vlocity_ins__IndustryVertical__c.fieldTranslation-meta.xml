@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Industry Vertical --></label>
+    <name>vlocity_ins__IndustryVertical__c</name>
+    <picklistValues>
+        <masterLabel>Any</masterLabel>
+        <translation><!-- Any --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Communications</masterLabel>
+        <translation><!-- Communications --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Insurance</masterLabel>
+        <translation><!-- Insurance --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Public Sector</masterLabel>
+        <translation><!-- Public Sector --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

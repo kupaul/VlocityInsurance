@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Semantics --></label>
+    <name>vlocity_ins__Semantics__c</name>
+    <picklistValues>
+        <masterLabel>Fatal</masterLabel>
+        <translation><!-- Fatal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not an error</masterLabel>
+        <translation><!-- Not an error --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retriable</masterLabel>
+        <translation><!-- Retriable --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

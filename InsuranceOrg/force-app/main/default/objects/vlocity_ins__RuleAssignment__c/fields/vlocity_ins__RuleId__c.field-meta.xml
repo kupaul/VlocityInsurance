@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RuleId__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Vlocity Rule</label>
+    <referenceTo>vlocity_ins__Rule__c</referenceTo>
+    <relationshipLabel>Vlocity Rule Assignments</relationshipLabel>
+    <relationshipName>Vlocity_Rule_Assignments</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

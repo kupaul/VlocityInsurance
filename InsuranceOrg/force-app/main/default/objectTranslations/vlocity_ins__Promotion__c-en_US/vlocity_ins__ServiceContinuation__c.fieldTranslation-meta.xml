@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Service Continuation --></label>
+    <name>vlocity_ins__ServiceContinuation__c</name>
+    <picklistValues>
+        <masterLabel>Manual Opt-In</masterLabel>
+        <translation><!-- Manual Opt-In --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Manual Opt-Out</masterLabel>
+        <translation><!-- Manual Opt-Out --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not Applicable</masterLabel>
+        <translation><!-- Not Applicable --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

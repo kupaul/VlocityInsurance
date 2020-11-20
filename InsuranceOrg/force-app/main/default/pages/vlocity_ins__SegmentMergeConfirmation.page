@@ -1,0 +1,31 @@
+<apex:page StandardController="vlocity_ins__Attribute__c" extensions="vlocity_ins.SegmentMergeController"  action="{!confirmMerge}">
+<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+  <style>
+  .bPageBlock{
+			border-top: 1px solid #eaeaea !important;
+			 background-color: transparent !important;
+		}
+  </style>
+  
+  <apex:sectionHeader title="{!$ObjectType.vlocity_ins__Attribute__c.label}" subtitle="{!$Label.vlocity_ins__mergeattributes}"/>
+  
+  <apex:outputPanel id="idErrorMessages">
+        <apex:pageMessages />
+  </apex:outputPanel>
+  <apex:form >
+    <div class="vlocity">     
+  	<apex:pageBlock >	   
+       <apex:selectRadio styleClass="radio" style="margin-left:30px" layout="pageDirection" value="{!masterCombName}" legendText="Pick a Master" immediate="true" rendered="{!NOT(ISNULL(selectedSegments))}">
+            
+            <apex:selectOptions value="{!segments}"/>
+            </apex:selectRadio><p/>
+       
+       <apex:pageBlockButtons location="bottom">
+             <apex:commandButton styleClass="btn btn-default" value="Merge" action="{!doMerge}" rendered="{!NOT(ISNULL(selectedSegments))}" onclick="if(!confirm('All objects using the non master segments will be changed to use the master segment after merge operation. Are you sure to proceed?')){return false;}" />
+             <apex:commandButton styleClass="btn btn-default" value="Cancel"  action="{!doCancel}"/>
+       </apex:pageBlockButtons>
+       </apex:pageBlock>
+     </div>
+  </apex:form>    
+</apex:page>

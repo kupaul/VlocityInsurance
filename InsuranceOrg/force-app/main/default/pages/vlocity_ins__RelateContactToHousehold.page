@@ -1,0 +1,281 @@
+<apex:page StandardController="vlocity_ins__Party__c" extensions="vlocity_ins.RelateContactToHouseholdController" tabStyle="vlocity_ins__Household__c" docType="html-5.0">
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/v102/vlocity_core_assets.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__Jquery, '/ui/jquery-ui-1.9.1.custom.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__Jquery, '/ui/css/ui-lightness/jquery-ui-1.9.1.custom.min.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/javascripts/bootstrap.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/css/styles.css')}"/>
+    <style>
+        .vlocity .sectionHeaderStyle{
+            margin-bottom: 0;
+        }
+
+        .bPageBlock{
+            margin-bottom: 25px !important;
+        }
+
+        span.icon-cross{
+          background-color: #FF0000;
+          background-image: none;
+          color: #FFF;
+          border-radius: 12px;
+          width: 50px;
+          margin: 0 0 8px;
+          box-shadow: none;
+          border: none;
+          font-size: 12px;
+          font-weight: normal;
+          height: 24px;
+          line-height: 11px;
+        }
+
+
+        span.icon-plus{
+          background-color: #00C6FF;
+          background-image: none;
+          color: #FFF;
+          border-radius: 12px;
+          width: 50px;
+          margin: 0 0 8px;
+          box-shadow: none;
+          border: none;
+          font-size: 12px;
+          font-weight: bold;
+          height: 24px;
+          line-height: 11px;
+        }
+
+        .vlocity .panel-sf > .panel-heading {
+            box-shadow: 0px -3px 0px 0px #007f99;
+        }
+
+        .vlocity a.form-control {
+            width: 10% !important;
+            border: 0;
+            box-shadow: none;
+            padding: 0;
+            background-color: transparent;
+        }
+
+
+        .vlocity .table th>div {
+            font-weight: normal;
+            color: rgba(0,0,0,.35);
+            font-size: 11px;
+        }
+
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    	/* IE10+ CSS here */
+	    	.vlocity .lookupInput .form-control.input-sm{
+	           padding-bottom:2px;
+	        }
+		}
+    </style>
+    <script>
+        var j$ = jQuery.noConflict();
+        j$(document).ready(function(){
+            extendDateRange();
+
+        })
+
+        function extendDateRange(){
+            var select = document.getElementById('calYearPicker');
+            if (!select) return;
+
+            select.innerHTML = '';
+            var startYear = new Date().getFullYear() - 90;
+            for (var year = startYear; year < startYear + 100; year++) {
+                select.options[select.options.length] = new Option(year, year);
+            }
+        }
+
+         function doSearchOnEnter(e,lineNumber)
+            {
+                //Check for Enter Key pressed and if its pressed, update roles
+                //and return false
+                if (window.event && window.event.keyCode == 13 || e.which == 13)
+                {
+                    updateRoles(lineNumber);
+                    return false;
+                }
+                return true;
+            }
+
+
+    </script>
+
+    <apex:sectionHeader title="{!$Label.vlocity_ins__householdmanagerfor}" subtitle="{!PartyName}"/>
+
+    <apex:form >
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__AccountId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__PartyEntityName__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__PartyEntityType__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__ContactId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__HouseholdId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__AccountId__c}" rendered="false" />
+        <apex:outputPanel layout="block" style="text-align:left; padding-bottom: 20px;">
+            <apex:commandlink style="text-decoration: None;" action="{!doDone}" immediate="true" value="{!GoBackLabel}" />
+        </apex:outputPanel>
+    </apex:form>
+
+    <apex:outputPanel id="idErrorMessages">
+        <apex:pageMessages />
+    </apex:outputPanel>
+
+    <apex:outputPanel layout="none">
+        <div class="vlocity">
+            <apex:form >
+                <apex:outputPanel id="idPartyList" layout="none">
+                    <div class="panel panel-sf">
+                    <div class="panel-heading">
+                        <apex:outputLabel styleClass="sectionHeaderStyle" value="{!$Label.vlocity_ins__addexistingcontact}" for="idAddExisitingContactPanel"/>
+                        <apex:outputPanel id="idAddExisitingContactPanel"/>
+                        <apex:variable value="{!0}" var="lineNumber"/>
+                    </div>
+                    <apex:dataTable value="{!PartyInfoList}" var="partyInfo"  styleClass="table" >
+                        <apex:column style="width:5%; text-align:center;">
+                            <apex:facet name="header"></apex:facet>
+                            <apex:variable var="lineNumber" value="{!lineNumber + 1}"/>
+                            <span style="cursor:pointer; font-size: 16px;" aria-hidden="true" class="icon-v-trash-line" onClick="removePartyRow({!lineNumber})"></span>
+                        </apex:column>
+                        <apex:column style="width:35%;">
+                            <apex:facet name="header">{!$Label.vlocity_ins__party}</apex:facet>
+                            <apex:inputField rendered="{!isSourceDriven}" value="{!partyInfo.partyRelSO.vlocity_ins__TargetPartyId__c}"
+                            styleClass="form-control input-sm" style="width: 90%; float: left"
+                            onkeypress="return doSearchOnEnter(event,{!lineNumber})"
+                            onchange="updateRoles(this.value, {!lineNumber})">
+                            </apex:inputField>
+                            <apex:inputField rendered="{!isTargetDriven}"
+                                                value="{!partyInfo.partyRelSO.vlocity_ins__SourcePartyId__c}"
+                                                styleClass="form-control input-sm" style="width: 90%; float: left"
+                            onkeypress="return doSearchOnEnter(event,{!lineNumber})"
+                            onchange="updateRoles(this.value, {!lineNumber})">
+                            </apex:inputField>
+                        </apex:column>
+                        <apex:column style="width:30%;">
+                            <apex:facet name="header">{!$Label.vlocity_ins__role}</apex:facet>
+                           <apex:selectList value="{!partyInfo.partyRelSO.vlocity_ins__RelationshipTypeId__c}"
+                                        size="1"
+                                        onchange="updateDescription( this.value , {!lineNumber})">
+                                        <apex:selectOptions value="{!partyInfo.rolesList}"/>
+                           </apex:selectList>
+                        </apex:column>
+                        <apex:column style="width:30%;">
+                            <apex:facet name="header">Description</apex:facet>
+                            <apex:outputText value="{!partyInfo.selectedPartyDescription}"/>
+                        </apex:column>
+                    </apex:dataTable>
+                    <div class="panel-footer">
+                        &nbsp;
+                        <apex:actionStatus id="idExistContactActionStatus">
+                            <apex:facet name="start">
+                                <apex:image style="vertical-align: middle; width:18px; display:inline-block; margin-right:5px;" value="/img/loading32.gif" />
+                                </apex:facet>
+                            </apex:actionStatus>
+                            <apex:commandLink value="+{!$Label.vlocity_ins__addnew}"
+                                            action="{!doAddPartyRow}"
+                                            rerender="idPartyList, idSearchResults, idErrorMessages"
+                                            status="idExistContactActionStatus"
+                                            style="text-decoration: none; line-height: 1.5" styleClass="btn btn-link  pull-left"/>
+                            <apex:commandButton value="{!$Label.vlocity_ins__save}"
+                                            action="{!doSave}"
+                                            rerender="idPartyList, idErrorMessages"
+                                            status="idExistContactActionStatus"
+                                            styleClass="btn-primary "/>
+                            <apex:commandButton value="{!$Label.vlocity_ins__cancel}"
+                                            action="{!doCancel}"
+                                            rerender="idPartyList, idErrorMessages"
+                                            status="idExistContactActionStatus"
+                                            styleClass="btn-default "/>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                <apex:actionFunction name="reRenderTable"
+                                    rerender="idPartyList, idErrorMessages"
+                                    status="idExistContactActionStatus">
+                </apex:actionFunction>
+                <apex:actionFunction name="removePartyRow"
+                                        action="{!doRemovePartyRow}"
+                                        rerender="idPartyList, idSearchResults, idErrorMessages"
+                                        status="idExistContactActionStatus">
+                    <apex:param name="lineNumber"
+                                value=""/>
+                </apex:actionFunction>
+            </apex:form>
+        </div>
+    </apex:outputPanel>
+    <apex:outputPanel layout="none">
+        <div class="vlocity">
+            <apex:form >
+                <apex:outputPanel id="idSearchResults" rendered="{!NOT(isPlatformEncryptionEnabled)}" layout="none">
+                    <div class="panel panel-sf">
+                        <div class="panel-heading">
+                            <apex:outputLabel styleClass="sectionHeaderStyle" value="{!$Label.vlocity_ins__contactsathouseholdaddress}" for="idAddContactButtonPanel"/>
+                            <apex:outputPanel id="idAddContactButtonPanel"/>
+                            <apex:variable value="{!0}" var="addrConRowNum"/>
+                        </div>
+                        <apex:dataTable value="{!AddressContacts}"
+                                        var="contact"  styleClass="table" >
+                            <apex:column style="width:6%; text-align:center;">
+                                <apex:facet name="header"></apex:facet>
+                                <apex:variable var="addrConRowNum" value="{!addrConRowNum + 1}"/>
+                                <span style="cursor:pointer; font-size: 16px;" aria-hidden="true" class="icon-v-plue-line" onClick="AssociateAddressContactRow({!addrConRowNum})"></span>
+                            </apex:column>
+                            <apex:column style="width:35%;">
+                                <apex:facet name="header">{!$ObjectType.Contact.fields.Name.Label}</apex:facet>
+                                <apex:outputField value="{!contact.contactSO.Name}"/>
+                            </apex:column>
+                            <apex:column style="width:10%;">
+                                <apex:facet name="header">{!$ObjectType.Contact.fields.vlocity_ins__Age__c.Label}</apex:facet>
+                                <apex:outputField value="{!contact.contactSO.vlocity_ins__Age__c}"/>
+                            </apex:column>
+                             <apex:column style="width:30%;">
+                                <apex:facet name="header">{!$Label.vlocity_ins__role}</apex:facet>
+                           <apex:selectList value="{!contact.partyRelSO.vlocity_ins__RelationshipTypeId__c}"
+                                        size="1" onchange="setContactRole( this.value , {!addrConRowNum})">
+                                        <apex:selectOptions value="{!contact.rolesList}"/>
+                           </apex:selectList>
+                            </apex:column>
+                        </apex:dataTable>
+                        <div class="panel-footer">
+                            &nbsp;
+                            <apex:actionStatus id="idAddressContactsActionStatus">
+                                <apex:facet name="start">
+                                    <apex:image style="vertical-align: middle; width:18px; display:inline-block; margin-right:5px;" value="/img/loading32.gif" />
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+                <apex:actionFunction name="reRenderSearchResultsTable"
+                                rerender="idSearchResults, idErrorMessages"
+                                status="idAddressContactsActionStatus">
+                </apex:actionFunction>
+                <apex:actionFunction name="AssociateAddressContactRow"
+                                    action="{!doAssociateAddressContacts}"
+                                    rerender="idPartyList, idSearchResults, idErrorMessages"
+                                    status="idExistContactActionStatus">
+                    <apex:param name="addrConRowNum"
+                            value=""/>
+                </apex:actionFunction>
+                <apex:actionFunction name="updateRoles"
+                            action="{!doUpdateRoles}"
+                            rerender="idPartyList, idSearchResults, idErrorMessages">
+                <apex:param name="selectedTargetId" value=""/>
+                <apex:param name="lineNumber" value=""/>
+                </apex:actionFunction>
+                <apex:actionFunction name="updateDescription"
+                            action="{!doUpdateDescription}"
+                            rerender="idPartyList, idSearchResults, idErrorList">
+                <apex:param name="selectedRelationshipId" value=""/>
+                <apex:param name="lineNumber" value=""/>
+               </apex:actionFunction>
+               <apex:actionFunction name="setContactRole"
+                            action="{!doSetContactRole}"
+                            rerender="idSearchResults, idErrorList">
+                <apex:param name="selectedConRelationId" value=""/>
+                <apex:param name="addrConRowNum" value=""/>
+               </apex:actionFunction>
+            </apex:form>
+        </div>
+    </apex:outputPanel>
+</apex:page>

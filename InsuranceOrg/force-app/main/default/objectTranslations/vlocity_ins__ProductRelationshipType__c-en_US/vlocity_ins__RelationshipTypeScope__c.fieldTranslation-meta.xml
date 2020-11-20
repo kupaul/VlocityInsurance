@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Relationship Type Scope --></label>
+    <name>vlocity_ins__RelationshipTypeScope__c</name>
+    <picklistValues>
+        <masterLabel>Fulfillment</masterLabel>
+        <translation><!-- Fulfillment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Opportunity</masterLabel>
+        <translation><!-- Opportunity --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Order</masterLabel>
+        <translation><!-- Order --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quote</masterLabel>
+        <translation><!-- Quote --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

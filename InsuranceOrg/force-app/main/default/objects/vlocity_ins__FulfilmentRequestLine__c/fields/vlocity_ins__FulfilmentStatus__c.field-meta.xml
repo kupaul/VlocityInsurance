@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FulfilmentStatus__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The fulfilment status of this line item. Populated and updated by order management processes for submitted orders.</description>
+    <externalId>false</externalId>
+    <label>Fulfilment Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Draft</fullName>
+                <default>false</default>
+                <label>Draft</label>
+            </value>
+            <value>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+                <label>In Progress</label>
+            </value>
+            <value>
+                <fullName>Activated</fullName>
+                <default>false</default>
+                <label>Activated</label>
+            </value>
+            <value>
+                <fullName>Superseded</fullName>
+                <default>false</default>
+                <label>Superseded</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

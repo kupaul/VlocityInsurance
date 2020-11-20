@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>vlocity_ins__Status__c</name>
+    <picklistValues>
+        <masterLabel>Closed Unpaid</masterLabel>
+        <translation><!-- Closed Unpaid --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not Paid</masterLabel>
+        <translation><!-- Not Paid --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paid Not Sent</masterLabel>
+        <translation><!-- Paid Not Sent --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paid Sent</masterLabel>
+        <translation><!-- Paid Sent --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

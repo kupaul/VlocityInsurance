@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RelatedFulfilmentRequestLineId__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Related Fulfilment Request Item</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Related Fulfilment Request Item</inlineHelpText>
+    <label>Related Fulfilment Request Line</label>
+    <referenceTo>vlocity_ins__FulfilmentRequestLine__c</referenceTo>
+    <relationshipLabel>FulfilmentRequestLineRelationships (Related Fulfilment Request Line)</relationshipLabel>
+    <relationshipName>FulfilmentRequestLineRelationships1</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

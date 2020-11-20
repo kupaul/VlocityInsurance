@@ -1,0 +1,80 @@
+<apex:page id="ManualQueue" standardController="vlocity_ins__ManualQueue__c" extensions="vlocity_ins.XOMMQMutliSelectLookUpController">
+
+<style type="text/css">
+    .customPopupStyle{ background-color: white; border-style: solid; border-width: 2px; left:20%; height: 120px;  padding:10px; position: absolute; overflow: scroll; width: 200px; top:20%;} .disabledTextBoxStyle{ background-color: white; border: 1px solid; color: black; cursor: default; width: 90px; display: table; overflow: scroll;padding: 2px 1px; text-align: right;}.closeButtonStyle{ float: right;}.textDisplay{font-weight:bold;}
+</style>
+
+<script>  
+    window.onload = function () {   
+         window.scrollTo(0,0);  
+    };
+    var selectedIdsToPass ='';
+    function addSelectedIds(id,currUser){
+        if(currUser.checked==true){
+            selectedIdsToPass+= id+',';
+        }else{
+            selectedIdsToPass = removeValue(selectedIdsToPass,id);
+        }
+        var mySaveElement = document.getElementById("ManualQueue:j_id1:counter:mySave");
+        
+        if(selectedIdsToPass != ''){
+            mySaveElement.disabled = false;
+            mySaveElement.className = 'btn ButtonStyle';
+        }else{
+            mySaveElement.disabled = true;
+            mySaveElement.className = 'btnDisabled';
+        }
+        console.log('UserIdsToPass =='+selectedIdsToPass);
+        return false;
+    }
+    function removeValue(list, value) {
+        list = list.split(',');
+        list.splice(list.indexOf(value), 1);
+        return list.join(',');
+    }
+
+    function passValueToControllerJS(){
+        //calling actionfunction method with param
+        passValueToController(selectedIdsToPass);
+    }
+    function saveCompleteJS(){
+        console.log("Members Updated");
+        selectedIdsToPass ='';
+        return false;
+    }
+</script>
+
+    <apex:form >
+        <apex:pageBlock id="counter">
+        <apex:outputText rendered="{!(isUserListExist=false)}" value="No records to display." styleClass="textDisplay" />
+        <apex:pageBlockTable value="{!show}" var="e" title="Manual Queue Members" rendered="{!(isUserListExist=true)}">
+                <apex:column >
+                    <apex:commandLink value="{!e.usr.Name}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            <br/>
+            <apex:commandButton value="Add Member" disabled="{!If(isUserListToAdd,false, true)}" reRender="out" action="{!add}" styleClass="ButtonStyle"/>
+            <apex:commandButton disabled="{!If(isUserListExist,false, true)}" value="Remove Member" reRender="out" action="{!remove}" styleClass="ButtonStyle"/>
+
+            <apex:outputPanel id="out">
+                <apex:outputPanel styleClass="customPopupStyle" rendered="{!boolAdd || boolRemove}">
+                    <apex:commandButton value="X" title="Close the popup" action="{!closePopup}"
+                                        styleClass="closeButtonStyle" rerender="out"/>
+                    <apex:commandButton id="mySave" value="Save" onclick="this.value='Processing..';passValueToControllerJS();return false;" rerender="" disabled="true"/>
+                    
+                    <apex:pageBlockTable value="{!show}" var="e" title="show">
+                        <apex:column >
+                            <apex:inputCheckbox value="{!e.check}" onclick="addSelectedIds('{!e.usr.id}',this)"/>
+                        </apex:column>
+                        <apex:column >
+                            <apex:commandLink value="{!e.usr.Name}"/>
+                        </apex:column>
+                    </apex:pageBlockTable>
+                    <apex:actionFunction name="passValueToController" action="{!mySave}" rerender="out,counter" oncomplete="saveCompleteJS();">
+                        <apex:param name="p1" value="" assignTo="{!selectedUserIds}" />
+                    </apex:actionFunction>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

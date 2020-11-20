@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DateTimeType</fullName>
+    <active>true</active>
+    <errorConditionFormula>(( TEXT( vlocity_ins__ValueType__c ) = &apos;DateTime&apos;)) &amp;&amp;  NOT( ISBLANK( vlocity_ins__Value__c )) &amp;&amp; ( ISBLANK(DATETIMEVALUE( vlocity_ins__Value__c )))</errorConditionFormula>
+    <errorMessage>Value must be a valid DateTime Type YYYY-MM-DD .</errorMessage>
+</ValidationRule>

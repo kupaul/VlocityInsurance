@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FormattedAddress__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF( ISBLANK(vlocity_ins__Address1__c),&quot;&quot;, vlocity_ins__Address1__c &amp; &quot;, &quot;) &amp; 
+IF( ISBLANK(vlocity_ins__Address2__c), &quot;&quot;, vlocity_ins__Address2__c &amp; &quot;, &quot; ) &amp;
+IF( ISBLANK(vlocity_ins__City__c), &quot;&quot;, vlocity_ins__City__c &amp; &quot;, &quot;) &amp; TEXT(vlocity_ins__State__c) &amp; &quot; &quot; &amp; 
+IF( ISBLANK(vlocity_ins__PostalCode__c), &quot;&quot;, vlocity_ins__PostalCode__c &amp; &quot;, &quot;) &amp;
+vlocity_ins__Country__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Location</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

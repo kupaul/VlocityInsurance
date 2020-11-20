@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FollowUpTo__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Identifies the type of object that should be created when a user creates a &quot;follow up&quot; item for this event or task. Values must be one of “Log Call”, “Case”, “Event”, “Opportunity”, “Task”, “Order”.</description>
+    <externalId>false</externalId>
+    <label>Follow Up To</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

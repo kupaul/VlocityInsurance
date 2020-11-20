@@ -1,0 +1,127 @@
+<apex:page showHeader="true" sidebar="false"
+            standardStylesheets="false"
+            docType="html-5.0" applyBodyTag="false"
+            standardController="vlocity_ins__VlocityDataPack__c"
+            extensions="vlocity_ins.DRDataPackRunnerController"
+            recordSetVar="datapacks"
+            tabStyle="DataPacks__tab">
+  <head>
+        <apex:includeScript value="{!$Resource.vlocity_ins__angular_bundle_1_6}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ngInfiniteScroll, '/build/ng-infinite-scroll.min.js')}"/>
+        <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__DataPacksHome}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+  <style>
+    /* don't show checkbox on Published tab in header since it doesn't work as expected in this context */
+    #datapack-published-group-header-select-all {
+      display: none;
+    }
+
+    .bPageTitle .pageType {
+      font-size: .75rem;
+      line-height: 1.25;
+      color: #54698d;
+      text-transform: uppercase;
+      font-family: "Salesforce Sans", Helvetica, Arial;
+      margin-left: 14px;
+    }
+    .bPageTitle .titleSeparatingColon {
+      display: none;
+    }
+    .bPageTitle .pageDescription {
+      font-size: 1.25rem;
+      font-family: "Salesforce Sans", Arial, sans-serif;
+      color: #16325c;
+      font-weight: 400;
+      line-height: 1.25;
+      margin-left: 14px;
+    }
+    html.Theme4d body,
+    html.Theme4u body {
+        margin: 0;
+    }
+
+    html:not(.Theme3) body.sfdcBody {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    .bodyDiv .noSidebarCell {
+        padding: 0;
+    }
+    [dir=rtl]  .bPageTitle .pageType {
+      margin-left: auto;
+      margin-left: 14px;
+    }
+    [dir=rtl]  .bPageTitle .pageDescription {
+      margin-left: auto;
+      margin-left: 14px;
+    }
+    #create-multipack-tab-button-wrapper {
+      position: absolute;
+      right: 1rem;
+      top: -5.5rem;
+    }
+    [dir=rtl] #create-multipack-tab-button-wrapper {
+      position: absolute;
+      left: 1rem;
+      right: auto;
+      top: -5.5rem;
+    }
+    #datapack-installed-tab-wrapper {
+      position: absolute;
+      right: 1rem;
+      top: -5.5rem;
+    }
+    [dir=rtl] #datapack-installed-tab-wrapper {
+      position: absolute;
+      left: 1rem;
+      right: auto;
+      top: -5.5rem;
+    }
+
+    #datapack-installed-group-header--name-text-sort,
+    #datapack-published-group-header--name-text-sort {
+      display: flex !important;
+    }
+    </style>
+      <script>
+        (function () {
+            document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+        })();
+    </script>
+  </head>
+
+  <body xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div ng-app="datapackshome" class="via-slds ng-cloak  {!$User.UIThemeDisplayed}">
+      <apex:sectionHeader subtitle="{{ ::'DataPacksHomeHome' | localize:'DataPacks' }}"
+                          title="{{ ::'DataPacksHomeTitle' | localize:'Vlocity' }}"/>
+
+      <div ng-controller="homeController" style="position: relative">
+        <div class="slds-notify_container" ng-if="showNamespaceAlert">
+          <div class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert">
+            <button class="slds-button slds-button--icon-inverse slds-notify__close" ng-click="hideErrorBanner()">
+              <slds-button-svg-icon sprite="'utility'" icon="'Close'" />
+              <span class="slds-assistive-text">Close</span>
+            </button>
+            <span class="slds-assistive-text">Error</span>
+            <h2>
+              <slds-svg-icon size="'small'" extra-classes="'slds-m-right--x-small'" sprite="'utility'" icon="'ban'" ></slds-svg-icon>
+              Your development org must have a Namespace in order to support Data Packs
+            </h2>
+          </div>
+        </div>
+        <div slds-active-pane="tabs.activeTab" slds-tabs=" " slds-tabs-pane-class="slds-p-top--none">
+          <div ng-repeat="tab in tabs" title="{{tab.title}}" disabled="" ng-bind="tab.content" slds-pane=" "></div>
+          <div ng-include="tabs[tabs.activeTab].template"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <c:VFActionFunction />
+</apex:page>

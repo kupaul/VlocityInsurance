@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Attributes Configuration</masterLabel>
+        <translation><!-- Attributes Configuration --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Availability</masterLabel>
+        <translation><!-- Availability --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Configuration</masterLabel>
+        <translation><!-- Configuration --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Context Rule</masterLabel>
+        <translation><!-- Context Rule --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Eligibility</masterLabel>
+        <translation><!-- Eligibility --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pricing</masterLabel>
+        <translation><!-- Pricing --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Promotion</fullName>
+    <active>true</active>
+    <description>Promotion record</description>
+    <label>Promotion</label>
+    <picklistValues>
+        <picklist>vlocity_ins__DiscountType__c</picklist>
+        <values>
+            <fullName>Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__DurationUnitOfMeasure__c</picklist>
+        <values>
+            <fullName>Day</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Month</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Week</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Year</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__ServiceContinuation__c</picklist>
+        <values>
+            <fullName>Manual Opt-In</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual Opt-Out</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Applicable</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+</RecordType>

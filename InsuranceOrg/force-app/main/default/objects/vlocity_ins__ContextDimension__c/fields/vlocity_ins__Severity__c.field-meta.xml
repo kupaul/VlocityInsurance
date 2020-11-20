@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Severity__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Severity</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Soft Qualified</fullName>
+                <default>false</default>
+                <label>Soft Qualified</label>
+            </value>
+            <value>
+                <fullName>Soft Disqualified</fullName>
+                <default>false</default>
+                <label>Soft Disqualified</label>
+            </value>
+            <value>
+                <fullName>Hard Disqualified</fullName>
+                <default>false</default>
+                <label>Hard Disqualified</label>
+            </value>
+            <value>
+                <fullName>Qualified</fullName>
+                <default>false</default>
+                <label>Qualified</label>
+            </value>
+            <value>
+                <fullName>Error</fullName>
+                <default>false</default>
+                <label>Error</label>
+            </value>
+            <value>
+                <fullName>Fatal</fullName>
+                <default>false</default>
+                <label>Fatal</label>
+            </value>
+            <value>
+                <fullName>Warning</fullName>
+                <default>false</default>
+                <label>Warning</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

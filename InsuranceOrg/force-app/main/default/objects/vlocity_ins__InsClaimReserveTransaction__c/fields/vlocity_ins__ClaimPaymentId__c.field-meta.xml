@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ClaimPaymentId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Claim Payment</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>$Source.vlocity_ins__InsuranceClaimId__c</field>
+            <operation>equals</operation>
+            <valueField>vlocity_ins__ClaimPayment__c.vlocity_ins__InsuranceClaimId__c</valueField>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>vlocity_ins__ClaimPayment__c</referenceTo>
+    <relationshipLabel>Reserve Transactions</relationshipLabel>
+    <relationshipName>ReserveTransactions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

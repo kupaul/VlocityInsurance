@@ -1,0 +1,18 @@
+<apex:page standardStylesheets="false"
+            showHeader="false"
+            sidebar="false" docType="html-5.0" >
+<html>
+    <script type='text/javascript'>
+        window.addEventListener('DOMContentLoaded', function(event) {
+            window.parent.postMessage('docuSignViewPdfPageloaded', '*');
+            window.addEventListener('message', function(event){
+                document.querySelector('embed').setAttribute('src', 'data:application/pdf;base64,' + event.data);
+        	});
+        });
+    </script>
+
+    <body>
+        <embed type="application/pdf" style="height: 100vh; width: 100%;" />
+    </body>
+</html>
+</apex:page>

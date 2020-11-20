@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Object</fullName>
+    <active>true</active>
+    <label>Object</label>
+    <picklistValues>
+        <picklist>vlocity_ins__LifecycleStatus__c</picklist>
+        <values>
+            <fullName>Deployed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__Mode__c</picklist>
+        <values>
+            <fullName>Object Type Id</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Record Type</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,180 @@
+<apex:page standardController="Account" extensions="vlocity_ins.XOMFRLineAndInventoryItemController" showHeader="false" sidebar="false" applyHtmlTag="false">
+<html ng-app="hierarchyApp">
+<head>
+	<apex:includeScript value="/soap/ajax/31.0/connection.js" />
+	<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+	<style type="text/css">
+		[ng\:cloak], [ng-cloak], .ng-cloak {
+			display: none !important;
+		}
+		ul li, ol li {
+    		overflow-wrap: break-word;
+    		word-wrap: break-word;
+    		-ms-word-break: break-all;
+    		word-break: break-word;
+		}
+	</style>
+</head>
+
+<body class="vlocity" style=" overflow: auto;" ng-controller="InventoryItemController" >
+	
+	<script type="text/ng-template" id="inventoryItemTree">
+		<div>
+			</br>
+			<div>
+				<div class="glyphicon icon-v-right-arrow" style="display:inline" onClick="$(this).siblings('#invItems').toggle();changeArrow(this);">
+				</div>
+				<a href="/{{invItemNode.id}}" target="_parent">{{invItemNode.name}}</a><br/>
+				<div id="invItems" style="display:none; padding-left:20px">
+					<span  style='text-transform:none'><b>Line Number: </b>{{invItemNode.fields.lineNumber}}</span><br/>
+					<span><b>Product : </b></span><a href="/{{invItemNode.productId}}" target="_parent">{{invItemNode.product}}</a>
+			
+					<div class='attrContainer'>
+						<h4 style="text-transform: none; font-weight:bold"> Attributes: </h4>
+						<ul style="list-style-type:none" ng-if="invItemNode.attrs">
+							<li style="text-transform:none" ng-repeat="attribute in invItemNode.attrs">
+								<span><b>{{attribute.name}} : </b></span>
+								<span ng-if="attribute.datatype=='Currency'">{{invItemNode.currencyCode}}</span>
+								<span ng-if="attribute.datatype!='Date' && attribute.datatype!='Datetime'">{{attribute.value}}</span>
+								<span ng-if="attribute.datatype=='Date' || attribute.datatype=='Datetime'">{{formatDateAttribute(attribute)}}</span>
+								<span ng-if="attribute.datatype=='Percent'"> %</span>
+							</li>
+			  			</ul>
+					</div>
+					<br/>
+		    		<ul style="list-style-type:none" ng-if="invItemNode.nodes">
+	            		<li ng-repeat="invItemNode in invItemNode.nodes" ng-include="'inventoryItemTree'">           
+	            		</li>
+	        		</ul>
+		  		</div>
+			</div>
+		</div>
+	</script>
+	
+	<div class="ng-cloak container-fluid" ng-if="loaded">
+		<div class="row">
+			<div>
+         		<div ng-repeat="invItemNode in invItemNodes">
+            		<div class="panel panel-default">
+               			<div class="panel-heading">
+               			</div>
+               			<div class="panel-body">
+							<div class="glyphicon icon-v-right-arrow" style="display:inline" onClick="$(this).siblings('#invItemContainer').toggle();changeArrow(this)">
+							</div>
+							<a href="/{{invItemNode.id}}" target="_parent">{{invItemNode.name}}</a><br/>
+							<div id="invItemContainer" style="display:none; padding-left:20px">
+							   <span style='text-transform:none'><b>Line Number: </b>{{invItemNode.fields.lineNumber}}</span><br/>
+							   <span><b>Product : </b></span><a href="/{{invItemNode.productId}}" target="_parent">{{invItemNode.product}}</a>
+							   <div id='attrContainer'>
+							      <h4 style="text-transform: none; font-weight:bold">Attributes:</h4>
+							      <ul id="attributes" style="list-style-type:none" ng-if="invItemNode.attrs">
+							         <li ng-repeat="attribute in invItemNode.attrs">
+							            <span><b>{{attribute.name}} : </b></span>
+							            <span ng-if="attribute.datatype=='Currency'">{{invItemNode.currencyCode}}</span>
+							            <!-- 
+							            <span ng-if="attribute.datatype!='Date' && attribute.datatype!='Datetime'">{{attribute.value}}</span>
+							             -->
+							             <span ng-if="attribute.datatype!='Date' && attribute.datatype!='Datetime'" ng-bind-html="attribute.value"></span>
+										<span ng-if="attribute.datatype=='Date' || attribute.datatype=='Datetime'">{{formatDateAttribute(attribute)}}</span>
+							            <span ng-if="attribute.datatype=='Percent'"> %</span>
+							         </li>
+							      </ul>
+							   </div>
+							   <ul id="invItemChildNodes" style="list-style-type:none" ng-if="invItemNode.nodes">
+							      <li ng-repeat="invItemNode in invItemNode.nodes" ng-include="'inventoryItemTree'">           
+							      </li>
+							   </ul>
+							</div>
+               			</div>
+            		</div>
+       			</div>
+      		</div>
+   		</div>
+	</div>
+
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/forceng/forceng.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ForceTK/forcetk.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AngularStrapJS)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AngularStrapTplJS)}"/>
+	<script type="text/javascript">
+        
+        function changeArrow(el){
+        	if($(el).hasClass('icon-v-down-arrow')){ $(el).removeClass('icon-v-down-arrow'); $(el).addClass('icon-v-right-arrow'); return;}
+        	if($(el).hasClass('icon-v-right-arrow')){ $(el).removeClass('icon-v-right-arrow'); $(el).addClass('icon-v-down-arrow'); return;}
+        }
+        
+		(function () {
+			'use strict';
+			
+			var app = angular.module('hierarchyApp', ["vlocity", "ngSanitize", "forceng","mgcrea.ngStrap",'ngAnimate']);
+		//config data...
+			app.value('configData',{
+				accountId : '{!$CurrentPage.parameters.Id}'
+			});
+
+			var remoteActions = {
+			 		getInventoryItemNodes : '{!$RemoteAction.XOMFRLineAndInventoryItemController.getInventoryItems}'
+			};
+
+			app.config(["remoteActionsProvider", function(remoteActionsProvider){
+		        remoteActionsProvider.setRemoteActions(remoteActions); // configure the remoteActionsProvider
+		    }]);
+		    
+		    app.controller('InventoryItemController', function($scope,$rootScope, $templateCache, $q, $modal, $interpolate,$http, $sce, remoteActions, configData) {
+
+		    	$scope.invItemNodes;
+		    	
+		    	$scope.fetchInventoryItems = function () {
+		    		remoteActions.getInventoryItemNodes(configData.accountId).then(function(invItems) {
+	    				$scope.loaded = true;
+		    			$scope.invItemNodes = invItems;
+		    		});
+		    	};
+
+		    	$scope.fetchInventoryItems();
+		    	
+            	$scope.formatDateAttribute = function(attr) {
+					if(!attr) attr = {};
+					if(attr.value){
+						var newValue = new Date (Date.parse(attr.value));
+
+                        if(attr.datatype === 'Date') {
+                            var newLocaleValue = newValue.toLocaleDateString();
+                        } else {
+                        	var newLocaleValue = newValue.toLocaleString();
+                        }
+
+               			var dtList = newLocaleValue.split(',');
+						newLocaleValue = dtList[0].substring(0, dtList[0].length - 4) + dtList[0].substring(dtList[0].length - 2, dtList[0].length);
+							
+						if(attr.datatype === 'Datetime')
+							newLocaleValue = newLocaleValue + dtList[1].substring(0, dtList[1].length - 6) + dtList[1].substring(dtList[1].length - 3, dtList[1].length);
+               			
+               			return newLocaleValue;
+             		}
+              		return "";
+            	};
+
+		    });
+
+		    app.run(["$sce","$templateCache","$rootScope","force", function($sce, $templateCache, $rootScope, force){
+                console.log('inside run');
+                
+                force.init({
+                        accessToken: '{!$Api.Session_ID}',
+                        useProxy: false
+                    });
+    
+                $rootScope.forcetkClient = new forcetk.Client();
+                $rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+        
+            }]);
+
+		})();
+
+	</script>
+	
+</body>
+</html>
+</apex:page>

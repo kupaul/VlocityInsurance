@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CheckMethod__c</fullName>
+    <description>Method used to check if step needs to be completed (not for data/metadata manipulation).</description>
+    <externalId>false</externalId>
+    <label>Check Method</label>
+    <length>80</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

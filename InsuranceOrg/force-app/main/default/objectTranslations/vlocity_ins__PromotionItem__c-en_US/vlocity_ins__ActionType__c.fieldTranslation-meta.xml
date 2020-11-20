@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Action Type --></label>
+    <name>vlocity_ins__ActionType__c</name>
+    <picklistValues>
+        <masterLabel>Add</masterLabel>
+        <translation><!-- Add --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Add/Update</masterLabel>
+        <translation><!-- Add/Update --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Update</masterLabel>
+        <translation><!-- Update --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Value__c</fullName>
+    <deprecated>false</deprecated>
+    <description>DEPRECATED.</description>
+    <externalId>false</externalId>
+    <formula>IF(  ISPICKVAL(vlocity_ins__DataType__c, &apos;Date/Time&apos;) ,  TEXT(vlocity_ins__DateTimeValue__c) , 
+    IF( ISPICKVAL(vlocity_ins__DataType__c, &apos;Date&apos;) ,  TEXT(vlocity_ins__DateValue__c) , 
+        IF( ISPICKVAL(vlocity_ins__DataType__c, &apos;Text&apos;),  vlocity_ins__TextValue__c , 
+            IF( ISPICKVAL(vlocity_ins__DataType__c, &apos;Number&apos;) ,  TEXT(vlocity_ins__NumberValue__c) , 
+                IF( ISPICKVAL(vlocity_ins__DataType__c, &apos;Boolean&apos;)  ,  IF( vlocity_ins__BooleanValue__c = true  ,  &apos;true&apos; , &apos;false&apos; ), null )))))</formula>
+    <label>Value</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

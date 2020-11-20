@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ValidationDate__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Date of last validation run</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Date of last validation run</inlineHelpText>
+    <label>Validation Date</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>DateTime</type>
+</CustomField>

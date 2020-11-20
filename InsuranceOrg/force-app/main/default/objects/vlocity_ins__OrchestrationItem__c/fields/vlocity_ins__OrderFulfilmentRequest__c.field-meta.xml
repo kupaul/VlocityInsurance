@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__OrderFulfilmentRequest__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF (ISBLANK(vlocity_ins__OrderItemId__c),
+HYPERLINK(&quot;/&quot; &amp; vlocity_ins__FulfilmentRequestLineId__r.vlocity_ins__FulfilmentRequestID__c, vlocity_ins__FulfilmentRequestLineId__r.vlocity_ins__FulfilmentRequestID__r.Name),
+HYPERLINK(&quot;/&quot; &amp; vlocity_ins__OrderItemId__r.OrderId, vlocity_ins__OrderItemId__r.Order.OrderNumber))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Order/Fulfilment Request</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

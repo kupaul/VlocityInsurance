@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Role of the Target party. (eg, &quot;Company&quot;) --></help>
+    <label><!-- Target Role --></label>
+    <name>vlocity_ins__TargetRole__c</name>
+</CustomFieldTranslation>

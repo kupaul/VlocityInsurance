@@ -1,0 +1,3 @@
+<apex:page docType="html-5.0" showHeader="false" applyBodyTag="false" standardController="vlocity_ins__OrchestrationPlan__c">
+  <c:XomPlanViewComponent />
+</apex:page>

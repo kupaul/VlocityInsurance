@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Policy</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Policies</value>
+    </caseValues>
+    <fieldSets>
+        <label><!-- FieldsAvailableInRules --></label>
+        <name>FieldsAvailableInRules</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- CoverageVerificationFields --></label>
+        <name>vlocity_ins__CoverageVerificationFields</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- FieldsAvailableInRules --></label>
+        <name>vlocity_ins__FieldsAvailableInRules</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- GetPolicyDetailsFields --></label>
+        <name>vlocity_ins__GetPolicyDetailsFields</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- IssuePolicyFields --></label>
+        <name>vlocity_ins__IssuePolicyFields</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- IssueQuoteFromPolicyFields --></label>
+        <name>vlocity_ins__IssueQuoteFromPolicyFields</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- PolicyCompareDetails --></label>
+        <name>vlocity_ins__PolicyCompareDetails</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- PolicyCompareHeader --></label>
+        <name>vlocity_ins__PolicyCompareHeader</name>
+    </fieldSets>
+    <layouts>
+        <layout>Vlocity Policy</layout>
+        <sections>
+            <label><!-- Billing --></label>
+            <section>Billing</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label><!-- Payments --></label>
+            <section>Payments</section>
+        </sections>
+        <sections>
+            <label><!-- Policy Dates --></label>
+            <section>Policy Dates</section>
+        </sections>
+        <sections>
+            <label><!-- Premium --></label>
+            <section>Premium</section>
+        </sections>
+        <sections>
+            <label><!-- Product --></label>
+            <section>Product</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Commercial Lines --></label>
+        <name>vlocity_ins__CommercialLines</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Default --></label>
+        <name>vlocity_ins__Default</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Annuity --></label>
+        <name>vlocity_ins__IndividualAnnuity</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Individual Health --></label>
+        <name>vlocity_ins__IndividualHealth</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Individual Life --></label>
+        <name>vlocity_ins__IndividualLife</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Investment --></label>
+        <name>vlocity_ins__Investment</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Personal Lines --></label>
+        <name>vlocity_ins__PersonalLines</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

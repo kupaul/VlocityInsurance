@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Action Type --></label>
+    <name>vlocity_ins__ActionType__c</name>
+    <picklistValues>
+        <masterLabel>Launch</masterLabel>
+        <translation><!-- Launch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ResultPane</masterLabel>
+        <translation><!-- ResultPane --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SecondResultPane</masterLabel>
+        <translation><!-- SecondResultPane --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VerificationPane</masterLabel>
+        <translation><!-- VerificationPane --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>VerifyAction</masterLabel>
+        <translation><!-- VerifyAction --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

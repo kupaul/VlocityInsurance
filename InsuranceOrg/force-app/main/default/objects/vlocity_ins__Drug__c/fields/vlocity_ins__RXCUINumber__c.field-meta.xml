@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RXCUINumber__c</fullName>
+    <deprecated>false</deprecated>
+    <description>RxNorm concept unique identifier (RXCUI):RxNorm is a normalized naming system created by National Library of Medicine for generic and branded drugs and a tool for supporting semantic interoperation between drug terminologies and pharmacy knowledge base systems. This field is a unique record identifier from an external system. Duplicate values are not allowed.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>RxNorm concept unique identifier</inlineHelpText>
+    <label>RXCUI Number</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

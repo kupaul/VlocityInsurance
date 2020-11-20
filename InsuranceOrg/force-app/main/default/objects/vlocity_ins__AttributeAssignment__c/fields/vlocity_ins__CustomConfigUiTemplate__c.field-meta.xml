@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CustomConfigUiTemplate__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Information describing the Vlocity UI Template or HTML/JavaScript to render when users go to configure this attribute value. Overrides the default defined for the attribute. Useful when the user needs to interact with an external system to choose the attribute value (such as picking a phone number for a new mobile phone).</description>
+    <externalId>false</externalId>
+    <label>Custom Config UI Template</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

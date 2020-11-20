@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Sub-Plan Definition --></label>
+    <name>vlocity_ins__SubPlanDefinitionId__c</name>
+    <relationshipLabel><!-- Orchestration Item Definitions (Sub-plan Definition) --></relationshipLabel>
+</CustomFieldTranslation>

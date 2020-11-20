@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CountOfRegistered__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Registered</label>
+    <summaryFilterItems>
+        <field>vlocity_ins__MarketingEventRegistration__c.vlocity_ins__IsCancelled__c</field>
+        <operation>equals</operation>
+        <value>False</value>
+    </summaryFilterItems>
+    <summaryForeignKey>vlocity_ins__MarketingEventRegistration__c.vlocity_ins__MarketingEventId__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

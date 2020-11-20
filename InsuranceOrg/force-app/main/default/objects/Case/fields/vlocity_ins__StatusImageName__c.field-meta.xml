@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__StatusImageName__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Formula: Calculated &quot;status&quot; image name based on the status of this Case. Used to display a status image on this case when shown in the user interface.</description>
+    <externalId>false</externalId>
+    <formula>TEXT(Status)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Status Image Name</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

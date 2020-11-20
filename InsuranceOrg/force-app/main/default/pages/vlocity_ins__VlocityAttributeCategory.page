@@ -1,0 +1,145 @@
+<apex:page extensions="vlocity_ins.DRDataPackRunnerController" showHeader="true" sidebar="false"
+standardStylesheets="false" docType="html-5.0" applyBodyTag="false" standardController="vlocity_ins__AttributeCategory__c" recordSetVar="categories" tabStyle="vlocity_ins__AttributeCategory__c">
+  <head>
+      <apex:includeScript value="{!$Resource.vlocity_ins__angular_bundle_1_6}"/>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ngInfiniteScroll, '/build/ng-infinite-scroll.min.js')}"/>
+      <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}"/>
+      <apex:includeScript value="/support/console/42.0/integration.js"/>
+  </head>
+  <style>
+    html.Theme4d body,
+    html.Theme4u body {
+      margin: 0;
+    }
+    html:not(.Theme3) body.sfdcBody {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .bodyDiv .noSidebarCell{
+      padding: 0;
+    }
+    .Theme3 .bodyDiv slds-home {
+      min-width: auto;
+      max-width: calc(100vw - 2.2em);
+      overflow: hidden;
+      display: block;
+    }
+  </style>
+  <script>
+    (function() {
+      document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+    })();
+  </script>
+  <body xmlns="http:www.w3.org/2000/svg" xmlns:xlink="http:www.w3.org/1999/xlink">
+    <div ng-app="vlocattrcathome" class="via-slds ng-cloak {!$User.UIThemeDisplayed}" ng-controller="vlocattrcathome">
+      <slds-home
+                new-url="'/apex/' + ns + 'VlocityAttributeCategoryEdit'"
+                view-url="'/apex/' + ns + 'VlocityAttributeCategoryEdit?id={Id}'"
+                group-by="false"
+                s-object-type="'{!$ObjectType.AttributeCategory__c.Name}'"
+                row-actions="rowActions"
+                sorting="{'{!namespace}__DisplaySequence__c': 'asc'}"
+                default-columns="defaultColumns"
+                extra-filters="extraFilters">
+      </slds-home>
+    </div>
+    <c:VFActionFunction />
+    <script>
+      function fileNsPrefix() {
+          return '{!namespace}' ? '{!namespace}__' : '';
+      }
+      angular.module('vlocattrcathome', ['sldsangular', 'drvcomp', 'ngTable', 'vlocity', 'infinite-scroll'])
+      .controller('vlocattrcathome', function($scope, $filter) {
+          $scope.ns = fileNsPrefix();
+          $scope.defaultColumns = [{
+              field: 'Name',
+              title: 'Name',
+              resizable: true,
+              width: 300
+          },{
+              field: fileNsPrefix() + 'UIControlType__c',
+              width: 220,
+              resizable: false
+          }, {
+              field: fileNsPrefix() + 'ApplicableTypes__c',
+              width: 220,
+              resizable: false
+          }, {
+              field: fileNsPrefix() + 'ApplicableSubType__c',
+              width: 220,
+              resizable: false
+          }, {
+              field: fileNsPrefix() + 'DisplaySequence__c',
+              width: 220,
+              resizable: false
+          }, {
+                field: fileNsPrefix() + 'IsActive__c',
+                shrink: true,
+                dynamic: true,
+                getValue: function($scope, row) {
+                    if (row[fileNsPrefix() + 'IsActive__c']) {
+                        return '<span class="slds-icon_container" title="Is Active"><slds-svg-icon sprite="\'utility\'"' +
+                                ' icon="\'success\'" size="\'x-small\'" extra-classes="\'slds-icon-text-default \'"></slds-svg-icon></span>';
+                    }
+                },
+                resizable: true,
+                width: 110
+            }, {
+              field: fileNsPrefix() + 'Description__c',
+              getValue: function($scope, row) {
+                  if (!row[fileNsPrefix() + 'Description__c']) {
+                      return '';
+                  }
+                  return '<span title="' + row[fileNsPrefix() + 'Description__c'] + '">' +
+                                  row[fileNsPrefix() + 'Description__c'] + '</span>';
+              },
+              resizable: true
+          }, {
+            id: 'last-modifed-date',
+            resizable: true,
+            width: 140,
+            field: 'LastModifiedDate',
+            getGroupValue: function($scope, $group) {
+                return $filter('date')($group.data[0].LastModifiedDate, 'short');
+            },
+            getValue: function($scope, row) {
+                return $filter('date')(row.LastModifiedDate, 'short');
+            }
+        }, {
+            id: 'last-modifed-by',
+            resizable: true,
+            width: 140,
+            field: 'LastModifiedById',
+            getGroupValue: function($scope, $group) {
+                return $group.data[0].LastModifiedBy ? $group.data[0].LastModifiedBy.Name : '';
+            },
+            getValue: function($scope, row) {
+                return row.LastModifiedBy ? row.LastModifiedBy.Name : '';
+            }
+        }];
+
+          $scope.rowActions = [
+           {
+               type: 'export',
+               drvType: 'AttributeCategory'
+           },
+           {
+               type: 'delete'
+           }
+          ];
+      });
+
+      if (typeof sforce !== 'undefined') {
+          if (sforce.console && sforce.console.isInConsole()) {
+              sforce.console.setTabTitle('Vlocity Attributes Designer');
+              sforce.console.setTabIcon('standard:quotes');
+          }
+      }
+    </script>
+  </body>
+
+</apex:page>

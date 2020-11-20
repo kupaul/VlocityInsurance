@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ViewType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>View Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Field Layout</fullName>
+                <default>true</default>
+                <label>Field Layout</label>
+            </value>
+            <value>
+                <fullName>Custom View</fullName>
+                <default>false</default>
+                <label>Custom View</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

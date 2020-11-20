@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Log Type --></label>
+    <name>vlocity_ins__LogType__c</name>
+    <picklistValues>
+        <masterLabel>Diagnostic</masterLabel>
+        <translation><!-- Diagnostic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>System Error</masterLabel>
+        <translation><!-- System Error --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>System Maintenance</masterLabel>
+        <translation><!-- System Maintenance --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Upgrade</masterLabel>
+        <translation><!-- Upgrade --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

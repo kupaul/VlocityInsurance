@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Disposition__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Disposition</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Dismissed</fullName>
+                <default>false</default>
+                <label>Dismissed</label>
+            </value>
+            <value>
+                <fullName>Settle Prior Trial</fullName>
+                <default>false</default>
+                <label>Settle Prior Trial</label>
+            </value>
+            <value>
+                <fullName>Settle During Trial</fullName>
+                <default>false</default>
+                <label>Settle During Trial</label>
+            </value>
+            <value>
+                <fullName>Verdict for Defendant</fullName>
+                <default>false</default>
+                <label>Verdict for Defendant</label>
+            </value>
+            <value>
+                <fullName>Verdict for Plaintiff</fullName>
+                <default>false</default>
+                <label>Verdict for Plaintiff</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,1 @@
+.modal-backdrop{background:#fff}.modal-backdrop.in{opacity:.8}

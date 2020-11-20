@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Category --></label>
+    <name>vlocity_ins__Category__c</name>
+    <picklistValues>
+        <masterLabel>Auto</masterLabel>
+        <translation><!-- Auto --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dental</masterLabel>
+        <translation><!-- Dental --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Health</masterLabel>
+        <translation><!-- Health --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Home</masterLabel>
+        <translation><!-- Home --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Life</masterLabel>
+        <translation><!-- Life --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,104 @@
+<apex:page showHeader="false" sidebar="false"
+            standardStylesheets="false"
+            docType="html-5.0" applyBodyTag="false"
+            lightningStylesheets="true"
+            title="Template Compiler VF Page">
+  <head>
+  <script type="module" crossorigin="use-credentials" src="{!$Resource.templatecompiler}"></script>
+  <script src="{!URLFOR($Resource.jsforce_1_7, '/jszip.min.js')}"></script>
+  <script src="{!URLFOR($Resource.fileSaver_2_0_1, '/fileSaver.js')}"></script>
+  <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-core.min.js')}"></script>
+  <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-api-metadata.min.js')}"></script>
+  <script>
+    (function() {
+      const conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}' });
+      conn.metadata.pollTimeout = 60000;
+
+      window.addEventListener("message", receiveMessage, false);
+
+      function receiveMessage(event) {
+        const compiler = new TemplateCompiler();
+        const eventData = JSON.parse(event.data);
+        if(eventData.action === "download_offplatform") {
+          conn.metadata.retrieve({
+            apiVersion: '45.0',
+            singlePackage: true,
+            unpackaged: {
+              types: [{
+                'members': ['lwc_offplatform'],
+                'name': 'StaticResource'
+              }]
+            }
+          }).complete(function(err, deployResult){
+            if (err) {
+              return;
+            }
+
+            compiler.getDownloadableZip(deployResult.zipFile, eventData.lwcData).then((zipStream) => {
+              saveAs(zipStream, eventData.lwcData.name+".zip");
+              window.parent.postMessage(JSON.stringify({
+                name: 'deployresult',
+                success: true
+              }), document.referrer);
+            }, (e) => {
+              window.parent.postMessage(JSON.stringify({
+                name: 'deployresult',
+                success: false,
+                message: e.message || 'Download Failed'
+              }), document.referrer);
+            });
+          });
+        } else {
+          compiler.compileZip(eventData.lwcData, eventData.action)
+            .then((zipStream) => {
+                // To download lwc source
+                if(eventData.action === "download"){
+                  saveAs(zipStream, eventData.lwcData.name+".zip");
+                  window.parent.postMessage(JSON.stringify({
+                    name: 'deployresult',
+                    success: true
+                  }), document.referrer);
+                } else {
+                  conn.metadata.deploy(zipStream, {
+                    singlePackage: true
+                  })
+                  .complete(function(err, deployResult) {
+                      if (err) {
+                          window.parent.postMessage(JSON.stringify({
+                            name: 'deployresult',
+                            success: false,
+                            message: err
+                          }), document.referrer);
+                          return;
+                      }
+
+                      if (deployResult.success === false || deployResult.status === "SucceededPartial") {
+                          conn.metadata.checkDeployStatus(deployResult.id, true,
+                              (err, result) => {
+                                  window.parent.postMessage(JSON.stringify({
+                                    name: 'deployresult',
+                                    success: false,
+                                    message: result
+                                  }), document.referrer);
+                              });
+                          return;
+                      }
+
+                      window.parent.postMessage(JSON.stringify({
+                            name: 'deployresult',
+                            success: true
+                          }), document.referrer);
+                  });
+                }
+            });
+        }
+
+
+      }
+
+    })();
+  </script>
+  </head>
+  <body>
+  </body>
+</apex:page>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PersonContactId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>For consumer accounts where the customer is a person, this field identifies the person who is considered the customer. If the Salesforce Person Accounts feature is used, this field is optional, but would logically point to the contact record built into the Person Account.</description>
+    <externalId>false</externalId>
+    <label>Person Contact Id</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Person Accounts</relationshipLabel>
+    <relationshipName>PersonAccount</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Lookup</type>
+</CustomField>

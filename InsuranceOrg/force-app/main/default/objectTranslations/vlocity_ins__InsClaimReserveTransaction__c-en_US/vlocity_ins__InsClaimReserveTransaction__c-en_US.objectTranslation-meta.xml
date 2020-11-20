@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- transactionComponent --></label>
+        <name>vlocity_ins__transactionComponent</name>
+    </fieldSets>
+    <recordTypes>
+        <label><!-- Payment --></label>
+        <name>vlocity_ins__Payment</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Recovery --></label>
+        <name>vlocity_ins__Recovery</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Reserve Adjustment --></label>
+        <name>vlocity_ins__ReserveAdjustment</name>
+    </recordTypes>
+</CustomObjectTranslation>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PricingComponentId__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Pricing Component</label>
+    <referenceTo>vlocity_ins__PricingComponent__c</referenceTo>
+    <relationshipLabel>Offer Pricing Components</relationshipLabel>
+    <relationshipName>OfferPricingComponents</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

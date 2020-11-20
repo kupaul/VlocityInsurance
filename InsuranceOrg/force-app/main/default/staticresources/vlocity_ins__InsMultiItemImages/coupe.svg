@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="129px" height="60px" viewBox="0 0 129 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>hatch</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <ellipse id="path-1" cx="22" cy="42.5" rx="13" ry="13.5"></ellipse>
+        <ellipse id="path-2" cx="97" cy="42.5" rx="13" ry="13.5"></ellipse>
+    </defs>
+    <g id="Mockups" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Coverage" transform="translate(-426.000000, -2108.000000)">
+            <g id="hatch" transform="translate(490.500000, 2138.000000) scale(-1, 1) translate(-490.500000, -2138.000000) translate(428.000000, 2110.000000)">
+                <path d="M30.5437993,1.54892819 C48.0477967,-0.110372004 56.9640448,-0.886134944 65.8164846,1.54892819 C80.6915306,5.64064489 93.9612231,14.8667177 97.0408158,15.740211 C103.843465,17.669709 122.485117,20.2490762 123.757039,24.7960445 C126.004685,32.376318 125.016152,37.541055 122.295837,40.2034508 C120.482294,41.9783814 117.558198,43.2412818 113.523549,43.992152 C113.374461,44.009071 97.1908322,43.993584 97.0408158,43.992152 L19.4344359,43.2035338 C19.3629156,43.2028512 14.9635392,43.2035338 10.2616932,43.2035338 C5.55984715,43.2035338 0,40.2034508 0,35.4871355 C5.46952698e-16,32.3429252 0.928374527,30.1050745 2.78512358,28.7735833 C-0.359205541,24.2254192 1.36656176,22.4008422 2.78512358,17.2272898 C5.26864677,15.2977918 12.1815357,7.56180689 30.5437993,1.54892819 Z" id="Path-2" stroke="#1564BF" stroke-width="3" fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+                <g id="Oval-2">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <ellipse stroke="#1564BF" stroke-width="3" cx="22" cy="42.5" rx="11.5" ry="12"></ellipse>
+                    <ellipse stroke="#FFFFFF" stroke-width="2" cx="22" cy="42.5" rx="14" ry="14.5"></ellipse>
+                </g>
+                <g id="Oval-2">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <ellipse stroke="#1564BF" stroke-width="3" cx="97" cy="42.5" rx="11.5" ry="12"></ellipse>
+                    <ellipse stroke="#FFFFFF" stroke-width="2" cx="97" cy="42.5" rx="14" ry="14.5"></ellipse>
+                </g>
+                <path d="M48.5,7 L48.5,17" id="Line-5" stroke="#1564BF" stroke-width="3"></path>
+                <path d="M13,16 L88,16 C81.0014223,10.2323062 74.6096747,6.80347375 68.8247573,5.71350263 C60.1473812,4.07854595 42.8508395,2.85910207 33.4053998,5.71350263 C28.1253749,7.90428957 21.3235749,11.333122 13,16 Z" id="Path-7" stroke="#1564BF" stroke-width="3" stroke-linejoin="bevel"></path>
+            </g>
+        </g>
+    </g>
+</svg>

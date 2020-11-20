@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Display On --></label>
+    <name>vlocity_ins__DisplayOn__c</name>
+    <picklistValues>
+        <masterLabel>Desktop</masterLabel>
+        <translation><!-- Desktop --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mobile</masterLabel>
+        <translation><!-- Mobile --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tablet</masterLabel>
+        <translation><!-- Tablet --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

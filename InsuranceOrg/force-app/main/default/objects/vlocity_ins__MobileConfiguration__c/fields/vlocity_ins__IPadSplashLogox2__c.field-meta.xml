@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IPadSplashLogox2__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The URL to the image to use for the iPad splash screen. The image must be 2048 x 1536</description>
+    <externalId>false</externalId>
+    <label>iPad Splash Logo x 2</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

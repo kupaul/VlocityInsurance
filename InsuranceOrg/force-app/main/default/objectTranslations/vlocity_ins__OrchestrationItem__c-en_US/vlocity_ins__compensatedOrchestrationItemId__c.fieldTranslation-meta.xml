@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Compensated OrchestrationItem --></label>
+    <name>vlocity_ins__compensatedOrchestrationItemId__c</name>
+    <relationshipLabel><!-- Compensating Orchestration Items --></relationshipLabel>
+</CustomFieldTranslation>

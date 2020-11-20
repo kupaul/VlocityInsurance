@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Data Source Type --></label>
+    <name>vlocity_ins__DataSourceType__c</name>
+    <picklistValues>
+        <masterLabel>Apex</masterLabel>
+        <translation><!-- Apex --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Query</masterLabel>
+        <translation><!-- Query --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

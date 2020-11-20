@@ -1,0 +1,3 @@
+<apex:page standardController="vlocity_ins__CalculationProcedure__c" extensions="vlocity_ins.PricingCalculationImportExportController"  action="{!getExportResult}" cache="false"  contentType="text/plain/#{!cpName}.json" showHeader="false" sidebar="false"> 
+    {!exportResult}
+</apex:page>

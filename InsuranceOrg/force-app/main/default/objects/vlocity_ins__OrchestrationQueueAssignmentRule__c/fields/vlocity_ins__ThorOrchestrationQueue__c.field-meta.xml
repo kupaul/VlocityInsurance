@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ThorOrchestrationQueue__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Thor Orchestration Queue</label>
+    <referenceTo>vlocity_ins__ThorOrchestrationQueue__c</referenceTo>
+    <relationshipLabel>Orchestration Queue Assignment Rules</relationshipLabel>
+    <relationshipName>Orchestration_Queue_Assignment_Rules</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

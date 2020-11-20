@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsActive__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Boolean indicating whether the Contact is active or inactive without depending on the specific contact status. Vlocity logic determines whether this Contact should be considered active or inactive using this field. Typically inactive means the Contact will be filtered out of views and lists.</description>
+    <externalId>false</externalId>
+    <label>Active</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

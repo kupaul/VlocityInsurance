@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FirstVersionFRId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This field looks up to the first time this fulfilment request was introduced in the various versions of the current inflight orders.</description>
+    <externalId>false</externalId>
+    <label>First Fulfilment Request Version</label>
+    <referenceTo>vlocity_ins__FulfilmentRequest__c</referenceTo>
+    <relationshipLabel>Fulfilment Request revisions</relationshipLabel>
+    <relationshipName>LaterVersionFRs</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

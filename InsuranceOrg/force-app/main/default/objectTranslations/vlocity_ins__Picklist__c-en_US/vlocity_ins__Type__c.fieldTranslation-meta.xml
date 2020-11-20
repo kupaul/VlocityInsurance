@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Picklist Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Enumerated</masterLabel>
+        <translation><!-- Enumerated --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

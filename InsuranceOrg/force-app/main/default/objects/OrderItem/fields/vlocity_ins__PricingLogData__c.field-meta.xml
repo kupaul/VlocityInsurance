@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PricingLogData__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Detailed pricing log information for this item stored as a JSON structure. The JSON records the detailed prices, adjustments and interim calculations which result in the price to the customer.</description>
+    <externalId>false</externalId>
+    <label>Pricing Log</label>
+    <length>131072</length>
+    <trackHistory>false</trackHistory>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

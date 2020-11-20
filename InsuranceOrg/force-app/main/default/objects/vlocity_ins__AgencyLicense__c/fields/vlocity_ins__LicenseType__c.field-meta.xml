@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__LicenseType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>License Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Resident Insurance Agency</fullName>
+                <default>false</default>
+                <label>Resident Insurance Agency</label>
+            </value>
+            <value>
+                <fullName>Resident Brokerage</fullName>
+                <default>false</default>
+                <label>Resident Brokerage</label>
+            </value>
+            <value>
+                <fullName>Non-Resident Agency</fullName>
+                <default>false</default>
+                <label>Non-Resident Agency</label>
+            </value>
+            <value>
+                <fullName>Non-Resident Broker</fullName>
+                <default>false</default>
+                <label>Non-Resident Broker</label>
+            </value>
+            <value>
+                <fullName>Non-Resident Agent</fullName>
+                <default>false</default>
+                <label>Non-Resident Agent</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

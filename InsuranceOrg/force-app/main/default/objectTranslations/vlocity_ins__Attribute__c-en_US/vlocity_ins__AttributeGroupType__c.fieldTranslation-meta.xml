@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Attribute Group Type --></label>
+    <name>vlocity_ins__AttributeGroupType__c</name>
+    <picklistValues>
+        <masterLabel>In-Network</masterLabel>
+        <translation><!-- In-Network --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Link Group</masterLabel>
+        <translation><!-- Link Group --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Out-Of-Network</masterLabel>
+        <translation><!-- Out-Of-Network --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

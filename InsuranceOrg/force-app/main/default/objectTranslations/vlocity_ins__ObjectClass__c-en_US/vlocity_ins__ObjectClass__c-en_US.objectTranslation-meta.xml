@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Console Admin Search --></label>
+        <name>vlocity_ins__ConsoleAdminSearch</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- New Object --></label>
+        <name>vlocity_ins__NewObject</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- New Object Class --></label>
+        <name>vlocity_ins__NewObjectClass</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Object Type --></label>
+        <name>vlocity_ins__ObjectType</name>
+    </fieldSets>
+    <recordTypes>
+        <label><!-- Object --></label>
+        <name>vlocity_ins__Object</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Object Type --></label>
+        <name>vlocity_ins__ObjectType</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- Effective Until Date should be greater than or equal to Effective From Date. --></errorMessage>
+        <name>vlocity_ins__EffectiveFrom_Greater_EffectiveUntil</name>
+    </validationRules>
+</CustomObjectTranslation>

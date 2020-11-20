@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FillLimitForm__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Fill Limit Form</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>12 Hrs Patch</fullName>
+                <default>false</default>
+                <label>12 Hrs Patch</label>
+            </value>
+            <value>
+                <fullName>24 Hrs Patch</fullName>
+                <default>false</default>
+                <label>24 Hrs Patch</label>
+            </value>
+            <value>
+                <fullName>72 Hrs Patch</fullName>
+                <default>false</default>
+                <label>72 Hrs Patch</label>
+            </value>
+            <value>
+                <fullName>84 Hrs Patch</fullName>
+                <default>false</default>
+                <label>84 Hrs Patch</label>
+            </value>
+            <value>
+                <fullName>9 Hrs Patch</fullName>
+                <default>false</default>
+                <label>9 Hrs Patch</label>
+            </value>
+            <value>
+                <fullName>Cake</fullName>
+                <default>false</default>
+                <label>Cake</label>
+            </value>
+            <value>
+                <fullName>Capsule</fullName>
+                <default>false</default>
+                <label>Capsule</label>
+            </value>
+            <value>
+                <fullName>Cream</fullName>
+                <default>false</default>
+                <label>Cream</label>
+            </value>
+            <value>
+                <fullName>Cream (Augmented)</fullName>
+                <default>false</default>
+                <label>Cream (Augmented)</label>
+            </value>
+            <value>
+                <fullName>Douche</fullName>
+                <default>false</default>
+                <label>Douche</label>
+            </value>
+            <value>
+                <fullName>Drug Implant</fullName>
+                <default>false</default>
+                <label>Drug Implant</label>
+            </value>
+            <value>
+                <fullName>Dry-Powder Inhaler (DPI)</fullName>
+                <default>false</default>
+                <label>Dry-Powder Inhaler (DPI)</label>
+            </value>
+            <value>
+                <fullName>Enema</fullName>
+                <default>false</default>
+                <label>Enema</label>
+            </value>
+            <value>
+                <fullName>Film</fullName>
+                <default>false</default>
+                <label>Film</label>
+            </value>
+            <value>
+                <fullName>Foam</fullName>
+                <default>false</default>
+                <label>Foam</label>
+            </value>
+            <value>
+                <fullName>Gas</fullName>
+                <default>false</default>
+                <label>Gas</label>
+            </value>
+            <value>
+                <fullName>Gel</fullName>
+                <default>false</default>
+                <label>Gel</label>
+            </value>
+            <value>
+                <fullName>Gel (Augmented)</fullName>
+                <default>false</default>
+                <label>Gel (Augmented)</label>
+            </value>
+            <value>
+                <fullName>Gum</fullName>
+                <default>false</default>
+                <label>Gum</label>
+            </value>
+            <value>
+                <fullName>Inhaler</fullName>
+                <default>false</default>
+                <label>Inhaler</label>
+            </value>
+            <value>
+                <fullName>Irrigation Solution</fullName>
+                <default>false</default>
+                <label>Irrigation Solution</label>
+            </value>
+            <value>
+                <fullName>Lotion</fullName>
+                <default>false</default>
+                <label>Lotion</label>
+            </value>
+            <value>
+                <fullName>Lotion (Augmented)</fullName>
+                <default>false</default>
+                <label>Lotion (Augmented)</label>
+            </value>
+            <value>
+                <fullName>Medicated Bar Soap</fullName>
+                <default>false</default>
+                <label>Medicated Bar Soap</label>
+            </value>
+            <value>
+                <fullName>Medicated Liquid Soap</fullName>
+                <default>false</default>
+                <label>Medicated Liquid Soap</label>
+            </value>
+            <value>
+                <fullName>Medicated Shampoo</fullName>
+                <default>false</default>
+                <label>Medicated Shampoo</label>
+            </value>
+            <value>
+                <fullName>Medicated Tape</fullName>
+                <default>false</default>
+                <label>Medicated Tape</label>
+            </value>
+            <value>
+                <fullName>Metered Dose Inhaler (MDI)</fullName>
+                <default>false</default>
+                <label>Metered Dose Inhaler (MDI)</label>
+            </value>
+            <value>
+                <fullName>Ointment</fullName>
+                <default>false</default>
+                <label>Ointment</label>
+            </value>
+            <value>
+                <fullName>Ointment (Augmented)</fullName>
+                <default>false</default>
+                <label>Ointment (Augmented)</label>
+            </value>
+            <value>
+                <fullName>Oral Strip</fullName>
+                <default>false</default>
+                <label>Oral Strip</label>
+            </value>
+            <value>
+                <fullName>Paste</fullName>
+                <default>false</default>
+                <label>Paste</label>
+            </value>
+            <value>
+                <fullName>Patch</fullName>
+                <default>false</default>
+                <label>Patch</label>
+            </value>
+            <value>
+                <fullName>Powder</fullName>
+                <default>false</default>
+                <label>Powder</label>
+            </value>
+            <value>
+                <fullName>Powder Spray</fullName>
+                <default>false</default>
+                <label>Powder Spray</label>
+            </value>
+            <value>
+                <fullName>Prefilled Syringe</fullName>
+                <default>false</default>
+                <label>Prefilled Syringe</label>
+            </value>
+            <value>
+                <fullName>Ring</fullName>
+                <default>false</default>
+                <label>Ring</label>
+            </value>
+            <value>
+                <fullName>Solution</fullName>
+                <default>false</default>
+                <label>Solution</label>
+            </value>
+            <value>
+                <fullName>Spray</fullName>
+                <default>false</default>
+                <label>Spray</label>
+            </value>
+            <value>
+                <fullName>SR Tab</fullName>
+                <default>false</default>
+                <label>SR Tab</label>
+            </value>
+            <value>
+                <fullName>Suppository</fullName>
+                <default>false</default>
+                <label>Suppository</label>
+            </value>
+            <value>
+                <fullName>Suspension</fullName>
+                <default>false</default>
+                <label>Suspension</label>
+            </value>
+            <value>
+                <fullName>Tablet</fullName>
+                <default>false</default>
+                <label>Tablet</label>
+            </value>
+            <value>
+                <fullName>Weekly Patch</fullName>
+                <default>false</default>
+                <label>Weekly Patch</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

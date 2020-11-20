@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__InsurableItemId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Insurable Item</label>
+    <referenceTo>vlocity_ins__InsurableItem__c</referenceTo>
+    <relationshipLabel>Quote Items</relationshipLabel>
+    <relationshipName>QuoteItems</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

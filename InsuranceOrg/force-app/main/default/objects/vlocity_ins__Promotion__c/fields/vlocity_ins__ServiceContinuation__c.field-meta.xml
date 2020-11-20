@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ServiceContinuation__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicates whether the user must manually opt-in to continue service after the promo ends, or manually opt-out of service.</description>
+    <externalId>false</externalId>
+    <label>Service Continuation</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Not Applicable</fullName>
+                <default>true</default>
+                <label>Not Applicable</label>
+            </value>
+            <value>
+                <fullName>Manual Opt-In</fullName>
+                <default>false</default>
+                <label>Manual Opt-In</label>
+            </value>
+            <value>
+                <fullName>Manual Opt-Out</fullName>
+                <default>false</default>
+                <label>Manual Opt-Out</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

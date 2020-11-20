@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Volatility --></label>
+    <name>vlocity_ins__Volatility__c</name>
+    <picklistValues>
+        <masterLabel>Always</masterLabel>
+        <translation><!-- Always --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OnDemand</masterLabel>
+        <translation><!-- OnDemand --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Order</masterLabel>
+        <translation><!-- Order --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Order Line</masterLabel>
+        <translation><!-- Order Line --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Session</masterLabel>
+        <translation><!-- Session --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

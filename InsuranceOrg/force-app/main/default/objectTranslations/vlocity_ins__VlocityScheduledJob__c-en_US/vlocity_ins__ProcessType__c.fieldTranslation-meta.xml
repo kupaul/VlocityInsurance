@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Process Type --></label>
+    <name>vlocity_ins__ProcessType__c</name>
+    <picklistValues>
+        <masterLabel>Integration Procedure</masterLabel>
+        <translation><!-- Integration Procedure --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vlocity Open Interface</masterLabel>
+        <translation><!-- Vlocity Open Interface --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

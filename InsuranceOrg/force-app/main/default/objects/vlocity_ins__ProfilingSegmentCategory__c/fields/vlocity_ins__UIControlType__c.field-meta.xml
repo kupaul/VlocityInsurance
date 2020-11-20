@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__UIControlType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>UI Control Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>On-Off</fullName>
+                <default>true</default>
+                <label>On-Off</label>
+            </value>
+            <value>
+                <fullName>3-state</fullName>
+                <default>false</default>
+                <label>3-state</label>
+            </value>
+            <value>
+                <fullName>1-5 scale</fullName>
+                <default>false</default>
+                <label>1-5 scale</label>
+            </value>
+            <value>
+                <fullName>TextComment</fullName>
+                <default>false</default>
+                <label>TextComment</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

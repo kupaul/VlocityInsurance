@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Producer</fullName>
+    <active>true</active>
+    <label>Producer</label>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Activated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Approval Process</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__AutoRenewObjectCreation__c</picklist>
+        <values>
+            <fullName>Opportunity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Order</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quote</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__ExpirationReason__c</picklist>
+        <values>
+            <fullName>Does not want to renew</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moving to M2M</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__LocaleCode__c</picklist>
+        <values>
+            <fullName>de</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>en_US</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>fi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>fr</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__RenewalNotificationTerm__c</picklist>
+        <values>
+            <fullName>Days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Months</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__TerminationReason__c</picklist>
+        <values>
+            <fullName>Customer Not Compliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Termination without Cause</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__TerminationType__c</picklist>
+        <values>
+            <fullName>With Cause</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Without Cause</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

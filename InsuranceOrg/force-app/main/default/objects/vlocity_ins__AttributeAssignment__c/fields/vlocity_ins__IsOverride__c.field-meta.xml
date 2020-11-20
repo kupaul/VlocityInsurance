@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsOverride__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Indicates if this Attribute Assignment record is an override record that changes the definition of the attribute assignment in the context of some offer or other product.</description>
+    <externalId>false</externalId>
+    <label>IsOverride</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Adjustor Review</masterLabel>
+        <translation><!-- Adjustor Review --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Close</masterLabel>
+        <translation><!-- Close --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FNOL</masterLabel>
+        <translation><!-- FNOL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Payment</masterLabel>
+        <translation><!-- Payment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Subrogation</masterLabel>
+        <translation><!-- Subrogation --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

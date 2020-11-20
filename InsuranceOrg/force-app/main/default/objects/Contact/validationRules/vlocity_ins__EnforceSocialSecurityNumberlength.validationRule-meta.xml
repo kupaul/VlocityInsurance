@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EnforceSocialSecurityNumberlength</fullName>
+    <active>true</active>
+    <errorConditionFormula>vlocity_ins__SocialSecurityNumber__c !=null &amp;&amp; LEN(vlocity_ins__SocialSecurityNumber__c) != 9</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__SocialSecurityNumber__c</errorDisplayField>
+    <errorMessage>Social Security Number is 9-digit number</errorMessage>
+</ValidationRule>

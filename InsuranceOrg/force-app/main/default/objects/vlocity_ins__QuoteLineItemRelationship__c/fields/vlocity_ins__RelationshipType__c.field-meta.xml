@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RelationshipType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Relationship Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Replacement</fullName>
+                <default>false</default>
+                <label>Replacement</label>
+            </value>
+            <value>
+                <fullName>Reassignment</fullName>
+                <default>false</default>
+                <label>Reassignment</label>
+            </value>
+            <value>
+                <fullName>Movement</fullName>
+                <default>false</default>
+                <label>Movement</label>
+            </value>
+            <value>
+                <fullName>ReliesOn</fullName>
+                <default>false</default>
+                <label>Relies On</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

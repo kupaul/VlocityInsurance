@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Action__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The action ordered for this line item with values of Add, Change, Existing or Disconnect. Existing means no change is requested. Add is a request to add the item, Change is a request to change it. Disconnect is a request to remove it.</description>
+    <externalId>false</externalId>
+    <label>Action</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Add</fullName>
+                <default>true</default>
+                <label>Add</label>
+            </value>
+            <value>
+                <fullName>Modify</fullName>
+                <default>false</default>
+                <label>Modify</label>
+            </value>
+            <value>
+                <fullName>Disconnect</fullName>
+                <default>false</default>
+                <label>Disconnect</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

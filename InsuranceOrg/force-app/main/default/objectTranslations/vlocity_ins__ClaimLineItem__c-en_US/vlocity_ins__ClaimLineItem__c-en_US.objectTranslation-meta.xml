@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Claim Item Detail --></label>
+        <name>vlocity_ins__ClaimItemDetail</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Expense Item Detail --></label>
+        <name>vlocity_ins__ExpenseLineDetail</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- New Claim Item --></label>
+        <name>vlocity_ins__NewClaimItem</name>
+    </fieldSets>
+    <recordTypes>
+        <label><!-- Claim Line Item --></label>
+        <name>vlocity_ins__ClaimLineItem</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Line Item Adjustment --></label>
+        <name>vlocity_ins__LineItemAdjustment</name>
+    </recordTypes>
+</CustomObjectTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Group Class --></label>
+    <name>vlocity_ins__GroupClassId__c</name>
+    <relationshipLabel><!-- Plans --></relationshipLabel>
+</CustomFieldTranslation>

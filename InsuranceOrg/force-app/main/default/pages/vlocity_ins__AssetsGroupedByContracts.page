@@ -1,0 +1,3 @@
+<apex:page standardController="Account" extensions="vlocity_ins.CardCanvasController" showHeader="false" sidebar="false">
+    <c:AssetsComponent layoutName="comp-assets-base-grid" groupAssetsByContracts="on" assetIncludeType="noContractAssets" accountId="{!$CurrentPage.parameters.Id}" pricingMode="on" promotionMode="on"/>
+</apex:page>

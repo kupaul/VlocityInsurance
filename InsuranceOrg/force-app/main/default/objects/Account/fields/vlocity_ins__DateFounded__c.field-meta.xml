@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DateFounded__c</fullName>
+    <deprecated>false</deprecated>
+    <description>For accounts that are companies, the date when the company was founded.</description>
+    <externalId>false</externalId>
+    <label>Date Founded</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Date</type>
+</CustomField>

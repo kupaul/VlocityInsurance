@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CompletedWorkDays__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Completed working days</description>
+    <externalId>false</externalId>
+    <label>Work Days Completed</label>
+    <summarizedField>vlocity_ins__OrchestrationItem__c.vlocity_ins__DurationCompletedInDays__c</summarizedField>
+    <summaryFilterItems>
+        <field>vlocity_ins__OrchestrationItem__c.vlocity_ins__State__c</field>
+        <operation>notEqual</operation>
+        <value>Cancelled, Skipped</value>
+    </summaryFilterItems>
+    <summaryForeignKey>vlocity_ins__OrchestrationItem__c.vlocity_ins__OrchestrationPlanId__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ApplicableTypes__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Object types to which this category applies such as Account, Contact, Product2, ContentVersion, Campaign or Any. (Multi-select)</description>
+    <externalId>false</externalId>
+    <label>Applicable Types</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Any</fullName>
+                <default>true</default>
+                <label>Any</label>
+            </value>
+            <value>
+                <fullName>Account</fullName>
+                <default>false</default>
+                <label>Account</label>
+            </value>
+            <value>
+                <fullName>Contact</fullName>
+                <default>false</default>
+                <label>Contact</label>
+            </value>
+            <value>
+                <fullName>ContentVersion</fullName>
+                <default>false</default>
+                <label>ContentVersion</label>
+            </value>
+            <value>
+                <fullName>Campaign</fullName>
+                <default>false</default>
+                <label>Campaign</label>
+            </value>
+            <value>
+                <fullName>Product2</fullName>
+                <default>false</default>
+                <label>Product2</label>
+            </value>
+            <value>
+                <fullName>QuoteLineItem</fullName>
+                <default>false</default>
+                <label>QuoteLineItem</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

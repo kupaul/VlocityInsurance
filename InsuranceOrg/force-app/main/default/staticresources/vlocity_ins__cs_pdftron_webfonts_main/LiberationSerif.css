@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'Liberation Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Liberation Serif'), url({{URLTOKEN}}/LiberationSerif.ttf?orgId=00D3i000000rhp6) format( 'truetype');
+}
+
+@font-face {
+  font-family: 'Liberation Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Liberation Serif Bold'), url({{URLTOKEN}}/LiberationSerifBold.ttf?orgId=00D3i000000rhp6) format( 'truetype');
+}
+
+@font-face {
+  font-family: 'Liberation Serif';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Liberation Serif Italic'), url({{URLTOKEN}}/LiberationSerifItalic.ttf?orgId=00D3i000000rhp6) format( 'truetype');
+}
+
+@font-face {
+  font-family: 'Liberation Serif';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Liberation Serif Bold Italic'), url({{URLTOKEN}}/LiberationSerifBoldItalic.ttf?orgId=00D3i000000rhp6) format( 'truetype');
+}

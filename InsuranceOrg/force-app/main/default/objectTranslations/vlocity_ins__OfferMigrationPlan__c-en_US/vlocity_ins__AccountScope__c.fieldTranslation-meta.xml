@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Account Scope --></label>
+    <name>vlocity_ins__AccountScope__c</name>
+    <picklistValues>
+        <masterLabel>Same Account</masterLabel>
+        <translation><!-- Same Account --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Same Value2</masterLabel>
+        <translation><!-- Same Value2 --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

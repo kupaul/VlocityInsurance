@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Auto Payment / Bank Drafting Program</fullName>
+                <default>false</default>
+                <label>Auto Payment / Bank Drafting Program</label>
+            </value>
+            <value>
+                <fullName>Full Surrender</fullName>
+                <default>false</default>
+                <label>Full Surrender</label>
+            </value>
+            <value>
+                <fullName>Loan</fullName>
+                <default>false</default>
+                <label>Loan</label>
+            </value>
+            <value>
+                <fullName>One Time Withdrawal</fullName>
+                <default>false</default>
+                <label>One Time Withdrawal</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

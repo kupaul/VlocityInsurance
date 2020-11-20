@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SubAction__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The sub-action ordered for this line item typically used for moves of service from one location to another with values of Move-Add and Move-Delete. Move-Add means this item is being added as part of the move and usually should be added before the previous service is disconnected. Move-Delete means this item is the service to be disconnected after the service is activated at the new location.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Sub-Action</inlineHelpText>
+    <label>Sub-Action</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Move-Add</fullName>
+                <default>false</default>
+                <label>Move-Add</label>
+            </value>
+            <value>
+                <fullName>Move-Disconnect</fullName>
+                <default>false</default>
+                <label>Move-Disconnect</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

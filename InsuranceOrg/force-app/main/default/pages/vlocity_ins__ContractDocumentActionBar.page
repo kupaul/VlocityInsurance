@@ -1,0 +1,5 @@
+<apex:page standardController="Contract" extensions="vlocity_ins.VFPageControllerBase" showHeader="false" sidebar="false" docType="html-5.0">
+<c:ActionComponent standardController="{!stdController}"
+                   objType="Contract" style="Horizontal"
+                   linkTypes="Document"/>
+</apex:page>

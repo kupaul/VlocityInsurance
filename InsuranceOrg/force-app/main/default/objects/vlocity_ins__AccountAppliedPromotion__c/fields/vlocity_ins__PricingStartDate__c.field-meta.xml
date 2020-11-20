@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PricingStartDate__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Start date of the promotional pricing for this customer.</description>
+    <externalId>false</externalId>
+    <label>Benefit Start Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DisableDatasourceQuery__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Disable the SOQL Query datasource at the org level</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Disable the SOQL Query datasource at the org level</inlineHelpText>
+    <label>Disable Datasource SOQL Query</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

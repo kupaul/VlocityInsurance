@@ -1,0 +1,135 @@
+<apex:page standardController="Campaign" showHeader="false" sidebar="false" extensions="vlocity_ins.CampaignActionsDisplayController">
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__bootstrap, '/bootstrap-3.2.0-dist/css/sfboot.min.css')}"/>
+    <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="campaignActions" class="ng-cloak" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+     <head>
+        <meta charset="utf-8"/>
+        <base href="/apex/CampaignActions"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SEGJS}" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__CampaignActions}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+        <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds_2_2_2, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds_2_2_2, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+    </head>
+    <body>
+    <div class="vloc-body ng-cloak" ng-app="campaignActions" ng-controller="CampaignMassEmailController">
+        <div class="vlocity via-slds">
+              <div class="slds-form--horizontal slds-container--medium slds-container--center" id="email-container" ng-show="!emailSent" style="overflow: hidden;">
+                <div class="slds-form-element" ng-show="lookup">
+                    <div class="slds-card__header slds-grid" style="padding-left: 6px;padding-right: 6px; padding-top:0">
+                        <div class="slds-media slds-media--center  slds-text-align--left slds-has-flexi-truncate">
+                             <i class="slds-media__figure slds-icon slds-icon-standard-contact icon-v-avatar-multiple-people" style="color:white; font-size:24px; padding-top: 5px"/>
+                              <div class="slds-media__body slds-truncate">
+                                <a href="javascript:void(0);" class="slds-text-link--reset">
+                                  <span class="slds-text-heading--small">Select Campaign Members ({{amountSelected()}})</span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="slds-no-flex">
+                              <button class="slds-button slds-col--bump-left" ng-click="lookup = false">Next<i class="slds-icon icon-v-right-caret"/></button>
+                            </div>
+                          </div>
+                          <div class="slds-card__body">
+                            <table class="slds-table slds-table--bordered slds-no-row-hover slds-table--cell-buffer">
+                              <thead>
+                                <tr class="slds-text-heading--label">
+                                <th>
+                                  <label class="slds-checkbox">
+                                        <input type="checkbox" id="checkbox-contacts" ng-model="selectAll" ng-click="selectAll ? addAllContacts() : removeAllContacts()"/>
+                                        <span class="slds-checkbox--faux"></span>
+                                    </label>
+                                </th>
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Company</th>
+                                  <th scope="col">Email</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr class="slds-hint-parent" ng-repeat="member in contactList track by $index" ng-if="member.Email != null" ng-click="addContact($index)" onmouseover="this.style.cursor='pointer'" ng-class="{'slds-is-selected' : member.isRecipient}">
+                                <th>
+                                   <label class="slds-checkbox">
+                                        <input type="checkbox" name="options" id="checkbox-contacts" ng-model="member.isRecipient" ng-click="addContact($index)"/>
+                                        <span class="slds-checkbox--faux"></span>
+                                    </label>
+                                  </th>
+                                  <th scope="row">
+                                    <div class="slds-truncate"><a ng-click="navigateTo(member.Id)" ng-bind-html="member.FirstName + ' ' +member.LastName"></a></div>
+                                  </th>
+                                  <td ng-if="member.Company" ng-bind-html="member.Company"></td>
+                                  <td ng-if="member.Account.Name" ng-bind-html="member.Account.Name"></td>
+                                  <td ng-bind-html="member.Email"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                   </div>
+                  <div class="slds-form--horizontal" ng-show="!lookup">
+                       <div class="slds-form-element" style="z-index:10">
+                            <button class="slds-button slds-float--right" ng-click="lookup = true"><i class="icon icon-v-left-caret"/>Previous</button>
+                        </div>
+                        <div class="slds-form-element slds-p-left--small" ng-show="currentCampaign[nameSpacePrefix + 'EmailTemplate__c']" style="margin-top:0">
+                          <label class="slds-form-element__label">Use Template:</label>
+                          <div class="slds-form-element__control">
+                            <label class="slds-checkbox slds-form-element__label">
+                                  <input type="checkbox" id="checkbox-contacts" ng-model="useTemplate"/>
+                                  <span class="slds-checkbox--faux"></span>
+                                  <span class="slds-form-element__label">{{currentCampaign[nameSpacePrefix + 'EmailTemplate__c']}}</span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="empty-template" ng-hide='useTemplate'>
+                             <div class="slds-form-element slds-p-left--small">
+                                <label class="slds-form-element__label">Subject:</label>
+                                <div class="slds-form-element__control">
+                                  <input id="textareaSample" class="slds-input" ng-model="subject"/>
+                                </div>
+                            </div>
+                            <div class="slds-form-element slds-p-left--small" ng-class="{'slds-has-error' : messageError}">
+                                <label class="slds-form-element__label"><abbr class="slds-required" title="required">*</abbr>Message:</label>
+                                <div class="slds-form-element__control">
+                                  <textarea id="textareaSample2" class="slds-textarea" ng-model="message"></textarea>
+                                </div>
+                            </div>
+                             <fieldset class="slds-form-element is-required slds-p-left--small" >
+                                <label ng-if="attachments.length > 0" class="slds-form-element__label" for="attachments">Select Attachments:</label>
+                                <div class="slds-form-element__control">
+                                    <div ng-repeat="attachment in attachments">
+                                        <label class="slds-checkbox" for="attachment-{{$index}}">
+                                            <input name="default" type="checkbox" ng-model="attachment.isSelected" id="attachment-{{$index}}" ng-change="updateAttachments(attachment)"/>
+                                            <span class="slds-checkbox--faux"></span>
+                                            <span class="slds-form-element__label">{{attachment.Name}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                      <div class="slds-form-element slds-m-top--small">
+                            <button class="slds-button slds-button--brand slds-float--right" type="button" ng-click="sendEmail()">Send</button>
+                      </div>
+                  </div>
+                </div>
+                 <div class="slds-form--horizontal slds-m-around--x-small" id="email-container" ng-show="emailSent">
+                    <div class="slds-text-align--center slds-m-top--medium">
+                      <h2 class="slds-text-heading--small">{{sentMessage}}</h2>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <script type="text/javascript">
+            var campaignMembers, nameSpacePrefix, currentCampaign;
+            campaignMembers = '{!JSENCODE(campaignMembers)}';
+            nameSpacePrefix = '{!JSENCODE(nameSpacePrefix)}';
+            currentCampaign = '{!JSENCODE(currentCampaign)}';
+            remoteActions = {
+                sendMassEmail: {
+                    action: '{!$RemoteAction.CampaignActionsDisplayController.sendMassEmail}',
+                    config: {escape: false}
+                },
+                getAttachments: {
+                    action: '{!$RemoteAction.CampaignActionsDisplayController.getAttachments}',
+                    config: {escape: false}
+                }
+            };
+        </script>
+    </body>
+</html>
+</apex:page>

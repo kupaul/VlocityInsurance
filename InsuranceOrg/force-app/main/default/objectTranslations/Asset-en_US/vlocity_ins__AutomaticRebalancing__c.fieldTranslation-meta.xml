@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Automatic Rebalancing --></label>
+    <name>vlocity_ins__AutomaticRebalancing__c</name>
+    <picklistValues>
+        <masterLabel>Elected</masterLabel>
+        <translation><!-- Elected --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not Elected</masterLabel>
+        <translation><!-- Not Elected --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

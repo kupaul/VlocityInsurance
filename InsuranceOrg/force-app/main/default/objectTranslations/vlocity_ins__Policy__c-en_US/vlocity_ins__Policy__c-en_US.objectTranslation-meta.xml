@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Client Policy List --></label>
+        <name>vlocity_ins__ClientPolicyList</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Client Policy List SF1 --></label>
+        <name>vlocity_ins__ClientPolicyListSF1</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- InteractionFieldList --></label>
+        <name>vlocity_ins__InteractionFieldList</name>
+    </fieldSets>
+    <recordTypes>
+        <description><!-- Record type for Commercial Lines LOB Policy --></description>
+        <label><!-- Commercial Lines --></label>
+        <name>vlocity_ins__CommercialLines</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Default --></label>
+        <name>vlocity_ins__Default</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record type for Individual Annuity LOB Policy --></description>
+        <label><!-- Individual Annuity --></label>
+        <name>vlocity_ins__IndividualAnnuity</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record type for Individual Life LOB Policy --></description>
+        <label><!-- Individual Life --></label>
+        <name>vlocity_ins__IndividualLife</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- MobilePhonePolicy --></label>
+        <name>vlocity_ins__MobilePhonePolicy</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Record type for Personal Lines LOB Policy --></description>
+        <label><!-- Personal Lines --></label>
+        <name>vlocity_ins__PersonalLines</name>
+    </recordTypes>
+</CustomObjectTranslation>

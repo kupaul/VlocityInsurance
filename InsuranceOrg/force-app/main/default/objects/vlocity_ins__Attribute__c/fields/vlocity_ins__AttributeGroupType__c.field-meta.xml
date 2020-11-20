@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AttributeGroupType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Attribute Group Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>In-Network</fullName>
+                <default>false</default>
+                <label>In-Network</label>
+            </value>
+            <value>
+                <fullName>Out-Of-Network</fullName>
+                <default>false</default>
+                <label>Out-Of-Network</label>
+            </value>
+            <value>
+                <fullName>Link Group</fullName>
+                <default>false</default>
+                <label>Link Group</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

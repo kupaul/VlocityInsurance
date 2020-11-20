@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__QuoteLineItemId__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Id of the quote line item for which the group class is defined.</description>
+    <externalId>false</externalId>
+    <label>Quote Line Item</label>
+    <referenceTo>QuoteLineItem</referenceTo>
+    <relationshipLabel>Quote Line Item Group Class</relationshipLabel>
+    <relationshipName>QuoteLineItemGroupClasses</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

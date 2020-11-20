@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Code System Type --></label>
+    <name>vlocity_ins__CodeSystemType__c</name>
+    <picklistValues>
+        <masterLabel>APC</masterLabel>
+        <translation><!-- APC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CARC</masterLabel>
+        <translation><!-- CARC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CDT</masterLabel>
+        <translation><!-- CDT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CPT</masterLabel>
+        <translation><!-- CPT --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DRG</masterLabel>
+        <translation><!-- DRG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>HCPC</masterLabel>
+        <translation><!-- HCPC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ICD</masterLabel>
+        <translation><!-- ICD --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MS-DRG</masterLabel>
+        <translation><!-- MS-DRG --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RARC</masterLabel>
+        <translation><!-- RARC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RUG</masterLabel>
+        <translation><!-- RUG --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

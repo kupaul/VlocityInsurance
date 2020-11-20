@@ -1,0 +1,127 @@
+<apex:page showHeader="true" sidebar="true">
+    <head>
+        <script src="{!$Resource.JQUERYJS}"></script>
+        <script src="!{URLFOR(!$Resource.vlocity_assets, '/bower_components/ForceTK/forcetk.js'})"></script>
+        <script src="!{URLFOR(!$Resource.vlocity_assets, '/bower_components/ForceTK/bulktk.js'})"></script>
+        <script src="!{URLFOR(!$Resource.vlocity_assets, '/bower_components/ForceTK/jxon.js'})"></script>
+        <script>
+
+            var client = new forcetk.Client();
+            client.setSessionToken('{!$Api.Session_ID}');
+
+            function handleFile(e) {
+                var files = e.target.files;
+                var i,f;
+                for (i = 0, f = files[i]; i != files.length; ++i) {
+                    var reader = new FileReader();
+                    var name = f.name;
+                    reader.onload = function(e) {
+                        var data = e.target.result;
+
+                        var workbook = XLSX.read(data, {type: 'binary'});
+
+                        /* DO SOMETHING WITH workbook HERE */
+
+                        var columns = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+                        for (var sheetIdx=0; ; sheetIdx++) {
+                            var sheetName = workbook.SheetNames[sheetIdx];
+
+                            if (!sheetName) {
+                                break;
+                            }
+
+                            var worksheet = workbook.Sheets[sheetName];
+                            var maxCol = 0;
+                            var colNames = [];
+
+                            var xml = "";
+
+                            var json = [];
+                            var csv = "";
+
+                            // Analyze header
+                            for (var i=0; i<columns.length; i++) {
+
+                                if (!worksheet[columns[i]+'1']) {
+                                    maxCol = i;
+                                    break;
+                                }
+
+                                console.log (columns[i]+'1', worksheet[columns[i]+'1']);
+
+                                colNames.push(worksheet[columns[i]+'1'].v);
+
+                            }
+
+                            console.log ('colNames', colNames, maxCol);
+
+                            var rec = {};
+
+                            // Analyze rows
+                            
+                            for (var j=0; ;j++) {
+
+                                if (!worksheet['A'+(j+1)]) {
+                                    break;
+                                }
+
+                                for (var i=0; i<maxCol; i++) {
+                                    var val = worksheet[columns[i]+(j+1)];
+
+                                    if (val) {
+                                        rec[colNames[i]] = val.v;
+                                    }
+
+                                }
+
+                                json.push (rec);
+
+                            }
+
+                            var jsonStr = JSON.stringify(json);
+
+                            var job = {
+                                operation : 'insert',
+                                object : 'Contact',
+                                contentType : 'json'
+                            };
+
+                            client.createJob(job, function(response) {
+                                jobId = response.jobInfo.id;
+                                client.addBatch (jobId, 'text/json; charset=UTF-8', jsonStr, function (response){
+                                    console.log('Added batch '+response.batchInfo.id+'. State: '+response.batchInfo.state+'\n');
+                                });
+                            }, function(jqXHR, textStatus, errorThrown) {
+                                console.log('Error creating job', jqXHR.responseText);
+                            });
+
+                        }
+
+                        //console.log (workbook);
+                        //
+                        
+
+                    };
+
+                    reader.readAsBinaryString(f);
+                }
+            }
+
+            $(function() {
+                document.getElementById('xlsx').addEventListener('change', handleFile, false);
+            });
+        </script>
+    </head>
+    <body>
+
+        <div class="container">
+            <h2>Upload excel</h2>
+
+            <form id="form">
+                <input type="file" name="xls" id="xlsx"/>
+            </form>
+        </div>
+    </body>
+	
+</apex:page>

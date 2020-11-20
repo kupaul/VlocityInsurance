@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>45.0</apiVersion>
+    <description>Loads the correct stylesheet based on the Theme attribute or the default styles.</description>
+    <label>Card Style Loader Component</label>
+</ApexComponent>

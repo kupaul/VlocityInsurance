@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Editable Table --></label>
+        <name>vlocity_ins__EditableTable</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Rating Fact Source Fields --></label>
+        <name>vlocity_ins__RatingFactSourceFields</name>
+    </fieldSets>
+    <validationRules>
+        <errorMessage><!-- FTE value is between 0 and 1. --></errorMessage>
+        <name>vlocity_ins__FTEValidation</name>
+    </validationRules>
+</CustomObjectTranslation>

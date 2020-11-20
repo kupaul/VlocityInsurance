@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DRProgressData__c</fullName>
+    <deprecated>false</deprecated>
+    <description>JSON of current progress processing item if using bulk processing methods</description>
+    <externalId>false</externalId>
+    <label>DR Progress</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

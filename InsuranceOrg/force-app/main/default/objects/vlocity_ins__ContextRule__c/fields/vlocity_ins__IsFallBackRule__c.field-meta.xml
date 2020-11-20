@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsFallBackRule__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If true, this Rule is the fallback rule for parent ruleset. a fallback rule is the last rule to be executed in a ruleset ,if all other rules fail</description>
+    <externalId>false</externalId>
+    <label>IsFallBackRule</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

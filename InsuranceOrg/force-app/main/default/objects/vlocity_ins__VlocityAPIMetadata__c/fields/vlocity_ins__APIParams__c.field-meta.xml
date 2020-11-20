@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__APIParams__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Config, Query parameteres  and overridden Query of the API eg. {&quot;pageSize&quot;:&quot;2&quot;, &quot;orderBy&quot;:&quot;Name desc&quot;, &quot;ordering&quot;:&quot;Name,ProductCode&quot;, &quot;fields&quot;:&quot;ProductCode&quot;, &quot;query&quot;:&quot;SELECT gs_cmt__CatalogId__c,gs_cmt__Product2Id__c,gs_cmt__SequenceNumber__c FROM gs_cmt__CatalogProductRelationship__c&quot;}</description>
+    <externalId>false</externalId>
+    <label>API Params</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

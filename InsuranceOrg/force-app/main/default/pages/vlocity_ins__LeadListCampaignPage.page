@@ -1,0 +1,13 @@
+<apex:page standardController="Lead" recordSetVar="Leads" extensions="vlocity_ins.LeadListCampaignController">
+	<apex:form >
+		<apex:actionFunction name="createCampaign" action="{!createCampaign}"/>
+		<apex:outputPanel >
+        	<script>
+	           window.onload=function()
+	           {
+	             createCampaign();
+	           };
+	        </script>
+      </apex:outputPanel>
+	</apex:form>
+</apex:page>

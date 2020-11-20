@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Source__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Source expression to evaluate to load the dimension value ,before loading to runtime destination ( eg Order.Channel) . FUNCTIONS will also be supported,to be used when reading source values</description>
+    <externalId>false</externalId>
+    <label>Source Expression</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- State --></label>
+    <name>vlocity_ins__State__c</name>
+    <picklistValues>
+        <masterLabel>Cancelled</masterLabel>
+        <translation><!-- Cancelled --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Completed</masterLabel>
+        <translation><!-- Completed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Failed</masterLabel>
+        <translation><!-- Failed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fatally Failed</masterLabel>
+        <translation><!-- Fatally Failed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pending</masterLabel>
+        <translation><!-- Pending --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ready</masterLabel>
+        <translation><!-- Ready --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Running</masterLabel>
+        <translation><!-- Running --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Skipped</masterLabel>
+        <translation><!-- Skipped --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Antique/Classic Vehicle</masterLabel>
+        <translation><!-- Antique/Classic Vehicle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Apartment</masterLabel>
+        <translation><!-- Apartment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Barley</masterLabel>
+        <translation><!-- Barley --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Beans</masterLabel>
+        <translation><!-- Beans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Business - Leased</masterLabel>
+        <translation><!-- Business - Leased --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Business - Owned</masterLabel>
+        <translation><!-- Business - Owned --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cat</masterLabel>
+        <translation><!-- Cat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chicken</masterLabel>
+        <translation><!-- Chicken --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Commercial - Garage</masterLabel>
+        <translation><!-- Commercial - Garage --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Commercial - Office</masterLabel>
+        <translation><!-- Commercial - Office --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Commercial - Storefront</masterLabel>
+        <translation><!-- Commercial - Storefront --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Commercial - Warehouse</masterLabel>
+        <translation><!-- Commercial - Warehouse --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Commercial Vehicle</masterLabel>
+        <translation><!-- Commercial Vehicle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Company</masterLabel>
+        <translation><!-- Company --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Condominium</masterLabel>
+        <translation><!-- Condominium --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Corn</masterLabel>
+        <translation><!-- Corn --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dog</masterLabel>
+        <translation><!-- Dog --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Donkey</masterLabel>
+        <translation><!-- Donkey --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Driver</masterLabel>
+        <translation><!-- Driver --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Duck</masterLabel>
+        <translation><!-- Duck --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ewes</masterLabel>
+        <translation><!-- Ewes --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Farm Vehicle</masterLabel>
+        <translation><!-- Farm Vehicle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fishing Boat</masterLabel>
+        <translation><!-- Fishing Boat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fruit</masterLabel>
+        <translation><!-- Fruit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Goat</masterLabel>
+        <translation><!-- Goat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Goose</masterLabel>
+        <translation><!-- Goose --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Grain</masterLabel>
+        <translation><!-- Grain --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Guinea</masterLabel>
+        <translation><!-- Guinea --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hay</masterLabel>
+        <translation><!-- Hay --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hen</masterLabel>
+        <translation><!-- Hen --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hog</masterLabel>
+        <translation><!-- Hog --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Horses</masterLabel>
+        <translation><!-- Horses --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Houseboat</masterLabel>
+        <translation><!-- Houseboat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Individual</masterLabel>
+        <translation><!-- Individual --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lamb</masterLabel>
+        <translation><!-- Lamb --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mobile Home</masterLabel>
+        <translation><!-- Mobile Home --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Motorcycle</masterLabel>
+        <translation><!-- Motorcycle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mule</masterLabel>
+        <translation><!-- Mule --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multi-Family Home</masterLabel>
+        <translation><!-- Multi-Family Home --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nuts</masterLabel>
+        <translation><!-- Nuts --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Oats</masterLabel>
+        <translation><!-- Oats --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Outbuilding</masterLabel>
+        <translation><!-- Outbuilding --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Personal Vehicle</masterLabel>
+        <translation><!-- Personal Vehicle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pheasant</masterLabel>
+        <translation><!-- Pheasant --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pleasure Boat</masterLabel>
+        <translation><!-- Pleasure Boat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pony</masterLabel>
+        <translation><!-- Pony --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quail</masterLabel>
+        <translation><!-- Quail --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ram</masterLabel>
+        <translation><!-- Ram --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recreational Vehicle</masterLabel>
+        <translation><!-- Recreational Vehicle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Scheduled Personal Property</masterLabel>
+        <translation><!-- Scheduled Personal Property --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sheep</masterLabel>
+        <translation><!-- Sheep --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Single Family Home</masterLabel>
+        <translation><!-- Single Family Home --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sod</masterLabel>
+        <translation><!-- Sod --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sow</masterLabel>
+        <translation><!-- Sow --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Soybeans</masterLabel>
+        <translation><!-- Soybeans --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Straw</masterLabel>
+        <translation><!-- Straw --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Swine</masterLabel>
+        <translation><!-- Swine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tobacco</masterLabel>
+        <translation><!-- Tobacco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trailer</masterLabel>
+        <translation><!-- Trailer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trees</masterLabel>
+        <translation><!-- Trees --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Turkey</masterLabel>
+        <translation><!-- Turkey --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vegetables</masterLabel>
+        <translation><!-- Vegetables --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wheat</masterLabel>
+        <translation><!-- Wheat --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,4 @@
+<apex:page standardController="Contact" showHeader="false" sidebar="false"   >
+    <apex:stylesheet value="//cdn.jsdelivr.net/webjars/bootstrap-sf1/0.1.0-beta.6/css/bootstrap-namespaced.css"/>
+    <c:StoryCardComponent ></c:StoryCardComponent>    
+</apex:page>

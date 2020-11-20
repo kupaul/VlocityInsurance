@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CurrentContractTerm__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The number of months term of the current contract.</description>
+    <externalId>false</externalId>
+    <label>Current Contract Term (months)</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

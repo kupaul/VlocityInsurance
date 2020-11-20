@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Category --></label>
+    <name>vlocity_ins__Category__c</name>
+    <picklistValues>
+        <masterLabel>Dry Cleaners</masterLabel>
+        <translation><!-- Dry Cleaners --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Food Stores</masterLabel>
+        <translation><!-- Food Stores --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hardware-Home Improvement</masterLabel>
+        <translation><!-- Hardware-Home Improvement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Office</masterLabel>
+        <translation><!-- Office --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Printers-Copiers</masterLabel>
+        <translation><!-- Printers-Copiers --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Repair</masterLabel>
+        <translation><!-- Repair --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Retail</masterLabel>
+        <translation><!-- Retail --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

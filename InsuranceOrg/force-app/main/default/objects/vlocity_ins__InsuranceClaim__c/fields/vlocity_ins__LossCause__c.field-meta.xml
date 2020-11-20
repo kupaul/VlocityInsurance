@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__LossCause__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Loss Cause</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Glass Claim</fullName>
+                <default>false</default>
+                <label>Glass Claim</label>
+            </value>
+            <value>
+                <fullName>Auto Accident</fullName>
+                <default>false</default>
+                <label>Auto Accident</label>
+            </value>
+            <value>
+                <fullName>Auto Theft</fullName>
+                <default>false</default>
+                <label>Auto Theft</label>
+            </value>
+            <value>
+                <fullName>Windstorm</fullName>
+                <default>false</default>
+                <label>Windstorm</label>
+            </value>
+            <value>
+                <fullName>Fire</fullName>
+                <default>false</default>
+                <label>Fire</label>
+            </value>
+            <value>
+                <fullName>Property Theft</fullName>
+                <default>false</default>
+                <label>Property Theft</label>
+            </value>
+            <value>
+                <fullName>Flooding</fullName>
+                <default>false</default>
+                <label>Flooding</label>
+            </value>
+            <value>
+                <fullName>3rd Party Injury</fullName>
+                <default>false</default>
+                <label>3rd Party Injury</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

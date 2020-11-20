@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>All</masterLabel>
+        <translation><!-- All --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Individual Dental</masterLabel>
+        <translation><!-- Individual Dental --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Individual Health</masterLabel>
+        <translation><!-- Individual Health --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Individual Vision</masterLabel>
+        <translation><!-- Individual Vision --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medicare Advantage</masterLabel>
+        <translation><!-- Medicare Advantage --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medicare Part D</masterLabel>
+        <translation><!-- Medicare Part D --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medicare Supplemental</masterLabel>
+        <translation><!-- Medicare Supplemental --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

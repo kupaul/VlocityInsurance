@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IPhoneSplashLogox2__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The URL to the image to use for the iPhone splash screen. The image must be 750 x 1334</description>
+    <externalId>false</externalId>
+    <label>iPhone Splash Logo x 2</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

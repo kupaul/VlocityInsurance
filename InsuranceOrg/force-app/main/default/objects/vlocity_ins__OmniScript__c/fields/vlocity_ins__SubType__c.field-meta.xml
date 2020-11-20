@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SubType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Sub Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>vlocity_ins__Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Marriage License</fullName>
+                <default>false</default>
+                <label>Marriage License</label>
+            </value>
+            <value>
+                <fullName>Birth Certificate</fullName>
+                <default>false</default>
+                <label>Birth Certificate</label>
+            </value>
+            <value>
+                <fullName>Building Permit</fullName>
+                <default>false</default>
+                <label>Building Permit</label>
+            </value>
+            <value>
+                <fullName>Gun Permit</fullName>
+                <default>false</default>
+                <label>Gun Permit</label>
+            </value>
+            <value>
+                <fullName>Mental Health</fullName>
+                <default>false</default>
+                <label>Mental Health</label>
+            </value>
+            <value>
+                <fullName>Renew</fullName>
+                <default>false</default>
+                <label>Renew</label>
+            </value>
+            <value>
+                <fullName>Terminate</fullName>
+                <default>false</default>
+                <label>Terminate</label>
+            </value>
+            <value>
+                <fullName>Amend</fullName>
+                <default>false</default>
+                <label>Amend</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Licensing &amp; Permitting</controllingFieldValue>
+            <valueName>Marriage License</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Licensing &amp; Permitting</controllingFieldValue>
+            <valueName>Birth Certificate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Licensing &amp; Permitting</controllingFieldValue>
+            <valueName>Building Permit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Licensing &amp; Permitting</controllingFieldValue>
+            <valueName>Gun Permit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Licensing &amp; Permitting</controllingFieldValue>
+            <valueName>Mental Health</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Contract</controllingFieldValue>
+            <valueName>Renew</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Contract</controllingFieldValue>
+            <valueName>Terminate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Contract</controllingFieldValue>
+            <valueName>Amend</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

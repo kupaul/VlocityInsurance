@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Vlocity_Objects_ObjectTypes_Product2</fullName>
+    <columns>NAME</columns>
+    <columns>vlocity_ins__ObjectApiName__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>vlocity_ins__ObjectClass__c.vlocity_ins__Object</value>
+    </filters>
+    <filters>
+        <field>NAME</field>
+        <operation>equals</operation>
+        <value>Product2 Object</value>
+    </filters>
+    <label>Product2 Object</label>
+</ListView>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Sub Action --></label>
+    <name>vlocity_ins__SubAction__c</name>
+    <picklistValues>
+        <masterLabel>Cancel</masterLabel>
+        <translation><!-- Cancel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Move</masterLabel>
+        <translation><!-- Move --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

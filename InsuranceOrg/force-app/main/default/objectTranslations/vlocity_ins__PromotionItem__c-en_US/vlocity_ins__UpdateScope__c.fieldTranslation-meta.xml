@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Update Scope --></label>
+    <name>vlocity_ins__UpdateScope__c</name>
+    <picklistValues>
+        <masterLabel>Update Item Only</masterLabel>
+        <translation><!-- Update Item Only --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Update Item and Child Items</masterLabel>
+        <translation><!-- Update Item and Child Items --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

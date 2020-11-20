@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FeeType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Fee Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Rate Factor</fullName>
+                <default>false</default>
+                <label>Rate Factor</label>
+            </value>
+            <value>
+                <fullName>Fixed Amount</fullName>
+                <default>false</default>
+                <label>Fixed Amount</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

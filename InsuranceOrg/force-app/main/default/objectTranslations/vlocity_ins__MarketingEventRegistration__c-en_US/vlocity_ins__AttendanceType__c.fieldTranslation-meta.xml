@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Attendance Type --></label>
+    <name>vlocity_ins__AttendanceType__c</name>
+    <picklistValues>
+        <masterLabel>Registered</masterLabel>
+        <translation><!-- Registered --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Walk-In</masterLabel>
+        <translation><!-- Walk-In --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

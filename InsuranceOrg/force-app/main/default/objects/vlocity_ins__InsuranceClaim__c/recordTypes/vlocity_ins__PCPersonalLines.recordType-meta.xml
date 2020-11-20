@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PCPersonalLines</fullName>
+    <active>true</active>
+    <label>P&amp;C Personal Lines</label>
+    <picklistValues>
+        <picklist>vlocity_ins__ClaimStatus__c</picklist>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__LossCause__c</picklist>
+        <values>
+            <fullName>3rd Party Injury</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auto Accident</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auto Theft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flooding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Glass Claim</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Property Theft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Windstorm</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__LossType__c</picklist>
+        <values>
+            <fullName>Auto</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Liability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Claim Coverage Detail --></label>
+        <name>vlocity_ins__ClaimCoverageDetail</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Claim Coverage Detail - Coverage Reserve Mode --></label>
+        <name>vlocity_ins__CoverageReserveModeDetail</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Claim Coverage Detail - Reserve Worksheet Mode --></label>
+        <name>vlocity_ins__ReserveWorksheetModeDetail</name>
+    </fieldSets>
+</CustomObjectTranslation>

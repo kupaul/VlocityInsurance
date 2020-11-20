@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AttributeModificationContext__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Attribute Modification Context</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Parent</fullName>
+                <default>false</default>
+                <label>Parent</label>
+            </value>
+            <value>
+                <fullName>Bundle</fullName>
+                <default>false</default>
+                <label>Bundle</label>
+            </value>
+            <value>
+                <fullName>Cart</fullName>
+                <default>false</default>
+                <label>Cart</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

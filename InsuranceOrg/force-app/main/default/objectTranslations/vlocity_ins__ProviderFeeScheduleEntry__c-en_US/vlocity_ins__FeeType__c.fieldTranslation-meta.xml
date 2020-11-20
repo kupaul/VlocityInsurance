@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Fee Type --></label>
+    <name>vlocity_ins__FeeType__c</name>
+    <picklistValues>
+        <masterLabel>Fixed Amount</masterLabel>
+        <translation><!-- Fixed Amount --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rate Factor</masterLabel>
+        <translation><!-- Rate Factor --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

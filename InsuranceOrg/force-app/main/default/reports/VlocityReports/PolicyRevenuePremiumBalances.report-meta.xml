@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Asset$Account.Name</field>
+    </columns>
+    <columns>
+        <field>Asset$Name</field>
+    </columns>
+    <columns>
+        <field>Asset$Product2.Name</field>
+    </columns>
+    <columns>
+        <field>Asset$SerialNumber</field>
+    </columns>
+    <columns>
+        <field>Asset$vlocity_ins__TotalPremiumForTerm__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Asset.vlocity_ins__AssetRevenueSchedule__r$vlocity_ins__PeriodEarnedRevenue__c</field>
+    </columns>
+    <columns>
+        <field>Asset.vlocity_ins__AssetRevenueSchedule__r$vlocity_ins__TotalUnearnedRevenue__c</field>
+    </columns>
+    <columns>
+        <field>Asset.vlocity_ins__AssetRevenueSchedule__r$vlocity_ins__TotalEarnedRevenue__c</field>
+    </columns>
+    <description>Policy Revenue Premium Monthly Balances</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>Asset.vlocity_ins__AssetRevenueSchedule__r$vlocity_ins__Date__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Policy Revenue (Premium) Balances</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Policy_Revenue_Premium_Balances__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Asset$CreatedDate</dateColumn>
+        <interval>INTERVAL_PREVCUR2Y</interval>
+    </timeFrameFilter>
+</Report>

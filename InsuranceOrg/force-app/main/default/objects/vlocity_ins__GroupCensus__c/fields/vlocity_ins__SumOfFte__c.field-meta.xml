@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SumOfFte__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>No. FTE</label>
+    <summarizedField>vlocity_ins__GroupCensusMember__c.vlocity_ins__FTE__c</summarizedField>
+    <summaryForeignKey>vlocity_ins__GroupCensusMember__c.vlocity_ins__CensusId__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

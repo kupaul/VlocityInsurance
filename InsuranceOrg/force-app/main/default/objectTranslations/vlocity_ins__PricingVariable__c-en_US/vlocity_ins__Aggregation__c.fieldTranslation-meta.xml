@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Aggregation --></label>
+    <name>vlocity_ins__Aggregation__c</name>
+    <picklistValues>
+        <masterLabel>Quantity</masterLabel>
+        <translation><!-- Quantity --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unit</masterLabel>
+        <translation><!-- Unit --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

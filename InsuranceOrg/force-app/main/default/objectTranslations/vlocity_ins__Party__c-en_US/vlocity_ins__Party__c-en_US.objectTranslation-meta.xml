@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Group Member --></label>
+        <name>vlocity_ins__GroupMember</name>
+    </fieldSets>
+    <webLinks>
+        <label><!-- Relationship_Popup --></label>
+        <name>vlocity_ins__Relationship_Popup</name>
+    </webLinks>
+</CustomObjectTranslation>

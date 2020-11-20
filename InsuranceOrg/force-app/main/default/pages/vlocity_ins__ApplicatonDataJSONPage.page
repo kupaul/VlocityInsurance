@@ -1,0 +1,7 @@
+<apex:page standardStylesheets="false" sidebar="true" showHeader="true" standardController="vlocity_ins__Application__c" extensions="vlocity_ins.VFPageControllerBase" docType="html-5.0">
+    <c:JSONTreeComponent standardController="{!stdController}"
+                         JSONString="{!vlocity_ins__Application__c.vlocity_ins__JSONData__c}"
+                         JSONTreeHTMLTemplateName="JSONTreeApplicationHTMLTemplate.html"
+                         strNamespacePrefixList="{!sNS}"/>   
+    <c:JSONTreeHTMLTemplateComponent />                                   
+</apex:page>

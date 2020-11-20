@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CancellationDate__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Date when the customer&apos;s participation in the conditions required for this pricing was cancelled. Used especially when the customer chooses to cancel out of the conditions prematurely.</description>
+    <externalId>false</externalId>
+    <label>Cancellation Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__NationalDrugCode__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The NDC, or National Drug Code, is a unique 10-digit, 3-segment number. It is a universal product identifier for human drugs in the United States. The code is present on all nonprescription (OTC) and prescription medication packages and inserts in the US. This field is a unique record identifier from an external system. Duplicate values are not allowed.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>The NDC, or National Drug Code, is a unique 10-digit, 3-segment number. It is a universal product identifier for human drugs in the United States. The code is present on all nonprescription (OTC) and prescription medication packages and inserts in the US.</inlineHelpText>
+    <label>National Drug Code</label>
+    <length>13</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

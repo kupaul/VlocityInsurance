@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <validationRules>
+        <errorMessage><!-- End Date Time must be greater than Start Date Time --></errorMessage>
+        <name>vlocity_ins__End_After_Start</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Start Date Time must be less than End Date Time --></errorMessage>
+        <name>vlocity_ins__Start_Before_End</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- UpdateCategoryData --></label>
+        <name>vlocity_ins__UpdateCategoryData</name>
+    </webLinks>
+</CustomObjectTranslation>

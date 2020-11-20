@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Vlocity Procedure Version --></label>
+    <name>vlocity_ins__CalculationProcedureVersionId__c</name>
+    <relationshipLabel><!-- Vlocity Calculation Procedure Step --></relationshipLabel>
+</CustomFieldTranslation>

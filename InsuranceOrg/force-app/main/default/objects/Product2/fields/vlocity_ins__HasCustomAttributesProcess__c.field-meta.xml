@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__HasCustomAttributesProcess__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>This field indicates if a custom process is used to add or edit product attributes, for example: OmniScript can be used as a custom process. If this field is false, out of box basic form is use to add or edit the product attributes.</description>
+    <externalId>false</externalId>
+    <label>Custom Attributes Process</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

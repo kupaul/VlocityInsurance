@@ -1,0 +1,122 @@
+<apex:page StandardController="vlocity_ins__Party__c" extensions="vlocity_ins.RelatePartiesController" showHeader="false" sidebar="false" docType="html-5.0">
+    <script type='text/javascript'>
+            function doSearchOnEnter(e,lineNumber)
+            {
+                //Check for Enter Key pressed and if its pressed, update roles
+                //and return false
+                if (window.event && window.event.keyCode == 13 || e.which == 13)
+                {
+                    updateRoles(lineNumber);
+                    return false;
+                }
+                return true;
+            }
+    </script>
+    <style>
+        .bPageBlock{
+            border-top: 1px solid #eaeaea !important;
+        }
+    </style>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/v102/vlocity_core_assets.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__Jquery, '/ui/jquery-ui-1.9.1.custom.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__Jquery, '/ui/css/ui-lightness/jquery-ui-1.9.1.custom.min.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__IcoMoonIconPack, 'style.css')}"/>
+    <apex:form >
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__AccountId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__PartyEntityName__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__PartyEntityType__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__ContactId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__HouseholdId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.vlocity_ins__AccountId__c}" rendered="false" />
+        <apex:outputText value="{!vlocity_ins__Party__c.Name}" rendered="false" />
+        <apex:pageMessages id="idErrorList"/>
+        <apex:pageBlock id="idPartyList">
+            <apex:variable value="{!0}" var="lineNumber"/>
+            <apex:pageBlockTable value="{!PartyInfoList}" var="partyInfo">
+                <apex:column style="width:5%; text-align:center;">
+                    <apex:facet name="header">{!$Label.vlocity_ins__actions}</apex:facet>
+                    <apex:variable var="lineNumber" value="{!lineNumber + 1}"/>
+                    <span style="cursor:pointer; padding: 0px 4px 0px 4px; color:red" aria-hidden="true" data-icon="&#xea0d;" class="icon-cancel-circle" onClick="removePartyRow({!lineNumber})"/>
+                </apex:column>
+                <apex:column style="width:10%;">
+                    <apex:facet name="header">{!$Label.vlocity_ins__party}</apex:facet>
+                    <apex:inputField rendered="{!partyInfo.isSourceDriven && partyInfo.IsModifiable}"
+                                        value="{!partyInfo.partyRelSO.vlocity_ins__TargetPartyId__c}"
+                                        onkeypress="return doSearchOnEnter(event,{!lineNumber})"
+                                        onchange="updateRoles({!lineNumber})"/>
+
+                    <apex:outputText rendered="{!NOT(partyInfo.IsModifiable)}" value="{!partyInfo.sourceOrTargetNameString}"/>
+                </apex:column>
+                <apex:column style="width:10%;">
+                    <apex:facet name="header">{!$Label.vlocity_ins__role}</apex:facet>
+                    <apex:selectList value="{!partyInfo.partyRelSO.vlocity_ins__RelationshipTypeId__c}"
+                                        size="1"
+                                        onchange="updateDescription( this.value , {!lineNumber})">
+                        <apex:selectOptions value="{!partyInfo.rolesList}"/>
+                    </apex:selectList>
+                </apex:column>
+                <!-- Added Ram -->
+                <apex:column style="width:30%;" rendered="{!displayPartyCategory}">
+                    <apex:facet name="header">{!$Label.vlocity_ins__partycategory} </apex:facet>
+                    <apex:outputText value="{!partyInfo.selectedPartyCategory}"/>
+                </apex:column>
+                <!-- Added Ram -->
+                <apex:column style="width:30%;">
+                    <apex:facet name="header">{!$Label.vlocity_ins__description}</apex:facet>
+                    <apex:outputText value="{!partyInfo.selectedPartyDescription}"/>
+                </apex:column>
+                <apex:column style="width:5%; text-align:center;">
+                    <apex:facet name="header">{!$Label.vlocity_ins__display}</apex:facet>
+                    <apex:inputField value="{!partyInfo.partyRelSO.vlocity_ins__IsActive__c}"/>
+                </apex:column>
+                <apex:column style="width:20%;" >
+                    <apex:facet name="header">{!$Label.vlocity_ins__relationshipstart}</apex:facet>
+                    <apex:inputField value="{!partyInfo.partyRelSO.vlocity_ins__RelationshipStartDate__c}"/>
+                </apex:column>
+                <apex:column style="width:20%;">
+                    <apex:facet name="header">{!$Label.vlocity_ins__relationshipend}</apex:facet>
+                    <apex:inputField value="{!partyInfo.partyRelSO.vlocity_ins__RelationshipEndDate__c}"/>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="{!$Label.vlocity_ins__addnew}"
+                                    action="{!doAddPartyRow}"
+                                    rerender="idPartyList, idErrorList"/>
+                <apex:commandButton value="{!$Label.vlocity_ins__save}"
+                                    action="{!doSave}"
+                                    rerender="idPartyList, idErrorList"/>
+                <apex:commandButton value="{!$Label.vlocity_ins__cancel}"
+                                    immediate="true"
+                                    action="{!doCancel}"/>
+            </apex:pageBlockButtons>
+
+        </apex:pageBlock>
+        <apex:actionFunction name="updateRoles"
+                            action="{!doUpdateRoles}"
+                            rerender="idPartyList">
+                <apex:param name="lineNumber" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="updateDescription"
+                            action="{!doUpdateDescription}"
+                            rerender="idPartyList, idErrorList">
+                <apex:param name="selectedRelationshipId" value=""/>
+                <apex:param name="lineNumber" value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="addPartyRow"
+                            action="{!doAddPartyRow}"
+                            rerender="idPartyList, idErrorList">
+        </apex:actionFunction>
+        <apex:actionFunction name="removePartyRow"
+                             immediate="true"
+                                action="{!doRemovePartyRow}"
+                                rerender="idPartyList, idErrorList">
+            <apex:param name="lineNumber"
+                        value=""/>
+        </apex:actionFunction>
+        <apex:actionFunction name="reRenderTable"
+                            rerender="idPartyList, idErrorList">
+        </apex:actionFunction>
+
+
+    </apex:form>
+</apex:page>

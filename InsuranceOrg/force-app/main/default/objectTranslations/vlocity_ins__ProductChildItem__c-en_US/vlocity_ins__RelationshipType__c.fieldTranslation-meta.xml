@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- RelationshipType --></label>
+    <name>vlocity_ins__RelationshipType__c</name>
+    <picklistValues>
+        <masterLabel>Child</masterLabel>
+        <translation><!-- Child --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Realization</masterLabel>
+        <translation><!-- Realization --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

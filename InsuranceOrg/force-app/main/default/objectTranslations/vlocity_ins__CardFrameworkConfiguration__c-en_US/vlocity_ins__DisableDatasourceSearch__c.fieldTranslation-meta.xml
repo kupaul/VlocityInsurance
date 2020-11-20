@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Disable the SOSL Search Datasource at the org level. --></help>
+    <label><!-- Disable Datasource SOSL Search --></label>
+    <name>vlocity_ins__DisableDatasourceSearch__c</name>
+</CustomFieldTranslation>

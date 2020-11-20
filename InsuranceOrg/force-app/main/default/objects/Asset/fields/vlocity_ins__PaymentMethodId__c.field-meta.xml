@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PaymentMethodId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>The saved payment method such as a credit card to use for automatic payment of billings and charges.</description>
+    <externalId>false</externalId>
+    <label>Payment Method</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>vlocity_ins__PaymentMethod__c.vlocity_ins__AccountId__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.AccountId</valueField>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>vlocity_ins__PaymentMethod__c</referenceTo>
+    <relationshipLabel>Assets</relationshipLabel>
+    <relationshipName>Assets</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

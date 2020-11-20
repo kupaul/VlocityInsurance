@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SecurityIdentifier__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Security identifier. CUSIP (9 character alphanumerical code for US and Canadian stocks), SEDOL (7 character alphanumerical code for UK securities that are not traded in US), ISIN (12 character alphanumerical code to identify bonds, commercial paper, equities, warrants and most of the listed derivatives), RIC is used by Reuters to identify financial instruments and indices.</description>
+    <externalId>true</externalId>
+    <label>Security Identifier</label>
+    <length>64</length>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

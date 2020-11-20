@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Each Vlocity Story Object Configuration custom setting record defines an object which is included in the customer story component and configures how the data is accessed and assembled into the component.</description>
+    <enableFeeds>false</enableFeeds>
+    <label>Story Object Configuration</label>
+    <visibility>Public</visibility>
+</CustomObject>

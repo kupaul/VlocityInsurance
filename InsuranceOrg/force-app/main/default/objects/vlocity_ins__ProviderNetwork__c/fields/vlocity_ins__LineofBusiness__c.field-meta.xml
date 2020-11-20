@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__LineofBusiness__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Line of Business</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Group Dental</fullName>
+                <default>false</default>
+                <label>Group Dental</label>
+            </value>
+            <value>
+                <fullName>Group Medical</fullName>
+                <default>false</default>
+                <label>Group Medical</label>
+            </value>
+            <value>
+                <fullName>Group Vision</fullName>
+                <default>false</default>
+                <label>Group Vision</label>
+            </value>
+            <value>
+                <fullName>Individual Dental</fullName>
+                <default>false</default>
+                <label>Individual Dental</label>
+            </value>
+            <value>
+                <fullName>Individual Medical</fullName>
+                <default>false</default>
+                <label>Individual Medical</label>
+            </value>
+            <value>
+                <fullName>Individual Vision</fullName>
+                <default>false</default>
+                <label>Individual Vision</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

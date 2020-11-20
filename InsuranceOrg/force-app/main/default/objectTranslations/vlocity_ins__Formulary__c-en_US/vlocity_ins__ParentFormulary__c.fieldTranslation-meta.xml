@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- A link to the Parent Formulary, allowing for Formulary to be nested. --></help>
+    <label><!-- Parent Formulary --></label>
+    <name>vlocity_ins__ParentFormulary__c</name>
+    <relationshipLabel><!-- Related Formularies --></relationshipLabel>
+</CustomFieldTranslation>

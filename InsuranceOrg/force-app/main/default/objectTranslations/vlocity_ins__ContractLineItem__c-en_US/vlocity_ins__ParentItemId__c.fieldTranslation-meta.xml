@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Parent Item Id --></label>
+    <name>vlocity_ins__ParentItemId__c</name>
+    <relationshipLabel><!-- Contract Line Items (Parent Item Id) --></relationshipLabel>
+</CustomFieldTranslation>

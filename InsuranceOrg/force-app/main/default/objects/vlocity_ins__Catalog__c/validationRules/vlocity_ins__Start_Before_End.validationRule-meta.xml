@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Start_Before_End</fullName>
+    <active>true</active>
+    <errorConditionFormula>vlocity_ins__StartDateTime__c  &gt;  vlocity_ins__EndDateTime__c</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__StartDateTime__c</errorDisplayField>
+    <errorMessage>Start Date Time must be less than End Date Time</errorMessage>
+</ValidationRule>

@@ -1,0 +1,289 @@
+<apex:page showHeader="false" sidebar="false" standardController="vlocity_ins__OmniScript__c" extensions="vlocity_ins.ImportExportOmniController" recordSetVar="omniScripts">
+
+<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+
+<style type="text/css">
+	.text-center {
+		text-align: center;
+	}
+	#bottomBar{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+	.progress {
+		width: 400px;
+		display: inline-flex;
+		
+	}
+
+</style>
+
+<script>
+	var vlocityApp = angular.module('vlocityApp', []);
+
+	vlocityApp.directive('appFilereader', function($q) 
+        {
+        	console.log('calling appFilereader');
+            var slice = Array.prototype.slice;        
+            return {
+		      restrict: 'A',
+		      require: '?ngModel',
+		      link: function(scope, element, attrs, ngModel) {
+		        if (!ngModel){
+		        	console.log('no ngModel');
+		        	return;	
+		        } 
+
+		        ngModel.$render = function() {}
+
+		        element.bind('change', function(e) {
+		          var element = e.target;
+		          console.log('file input changed');
+		          if(!element.value) return;
+
+		          element.disabled = true;
+		          $q.all(slice.call(element.files, 0).map(readFile))
+		            .then(function(values) {
+		              if (element.multiple){
+		              		ngModel.$setViewValue(JSON.parse(values));
+		              } 
+		              else ngModel.$setViewValue(values.length ? JSON.parse(values[0]) : null);
+		              element.value = null;
+		              element.disabled = false;
+		            });
+
+		          function readFile(file) {
+		            var deferred = $q.defer();
+
+		            var reader = new FileReader()
+		            reader.onload = function(e) {
+		              deferred.resolve(e.target.result);
+		            }
+		            reader.onerror = function(e) {
+		              deferred.reject(e);
+		            }
+		            reader.readAsText(file);
+
+		            return deferred.promise;
+		          }
+
+		        }); //change
+
+		      } //link
+
+		    }; //return
+        }); // appFilereader
+
+	vlocityApp.controller('AppController', function($scope, $q) {
+
+		//$scope.scripts = angular.toJson('{!scripts}');
+		$scope.scripts = JSON.parse('{!scripts}');
+		console.log($scope.scripts);
+		$scope.exportResult = [];
+		$scope.exportMessage = '';
+		$scope.exportProgress = 0;
+
+		$scope.importScripts = null;
+		$scope.importMessage = '';
+		$scope.importProgress = 0;
+
+		$scope.importedScriptNames = [];
+		$scope.errorMessage = null;
+
+		$scope.importedElements = 0;
+		$scope.totalImportedElements = 0;
+
+		$scope.$watch('importScripts', function() {
+			if($scope.importScripts){
+				$scope.importRecords();
+			}
+	       
+	   });
+
+		$scope.importRecords = function(){
+			$scope.errorMessage = null;
+			$scope.exportMessage = '';
+			$scope.exportProgress = 0;
+			$scope.importedScriptNames = [];
+			toggleElementTrigger(false);
+            if(!angular.isArray($scope.importScripts))
+                $scope.importScripts = [$scope.importScripts];   
+			for(var i=0; i< $scope.importScripts.length; i++)	{
+				
+				// console.log($scope.importScripts[i]);
+
+				importScripts($scope.importScripts[i]).then(function(result){
+					console.log(result);
+					$scope.importedScriptNames.push(result.Name);
+					$scope.exportMessage = 'Importing Script '+(i)+' of '+$scope.importScripts.length+'...';
+					$scope.exportProgress = ((i)/$scope.importScripts.length)*100;             
+                	createElements(result.sfdcId, result.sfdcId, result.jsonScript.children);
+				});
+			}
+		};
+
+		function toggleElementTrigger(triggerOn) {
+			console.log('toggleElementTrigger');
+			Visualforce.remoting.Manager.invokeAction(  
+	          	'{!$RemoteAction.ImportExportOmniController.toggleElementTrigger}',triggerOn,
+                function(result, event)
+                {  
+                    if(event.status){
+                    	console.log(result);
+                    }                      
+                }, {escape: false, buffer: false});
+		}
+
+		function importScripts(script){ 
+			var deferred = $q.defer(); 
+            var propSetMap = '';
+            if(script.jsonScript.propSetMap)
+                propSetMap = JSON.stringify(script.jsonScript.propSetMap);  
+			Visualforce.remoting.Manager.invokeAction(  
+	          	'{!$RemoteAction.ImportExportOmniController.createScriptV2}',script.Name, script.jsonScript, propSetMap,
+                function(result, event)
+                {  
+                    $scope.$apply(function()
+                    {   
+                        if(event.status){
+                        	script.sfdcId = result;
+                        	deferred.resolve(script);  
+                        }                      
+                            
+                        else {
+                            deferred.reject(event);
+                        }
+                    });  
+                }, {escape: false, buffer: false});
+                return deferred.promise;
+		}
+
+		function createElement(omniscriptId, parentId, jsonData, eleOrder) {
+			var deferred = $q.defer();
+			if(jsonData.eleArray){
+				jsonData = jsonData.eleArray[0];
+			}
+			var propSetMap = JSON.stringify(jsonData.propSetMap);
+			Visualforce.remoting.Manager.invokeAction(  
+	            '{!$RemoteAction.ImportExportOmniController.createElementV2}',omniscriptId, parentId, jsonData, propSetMap, eleOrder,
+                function(result, event)
+                {  
+                    $scope.$apply(function()
+                    {  
+                        if(event.status) {
+                        	jsonData.sfdcId = result;
+                        	jsonData.omniId = omniscriptId;
+                        	deferred.resolve(jsonData);
+                        }                     
+                            
+                        else {
+                            deferred.reject(event);
+                        }
+                    });  
+                }, {escape: false, buffer: true});
+                return deferred.promise;  
+		}
+
+		function createElements(omniscriptId, parentId, elements){
+			for(var i=0; i< elements.length; i++){
+                // OMNI-264 to Skip all root Elements with bEmbed == true
+                if(elements[i].bEmbed === true)
+                    continue;
+				$scope.importedElements++;
+				createElement(omniscriptId, parentId, elements[i], i).then(function(result){
+					$scope.importedElements--;
+					$scope.totalImportedElements++;
+					if(result.children){
+						if(result.children.length > 0){
+							createElements(result.omniId, result.sfdcId, result.children);
+						}	
+					}
+					if($scope.importedElements == 0){
+						toggleElementTrigger(true);
+						console.log('finished importing elements - turn trigger on');
+						$scope.exportMessage = 'Completed: Imported '+$scope.importScripts.length+' scripts and '+$scope.totalImportedElements+' elements';
+					}
+				}, function(reason){
+					toggleElementTrigger(true);
+					$scope.exportMessage = 'Completed with Errors: Imported '+$scope.importScripts.length+' scripts and '+$scope.totalImportedElements+' elements';
+					$scope.errorMessage = 'Malformed Scripts';
+				});	
+				
+				
+			}
+		}
+
+		$scope.exportRecords = function(){
+			$scope.errorMessage = null;
+			$scope.exportMessage = '';
+			$scope.exportProgress = 0;
+			$scope.importedScriptNames = [];
+			var recordsProcessed = 0;
+			for(var i=0; i< $scope.scripts.length; i++) {
+				Visualforce.remoting.Manager.invokeAction(  
+	                '{!$RemoteAction.ImportExportOmniController.exportScripts}',$scope.scripts[i], 
+	                function(result,event){
+	                	// console.log(result);
+	                	recordsProcessed++;
+	                	if(result.length > 0){
+	                		$scope.exportResult.push(JSON.parse(result));
+	                		$scope.exportMessage = 'Exporting Script '+$scope.exportResult.length+' of '+$scope.scripts.length+'...';
+	                		$scope.exportProgress = ($scope.exportResult.length/$scope.scripts.length)*100;
+	                		console.log('Exporting Script '+$scope.exportResult.length+' of '+$scope.scripts.length);
+	                	}
+	                	
+	                	console.log(recordsProcessed);
+	                	console.log(recordsProcessed == $scope.scripts.length);
+						
+						if(recordsProcessed == $scope.scripts.length){
+							if($scope.exportResult.length != $scope.scripts.length){
+								$scope.errorMessage = 'There were errors exporting some scripts';
+							}
+							$scope.exportMessage = 'Completed: Exported '+$scope.exportResult.length+' scripts';
+							$scope.exportProgress = 100;
+							var pom = document.createElement('a');
+							pom.setAttribute('href', 'data:application/zip;charset=utf-8,' + encodeURIComponent(JSON.stringify($scope.exportResult)));
+							pom.setAttribute('download', 'omni.json');
+
+							pom.style.display = 'none';
+							document.body.appendChild(pom);
+
+							pom.click();
+							document.body.removeChild(pom);
+						}
+						$scope.$apply();
+
+	                }, {escape: false, buffer: false});	
+			}
+
+			
+	 	}
+
+	 	
+	});
+
+
+
+</script>
+
+<div class="vlocity text-center" ng-app="vlocityApp" ng-controller="AppController">
+	<button class="btn btn-primary" ng-click="exportRecords()" ng-disabled="scripts.length == 0"> Export Scripts ({{scripts.length}}) </button>
+
+	<button class="btn btn-primary" onclick="document.getElementById('logo').click();" >
+		Import Scripts <input type="file" id="logo" style="display:none;" accept=".json" ng-model="importScripts" multiple="true" app-filereader="true"/>
+	</button>
+
+	<div id="bottomBar">	
+		<div class="progress" ng-show="exportMessage.length > 0" style="width: 400px; display:inline-flex;">
+		  	<div class="progress-bar" role="progressbar" aria-valuenow="{{exportProgress}}"
+		  	aria-valuemin="0" aria-valuemax="100" style="width:{{exportProgress}}%">
+		    	{{exportMessage}}
+		  	</div>
+		</div>
+		<p ng-show="errorMessage">{{errorMessage}}</p>
+	</div>
+</div>
+	
+</apex:page>

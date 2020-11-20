@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Column Mapping Type --></label>
+    <name>vlocity_ins__ColumnMappingType__c</name>
+    <picklistValues>
+        <masterLabel>Facility Price</masterLabel>
+        <translation><!-- Facility Price --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Non-Facility Price</masterLabel>
+        <translation><!-- Non-Facility Price --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Procedure Code</masterLabel>
+        <translation><!-- Procedure Code --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

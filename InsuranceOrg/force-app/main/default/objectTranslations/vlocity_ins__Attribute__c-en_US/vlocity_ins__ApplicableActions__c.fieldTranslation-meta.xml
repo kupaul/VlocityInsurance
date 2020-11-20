@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Applicable Actions --></label>
+    <name>vlocity_ins__ApplicableActions__c</name>
+    <picklistValues>
+        <masterLabel>ClaimLineItemClaimedAmountEntered</masterLabel>
+        <translation><!-- ClaimLineItemClaimedAmountEntered --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PaymentAttempted</masterLabel>
+        <translation><!-- PaymentAttempted --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ReserveAdjustmentAttempted</masterLabel>
+        <translation><!-- ReserveAdjustmentAttempted --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

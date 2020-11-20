@@ -1,0 +1,47 @@
+<!-- Displays a Thor UI page -->
+<apex:page showHeader="true" sidebar="true" controller="vlocity_ins.SimpleDecompositionController" extensions="vlocity_ins.XOMOffPlatformAccessConfigController,vlocity_ins.XOMThorLocalizationController" standardStylesheets="false" docType="html-5.0">
+    <apex:slds />
+    <script type="text/javascript" src="{!URLFOR($Resource.ThorJsBundle)}"></script>
+    <!-- <script src="https://localhost:8443/main.js"></script> -->
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__TreeViewCss, 'TreeViewCss/TreeView.css')}"/>
+    <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/components/remoteActions.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.XomThorIntegration)}"></script>
+    <!--<link rel="stylesheet" href="https://localhost:8443/main.css" />-->
+    <link rel="stylesheet" href="{!URLFOR($Resource.ThorBundleCss)}" />
+    <script src="{!URLFOR($Resource.CollapsibleLists)}"></script> 
+    <div class="slds-scope">
+        <ng-view id="xomApplicationContainer">loading...</ng-view>
+    </div>
+    <script type="application/javascript">
+        angular.module('xomServices')
+        .config(['remoteActionsProvider', function(remoteActionsProvider) 
+        {
+            remoteActionsProvider.setRemoteActions(
+            {
+                getThorBackendUrl: "{!$RemoteAction.XOMOffPlatformAccessConfigController.getOffplatformUrl}",
+                getSourceOrderAssetInfo :"{!$RemoteAction.SimpleDecompositionController.getSourceOrderAssetInfo}",
+                thorInfo:'{!$RemoteAction.SimpleDecompositionController.thorInfo}',
+                getMappingDetails:'{!$RemoteAction.SimpleDecompositionController.getMappingDetails}',
+                getTranslation:'{!$RemoteAction.XOMThorLocalizationController.getTranslation}',
+                getOrderOrchestrationPlanReferenceId : '{!$RemoteAction.SimpleDecompositionController.getOrderOrchestrationPlanReferenceId}',
+                getSfIdByGlobalKey: '{!$RemoteAction.SimpleDecompositionController.getSfIdByGlobalKey}'
+            });
+        }])
+        .value('thorLayoutConfig', 
+        {
+            hideObjectHierarchy: false,
+            hideHeader: false,
+            showCurrentTabOnly: false,
+            hideLogoutButton: true,
+            hideInactiveTabsForObjectTypes: [], // Object Type Ids to display default tab only
+            hideUsername: true,
+            namespace: '{!nsPrefix}',
+            userLocal: '{!userLocal}'
+        })
+        .value('errorMessageTranslations',
+        {
+            translations:'{!errorMessageTranslations}'
+        });
+    </script>
+</apex:page>

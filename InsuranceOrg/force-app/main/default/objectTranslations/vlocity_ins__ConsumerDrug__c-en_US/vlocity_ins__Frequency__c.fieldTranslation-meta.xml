@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Frequency --></label>
+    <name>vlocity_ins__Frequency__c</name>
+    <picklistValues>
+        <masterLabel>1x/month</masterLabel>
+        <translation><!-- 1x/month --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2x/month</masterLabel>
+        <translation><!-- 2x/month --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>2x/week</masterLabel>
+        <translation><!-- 2x/week --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>3x/week</masterLabel>
+        <translation><!-- 3x/week --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>after meals</masterLabel>
+        <translation><!-- after meals --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>b.i.d.</masterLabel>
+        <translation><!-- b.i.d. --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>before meals</masterLabel>
+        <translation><!-- before meals --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>daily</masterLabel>
+        <translation><!-- daily --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>other</masterLabel>
+        <translation><!-- other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>p.r.n.</masterLabel>
+        <translation><!-- p.r.n. --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>q.h.s.</masterLabel>
+        <translation><!-- q.h.s. --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>q.i.d.</masterLabel>
+        <translation><!-- q.i.d. --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>q12hrs</masterLabel>
+        <translation><!-- q12hrs --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>q2hrs</masterLabel>
+        <translation><!-- q2hrs --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>q4hrs</masterLabel>
+        <translation><!-- q4hrs --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>q6hrs</masterLabel>
+        <translation><!-- q6hrs --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>q8hrs</masterLabel>
+        <translation><!-- q8hrs --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>t.i.d.</masterLabel>
+        <translation><!-- t.i.d. --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>weekly</masterLabel>
+        <translation><!-- weekly --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>with meals</masterLabel>
+        <translation><!-- with meals --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

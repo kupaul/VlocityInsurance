@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Output DataRaptor Bundle --></label>
+    <name>vlocity_ins__OutputBundleId__c</name>
+    <relationshipLabel><!-- Vlocity Calculation Procedure Versions (Output DataRaptor Bundle) --></relationshipLabel>
+</CustomFieldTranslation>

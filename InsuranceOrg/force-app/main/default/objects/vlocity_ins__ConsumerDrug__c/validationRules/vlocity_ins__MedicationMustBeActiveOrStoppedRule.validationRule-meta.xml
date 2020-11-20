@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__MedicationMustBeActiveOrStoppedRule</fullName>
+    <active>true</active>
+    <description>This rule checks that the Medication is either has StopReason set OR EndDate set to now or earlier; otherwise it should be marked Active.</description>
+    <errorConditionFormula>AND(NOT(vlocity_ins__IsActive__c), ISBLANK(TEXT(vlocity_ins__StopReason__c)), OR(ISNULL(vlocity_ins__MedicationEndDate__c), vlocity_ins__MedicationEndDate__c  &gt; TODAY()))</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__IsActive__c</errorDisplayField>
+    <errorMessage>The medication must have the Active field set. Otherwise, either the Stop Reason field needs to be set OR the Medication End Date field must be set to current date or earlier.</errorMessage>
+</ValidationRule>

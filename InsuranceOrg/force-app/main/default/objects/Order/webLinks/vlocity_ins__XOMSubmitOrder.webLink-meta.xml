@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__XOMSubmitOrder</fullName>
+    <availability>online</availability>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Submit Order</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/30.0/apex.js&quot;)}
+
+function showDialog(title, message, width, largerText) {
+    //set up the vars
+    var dialogTitle = title,
+        dialogHTML = message,
+        dialogWidth,
+        modalBlocker = document.createElement(&quot;div&quot;),
+        modalBox = document.createElement(&quot;div&quot;),
+        modalBoxInner = document.createElement(&quot;div&quot;),
+        modalBoxTitle = document.createElement(&quot;h3&quot;),
+        modalBoxClose = document.createElement(&quot;span&quot;);
+ 
+    if (width) {
+        dialogWidth = width;
+    }
+    else {
+        dialogWidth = &apos;800&apos;;
+    }
+ 
+    //debug info
+    console.log(&apos;title&apos;, title);
+    console.log(&apos;message&apos;, message);
+    console.log(&apos;width&apos;, width);
+    console.log(&apos;largerText&apos;, largerText);
+ 
+    
+ 
+    //Get the document size
+    var w = 0; var h = 0;
+    if (!window.innerWidth) {
+        if (!(document.documentElement.clientWidth == 0)) {
+            w = document.documentElement.clientWidth;
+            h = document.documentElement.clientHeight;
+        } else {
+            w = document.body.clientWidth;
+            h = document.body.clientHeight;
+        }
+    } else {
+        w = window.innerWidth;
+        h = window.innerHeight;
+    }
+ 
+    //Set up the modal blocker
+    modalBlocker.setAttribute(&apos;Id&apos;, &apos;__modalBlocker&apos;);
+    modalBlocker.style.width = w + &apos;px&apos;;
+    modalBlocker.style.height = document.body.scrollHeight + &apos;px&apos;;
+    modalBlocker.style.position = &apos;absolute&apos;;
+    modalBlocker.style.zIndex = &apos;20000&apos;;
+    modalBlocker.style.opacity = &apos;.5&apos;;
+    modalBlocker.style.filter = &apos;alpha(opacity=50)&apos;;
+    modalBlocker.style.backgroundColor = &apos;#000&apos;;
+    modalBlocker.style.top = 0;
+    modalBlocker.style.left = 0;
+ 
+    //set up the modal box...
+    modalBox.setAttribute(&apos;id&apos;, &apos;__modalBox&apos;);
+    modalBox.style.backgroundColor = &apos;#fff&apos;;
+    modalBox.style.width = dialogWidth + &apos;px&apos;;
+    modalBox.style.zIndex = &apos;20001&apos;;
+    modalBox.style.position = &apos;fixed&apos;;
+    modalBox.style.top = &apos;200px&apos;;
+    modalBox.style.left = ((w / 2) - (dialogWidth / 2)) + &apos;px&apos;;
+    modalBox.style.borderRadius = &apos;4px&apos;;
+    modalBox.style.boxShadow = &apos;1px 1px 10px #000&apos;;
+ 
+    //...and the inner div
+    modalBoxInner.style.position = &apos;relative&apos;;
+    modalBoxInner.style.padding = &apos;20px&apos;;
+    if (largerText) modalBoxInner.style.fontSize = &apos;1.6em&apos;;
+    modalBoxInner.innerHTML = dialogHTML;
+ 
+ 
+    //set up the close button
+    modalBoxClose.innerHTML = &apos;X&apos;;
+    modalBoxClose.title = &apos;Close&apos;;
+    modalBoxClose.style.fontSize = &apos;12px&apos;;
+    modalBoxClose.style.backgroundColor = &apos;rgb(224, 7, 7)&apos;;
+    modalBoxClose.style.color = &apos;#fff&apos;;
+    modalBoxClose.style.position = &apos;absolute&apos;;
+    modalBoxClose.style.top = &apos;0&apos;;
+    modalBoxClose.style.right = &apos;10px&apos;;
+    modalBoxClose.style.display = &apos;block&apos;;
+    modalBoxClose.style.width = &apos;26px&apos;;
+    modalBoxClose.style.padding = &apos;5px&apos;;
+    modalBoxClose.style.textAlign = &apos;center&apos;;
+    modalBoxClose.style.cursor = &apos;pointer&apos;;
+    modalBoxClose.style.borderBottomLeftRadius = &apos;4px&apos;;
+    modalBoxClose.style.borderBottomRightRadius = &apos;4px&apos;;
+    modalBoxClose.setAttribute(&apos;onclick&apos;, &apos;document.body.removeChild(document.getElementById(\&apos;__modalBlocker\&apos;));document.body.removeChild(document.getElementById(\&apos;__modalBox\&apos;));&apos;);
+ 
+    //set up the dialog box title
+    modalBoxTitle.innerHTML = dialogTitle;
+    modalBoxTitle.style.display = &apos;block&apos;;
+    modalBoxTitle.style.fontSize = &apos;1.6em&apos;;
+    modalBoxTitle.style.color = &apos;#1797c0&apos;;
+    modalBoxTitle.style.margin = &apos;8px 0 0 8px&apos;;
+ 
+    //Add the close button and the title to the modal box
+    modalBox.appendChild(modalBoxClose);
+    modalBox.appendChild(modalBoxTitle);
+    modalBox.appendChild(modalBoxInner);
+ 
+    //finally, add the modal box and the modal blocker to the page
+    document.body.appendChild(modalBlocker);
+    document.body.appendChild(modalBox);
+}
+
+var namespace_prefix = &apos;&apos;;
+var result = sforce.connection.describeGlobal();
+var TOKEN_OBJ = &quot;Party__c&quot;;
+var sobjects = result.getArray(&quot;sobjects&quot;);
+
+for(var i=0; i&lt;sobjects.length; i++) {
+    var sobjName = sobjects[i].name;
+    var str = sobjName.split(&quot;__&quot;);
+
+    //if there are 3 values there is a namespace
+    if (str.length == 3) {
+        //Is it one of ours?
+        var sobj = str[1].valueOf() +&apos;__c&apos;;
+        if(sobj == TOKEN_OBJ) {
+            namespace_prefix = str[0].valueOf();
+            break;
+        }
+    }
+}
+
+function processResponse(result) {
+  console.log(&apos;processing order submit result:&apos;, result);
+  var deserializedResult = JSON.parse(result);
+  if (!deserializedResult.planId){
+    deserializedResult.planId = &apos;{!Order.Id}&apos;
+  }
+  if (deserializedResult.isOk === true &amp;&amp; deserializedResult.isOff === true) {
+    parent.location.href = &apos;/apex/&apos; + simpleDecompPageNamespace + &apos;OrchestrationPlanViewCommon?id=&apos; + deserializedResult.planId;
+  } else if (deserializedResult.isOk === true &amp;&amp; deserializedResult.isOff !== true) {
+    parent.location.href = parent.location.origin + &apos;/&apos; + deserializedResult.planId;
+  } else {
+    console.error(&apos;error is occurred on order submit:&apos;, deserializedResult.errorMsg);
+    showDialog(&apos;Error&apos;, deserializedResult.errorMsg);
+  }
+}
+
+function errorHandler(error) {
+  console.error(error);
+  alert(error);
+}
+
+var simpleDecompControllerNamespace = &apos;&apos;;
+var simpleDecompPageNamespace = &apos;&apos;;
+if(namespace_prefix != &quot;&quot;) {
+    simpleDecompControllerNamespace = namespace_prefix + &apos;.&apos;;
+    simpleDecompPageNamespace = namespace_prefix + &apos;__&apos;;
+}
+
+var result = sforce.apex.execute(simpleDecompControllerNamespace + &quot;SimpleDecompositionController&quot;, &quot;decomposeAndCreatePlanEx&quot;, {
+  orderId: &apos;{!Order.Id}&apos;
+}, {
+  onSuccess: processResponse,
+  onFailure: errorHandler,
+  timeout: 120000
+});</url>
+</WebLink>

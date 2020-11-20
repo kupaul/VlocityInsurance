@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__InvokeMethodInput__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Input parameter that would be passed on to the InvokeMethodName__c at runtime.</description>
+    <externalId>false</externalId>
+    <label>Invocation Method Input</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

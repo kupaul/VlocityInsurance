@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__InCartQuantityMap__c</fullName>
+    <deprecated>false</deprecated>
+    <description>JSON field calculated by Vlocity with the following structure: {&quot;[childProductId]&quot;: [quantity], ....} that describes the child item quantities that roll-up to the quantity of this item. For example, {&quot;01t0O00000BPrs1QAD&quot;:1,&quot;01t0O00000BPrrwQAD&quot;:1}.The quantity value is the sum of quantities for that product across all instances on the child items. For example, if two child assets exist of type Product A, the first with quantity 2 and the second with quantity 1, the map quantity for Product A should be 3. Helps CPQ identify quantities and enforce cardinality rules. Populated for all items that have direct children, but it is not populated for virtual products or items with no children. Also, child virtual products are not included in the map on their parent item.</description>
+    <externalId>false</externalId>
+    <label>InCartQuantityMap</label>
+    <length>131072</length>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

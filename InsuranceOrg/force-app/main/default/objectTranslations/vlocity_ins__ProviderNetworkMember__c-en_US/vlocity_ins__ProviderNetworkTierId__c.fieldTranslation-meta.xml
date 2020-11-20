@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Provider Network Tier --></label>
+    <name>vlocity_ins__ProviderNetworkTierId__c</name>
+    <relationshipLabel><!-- Provider Network Tiers --></relationshipLabel>
+</CustomFieldTranslation>

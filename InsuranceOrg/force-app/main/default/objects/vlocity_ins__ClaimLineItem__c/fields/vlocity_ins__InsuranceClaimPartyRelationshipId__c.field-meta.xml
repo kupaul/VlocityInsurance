@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__InsuranceClaimPartyRelationshipId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>DEPRECATED</description>
+    <externalId>false</externalId>
+    <label>Claim Related Party</label>
+    <referenceTo>vlocity_ins__InsuranceClaimPartyRelationship__c</referenceTo>
+    <relationshipLabel>Claim Related Party</relationshipLabel>
+    <relationshipName>ClaimLineItemRelatedPartyRelationship</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

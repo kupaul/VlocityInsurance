@@ -1,0 +1,146 @@
+<apex:page standardStylesheets="false" showHeader="true"
+            sidebar="false" docType="html-5.0"
+            standardController="vlocity_ins__VlocityUITemplate__c"
+            extensions="vlocity_ins.TemplateController"
+            tabStyle="VlocityUITemplateDesigner__tab"
+            title="Template Designer"
+            >
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/angular-filter/dist/angular-filter.js')}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.css')}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__Sass, 'sass.js')}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'ace.js')}"/>
+    <!--Workers -->
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'mode-sass.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'worker-css.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'worker-html.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'worker-javascript.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'worker-json.js')}"/>
+    <!--themes-->
+    <!-- <apex:includeScript value="{!URLFOR($Resource.AceEditor, 'theme-textmate.js')}"/> -->
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'theme-monokai.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AceEditor, 'ui-ace.min.js')}"/>
+
+    <apex:stylesheet value="{!$Resource.vlocity_ins__UITemplateDesignerCss}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__UITemplateDesigner}"/>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__iframeresizer, '/js/iframeResizer.js')}"/>
+    <apex:includeScript value="/support/console/42.0/integration.js"/>
+
+    <div class="vloc-body ng-cloak {!$User.UIThemeDisplayed}" ng-app="templatedesigner" ng-controller="templateDesignerController" dir="ltr">
+        <div class="vlocity" style="margin-top: -8px;margin-left: -9px;position: absolute;" ng-hide="isInConsole">
+            <a class="btn btn-link btn-xs" href="{!homeUrl}" target="_self"><i class="icon icon-v-left-caret"></i>Go Back</a>
+        </div>
+        <apex:sectionHeader subtitle="{{$root.template.Name}}"
+                            id="sectionHeader"
+                            title="{{ ::'TemplateDesTemplateDesigner' | localize:'Vlocity Templates'}}"/>
+        <!-- <div class="vlocity fixed-top-right">
+            <button class="btn btn-lg btn-primary" ng-click="saveCurrentTemplate($event)" ng-disabled="disableSaveBtn">Save</button>
+        </div> -->
+        <div class="vlocity" prevent-delete-back="preventDeleteBack" via-screen-height="viaScreenHeight"
+                             via-affix="top">
+            <div class="container">
+                <div class="three-col-body" ng-class="{'collapse-left-col': collapsePalette, 'fullScreen': fullScreen}">
+                    <div class="left-col"
+                         ng-controller="templateListController" via-screen-height="viaScreenHeight" >
+                        <h4>{{ ::'TemplateLibrary' | localize:'Template Library' }}</h4>
+                        <button type="button" class="btn btn-default btn-sm collapse-btn pull-right" ng-click="toggleLeftPanel()">
+                            <i class="icon collapse-caret" ng-class="{'icon-v-double-caret-left': !collapsePalette, 'icon-v-double-caret-right': collapsePalette}"></i>
+                        </button>
+                        <div class="col-body">
+                            <div ng-include="'TemplateList.tpl.html'"></div>
+                        </div>
+                    </div>
+
+                    <div class="center-col" ng-class="{'bg-danger': $root.template.errors.length > 0}"
+                         ng-controller="templatePropertiesController" via-screen-height="viaScreenHeight" >
+                        <h4>{{ ::'Template' | localize:'Template' }}
+                            <i ng-if="$root.template.saving" class="pull-right spinner"></i>
+                            <i class="icon icon-v-claim-line" ng-if="$root.template.errors.length > 0"
+                                data-container=".container"
+                                data-type="info" bs-tooltip="$root.template"
+                                bs-enabled="true"
+                                data-html = "true"
+                                data-title="{{errors[0].message.message ? errors[0].message.message : errors[0].message}}"></i></h4>
+                        <button type="button" class="btn btn-default btn-sm collapse-btn pull-right" ng-click="toggleFullScreen()">
+                            <i class="icon collapse-caret" ng-class="{'icon-v-double-caret-left': !fullScreen, 'icon-v-double-caret-right': fullScreen}"></i>
+                        </button>
+                        <div class="col-body">
+                            <div ng-include="'TemplateProperties.tpl.html'"></div>
+                        </div>
+                    </div>
+
+                    <!-- PROPERTIES TABS-->
+                    <div class="right-col" via-screen-height="viaScreenHeight" ng-controller="tabController">
+                        <div bs-active-pane="tabs.activeTab" bs-tabs="bs-tabs" class="right-tabs">
+                            <div ng-repeat="tab in tabs" title="{{tab.title}}" disabled="" ng-bind="tab.content" bs-pane="bs-pane">
+                            </div>
+                        </div>
+                        <!-- This actions appear on the right of the current tab -->
+                        <div class="actions form-inline" ng-show="tabs.activeTab === 0">
+                        </div>
+                        <div class="actions form-inline" ng-show="tabs.activeTab === 1">
+                            <!--button class="btn btn-link pull-right" type="button"
+                                     ng-click="toggleFullScreen()"><i class="icon icon-v-expand"></i></button -->
+                            <button class="btn btn-link pull-right" type="button"
+                                     ng-click="reload()"><i class="icon icon-v-refresh"></i></button>
+                            <button class="btn btn-link pull-right" type="button"
+                                     ng-click="popOut()"><i class="icon icon-v-expand-box"></i></button>
+                        </div>
+
+                        <div class="col-body" ng-show="tabs.activeTab === 0" ng-controller="editorController">
+                            <div class="row editor-container">
+                                <div class="flex-container">
+                                    <div ng-show="showHTML" ng-include="'HtmlEditor.tpl.html'"></div>
+                                    <div ng-show="showCSS" ng-include="'CssEditor.tpl.html'"></div>
+                                    <div ng-show="showJS" ng-include="'JSEditor.tpl.html'"></div>
+                                </div>
+                                <div class="toggle-bar">
+                                    <button ng-class="{'active' : showHTML}" ng-click="toggleEditor('showHTML')">
+                                        <div class="code">&lt;/&gt;</div>
+                                        <span>html</span>
+                                    </button>
+                                    <button ng-class="{'active' : showCSS}" ng-click="toggleEditor('showCSS')">
+                                        <div>{&nbsp;}</div>
+                                        <span>css</span>
+                                    </button>
+                                    <button ng-class="{'active' : showJS}" ng-click="toggleEditor('showJS')">
+                                        <div>{;}</div>
+                                        <span>js</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-body" ng-show="tabs.activeTab === 1">
+                            <div class="previewPanel-wrapper">
+                                <div class="iframe-holder"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var orgName = '{!orgName}';
+        /* START_VLOC_I18N */
+        var i18n = {};
+        /* END_VLOC_I18N */
+        Sass.setWorkerUrl("{!URLFOR($Resource.Sass, 'sass.worker.js')}");
+
+        //Setting LEX tab icon
+        if(sforce.console && sforce.console.isInConsole()) {
+             sforce.console.setTabIcon("custom:custom83");
+        }
+    </script>
+
+</apex:page>

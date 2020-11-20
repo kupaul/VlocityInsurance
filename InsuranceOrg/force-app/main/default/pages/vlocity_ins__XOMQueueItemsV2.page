@@ -1,0 +1,364 @@
+<apex:page showHeader="true" sidebar="true" standardController="vlocity_ins__ManualQueue__c" extensions="vlocity_ins.XOMQueueItemsController" >
+  <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+  <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__bootstrap, '/bootstrap-3.2.0-dist/css/bootstrap.min.css')}"/>
+  <apex:includeScript value="{!$Resource.vlocity_ins__FieldLookupAngDirective}"/>
+  <apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT}"/>
+  <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AngularStrapJS_2_3_6)}"/><!-- adding  AngularStrapJS_2_3_6 and AngularStrapTplJS_2_3_6 for tooltip-->
+  <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AngularStrapTplJS_2_3_6)}"/>
+  <apex:includeScript value="{!$Resource.vlocity_ins__AttributeLookupAngDirective}"/>
+  <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+  <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__bootstrap, '/bootstrap-3.2.0-dist/js/bootstrap.min.js')}"/>
+    <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+    <apex:stylesheet value="{!$Resource.vlocity_ins__ManualQueueViewCss}"/>
+    <script>
+          var manualQueueId="{!$CurrentPage.parameters.id}";
+          var remoteActions = {
+                          getItems  : {
+                                           config : {escape: false},
+                                           action : "{!$RemoteAction.XOMQueueItemsController.getItemsV2}"
+                                       }, 
+                          completeItems : "{!$RemoteAction.XOMQueueItemsController.completeItems}",
+                          retryItems : "{!$RemoteAction.XOMQueueItemsController.retryItems}",
+                          pickUpItems : "{!$RemoteAction.XOMQueueItemsController.pickUpItems}",
+                          getSuggestedValues : "{!$RemoteAction.XOMQueueItemsController.getSuggestedValues}",
+                          getActiveUsers : "{!$RemoteAction.XOMQueueItemsController.getActiveUsers}",
+                          getActiveQueueMethod : "{!$RemoteAction.XOMQueueItemsController.getActiveQueue}",
+                          assignQueue : "{!$RemoteAction.XOMQueueItemsController.assignQueue}"
+                  };
+    </script>
+    <script src="{!URLFOR($Resource.ManualQueueView)}"></script>
+    <html ng-app = 'manualQueueApp' ng-controller = "manualQueueController" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+      <div class="via-slds slds-scope slds-grid slds-grid--vertical-stretch ng-cloak ">
+        <div ng-if="notification.errorMessage != ''" class="slds-notify_container ng-scope"> 
+          <div class="slds-notify slds-notify--alert slds-theme--error slds-theme--alert-texture" role="alert"> 
+            <button class="slds-button slds-notify__close slds-button--icon-inverse" title="Close" ng-click="clearError()"> 
+              <svg class="slds-button__icon" aria-hidden="true"> 
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use> 
+              </svg> 
+              <span class="slds-assistive-text">Close</span> 
+            </button> 
+            <span class="slds-assistive-text">Error</span> 
+            <h2> 
+              <svg class="slds-icon slds-icon--small slds-m-right--x-small" aria-hidden="true"> 
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#error"></use> 
+              </svg>
+              <span class = "message-text">{{notification.errorMessage}}</span> 
+            </h2> 
+          </div> 
+        </div>
+        <div ng-if="notification.successMessage != ''" class="slds-notify_container ng-scope"> 
+          <div class="slds-notify slds-notify--alert slds-theme--success slds-theme--alert-texture" role="alert"> 
+            <button class="slds-button slds-notify__close slds-button--icon-inverse" title="Close" ng-click="clearSuccess()"> 
+              <svg class="slds-button__icon" aria-hidden="true"> 
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use> 
+              </svg> 
+              <span class="slds-assistive-text">Close</span> 
+            </button> 
+            <span class="slds-assistive-text">Error</span> 
+            <h2> 
+              <svg class="slds-icon slds-icon--small slds-m-right--x-small" aria-hidden="true"> 
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#success"></use> 
+              </svg>
+              <span class = "message-text">{{notification.successMessage}}</span> 
+            </h2> 
+          </div> 
+        </div>
+        <div class="slds-col slds-col--padded-around-medium slds-theme--shade slds-is-relative slds-col-auto-overflow background-sheet scroll" infinite-scroll = "getNextItems()">
+        <div class="slds-tabs--scoped">
+          
+          
+          <div class="slds-button-group action-buttons" role="group" ng-repeat = "action in actionArray">
+            <button class="slds-button slds-button_neutral" ng-click = "takeAction(action['action'])">{{action['label']}}</button>
+            <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last slds-is-open" ng-if = "action['extraActions']">
+                <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-haspopup="true" title="Show More" 
+                  ng-click = "action['extraActionsOpenCheck'] = true" ng-blur = "closeExtraActionsMenu(action)">
+                  <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                  </svg>
+                  <span class="slds-assistive-text">Show More</span>
+                </button>
+                <div class="slds-dropdown slds-dropdown_right slds-dropdown_actions" ng-if = "action['extraActionsOpenCheck']">
+                  <ul class="slds-dropdown__list" role="menu">
+                      <li class="slds-dropdown__item" role="presentation" ng-repeat = "extraAction in extraActionsArray" ng-click = "takeAction(action['action'], extraAction['action'])">
+                        <a href="javascript:void(0);" role="menuitem" tabindex="0">
+                          <span class="slds-truncate" title="extraAction['label']">{{extraAction['label']}}</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+          </div>
+          
+          <div class = "filter slds-box slds-p-around_medium slds-m-top_small" ng-if = "filterBoxCheck">
+          <div class="section-header filter-button-wrapper slds-m-bottom_x-small" >
+            <h3 class="slds-section__title">
+              <button aria-controls="backreference_filter" aria-expanded="true" class="slds-button slds-button_neutral " ng-click="isFilterPanelVisible = !isFilterPanelVisible" >
+                <span class="slds-truncate" title="Filter">
+                  Filter
+                </span>    
+                  <svg class="slds-button__icon" aria-hidden="true" ng-if="!isFilterPanelVisible">
+                      <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#right"></use>     
+                  </svg> 
+                <svg class="slds-button__icon" aria-hidden="true" ng-if="isFilterPanelVisible">
+                    <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#down"></use>     
+                </svg>      
+            </button>  
+          </h3>
+        </div>
+        <div class="panel_container filter-box-wrapper" ng-if="isFilterPanelVisible">
+        <div class="filterContent section_content" ng-if="isFilterPanelVisible">
+          <div class="slds-grid slds-wrap slds-m-left_medium slds-m-top_medium">
+            <div ng-repeat="attribute in filterFieldsMetadata" class="filter-field slds-m-left_medium slds-m-bottom_medium" ng-if="attribute!=null">
+            <span class="fieldLabel">{{attribute['label']}}</span>
+            <span class="fieldElement slds-grid">
+                <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <input type="text" class="slds-input" ng-model="attribute['value']" ng-click = "getSuggestedValues(attribute)"/>
+                </div>
+            </div>
+            </span>
+            </div>
+         </div>
+        <div class="slds-grid slds-wrap slds-m-left_medium">
+             <span class="slds-box--small slds-text-align--left slds-p-top--none btnSearch">
+                <button ng-disabled="loadingInProgress" class="slds-button slds-button--neutral" ng-click="onSearchButtonPress()">
+                    Search
+                 </button>
+            </span>
+             <span class="slds-box--small slds-text-align--left slds-p-top--none btnSearch">
+                <button class="slds-button slds-button--neutral" ng-click="onResetButtonPress()">
+                    Reset
+                </button>
+            </span>
+        </div>
+        </div>
+        </div>
+          </div>
+          
+          
+        <table class="backreference slds-box slds-table slds-table_bordered slds-table--cell-buffer slds-m-top--small" id = "table-manual-queue">
+          <thead class="slds-theme--shade">
+            <tr class="slds-text-heading--label">
+              <th>
+              <span class="slds-checkbox">
+                                  <input type="checkbox" id="select-all-checkbox"  ng-model = "selectAllCheck" />
+                                  <label class="slds-checkbox__label" for="select-all-checkbox">
+                                      <span class="slds-checkbox--faux"></span>
+                                  </label>
+                       </span>
+              
+              </th>
+              
+              <th ng-repeat = 'key in fieldsToDisplay' class="slds-cell-shrink" ng-click = "sortManualQueue(key)"> 
+                <span>{{columnNameMap[key]["label"]}}</span>
+                <span ng-if = "fieldsToSort[key] === 'desc'">
+                  <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#arrowdown"></use>
+                    </svg>
+                  </span>
+                  <span ng-if = "fieldsToSort[key] === 'asc'">
+                  <svg class="slds-button__icon" aria-hidden="true" >
+                                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#arrowup"></use>
+                    </svg>
+                  </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat = "item in items track by item['id']" ng-if = "!showSpinner">
+              <td >
+                <span class="slds-checkbox">
+                                    <input type="checkbox" id="checkbox-{{item['id']}}"  ng-model = "item['selected']" />
+                                    <label class="slds-checkbox__label" for="checkbox-{{item['id']}}">
+                                        <span class="slds-checkbox--faux"></span>
+                                    </label>
+                         </span>
+              </td>
+              <td ng-repeat = 'key in fieldsToDisplay'>
+                <span ng-if = "columnNameMap[key]['type'] != 'REFERENCE' && columnNameMap[key]['type'] != 'ID' && columnNameMap[key]['isCalculated'] === 'true'" ng-bind-html="deliberatelyTrustDangerousSnippet(item[columnNameMap[key]['field']])"></span>
+                <span ng-if = "columnNameMap[key]['type'] != 'REFERENCE' && columnNameMap[key]['type'] != 'ID' && columnNameMap[key]['isCalculated'] !== 'true'">
+                	<span ng-if = "columnNameMap[key]['type'] != 'DATETIME'" ng-bind="item[columnNameMap[key]['field']]"></span>
+                	<span ng-if = "columnNameMap[key]['type'] == 'DATETIME'" ng-bind="convertDateToReadableForm(item[columnNameMap[key]['field']])"></span>
+                </span>
+                
+                <span ng-if = "(columnNameMap[key]['type'] == 'REFERENCE' || columnNameMap[key]['type'] == 'ID') && item[columnNameMap[key]['field']]">
+                  <a ng-href = '/{{item[key]}}' target="_blank"> 
+                      <span ng-if = "columnNameMap[key]['isCalculated'] === 'true'" ng-bind-html="deliberatelyTrustDangerousSnippet(item[columnNameMap[key]['field']])"></span>
+                      <span ng-if = "columnNameMap[key]['isCalculated'] !== 'true'" ng-bind="item[columnNameMap[key]['field']]"></span>
+                  </a>
+                </span>
+                <span ng-if = "(columnNameMap[key]['type'] == 'REFERENCE' || columnNameMap[key]['type'] == 'ID') && !item[columnNameMap[key]['field']]">
+                  <a ng-href = '/{{item[key]}}' target="_blank" ng-bind-html="deliberatelyTrustDangerousSnippet(item[key])">
+                      <span ng-if = "columnNameMap[key]['isCalculated'] === 'true'" ng-bind-html="deliberatelyTrustDangerousSnippet(item[key])"></span>
+                      <span ng-if = "columnNameMap[key]['isCalculated'] !== 'true'" ng-bind="item[key]"></span>
+                  </a>
+                </span>
+              </td>
+            </tr>
+            <tr ng-if = 'isLoading'>
+            	<td colspan = '{{fieldsToDisplay.length}}' rowspan = '2'>
+					<div class="data-loader">
+		                <div class="slds-spinner_container">
+		                  <div role="status" class="slds-spinner slds-spinner_small slds-spinner_brand">
+		                    <span class="slds-assistive-text">Loading</span>
+		                      <div class="slds-spinner__dot-a"></div>
+		                      <div class="slds-spinner__dot-b"></div>
+		                  </div>
+		                </div>
+	                </div>
+				</td>
+			</tr>
+          </tbody>
+        </table>
+        <div ng-if = "showSpinner">
+          <div class="demo-only">
+                <div class="slds-spinner_container">
+                  <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                      <div class="slds-spinner__dot-a"></div>
+                      <div class="slds-spinner__dot-b"></div>
+                  </div>
+                </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" ng-if = "showProgressModal">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" ng-click = "closeProgressModal()">
+              <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+              </svg>
+              <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Batch Operation Progress</h2>
+                    </header>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+              <div><b>Status: {{completedBatch}}</b> tasks out of <b>{{totalBatch}}</b> are completed</div>
+              <div ng-if = "!isApplyAll">Please enter number of task and start Retry in the Queue: {{manualQueueName}}</div>
+              
+              <div class="filterContent section_content" ng-hide="isApplyAll">
+          		<div class="slds-grid slds-wrap slds-m-left_medium slds-m-top_medium">
+	            	<div class="filter-field slds-m-left_medium slds-m-bottom_medium">
+	            		<span class="fieldLabel">Number of records to process:</span>
+	            		<span class="fieldElement slds-grid">
+	                		<div class="slds-form-element">
+	                			<div class="slds-form-element__control">
+	                    			<input type="number" class="slds-input" ng-model="numberOfItemsToProcess"/>
+	                			</div>
+	            			</div>
+	           			 </span>
+	            	</div>
+         		</div>
+         	</div>
+              
+              <div ng-if = "isApplyAll">Starting {{action}} operation for all tasks in the Queue: {{manualQueueName}}</div>
+              <progress-bar cur-val='{{completedBatch}}' max-val='{{totalBatch}}'></progress-bar>
+          </div>
+          <footer class="slds-modal__footer">
+              <button class="slds-button slds-button_brand done-button" ng-click = "startAction(action, numberOfItemsToProcess)">
+            <span>Start</span>
+          </button>
+              <button class="slds-button slds-button_brand done-button">
+            <div class="demo-only" ng-if = "underProcessCheck">
+                <div class="slds-spinner_container">
+                  <div role="status" class="slds-spinner slds-spinner_x-small slds-spinner_brand">
+                    <span class="slds-assistive-text">Loading</span>
+                      <div class="slds-spinner__dot-a"></div>
+                      <div class="slds-spinner__dot-b"></div>
+                  </div>
+                </div>
+            </div>
+            <span ng-if = "!underProcessCheck" ng-click = "closeProgressModal()">Close</span>
+            
+          </button>
+          </footer>
+        </div>
+      </section>
+
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open" ng-if = "showAssignmentModal">
+        <div class="slds-modal__container">
+          <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" ng-click = "closeAssignmentModal()">
+              <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+              </svg>
+              <span class="slds-assistive-text">Close</span>
+            </button>
+            <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">{{assignmentModalHeader}}</h2>
+                    </header>
+          <div class="slds-modal__content slds-p-around_medium modal-body" id="modal-content-id-1">
+              <div class="slds-form-element">
+				  <div class="slds-form-element__control">
+				    <div class="slds-combobox_container">
+				      <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open" aria-expanded="true" aria-haspopup="listbox" role="combobox">
+				        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+				            <div class="slds-form-element__control"> 
+				                <div ng-hide="!searchMode" class="slds-input-has-icon slds-input-has-icon--right"> 
+				                    <svg class="slds-input__icon" aria-hidden="true"> 
+				                       <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#search"></use> 
+				                    </svg> 
+				                    <input class="slds-lookup__search-input slds-input" 
+				                           placeholder="Search Objects" 
+				                           ng-model="search.searchTerm" 
+				                           ng-change="onSearchQueryChange()" 
+				                           ng-blur="hideSearchDropDown()" 
+				                           ng-click="showSearchDropDown()"
+				                           /> 
+				                </div> 
+				                <div ng-hide="searchMode" class="slds-pill_container" ng-click="enterSearchMode()"> 
+				                    <span class="slds-pill slds-size--1-of-1"> 
+				                        <span ng-if="selectedObject['Name']" class="slds-icon_container slds-icon-standard-account slds-pill__icon_container"> 
+				                            <svg class="slds-icon" aria-hidden="true"> 
+				                                <use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#puzzle"></use> 
+				                            </svg> 
+				                            <span class="slds-assistive-text">Object type</span> 
+				                        </span>
+				                        <span ng-if="selectedObject['Name']" class="slds-pill__label ng-binding ng-scope">
+				                            {{selectedObject['Name']}}<span ng-if = "selectedObject['Username']">({{selectedObject['Username']}})</span>
+				                        </span><!-- end ngIf: selectedObject || fieldValue.length > 0 --> 
+				                        <button class="slds-button slds-button--icon slds-pill__remove" title="Search" ng-click="enterSearchMode()"></button> 
+				                        <button ng-if="selectedObject['Name']" class="slds-button slds-button--icon slds-pill__remove ng-scope" title="Remove" ng-click="removeObject()"> <svg class="slds-button__icon" aria-hidden="true"> <use xlink:href="/apexpages/slds/latest/assets/icons/utility-sprite/svg/symbols.svg#close"></use> </svg> <span class="slds-assistive-text">Remove</span> </button><!-- end ngIf: selectedObject --> </span> </div>
+				            </div>
+				        </div>
+				        <div id="listbox-id-1" class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid" role="listbox" ng-if = "isSearchDropDownActive">
+				          <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+				            <li role="presentation" class="slds-listbox__item" ng-repeat = "model in assignmentModalList" ng-click = "modelSelected(model)">
+				              <div id="option1" class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
+				                <span class="slds-media__figure slds-listbox__option-icon">
+				                  <span class="slds-icon_container slds-icon-standard-account">
+				                    <svg class="slds-icon slds-icon_small" aria-hidden="true">
+				                      <use xlink:href="/apexpages/slds/latest/assets/icons/standard-sprite/svg/symbols.svg#puzzle"></use>
+				                    </svg>
+				                  </span>
+				                </span>
+				                <span class="slds-media__body">
+				                  <span class="slds-listbox__option-text slds-listbox__option-text_entity">{{model.Id}}</span>
+				                  <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{{model.Name}}<span ng-if = "model.Username"> ({{model.Username}})</span></span>
+				                </span>
+				              </div>
+				            </li>
+				          </ul>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				        
+          </div>
+          <footer class="slds-modal__footer">
+              <button class="slds-button slds-button_brand done-button" ng-click = "assigned()">
+                 <span>Assign</span>
+              </button>
+              <button class="slds-button slds-button_brand done-button" ng-click = "closeAssignmentModal()">
+                 <span >Close</span>
+              </button>
+          </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" ng-if = "showProgressModal || showAssignmentModal"></div>
+      </div>
+    </html>
+    
+</apex:page>

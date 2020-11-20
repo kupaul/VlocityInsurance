@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsPrivate__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Whether the attribute is private to the owner or not. When unchecked, the attribute can be viewed and selected by all end users when associated to objects. When checked (therefore private) this attribute will only be visible to the user who created it.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Is this attribute private to the owner (not visible to other users)?</inlineHelpText>
+    <label>Private</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

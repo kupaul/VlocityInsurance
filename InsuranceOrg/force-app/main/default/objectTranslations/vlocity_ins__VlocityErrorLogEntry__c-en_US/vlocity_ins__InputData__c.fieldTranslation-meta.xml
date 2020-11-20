@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Records the input data which lead to the error log entry --></help>
+    <label><!-- Input Data --></label>
+    <name>vlocity_ins__InputData__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Adjustment</masterLabel>
+        <translation><!-- Adjustment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Commission</masterLabel>
+        <translation><!-- Commission --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fee</masterLabel>
+        <translation><!-- Fee --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

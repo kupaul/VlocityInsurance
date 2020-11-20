@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Clause</masterLabel>
+        <translation><!-- Clause --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Conditional</masterLabel>
+        <translation><!-- Conditional --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Context</masterLabel>
+        <translation><!-- Context --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Image</masterLabel>
+        <translation><!-- Image --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Signature</masterLabel>
+        <translation><!-- Signature --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ColumnMappingType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This is to map columns to specific Fee Schedule field types such as Procedure Code, Facility Price and Non-Facility Price.  The Other type will represent all other columns.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Column Mapping Type</label>
+    <required>true</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Procedure Code</fullName>
+                <default>false</default>
+                <label>Procedure Code</label>
+            </value>
+            <value>
+                <fullName>Facility Price</fullName>
+                <default>false</default>
+                <label>Facility Price</label>
+            </value>
+            <value>
+                <fullName>Non-Facility Price</fullName>
+                <default>false</default>
+                <label>Non-Facility Price</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>true</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

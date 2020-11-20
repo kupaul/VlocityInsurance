@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubStatus__c</fullName>
+    <description>SubStatus for Underwriting Exception</description>
+    <externalId>false</externalId>
+    <label>SubStatus</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>New</fullName>
+                <default>false</default>
+                <label>New</label>
+            </value>
+            <value>
+                <fullName>In Review</fullName>
+                <default>false</default>
+                <label>In Review</label>
+            </value>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <label>Approved</label>
+            </value>
+            <value>
+                <fullName>Exclusion</fullName>
+                <default>false</default>
+                <label>Exclusion</label>
+            </value>
+            <value>
+                <fullName>Modification</fullName>
+                <default>false</default>
+                <label>Modification</label>
+            </value>
+            <value>
+                <fullName>Rate Change</fullName>
+                <default>false</default>
+                <label>Rate Change</label>
+            </value>
+            <value>
+                <fullName>Decline</fullName>
+                <default>false</default>
+                <label>Decline</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <controllingFieldValue>Not Started</controllingFieldValue>
+            <controllingFieldValue>Open</controllingFieldValue>
+            <valueName>New</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Progress</controllingFieldValue>
+            <controllingFieldValue>Waiting on someone else</controllingFieldValue>
+            <valueName>In Review</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <controllingFieldValue>Resolved</controllingFieldValue>
+            <valueName>Approved</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <controllingFieldValue>Resolved</controllingFieldValue>
+            <valueName>Rate Change</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Completed</controllingFieldValue>
+            <controllingFieldValue>Decline</controllingFieldValue>
+            <valueName>Decline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Resolved</controllingFieldValue>
+            <valueName>Exclusion</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Resolved</controllingFieldValue>
+            <valueName>Modification</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

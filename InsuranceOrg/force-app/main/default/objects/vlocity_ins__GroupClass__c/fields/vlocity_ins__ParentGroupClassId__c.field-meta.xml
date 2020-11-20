@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ParentGroupClassId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the parent group class. Used for large group locations.</description>
+    <externalId>false</externalId>
+    <label>Parent Group Class</label>
+    <referenceTo>vlocity_ins__GroupClass__c</referenceTo>
+    <relationshipLabel>Group Classes</relationshipLabel>
+    <relationshipName>ChildGroupClasses</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

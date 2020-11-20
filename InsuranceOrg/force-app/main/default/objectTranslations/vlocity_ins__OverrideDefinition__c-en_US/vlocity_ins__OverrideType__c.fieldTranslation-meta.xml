@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Override Type --></label>
+    <name>vlocity_ins__OverrideType__c</name>
+    <picklistValues>
+        <masterLabel>Attribute</masterLabel>
+        <translation><!-- Attribute --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pricing</masterLabel>
+        <translation><!-- Pricing --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pricing Component</masterLabel>
+        <translation><!-- Pricing Component --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pricing Element</masterLabel>
+        <translation><!-- Pricing Element --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Product Definition</masterLabel>
+        <translation><!-- Product Definition --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

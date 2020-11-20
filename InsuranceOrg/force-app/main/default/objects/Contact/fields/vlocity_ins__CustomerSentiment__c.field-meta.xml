@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CustomerSentiment__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Latest guess at this person&apos;s sentiment towards the deploying company with values such as Promoter, Satisfied, Neutral, Dissastisfied, Disgruntled.</description>
+    <externalId>false</externalId>
+    <label>Customer Sentiment</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Promoter</fullName>
+                <default>false</default>
+                <label>Promoter</label>
+            </value>
+            <value>
+                <fullName>Satisfied</fullName>
+                <default>false</default>
+                <label>Satisfied</label>
+            </value>
+            <value>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+                <label>Neutral</label>
+            </value>
+            <value>
+                <fullName>Dissatisfied</fullName>
+                <default>false</default>
+                <label>Dissatisfied</label>
+            </value>
+            <value>
+                <fullName>Disgruntled</fullName>
+                <default>false</default>
+                <label>Disgruntled</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

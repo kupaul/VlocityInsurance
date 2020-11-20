@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Domain Type --></label>
+    <name>vlocity_ins__DomainType__c</name>
+    <picklistValues>
+        <masterLabel>Object Lookup</masterLabel>
+        <translation><!-- Object Lookup --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Picklist</masterLabel>
+        <translation><!-- Picklist --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Type in</masterLabel>
+        <translation><!-- Type in --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,109 @@
+<apex:page showHeader="false" sidebar="false"
+            standardStylesheets="false"
+            docType="html-5.0" applyBodyTag="false"
+            lightningStylesheets="true"
+            title="LWC Preview VF Page" cache="false"
+            controller="vlocity_ins.LWCDesignerController">
+
+  <apex:includeLightning />
+  <c:CardStyleLoaderComponent theme="slds"></c:CardStyleLoaderComponent>
+  <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__iframeresizer, '/js/iframeResizer.contentWindow.min.js')}" />
+  <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__newport, '/assets/styles/vlocity-newport-design-system.css')}"/>
+  <head>
+
+
+  </head>
+  <body>
+    <div id="lightning">
+    </div>
+    <div id="auraErrorMessage">
+      <div id="loader"  class="via-slds">
+        <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+          <span class="slds-assistive-text">Loading</span>
+          <div class="slds-spinner__dot-a"></div>
+          <div class="slds-spinner__dot-b"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    (function() {
+      let url = '{!$CurrentPage.URL}';
+      let previewId = getUrlParam(url,'previewid');
+      window.addEventListener("message", receiveMessage, false);
+      let namespace = getUrlParam(url,'namespace');
+      namespace = namespace ? namespace : 'c';
+      let layoutInfo = {
+        data : {
+          name : getUrlParam(url,'layout'),
+          namespace : namespace
+        }
+      }
+      let componentLoading = false;
+      let componentName = "";
+      if(previewId){
+        window.parent.postMessage({name : "setPreviewFrameOrigin",iframeOrigin : location.origin},document.referrer);
+      }
+      receiveMessage(layoutInfo);
+      function receiveMessage(event) {
+        if(previewId && previewId !== event.data.previewid) {
+          return;
+        }
+        if(componentName && componentName != event.data.name) {
+          componentLoading = false;
+        }
+        if(!event.data.name || componentLoading){
+          return;
+        }
+        if(document.getElementById('lightning')) {
+          document.getElementById('lightning').innerHTML = "";
+        }
+        renderLoader(true);
+        componentLoading = true;
+        componentName = event.data.name;
+        let orgNamespace = '{!namespace}';
+        orgNamespace = orgNamespace ? orgNamespace : 'c';
+        $Lightning.use(orgNamespace + ':ltngOutVF', function() {
+          $Lightning.createComponent(`${event.data.namespace ? event.data.namespace : 'c'}:${event.data.name}`,
+              event.data.attrs,
+              "lightning",
+              function(cmp, status) {
+                componentLoading = false;
+                renderLoader(false);
+                if(status === "SUCCESS"){
+                  // If lwc load succesfully, making sure error div is empty
+                  document.querySelector("#auraErrorMessage").innerHTML = "";
+                }
+              }
+          );
+        });
+      }
+      function getUrlParam(url, paramName) {
+        var paramMatch = new RegExp(paramName + '=([^&#=]*)', 'i').exec(url);
+        if (paramMatch && paramMatch.length > 1) {
+            return decodeURIComponent(paramMatch[1]);
+        }
+        return null;
+      }
+    function renderLoader(render) {
+      let loaderHtml = `<div id="loader" class="via-slds">
+        <div  role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+          <span class="slds-assistive-text">Loading</span>
+          <div class="slds-spinner__dot-a"></div>
+          <div class="slds-spinner__dot-b"></div>
+        </div>
+      </div>`;
+      let loader = document.getElementById("loader");
+      let container = document.getElementById("auraErrorMessage");
+      if(render) {
+          container.innerHTML = loaderHtml;
+      } else {
+        if(loader) {
+          container.removeChild(loader);
+        }
+      }
+    }
+
+    })();
+  </script>
+</apex:page>

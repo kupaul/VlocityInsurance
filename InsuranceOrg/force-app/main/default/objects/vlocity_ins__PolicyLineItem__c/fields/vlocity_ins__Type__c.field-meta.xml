@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Antique/Classic Vehicle</fullName>
+                <default>false</default>
+                <label>Antique/Classic Vehicle</label>
+            </value>
+            <value>
+                <fullName>Apartment</fullName>
+                <default>false</default>
+                <label>Apartment</label>
+            </value>
+            <value>
+                <fullName>Barley</fullName>
+                <default>false</default>
+                <label>Barley</label>
+            </value>
+            <value>
+                <fullName>Beans</fullName>
+                <default>false</default>
+                <label>Beans</label>
+            </value>
+            <value>
+                <fullName>Business - Leased</fullName>
+                <default>false</default>
+                <label>Business - Leased</label>
+            </value>
+            <value>
+                <fullName>Business - Owned</fullName>
+                <default>false</default>
+                <label>Business - Owned</label>
+            </value>
+            <value>
+                <fullName>Cat</fullName>
+                <default>false</default>
+                <label>Cat</label>
+            </value>
+            <value>
+                <fullName>Chicken</fullName>
+                <default>false</default>
+                <label>Chicken</label>
+            </value>
+            <value>
+                <fullName>Commercial - Garage</fullName>
+                <default>false</default>
+                <label>Commercial - Garage</label>
+            </value>
+            <value>
+                <fullName>Commercial - Office</fullName>
+                <default>false</default>
+                <label>Commercial - Office</label>
+            </value>
+            <value>
+                <fullName>Commercial - Storefront</fullName>
+                <default>false</default>
+                <label>Commercial - Storefront</label>
+            </value>
+            <value>
+                <fullName>Commercial Vehicle</fullName>
+                <default>false</default>
+                <label>Commercial Vehicle</label>
+            </value>
+            <value>
+                <fullName>Commercial - Warehouse</fullName>
+                <default>false</default>
+                <label>Commercial - Warehouse</label>
+            </value>
+            <value>
+                <fullName>Company</fullName>
+                <default>false</default>
+                <label>Company</label>
+            </value>
+            <value>
+                <fullName>Condominium</fullName>
+                <default>false</default>
+                <label>Condominium</label>
+            </value>
+            <value>
+                <fullName>Corn</fullName>
+                <default>false</default>
+                <label>Corn</label>
+            </value>
+            <value>
+                <fullName>Dog</fullName>
+                <default>false</default>
+                <label>Dog</label>
+            </value>
+            <value>
+                <fullName>Donkey</fullName>
+                <default>false</default>
+                <label>Donkey</label>
+            </value>
+            <value>
+                <fullName>Driver</fullName>
+                <default>false</default>
+                <label>Driver</label>
+            </value>
+            <value>
+                <fullName>Duck</fullName>
+                <default>false</default>
+                <label>Duck</label>
+            </value>
+            <value>
+                <fullName>Ewes</fullName>
+                <default>false</default>
+                <label>Ewes</label>
+            </value>
+            <value>
+                <fullName>Farm Vehicle</fullName>
+                <default>false</default>
+                <label>Farm Vehicle</label>
+            </value>
+            <value>
+                <fullName>Fishing Boat</fullName>
+                <default>false</default>
+                <label>Fishing Boat</label>
+            </value>
+            <value>
+                <fullName>Fruit</fullName>
+                <default>false</default>
+                <label>Fruit</label>
+            </value>
+            <value>
+                <fullName>Goat</fullName>
+                <default>false</default>
+                <label>Goat</label>
+            </value>
+            <value>
+                <fullName>Goose</fullName>
+                <default>false</default>
+                <label>Goose</label>
+            </value>
+            <value>
+                <fullName>Grain</fullName>
+                <default>false</default>
+                <label>Grain</label>
+            </value>
+            <value>
+                <fullName>Guinea</fullName>
+                <default>false</default>
+                <label>Guinea</label>
+            </value>
+            <value>
+                <fullName>Hay</fullName>
+                <default>false</default>
+                <label>Hay</label>
+            </value>
+            <value>
+                <fullName>Hen</fullName>
+                <default>false</default>
+                <label>Hen</label>
+            </value>
+            <value>
+                <fullName>Hog</fullName>
+                <default>false</default>
+                <label>Hog</label>
+            </value>
+            <value>
+                <fullName>Horses</fullName>
+                <default>false</default>
+                <label>Horses</label>
+            </value>
+            <value>
+                <fullName>Houseboat</fullName>
+                <default>false</default>
+                <label>Houseboat</label>
+            </value>
+            <value>
+                <fullName>Individual</fullName>
+                <default>false</default>
+                <label>Individual</label>
+            </value>
+            <value>
+                <fullName>Lamb</fullName>
+                <default>false</default>
+                <label>Lamb</label>
+            </value>
+            <value>
+                <fullName>Mobile Home</fullName>
+                <default>false</default>
+                <label>Mobile Home</label>
+            </value>
+            <value>
+                <fullName>Motorcycle</fullName>
+                <default>false</default>
+                <label>Motorcycle</label>
+            </value>
+            <value>
+                <fullName>Mule</fullName>
+                <default>false</default>
+                <label>Mule</label>
+            </value>
+            <value>
+                <fullName>Multi-Family Home</fullName>
+                <default>false</default>
+                <label>Multi-Family Home</label>
+            </value>
+            <value>
+                <fullName>Nuts</fullName>
+                <default>false</default>
+                <label>Nuts</label>
+            </value>
+            <value>
+                <fullName>Oats</fullName>
+                <default>false</default>
+                <label>Oats</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Outbuilding</fullName>
+                <default>false</default>
+                <label>Outbuilding</label>
+            </value>
+            <value>
+                <fullName>Personal Vehicle</fullName>
+                <default>false</default>
+                <label>Personal Vehicle</label>
+            </value>
+            <value>
+                <fullName>Pheasant</fullName>
+                <default>false</default>
+                <label>Pheasant</label>
+            </value>
+            <value>
+                <fullName>Pleasure Boat</fullName>
+                <default>false</default>
+                <label>Pleasure Boat</label>
+            </value>
+            <value>
+                <fullName>Pony</fullName>
+                <default>false</default>
+                <label>Pony</label>
+            </value>
+            <value>
+                <fullName>Quail</fullName>
+                <default>false</default>
+                <label>Quail</label>
+            </value>
+            <value>
+                <fullName>Ram</fullName>
+                <default>false</default>
+                <label>Ram</label>
+            </value>
+            <value>
+                <fullName>Recreational Vehicle</fullName>
+                <default>false</default>
+                <label>Recreational Vehicle</label>
+            </value>
+            <value>
+                <fullName>Scheduled Personal Property</fullName>
+                <default>false</default>
+                <label>Scheduled Personal Property</label>
+            </value>
+            <value>
+                <fullName>Sheep</fullName>
+                <default>false</default>
+                <label>Sheep</label>
+            </value>
+            <value>
+                <fullName>Single Family Home</fullName>
+                <default>false</default>
+                <label>Single Family Home</label>
+            </value>
+            <value>
+                <fullName>Sod</fullName>
+                <default>false</default>
+                <label>Sod</label>
+            </value>
+            <value>
+                <fullName>Sow</fullName>
+                <default>false</default>
+                <label>Sow</label>
+            </value>
+            <value>
+                <fullName>Soybeans</fullName>
+                <default>false</default>
+                <label>Soybeans</label>
+            </value>
+            <value>
+                <fullName>Straw</fullName>
+                <default>false</default>
+                <label>Straw</label>
+            </value>
+            <value>
+                <fullName>Swine</fullName>
+                <default>false</default>
+                <label>Swine</label>
+            </value>
+            <value>
+                <fullName>Tobacco</fullName>
+                <default>false</default>
+                <label>Tobacco</label>
+            </value>
+            <value>
+                <fullName>Trailer</fullName>
+                <default>false</default>
+                <label>Trailer</label>
+            </value>
+            <value>
+                <fullName>Trees</fullName>
+                <default>false</default>
+                <label>Trees</label>
+            </value>
+            <value>
+                <fullName>Turkey</fullName>
+                <default>false</default>
+                <label>Turkey</label>
+            </value>
+            <value>
+                <fullName>Vegetables</fullName>
+                <default>false</default>
+                <label>Vegetables</label>
+            </value>
+            <value>
+                <fullName>Wheat</fullName>
+                <default>false</default>
+                <label>Wheat</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

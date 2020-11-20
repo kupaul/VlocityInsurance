@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Step Frequency --></label>
+    <name>StepFrequency__c</name>
+    <picklistValues>
+        <masterLabel>Always</masterLabel>
+        <translation><!-- Always --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Diagnostic</masterLabel>
+        <translation><!-- Diagnostic --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>First Install</masterLabel>
+        <translation><!-- First Install --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Upgrade</masterLabel>
+        <translation><!-- Upgrade --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Upgrade / First Install</masterLabel>
+        <translation><!-- Upgrade / First Install --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProductId</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISBLANK( vlocity_ins__Product2Id__c )</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__Product2Id__c</errorDisplayField>
+    <errorMessage>Product Id should not be blank.</errorMessage>
+</ValidationRule>

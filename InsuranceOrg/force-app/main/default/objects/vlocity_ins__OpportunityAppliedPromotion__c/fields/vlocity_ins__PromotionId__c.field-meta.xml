@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PromotionId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Identifies the promotion applied.</description>
+    <externalId>false</externalId>
+    <label>Promotion</label>
+    <referenceTo>vlocity_ins__Promotion__c</referenceTo>
+    <relationshipLabel>Opportunity Applied Promotions</relationshipLabel>
+    <relationshipName>OpportunityAppliedPromotions</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

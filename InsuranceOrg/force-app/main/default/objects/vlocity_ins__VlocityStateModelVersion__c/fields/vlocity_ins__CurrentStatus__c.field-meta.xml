@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CurrentStatus__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF( AND(vlocity_ins__StartDateTime__c &lt;=  NOW(), vlocity_ins__IsEnabled__c,  OR(vlocity_ins__EndDateTime__c &gt;  NOW(),  ISNULL(vlocity_ins__EndDateTime__c))) , &quot;Active&quot;,  IF( AND( NOT(ISNULL(vlocity_ins__EndDateTime__c) ), vlocity_ins__EndDateTime__c &lt;=  NOW(), vlocity_ins__IsEnabled__c), &quot;Expired&quot;,  IF(  AND(vlocity_ins__EndDateTime__c &gt;  NOW(), vlocity_ins__IsEnabled__c) , &quot;Pending&quot;, &quot;Inactive&quot;) ) )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Current Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

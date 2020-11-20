@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Priority__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Priority</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1. High</fullName>
+                <color>#FF0000</color>
+                <default>false</default>
+                <label>1. High</label>
+            </value>
+            <value>
+                <fullName>2. Normal</fullName>
+                <color>#009900</color>
+                <default>true</default>
+                <label>2. Normal</label>
+            </value>
+            <value>
+                <fullName>3. Low</fullName>
+                <color>#3366FF</color>
+                <default>false</default>
+                <label>3. Low</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,23 @@
+<apex:page standardController="vlocity_ins__OrchestrationItem__c"
+ extensions="vlocity_ins.XOMQueueItemsController" showHeader="false" sidebar="false">
+    <apex:outputPanel id="panel">
+        <apex:form id="form">
+            <apex:commandLink id="button" action="{!completeItemButton}" target="_top">
+            	<apex:param name="item" value="{!$CurrentPage.parameters.item}" assignTo="{!selectedItemId}"/>
+            </apex:commandLink>
+        </apex:form>
+    </apex:outputPanel>
+    <script type="text/javascript">
+    window.onload = function(){ 
+        //var frozenStates = ['Frozen', 'Frozen - Running', 'Frozen - Failed', 'Frozen - Fatally Failed'];
+        var currentItemState = '{!currentItemState}';
+        var currentPlanState = '{!currentPlanState}';
+        var allowCompletion = {!allowCompletion};
+        console.log(currentItemState);
+        document.getElementById("{!$Component.form.button}").click();
+        if (!(allowCompletion)){
+            alert('Error: '+currentItemState+' items cannot be completed when plan is '+currentPlanState);
+        }
+    }
+    </script>
+</apex:page>

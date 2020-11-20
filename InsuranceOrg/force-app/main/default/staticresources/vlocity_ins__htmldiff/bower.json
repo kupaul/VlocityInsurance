@@ -1,0 +1,22 @@
+{
+  "name": "htmldiff",
+  "description": "HTML Diffing in JavaScript",
+  "main": "./js/htmldiff.js",
+  "version": "0.1.1",
+  "homepage": "https://github.com/WoodWing/htmldiff.js",
+  "authors": [
+    "The Network Inc.",
+    "Woodwing Software"
+  ],
+  "license": "MIT (Expat)",
+  "keywords": [
+    "diff",
+    "htmldiff",
+    "html"
+  ],
+  "private": false,
+  "ignore": [
+    "**/**",
+    "!js/**/**"
+  ]
+}

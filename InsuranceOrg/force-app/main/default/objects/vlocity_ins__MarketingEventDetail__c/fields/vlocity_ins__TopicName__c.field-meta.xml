@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__TopicName__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This will be the name of the Topic, to be covered at a specific session at the Marketing Event.</description>
+    <externalId>false</externalId>
+    <label>Topic Name</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

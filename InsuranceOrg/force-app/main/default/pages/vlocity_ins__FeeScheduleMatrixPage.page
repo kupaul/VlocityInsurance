@@ -1,0 +1,251 @@
+<apex:page docType="html-5.0" applyHtmlTag="false" standardController="vlocity_ins__FeeSchedule__c" standardstylesheets="false" showHeader="false" sidebar="false">
+    <apex:slds />
+    <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-cloak="true" lang="en" ng-app="calculationTablePageApp">
+        <style>
+            .vloc-ins-container .nds-datepicker, .vloc-ins-container .slds-datepicker {
+                z-index: 9002
+            }
+            .vloc-ins-action-header {
+                width: 3.25rem;
+            }
+
+            .nds-notify__content h3.vloc-ins-error-message, .slds-notify__content h3.vloc-ins-error-message {
+                margin: 0;
+            }
+        </style>
+        <body>  
+            <div class="nds-scope slds-scope" ng-controller="calculationMatrixVersionsAppController">
+                <div class="vlocity vloc-ins-container nds-grid nds-wrap slds-grid slds-wrap" >
+                    <div ng-if="isLoading" class="nds-spinner_container slds-spinner_container">
+                        <div role="status" class="nds-spinner nds-spinner_medium slds-spinner slds-spinner_medium">
+                            <span class="nds-assistive-text slds-assistive-text">Loading</span>
+                            <div class="nds-spinner__dot-a slds-spinner__dot-a"></div>
+                            <div class="nds-spinner__dot-b slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                    <div ng-if="toast.isActive" class="nds-notify_container nds-is-relative slds-notify_container slds-is-relative">
+                        <div class="nds-notify nds-notify_toast nds-theme_{{toast.type}} slds-notify slds-notify_toast slds-theme_{{toast.type}}" role="status">
+                            <span class="nds-icon_container nds-icon-utility-{{toast.type}} nds-m-right_small nds-no-flex nds-align-top 
+                                slds-icon_container slds-icon-utility-{{toast.type}} slds-m-right_small slds-no-flex slds-align-top">
+                                <slds-svg-icon sprite="'utility'" icon="toast.type" size="'small'"></slds-svg-icon>
+                            </span>
+                            <div class="nds-notify__content slds-notify__content">
+                                <h3 class="vloc-ins-error-message">{{toast.message}}</h3>
+                            </div>
+                            <div class="nds-notify__close slds-notify__close">
+                                <button class="nds-button nds-button_icon nds-button_icon-inverse slds-button slds-button_icon slds-button_icon-inverse" title="Close" ng-click="toast.isActive = false">
+                                    <slds-svg-icon sprite="'utility'" icon="'close'" size="'small'"></slds-svg-icon>
+                                    <span class="nds-assistive-text slds-assistive-text">Close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nds-col nds-size_1-of-1 slds-col slds-size_1-of-1">
+                        <button class="nds-button nds-button_neutral slds-button slds-button_neutral" ng-click="createVersion()">
+                            Create New Fee Schedule Version
+                        </button>
+                    </div>
+                    <ul class="nds-col nds-size_1-of-1 nds-accordion slds-col slds-size_1-of-1 slds-accordion">
+                        <li class="nds-accordion__list-item slds-accordion__list-item" >
+                            <section class="nds-accordion__section slds-accordion__section" ng-class="{'nds-is-open slds-is-open': showVersionList}">
+                            <div class="nds-accordion__summary slds-accordion__summary" ng-click="toggleVersionList()">
+                                <h3 class="nds-accordion__summary-heading slds-accordion__summary-heading">
+                                    <button aria-controls="accordion-details-01" aria-expanded="false" class="nds-button nds-button_reset nds-accordion__summary-action slds-button slds-button_reset slds-accordion__summary-action">
+                                        <slds-svg-icon sprite="'utility'" icon="'switch'" size="'xx-small'" extra-classes="'nds-icon-text-default slds-icon-text-default nds-accordion__summary-action-icon nds-button__icon nds-button__icon_left 
+                                            slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left'"></slds-svg-icon>
+                                        <span class="nds-truncate slds-truncate" title="Accordion summary">List of versions</span>
+                                    </button>
+                                </h3>
+                            </div>
+                            <div class="nds-accordion__content slds-accordion__content" id="accordion-details-01">
+                                <div class="vloc-ins-census-table-names">
+                                    <table class="nds-table nds-table_cell-buffer nds-table_bordered slds-table slds-table_cell-buffer slds-table_bordered">
+                                        <thead>
+                                            <tr class="nds-line-height_reset slds-line-height_reset">
+                                                <th scope="col">
+                                                    <div class="nds-truncate slds-truncate" title="Name">Name</div>
+                                                </th>
+                                                <th scope="col">
+                                                    <div class="nds-truncate slds-truncate" title="Start Date">Start Date</div>
+                                                </th>
+                                                <th scope="col">
+                                                    <div class="nds-truncate slds-truncate" title="End Date">End Date</div>
+                                                </th>
+                                                <th scope="col">
+                                                    <div class="nds-truncate slds-truncate" title="Priority">Priority</div>
+                                                </th>
+                                                <th scope="col">
+                                                    <div class="nds-truncate slds-truncate" title="Enabled">Enabled</div>
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="nds-truncate nds-assistive-text slds-truncate slds-assistive-text" title="Actions">Actions</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr dir-paginate="version in versions | itemsPerPage: 5" pagination-id="versionsPagination" class="nds-hint-parent slds-hint-parent" 
+                                                ng-class="{'nds-is-selected slds-is-selected': version.versionId == selectedVersion}"  
+                                                ng-click="setVersion($event, version.versionId)">
+                                                <th data-label="Name" scope="row" >
+                                                    <div class="nds-truncate slds-truncate" title="{{version.versionName}}" >{{version.versionName}}
+                                                    </div>
+                                                </th>
+                                                <td data-label="Start Date">
+                                                    <div class="nds-truncate slds-truncate" title="{{version.versionStartDateTime}}">{{version.versionStartDateTime}}</div>
+                                                </td>
+                                                <td data-label="End Date">
+                                                    <div class="nds-truncate slds-truncate" title="{{version.versionEndDateTime}}">{{version.versionEndDateTime}}</div>
+                                                </td>
+                                                <td data-label="Priority">
+                                                    <div class="nds-truncate slds-truncate" title="{{version.versionPriority}}">{{version.versionPriority}}</div>
+                                                </td>
+                                                <td data-label="Enabled">
+                                                    <div class="nds-checkbox slds-checkbox">
+                                                        <input type="checkbox" name="options" id="checkbox-{{version.versionId}}" value="{{version.isEnabled}}" ng-model="version.isEnabled" disabled="disabled" />
+                                                        <label class="nds-checkbox__label slds-checkbox__label" for="checkbox-{{version.versionId}}" id="check-button-label-{{version.versionId}}">
+                                                            <span class="nds-checkbox_faux slds-checkbox_faux"></span>
+                                                            <span class="nds-form-element__label nds-assistive-text slds-form-element__label slds-assistive-text"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td role="gridcell" class="vloc-ins-action-header nds-hint-parent slds-hint-parent">
+                                                    <button class="nds-button nds-button_icon nds-button_icon-x-small slds-button slds-button_icon slds-button_icon-x-small" tabindex="0" title="Edit" ng-click="openVersionModal(version)">
+                                                        <slds-svg-icon sprite="'utility'" icon="'edit'" size="'small'" ng-if="version.versionId == selectedVersion" extra-classes="'nds-button__icon nds-button__icon_hint nds-button__icon_small nds-icon-text-default slds-button__icon slds-button__icon_hint slds-button__icon_small slds-icon-text-default'"></slds-svg-icon>
+                                                        <slds-svg-icon sprite="'utility'" icon="'edit'" size="'small'" ng-if="version.versionId != selectedVersion" extra-classes="'nds-button__icon nds-button__icon_hint nds-button__icon_small slds-button__icon slds-button__icon_hint slds-button__icon_small'"></slds-svg-icon>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="nds-col nds-size_1-of-1 slds-col slds-size_1-of-1">
+                                    <dir-pagination-controls pagination-id="versionsPagination" template-url="dirPaginationControls.html"></dir-pagination-controls>
+                                </div>
+                            </div>
+                            </section>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </body>
+        <script type="text/ng-template" id="versionHeaderTemplate.html">
+            <apex:slds />
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-fee-schedule-version" class="nds-modal nds-fade-in-open nds-modal_medium slds-modal slds-fade-in-open slds-modal_medium">
+                <div class="nds-modal__container slds-modal__container">
+                    <header class="nds-modal__header slds-modal__header">
+                        <button class="nds-button nds-button_icon nds-modal__close nds-button_icon-inverse slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" ng-click="$slideHide()">
+                            <slds-svg-icon sprite="'utility'" icon="'close'" size="'medium'" ></slds-svg-icon>
+                            <span class="nds-assistive-text slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="nds-modal__title nds-hyphenate slds-modal__title slds-hyphenate">{{title}}</h2>
+                    </header>
+                    <div class="nds-modal__content nds-p-around_medium slds-modal__content slds-p-around_medium" id="modal-content-fee-schedule-version">
+                        <div ng-if="error.isActive" class="nds-notify_container nds-is-relative slds-notify_container slds-is-relative">
+                            <div class="nds-notify nds-notify_toast nds-theme_error slds-notify slds-notify_toast slds-theme_error" role="status">
+                                <span class="nds-assistive-text slds-assistive-text">error</span>
+                                <span class="nds-icon_container nds-icon-utility-error nds-m-right_small nds-no-flex nds-align-top slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top">
+                                    <slds-svg-icon sprite="'utility'" icon="'error'" size="'small'"></slds-svg-icon>
+                                </span>
+                                <div class="nds-notify__content slds-notify__content">
+                                    <h3 class="vloc-ins-error-message">{{error.message}}</h3>
+                                </div>
+                                <div class="nds-notify__close slds-notify__close">
+                                    <button class="nds-button nds-button_icon nds-button_icon-inverse slds-button slds-button_icon slds-button_icon-inverse" title="Close" ng-click="error.isActive = false">
+                                        <slds-svg-icon sprite="'utility'" icon="'close'" size="'small'"></slds-svg-icon>
+                                        <span class="nds-assistive-text slds-assistive-text">Close</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nds-form slds-form" role="list">
+                            <div class="nds-form__row slds-form__row">
+                                <div class="nds-form__item slds-form__item" role="listitem">
+                                    <div class="nds-form-element nds-form-element_horizontal slds-form-element slds-form-element_horizontal">
+                                        <label class="nds-form-element__label slds-form-element__label" for="textname">
+                                            <span class="nds-required slds-required" title="required">* </span>Name
+                                        </label>
+                                        <div class="nds-form-element__control slds-form-element__control">
+                                            <input type="text" ng-model="version.versionName" id="textname" class="nds-input slds-input" />
+                                        </div>
+                                    </div>
+                                    <div class="nds-form-element nds-form-element_horizontal slds-form-element slds-form-element_horizontal">
+                                        <label class="nds-form-element__label slds-form-element__label" for="textname">
+                                            <span ng-if="version.isEnabled" class="nds-required slds-required" title="required">* </span>Priority
+                                        </label>
+                                        <div class="nds-form-element__control slds-form-element__control">
+                                            <input type="number" id="textname" ng-model="version.versionPriority" class="nds-input slds-input" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="nds-form__row slds-form__row">
+                                <div class="nds-form__item slds-form__item " role="listitem">
+                                    <div class="nds-form-element nds-form-element_horizontal slds-form-element slds-form-element_horizontal">
+                                        <label class="nds-form-element__label slds-form-element__label" for="checkbox-enabled">
+                                            Enabled
+                                        </label>
+                                        <div class="nds-form-element__control nds-input-has-icon nds-input-has-icon_right slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                            <div class="nds-checkbox slds-checkbox">
+                                                <input type="checkbox" name="options" id="checkbox-{{version.versionId}}" ng-model="version.isEnabled">
+                                                <label class="nds-checkbox__label slds-checkbox__label" for="checkbox-{{version.versionId}}" id="check-button-label-{{version.versionId}}" ng-click="toggleCheckbox(version)">
+                                                    <span class="nds-checkbox_faux slds-checkbox_faux"></span>
+                                                    <span class="nds-form-element__label nds-assistive-text slds-form-element__label slds-assistive-text"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nds-form-element nds-form-element_horizontal slds-form-element slds-form-element_horizontal"></div>
+                                </div>
+                            </div>
+                            <div class="nds-form__row slds-form__row">
+                                <div class="nds-form__item slds-form__item" role="listitem">
+                                    <div class="nds-form-element nds-form-element_horizontal slds-form-element slds-form-element_horizontal">
+                                        <label class="nds-form-element__label slds-form-element__label" for="text-startdate">
+                                            <span class="nds-required slds-required" title="required">* </span>Start Date
+                                        </label>
+                                        <div class="nds-form-element__control nds-input-has-icon nds-input-has-icon_right slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                            <input slds-date-picker="" id="text-startdate" vloc-ins-date-picker="" type="text" class="nds-input slds-input"
+                                                ng-model="version.versionStartDateTime" ng-model-options="{debounce: 0, required: false }">
+                                                <slds-svg-icon sprite="'utility'" icon="'event'" size="'xx-small'" extra-classes="'nds-button__icon slds-button__icon'"></slds-svg-icon>
+                                            </input>
+                                        </div>
+                                    </div>
+                                    <div class="nds-form-element nds-form-element_horizontal slds-form-element slds-form-element_horizontal">
+                                        <label class="nds-form-element__label slds-form-element__label" for="text-enddate">
+                                            <span ng-if="version.isEnabled" class="nds-required slds-required" title="required">* </span>End Date
+                                        </label>
+                                        <div class="nds-form-element__control nds-input-has-icon nds-input-has-icon_right slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                            <input slds-date-picker="" id="text-startdate-date" vloc-ins-date-picker="" type="text" class="nds-input slds-input"
+                                                ng-model="version.versionEndDateTime" ng-model-options="{debounce: 0, required: false }">
+                                                <slds-svg-icon sprite="'utility'" icon="'event'" size="'xx-small'" extra-classes="'nds-button__icon slds-button__icon'"></slds-svg-icon>
+                                            </input>
+                                        </div>
+                                    </div>
+                                    <div ng-show="showDateTime" class="nds-form-element nds-form-element_horizontal slds-form-element slds-form-element_horizontal">
+                                        <div class="nds-form-element slds-form-element">
+                                            <label class="nds-form-element__label slds-form-element__label" for="text-enddate-time">
+                                                <span class="nds-required slds-required" title="required">* </span>Time
+                                            </label>
+                                            <div class="nds-form-element__control nds-input-has-icon nds-input-has-icon_right slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                                <slds-time-picker vloc-ins-date-picker="" id="text-enddate-time" type="text" class="nds-input slds-input"  
+                                                    ng-model="feeTime" ng-model-options="{debounce: 0, required: false }"></slds-time-picker>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="nds-modal__footer slds-modal__footer">
+                        <button class="nds-button nds-button_neutral slds-button slds-button_neutral" ng-click="$slideHide()">Cancel</button>
+                        <button class="nds-button nds-button_brand slds-button slds-button_brand" ng-click="onSave()">Save</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="vloc-ins-backdrop nds-backdrop nds-backdrop_open slds-backdrop slds-backdrop_open"></div>
+        </script>
+    </html>
+    <c:PricingMatrixTable versionId="{!vlocity_ins__FeeSchedule__c.vlocity_ins__CalculationMatrixId__c}" rendered="{!NOT(ISBLANK(vlocity_ins__FeeSchedule__c.vlocity_ins__CalculationMatrixId__c))}" 
+        hasEditHeaderButtonGroup="false" hasDeleteAllButton="false" hasUpdateJSONButton="false"/>
+    <c:FeeScheduleMatrixVersionList feeScheduleId="{!vlocity_ins__FeeSchedule__c.Id}"/>
+</apex:page>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SetupValueParameters__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Setup value parameters if any</description>
+    <externalId>false</externalId>
+    <label>Setup Value Parameters</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

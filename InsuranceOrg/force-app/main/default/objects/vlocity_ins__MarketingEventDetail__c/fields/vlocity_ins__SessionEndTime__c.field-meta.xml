@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SessionEndTime__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Time on the session date, when this Marketing Event session is scheduled to end at.</description>
+    <externalId>false</externalId>
+    <label>Session End Time</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Time</type>
+</CustomField>

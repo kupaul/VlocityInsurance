@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__FullDocumentAccess__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Indicates whether a user or profile has full access to the contract document - i.e. ability to edit as well as accept/reject redlines created by other users</description>
+    <externalId>false</externalId>
+    <label>Full Document Access</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

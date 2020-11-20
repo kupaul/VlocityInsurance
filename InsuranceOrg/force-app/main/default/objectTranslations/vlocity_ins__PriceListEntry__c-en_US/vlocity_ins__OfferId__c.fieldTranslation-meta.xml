@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Offer --></label>
+    <name>vlocity_ins__OfferId__c</name>
+    <relationshipLabel><!-- Product Taxes and Fees (Offer) --></relationshipLabel>
+</CustomFieldTranslation>

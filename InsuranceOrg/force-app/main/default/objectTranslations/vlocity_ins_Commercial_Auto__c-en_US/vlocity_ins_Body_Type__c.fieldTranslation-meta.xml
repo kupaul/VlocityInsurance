@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Body Type --></label>
+    <name>vlocity_ins_Body_Type__c</name>
+    <picklistValues>
+        <masterLabel>ATV</masterLabel>
+        <translation><!-- ATV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bus</masterLabel>
+        <translation><!-- Bus --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Convertible</masterLabel>
+        <translation><!-- Convertible --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Coupe</masterLabel>
+        <translation><!-- Coupe --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Four-door sedan</masterLabel>
+        <translation><!-- Four-door sedan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Motorcycle</masterLabel>
+        <translation><!-- Motorcycle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pickup track</masterLabel>
+        <translation><!-- Pickup track --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RV/Motor Home</masterLabel>
+        <translation><!-- RV/Motor Home --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SUV</masterLabel>
+        <translation><!-- SUV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Snowmobile</masterLabel>
+        <translation><!-- Snowmobile --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Station wagon</masterLabel>
+        <translation><!-- Station wagon --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tractor</masterLabel>
+        <translation><!-- Tractor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trailer</masterLabel>
+        <translation><!-- Trailer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Truck</masterLabel>
+        <translation><!-- Truck --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Two-door sedan</masterLabel>
+        <translation><!-- Two-door sedan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Utility trailer</masterLabel>
+        <translation><!-- Utility trailer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Van</masterLabel>
+        <translation><!-- Van --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

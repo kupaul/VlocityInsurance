@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <label><!-- Class Based --></label>
+        <name>vlocity_ins__ClassBased</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Declarative --></label>
+        <name>vlocity_ins__Declarative</name>
+    </recordTypes>
+    <webLinks>
+        <label><!-- DeepClone --></label>
+        <name>vlocity_ins__DeepClone</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Export --></label>
+        <name>vlocity_ins__Export</name>
+    </webLinks>
+</CustomObjectTranslation>

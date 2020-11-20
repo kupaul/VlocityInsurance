@@ -1,0 +1,70 @@
+<apex:page docType="html-5.0" controller="vlocity_ins.CardCanvasController" applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+    <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"   ng-app="insCardRules" class="ng-cloak" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <style type="text/css">
+                body {
+                    margin: 0px !important;
+                    padding: 0px !important;
+                }
+            </style>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__VlocityExpressionEngine}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__MonacoEditor}"/>
+            <script src="{!URLFOR($Resource.monaco, '/min/vs/loader.js')}"></script>
+            <apex:includeScript value="{!$Resource.vlocity_ins__InsRules}"/>
+            <c:CardStyleLoaderComponent ></c:CardStyleLoaderComponent>
+            <script>
+                require.config({
+                    baseUrl: "{!URLFOR($Resource.monaco, '/min')}"
+                });
+            </script>
+        </head>
+        <body>
+            <div class="vlocity via-slds preload">
+                <vloc-layout layout-name="ins-large-group-root-attributes-container" layout-id="{{layoutId}}"/>
+            </div>
+            <script type="text/javascript">
+                  angular.module('insCardRules', ['vlocity', 'CardFramework', 'sldsangular', 'forceng',
+                    'ngSanitize', 'cfp.hotkeys', 'insRules'
+                    ]).config(['remoteActionsProvider', function(remoteActionsProvider) {
+                        'use strict';
+                        remoteActionsProvider.setRemoteActions(window.remoteActions || {});
+                    }]).config(['$compileProvider', function ($compileProvider) {
+                        $compileProvider.debugInfoEnabled(true);
+                    }]).run(['$rootScope', function($rootScope) {
+                        'use strict';
+                        $rootScope.nsPrefix = fileNsPrefix();
+                        $rootScope.isLoaded = false;
+                        $rootScope.setLoaded = function(boolean) {
+                            $rootScope.isLoaded = boolean;
+                        };
+                        $rootScope.notification = {
+                            message: '',
+                            type: '',
+                            active: false
+                        };
+                    }]).filter('sldsStaticResourceURL', ['$rootScope', function($rootScope) {
+                        'use strict';
+                        return function(sldsURL) {
+                            return $rootScope.staticResourceURL.slds + sldsURL;
+                        };
+                    }]);
+            </script>
+            <script type="text/javascript">
+                var sessionId = '{!$Api.Session_ID}';
+                var vlocINS = {
+                    'accessToken': '{!$Api.Session_ID}',
+                    'staticResourceURL' : {
+                        'slds': '{!URLFOR($Resource.slds)}',
+                    }
+                };
+                var userId = '{!$User.Id}';
+            </script>
+        </body>
+    </html>
+</apex:page>

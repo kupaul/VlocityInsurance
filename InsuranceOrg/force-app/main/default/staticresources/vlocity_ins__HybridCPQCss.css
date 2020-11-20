@@ -1,0 +1,1 @@
+.vlocity.via-slds .cpq-modal-spinner{left:15px;bottom:3px}.vlocity.via-slds .cpq-modal-content{min-height:200px}.vlocity.via-slds .cpq-modal-content-height{height:100%}

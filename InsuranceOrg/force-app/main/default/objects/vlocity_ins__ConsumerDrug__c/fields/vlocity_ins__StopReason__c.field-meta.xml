@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__StopReason__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The reason the Member stopped taking their medication.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The reason the Member stopped taking their medication.</inlineHelpText>
+    <label>Stop Reason</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Duplicate</fullName>
+                <default>false</default>
+                <label>Duplicate</label>
+            </value>
+            <value>
+                <fullName>Prescription complete</fullName>
+                <default>false</default>
+                <label>Prescription complete</label>
+            </value>
+            <value>
+                <fullName>Prescription change in dose or frequency</fullName>
+                <default>false</default>
+                <label>Prescription change in dose or frequency</label>
+            </value>
+            <value>
+                <fullName>Patient stopped medication</fullName>
+                <default>false</default>
+                <label>Patient stopped medication</label>
+            </value>
+            <value>
+                <fullName>Physician discontinued</fullName>
+                <default>false</default>
+                <label>Physician discontinued</label>
+            </value>
+            <value>
+                <fullName>Medication added in error</fullName>
+                <default>false</default>
+                <label>Medication added in error</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

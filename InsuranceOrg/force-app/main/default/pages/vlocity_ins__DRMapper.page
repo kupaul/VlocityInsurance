@@ -1,0 +1,95 @@
+<apex:page standardController="vlocity_ins__DRBundle__c" extensions="vlocity_ins.DRMapperController3,vlocity_ins.DRDataPackRunnerController"
+           showHeader="true" sidebar="false"
+           standardStylesheets="false" docType="html-5.0" applyBodyTag="false" action="{!redirectIfOldPage}">
+  <head>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/v102/vlocity_core_assets.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vk_beautify, '/vkBeautify-master/vkbeautify.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_drag_drop_lists, '/angular-drag-and-drop-lists.min.js')}"/>
+      <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+      <apex:stylesheet value="{!$Resource.vlocity_ins__DRMapperCss}"/>
+      <apex:includeScript value="/support/console/42.0/integration.js"/>
+      <script src="{!$Resource.MonacoEditor}"></script>
+      <script src="{!$Resource.VlocityPdf}"></script>
+      <script src="{!$Resource.DRMapper}"></script>
+      <script src="{!$Resource.SldsAngular}"></script>
+      <script src="{!$Resource.DRVComp}"></script>
+      <script src="{!URLFOR($Resource.monaco, '/min/vs/loader.js')}"></script>
+      <script>
+          require.config({
+            baseUrl: "{!URLFOR($Resource.monaco, '/min')}"
+          });
+      </script>
+  </head>
+  <style>
+    body {
+      margin: 0;
+      overflow-x: hidden;
+    }
+    html, body {
+      height: 100%;
+    }
+    .slds-grid--frame {
+        min-width: auto !important;
+        max-width: 100% !important;
+        overflow: auto !important;
+    }
+    .outerNoSidebar {
+      padding: 0 !important;
+    }
+    .Theme3 .hasMotif .slds-grid--frame {
+      max-width: calc(100vw - 35px) !important;
+    }
+  </style>
+  <script>
+    (function() {
+      document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+    })();
+  </script>
+  <body xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div class="via-slds {!$User.UIThemeDisplayed}" >
+      <div class="slds-grid slds-grid--frame">
+        <div ng-app="drmapper"
+             class="slds-col slds-grid slds-grid--vertical slds-grid--vertical-stretch"
+             ng-controller="drmapper as vm"
+             style="max-width: 100%;">
+          <slds-record-home-header sprite="standard"
+                                   icon="environment_hub"
+                                   icon-bg-class="slds-icon-standard-feed"
+                                   object-type="'{!sObjectType}'"
+                                   object-type-label="'{!sObjectTypeLabel}'"
+                                   instance="vm.bundle"
+                                   fields="vm.visibleFields"
+                                   hide-default-name="true"
+                                   buttons="vm.buttons"
+                                   field-metadata="vm.fields"></slds-record-home-header>
+          <extract-tabs   bundle="vm.bundle"
+                               ng-if="vm.bundle.Id && (vm.bundle[vm.ns + 'Type__c'] == 'Extract' || vm.bundle[vm.ns + 'Type__c'] == 'Turbo Extract') && !vm.reloadRequired"
+                               class="slds-col slds-grid slds-grid--vertical slds-grid--vertical-stretch"></extract-tabs>
+          <load-tabs      bundle="vm.bundle"
+                            ng-if="vm.bundle.Id && vm.bundle[vm.ns + 'Type__c'] == 'Load' && !vm.reloadRequired"
+                            class="slds-col slds-grid slds-grid--vertical slds-grid--vertical-stretch"></load-tabs>
+          <transform-tabs bundle="vm.bundle"
+                          ng-if="vm.bundle.Id && vm.bundle[vm.ns + 'Type__c'] == 'Transform' && !vm.reloadRequired"
+                          class="slds-col slds-grid slds-grid--vertical slds-grid--vertical-stretch"></transform-tabs>
+          <div class="slds-spinner_container" ng-if="vm.saving" id="drmapper-loading-spinner">
+            <div class="slds-spinner--brand slds-spinner slds-spinner--medium" role="alert">
+                <span class="slds-assistive-text">Saving</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      angular.module('drmapper.core')
+        .value('DRBundle', {!bundleJson})
+        .value('$$mappings', {!mappingsJson})
+        .value('fieldMetadata', {!fieldMetadata})
+        .value('fieldSetMetadata', {!fieldSetMetadata})
+        .value('attributesJson', JSON.parse('{!JSENCODE(attributesJson)}'));
+    </script>
+  </body>
+
+</apex:page>

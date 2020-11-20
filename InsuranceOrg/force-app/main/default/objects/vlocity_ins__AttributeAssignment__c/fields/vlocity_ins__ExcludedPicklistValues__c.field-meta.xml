@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ExcludedPicklistValues__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Data identifying picklist values excluded from those available in the governing Vlocity Picklist. Customizes the valid values available for the attribute on the assigned product.</description>
+    <externalId>false</externalId>
+    <label>Excluded Picklist Values</label>
+    <length>131072</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

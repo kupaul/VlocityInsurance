@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Use --></label>
+    <name>vlocity_ins__Use__c</name>
+    <picklistValues>
+        <masterLabel>Business</masterLabel>
+        <translation><!-- Business --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Business - Leased</masterLabel>
+        <translation><!-- Business - Leased --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Business - Owned</masterLabel>
+        <translation><!-- Business - Owned --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Farming</masterLabel>
+        <translation><!-- Farming --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Investment Property</masterLabel>
+        <translation><!-- Investment Property --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Mixed Use</masterLabel>
+        <translation><!-- Mixed Use --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pleasure</masterLabel>
+        <translation><!-- Pleasure --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Primary Dwelling</masterLabel>
+        <translation><!-- Primary Dwelling --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Recreational Use</masterLabel>
+        <translation><!-- Recreational Use --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Second Home</masterLabel>
+        <translation><!-- Second Home --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

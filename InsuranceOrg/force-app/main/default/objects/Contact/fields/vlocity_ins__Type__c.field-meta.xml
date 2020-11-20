@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The type of individual. Most useful for partner employees tracked as contacts.</description>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Licensed Agent</fullName>
+                <default>false</default>
+                <label>Licensed Agent</label>
+            </value>
+            <value>
+                <fullName>Broker</fullName>
+                <default>false</default>
+                <label>Broker</label>
+            </value>
+            <value>
+                <fullName>Associate Agent</fullName>
+                <default>false</default>
+                <label>Associate Agent</label>
+            </value>
+            <value>
+                <fullName>Managing Agent</fullName>
+                <default>false</default>
+                <label>Managing Agent</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

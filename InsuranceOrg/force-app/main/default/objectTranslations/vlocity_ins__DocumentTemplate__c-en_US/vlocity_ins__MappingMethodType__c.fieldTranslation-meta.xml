@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Mapping Method Type --></label>
+    <name>vlocity_ins__MappingMethodType__c</name>
+    <picklistValues>
+        <masterLabel>Custom Class</masterLabel>
+        <translation><!-- Custom Class --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DataRaptor</masterLabel>
+        <translation><!-- DataRaptor --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

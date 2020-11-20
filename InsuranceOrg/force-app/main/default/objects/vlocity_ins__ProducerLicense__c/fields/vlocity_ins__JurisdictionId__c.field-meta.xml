@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__JurisdictionId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Id of the jurisdiction where an agent/broker is authorized to solicit and sell insurance products.</description>
+    <externalId>false</externalId>
+    <label>Jurisdiction Id</label>
+    <referenceTo>vlocity_ins__Jurisdiction__c</referenceTo>
+    <relationshipLabel>Producer License</relationshipLabel>
+    <relationshipName>ProducerLicense</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

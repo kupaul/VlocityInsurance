@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="X-UA-Compatible"
+              content="IE=edge" />
+        <meta http-equiv="Content-Type"
+              content="text/html;charset=utf-8">
+        <style>
+            html,
+            body {
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+                border: 0;
+                background: transparent;
+            }
+        </style>
+        <script src="tinymce.min.js"></script>
+    </head>
+
+    <body>
+
+        <textarea id="mytextarea"></textarea>
+
+
+        <script>
+            let _initialized;
+            let _config;
+            let _rteId;
+
+            window.addEventListener("message", receiveMessage, false);
+
+            function receiveMessage() {
+                switch (event.data.message) {
+                    case "render":
+                        _rteId = event.data.elementid;
+                        renderEditor(event.data.value, event.data.config);
+                        return;
+                    case "value-changed":
+                        updateValue(event.data.value);
+                        return;
+                    case "append-changed":
+                        appendValue(event.data.value);
+                        return;
+                    case "config-changed":
+                        updateEditor(event.data.value, event.data.config);
+                        return;
+                    case "set-mode":
+                        tinymce.activeEditor.setMode(event.data.value);
+                        return;
+                }
+            }
+
+
+            function renderEditor(value, config) {
+                config = setConfigDefaults(config);
+                document.getElementById("mytextarea").value = value;
+                if (_initialized) {
+                    tinymce.remove("#mytextarea");
+                }
+                tinymce.init(config);
+            }
+
+            function setConfigDefaults(config) {
+                config['selector'] = "#mytextarea";
+                config['height'] = config['height'] || 300;
+                config['init_instance_callback'] = function (editor) {
+                    editor.on('Change', function (e) {
+                        window.parent.postMessage({
+                            message: _rteId + "-change",
+                            value: editor.getContent()
+                        }, "*");
+                    });
+                }
+                config['setup'] = function (editor) {
+                    editor.on('init', function (e) {
+                        _initialized = true;
+                        window.parent.postMessage({
+                            message: _rteId + "-initialized",
+                            value: editor.getContent()
+                        }, "*");
+                    });
+                }
+                return config;
+            }
+
+            function updateValue(value) {
+                tinymce.activeEditor.setContent(value);
+            }
+
+            function appendValue(value) {
+                tinymce.activeEditor.setContent(tinymce.activeEditor.getContent() + value);
+            }
+        </script>
+    </body>
+
+</html>

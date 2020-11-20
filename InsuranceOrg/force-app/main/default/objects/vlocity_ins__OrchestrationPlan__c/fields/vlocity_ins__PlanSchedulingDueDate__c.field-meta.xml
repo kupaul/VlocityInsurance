@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PlanSchedulingDueDate__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Datetime to recalculate plan schedule by daily batch job. It is set as earliest Due Date of orchestration items in Ready/Running/Fatally Failed states. If blank then plan is not scheduled. Set as blank when plan is completed.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Earliest Due Date of orchestration items in Ready/Running/Fatally Failed states.</inlineHelpText>
+    <label>Plan Scheduling Due Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

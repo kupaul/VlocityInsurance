@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <label><!-- Large Group --></label>
+        <name>vlocity_ins__LargeGroup</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Small Group --></label>
+        <name>vlocity_ins__SmallGroup</name>
+    </recordTypes>
+</CustomObjectTranslation>

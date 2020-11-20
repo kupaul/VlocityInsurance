@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProratedFeeAmount__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Prorated amount of fee based on the remaining days of the modified party relationship.</description>
+    <externalId>false</externalId>
+    <label>Prorated Fee Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

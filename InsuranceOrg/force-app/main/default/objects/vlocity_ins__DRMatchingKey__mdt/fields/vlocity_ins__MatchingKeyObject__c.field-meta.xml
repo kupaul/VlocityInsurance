@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__MatchingKeyObject__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Name of the object to use for matching. Used to support looking up the Id of an object from a child object or other related object. For example, looking up the Account Id by Party Number.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Matching Key Object</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ApplicableItemTypes__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The type of SFDC objects (lines) the Template is applicable to</description>
+    <externalId>false</externalId>
+    <label>Applicable Item Types</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ContractLineItem__c</fullName>
+                <default>false</default>
+                <label>ContractLineItem__c</label>
+            </value>
+            <value>
+                <fullName>OpportunityLineItem</fullName>
+                <default>false</default>
+                <label>OpportunityLineItem</label>
+            </value>
+            <value>
+                <fullName>OrderItem</fullName>
+                <default>false</default>
+                <label>OrderItem</label>
+            </value>
+            <value>
+                <fullName>QuoteLineItem</fullName>
+                <default>false</default>
+                <label>QuoteLineItem</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

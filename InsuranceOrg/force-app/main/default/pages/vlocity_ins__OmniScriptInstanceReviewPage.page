@@ -1,0 +1,14 @@
+<apex:page standardStylesheets="false" showHeader="true" sidebar="true" standardController="vlocity_ins__OmniScriptInstance__c" extensions="vlocity_ins.VFPageControllerBase" docType="html-5.0" >
+    <div ng-app="OmniInstanceReview" class='vlocity via-slds' xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <a ng-if="!isSforce" ng-href="/{!currentRecord['Id']}" ><i class="fa fa-caret-left"></i>{!$Label.NewBackTo} {!sParentObjectLabel} {!$Label.DetailLC}</a> 
+        <a ng-if="isSforce" href="javascript:sforce.one.navigateToURL('/{!currentRecord['Id']}')"><i class="fa fa-caret-left"></i>{!$Label.NewBackTo} {!sParentObjectLabel} {!$Label.DetailLC}</a>     
+        <hr/>
+        <c:BusinessProcessComponent strNamespacePrefixList="{!sNS}"
+                                    strInstanceId="{!vlocity_ins__OmniScriptInstance__c.Id}"
+                                    scriptState="saveAndResume"/>         
+        <script type="text/javascript">
+            var modules = ['vlocity-business-process'];
+            var myModule = angular.module('OmniInstanceReview', modules);
+        </script>                                     
+    </div>                                  
+</apex:page>

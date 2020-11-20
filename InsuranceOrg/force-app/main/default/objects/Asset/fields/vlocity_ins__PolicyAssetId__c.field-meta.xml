@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PolicyAssetId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>For financial accounts tied to an insurance offering, such as an annuity, this identifies the annuity or policy to which this financial account is tied.</description>
+    <externalId>false</externalId>
+    <label>Policy</label>
+    <referenceTo>Asset</referenceTo>
+    <relationshipLabel>Financial Accounts</relationshipLabel>
+    <relationshipName>PolicyFinancialAccounts</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

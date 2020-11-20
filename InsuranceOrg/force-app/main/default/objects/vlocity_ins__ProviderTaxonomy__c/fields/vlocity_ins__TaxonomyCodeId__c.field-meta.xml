@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__TaxonomyCodeId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Taxonomy Code</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>vlocity_ins__VlocityCode__c.vlocity_ins__Category__c</field>
+            <operation>equals</operation>
+            <value>NUCC Taxonomy Code</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>vlocity_ins__VlocityCode__c</referenceTo>
+    <relationshipLabel>Provider Taxonomies</relationshipLabel>
+    <relationshipName>ProviderTaxonomies</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

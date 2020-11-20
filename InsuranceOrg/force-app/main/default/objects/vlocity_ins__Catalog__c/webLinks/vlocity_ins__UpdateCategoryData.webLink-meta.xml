@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__UpdateCategoryData</fullName>
+    <availability>online</availability>
+    <description>Updates products&apos; CategoryData field with current category hierarchy</description>
+    <displayType>button</displayType>
+    <linkType>javascript</linkType>
+    <masterLabel>Update Category Data</masterLabel>
+    <openType>onClickJavaScript</openType>
+    <protected>false</protected>
+    <url>{!REQUIRESCRIPT(&quot;/soap/ajax/25.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/25.0/apex.js&quot;)}
+
+var namespace_prefix_dot = &apos;&apos;; 
+var gettingnamespace = sforce.connection.query(&quot;SELECT NamespacePrefix FROM ApexClass where Name = &apos;ApplicationUtilities&apos; LIMIT 1&quot;); 
+var getname = gettingnamespace.getArray(&quot;records&quot;); 
+if(getname.length &gt; 0 &amp;&amp; getname[0].NamespacePrefix) 
+{ 
+namespace_prefix_dot = getname[0].NamespacePrefix+&quot;.&quot;; 
+}
+
+var result = sforce.apex.execute(namespace_prefix_dot+&quot;CategoryDataBatchJob&quot;,&quot;executeCategoryDataBatch&quot;,{catalogId:&quot;{!vlocity_ins__Catalog__c.Id}&quot;});
+
+if (result != null)
+{
+window.location.reload();
+}
+else
+{
+alert(&apos;Updating Category Data Failed&apos;);
+}</url>
+</WebLink>

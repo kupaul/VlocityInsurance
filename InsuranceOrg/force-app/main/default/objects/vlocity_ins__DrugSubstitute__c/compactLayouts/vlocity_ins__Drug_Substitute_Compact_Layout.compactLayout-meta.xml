@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Drug_Substitute_Compact_Layout</fullName>
+    <fields>vlocity_ins__SubstituteDrugId__c</fields>
+    <fields>vlocity_ins__DrugId__c</fields>
+    <fields>Name</fields>
+    <fields>vlocity_ins__IsActive__c</fields>
+    <label>Drug Substitute Compact Layout</label>
+</CompactLayout>

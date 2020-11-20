@@ -1,0 +1,126 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" controller="vlocity_ins.ClmMergePdfController">
+    <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="ObjectDocumentPdfMergeApp" class="ng-cloak">
+        <head>
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <style type="text/css">
+                body {
+                    margin: 0px !important;
+                    padding: 0px !important; 
+                }
+            </style>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/>
+            <apex:includeScript value="/support/console/42.0/integration.js"/>
+            <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+            <apex:includeScript value="/xdomain/xdomain.js"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/jszip/jszip.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/jszip-utils.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/file-saver.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/build/docxtemplater.v3.5.0.min.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ObjectDocumentPdfMergeApp}"/>
+             <apex:includeScript value="{!$Resource.vlocity_ins__cs_vlocity_mergepdf}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__deepmerge}"/>
+            <apex:stylesheet value="{!$Resource.vlocity_ins__ObjectDocumentCreationCss}"/>
+
+
+            <!-- PDFTRON Libraries for salesforce side implementation-->
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cs_pdftron_lib, '/core/external/jquery-3.2.1.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cs_pdftron_lib, '/core/CoreControls.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cs_pdftron_lib, '/webviewer.min.js')}"/>
+        </head>
+         <body>
+            <div class="vlocity via-slds obj-doc-creation-docx" ng-controller="ObjectDocPdfMergeController">
+                <div class="slds-spinner_container" ng-show="vlcLoading">
+                    <div class="slds-spinner slds-spinner_brand slds-spinner_large" aria-hidden="false" role="status">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+                <div ng-if="!generatedPDFContentVersion.Id" class="slds-text-heading_small">
+                    {{labels.CLMDocGeneratingDocument}}
+                </div>
+                <div ng-if="generatedPDFContentVersion.Id" class="file-details">
+                    <div class="slds-clearfix slds-m-bottom_small">
+                        <div class="slds-float_left">
+                            <div class="slds-text-heading_medium slds-m-top_xx-small">{{generatedPDFContentVersion.Title}}</div>
+                        </div>
+                        <div class="slds-float_right" ng-if ="pdfViewer !== 'none'">
+                            <div class="slds-button-group" role="group">
+                                <button class="slds-button slds-button_neutral" title="{{labels.CLMDocGenDownloadPDF}}" ng-click="downloadFile()" ng-disabled="!isPdfDownloadReady">
+                                    <slds-button-svg-icon sprite="'utility'" icon="'download'" extra-classes="'slds-button__icon_left'"></slds-button-svg-icon>{{ isPdfDownloadReady ? labels.CLMDocGenDownloadPDF : labels.CLMDocGeneratingPDF}}
+                                    <span class="slds-assistive-text"> {{ isPdfDownloadReady ? labels.CLMDocGenDownloadPDF : labels.CLMDocGeneratingPDF}} </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- DOCX TEMPLATE CONTENT -->
+                            <!-- PdfTron previewer -->
+                    <div class="file-preview">
+                        <div class="document-previewer-wrapper" ng-if ="pdfViewer === 'none'" style="padding: 70px 65px; box-shadow: 0 0 4px 1px #d8dde6; border: 1px solid #d8dde6;height: 400px; text-align: center"> 
+                            <div class="slds-grid slds-wrap slds-size_1-of-1 download-buttons buttons-group slds-m-around_medium">
+                                <div class="slds-size_1-of-1">
+                                    <div class="dz-preview dz-file-preview icon-v-file-psd"  ng-style="{ 'color' : (isPdfDownloadReady) ? '#fc897a' : '#EBEBE4' }"> </div>
+                                    <button type="button" class="slds-button slds-button--neutral slds-m-bottom_x-small" title="{{labels.CLMDocGenDownloadPDF}}" 
+                                        ng-click="downloadFile(true)">{{ isPdfDownloadReady ? labels.CLMDocGenDownloadPDF : labels.CLMDocGeneratingPDF}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="document-container">
+                            <div class="slds-m-around_large slds-p-top_large" ng-if ="pdfViewer !== 'none' && !generatedPDFContentVersion.Id" style="text-align: center;">
+                                <h2 class="slds-text-heading_small slds-m-around_medium"> {{labels.PdfGenerationWaitingMessage}} </h2>
+                            </div> 
+                            <div class="file-details" ng-if="pdfViewer === 'vlocityclientsideviewer' && generatedPDFContentVersion.Id" style="text-align: center;">
+                                <div id="viewer" class="pdfViewer" style='width: 800px; height: 600px;'></div>
+                                <file-preview-pdf-tron  width="'100%'" height="'100%'"></file-preview-pdf-tron>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <script type="text/javascript">
+            _.noConflict();
+            var nameSpacePrefix, remoteActions, contractVersionId, parentId, sourceId, docName, containsRedlines, baseRequestUrl, inLightningExperience, labels, preview, sitePrefix;
+            window.sessionId = '{!$Api.Session_ID}';
+            nameSpacePrefix = '{!nameSpacePrefix}';
+            var pdfViewer = '{!JSENCODE(pdfViewer)}';
+            window.sitePrefix = '{!$Site.Prefix}';
+            
+            Visualforce.remoting.timeout = 120000; // Set timeout at page level
+
+            window.labels = {
+                'CLMDocGenDownloadWord': '{!$label.CLMDocGenDownloadWord}',
+                'CLMDocGenDownloadPowerPoint': '{!$label.CLMDocGenDownloadPowerPoint}',
+                'CLMDocGenDownloadPDF': '{!$label.CLMDocGenDownloadPDF}',
+                'CLMDocGeneratingDocument': '{!$label.CLMDocGeneratingDocument}',
+                'CLMDocGeneratingPDF':'{!$label.CLMDocGeneratingPDF}',
+                'VlocityPDFTronNoSystemUserMsg':'{!$label.VlocityPDFTronNoSystemUserMsg}',
+                'PdfGenerationWaitingMessage':'{!$label.PdfGenerationWaitingMessage}'
+            };
+
+            remoteActions = {
+                getClientSidePdfLibraries: {
+                    action: '{!$RemoteAction.ClmMergePdfController.getClientSidePdfLibraries}',
+                    config: {escape: false}
+                },
+                getPDFIntegrationConfig: {
+                    action: '{!$RemoteAction.ClmMergePdfController.getPDFIntegrationConfig}',
+                    config: {escape: false}
+                },
+                 getContentVersionData: {
+                    action: '{!$RemoteAction.ClmMergePdfController.getContentVersionData}',
+                    config: {escape: false}
+                },
+                linkContentVersionToObject: {
+                    action: '{!$RemoteAction.ClmMergePdfController.linkContentVersionToObject}',
+                    config: {escape: false,  buffer: false}
+                }
+            };
+        </script>
+        </body>
+    </html>
+</apex:page>

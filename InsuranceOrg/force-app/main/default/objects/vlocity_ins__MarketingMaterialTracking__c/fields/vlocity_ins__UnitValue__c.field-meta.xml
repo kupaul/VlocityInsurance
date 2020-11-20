@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__UnitValue__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This is the value per unit of the Marketing Material, at the time it was given to an Attendee at a specific Marketing Event. For example, the unit value of a giveaway at a Marketing Event.</description>
+    <externalId>false</externalId>
+    <label>Unit Value</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

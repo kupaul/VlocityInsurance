@@ -1,0 +1,76 @@
+<apex:page docType="html-5.0" controller="vlocity_ins.InsuranceTransactionComponentController" applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+    <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  ng-app="insTransactionList" class="ng-cloak">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <style type="text/css">
+                body {
+                    margin: 0px !important;
+                    padding: 0px !important;
+                    min-height: 100vh;
+                }
+                .via-slds .vloc-ins-product-model-initial-spinner {
+                    background-color: transparent;
+                }
+            </style>
+            <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+
+            <c:VlocityOmniFormComponent />
+            <script type="text/javascript" src="{!URLFOR($Resource.InsDirectives)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.InsTransactionList)}"></script>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__iframeresizer, '/js/iframeResizer.contentWindow.min.js')}" />
+            <script type="text/javascript">
+                var sessionId = '{!$Api.Session_ID}';
+                var vlocINS = {
+                    'accessToken': '{!$Api.Session_ID}',
+                    'staticResourceURL' : {
+                        'slds': '{!URLFOR($Resource.slds)}',
+                    }
+                };
+
+                var userId = '{!$User.Id}';
+                var modules = ['vlocity-omni-form'];
+                var myModule = angular.module('vlocityOmniForm', modules);
+                myModule.controller('vlocityOmniForm', function($scope){
+                   $scope.bptreeinput = {};
+                })
+                var remoteActions = {
+                    invokeIntegrationProcedureWithInput: {
+                        action: '{!$RemoteAction.InsuranceTransactionComponentController.invokeIntegrationProcedureWithInput}',
+                        config: {escape: false}
+                    },
+                    getAssetTransaction : {
+                        action: '{!$RemoteAction.InsuranceTransactionComponentController.getTransactionList}',
+                        config: {escape: false}
+                    },
+                    getTransactionTypes : {
+                        action: '{!$RemoteAction.InsuranceTransactionComponentController.getTransactionTypes}',
+                        config: {escape: false}
+                    },
+                    getCustomLabels : {
+                        action: '{!$RemoteAction.InsuranceTransactionComponentController.getCustomLabels}',
+                        config: {escape: false}
+                    },
+                    getUserProfile : {
+                        action: '{!$RemoteAction.InsuranceTransactionComponentController.getUserProfile}',
+                        config: {escape: false}
+                    }
+                };
+            </script>
+        </head>
+        <body>
+            <div class="vlocity via-slds">
+                <div class="slds-spinner_container vloc-ins-product-model-initial-spinner" ng-if="!$root.isLoaded">
+                    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+               <div ng-init="$root.isLoaded = true">
+                   <ins-transaction-list id="ins-transaction-list" class="ins-transaction-list"
+                   ng-model="transactionList"></ins-transaction-list>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>

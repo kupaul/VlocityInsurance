@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Scope --></label>
+    <name>vlocity_ins__Scope__c</name>
+    <picklistValues>
+        <masterLabel>Global</masterLabel>
+        <translation><!-- Global --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Main Order Item</masterLabel>
+        <translation><!-- Main Order Item --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Order</masterLabel>
+        <translation><!-- Order --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Order Item</masterLabel>
+        <translation><!-- Order Item --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

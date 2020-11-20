@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Select Type --></label>
+    <name>vlocity_ins__SelectType__c</name>
+    <picklistValues>
+        <masterLabel>Dropdown</masterLabel>
+        <translation><!-- Dropdown --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Radio Button</masterLabel>
+        <translation><!-- Radio Button --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

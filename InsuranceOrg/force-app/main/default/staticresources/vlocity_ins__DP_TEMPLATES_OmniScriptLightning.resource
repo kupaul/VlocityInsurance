@@ -1,0 +1,4360 @@
+{
+    "dataPackId": "",
+    "dataPacks": [
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-JSONApplicationReviewHTMLTemplate",
+                        "%vlocity_namespace%__HTML__c": "<div ng-repeat=\"key in utils.keys(json) track by key\" class=\"children\" ng-class=\"{'node-parent':collapsedLevel == 1,'node-step-container':collapsedLevel == 2}\" \n    ng-hide=\"(!childs[key].isObject() && collapsedLevel==2) || (key === 'name') || (key === 'value')\">\n    <div ng-hide=\"skipnodes.indexOf(key) >= 0\" ng-class=\"{'node-parent': collapsedLevel > 0, 'heightAuto' : !childs[key].isObject()}\" >\n\n        <span ng-class=\"{'step-header': collapsedLevel == 2, 'node-child row':collapsedLevel < 2}\" ng-hide=\"!childs[key].isObject() && collapsedLevel == 2\">\n            \n            <a ng-click=\"utils.clickNode(childs[key])\"  ng-if=\"childs[key].isObject()\">\n                <span class=\"toggler {{childs[key].isCollapsed ? '' : 'open'}}\" ng-if=\"childs[key].isObject()\"></span>\n            </a>\n            <span ng-if=\"node.type() !== 'array' &amp;&amp; key !== 'filename' &amp;&amp; key !== 'name' &amp;&amp; key !== 'value' &amp;&amp; key !== 'size' &amp;&amp; key !== 'data'\" \n                class=\"key\" ng-class=\"{'col-md-4':collapsedLevel < 2, 'step-header-label':collapsedLevel == 2}\">\n                <label ng-class=\"{'node-label text-primary': collapsedLevel < 2}\" ng-if=\"labelmap[key]\">{{labelmap[key]}}: </label>\n                <label ng-class=\"{'node-label text-primary': collapsedLevel < 2}\" ng-if=\"!labelmap[key]\">{{key}}: </label>\n            </span>\n\n            <span ng-if=\"key === 'size' || key === 'filename'\" class=\"key\" ng-class=\"{'col-md-4':collapsedLevel < 2}\">{{key}}: </span>\n\n            {{boolVal = (json[key] == true || json[key] == false);\"\"}}\n            {{isArray = (json[key].indexOf(';')>0);\"\"}}\n            <span class=\"col-md-4\" ng-if=\"isArray && collapsedLevel == 1\" style=\"display:inline-block;\"> \n                <ul>\n                <li ng-repeat=\"item in utils.split(json[key])\">\n                        {{item}}\n                    </li>\n                </ul>\n            </span>\n\n            <span class=\"value\" ng-if=\"collapsedLevel < 2\" ng-class=\"{'col-md-4':collapsedLevel < 2 && !isArray, 'col-md-12': collapsedLevel < 2 && isArray}\">\n                <span ng-if=\"!isArray && !boolVal && !childs[key].isObject() && key !== 'name' && key !== 'data' && key !== 'value'\">{{json[key]}}</span>\n                <span ng-if=\"boolVal\" ng-class=\"{'icon-v-check':json[key] == true , 'icon-v-close':json[key] == false }\"></span>\n                <span ng-if=\"false && isArray && key !== 'name'\">\n                    <ul>\n                        <li ng-repeat=\"item in utils.split(json[key])\">\n                            {{item}}\n                        </li>\n                    </ul>\n                </span>\n            </span>\n\n        </span>\n        <json-tree json=\"json[key]\" edit-level=\"{{editLevel}}\" collapsed-level=\"{{+collapsedLevel - 1}}\" node=\"childs[key]\" ng-show=\"childs[key].isObject()\" labelmap=\"labelmap\" skipnodes='skipnodes'></json-tree>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-JSONApplicationReviewHTMLTemplate",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-JSONApplicationReviewHTMLTemplate/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-JSONApplicationReviewHTMLTemplate"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-JSONApplicationReviewHTMLTemplate",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-JSONApplicationReviewHTMLTemplate",
+            "VlocityDataPackName": "omniLightning-JSONApplicationReviewHTMLTemplate",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-JSONTreeApplicationHTMLTemplate",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-json-tree-row\">\n    <div ng-hide=\"node.isCollapsed\" ng-repeat=\"key in utils.keys(json) track by key\" class=\"children\">\n        <a ng-click=\"utils.clickNode(childs[key])\">\n            <span class=\"toggler {{childs[key].isCollapsed ? '' : 'open'}}\" ng-if=\"childs[key].isObject() &amp;&amp; key !== 'filesMap'\"></span>\n        </a>\n        <span ng-if=\"node.type() !== 'array' &amp;&amp; key !== 'filesMap'\" class=\"key\"><label>{{key}}: </label></span>\n        <span ng-if=\"node.type() === 'array' &amp;&amp; key !== 'filesMap'\" class=\"key\"><label>{{$index+1}}: </label></span>\n        <span class=\"value\">\n            <span ng-if=\"!childs[key].isObject() &amp;&amp; key !== 'filesMap'\"><label>{{json[key]}}</label></span>\n        </span>\n        <json-tree json=\"json[key]\" edit-level=\"{{editLevel}}\" collapsed-level=\"{{+collapsedLevel - 1}}\" node=\"childs[key]\" ng-show=\"childs[key].isObject() &amp;&amp; key !== 'filesMap'\"></json-tree>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-JSONTreeApplicationHTMLTemplate",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-JSONTreeApplicationHTMLTemplate/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-JSONTreeApplicationHTMLTemplate"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-JSONTreeApplicationHTMLTemplate",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-JSONTreeApplicationHTMLTemplate",
+            "VlocityDataPackName": "omniLightning-JSONTreeApplicationHTMLTemplate",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-JSONTreeGenericHTMLTemplate",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-json-tree-row\">\n    <div ng-hide=\"node.isCollapsed\" ng-repeat=\"key in utils.keys(json) track by key\" class=\"children\">\n        <a ng-click=\"utils.clickNode(childs[key])\">\n            <span class=\"toggler {{childs[key].isCollapsed ? '' : 'open'}}\" ng-if=\"childs[key].isObject()\"></span>\n        </a>\n        <span ng-if=\"node.type() !== 'array'\" class=\"key\"><label>{{key}}: </label></span>\n        <span ng-if=\"node.type() === 'array'\" class=\"key\"><label>{{$index+1}}: </label></span>\n        <span class=\"value\">\n            <span ng-if=\"!childs[key].isObject()\"><label>{{json[key]}}</label></span>\n        </span>\n        <json-tree json=\"json[key]\" edit-level=\"{{editLevel}}\" collapsed-level=\"{{+collapsedLevel - 1}}\" node=\"childs[key]\" ng-show=\"childs[key].isObject()\"></json-tree>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-JSONTreeGenericHTMLTemplate",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-JSONTreeGenericHTMLTemplate/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-JSONTreeGenericHTMLTemplate"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-JSONTreeGenericHTMLTemplate",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-JSONTreeGenericHTMLTemplate",
+            "VlocityDataPackName": "omniLightning-JSONTreeGenericHTMLTemplate",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-JSONTreeHTMLTemplate",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-json-tree-row\">\n    <div ng-hide=\"node.isCollapsed\" ng-repeat=\"key in utils.keys(json) track by key\" class=\"children\">\n        <div ng-hide=\"skipnodes.indexOf(key) >= 0\">\n            <a ng-click=\"utils.clickNode(childs[key])\">\n                <span class=\"toggler {{childs[key].isCollapsed ? '' : 'open'}}\" ng-if=\"childs[key].isObject()\"></span>\n            </a>\n            <span ng-if=\"node.type() !== 'array' &amp;&amp; key !== 'filename' &amp;&amp; key !== 'name' &amp;&amp; key !== 'value' &amp;&amp; key !== 'size' &amp;&amp; key !== 'data'\" class=\"key\">\n                <label ng-if=\"labelmap[key]\">{{labelmap[key]}}: </label>\n                <label ng-if=\"!labelmap[key]\">{{key}}: </label>\n            </span>\n            <span ng-if=\"key === 'value' || key === 'size' || key === 'filename'\" class=\"key\">{{key}}: </span>\n            <span ng-if=\"node.type() === 'array'\" class=\"key\"><label>{{$index+1}}: </label></span>\n            <span class=\"value\">\n                <span ng-if=\"!childs[key].isObject() && key !== 'name' && key !== 'data'\">{{json[key]}}</span>\n            </span>\n            <json-tree json=\"json[key]\" edit-level=\"{{editLevel}}\" collapsed-level=\"{{+collapsedLevel - 1}}\" node=\"childs[key]\" ng-show=\"childs[key].isObject()\" labelmap=\"labelmap\" skipnodes='skipnodes'></json-tree>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-JSONTreeHTMLTemplate",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-JSONTreeHTMLTemplate/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-JSONTreeHTMLTemplate"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-JSONTreeHTMLTemplate",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-JSONTreeHTMLTemplate",
+            "VlocityDataPackName": "omniLightning-JSONTreeHTMLTemplate",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcCurrency",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1 alt-vlc-slds--control\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex alt-vlc-slds--currency vlc-slds-omniscript-currency'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <span class='vlc-slds-currency-symbol' ng-class=\"{'vlc-slds-currency-symbol__readonly': control.ro === true}\" >{{::(bpTree.oSCurrencySymbol || control.propSetMap.currencySymbol)}}</span>\n                <input id='{{::control.name}}'\n                       type='tel'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-disabled='control.ro'\n                       ng-required=\"control.req\"\n                       ui-currency-setting=\"::bpTree.oSCurrencySetting\"\n                       ui-number-mask='::control.propSetMap.mask'\n                       ui-negative-number='{{::control.propSetMap.allowNegative}}'\n                       ui-hide-group-sep='{{::control.propSetMap.hideGroupSep}}'\n                       min='::control.propSetMap.min'\n                       max='::control.propSetMap.max'\n                       name='loopname'\n                       ng-model='control.response'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input'\n                       ng-init='init(this, control)'\n                       vlc-slds-val-check-currency=\"response\"\n                       vlc-slds-val-checker=\"response\" />\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <!-- this is the error block -->\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcCurrency",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcCurrency/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcCurrency"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcCurrency",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcCurrency",
+            "VlocityDataPackName": "omniLightning-altVlcCurrency",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcDate",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-date'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       name='loopname'\n                       ng-disabled='control.ro'\n                       ng-required=\"control.req\"\n                       type='text'\n                       placement='none'\n                       ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       class='slds-input'\n                       ng-model='control.response'\n                       ng-init='init(this, control)'\n                       data-date-format=\"{{::control.propSetMap.dateFormat}}\"\n                       data-max-date=\"{{::control.propSetMap.maxDate}}\"\n                       data-min-date=\"{{::control.propSetMap.minDate}}\"\n                       date-type=\"{{::control.propSetMap.dateType}}\"\n                       model-date-format=\"{{::control.propSetMap.modelDateFormat}}\"\n                       days-of-week-disabled=\"{{::control.propSetMap.daysOfWeekDisabled}}\"\n                       slds-date-picker=\"test\"\n                       autocomplete=\"off\"\n                       vlc-slds-val-checker=\"response\"/>\n\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <!-- OMNI-1718 -->\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'dayview'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcDate",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcDate/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcDate"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcDate",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcDate",
+            "VlocityDataPackName": "omniLightning-altVlcDate",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcDatetime-local",
+                        "%vlocity_namespace%__HTML__c": "    <div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control' ng-class=\"[compareWindowWidth(480,'','slds-form--compound')]\">\n\n        <ng-form name='loopform'\n                 class='vlc-flex vlc-slds-datetime-locale'\n                 ng-repeat='control in child.eleArray'>\n\n            <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n            <div class=\"slds-form-element__group\">\n\n                <div class=\"slds-form-element__row slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n                    <div class=\"slds-form-element slds-form-element__control slds-large-size--1-of-2 slds-input-has-icon slds-input-has-icon--right\">\n\n                        <div class=\"vlc-control-wrapper\" help=\"{{control.propSetMap.help}}\">\n\n                            <input id='{{::control.name}}'\n                                   name='loopname'\n                                   ng-disabled='control.ro'\n                                   ng-required=\"control.req\"\n                                   type='text'\n                                   placement='none'\n                                   ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                                   class='slds-input'\n                                   ng-model='control.response'\n                                   ng-init='init(this, control)'\n                                   data-date-format=\"{{::control.propSetMap.dateFormat}}\"\n                                   data-max-date=\"{{::control.propSetMap.maxDate}}\"\n                                   data-min-date=\"{{::control.propSetMap.minDate}}\"\n                                   timezone=\"{{::selectTimezoneOffset(control.propSetMap.timezone);}}\"\n                                   slds-date-picker\n                                   autocomplete=\"off\"\n                                   vlc-slds-val-checker=\"reponse\" />\n\n                            <!-- tooltip template -->\n                            <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n\n                        </div>\n\n                        <slds-svg-icon aria-hidden=\"true\"\n                                       sprite=\"'utility'\"\n                                       icon=\"'dayview'\"\n                                       size=\"'small'\"\n                                       extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n                        </slds-svg-icon>\n                    </div>\n\n                    <div class=\"slds-form-element slds-form-element__control slds-large-size--1-of-2 slds-input-has-icon slds-input-has-icon--right\">\n\n                        <div class=\"vlc-control-wrapper\">\n\n                            <input type='text'\n                                   placement='none'\n                                   ng-disabled='control.ro'\n                                   ng-required=\"control.req\"\n                                   ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                                   class='slds-input'\n                                   ng-model='control.response'\n                                   name='timectrl'\n                                   ng-init='init(this, control)'\n                                   data-time-format =\"{{::control.propSetMap.timeFormat}}\"\n                                   timezone=\"{{::selectTimezoneOffset(control.propSetMap.timezone)}}\"\n                                   slds-time-picker\n                                   vlc-slds-val-checker=\"reponse\"\n                                   data-default-date=\"today\"\n                                   autocomplete=\"off\"/>\n\n                        </div>\n\n                        <slds-svg-icon aria-hidden=\"true\"\n                                       sprite=\"'utility'\"\n                                       icon=\"'clock'\"\n                                       size=\"'small'\"\n                                       extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n                        </slds-svg-icon>\n\n\n                    </div>\n\n                </div>\n                <div ng-include=\"::errHTMLId\"></div>\n            </div>\n\n        </ng-form>\n\n    </div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcDatetime-local",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcDatetime-local/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcDatetime-local"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcDatetime-local",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcDatetime-local",
+            "VlocityDataPackName": "omniLightning-altVlcDatetime-local",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcEmail",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       type='email'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       class='slds-input form-control'\n                       name='loopname'\n                       ng-init='init(this, control)'\n                       ng-model='control.response'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern}}'\n                       vlc-slds-val-checker=\"response\" />\n\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n                \n            </div>\n\n            <!-- OMNI-1718 -->\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'email'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n            \n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcEmail",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcEmail/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcEmail"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcEmail",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcEmail",
+            "VlocityDataPackName": "omniLightning-altVlcEmail",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcFilterItemSelect",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-select-control vlc-slds-select--filter-control'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right'>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n            <div class=\"slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary\">\n\n                <span class=\"vlc-slds-form-element__center--horizontal\">\n                    {{control.response.value}}\n                </span>\n\n                <!-- this select control should not be visible to the user -->\n                <select id='{{::control.name}}'\n                        style='opacity:-1'\n                        chainup=\"test\"\n                        name='loopname'\n                        ng-model='control.response'\n                        class='slds-select'\n                        vlc-slds-val-watch=\"response\"\n                        vlc-slds-val-checker=\"response\"\n                        ng-init='init(this, control)'\n                        ng-show='ngInitValidation(this, control)'\n                        ng-options='sOption as sOption.value for sOption in control.propSetMap.options track by sOption.name'>\n\n                    <option value=\"\">{{::customLabels.OmniClear}}</option>\n\n                </select>\n\n            </div>\n            <small class='helpText description'>{{::control.propSetMap.helpText}}</small>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcFilterItemSelect",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcFilterItemSelect/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcFilterItemSelect"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcFilterItemSelect",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcFilterItemSelect",
+            "VlocityDataPackName": "omniLightning-altVlcFilterItemSelect",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcFormula",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1 alt-vlc-slds--control\">\n\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-slds-formula vlc-slds-omniscript-currency'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-col\"\n             ng-hide=\"::control.propSetMap.hide\">\n\n            <div class=\"slds-form-element__control slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n                <div class=\"vlc-control-wrapper\">\n\n                    <span class='vlc-slds-currency-symbol'\n                          ng-if=\"control.propSetMap.dataType == 'Currency'\">{{::(bpTree.oSCurrencySymbol || control.propSetMap.currencySymbol)}}</span>\n                    <input id='{{::control.name}}'\n                           type='text'\n                           name='loopname'\n                           ng-model='control.response'\n                           class='slds-input'\n                           ng-if=\"control.propSetMap.dataType != 'Number' &&\n                                  control.propSetMap.dataType != 'Date' &&\n                                  control.propSetMap.dataType != 'Currency' &&\n                                  performCalculation(this, control)\"\n                           vlc-slds-readonly=\"test\" />\n\n                    <input id='{{::control.name}}'\n                           type='text'\n                           name='loopname'\n                           ng-if=\"control.propSetMap.dataType == 'Currency' && performCalculation(this, control)\"\n                           ng-model='control.response'\n                           class='slds-input vlc-slds-currency'\n                           via-mask='::control.propSetMap.mask'\n                           vlc-slds-readonly=\"test\"\n                           autocomplete=\"off\" />\n\n                    <input id='{{::control.name}}'\n                           type='text'\n                           ng-if=\"control.propSetMap.dataType == 'Date' && performCalculation(this, control)\"\n                           class='slds-input'\n                           name='loopname'\n                           name='date'\n                           date-format=\"{{control.propSetMap.dateFormat}}\"\n                           value=\"{{control.response | date:control.propSetMap.dateFormat}}\"\n                           vlc-slds-readonly=\"test\"\n                           vlc-disable-auto-complete=\"off\" />\n\n                    <input id='{{::control.name}}'\n                           type='text'\n                           name='loopname'\n                           ng-model='control.response'\n                           class='slds-input'\n                           ng-if=\"control.propSetMap.dataType == 'Number' && performCalculation(this, control)\"\n                           via-mask='::control.propSetMap.mask'\n                           vlc-slds-readonly=\"test\"\n                           autocomplete=\"off\" />\n\n                    <small class='helpText description'>\n                        {{::control.propSetMap.helpText}}\n                    </small>\n\n                </div>\n\n                <!-- this is the error block -->\n                <div ng-include=\"::errHTMLId\"></div>\n\n            </div>\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcFormula",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcFormula/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcFormula"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcFormula",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcFormula",
+            "VlocityDataPackName": "omniLightning-altVlcFormula",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcLabelController",
+                        "%vlocity_namespace%__HTML__c": "<label for=\"{{::control.name}}\" class=\"slds-form-element__label\">\n    <slds-button-svg-icon sprite=\"'utility'\"\n                          icon=\"'add'\"\n                          size=\"'large'\"\n                          ng-if=\"::control.propSetMap.repeat\"\n                          ng-disabled=\"control.propSetMap.repeatLimit !== undefined && control.propSetMap.repeatLimit !== null && child.eleArray.length >= control.propSetMap.repeatLimit+1\"\n                          ng-click=\"baseCtrl.addItem(this, child, $index)\">\n    </slds-button-svg-icon>\n\n    <slds-button-svg-icon sprite=\"'utility'\"\n                          icon=\"'close'\"\n                          size=\"'large'\"\n                          ng-click=\"removeDomElement(this, child, $index)\"\n                          vlc-slds-remove-item=\"ng-form[ng-repeat='control in child.eleArray']\"\n                          ng-if=\"child.eleArray.length > 1\">\n    </slds-button-svg-icon>\n\n    <span class=\"vlc-label-description\">{{::control.propSetMap.label}}</span>\n\n    <span class=\"vlc-asterix icon-v-asterix\"\n          ng-if=\"control.req\">\n    </span>\n\n</label>\n\n\n\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcLabelController",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcLabelController/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcLabelController"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcLabelController",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcLabelController",
+            "VlocityDataPackName": "omniLightning-altVlcLabelController",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcLookup",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1 alt-vlc-slds--control\">\n\n    <div class=\"slds-lookup\" data-select=\"multi\" data-scope=\"single\" data-typeahead=\"true\">\n\n        <ng-form name='loopform'\n                 class='slds-form-element vlc-flex vlc-slds-lookup-control'\n                 ng-repeat='control in child.eleArray'\n                 autocomplete=\"off\">\n\n            <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n            <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n                <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                    <input id='{{::control.name}}'\n                           ng-disabled='control.ro'\n                           ng-required='control.req'\n                           ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                           ng-click=\"convertToObject(true);control.showSubList = true\"\n                           name='loopname'\n                           type=\"text\"\n                           class=\"slds-input\"\n                           ng-model=\"control.response\"\n                           vlc-slds-lookup-control=\"test\"\n                           ng-init='init(this, control)'\n                           vlc-disable-auto-complete=\"off\"/>\n\n                    <!-- list of matched items -->\n                    <ul class=\"slds-list--vertical vlc-slds-list--vertical\"\n                        ng-click=\"aggregate(this, control.index, control.indexInParent, true, -1)\"\n                        ng-show=\"control.propSetMap.options.length && control.showSubList\">\n\n                        <!-- clear option-->\n                        <li ng-click=\"convertToObject(false);control.showSubList = false\"\n                            class=\"slds-list__item\">\n                            --\n                        </li>\n\n                        <li ng-click=\"setViewValue(obj)\"\n                            ng-repeat=\"obj in control.viewObjects|orderBy:'value' \"\n                            class='slds-list__item'>\n                            {{obj.value}}\n                        </li>\n\n                    </ul>\n\n                    <!-- tooltip template -->\n                    <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n                </div>\n\n                <slds-svg-icon aria-hidden=\"true\"\n                               sprite=\"'utility'\"\n                               icon=\"'search'\"\n                               size=\"'small'\"\n                               extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n                </slds-svg-icon>\n\n                <div ng-include=\"::errHTMLId\"></div>\n\n            </div>\n\n        </ng-form>\n\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcLookup",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcLookup/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcLookup"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcLookup",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcLookup",
+            "VlocityDataPackName": "omniLightning-altVlcLookup",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcNumber",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n        \n        <div class=\"slds-form-element__control slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       type='tel'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name='loopname'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input form-control'\n                       via-mask='::control.propSetMap.mask'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern}}'\n                       vlc-slds-num-val-checker=\"response\"\n                       vlc-slds-only-numeric=\"response\"\n                       vlc-slds-attr=\"placeholder\" />\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n            \n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcNumber",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcNumber/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcNumber"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcNumber",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcNumber",
+            "VlocityDataPackName": "omniLightning-altVlcNumber",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcPassword",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n        \n        <div class=\"slds-form-element__control slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n                <input id='{{::control.name}}'\n                       type='password'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name='loopname'\n                       ng-init='init(this, control)'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input form-control'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern }}'\n                       vlc-slds-val-checker=\"response\" />\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcPassword",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcPassword/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcPassword"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcPassword",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcPassword",
+            "VlocityDataPackName": "omniLightning-altVlcPassword",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcSelect",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-select-control'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12'>\n\n            <div class=\"slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary\" help=\"{{::control.propSetMap.help}}\">\n\n                <span class=\"vlc-slds-form-element__center--horizontal\">\n                    {{ control.response.value }}\n                </span>\n\n                <!-- this select control should not be visible to the user -->\n                <select name='loopname'\n                        id='{{::control.name}}'\n                        style='opacity:-1'\n                        ng-disabled='control.ro'\n                        ng-required='control.req'\n                        ng-model='control.response'\n                        class='slds-select'\n                        vlc-slds-val-checker=\"response\"\n                        ng-init='init(this, control)'\n                        ng-options='sOption as sOption.value for sOption in getOptions(control, this) track by sOption.name'\n                        ng-change='autoAdvance(control.response.autoAdv);aggregate(this, control.index, control.indexInParent, true, -1)'> \n                    <option value=\"\">{{::customLabels.OmniClear}}</option>\n\n                </select>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n                \n            </div>\n            \n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcSelect",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcSelect/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcSelect"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcSelect",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcSelect",
+            "VlocityDataPackName": "omniLightning-altVlcSelect",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcSignature",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1 alt-vlc-slds--control\">\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       type='text'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name='loopname'\n                       ng-model='control.response'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input form-control vlc-handwriting'\n                       style='font-family: cursive !important;'\n                       vlc-slds-val-watch=\"response\"\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       ng-init='init(this, control)'\n                       vlc-slds-val-checker=\"response\"/>\n\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcSignature",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcSignature/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcSignature"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcSignature",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcSignature",
+            "VlocityDataPackName": "omniLightning-altVlcSignature",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcTel",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-tel'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       type='text'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name=\"loopname\"\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input form-control'\n                       vlc-slds-val-checker=\"telControl\"\n                       ui-mask='{{::control.propSetMap.mask}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern}}'\n                       vlc-slds-attr=\"placeholder\" />\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcTel",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcTel/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcTel"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcTel",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcTel",
+            "VlocityDataPackName": "omniLightning-altVlcTel",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcText",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1 alt-vlc-slds--control\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       type='text'\n                       name='loopname'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input'\n                       ui-mask='{{::control.propSetMap.mask}}'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       vlc-slds-min-max-len=\"response\"\n                       vlc-slds-val-checker=\"response\"/>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <!-- this is the error block -->\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcText",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcText/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcText"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcText",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcText",
+            "VlocityDataPackName": "omniLightning-altVlcText",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcTextarea",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n    \n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-text-area'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper vlc-control-text-area__wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <textarea id='{{::control.name}}'\n                          name='loopname'\n                          ng-disabled='control.ro'\n                          ng-required='control.req'\n                          ng-init='init(this, control)'\n                          ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                          ng-model='control.response'\n                          ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                          class='slds-textarea'\n                          ng-minlength='{{::control.propSetMap.minLength}}'\n                          ng-maxlength='{{::control.propSetMap.maxLength}}'\n                          vlc-slds-ng-pattern='{{::control.propSetMap.pattern }}'\n                          vlc-slds-val-checker=\"response\">\n                </textarea>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n        \n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcTextarea",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcTextarea/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcTextarea"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcTextarea",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcTextarea",
+            "VlocityDataPackName": "omniLightning-altVlcTextarea",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcTime",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-time-picker-control'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       type='text'\n                       placement='none'\n                       name='loopname'\n                       ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       class='slds-input vlc-slds-time-picker'\n                       ng-model='control.response'\n                       ng-init='init(this, control)'\n                       time-type=\"{{::control.propSetMap.timeType}}\"\n                       model-time-format=\"{{::control.propSetMap.modelTimeFormat}}\"\n                       slds-time-picker\n                       data-time-format =\"{{::control.propSetMap.timeFormat}}\"\n                       data-min-time=\"{{::control.propSetMap.minTime}}\"\n                       data-max-time=\"{{::control.propSetMap.maxTime}}\"\n                       vlc-slds-val-checker=\"response\" />\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'clock'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcTime",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcTime/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcTime"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcTime",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcTime",
+            "VlocityDataPackName": "omniLightning-altVlcTime",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcTypeAhead",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1 vlc-slds-type-ahead__alttemplate\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-type-ahead'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"vlc-slds-control-action__container vlc-slds-control-action--container_alttemplate\"\n             ng-hide=\"control.propSetMap.hideEditButton\"\n             ng-click='toggleTypeAheadEditMode(this)'\n             ng-if='!control.propSetMap.enableLookup'>\n\n            <figure>\n\n                <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'edit'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large vlc-slds-button_typeahead_edit'\">\n                </slds-svg-icon>\n\n                <figcaption class=\"slds-p-top--x-small slds-text-body--small\">Edit</figcaption>\n\n            </figure>\n\n       </div>\n\n       <div class=\"slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right vlc-slds-type-ahead--alttemplate_label\">\n            <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n            <slds-button-svg-icon sprite=\"'utility'\" icon=\"'down'\" size=\"'large'\" ng-if='control.propSetMap.enableLookup'></slds-button-svg-icon>\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n                <input type=\"text\"\n                       id='{{::control.name}}'\n                       name='loopname'\n                       class='slds-input'\n                       data-animation=\"am-fade\"\n                       ng-focus=\"onClickTypeAheadWrapper(this, control)\"\n                       ng-if='(!control.propSetMap.enableGoogleMapsAutocomplete && !control.propSetMap.enableLookup) && ngInitValidation(this, control)'\n                       data-limit=\"2001\"\n                       data-trim-value=\"false\"\n                       ng-trim=\"false\"\n                       ng-init='init(this, control); undefinedValueForDataFilter = undefined'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       bs-options=\"control.propSetMap.typeAheadKey ? option[control.propSetMap.typeAheadKey] : option for option in typeAheadSearch($viewValue, this.bpTree.response, control, this)\"\n                       ng-required='control.req'\n                       ng-disabled='control.ro'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       bs-typeahead autocomplete='off'\n                       data-template='{{::typeaheadHTMLId}}'\n                       ng-keydown='typeAheadOnChange($event, this)'\n                       data-html='1'\n                       vlc-slds-typeahead-prefill=\"response\"\n                       ng-attr-data-filter=\"{{control.propSetMap.disableDataFilter ? false : undefinedValueForDataFilter}}\"\n                       vlc-slds-val-checker=\"response\"/>\n\n                <input type=\"text\"\n                       id='{{::control.name}}'\n                       name='loopname'\n                       class='slds-input'\n                       ng-class='{\"vlc-typeahead-invalid-key\": googleInvalidKey === true}'\n                       ng-focus=\"onFocusAutocomplete(this, control)\"\n                       ng-if='(control.propSetMap.enableGoogleMapsAutocomplete && !control.propSetMap.enableLookup) && ngInitValidation(this, control)'\n                       ng-init='initAutocomplete(this, control)'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       placeholder =''\n                       ng-required='control.req'\n                       ng-disabled='control.ro'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       ng-keydown='onKeyDownAutocomplete($event, this, control)'\n                       vlc-slds-typeahead-prefill=\"response\"\n                       vlc-slds-val-checker=\"response\"/>\n\n                <input type='text'\n                    id='{{::control.name}}'\n                    name='loopname'\n                    class='slds-input'\n                    ng-if='control.propSetMap.enableLookup && ngInitValidation(this, control)'\n                    ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                    ng-click='typeAheadSearch($viewValue, this.bpTree.response, control, this, true)'\n                    ng-model='control.response'\n                    bs-options='control.propSetMap.typeAheadKey ? option[control.propSetMap.typeAheadKey] : option for option in control.propSetMap.options'\n                    bs-typeahead\n                    data-template='{{::typeaheadHTMLId}}'\n                    data-limit='2001'\n                    data-min-length='0'\n                    data-watch-options='true'\n                    ng-init='init(this, control)'\n                    autocomplete='off'\n                    ng-required='control.req'\n                    ng-disabled='control.ro'\n                    vlc-slds-typeahead-prefill=\"response\"\n                    ng-focus=\"control.propSetMap.options = null\"\n                    vlc-slds-val-checker=\"response\"\n                    ng-attr-data-filter=\"{{control.propSetMap.disableDataFilter ? false : undefinedValueForDataFilter}}\"\n                    readonly/>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n                <div id='{{::control.name}}_map'\n                    class='vlc-typeahead-gmap'\n                    ng-if='control.propSetMap.enableGoogleMapsAutocomplete && !control.propSetMap.hideMap'>\n                </div>\n\n                <div ng-include=\"::errHTMLId\"></div>\n                {{validForm = (loopform.loopname.$valid && control.req && !control.srvErr);\"\"}}\n                {{invalidForm = ((loopform.loopname.$invalid  && !control.req) || (loopform.loopname.$invalid && loopform.loopname.$dirty && control.req) || (control.srvErr));\"\"}}\n            </div>\n        </div>\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcTypeAhead",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcTypeAhead/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcTypeAhead"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcTypeAhead",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcTypeAhead",
+            "VlocityDataPackName": "omniLightning-altVlcTypeAhead",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-altVlcURL",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1 alt-vlc-slds--control'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"altVlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{control.propSetMap.inputWidth}}-of-12\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       type='url'\n                       name='loopname'\n                       ng-model='control.response'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       class='slds-input form-control'\n                       ng-init='init(this, control)'\n                       vlc-slds-ng-pattern='(ht|f)tps?:\\/\\/[a-z0-9-\\.]+\\.[a-z]{2,4}\\/?([^\\s<>\\#%\\,\\{\\}\\\\|\\\\\\^\\[\\]`]+)?'\n                       vlc-slds-val-checker=\"response\" />\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n                \n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-altVlcURL",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-altVlcURL/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-altVlcURL"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcURL",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-altVlcURL",
+            "VlocityDataPackName": "omniLightning-altVlcURL",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-bpTree",
+                        "%vlocity_namespace%__HTML__c": "<!-- looks like they have sf components -->\n<div class=\"slds-col slds-clearfix\" ng-if=\"children && children.length>0\">\n\n\n\n    <sidebar class=\"slds-col--padded slds-cleafix\"></sidebar>\n\n    \n    <auto-saveforlater-msg></auto-saveforlater-msg>\n\n    <div class=\"vlc-slds-bpTree-step-chart__container\">\n        <!-- step chart for lightning - vlcStepChart.html -->\n        <bptree class=\"slds-clearfix\"></bptree>\n        <vlc-slds-right-panel></vlc-slds-right-panel>\n    </div>\n\n\n</div>\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-bpTree",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-bpTree/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-bpTree"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-bpTree",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-bpTree",
+            "VlocityDataPackName": "omniLightning-bpTree",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-bpTreePreview",
+                        "%vlocity_namespace%__HTML__c": "<div id='debug-panel' class='panel panel-default'\n        ng-if=\"!isPreviewEmbedded\">\n        <div class='panel-heading' ng-click='showDebugTabs = !showDebugTabs' style='padding:0;'>\n            <h5 class='pull-left'>Troubleshooting </h5>\n            <span class='pull-right' ng-class='{\"icon-v-up-caret\": showDebugTabs, \"icon-v-down-caret\": !showDebugTabs}'>\n            </span>\n        </div>\n        <div class='row' style='background-color: #969696; margin: 0;'>\n            <ul id='debug-tabs' ng-show='showDebugTabs'>\n                <li ng-repeat=\"tab in tabs\"  ng-class=\"{active: isActiveTab(tab.page)}\" ng-click=\"onClickTab(tab, $event);\">{{tab.title}}</li>\n            </ul>\n        </div>\n        <div id=\"mainView\" ng-class='{collapse: !showDebugTabs}'>\n            <div class='panel-body' style='height: 200px; overflow: auto;' ng-include=\"currentTab\"></div>\n        </div>\n</div>\n\n<div class=\"slds-col slds-clearfix\" ng-if=\"children && children.length>0\">\n\n\n\n    <sidebar class=\"slds-col--padded slds-cleafix\"></sidebar>\n\n    \n    <auto-saveforlater-msg></auto-saveforlater-msg>\n\n    <div class=\"vlc-slds-bpTree-step-chart__container\">\n        <!-- step chart for lightning this is the stepchar -->\n        <bptree class=\"slds-clearfix\"></bptree>\n        <vlc-slds-right-panel></vlc-slds-right-panel>\n    </div>\n\n\n</div>\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-bpTreePreview",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-bpTreePreview/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-bpTreePreview"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-bpTreePreview",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-bpTreePreview",
+            "VlocityDataPackName": "omniLightning-bpTreePreview",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-previewApplication",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-grid slds-wrap slds-grid--pull-padded slds-col--padded'>\n    <div class='slds-size--1-of-1' ng-if=\"bpTree.previewMode\">\n        <div class='slds-form-element__label'>{{::customLabels.OmniDataJSON}}</div>\n        <json-formatter json=\"bpTree.response\" class=\"slds-box\"></json-formatter>\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-previewApplication",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-previewApplication/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-previewApplication"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-previewApplication",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-previewApplication",
+            "VlocityDataPackName": "omniLightning-previewApplication",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-previewDR",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-grid slds-wrap slds-grid--pull-padded slds-col--padded'>\n\n    <div class='slds-size--1-of-1'>\n        \n        <div class=\"slds-form--stacked\">\n\n            <div class=\"slds-form-element\">\n                <label class=\"slds-form-element__label\" for=\"inputSample2\">Bundle Name</label>\n                <div class=\"slds-form-element__control\">\n                    <input class=\"slds-input\" type=\"text\" ng-model=\"bundleName\"/>\n                </div>\n            </div>\n\n            <div class=\"slds-form-element\">\n                <label class=\"slds-form-element__label\" for=\"inputSample2\">Context Id</label>\n                <div class=\"slds-form-element__control\">\n                    <input class=\"slds-input\" type=\"text\" ng-model=\"ctxObjId\"/>\n                </div>\n            </div>\n\n            <div class=\"slds-form-element\">\n                <label class=\"slds-form-element__label\" for=\"inputSample2\"></label>\n                <div class=\"slds-form-element__control\">\n                        <button style=\"flex: 0 0 100%\"\n                                class=\"slds-button vlc-slds-button--primary\"\n                                ng-click='invokeDR(bundleName, ctxObjId)'>\n                            Fetch Data\n                        </button>\n                </div>\n            </div>\n\n        </div>\n        \n    </div>\n\n    <div class='slds-size--1-of-1' ng-if=\"bpTree.previewMode\">\n        <div class='slds-form-element__label'>{{::customLabels.OmniDataJSON}}</div>\n        <json-formatter json=\"drInvokeResult\" class=\"slds-box\"></json-formatter>\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-previewDR",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-previewDR/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-previewDR"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-previewDR",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-previewDR",
+            "VlocityDataPackName": "omniLightning-previewDR",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-previewLogs",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-grid slds-wrap slds-grid--pull-padded slds-col--padded'>\n\n    <div class=\"slds-col--padded\">\n\n        <div class=\"slds-size--1-of-1\">\n\n            <button style=\"flex: 0 0 100%\"\n                    class=\"slds-button vlc-slds-button--primary\"\n                    ng-click='debugInformation = []'>\n                Clear Logs\n            </button>\n\n\n        </div>\n\n\n        <div class='slds-size--1-of-1' ng-if=\"bpTree.previewMode\">\n            <div class=\"slds-size--1-of-1\" ng-repeat='info in debugInformation'>\n                <div class='slds-form-element__label'>{{::info.label}}</div>\n                <json-formatter json=\"info.log\" class=\"slds-box\"></json-formatter>\n            </div>\n        </div>\n\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-previewLogs",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-previewLogs/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-previewLogs"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-previewLogs",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-previewLogs",
+            "VlocityDataPackName": "omniLightning-previewLogs",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-previewSimulate",
+                        "%vlocity_namespace%__HTML__c": "<div class='col-md-12'>\n     <label> Insert JSON <button class='btn btn-primary' ng-click='applyCallResp(testJSON)'> Apply </button></label>\n     <textarea class='form-control' ng-model='testJSON'></textarea>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-previewSimulate",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-previewSimulate/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-previewSimulate"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-previewSimulate",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-previewSimulate",
+            "VlocityDataPackName": "omniLightning-previewSimulate",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcAcknowledge",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-grid slds-wrap slds-grid--pull-padded slds-col--padded'>\n    <div class=\"slds-col--padded\">\n        <div class=\"slds-size--1-of-1\">\n            <div class=\"slds-form-element__label\">{{::customLabels.OmniDRCallResult}}</div>\n            <json-tree json='response'\n                       json='response'\n                       collapsed-level='2'\n                       labelmap='null'>\n            </json-tree>\n        </div>\n    </div>\n</div>\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcAcknowledge",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcAcknowledge/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcAcknowledge"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcAcknowledge",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcAcknowledge",
+            "VlocityDataPackName": "omniLightning-vlcAcknowledge",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcAlertModal",
+                        "%vlocity_namespace%__HTML__c": "<div role=\"dialog\" tabindex=\"-1\" aria-labelledby=\"prompt-heading-id\" aria-describedby=\"prompt-message-wrapper\" class=\"slds-modal slds-fade-in-open slds-modal--prompt via-slds via-omni\">\n  <div id=\"alert-container\" class=\"slds-modal__container\">\n    <div class=\"slds-modal__header slds-theme--info slds-theme--alert-texture\" ng-class=\"{'slds-theme--error':error,'slds-theme--warning':warning}\">\n      <h2 class=\"slds-text-heading--medium\" id=\"prompt-heading-id\">{{::title}}</h2>\n    </div>\n    <div class=\"slds-modal__content slds-p-around--medium\">\n      <p ng-bind-html=\"::content\"></p>\n      <input ng-model='input'\n             type='text'\n             name='loopname'\n             class='slds-input'\n             ng-if=\"alertType !== undefined && alertType == 'Prompt'\"/>\n    </div>\n    <div class=\"slds-modal__footer slds-theme--default\">\n      <button id=\"alert-cancel-button\" class=\"slds-button slds-button--neutral\" ng-if=\"alertType !== undefined && alertType != 'Alert'\" ng-click=\"cancel()\">{{::cancelLabel}}</button>\n      <button id=\"alert-ok-button\" class=\"slds-button slds-button--neutral\" ng-click=\"submit(input)\">{{::submitLabel}}</button>\n    </div>\n  </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcAlertModal",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcAlertModal/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcAlertModal"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcAlertModal",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcAlertModal",
+            "VlocityDataPackName": "omniLightning-vlcAlertModal",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcApplicationAcknowledge",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded'>\n    <div class=\"slds-box\">\n        <div class='slds-form-element__label'>\n            <b>{{::customLabels.OmniCallResult}}</b>\n        </div>\n        <p>\n            <p ng-if=\"response.CallSuccess\">{{::customLabels.OmniApplicationAcknowledge}} {{response.applicationRefNumber}}.</p>\n            <p ng-if=\"!response.CallSuccess\">{{response.responseText}}</p>\n            <p ng-if=\"!response.CallSuccess\">{{response.message}}</p>\n            <p ng-if=\"!response.CallSuccess\">{{response.error}}</p>\n        </p>\n\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcApplicationAcknowledge",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcApplicationAcknowledge/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcApplicationAcknowledge"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcApplicationAcknowledge",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcApplicationAcknowledge",
+            "VlocityDataPackName": "omniLightning-vlcApplicationAcknowledge",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcApplicationAcknowledgeV2",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded'>\n    <div class=\"slds-box\">\n        <div class='slds-form-element__label'>\n            <b>{{::customLabels.OmniCallResult}}</b>\n        </div>\n        <p>\n            {{::customLabels.OmniApplicationAcknowledge}} {{response.applicationRefNumber}}\n        </p>\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcApplicationAcknowledgeV2",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcApplicationAcknowledgeV2/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcApplicationAcknowledgeV2"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcApplicationAcknowledgeV2",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcApplicationAcknowledgeV2",
+            "VlocityDataPackName": "omniLightning-vlcApplicationAcknowledgeV2",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcApplicationConfirmation",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-grid slds-wrap slds-grid--pull-padded slds-col--padded'>\n\n    <div class=\"slds-col--padded\">\n\n        <div class=\"slds-size--1-of-1\">\n            <json-tree json='bpTree.response' skipnodes='bpTree.skipElements' collapsed-level='2' labelmap=\"bpTree.labelMap\"></json-tree>\n        </div>\n\n        <div class=\"slds-grid slds-wrap slds-grid--pull-padded slds-col--padded\">\n\n            <div class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--3-of-12\"\n                 style=\"margin:auto 0\">\n                <div class='vlc-slds-button--tertiary'\n                     ng-click='goBack(bpTree, bpTree.submitButton)' >\n                    {{::bpTree.submitButton.propSetMap.reviseLabel}}\n                </div>\n            </div>\n\n            <div class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{::bpTree.submitButton.propSetMap.submitWidth}}-of-12\"\n                 style=\"padding-right:10px;margin:5px 0\">\n                <button style=\"flex: 0 0 100%\" class=\"slds-button vlc-slds-button--primary\"\n                        ng-click='apexrest(bpTree, bpTree.submitButton)' >\n                    {{::bpTree.submitButton.propSetMap.submitLabel}}\n                </button>\n            </div>\n\n        </div>\n\n\n        <div class='slds-size--1-of-1' ng-if=\"bpTree.previewMode\">\n            <div class='slds-form-element__label'>{{::customLabels.OmniDataJSON}}</div>\n            <json-formatter json=\"bpTree.response\" class=\"slds-box\"></json-formatter>\n        </div>\n\n    </div>\n\n</div>\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcApplicationConfirmation",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcApplicationConfirmation/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcApplicationConfirmation"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcApplicationConfirmation",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcApplicationConfirmation",
+            "VlocityDataPackName": "omniLightning-vlcApplicationConfirmation",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcApplicationConfirmationV2",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-box slds-theme--shade'>\n    <div class='slds-box slds-m-top--large slds-clearfix'>\n\n        <div ng-if=\"::customLabels.OmniSummary\" class='slds-text-heading--label'>\n            {{::customLabels.OmniSummary}}\n        </div>\n\n        <json-tree json='bpTree.responseT' skipnodes='bpTree.skipElements' collapsed-level='2' labelmap=\"bpTree.labelMap\"></json-tree>\n\n    </div>\n\n    <div class='slds-box slds-m-top--large' ng-if=\"bpTree.previewMode\">\n\n        <div ng-if=\"::customLabels.OmniDataJSON\" class='slds-form-element__label'>{{::customLabels.OmniDataJSON}}</div>\n        <pre>{{bpTree.response | json}}</pre>\n\n    </div>\n\n</div>\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcApplicationConfirmationV2",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcApplicationConfirmationV2/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcApplicationConfirmationV2"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcApplicationConfirmationV2",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcApplicationConfirmationV2",
+            "VlocityDataPackName": "omniLightning-vlcApplicationConfirmationV2",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcAssetList",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    <table class=\"slds-table slds-table--bordered slds-table--cell-buffer vlc-slds-table\" ng-class=\"[compareWindowWidth(1024,'vlc-slds-table--stacked'),compareWindowWidth(375,'vertical')]\" ng-init=digestOnResize()>\n       <thead>\n            <tr class=\"slds-text-heading--label\">\n                <th width=\"20px\"/>\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">{{::customLabels.OmniAssetSerialNumber}}</div>\n                </th>\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">{{::customLabels.OmniAssetName}}</div>\n                </th>\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">{{::customLabels.OmniAssetProductName}}</div>\n                </th>\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">{{::customLabels.OmniAssetActivationDate}}</div>\n                </th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr ng-repeat='p in control.vlcSI[control.itemsKey]' ng-class=\"{ 'vlc-selectableitem-selected' : p.vlcSelected }\" >\n                <td class=\"slds-cell-shrink\" data-label='Select'>\n                    <label class=\"slds-checkbox\">\n                        <input type=\"checkbox\" ng-model='p.vlcSelected' ng-change='onSelectItem(control, p, $index, this)'/>\n                        <span class=\"slds-checkbox--faux\"></span>\n                        <span class=\"slds-assistive-text\">Select</span>\n                    </label>\n                </td>\n                <td data-label='{{::customLabels.OmniAssetSerialNumber}}'>\n                    <div class=\"slds-truncate\">{{p['Serial Number']}}</div>\n                </td>\n                <td data-label='{{::customLabels.OmniAssetName}}'>\n                    <div class=\"slds-truncate\">{{p['Asset Name']}}</div>\n                </td>\n                <td data-label='{{::customLabels.OmniAssetProductName}}'>\n                    <div class=\"slds-truncate\">{{p['Product Name']}}</div>\n                </td>\n                <td data-label='{{::customLabels.OmniAssetActivationDate}}'>\n                    <div class=\"slds-truncate\">{{p['Activation Date']}}</div>\n                </td>\n            </tr>\n        </tbody>\n    </table>\n    <div class='vlc-slds-upgrade-btn vlc-slds-remote-action--button'>\n        <div class=\"slds-form-element__control\">\n            <div class=\"vlc-control-wrapper\">\n                <div id=\"upgradeAsset\"\n                     class='slds-box'\n                     title=\"Upgrade\"\n                     ng-click=\"buttonClick(bpTree.response, control, this, p, 'Upgrade')\">\n                    <p>Upgrade</p>\n                </div>\n            </div>\n        </div>\n    </div>    \n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcAssetList",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcAssetList/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcAssetList"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcAssetList",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcAssetList",
+            "VlocityDataPackName": "omniLightning-vlcAssetList",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcAutoSFLMsg",
+                        "%vlocity_namespace%__HTML__c": "<div ng-if='bpTree.resumeURL'>\n    <label class=\"slds-form-element__label via-slds-auto_save_for_later\">{{::customLabels.OmniScriptResumeLink}}\n        <a class='vlc-omni-copy' ng-click=\"copyToClipboard(customLabels.OmniCopyToClipBoard, bpTree.resumeURL)\">{{::customLabels.OmniCopyLink}}</a> or\n        <a href=\"mailto:?&subject=&body={{::customLabels.OmniResumeLink}} %0D{{bpTree.resumeURLMailTo}}%0D%0D{{::customLabels.OmniSaveEmailBody}}\">{{::customLabels.OmniEmailMe}}</a>\n    </label>\n</div>\n<div ng-if='bpTree.savingAttachments || isLoadingAttachments()'>\n     <label class=\"slds-form-element__label via-slds-auto_save_for_later\"><i class=\"spinner\" style=\"right: 0%; position: relative;\"></i>\n        <br /> \n       \t<span ng-if=\"bpTree.savingAttachments\">{{ ::customLabels.OmniScriptSavingAttachments }}</span>\n\t    <span ng-if=\"!bpTree.savingAttachments\">{{ ::customLabels.OmniScriptLoadingAttachments }}</span> \n    </label>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcAutoSFLMsg",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcAutoSFLMsg/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcAutoSFLMsg"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcAutoSFLMsg",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcAutoSFLMsg",
+            "VlocityDataPackName": "omniLightning-vlcAutoSFLMsg",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcBPTreeMain",
+                        "%vlocity_namespace%__HTML__c": "<!-- deleted the section element to check the markup -->\n<child ng-repeat='child in ::children = child.children' ng-if='(!child.propSetMap.show || evaluateShow(child, this))'></child>\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcBPTreeMain",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcBPTreeMain/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcBPTreeMain"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcBPTreeMain",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcBPTreeMain",
+            "VlocityDataPackName": "omniLightning-vlcBPTreeMain",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcBlock",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n    <ng-form name='loopform'\n                class='slds-form-element vlc-flex slds-clearfix vlc-slds-block'\n                id ='{{::control.name}}'\n                ng-repeat='control in child.eleArray' >\n\n        <div class=\"slds-form-element__control\">\n\n            <!-- add block label -->\n            <label vlc-slds-toggle=\"toggle\"\n                    class=\"slds-form-element__label slds-clearfix\" ng-if=\"::control.propSetMap.label\">\n\n                <slds-svg-icon aria-hidden=\"true\"\n                                sprite=\"'utility'\"\n                                icon=\"'chevrondown'\"\n                                size=\"'small'\"\n                                extra-classes=\"'vlc-slds-collapse slds-button__icon slds-button__icon--large'\">\n                </slds-svg-icon>\n\n                <slds-svg-icon aria-hidden=\"true\"\n                                sprite=\"'utility'\"\n                                icon=\"'chevronup'\"\n                                size=\"'small'\"\n                                extra-classes=\"'vlc-slds-expand slds-button__icon slds-button__icon--large'\">\n                </slds-svg-icon>\n\n\n                <div class=\"slds-form-element__label--toggleText\">\n                    {{::control.propSetMap.label}}\n                    <span ng-if='!( $first && $last )'>{{control.index+1}}</span>\n                </div>\n                \n                <div class=\"vlc-slds-control-action__container\" vlc-bubble-canceller=\"true\">\n\n                    <span ng-if='::control.propSetMap.repeat'\n                            ng-click='baseCtrl.addItem(this, child, $index)'\n                            ng-disabled='control.propSetMap.repeatLimit !== undefined && control.propSetMap.repeatLimit !== null && child.eleArray.length >= control.propSetMap.repeatLimit+1'>\n                        {{::customLabels.OmniAdd}}\n                    </span>\n\n                    <span ng-if='child.eleArray.length > 1'\n                            ng-click='removeDomElement(this, child, $index)'\n                            vlc-slds-remove-item=\"ng-form.vlc-slds-block\">\n                        {{::customLabels.OmniDelete}}\n                    </span>\n\n                </div>\n\n            </label>\n\n            \n            <!-- block withing the main grid  ng-hide hides hthe block by default-->\n            <div class='slds-size--1-of-1 ng-hide'\n                    vlc-slds-toggle-elem='visible'>\n\n                <div class=\"vlc-slds-control-action__container\" vlc-bubble-canceller=\"true\" ng-if=\"::!control.propSetMap.label\">\n\n                    <span ng-if='::control.propSetMap.repeat'\n                            ng-click='baseCtrl.addItem(this, child, $index)'\n                            ng-disabled='control.propSetMap.repeatLimit !== undefined && control.propSetMap.repeatLimit !== null && child.eleArray.length >= control.propSetMap.repeatLimit+1'\n                            aria-hidden=\"true\">\n                        {{::customLabels.OmniAdd}}\n                    </span>\n\n                    <span ng-if='child.eleArray.length > 1'\n                            ng-click='removeDomElement(this, child, $index)'\n                            vlc-slds-remove-item=\"ng-form.vlc-slds-block\"\n                            aria-hidden=\"true\">\n                        {{::customLabels.OmniDelete}}\n                    </span>\n\n                </div>\n\n                <div  class=\"slds-grid slds-wrap slds-grid--pull-padded\">\n                    <child vlc-slds-change-inline-templates=\"::child.eleArray[0].propSetMap.showInputWidth\"\n                            class=\"slds-size--1-of-1 slds-medium-size--{{child.eleArray[0].propSetMap.controlWidth}}-of-12\"\n                            ng-repeat='child in ::children = control.children'\n                            ng-init=\"child.blockIndex = control.index\"\n                            ng-show='::!child.eleArray[0].propSetMap.hide'\n                            ng-if='(child.eleArray[0].propSetMap.hide && child.eleArray[0].type!==\"Formula\")||(!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this))'>\n                    </child>\n                </div>\n            </div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcBlock",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcBlock/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcBlock"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcBlock",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcBlock",
+            "VlocityDataPackName": "omniLightning-vlcBlock",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcCancelled",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col'>\n    <div class=\"slds-grid slds-box vlc-slds-save_for_later\">\n        <div class=\"slds-col\" ng-if=\"response.error==='OK'\">\n            <div class=\"slds-text-heading--large\">\n                {{::customLabels.OmniCancelled}}\n            </div>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcCancelled",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcCancelled/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcCancelled"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCancelled",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCancelled",
+            "VlocityDataPackName": "omniLightning-vlcCancelled",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcCardList",
+                        "%vlocity_namespace%__HTML__c": "<div ng-controller='insuranceCartController'>\n    <div class='vlc-slds-items--top-container' ng-init='initFilters(this)'>\n        <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right vlc-slds-items--top-container-select'>\n            <div class='slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary'>\n                <span class=\"vlc-slds-form-element__center--horizontal\">\n                    {{filters.ProductSubType}}\n                </span>\n                <select name='{{::control.name}}_productType'\n                    id='{{::control.name}}_productType'\n                    style='opacity:-1'\n                    chainup=\"test\"\n                    ng-model='filters.ProductSubType'\n                    class='slds-select'\n                    vlc-slds-val-watch=\"response\"\n                    vlc-slds-val-checker=\"response\"\n                    ng-change=\"filterChanged(filters.ProductSubType, control)\"\n                    ng-options=\"item as item for item in getSelectValues('ProductSubType', control)\">\n                </select>\n                <label for=\"{{::control.name}}_productType\" class='slds-form-element__label'>{{::OmniInsuranceCartProductType}}</label>\n            </div>\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n        </div>\n        <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right vlc-slds-items--top-container-select'>\n            <div class='slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary'>\n                <span class=\"vlc-slds-form-element__center--horizontal\">\n                    {{filters.LevelCoverage}}\n                </span>\n                <select name='{{::control.name}}_metalLevel'\n                    id='{{::control.name}}_metalLevel'\n                    style='opacity:-1'\n                    chainup=\"test\"\n                    ng-model='filters.LevelCoverage'\n                    class='slds-select'\n                    vlc-slds-val-watch=\"response\"\n                    vlc-slds-val-checker=\"response\"\n                    ng-change=\"filterChanged(filters.LevelCoverage, control)\"\n                    ng-options=\"item as item for item in getSelectValues('LevelCoverage', control)\">\n                </select>\n                <label for=\"{{::control.name}}_metalLevel\" class='slds-form-element__label'>{{::OmniInsuranceCartMetalLevel}}</label>\n            </div>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n        </div>\n        <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right vlc-slds-items--top-container-select'>\n            <div class='slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary'>\n                <span class=\"vlc-slds-form-element__center--horizontal\">\n                    {{filters.NetworkName}}\n                </span>\n                <select name='{{::control.name}}_network'\n                    id='{{::control.name}}_network'\n                    style='opacity:-1'\n                    chainup=\"test\"\n                    ng-model='filters.NetworkName'\n                    class='slds-select'\n                    vlc-slds-val-watch=\"response\"\n                    vlc-slds-val-checker=\"response\"\n                    ng-change=\"filterChanged(filters.NetworkName, control)\"\n                    ng-options=\"item as item for item in getSelectValues('NetworkName', control)\">\n                </select>\n                <label for=\"{{::control.name}}_network\" class='slds-form-element__label'>{{::OmniInsuranceCartMetalLevel}}</label>\n            </div>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n        </div>\n\n        <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right vlc-slds-items--top-container-select'>\n            <div class='slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary'>\n                <span class=\"vlc-slds-form-element__center--horizontal\">\n                    {{filters.Dental}}\n                </span>\n                <select name='{{::control.name}}_pediatricDental'\n                    id='{{::control.name}}_pediatricDental'\n                    style='opacity:-1'\n                    chainup=\"test\"\n                    ng-model='filters.Dental'\n                    class='slds-select'\n                    vlc-slds-val-watch=\"response\"\n                    vlc-slds-val-checker=\"response\"\n                    ng-change=\"filterChanged(filters.Dental, control)\"\n                    ng-options=\"item as item for item in getSelectValues('Dental', control)\" >\n                </select>\n                <label for=\"{{::control.name}}_pediatricDental\" class='slds-form-element__label'>{{::OmniInsuranceCartPediatricDental}}</label>\n            </div>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n        </div>\n\n        <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right vlc-slds-items--top-container-select'>\n            <div class='slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary'>\n                <span class=\"vlc-slds-form-element__center--horizontal\">\n                    {{filters.Favorites}}\n                </span>\n                <select name='{{::control.name}}_favorites'\n                    id='{{::control.name}}_favorites'\n                    style='opacity:-1'\n                    chainup=\"test\"\n                    ng-model='filters.Favorites'\n                    class='slds-select'\n                    vlc-slds-val-watch=\"response\"\n                   vlc-slds-val-checker=\"response\"\n                   ng-change=\"filterChanged(filters.Favorites, control)\"\n                   ng-options=\"item as item for item in getSelectValues('Favorites', control)\" >\n                </select>\n                <label for=\"{{::control.name}}_favorites\" class='slds-form-element__label'>{{::OmniInsuranceCartFavorites}}</label>\n            </div>\n            \n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n        </div>\n        <div class='vlc-slds-items--top-container-select' ng-if='getNumItems(control, this)' style='text-align: right;'>\n            {{::OmniInsuranceCartPlansAvailable}}:\n            <strong>{{numItems}}</strong>\n        </div>\n        <div class='vlc-slds-remote-action--button'>\n            <div class=\"slds-form-element__control\">\n                <div class=\"vlc-control-wrapper vlc-slds-cart__button\">\n\n                     <div id='{{::control.name}}_showAttr'\n                         class='slds-box'\n                         title='{{::OmniInsuranceCartShowPlanDetails}}'\n                         ng-click=\"isCollapsed = !isCollapsed\">\n                        <p ng-if='!isCollapsed'>{{::OmniInsuranceCartShowPlanDetails}}</p>\n                        <p ng-if='isCollapsed'>{{::OmniInsuranceCartHidePlanDetails}}</p>                        \n                    </div>\n\n                </div>\n                <div class=\"vlc-control-wrapper vlc-slds-cart__button\" style=\"float: right;\">\n\n                     <div id='{{::control.name}}_comparePlans'\n                         class='slds-box'\n                         title='{{::OmniInsuranceCartComparePlans}}'\n                         ng-click='openModal(this, control)'>\n                        <p>{{::OmniInsuranceCartComparePlans}}</p>\n                    </div>\n\n                </div>\n            </div>\n        </div>\n    </div>\n    <p ng-if=\"!cardsShown\">{{::OmniInsuranceCartNoProdMsg}}</p>\n    <div class='slds-grid slds-wrap slds-grid--pull-padded'>\n        <div class=\"slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--4-of-12 vlc-slds-items--container vlc-slds-insurance-selectableItem\"\n            ng-click=\"onSelectItem(control, p, $index, this, true)\"\n            vlc-slds-added=\"{{ p.vlcSelected }}\"\n            vlc-slds-prod-desc=\"{{p.Description}}\"\n            ng-if=\"showParentProduct(p, $index, control, this)\"\n            ng-repeat=\"p in control.vlcSI[control.itemsKey] | orderBy: 'aggregationResults.TotalPrice'\">\n\n        <div class=\"slds-box vlc-slds-selectableItem\">\n\n            <div class=\"slds-form-element__control vlc-slds-checkbox vlc-slds-checkbox__compare\">\n                <label class=\"slds-checkbox\">\n                    <input type='checkbox'\n                        ng-model=\"p.vlcCompSelected\"\n                        ng-change=\"onCompSelectItem(control)\"\n                        ng-disabled=\"control.compDisable && !p.vlcCompSelected\" />\n\n                    <span class=\"slds-checkbox--faux\"></span>\n                    <label class=\"slds-form-element__label vlc-slds-inline-control__label\" vlc-bubble-canceller=\"test\">\n                        {{::OmniInsuranceCartCompare}}\n                    </label>\n                </label>\n            </div>\n\n            <div class=\"slds-box vlc-slds-item--image\">\n                <img ng-if=\"p.Image\" ng-src=\"{{::instanceHost}}/servlet/servlet.FileDownload?file={{p.Image}}\" />\n            </div>\n\n            <div ng-if=\"p.calculationResults!=null && p.aggregationResults!=null\" class='vlc-slds-selectableItem__name'>\n                <div ng-repeat=\"i in p.calculationResults\" ng-class=\"{'vlc-slds-visibility-hidden': !showProduct(i, $parent.$index, control)}\">\n                    <div class=\"vlc-slds-item--details\">\n\n                        <label class=\"slds-form__element__label\">\n                            {{i.ProductName}}\n                        </label>\n\n                        </div>\n                        <div class=\"vlc-slds-item--cost\">\n\n                            <label class=\"slds-form__element__label\">\n                                <span class='vlc-slds-cardList-curSymbol'>{{currencySymbol}}</span>\n                                    {{p.aggregationResults.TotalPrice}}\n                                </label>\n\n                            <label class=\"slds-form__element__label\">{{::customLabels.OmniMonthly}}</label>\n                        </div>\n                        <div class='vlc-slds-item-selectableItem-link'>\n                            <a href=\"{{i.SOB_Link}} + convertDate('01/01/2016')\" target=\"_blank\" style=\"display: block;\"> View Schedule of Benefits (SOB)</a>\n                            <a href=\"{{i.SBC_Link}} + convertDate('01/01/2016')\" target=\"_blank\" style=\"display: block;\"> View Summary of Benefits and Coverage (SBC)</a>\n                            <a href=\"{{i.Directory}}\", \"popupWindow\", \"width=200, height=100, scrollbars=yes, toolbar=no, status=no, titlebar=no, location=no, addressbar=no\" target=\"_blank\" style=\"display: block;\"> Search Provider Directory</a>\n                            <a href=\"{{i.Formulary}}\", \"popupWindow\", \"width=200, height=100, scrollbars=yes, toolbar=no, status=no, titlebar=no, location=no, addressbar=no\" target=\"_blank\" style=\"display: block;\">Formulary</a>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"vls-slds-item--action\"\n                    vlc-slds-added=\"{{ p.vlcSelected }}\">\n\n                    <span class=\"slds-icon_container slds-icon-action-approval slds-icon_container--circle\">\n                        <slds-svg-icon aria-hidden=\"true\"\n                                       sprite=\"'action'\"\n                                       icon=\"'approval'\"\n                                       size=\"'small'\"\n                                       extra-classes=\"''\">\n                        </slds-svg-icon>\n\n                    </span>\n                </div>\n\n            </div>\n            <div class=\"vlc-slds-item--attributes\" ng-show=\"isCollapsed\">\n                <div ng-repeat=\"i in p.calculationResults\">\n                    <li class=\"slds-form-element__label\" ng-repeat=\"k in i.attributes | orderBy: 'attributeDisplaySequence'\">\n                        <strong class='vlc-slds-item--attributes-name'>{{ k.name }} </strong>\n                        <p>\n                            <span class='vlc-slds-item--attributes-value'>{{ k.value }} </span>\n                        </p>\n                    </li>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcCardList",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcCardList/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcCardList"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCardList",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCardList",
+            "VlocityDataPackName": "omniLightning-vlcCardList",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcCartHierarchy",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vcart-items\">\n    <div class=\"cart-icon-pointer\">\n        <span ng-if=\"(i.isExpanded && i.cartItems !== undefined)\">\n            <a ng-click=\"i.isExpanded = !i.isExpanded\"><span class=\"glyphicon icon-v-down-arrow\"></span></a>\n        </span>\n        <span ng-if=\"(!i.isExpanded && i.cartItems !== undefined)\">\n            <a ng-click=\"i.isExpanded = !i.isExpanded\"><span class=\"glyphicon icon-v-right-arrow\"></span></a>\n        </span>\n    </div>\n    <div class=\"col-md-8 vcart-label-box\">\n        <label class=\"item-name\">{{i.itemSObject.PricebookEntry.Product2.Name}}\n        </label>\n        <p><label>{{::customLabels.OmniOneTime}}</label> {{i.itemSObject[nsPrefix + 'OneTimeTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}</p>\n        <p><label>{{::customLabels.OmniMonthly}}</label> {{i.itemSObject[nsPrefix + 'RecurringTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}</p>\n        <span class = 'vlocity-error vlocity-error-cart' ng-repeat=\"e in i.errors\">\n            {{e}}\n        </span>\n    </div>\n    <div class=\"quantity col-md-3 vcart-quantity\">\n        <span>x</span>\n        <input type=\"number\" name=\"quantity\" class=\"vcart-quantity\" min='0' step=\"1\" ng-model=\"i.itemSObject.Quantity\" ng-change=\"pcAction(vlcPC.pcIndex, bpTree, this, i, 'Update')\"/>\n        <!--\n        <input type=\"number\" name=\"quantity\" min='0' step=\"1\" ng-model=\"i.itemSObject.Quantity\" ng-disabled=\"true\"/>\n        -->\n       <div class=\"vlc-prod-conf-setting\">\n            <span class=\"icon icon-v-trash\" ng-click=\"pcAction(vlcPC.pcIndex, bpTree, this, i, 'Delete')\"></span>\n            <span class=\"vlc-prod-span-setting\"><span  ng-if=\"i.isRoot && i.isConfigurable\" class=\"glyphicon icon-v-setting\" ng-click=\"configureItem(bpTree, null, this, i, 'configureProdInCart', baseCtrl.customHandleSelectedItem, baseCtrl.customIsConfigurable, vlcPC.pcIndex)\"></span></span>\n       </div>\n    </div>\n</div>\n<div ng-if =\"i.cartItems !== undefined\" class=\"vcart-child-items\" collapse=\"!(i.isExpanded)\">\n    <div class=\"item row\" id=\"dummy\"></div>\n    <div class=\"item row\" ng-repeat=\"i in i.cartItems\" ng-include=\"'vlcCartHierarchy.html'\">\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcCartHierarchy",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcCartHierarchy/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcCartHierarchy"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCartHierarchy",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCartHierarchy",
+            "VlocityDataPackName": "omniLightning-vlcCartHierarchy",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcCartSummary",
+                        "%vlocity_namespace%__HTML__c": "<div ng-repeat=\"vlcPC in ::bpTree.propSetMap.persistentComponent\" ng-if=\"::vlcPC.id=='vlcCart'\">\n    <div class=\"cart-summary\">\n        <div class=\"panel panel-default\">\n            <div class=\"panel-heading\">\n                <span class=\"icon icon-v-cart-line\"></span>\n                <h3 class=\"panel-title\">{{::vlcPC.label}}</h3>\n                <div class=\"box\"></div>\n                <!--\n                <button class=\"btn btn-primary\">CHECKOUT</button>\n                -->\n            </div>\n\n            <div class=\"panel-body\">\n\n            <section>\n                <h3>{{::customLabels.OmniYourSelections}}</h3>\n                <div class=\"item row\" ng-repeat=\"i in bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]] | filterMultiple:{provisioningStatus:['New','Pending']}\">\n                    <div class=\"col-md-4 col-sm-4\">\n                        <label class=\"item-name\">{{i.itemSObject.PricebookEntry.Product2.Name}}</label>\n                    </div>\n                    <div class=\"quantity col-md-2 col-sm-2\">\n                        <span>x</span>\n                        <input type=\"number\" disabled=\"true\" name=\"quantity\" step=\"1\" ng-model=\"i.itemSObject.Quantity\"/>\n                    </div>\n                    <div class=\"field col-md-3 col-sm-3\">\n                        <label class=\"field-label\">{{::customLabels.OmniOneTime}}</label>\n                        <p>\n                            <span class=\"price old-price color-black\" ng-show=\"i.itemSObject[nsPrefix + 'OneTimeCharge__c'] > i.itemSObject[nsPrefix + 'OneTimeTotal__c']\">\n                                {{i.itemSObject[nsPrefix + 'OneTimeCharge__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                            </span>\n                            <span class=\"price color-black\" ng-class=\"{'new-price':i.itemSObject[nsPrefix + 'OneTimeCharge__c'] > i.itemSObject[nsPrefix + 'OneTimeTotal__c']}\">\n                            {{i.itemSObject[nsPrefix + 'OneTimeTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                            </span>\n                        </p>\n                    </div>\n                    <div class=\"field col-md-3 col-sm-3\">\n                        <label class=\"field-label\">{{::customLabels.OmniMonthly}}</label>\n                        <p>\n                            <span class=\"price old-price color-black\" ng-show=\"i.itemSObject[nsPrefix + 'RecurringCharge__c'] > i.itemSObject[nsPrefix + 'RecurringTotal__c']\">\n                                {{i.itemSObject[nsPrefix + 'RecurringCharge__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                            </span>\n                            <span class=\"price color-black\" ng-class=\"{'new-price':i.itemSObject[nsPrefix + 'RecurringCharge__c'] > i.itemSObject[nsPrefix + 'RecurringTotal__c']}\">\n                            {{i.itemSObject[nsPrefix + 'RecurringTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                            </span>\n                        </p>\n                    </div>\n                </div>\n            </section>\n            <section>\n                <h3>{{::customLabels.OmniCurrentSetup}}</h3>\n                <div class=\"item row\" ng-repeat=\"i in bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]] | filterMultiple:{provisioningStatus:['Active','Inactive']}\">\n                    <div class=\"col-md-4 col-sm-4\">\n                        <label class=\"item-name\">{{i.itemSObject.PricebookEntry.Product2.Name}}</label>\n                    </div>\n                    <div class=\" quantity col-md-2 col-sm-2\">\n                        <span>x</span>\n                        <input type=\"number\" disabled=\"true\" name=\"quantity\" step=\"1\" ng-model=\"i.itemSObject.Quantity\"/>\n                    </div>\n                    <div class=\"field col-md-3 col-sm-3\">\n                        <label class=\"field-label\">{{::customLabels.OmniOneTime}}</label>\n                        <p>{{i.itemSObject[nsPrefix + 'OneTimeTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}</p>\n                    </div>\n                    <div class=\"field col-md-3 col-sm-3\">\n                        <label class=\"field-label\">{{::customLabels.OmniMonthly}}</label>\n                        <p>{{i.itemSObject[nsPrefix + 'RecurringTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}</p>\n                    </div>\n                </div>\n            </section>\n            <section>\n                <div class=\"totals row\">\n                    <h4 class=\"col-md-6 col-sm-6\"></h4>\n                    <div class=\"cost col-md-3 col-sm-3\">\n                        <label class=\"totals-title\">{{::customLabels.OmniOneTime}}</label>\n                        <h4 class=\"\">{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].OneTimeSum | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}</h4>\n                    </div>\n                    <div class=\"cost col-md-3 col-sm-3\">\n                        <label class=\"totals-title\">{{::customLabels.OmniMonthly}}</label>\n                        <h4 class=\"\">{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].RecurringSum | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}</h4>\n                    </div>\n                </div>\n            </section>\n            </div>\n            <!--\n            <div class=\"panel-footer\">\n                <button class=\"btn btn-primary\">CHECKOUT</button>\n            </div>\n            -->\n        </div\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcCartSummary",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcCartSummary/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcCartSummary"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCartSummary",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCartSummary",
+            "VlocityDataPackName": "omniLightning-vlcCartSummary",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcCheckbox",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-checkbox'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control vlc-slds-checkbox\">\n\n            <label class=\"slds-checkbox\">\n\n                <input id='{{::control.name}}'\n                       type='checkbox'\n                       name='loopname'\n                       ng-disabled='control.ro'\n                       ng-model='control.response'\n                       ng-init='init(this, control)'\n                       vlc-slds-check-val-checker=\"response\"\n                       ng-change='aggregate(this, control.index, control.indexInParent, true, -1)' />\n\n                <span class=\"slds-checkbox--faux\"></span>\n\n                <!-- bubble canceller prevents bubbling of the click events to the checkbox -->\n                <label class=\"slds-form-element__label vlc-slds-inline-control__label\"\n                       vlc-bubble-canceller=\"test\">\n\n                     <!-- OMNI-1963 -->\n                    <span for=\"{{::control.name}}\" class=\"slds-form-element__label\">\n                        {{::control.propSetMap.checkLabel}}\n                    </span>\n\n                    <!-- tooltip template -->\n                    <a vlc-slds-tool-tip=\"test\" nubbin-direction=\"auto top-left\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n                    <div vlc-slds-include=\"vlcLabelController.html\" ng-init=\"size='responsive'\"></div>\n\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n\n                </label>\n\n            </label>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcCheckbox",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcCheckbox/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcCheckbox"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCheckbox",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCheckbox",
+            "VlocityDataPackName": "omniLightning-vlcCheckbox",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcCommunitiesStep",
+                        "%vlocity_namespace%__HTML__c": "<accordion-group id='{{::child.name}}' ng-show='((!bVert && child.bAccordionActive) || bVert)' is-open='child.open' is-disabled='!child.bAccordionActive' ng-class='{ active: child.bAccordionActive }' template-url='vlcAccordionGroup.html' step='child'>\n    <accordion-heading>\n        {{::child.propSetMap.label}}\n    </accordion-heading>\n    <form novalidate class='form-horizontal' role='form' name='{{::bpTree.sOmniScriptId}}-{{$index}}' id='{{::bpTree.sOmniScriptId}}-{{$index}}'>\n        <div class='row'>\n            <child ng-repeat='child in ::children = child.children' ng-if='!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this)'></child>\n        </div>\n    </form>\n    <div class='footer-row row'>\n        <div class='vlc-sfl pull-left col-md-2 col-xs-12' ng-if='bpTree.propSetMap.allowSaveForLater && bpTree.scriptState !== \"review\" && child.bAccordionActive'>\n            <a class='form-control btn btn-link' confirmed-click='saveForLater(child)' ng-confirm-click='{{::child.propSetMap.saveMessage}}'>{{::child.propSetMap.saveLabel}}</a>\n        </div>\n        <div ng-show='!child.bHasNext' class='vlc-sfl pull-left col-md-2 col-xs-12' ng-if='bpTree.scriptState == \"saveAndResume\" && child.bAccordionActive'>\n            <a class='form-control btn btn-link' confirmed-click='completeScript(true)' ng-confirm-click='{{::child.propSetMap.completeMessage}}'>{{::child.propSetMap.completeLabel}}</a>\n        </div>\n\n        <div ng-show='child.bHasNext' class='col-md-2 col-xs-12 vlc-next pull-right'>\n             <button class='form-control btn btn-primary' ng-click='nextRepeater(child.nextIndex, child.indexInParent)' ng-class=\"{ 'vlc-primary-inactive': false }\"\n                ng-disabled='checkValidity(this, child.index, child.indexInParent, \"Step\", null, true)'>\n                {{::child.propSetMap.nextLabel}}\n            </button>\n        </div>\n\n        <div ng-if='child.bHasPrevious' class='col-md-2 col-xs-12 vlc-previous pull-right'>\n            <button class='form-control btn btn-default' ng-click='previous(this, child)'>{{::child.propSetMap.previousLabel}}</button>\n        </div>\n\n        <div class='vlc-cancel pull-right col-md-2 col-xs-12' ng-if='child.bAccordionActive'>\n            <button class='form-control btn btn-default' confirmed-click='cancel()' ng-confirm-click='{{::child.propSetMap.cancelMessage}}'>{{::child.propSetMap.cancelLabel}}</button>\n        </div>\n    </div>\n</accordion-group>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcCommunitiesStep",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcCommunitiesStep/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcCommunitiesStep"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCommunitiesStep",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCommunitiesStep",
+            "VlocityDataPackName": "omniLightning-vlcCommunitiesStep",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcCurrency",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-omniscript-currency'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <!-- should put an icon in the text field -->\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right\">\n\n            <div data-content=\"{{::(bpTree.oSCurrencySymbol || control.propSetMap.currencySymbol)}}\" class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n                <input id='{{::control.name}}'\n                       type='tel'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-disabled='control.ro'\n                       ng-required=\"control.req\"\n                       ui-currency-setting=\"::bpTree.oSCurrencySetting\"\n                       ui-number-mask='::control.propSetMap.mask'\n                       ui-negative-number='{{::control.propSetMap.allowNegative}}'\n                       ui-hide-group-sep='{{::control.propSetMap.hideGroupSep}}'\n                       min='::control.propSetMap.min'\n                       max='::control.propSetMap.max'\n                       name='loopname'\n                       ng-model='control.response'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input'\n                       ng-init='init(this, control)'\n                       vlc-slds-val-check-currency=\"response\"\n                       vlc-slds-val-checker=\"response\" />\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n            \n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>            \n\n        </div>\n\n        <span class='vlc-slds-currency-symbol' ng-class=\"{'vlc-slds-currency-symbol__readonly': control.ro === true}\" >{{::(bpTree.oSCurrencySymbol || control.propSetMap.currencySymbol)}}</span>\n\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcCurrency",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcCurrency/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcCurrency"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCurrency",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcCurrency",
+            "VlocityDataPackName": "omniLightning-vlcCurrency",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcDate",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-date'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       name='loopname'\n                       ng-disabled='control.ro'\n                       ng-required=\"control.req\"\n                       type='text'\n                       placement='none'\n                       ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       class='slds-input'\n                       ng-model='control.response'\n                       ng-init='init(this, control)'\n                       data-date-format=\"{{::control.propSetMap.dateFormat}}\"\n                       data-max-date=\"{{::control.propSetMap.maxDate}}\"\n                       data-min-date=\"{{::control.propSetMap.minDate}}\"\n                       date-type=\"{{::control.propSetMap.dateType}}\"\n                       model-date-format=\"{{::control.propSetMap.modelDateFormat}}\"\n                       days-of-week-disabled=\"{{::control.propSetMap.daysOfWeekDisabled}}\"\n                       slds-date-picker\n                       autocomplete=\"off\"\n                       vlc-slds-val-checker=\"response\"/>\n\n\n                <!-- label with asterix inside -->\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <!-- OMNI-1718 -->\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'dayview'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcDate",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcDate/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcDate"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDate",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDate",
+            "VlocityDataPackName": "omniLightning-vlcDate",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcDatetime-local",
+                        "%vlocity_namespace%__HTML__c": "    <div class='slds-col--padded slds-size--1-of-1' ng-class=\"[compareWindowWidth(480,'','slds-form--compound')]\">\n\n        <ng-form name='loopform'\n                 class='vlc-flex vlc-slds-datetime-locale'\n                 ng-repeat='control in child.eleArray'>\n\n            <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n            <div class=\"slds-form-element__group\">\n\n                <div class=\"slds-form-element__row\">\n\n                    <div class=\"slds-form-element slds-form-element__control slds-large-size--1-of-2 slds-input-has-icon slds-input-has-icon--right\">\n\n                        <div class=\"vlc-control-wrapper\" help=\"{{control.propSetMap.help}}\">\n\n                            <input id='{{::control.name}}'\n                                   name='loopname'\n                                   ng-disabled='control.ro'\n                                   ng-required=\"control.req\"\n                                   type='text'\n                                   placement='none'\n                                   ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                                   class='slds-input'\n                                   ng-model='control.response'\n                                   ng-init='init(this, control)'\n                                   data-date-format=\"{{::control.propSetMap.dateFormat}}\"\n                                   data-max-date=\"{{::control.propSetMap.maxDate}}\"\n                                   data-min-date=\"{{::control.propSetMap.minDate}}\"\n                                   timezone=\"{{::selectTimezoneOffset(control.propSetMap.timezone);}}\"\n                                   slds-date-picker\n                                   autocomplete=\"off\"\n                                   vlc-slds-val-checker=\"response\" />\n\n\n                            <!-- label with asterix inside -->\n                            <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                                <span class='vlc-asterix icon-v-asterix'\n                                      ng-if='control.req'>\n                                </span>\n                            </label>\n\n                            <!-- tooltip template -->\n                            <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n\n                        </div>\n\n                        <slds-svg-icon aria-hidden=\"true\"\n                                       sprite=\"'utility'\"\n                                       icon=\"'dayview'\"\n                                       size=\"'small'\"\n                                       extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n                        </slds-svg-icon>\n                    </div>\n\n                    <div class=\"slds-form-element slds-form-element__control slds-large-size--1-of-2 slds-input-has-icon slds-input-has-icon--right\">\n\n                        <div class=\"vlc-control-wrapper\">\n\n                            <input type='text'\n                                   placement='none'\n                                   ng-disabled='control.ro'\n                                   ng-required=\"control.req\"\n                                   ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                                   class='slds-input'\n                                   ng-model='control.response'\n                                   name='timectrl'\n                                   ng-init='init(this, control)'\n                                   data-time-format =\"{{::control.propSetMap.timeFormat}}\"\n                                   timezone=\"{{::selectTimezoneOffset(control.propSetMap.timezone)}}\"\n                                   slds-time-picker\n                                   data-default-date=\"today\"\n                                   vlc-slds-val-checker=\"reponse\"\n                                   autocomplete=\"off\"/>\n\n                        </div>\n\n                        <slds-svg-icon aria-hidden=\"true\"\n                                       sprite=\"'utility'\"\n                                       icon=\"'clock'\"\n                                       size=\"'small'\"\n                                       extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n                        </slds-svg-icon>\n                    </div>\n                </div>\n                <div ng-include=\"::errHTMLId\"></div>\n            </div>\n\n        </ng-form>\n\n    </div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcDatetime-local",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcDatetime-local/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcDatetime-local"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDatetime-local",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDatetime-local",
+            "VlocityDataPackName": "omniLightning-vlcDatetime-local",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcDisclosure",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex  vlc-disclosure'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control\">\n\n            <!-- safely binds the html content in the editor to the element  -->\n            <div class=\"slds-box vlc-slds-box__no-border\">\n                <div class=\"slds-box\">\n                    {{::control.propSetMap.label | uppercase }}\n                    <span class='vlc-asterix icon-v-asterix' ng-if='validateRequired(this, control) && control.req'>\n                    </span>\n                </div>\n                <div class=\"slds-box\">\n                    <p vlc-bind-html=\"::control.propSetMap.text\"></p>\n                </div>\n                <div class=\"slds-box\">\n                    <!-- checkbox at the bottom -->\n                    <label class=\"slds-checkbox\">\n                        <input id='{{::control.name}}'\n                               ng-disabled='control.ro'\n                               ng-required='control.req'\n                               type='checkbox'\n                               name='loopname'\n                               ng-model='control.response'\n                               ng-init='init(this, control)'\n                               vlc-slds-val-checker=\"response\"\n                               ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'/>\n\n                        <span class=\"slds-checkbox--faux\"></span>\n                        <span class=\"slds-form-element__label\">{{::control.propSetMap.checkLabel | uppercase}}</span>\n\n                    </label>\n\n                </div>\n\n            </div>\n\n            <!-- generic error block styling needs to be done -->\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcDisclosure",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcDisclosure/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcDisclosure"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDisclosure",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDisclosure",
+            "VlocityDataPackName": "omniLightning-vlcDisclosure",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcDisplayOption",
+                        "%vlocity_namespace%__HTML__c": "<!--OMNI-3025-->\n<div class=\"imgItemContainer\" \n     ng-style='{\"width\":\"{{control.propSetMap.optionWidth}}\"+\"px\",\"height\":\"{{control.propSetMap.optionHeight}}\"+\"px\"}'\n     ng-class='{invertOption:control.propSetMap.optionSource.source==\"\"&&option.imgId===null}'\n     >\n    <img \n        ng-if='option.imgId && control.propSetMap.optionSource.type == \"image\"' \n        class='imgItem' \n        src=\"{{option.imgId}}\"\n        alt='{{option.value}}'  \n        title='{{option.value}}' />\n    <span ng-if='!(option.imgId)' class=\"imgItem\">{{option.value}}</span>\n    <div class=\"borderOverlay\"></div>\n</div>\n<div class=\"captionOut\" ng-style='{\"width\":\"{{control.propSetMap.optionWidth}}\"+\"px\"}' ng-if='(control.propSetMap.enableCaption&&(option.imgId))' >\n    <span class=\"captionOut slds-form-element__label\">{{ option.imgId ? option.value : \"&nbsp\" }}</span> \n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcDisplayOption",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcDisplayOption/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcDisplayOption"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDisplayOption",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDisplayOption",
+            "VlocityDataPackName": "omniLightning-vlcDisplayOption",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcDocuSignSignatureModal",
+                        "%vlocity_namespace%__HTML__c": "<!-- vlcDocuSignSignatureModal.html -->\n<div modalmove class='slds-modal slds-fade-in-open slds-modal--large via-slds via-omni' ng-init='initDocuSignModal()'>\n    <div class='mask' ng-show='loading'>\n        <div vlc-slds-spinner='test' class='center-block spinner'></div>\n    </div>\n    <div class='slds-modal__container'>\n        <div class='slds-modal__header'>\n            <h1 class='modal-title'>{{::OmniDocuSignModalTitle}}</h1>\n        </div>\n        <div class='slds-modal__content slds-p-around--medium'>\n            <div id='docusign-frame'>\n                <iframe ng-src='{{redirectUri}}'></iframe>\n            </div>\n            <div id='docusign-pdf'>\n                <embed ng-src='{{pdfDocUrl}}' type='application/pdf' class='vlcPDFEmbed' />\n            </div>\n        </div>\n        <div class='slds-modal__footer'>\n            <div class='vlc-button-pull-right'>\n                <button class='slds-button slds-button--neutral' ng-click='ViewPDF()' ng-show='viewPdf' ng-disabled='disableViewPdf' >{{::OmniDocuSignModalViewPdf}}</button>\n                <button class='slds-button slds-button--neutral' ng-click='closeModal()'>{{::OmniDocuSignModalClose}}</button>\n            </div>\n            <div modalresize class='vlc-expand-docusign-modal'  prop='min-height'></div>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcDocuSignSignatureModal",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcDocuSignSignatureModal/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcDocuSignSignatureModal"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDocuSignSignatureModal",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDocuSignSignatureModal",
+            "VlocityDataPackName": "omniLightning-vlcDocuSignSignatureModal",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcDoneAction",
+                        "%vlocity_namespace%__HTML__c": "<div id='{{::child.name}}' class=\"slds-col--padded slds-size--1-of-1\">\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcDoneAction",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcDoneAction/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcDoneAction"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDoneAction",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcDoneAction",
+            "VlocityDataPackName": "omniLightning-vlcDoneAction",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlock",
+                        "%vlocity_namespace%__HTML__c": "<!-- vlcEditBlock.html -->\n<div class='slds-col--padded slds-size--1-of-1 vlc-slds-edit-block--main-container' ng-init=\"isTableView=true; maxLimitCountObj={maxDispCount:0}\">\n    {{set = ((child.eleArray[0].children.length === 0)?(child.eleArray[0].childrenC):(child.eleArray[0].children));\"\"}}\n    <div class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12\">\n        <div class=\"vlc-slds-edit-block__label\">\n            {{::child.eleArray[0].propSetMap.label}}\n        </div>\n        <div class=\"vlc-slds-edit-block__gaction_container\">\n            <span ng-repeat=\"action in child.eleArray[0].propSetMap.gActions\" ng-include=\"'vlcEditBlockGlobalBtn.html'\"></span>\n        </div>\n    </div>\n\n    <table class=\"slds-table slds-table--bordered slds-table--cell-buffer slds-max-medium-table--stacked-horizontal vlc-slds-table\" ng-init=digestOnResize() ng-if=\"set.length\">\n        <thead>\n            <tr class=\"slds-text-title_caps slds-text-heading--label\">\n                <th width=\"20px\" ng-style=\"{'padding':'0px'}\"></th>\n                 <th scope=\"col\" ng-repeat='ctrl in set' ng-hide='!ctrl.displayInView' ng-style=\"{'width':(100/maxLimitCountObj.maxDispCount)+'%'}\">\n                    <div class=\"slds-truncate\">{{::ctrl.eleArray[0].propSetMap.label}}</div>\n                </th>\n                <th width=\"70px\"/>\n            </tr>\n        </thead>\n        <tbody class='vlc-slds-block_table-body'>\n            <tr ng-form name=\"vlcEditBlockFormMain_{{$index}}\"\n                id ='{{::control.name}}'\n                ng-repeat=\"control in child.eleArray\"\n                ng-style=\"control.childrenC !== undefined && {'display':'none'}\"\n                ng-if=\"set.length > 0\"\n                ng-init=\"control.selectCheckBox = child.eleArray[0].propSetMap.selectCheckBox; initEditBlockControlLimit(control, 3, maxLimitCountObj);\"\n                ng-click=\"onClickEditBlockRecord(control, set.checkboxInd, $event, child.eleArray, $index)\"\n                ng-class=\"{'vlc-slds-block_table-add' : set.checkboxInd >= 0 ? control.children[set.checkboxInd].eleArray[0].response : false}\" >\n                <td>\n                    <span class=\"vlc-asterix icon-v-asterix vlc-editblock-asterix\" ng-if=\"isEditBlockRecordInvalid($index, this)\"></span>\n                </td>\n                <td class='vlc-slds-block_table-body__td' data-label='{{::child.eleArray[0].propSetMap.label}}' ng-repeat='child in children = control.children' ng-hide='!child.displayInView'\n                    ng-init=\"child.blockIndex = control.index\">\n                    <form name=\"editblockform\" \n                          class=\"vlc-slds-edit-block__form\" \n                          ng-if='child.eleArray[0].propSetMap.hide||(!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this))'\n                          ng-include=\"'vlcEditBlockDetailCont.html'\">\n                    </form>\n                </td>\n                <td data-label='{{::customLabels.OmniEditBlockTableMenu}}'>\n                    <div class=\"vlc-slds-edit-block--button-menu\">\n                        <slds-dropdown content=\"[]\" template-url=\"vlcEditBlockDropdown.html\"></slds-dropdown>\n                    </div>\n                </td>\n            </tr ng-form>\n        </tbody>\n     </table>\n     <div class='vlc-slds-upgrade-btn vlc-slds-remote-action--button' style=\"padding-bottom: 7px;\" ng-if='child.eleArray[0].propSetMap.allowNew && set.length > 0'>\n        <div class=\"slds-form-element__control\">\n            <div class=\"vlc-control-wrapper\">\n                <div class='slds-box'\n                     title=\"Add\"\n                     ng-click=\"openEditModal(null, child, this, 'new', null, $event)\">\n                    <p>{{::((child.eleArray[0].propSetMap.newAction) ? (child.eleArray[0].propSetMap.newAction.propSetMap.label) : (child.eleArray[0].propSetMap.newLabel))}}</p>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlock",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlock/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlock"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlock",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlock",
+            "VlocityDataPackName": "omniLightning-vlcEditBlock",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockCardAddNew",
+                        "%vlocity_namespace%__HTML__c": "\n<div ng-class=\"{'vlc-slds-edit-block--Long-cards':isLongCard, 'vlc-slds-edit-block--cards': isShortCard}\" \n     ng-init=\"ctrlLength=0; set.length > 3 ? ctrlLength = 3 :ctrlLength = ctrlLength=set.length\"\n     ng-if='child.eleArray[0].propSetMap.allowNew && set.length > 0' ng-click=\"openEditModal(null, child, this, 'new', null, $event)\">\n    <div ng-if='child.eleArray[0].propSetMap.allowNew && set.length > 0'\n         ng-class=\"{'vlc-slds-edit-block--Long-cards_container vlc-slds-item--addbutton-container_Long': isLongCard, 'vlc-slds-edit-block--cards_container vlc-slds-item--addbutton-container': isShortCard}\">\n        <div class=\"vlc-slds-item--image\" style=\"left: 2px;\" ng-if=\"isShortCard\">\n            <span class=\"slds-icon_container slds-icon_container--circle\">\n            <slds-svg-icon sprite=\"child.eleArray[0].propSetMap.svgSprite\" icon=\"child.eleArray[0].propSetMap.svgIcon\" size=\"'large'\"></slds-svg-icon>\n            </span>\t\n        </div>\n        <div ng-class=\"{'vlc-slds-item--addbutton-Long': isLongCard, 'vlc-slds-item--addbutton': isShortCard}\">\n            <slds-button-svg-icon sprite=\"'utility'\" size=\"'large'\" icon=\"'add'\"></slds-button-svg-icon>\n            <span>{{::((child.eleArray[0].propSetMap.newAction) ? (child.eleArray[0].propSetMap.newAction.propSetMap.label) : (child.eleArray[0].propSetMap.newLabel))}}</span>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockCardAddNew",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockCardAddNew/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockCardAddNew"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockCardAddNew",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockCardAddNew",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockCardAddNew",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockCards",
+                        "%vlocity_namespace%__HTML__c": "<!-- vlcEditBlockCards.html -->\n<div class='slds-grid slds-wrap slds-grid--pull-padded vlc-slds-edit-block--main-container' ng-init=\"isShortCard=true\">\n    {{set = ((child.eleArray[0].children.length === 0)?(child.eleArray[0].childrenC):(child.eleArray[0].children));\"\"}}\n    <div class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12\">\n        <div class=\"vlc-slds-edit-block__label\">\n            {{::child.eleArray[0].propSetMap.label}}\n        </div>\n        <div class=\"vlc-slds-edit-block__gaction_container\">\n            <span ng-repeat=\"action in child.eleArray[0].propSetMap.gActions\" ng-include=\"'vlcEditBlockGlobalBtn.html'\"></span>\n        </div>\n    </div>\n    <div class=\"slds-card slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12\"\n            id ='{{::control.name}}'\n            ng-repeat=\"control in child.eleArray\"\n            ng-style=\"control.childrenC !== undefined && {'display':'none'}\"\n            ng-if=\"set.length > 0\">\n        <div class=\"vlc-slds-edit-block--cards\">\n            <form name=\"vlcEditBlockFormMain_{{$index}}\" \n                  ng-init=\"control.selectCheckBox = child.eleArray[0].propSetMap.selectCheckBox; initEditBlockControlLimit(control, 3)\"\n                  ng-include=\"'vlcEditBlockDetailCont.html'\">\n            </form>\n        </div>\n    </div>\n    <div class=\"slds-card slds-size--12-of-12 slds-medium-size--6-of-12 slds-large-size--3-of-12\" ng-include=\"'vlcEditBlockCardAddNew.html'\"></div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockCards",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockCards/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockCards"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockCards",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockCards",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockCards",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockDetailCont",
+                        "%vlocity_namespace%__HTML__c": "<div tabindex=\"{{::isTableView?-1:0}}\"\n     ng-click=\"onClickEditBlockRecord(control, set.checkboxInd, $event, child.eleArray, $index)\" \n     ng-class=\"{'vlc-slds-edit-block--Long-cards_container': isLongCard, 'vlc-slds-edit-block--cards_container': isShortCard}\">\n    <div class=\"vlc-slds-edit-block--cards_images\" ng-if=\"isLongCard\">\n       <slds-svg-icon sprite=\"control.propSetMap.svgSprite\" extra-classes=\"'vlc-slds-edit-block--Long-icon'\" icon=\"control.propSetMap.svgIcon\" size=\"'large'\" ng-if=\"showDefaultEditBlockImage(control)\"></slds-svg-icon>\n       <slds-svg-icon sprite=\"icon.svgSprite\" icon=\"icon.svgIcon\" size=\"'large'\" extra-classes=\"'vlc-slds-edit-block--Long-icon'\" ng-repeat='icon in control.propSetMap.valueSvgMap' ng-if=\"control.propSetMap.elementName !=='' && control.response[control.propSetMap.elementName] == icon.value\"> </slds-svg-icon>\n    </div>\n\n    <div class=\"vlc-slds-item--image\" ng-if=\"isShortCard\">\n        <span class=\"slds-icon_container vlc-slds-user-icon slds-icon_container--circle\">\n            <slds-svg-icon sprite=\"control.propSetMap.svgSprite\" extra-classes=\"'vlc-slds-edit-block--Long-icon'\" icon=\"control.propSetMap.svgIcon\" size=\"'large'\" ng-if=\"showDefaultEditBlockImage(control)\"></slds-svg-icon>\n            <slds-svg-icon sprite=\"icon.svgSprite\" icon=\"icon.svgIcon\" size=\"'large'\" extra-classes=\"'vlc-slds-edit-block--Long-icon'\" ng-repeat='icon in control.propSetMap.valueSvgMap' ng-if=\"control.propSetMap.elementName !=='' && control.response[control.propSetMap.elementName] == icon.value\"> </slds-svg-icon>\n        </span>\n    </div>\n\n    <div class=\"vlc-slds-edit-block--cards_controls-container\" ng-if=\"!isTableView\">\n        <div class=\"vlc-slds-edit-block--cards_controls\" ng-repeat='child in children = control.children' ng-if='child.eleArray[0].propSetMap.hide||(!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this))'\n            ng-init=\"child.blockIndex = control.index\">\n            <ng-form name=\"editblockform\" class=\"vlc-slds-edit-block__form\"\n                ng-include=\"'vlcEditBlockInnerForm.html'\">\n            </ng-form>\n        </div>\n    </div>\n\n    <div ng-if=\"isTableView\" class=\"vlc-wrap\"\n         ng-include=\"'vlcEditBlockInnerForm.html'\">\n    </div>\n\n    <span class=\"vlc-asterix icon-v-asterix vlc-editblock-asterix\" ng-if=\"!isTableView && isEditBlockRecordInvalid($index, this)\"></span>\n    <div class=\"vlc-slds-edit-block--button-menu\" ng-if=\"!isTableView\">\n        <slds-dropdown content=\"[]\" template-url=\"vlcEditBlockDropdown.html\"></slds-dropdown>\n    </div>\n</div>\n<div class=\"vlc-slds-item--added\" vlc-slds-edit-add=\"{{set.checkboxInd >= 0 ? control.children[set.checkboxInd].eleArray[0].response : false}}\" ng-if=\"!isTableView\">\n    <span class=\"slds-icon_container slds-icon_container--circle\">\n        <slds-svg-icon sprite=\"'action'\" icon=\"'approval'\" size=\"'small'\"></slds-svg-icon>\n    </span>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockDetailCont",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockDetailCont/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockDetailCont"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockDetailCont",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockDetailCont",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockDetailCont",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockDropdown",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-dropdown-trigger slds-dropdown-trigger--click\"  ng-class=\"{'slds-is-open': isOpen}\" vlc-bubble-canceller>\n    <button type=\"button\" role=\"button\" class=\"slds-button slds-button--icon-border-filled\" aria-haspopup=\"true\" aria-label=\"Show More\" ng-click=\"toggleDropdown()\">\n        <slds-svg-icon sprite=\"'utility'\" icon=\"'down'\" size=\"'small'\"></slds-svg-icon>\n    </button>\n    {{ebCtrl = (($parent.$parent.child.eleArray[0]));\"\"}}\n    <div class=\"slds-dropdown slds-dropdown--right\" aria-hidden=\"{{!isOpen}}\">\n        <ul class=\"slds-dropdown__list\" role=\"menu\">\n            <li id='{{::((ebCtrl.propSetMap.editAction)?(ebCtrl.propSetMap.editAction.name):(\"foo\"))}}'\n                class=\"slds-dropdown__item\" role=\"presentation\" ng-click=\"$parent.$parent.openEditModal($parent.$parent.control, null, $parent.$parent, 'edit', $parent.$parent.$index, $event); toggleDropdown();\" ng-if='ebCtrl.propSetMap.allowEdit'>\n                <a href=\"javascript:void(0);\" role=\"menuitem\" tabindex=\"-1\">\n                    <span class=\"slds-truncate\">{{::((ebCtrl.propSetMap.editAction) ? (ebCtrl.propSetMap.editAction.propSetMap.label) : (ebCtrl.propSetMap.editLabel))}}</span>\n               </a>\n            </li>\n            <li id='{{::action.name}}'\n                class=\"slds-dropdown__item\" role=\"presentation\" ng-repeat=\"action in $parent.$parent.control.propSetMap.actions\" ng-click='$parent.$parent.buttonClick($parent.$parent.bpTree.response, action, $parent.$parent, null, \"vlcEBOperation\"); toggleDropdown();'>\n                <a href=\"javascript:void(0);\" role=\"menuitem\" tabindex=\"-1\">\n                    <span class=\"slds-truncate\">{{action.propSetMap.label}}</span>\n                </a>\n            </li>\n            <li class=\"slds-has-divider--top-space\" role=\"separator\"></li>\n            <li id='{{::((ebCtrl.propSetMap.delAction)?(ebCtrl.propSetMap.delAction.name):(\"foo\"))}}'\n                class=\"slds-dropdown__item\" role=\"presentation\" ng-click=\"$parent.$parent.removeItemEditBlock($parent.$parent.child, $parent.$parent.$index, $parent.$parent); toggleDropdown();\" ng-if='ebCtrl.propSetMap.allowDelete'>\n                <a href=\"javascript:void(0);\" role=\"menuitem\" tabindex=\"-1\">\n                    <span class=\"slds-truncate\">{{::((ebCtrl.propSetMap.delAction) ? (ebCtrl.propSetMap.delAction.propSetMap.label) : (ebCtrl.propSetMap.deleteLabel))}}</span>\n               </a>\n            </li>\n        </ul>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockDropdown",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockDropdown/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockDropdown"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockDropdown",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockDropdown",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockDropdown",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockFS",
+                        "%vlocity_namespace%__HTML__c": "<!-- vlcEditBlockFS.html -->\n<div class='slds-grid slds-wrap slds-grid--pull-padded vlc-slds-edit-block--main-container' ng-init=\"isFSTable=true; calculateSumElememt(child.eleArray[0], this)\">\n    {{set = ((child.eleArray[0].children.length === 0)?(child.eleArray[0].childrenC):(child.eleArray[0].children));\"\"}}\n    <div class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12 vlc-slds-edit-block__label_block_FS\">\n        <div class=\"vlc-slds-edit-block__label_FS\">\n            <span>{{::child.eleArray[0].propSetMap.label}}</span>\n            <span class=\"vlc-slds-edit-block__label_FS_ctrl\">\n                <span ng-if=\"curSymbolFS\">{{::curSymbolFS}}</span>\n                {{set.sumControlValue}}\n            </span>\n        </div>\n\n         <div class=\"vlc-slds-edit-block__gaction_container\">\n            <span ng-repeat=\"action in child.eleArray[0].propSetMap.gActions\" ng-include=\"'vlcEditBlockGlobalBtn.html'\"></span>\n        </div>\n    </div>\n    \n    <div class=\"vlc-slds-edit-block--FS\"\n        id ='{{::control.name}}'\n        ng-repeat=\"control in child.eleArray\"\n        ng-style=\"control.childrenC !== undefined && {'display':'none'}\"\n        ng-click=\"onClickEditBlockRecord(control, set.checkboxInd, $event, child.eleArray, $index)\"\n        ng-class=\"{'vlc-slds-block_table-add' : set.checkboxInd >= 0 ? control.children[set.checkboxInd].eleArray[0].response : false}\"\n        ng-if=\"set.length > 0\"\n        ng-init=\"control.selectCheckBox = child.eleArray[0].propSetMap.selectCheckBox; initEditBlockControlLimit(control, 3)\">\n        <form name=\"vlcEditBlockFormMain_{{$index}}\" >\n            <span class=\"vlc-asterix icon-v-asterix vlc-editblock-asterix\" ng-if=\"isEditBlockRecordInvalid($index, this)\"></span>\n            <div class=\"vlc-slds-edit-block--controls\" ng-hide='!child.displayInView' \n                ng-class=\"{'vlc-slds-edit-block--fisrtele': child.displayInViewIndex==0, 'vlc-slds-edit-block--secondele': child.displayInViewIndex==1, 'vlc-slds-edit-block--thirdele': child.displayInViewIndex==2}\"\n                ng-repeat='child in children = control.children'\n                ng-init=\"child.blockIndex = control.index\"\n                ng-if='child.eleArray[0].propSetMap.hide||(!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this))'>\n                <ng-form name=\"editblockform\" class=\"vlc-slds-edit-block__form\"\n                    ng-include=\"'vlcEditBlockInnerForm.html'\">\n                </ng-form>\n            </div>\n        </form>\n        <div class=\"vlc-slds-edit-block--button-menu\">\n            <slds-dropdown content=\"[]\" template-url=\"vlcEditBlockDropdown.html\"></slds-dropdown>\n        </div>\n    </div>\n    <div class=\"vlc-slds-item--addbutton\" ng-if='child.eleArray[0].propSetMap.allowNew && set.length > 0' ng-click=\"openEditModal(null, child, this, 'new', null, $event)\">\n        <span>+ {{::((child.eleArray[0].propSetMap.newAction) ? (child.eleArray[0].propSetMap.newAction.propSetMap.label) : (child.eleArray[0].propSetMap.newLabel))}}</span>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockFS",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockFS/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockFS"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockFS",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockFS",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockFS",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockGlobalBtn",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{action.propSetMap.controlWidth}}-of-12 vlc-slds-edit-block__gaction\" \n    ng-if='!(action.propSetMap.svgSprite && action.propSetMap.svgIcon)'>\n    <div class='slds-col--padded slds-size--1-of-1'>\n\n        <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-form-group vlc-slds-remote-action--button'>\n\n            <div class=\"slds-form-element__control\">\n\n                <div class=\"vlc-control-wrapper\">\n\n                     <div id='{{::action.name}}'\n                         class='slds-box'\n                         title='{{::action.propSetMap.label}}'\n                         ng-click='buttonClick(this.bpTree.response, action, this)'>\n                        <p>{{::action.propSetMap.label}}</p>\n                    </div>\n\n                </div>\n\n                <div class='vlc-sub-block'></div>\n\n            </div> \n\n        </ng-form>\n\n    </div>\n</div>\n\n<div class=\"vlc-slds-edit-block__gaction_btn\" ng-if='(action.propSetMap.svgSprite && action.propSetMap.svgIcon)'>\n    <slds-svg-icon sprite=\"action.propSetMap.svgSprite\" icon=\"action.propSetMap.svgIcon\" size=\"'small'\" ng-click='buttonClick(this.bpTree.response, action, this)'></slds-svg-icon>\n    <div class=\"slds-popover slds-popover--tooltip slds-nubbin--top-left vlc-slds--tooltip\" role=\"tooltip\">\n        <div class=\"slds-popover__body\">\n            {{action.propSetMap.label}}\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockGlobalBtn",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockGlobalBtn/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockGlobalBtn"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockGlobalBtn",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockGlobalBtn",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockGlobalBtn",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockInline",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-grid slds-wrap slds-p-around_small slds-element_text-font vlc-slds-edit-block--main-container slds-editblock_inline'>\n    {{set = ((child.eleArray[0].children.length === 0)?(child.eleArray[0].childrenC):(child.eleArray[0].children));\"\"}}\n\n    <div class=\"slds-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-m-bottom_x-small\">\n        <div style=\"font-weight: 300; font-size: 1rem;\">\n            {{::child.eleArray[0].propSetMap.label}}\n        </div>\n        <div class=\"slds-m-around_xx-small slds-size_1-of-1 slds-medium_1-of-1 slds-large-size_{{action.propSetMap.controlWidth}}-of-12 slds-show_inline-block\" \n            ng-style=\"(action.propSetMap.svgSprite && action.propSetMap.svgIcon) ? {'width' : 'auto'}:''\"\n            ng-repeat=\"action in child.eleArray[0].propSetMap.gActions\" ng-include=\"'vlcEditBlockGlobalBtn.html'\">\n        </div>\n    </div>\n\n    <div class=\"slds-card slds-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-m-bottom_x-small\"\n        id ='{{::control.name}}'\n        ng-repeat=\"control in child.eleArray\"\n        ng-style=\"control.childrenC !== undefined && {'display':'none'}\"\n        ng-if=\"set.length > 0\"\n        ng-init=\"control.showInlineEBRow = true\">\n\n        <div class=\"vlc-slds-edit-block--Long-cards\" style=\"height: auto;\">\n            <div ng-click=\"openEditModal(control, null, this, 'edit', $index, $event, true); control.showInlineEBRow = false\" style=\"height: 80px;\">\n                <form ng-if=\"control.showInlineEBRow\" name=\"vlcEditBlockFormMain_{{$index}}\"\n                      ng-init=\"control.selectCheckBox = child.eleArray[0].propSetMap.selectCheckBox; initEditBlockControlLimit(control, 2);\" \n                      class=\"slds-grid slds-cont-wrapper\" \n                      ng-include=\"'vlcEditBlockInlineDetailCont.html'\"\n                      style=\"height: inherit; padding: 0;\">\n                </form>    \n            </div>\n        </div>\n    </div>\n\n    <div class=\"slds-card slds-size_12-of-12 slds-medium-size_12-of-12 slds-large-size_12-of-12 slds-m-bottom_x-small\">\n        \n        <div class=\"vlc-slds-edit-block--Long-cards\" \n                ng-init=\"ctrlLength=0; set.length > 3 ? ctrlLength = 3 :ctrlLength = ctrlLength=set.length\"\n                ng-if='child.eleArray[0].propSetMap.allowNew && set.length > 0' ng-click=\"openEditModal(null, child, this, 'new', null, $event, true)\" style=\"height: 80px; margin-bottom: 30px;\">\n\n\n            <div class=\"vlc-slds-edit-block--Long-cards_container vlc-slds-item--addbutton-container_Long\" ng-if='child.eleArray[0].propSetMap.allowNew && set.length > 0'>\n                \n                <div class=\"vlc-slds-item--addbutton-Long\">\n                    <slds-button-svg-icon sprite=\"'utility'\" size=\"'large'\" icon=\"'add'\"></slds-button-svg-icon>\n                    <span>{{::((child.eleArray[0].propSetMap.newAction) ? (child.eleArray[0].propSetMap.newAction.propSetMap.label) : (child.eleArray[0].propSetMap.newLabel))}}</span>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockInline",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockInline/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockInline"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockInline",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockInline",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockInline",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockInlineChildrenView",
+                        "%vlocity_namespace%__HTML__c": "<form name='loopform' class=\"slds-edit-block-edit__container\" \n        ng-init=\"isModalLoaded = !isModalLoaded\"\n        ng-class=\"control.propSetMap.isNewInlineBlock ? 'slds-inline_new-top': 'slds-inline_edit-top'\" autocomplete=\"off\">\n    <div class=\"slds-cont-wrapper\">\n        <header class=\"slds-size_1-of-1 slds-modal__header\">\n            <h1 class=\"slds-text-heading_small slds-step_label\">{{::OmniEditBlockModalTitle}}</h1>\n        </header>\n\n        <div class=\"slds-size_1-of-1 slds-modal__content slds-p-around--medium\">\n            <div class=\"slds-grid slds-wrap slds-grid_pull-padded\">\n                <child noformatterebmodal=\"true\" \n                    vlc-slds-change-inline-templates=\"::child.eleArray[0].propSetMap.showInputWidth\"\n                    ng-repeat='child in ::children = control.children'\n                    class=\"slds-size_1-of-1 slds-medium_{{child.eleArray[0].propSetMap.controlWidth}}-of-12 slds-large-size_{{child.eleArray[0].propSetMap.controlWidth}}-of-12\"\n                    ng-show='::!child.eleArray[0].propSetMap.hide'                 \n                    ng-if='(child.eleArray[0].propSetMap.hide && child.eleArray[0].type!==\"Formula\")||(!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this))'>\n                </child>\n            </div>\n        </div>\n\n        <footer class=\"slds-modal__footer\">\n            <button type=\"button\" class='slds-button slds-button--neutral' ng-click='control.showInlineEBRow = true; closeModal($event)'>{{::OmniConfigProdModalCancel}}</button>\n            <button type=\"button\" class='slds-button slds-button--neutral' ng-click='control.showInlineEBRow = true; saveEditChanges($event)' ng-disabled=\"loopform.$invalid\">{{::OmniConfigProdModalOk}}</button>\n        </footer>\n    </div>\n</form>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockInlineChildrenView",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockInlineChildrenView/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockInlineChildrenView"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockInlineChildrenView",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockInlineChildrenView",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockInlineChildrenView",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockInlineDetailCont",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-edit-block--Long-cards_container\">\n   <div class=\"vlc-slds-edit-block--cards_images\">\n       <slds-svg-icon sprite=\"control.propSetMap.svgSprite\" extra-classes=\"'vlc-slds-edit-block--Long-icon'\" icon=\"control.propSetMap.svgIcon\" size=\"'large'\" ng-if=\"showDefaultEditBlockImage(control)\"></slds-svg-icon>\n       <slds-svg-icon sprite=\"icon.svgSprite\" icon=\"icon.svgIcon\" size=\"'large'\" extra-classes=\"'vlc-slds-edit-block--Long-icon'\" ng-repeat='icon in control.propSetMap.valueSvgMap' ng-if=\"control.propSetMap.elementName !=='' && control.response[control.propSetMap.elementName] == icon.value\"> </slds-svg-icon>\n    </div>\n\n    <div class=\"vlc-slds-edit-block--cards_controls-container\">\n        <div ng-repeat='child in children = control.children' \n                ng-if='child.eleArray[0].propSetMap.hide||(!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this))'\n                ng-hide='!child.displayInView'\n                ng-init=\"child.blockIndex = control.index\">\n            <ng-form name=\"editblockform\"\n                ng-include=\"'vlcEditBlockInnerForm.html'\" style=\"display: block !important; padding-bottom: 0;\">\n            </ng-form>\n        </div>\n    </div>\n\n    <div class=\"slds-edit-block_inline-action-container\">\n        <span class=\"slds-required vlc-asterix icon-v-asterix vlc-editblock-asterix\" ng-if=\"isEditBlockRecordInvalid($index, this)\"></span>\n\n        <slds-svg-icon sprite=\"'utility'\"\n            icon=\"'close'\"\n            extra-classes=\"'slds-editblock_delete'\"\n            size=\"'small'\"\n            ng-if=\"control.propSetMap.allowDelete\"\n            ng-click=\"removeItemEditBlock(child, $index, this); $event.stopPropagation();\"></slds-svg-icon>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockInlineDetailCont",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockInlineDetailCont/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockInlineDetailCont"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockInlineDetailCont",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockInlineDetailCont",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockInlineDetailCont",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockInnerForm",
+                        "%vlocity_namespace%__HTML__c": "<child class=\"slds-truncate vlc-slds-edit-block--child\" noformattereb=\"true\" style=\"display:none\" ng-hide='child.eleArray[0].propSetMap.hide'></child>\n<span ng-hide='!child.displayInView' ng-if=\"child.eleArray[0].type !== 'Password'\">\n\n    <span ng-if=\"((child.eleArray[0].type === 'Currency') || ((child.eleArray[0].type === 'Formula' || child.eleArray[0].type === 'Aggregate') && (child.eleArray[0].propSetMap.dataType === 'Currency'))) && !(child.response===null || child.response==='')\">\n        {{::(bpTree.oSCurrencySymbol || child.eleArray[0].propSetMap.currencySymbol)}}\n    </span>\n    {{editBlockDisplayValue(child, this)}}\n</span>\n<input type=\"password\" class=\"vlc-slds-edit-block__form--password\" ng-hide='!child.displayInView' ng-if=\"child.eleArray[0].type === 'Password'\" value=\"{{child.response}}\" readonly>\n<span  ng-hide='!child.displayInView' ng-if=\"child.eleArray[0].type === 'Headline' || child.eleArray[0].type === 'Text Block'\" ng-bind-html='child.eleArray[0].propSetMap.value'></span>\n{{((child.eleArray[0].type === 'Checkbox' && child.eleArray[0].name == control.selectCheckBox)?set.checkboxInd=$index:null);\"\"}}",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockInnerForm",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockInnerForm/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockInnerForm"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockInnerForm",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockInnerForm",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockInnerForm",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockLongCards",
+                        "%vlocity_namespace%__HTML__c": "<!-- vlcEditBlockLongCards.html -->\n<div class='slds-grid slds-wrap slds-grid--pull-padded vlc-slds-edit-block--main-container' ng-init=\"isLongCard=true\">\n    {{set = ((child.eleArray[0].children.length === 0)?(child.eleArray[0].childrenC):(child.eleArray[0].children));\"\"}}\n    <div class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12\">\n        <div class=\"vlc-slds-edit-block__label\">\n            {{::child.eleArray[0].propSetMap.label}}\n        </div>\n        <div class=\"vlc-slds-edit-block__gaction_container\">\n            <span ng-repeat=\"action in child.eleArray[0].propSetMap.gActions\" ng-include=\"'vlcEditBlockGlobalBtn.html'\"></span>\n        </div>\n    </div>\n    <div class=\"slds-card slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12\"\n            id ='{{::control.name}}'\n            ng-repeat=\"control in child.eleArray\"\n            ng-style=\"control.childrenC !== undefined && {'display':'none'}\"\n            ng-if=\"set.length > 0\">\n        <div class=\"vlc-slds-edit-block--Long-cards\">\n            <form name=\"vlcEditBlockFormMain_{{$index}}\" \n                  ng-init=\"control.selectCheckBox = child.eleArray[0].propSetMap.selectCheckBox; initEditBlockControlLimit(control, 2);\" \n                  ng-include=\"'vlcEditBlockDetailCont.html'\">\n            </form>\n        </div>\n    </div>\n    <div class=\"slds-card slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12\" ng-include=\"'vlcEditBlockCardAddNew.html'\"></div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockLongCards",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockLongCards/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockLongCards"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockLongCards",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockLongCards",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockLongCards",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEditBlockModal",
+                        "%vlocity_namespace%__HTML__c": "<form modalmove name='loopform' class=\"slds-modal slds-fade-in-open slds-modal--medium vloc-modal vloc-modal-slds-slide-up vlc-slds-edit-block--modal {{vlocSlideCustomClass}} vlc-slds-edit-block--modal_bottom\" ng-init=\"isModalLoaded = !isModalLoaded\" vlc-slds-edit-block-modal vlc-slds-disable-auto-complete=\"testing\">\n    <div class=\"slds-modal__container vloc-modal-container {{vlocSlideCustomClass}}-container\" role='dialog' aria-labelledby='modalLabelId'>\n        <header class=\"slds-modal__header slds-is-relative\" ng-show=\"vlocSlideHeader\">\n            <h1 id='modalLabelId' class='modal-title'>{{::OmniEditBlockModalTitle}}</h1>\n        </header>\n        <div class=\"slds-modal__content slds-p-around--medium vloc-modal-content slds-is-relative\">\n            <div class=\"slds-grid slds-wrap slds-grid--pull-padded\">\n                <child vlc-slds-change-inline-templates=\"::child.eleArray[0].propSetMap.showInputWidth\" noformatterebmodal=\"true\" ng-repeat='child in ::children = control.children'\n                    class=\"slds-size--1-of-1 slds-medium-size--{{child.eleArray[0].propSetMap.controlWidth}}-of-12\"\n                    ng-show='::!child.eleArray[0].propSetMap.hide'                 \n                    ng-if='(child.eleArray[0].propSetMap.hide && child.eleArray[0].type!==\"Formula\")||(!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this))'>\n                </child>\n            </div>\n        </div>\n        <footer class=\"slds-modal__footer\" ng-show=\"vlocSlideFooter\">\n            <div class='vlc-button-pull-right'>\n                <button type=\"button\" class='slds-button slds-button--neutral' ng-click='closeModal($event)'>{{::OmniConfigProdModalCancel}}</button>\n                <button type=\"button\" class='slds-button slds-button--neutral' ng-click='saveEditChanges($event)' ng-disabled=\"loopform.$invalid\">{{::OmniConfigProdModalOk}}</button>\n            </div>\n            <div modalresize class='vlc-expand-editblock-modal'  prop='min-height'></div>\n        </footer>\n    </div>\n</form>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEditBlockModal",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEditBlockModal/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEditBlockModal"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockModal",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEditBlockModal",
+            "VlocityDataPackName": "omniLightning-vlcEditBlockModal",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEmail",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n                <input id='{{::control.name}}'\n                       type='email'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       class='slds-input form-control'\n                       name='loopname'\n                       ng-init='init(this, control)'\n                       ng-model='control.response'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern}}'\n                       vlc-slds-val-checker=\"response\" />\n\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n                \n            </div>\n\n            <!-- OMNI-1718 -->\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'email'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n            \n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEmail",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEmail/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEmail"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEmail",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEmail",
+            "VlocityDataPackName": "omniLightning-vlcEmail",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEmbeddedArticle",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-knowledge--container\" ng-if='child.articleTitle' ng-init=\"visible=true\"><!-- article when embedded in omniscript -->\n\n    <h3 class='vlc-slds-knowledge--header' ng-click=\"visible = !visible\" visible=\"{{visible}}\">\n\n        <a href=\"{{child.articleLink}}\" target=\"_blank\">{{child.articleTitle}}</a>\n\n        <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'chevrondown'\"\n                           size=\"'small'\"\n                           extra-classes=\"'vlc-slds-collapse slds-button__icon slds-button__icon--large'\">\n        </slds-svg-icon>\n\n        <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'chevronup'\"\n                           size=\"'small'\"\n                           extra-classes=\"'vlc-slds-expand slds-button__icon slds-button__icon--large'\">\n        </slds-svg-icon>\n\n    </h3>\n\n    <div class='vlc-slds-knowledge--body' ng-show=\"visible\">\n        <p ng-bind-html='child.articleBody'></p>\n    </div>\n\n    <div ng-click=\"child.articleTitle='';child.articleBody='';child.articleLink=''\">\n\n        <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'action'\"\n                           icon=\"'remove'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-icon_container slds-button__icon slds-button__icon--large'\">\n        </slds-svg-icon>\n\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEmbeddedArticle",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEmbeddedArticle/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEmbeddedArticle"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEmbeddedArticle",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEmbeddedArticle",
+            "VlocityDataPackName": "omniLightning-vlcEmbeddedArticle",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcEmpty",
+                        "%vlocity_namespace%__HTML__c": "omniLightning-vlcEmpty.html",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcEmpty",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcEmpty/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcEmpty"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEmpty",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcEmpty",
+            "VlocityDataPackName": "omniLightning-vlcEmpty",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcErrorBlocProdConf",
+                        "%vlocity_namespace%__HTML__c": "<div class='error-field' ng-show='loopform.loopname.$error' ng-hide='loopform.loopname.$pristine'>\n    <i class='icon-v-close-circle vlc-error-input form-control-feedback' ng-show='invalidForm'></i>\n    <small ng-show='loopform.loopname.$error.required' class='prop-error form-control-feedback'>{{::OmniConfigProdRequired}}</small>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcErrorBlocProdConf",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcErrorBlocProdConf/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcErrorBlocProdConf"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcErrorBlocProdConf",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcErrorBlocProdConf",
+            "VlocityDataPackName": "omniLightning-vlcErrorBlocProdConf",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcErrorSubBlock",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-error-block\">\n\n  <div class='error'\n       ng-show='control.srvErr'>\n    <small class='description'>{{control.srvErr}}</small>\n  </div>\n  <div class='error'\n       ng-class='bpService.isMobileBrowser ? \"slds-grid slds-grid_vertical slds-p-top--xx-small\" : \"\"'\n       ng-if='(loopform.loopname.$error && loopform.loopname.$dirty) || (loopform.timectrl.$error && loopform.timectrl.$dirty)'>\n    <small ng-show='loopform.loopname.$error.minlength'\n           class='description'>{{::customLabels.OmniMinLength}} {{::control.propSetMap.minLength}}</small>\n    <small ng-show='loopform.loopname.$error.maxlength'\n           class='description'>{{::customLabels.OmniMaxLength}} {{::control.propSetMap.maxLength}}</small>\n    <small ng-show=\"loopform.loopname.$error.disabledDate\"\n           class=\"description\">{{::customLabels.OmniDateDisabledDay}}</small>\n    <span ng-if='loopform.loopname.$error.min || loopform.loopname.$error.max'>\n      <small ng-if='loopform.loopname.$error.min && control.propSetMap.minDate'\n             class='description'>\n        {{::customLabels.OmniDateMin}} {{sldsDatePicker.getOption('minDate','formatDisplay')}}\n      </small>\n      <small ng-if='loopform.loopname.$error.max && control.propSetMap.maxDate'\n             class='description'>\n        {{::customLabels.OmniDateMax}} {{sldsDatePicker.getOption('maxDate','formatDisplay')}}\n      </small>\n      <small ng-show='control.propSetMap.minTime || control.propSetMap.maxTime'\n             class='description'>\n        {{::customLabels.OmniTimeMinMax}} {{::control.propSetMap.minTime}} - {{::control.propSetMap.maxTime}}\n      </small>\n      <span ng-if='!control.propSetMap.minTime && !control.propSetMap.maxTime && !control.propSetMap.minDate && !control.propSetMap.maxDate'>\n        <small ng-show='loopform.loopname.$error.min'\n               class='description'>{{::customLabels.OmniMinValue}} {{::control.propSetMap.min}}</small>\n        <small ng-show='loopform.loopname.$error.max'\n               class='description'>{{::customLabels.OmniMaxValue}} {{::control.propSetMap.max}}</small>\n      </span>\n    </span>\n    <small ng-show='loopform.loopname.$error.minInt'\n           class='description'>{{::customLabels.OmniMinInt}}</small>\n    <small ng-show='loopform.loopname.$error.maxInt'\n           class='description'>{{::customLabels.OmniMaxInt}}</small>\n    <small ng-show='loopform.loopname.$error.required'\n           class='description'>{{::customLabels.OmniRequired}}</small>\n    <small ng-show='loopform.loopname.$error.pattern'\n           class='description'>{{::control.propSetMap.ptrnErrText}}</small>\n    <small ng-show=\"loopform.loopname.$error.parse && control.propSetMap.dateFormat\"\n           class=\"description\">{{::customLabels.OmniInvalidParseFormat}} {{::control.propSetMap.dateFormat}}</small>\n    <small ng-show=\"(loopform.loopname.$error.parse || loopform.timectrl.$error.parse) && control.propSetMap.timeFormat\"\n           class=\"description\">{{::customLabels.OmniInvalidParseFormat}} {{::control.propSetMap.timeFormat}}</small>\n  </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcErrorSubBlock",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcErrorSubBlock/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcErrorSubBlock"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcErrorSubBlock",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcErrorSubBlock",
+            "VlocityDataPackName": "omniLightning-vlcErrorSubBlock",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcFile",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-file-picker'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right\">\n\n            <div class=\"vlc-control-wrapper vlc-slds__border vlc-slds__border--primary\" help=\"{{control.propSetMap.help}}\">\n\n                <div class=\"vlc-slds-transparent\">\n                \n                    <input type='file'\n                           id=\"{{::control.name}}\"\n                           name='loopname'\n                           ng-model='control.response'\n                           class='slds-input'\n                           multiple app-filereader />\n\n                </div>\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-show='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n            \n            </div>\n\n            <!-- OMNI-1718 -->\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'upload'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n            <!-- list that populates the uploaded files -->\n            <ul class=\"slds-list--vertical vlc-slds-list--vertical\" ng-show='control.response.length'>\n                <li ng-repeat='file in control.response' class='slds-list__item slds-input-has-icon slds-input-has-icon--right'>\n\n                    <span>{{file.webkitRelativePath || file.filename}}\n                        &nbsp;(\n                        <span ng-switch='file.size > 1024*1024'>\n                            <span ng-switch-when='true'>{{file.size / 1024 / 1024 | number:2}} MB</span>\n                            <span ng-switch-default>{{file.size / 1024 | number:2}} kB</span>\n                        </span>\n                        )\n                    </span>\n\n                    <slds-button-svg-icon sprite=\"'utility'\" icon=\"'delete'\" size=\"'large'\"\n                                          ng-click='removeFile(this, control, $index);$event.preventDefault();'\n                                          ng-show='isFileRemovable(this, control, $index)'>\n                    </slds-button-svg-icon>\n\n                </li>\n            </ul>\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcFile",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcFile/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcFile"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFile",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFile",
+            "VlocityDataPackName": "omniLightning-vlcFile",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcFilterBlock",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex slds-clearfix vlc-slds-block vlc-slds-filter-block'\n             id =\"{{::control.name}}\"\n             ng-repeat='control in child.eleArray' >\n\n        <div class=\"slds-form-element__control\">\n\n            <label vlc-slds-toggle=\"toggle\"\n                   class=\"slds-form-element__label slds-clearfix\"\n                   ng-if=\"control.propSetMap.label\">\n                \n                <slds-svg-icon aria-hidden=\"true\"\n                               sprite=\"'utility'\"\n                               icon=\"'chevrondown'\"\n                               size=\"'small'\"\n                               extra-classes=\"'vlc-slds-collapse slds-button__icon slds-button__icon--large'\">\n                </slds-svg-icon>\n\n                <slds-svg-icon aria-hidden=\"true\"\n                               sprite=\"'utility'\"\n                               icon=\"'chevronup'\"\n                               size=\"'small'\"\n                               extra-classes=\"'vlc-slds-expand slds-button__icon slds-button__icon--large'\">\n                </slds-svg-icon>\n\n                <div class=\"slds-form-element__label--toggleText\">\n                    {{::control.propSetMap.label}}\n                </div>\n                \n            </label>\n\n            <!-- block withing the main grid  ng-hide hides hthe block by default-->\n            <div class='slds-size--1-of-1 ng-hide'\n                 vlc-slds-toggle-elem='visible'>\n\n                <div  class=\"slds-grid slds-wrap slds-grid--pull-padded\">\n                    <child class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--12-of-12 vlc-slds-filter__item\"\n                           ng-repeat='child in ::children = control.children'\n                           ng-show='::!child.eleArray[0].propSetMap.hide'\n                           vlc-slds-change-inline-templates=\"::child.eleArray[0].propSetMap.showInputWidth\"\n                           ng-if='child.eleArray[0].propSetMap.hide||(!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this))'>\n                    </child>\n                </div>\n\n                <ng-form class=\"slds-size--1-of-1 vlc-slds-select--filter-button slds-clearfix\">\n                        <button type=\"button\"\n                                class=\"slds-button slds-button--neutral slds-float--left\" \n                                ng-disabled='false'\n                                ng-click='buttonClick(bpTree.response, control, this)'>\n                            {{::control.propSetMap.buttonLabel}}\n                        </button>\n                </ng-form>\n\n            </div>\n\n        </div>\n        \n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcFilterBlock",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcFilterBlock/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcFilterBlock"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFilterBlock",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFilterBlock",
+            "VlocityDataPackName": "omniLightning-vlcFilterBlock",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcFilterItemMSelect",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-multiSelect-control vlc-slds-multiSelect--filter-control'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control\">\n\n            <div>\n\n                <!-- always horizontal -->\n                <ul class=\"slds-form-element\" horizontalMode='true'>\n                    <li class=\"slds-form-element__control\" ng-repeat='option in control.propSetMap.options track by option.name'>\n                        <label class=\"slds-checkbox\">\n                            <input id='{{::control.name}}'\n                                   type='checkbox'\n                                   ng-model='option.selected'\n                                   ng-init='init(this, control)'\n                                   ng-if='ngInitValidation(this, control)'\n                                   ng-change='onMultiSelect(this, control, option)' />\n\n                            <span class=\"slds-checkbox--faux\"></span>\n                            <span class=\"slds-form-element__label\">{{::option.value}}</span>\n\n                        </label>\n\n                    </li>\n                </ul>\n\n            </div>\n\n            <small class='helpText description'>{{::control.propSetMap.helpText}}</small>\n\n\n            <div class='vlc-slds-error-block'>\n                <div class='error' ng-show='loopform.$error' ng-hide='loopform.$pristine'>\n                    <small ng-show='loopform.$error.required' class='description'>{{::customLabels.OmniRequired}}</small>\n                </div>\n                \n                <div class='error' ng-show='control.srvErr'>\n                    <small ng-show='control.srvErr' class='description'>{{control.srvErr}}</small>\n                </div>\n\n            </div>\n            \n        </div>\n\n        <label class='slds-form-element__label vlc-slds-label__flex'>{{::control.propSetMap.label}}\n\n            <span class='vlc-asterix icon-v-asterix'\n                  ng-show='control.req'>\n            </span>\n            <div vlc-slds-include=\"vlcLabelController.html\"></div>\n            \n        </label>\n\n    </ng-form>\n\n</div>\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcFilterItemMSelect",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcFilterItemMSelect/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcFilterItemMSelect"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFilterItemMSelect",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFilterItemMSelect",
+            "VlocityDataPackName": "omniLightning-vlcFilterItemMSelect",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcFilterItemSelect",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-select-control vlc-slds-select--filter-control'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right'>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n            <div class=\"slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary\">\n\n                <span class=\"vlc-slds-form-element__center--horizontal\">\n                    {{control.response.value}}\n                </span>\n\n                <!-- this select control should not be visible to the user -->\n                <select id='{{::control.name}}'\n                        style='opacity:-1'\n                        chainup=\"test\"\n                        name='loopname'\n                        ng-model='control.response'\n                        class='slds-select'\n                        vlc-slds-val-watch=\"response\"\n                        vlc-slds-val-checker=\"response\"\n                        ng-init='init(this, control)'\n                        ng-show='ngInitValidation(this, control)'\n                        ng-options='sOption as sOption.value for sOption in control.propSetMap.options track by sOption.name'>\n\n                    <option value=\"\">{{::customLabels.OmniClear}}</option>\n\n                </select>\n\n                <label class='slds-form-element__label'>{{::control.propSetMap.label}}\n\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n\n                </label>\n                \n            </div>\n            <small class='helpText description'>{{::control.propSetMap.helpText}}</small>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcFilterItemSelect",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcFilterItemSelect/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcFilterItemSelect"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFilterItemSelect",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFilterItemSelect",
+            "VlocityDataPackName": "omniLightning-vlcFilterItemSelect",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcFormula",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-slds-formula vlc-slds-omniscript-currency'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-col\"\n             ng-hide=\"::control.propSetMap.hide\">\n\n            <div vlc-slds-include=\"vlcLabelController.html\"></div>\n            <span class='vlc-slds-currency-symbol'\n                  ng-if=\"control.propSetMap.dataType == 'Currency'\">{{::(bpTree.oSCurrencySymbol || control.propSetMap.currencySymbol)}}</span>\n\n            <div class=\"slds-form-element__control\">\n                <div class=\"vlc-control-wrapper\">\n\n                    <input id='{{::control.name}}'\n                           type='text'\n                           name='loopname'\n                           ng-model='control.response'\n                           class='slds-input'\n                           ng-if=\"control.propSetMap.dataType != 'Number' &&\n                                  control.propSetMap.dataType != 'Date' &&\n                                  control.propSetMap.dataType != 'Currency' &&\n                                  performCalculation(this, control)\"\n                           vlc-slds-readonly=\"test\" />\n\n                    <input id='{{::control.name}}'\n                           type='text'\n                           name='loopname'\n                           ng-if=\"control.propSetMap.dataType == 'Currency' && performCalculation(this, control)\"\n                           ng-model='control.response'\n                           class='slds-input vlc-slds-currency'\n                           via-mask='::control.propSetMap.mask'\n                           vlc-slds-readonly=\"test\"\n                           autocomplete=\"off\" />\n\n                    <input id='{{::control.name}}'\n                           type='text'\n                           ng-if=\"control.propSetMap.dataType == 'Date' && performCalculation(this, control)\"\n                           class='slds-input'\n                           name='loopname'\n                           name='date'\n                           date-format=\"{{control.propSetMap.dateFormat}}\"\n                           value=\"{{control.response | date:control.propSetMap.dateFormat}}\"\n                           vlc-slds-readonly=\"test\"\n                           vlc-disable-auto-complete=\"off\" />\n\n\n                    <input id='{{::control.name}}'\n                           type='text'\n                           name='loopname'\n                           ng-model='control.response'\n                           class='slds-input'\n                           ng-if=\"control.propSetMap.dataType == 'Number' && performCalculation(this, control)\"\n                           via-mask='::control.propSetMap.mask'\n                           vlc-slds-readonly=\"test\"\n                           autocomplete=\"off\" />\n\n\n                    <label class='slds-form-element__label'>{{::control.propSetMap.label}}\n                        <span class='vlc-asterix icon-v-asterix'\n                              ng-if='control.req'>\n                        </span>\n                    </label>\n\n                    <small class='helpText description'>\n                        {{::control.propSetMap.helpText}}\n                    </small>\n\n                </div>\n\n                <!-- this is the error block -->\n                <div ng-include=\"::errHTMLId\"></div>\n\n            </div>\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcFormula",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcFormula/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcFormula"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFormula",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcFormula",
+            "VlocityDataPackName": "omniLightning-vlcFormula",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcGeolocation",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n\n        <div class=\"slds-form-element__control\">\n\n            <!-- add block label -->\n            <label class=\"slds-form-element__label slds-clearfix\"\n                   ng-click='getLocation(this, control)' \n                   ng-if=\"control.propSetMap.label\">\n\n                <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'location'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n                </slds-svg-icon>\n\n                {{::control.propSetMap.label}}\n\n            </label>\n\n            <div class=\"slds-col\">\n\n                <!-- css for the leaflet plugin are included in the main scss file -->\n                <leaflet ng-if='control.response'\n                         defaults=\"{scrollWheelZoom: false,\n                                    trackResize: true}\"\n                         markers=\"control.response\"\n                         vlc-slds-event-tester=\"test\"\n                         center='control.center'>\n                </leaflet>\n\n            </div>\n\n        </div>\n\n    </ng-form>\n\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcGeolocation",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcGeolocation/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcGeolocation"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcGeolocation",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcGeolocation",
+            "VlocityDataPackName": "omniLightning-vlcGeolocation",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcHCart",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-cart-container slds-size--1-of-1\"\n     ng-init=\"showCurrentSection=false;showCart = false;setJSDataPreprocessor(vlcPC, baseCtrl.createCartHierarchy)\">\n\n    <!-- please uploading -->\n    <div class=\"vlc-slds-cart-container-top-panel\">\n        <div class='vlc-slds-cart-toggle' ng-click=\"showCart = !showCart;\"></div>\n        <div class=\"slds-form-element__label slds-form-element-left_label\">\n            <span class=\"slds-form-element-left_label--items\">{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]].length ? bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]].length : 0}} Items in Cart</span>\n        </div>\n\n        <div class=\"slds-form-element-right_label\">\n            <div class=\"slds-form-element__label\" style='margin-right: 2em;'>\n                <span class='slds-form-element__label_name'>{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].OneTimeSum | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}</span>\n                <span class='slds-form-element__label_amount'>{{::customLabels.OmniOneTime}}</span>\n            </div>\n    \n            <div class=\"slds-form-element__label\" style='margin-right: .75rem;'>\n                <span class='slds-form-element__label_name'>{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].RecurringSum | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}</span>\n                <span class='slds-form-element__label_amount'>{{::customLabels.OmniMonthly}}</span>\n            </div>\n        </div>\n   </div>\n   <div class=\"vlc-slds-cart-container-bottom-panel\" ng-show=\"showCart\">\n\n        <!-- please upload -->\n        <section class=\"vlc-slds-hCart-section\">\n            <div class=\"slds-form-element-left_label--text\">\n                <span>{{::vlcPC.label}}</span>\n            </div>\n            <div class=\"vlc-slds-line-item\"\n                 ng-repeat=\"i in bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]] | filterMultiple:{provisioningStatus:['New','Pending','Changed']}\"\n                 ng-include=\"'vlcTopCartHierarchy.html'\">\n            </div>\n\n        </section>\n\n        <section class=\"vlc-slds-hCart-section\">\n            <div class=\"slds-form-element-left_label--text\" ng-if=\"(bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]] | filterMultiple:{provisioningStatus:['Active','Inactive']}).length > 0\" style='border-top: 1px solid #D8DDE6;' >\n                <span>{{::customLabels.OmniCurrentSetup}}</span>\n            </div>\n            <div class=\"vlc-slds-line-item\"\n                 ng-repeat=\"i in bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]] | filterMultiple:{provisioningStatus:['Active','Inactive']}\"\n                 ng-include=\"'vlcTopCartHierarchy.html'\">\n            </div>\n\n        </section> \n\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcHCart",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcHCart/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcHCart"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHCart",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHCart",
+            "VlocityDataPackName": "omniLightning-vlcHCart",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcHCartHyb",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-cart-container slds-size--1-of-1\" ng-class=\"{'vlc-slds-cart-vdf-bottom-aligned':reRenderAttributesForm}\"\n     ng-init=\"showCurrentSection=false;showCart = false; prodHierLevel = 0; showErrorIcon = false; canOrderCheckout = false;\" ng-controller='hybridCPQCartController'>\n\n    <div id=\"{{bpTree.pcId[vlcPC.pcIndex]}}_Top\" class=\"vlc-slds-cart-container-top-panel\" vlc-prevent-parent-scroll>\n        <div class='vlc-slds-cart-toggle' ng-click=\"showCart = !showCart; (showCart == false ? reRenderAttributesForm = null : reRenderAttributesForm);\"></div>\n        <div class=\"slds-form-element__label slds-form-element-left_label\"> \n            <span class=\"slds-form-element-left_label--items\">{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]]['records'].length ? bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]]['records'].length : 0}} {{::customLabels.OmniCpqItemsInCart}} <span class=\"slds-form-element-left_label--items_more\" ng-if=\"bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].actions\">({{::customLabels.OmniCpqItemsInCartMore}})</span></span>\n            <span ng-show=\"showErrorIcon\">\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'warning'\" extra-classes=\"'vlc-slds-cart-warning-icon'\" size=\"'small'\"></slds-svg-icon>\n            </span>\n        </div>\n\n        <div class=\"slds-form-element-right_label\">\n            <div class=\"slds-form-element__label\" style='margin-right: 2em;'>\n                <span class='slds-form-element__label_name'>{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]+'_Top'][0].records[0].details.records[0]['EffectiveOneTimeTotal__c'] | currency:bpTree.cpqCurrencySymbol | numFormatFilter }}</span>\n                <span class='slds-form-element__label_amount'>{{::customLabels.OmniOneTime}}</span>\n            </div>\n\n            <div class=\"slds-form-element__label\" style='margin-right: .75rem;'>\n                <span class='slds-form-element__label_name'>{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]+'_Top'][0].records[0].details.records[0]['EffectiveRecurringTotal__c'] | currency:bpTree.cpqCurrencySymbol | numFormatFilter }}</span>\n                <span class='slds-form-element__label_amount'>{{::customLabels.OmniMonthly}}</span>\n            </div>\n        </div>\n   </div>\n   <div class=\"vlc-slds-cart-container-bottom-panel\" ng-show=\"showCart\" vlc-prevent-parent-scroll>\n\n        <!-- please upload -->\n        <section class=\"vlc-slds-hCart-section\">\n            <div class=\"slds-form-element-left_label--text\">\n                <span>{{::vlcPC.label}}</span>\n            </div>\n            <div class=\"vlc-slds-line-item\"\n                 ng-repeat=\"i in bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]]['records'] | filterProductsItems:{ProvisioningStatus__c:[nsPrefix,'New','Pending','Changed']}\"\n                 ng-include=\"'vlcTopCartHierarchyHyb.html'\" ng-init=\"gParentId = i.Id.value\">\n            </div>\n\n        </section>\n\n       <section class=\"vlc-slds-hCart-section\">\n            <div class=\"slds-form-element-left_label--text\" ng-if=\"(bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]]['records'] | filterProductsItems:{ProvisioningStatus__c:[nsPrefix,'Active','Inactive']}).length > 0\" style='border-top: 1px solid #D8DDE6;' >\n                <span>{{::customLabels.OmniCurrentSetup}}</span>\n            </div>\n            <div class=\"vlc-slds-line-item\"\n                 ng-repeat=\"i in bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]]['records'] | filterProductsItems:{ProvisioningStatus__c:[nsPrefix,'Active','Inactive']}\"\n                 ng-include=\"'vlcTopCartHierarchyHyb.html'\" ng-init=\"gParentId = i.Id.value\">\n            </div>\n\n        </section>\n        <div class='vlc-slds-loadmore-cartItems-link' \n             ng-if=\"bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].actions\">\n            <a title=\"Load More\"\n                ng-click=\"baseCtrl.loadMoreCartItems(bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].actions, this)\">\n                {{::customLabels.OmniSelItemLoadMore}}\n           </a>\n        </div>\n\n    </div>\n    <div ng-if=\"reRenderAttributesForm && showCart\" class=\"vlc-slds-vdf-attribute-config\">\n        <div class=\"vlc-slds--vdf-attribute-name\">\n            <span>{{configItemObject.Name}}</span>\n        </div>\n        <button class=\"slds-button vlc-slds-button--vdf-attribute-close\" ng-click=\"closeAttributePanel()\">\n            <slds-button-svg-icon sprite=\"'utility'\" size=\"'large'\" icon=\"'close'\"></slds-button-svg-icon>\n            <span class=\"slds-assistive-text\">Close</span>\n        </button>\n        <div class=\"vlc-slds-vdf-attribute-config__panel\" vlc-prevent-parent-scroll>\n            <div ng-if=\"configAttributeObj && configAttributeObj.length > 0\">\n                <vlocity-dynamic-form name=\"productconfig\" form-on-change=\"getModifiedAttributes(e, null, true);\"\n                    ng-model=\"configAttributeObj\" map-object=\"{{mapVDFObject()}}\" class=\"slds-form--stacked\" form-auto-save=\"true\">\n                </vlocity-dynamic-form>\n            </div>\n            <div ng-if=\"configAttributeObj && configAttributeObj.length === 0\" class=\"vlc-slds-vdf-attribute-config__noconfigattr-msg\">\n                {{::customLabels.OmniNoConfigAttrMsg}}\n            </div>\n<!-- \n            <div class=\"slds-m-top--x-large\" ng-init=\"showInfo = true\">\n                <div class=\"slds-section\" ng-class=\"{'slds-is-open': showInfo, 'slds-is-closed': !showInfo}\">\n                    <h3 href=\"javascript:void(0);\" class=\"slds-section__title\" ng-click=\"showInfo = !showInfo\">\n                        <button type=\"button\" class=\"slds-button slds-section__title-action\">\n                            <slds-button-svg-icon sprite=\"'utility'\" icon=\"'switch'\" extra-classes=\"'slds-section__title-action-icon slds-button__icon--left'\"></slds-button-svg-icon>\n                            Additional Setting\n                        </button>\n                     </h3>\n                    <div class=\"slds-section__content\">\n                        <div class=\"slds-form--stacked\">\n                            <div class=\"slds-form-element\" ng-repeat=\"lookupItem in lookupItemList\">\n                                <span class=\"slds-form-element__label slds-text-body--regular\">{{::lookupItem.label}}</span>\n                                <div class=\"slds-form-element__control slds-input-has-fixed-addon\">\n                                    <span class=\"slds-form-element__static\">{{lookupItem.displayValue}}</span>\n                                    <span class=\"slds-form-element__addon\">\n                                        <button type=\"button\" class=\"slds-button slds-p-horizontal--xx-small\" ng-click=\"launchLineItemLookup(lookupItem)\">\n                                            <slds-button-svg-icon sprite=\"'utility'\" icon=\"'edit'\"></slds-button-svg-icon>\n                                            <span class=\"slds-assistive-text\">Display Lookup Values</span>\n                                        </button>\n                                    </span>\n                                </div>\n                            </div>\n                            <div class=\"slds-form-element\" ng-repeat=\"editableItem in editableItemList\">\n                                <label class=\"slds-form-element__label\">{{::editableItem.label}}<span ng-if=\"editableItem.dataType === 'PERCENT'\"> %</span></label>\n                                <div class=\"slds-form-element__control\">\n                                    <input ng-if=\"::editableItem.dataType === 'STRING'\" type='text' class=\"slds-input\" ng-model='editableItem.value' ng-model-options=\"{ updateOn: 'default blur', debounce: { 'default': 800, 'blur': 0 } }\"\n                                    ng-change=\"refreshEditableField(editableItem , true);\"/>\n                                    <input ng-if=\"::(editableItem.fieldName === 'Quantity' || editableItem.dataType === 'CURRENCY' || editableItem.dataType === 'PERCENT')\" type='number' step='any' class=\"slds-input\" ng-model='editableItem.value'  ng-model-options=\"{ updateOn: 'default blur', debounce: { 'default': 800, 'blur': 0 } }\"\n                                        ng-change=\"refreshEditableField(editableItem, true);\"/>\n                                    <span class=\"error-msg\">{{editableItem.qtyValidationMessage}}</span>\n                                </div>\n                            </div>\n                         </div>\n                    </div>\n                </div>\n            </div>\n             -->\n        </div>\n    </div>\n\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcHCartHyb",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcHCartHyb/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcHCartHyb"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHCartHyb",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHCartHyb",
+            "VlocityDataPackName": "omniLightning-vlcHCartHyb",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcHKnowledge",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col\" ng-init=\"showCart = true;\">\n    <ng-include class=\"slds-col\" src=\"'vlcVKnowledgeAux.html'\"/>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcHKnowledge",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcHKnowledge/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcHKnowledge"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHKnowledge",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHKnowledge",
+            "VlocityDataPackName": "omniLightning-vlcHKnowledge",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcHeadline",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-rte'\n             id=\"{{::control.name}}\"\n             ng-repeat='control in child.eleArray' >\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control\">\n            <div vlc-bind-html='control.propSetMap.value' ng-if='refresh(control)'></div>\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcHeadline",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcHeadline/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcHeadline"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHeadline",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHeadline",
+            "VlocityDataPackName": "omniLightning-vlcHeadline",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcHorMulti-selectItem",
+                        "%vlocity_namespace%__HTML__c": "<ul class=\"slds-form-element\" horizontalMode='{{false !== control.propSetMap.horizontalMode}}'>\n    <li class=\"slds-form-element__control\" ng-repeat='option in getOptions(control, this.$parent) track by option.name'>\n        <label class=\"slds-checkbox\" ng-class=\"{'itemSelected': option.selected}\" >\n            <input id='{{::control.name}}'\n                   ng-disabled='control.ro'\n                   type='checkbox'\n                   ng-model='option.selected'\n                   vlc-slds-mu-val-checker=\"response\"\n                   ng-change='onMultiSelect(this, control, option)'/> \n\n            <span ng-if='control.propSetMap.horizontalMode != \"image\"' class=\"slds-checkbox--faux\"></span>\n            <span ng-if='control.propSetMap.horizontalMode != \"image\"' class=\"slds-form-element__label\">{{option.value}}</span>\n            <span ng-if='control.propSetMap.horizontalMode == \"image\"' ng-include=\"'vlcDisplayOption.html'\" class=\"slds-checkbox--faux_container\"></span>\n        </label>\n    </li>\n</ul>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcHorMulti-selectItem",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcHorMulti-selectItem/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcHorMulti-selectItem"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHorMulti-selectItem",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcHorMulti-selectItem",
+            "VlocityDataPackName": "omniLightning-vlcHorMulti-selectItem",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcImage",
+                        "%vlocity_namespace%__HTML__c": "<div  class='slds-col--padded slds-size--1-of-1'\n      ng-if='!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this)'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-file-picker'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right\">\n\n            <div class=\"vlc-control-wrapper vlc-slds__border vlc-slds__border--primary\" help=\"{{::control.propSetMap.help}}\">\n\n                <div class=\"vlc-slds-transparent\">\n                    <input type='file'\n                           id=\"{{::control.name}}\"\n                           name='loopname'\n                           ng-model='control.response'\n                           class='slds-input form-control'\n                           vlc-slds-file-select=\"{{::control.propSetMap.multiple}}\"\n                           app-filereader accept=\"image/*\" />\n\n                </div>\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'image'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n\n            <div ng-if='control.response.length'>\n                <div ng-include=\"'vlcImageAux.html'\"></div>\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcImage",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcImage/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcImage"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcImage",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcImage",
+            "VlocityDataPackName": "omniLightning-vlcImage",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcImageAux",
+                        "%vlocity_namespace%__HTML__c": "<div ng-repeat='file in control.response' class='slds-m-top--small vlc-image-preview'>\n\n    <div class=\"slds-m-bottom--small\">\n    \n        <img ng-if=\"bpTree.filesMap[file.data] && bpTree.filesMap[file.data].substring(0,4) === 'data' && !control.propSetMap.uploadContDoc\"\n             class=\"vlc-thumb\"\n             ng-src=\"{{bpTree.filesMap[file.data]}}\" />\n\n        <img ng-if=\"(!bpTree.filesMap[file.data] || bpTree.filesMap[file.data].substring(0,4) !== 'data')  && !control.propSetMap.uploadContDoc\"\n             class=\"vlc-thumb\"\n             ng-src=\"{{::instanceHost}}/servlet/servlet.FileDownload?file={{bpTree.filesMap[file.data]}}\"/>\n\n        <img ng-if=\"(!bpTree.filesMap[file.data] || bpTree.filesMap[file.data].substring(0,4) !== 'data') && control.propSetMap.uploadContDoc\"\n             class=\"vlc-thumb\"\n             ng-src=\"{{::instanceHost}}/sfc/servlet.shepherd/version/download/{{bpTree.contentVersions[file.data]}}\"/>\n\n    </div>\n\n    <div ng-show='isFileRemovable(this, control, $index)'\n         class=\"slds-box vlc-slds-box__italic slds-input-has-icon slds-input-has-icon--right\">\n        \n        <span class=\"vlc-slds-box__max-width-80\">{{file.webkitRelativePath || file.filename}}\n\n            &nbsp;(\n\n            <span ng-switch='file.size > 1024*1024'>\n                <span ng-switch-when='true'>{{file.size / 1024 / 1024 | number:2}} MB</span>\n                <span ng-switch-default>{{file.size / 1024 | number:2}} kB</span>\n            </span>\n\n            )\n\n        </span>\n\n        <slds-svg-icon ng-click='removeFile(this, control, $index);$event.preventDefault();'\n                       sprite=\"'utility'\"\n                       icon=\"'delete'\"\n                       size=\"'small'\"\n                       extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n        </slds-svg-icon>\n\n\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcImageAux",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcImageAux/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcImageAux"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcImageAux",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcImageAux",
+            "VlocityDataPackName": "omniLightning-vlcImageAux",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcInputBlock",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-input_block'\n             id='{{::control.name}}'\n             ng-repeat='control in child.eleArray' >\n\n        <ng-include class='slds-size--1-of-1 slds-clearfix'\n                    ng-if='ngInitValidation(this, control)'\n                    src='::control.propSetMap.HTMLTemplateId'>\n\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcInputBlock",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcInputBlock/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcInputBlock"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcInputBlock",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcInputBlock",
+            "VlocityDataPackName": "omniLightning-vlcInputBlock",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcKnowledgeBody",
+                        "%vlocity_namespace%__HTML__c": "<div role='dialog' class='vlocity slds-modal slds-fade-in-open slds-modal--large'>\n    <div class='slds-modal__container'>\n        <div class=\"slds-modal__header\">\n            <h3 id='modalLabelId' class=\"modal-title\">{{step.articleTitle}}</h3>\n        </div>\n        <div class=\"slds-modal__content slds-p-around--medium\">\n            <div class=\"panel panel-default\">\n                <div class='vlc-textblock-text'>\n                    <p ng-bind-html='step.articleBody'></p>\n                </div>\n            </div>\n        </div>\n        <div class=\"slds-modal__footer\">\n            <button class=\"btn btn-warning\" ng-click=\"cancel()\">OK</button>\n        </div>\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcKnowledgeBody",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcKnowledgeBody/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcKnowledgeBody"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcKnowledgeBody",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcKnowledgeBody",
+            "VlocityDataPackName": "omniLightning-vlcKnowledgeBody",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcLabelController",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-control-action__container\"> \n\n    <slds-button-svg-icon sprite=\"'utility'\"\n                          icon=\"'add'\"\n                          size=\"size||'large'\"\n                          ng-disabled=\"control.propSetMap.repeatLimit !== undefined && control.propSetMap.repeatLimit !== null && child.eleArray.length >= control.propSetMap.repeatLimit+1\"\n                          ng-click=\"baseCtrl.addItem(this, child, $index)\"\n                          ng-if=\"::control.propSetMap.repeat\">\n    </slds-button-svg-icon>\n\n    <slds-button-svg-icon sprite=\"'utility'\"\n                          icon=\"'close'\"\n                          size=\"size||'large'\"\n                          ng-click=\"removeDomElement(this, child, $index)\"\n                          vlc-slds-remove-item=\"ng-form[ng-repeat='control in child.eleArray']\"\n                          ng-if=\"child.eleArray.length > 1\">\n    </slds-button-svg-icon>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcLabelController",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcLabelController/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcLabelController"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcLabelController",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcLabelController",
+            "VlocityDataPackName": "omniLightning-vlcLabelController",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcLightningBanner",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-page-header\" role=\"banner\">\n    <div class=\"slds-grid\">\n        <div class=\"slds-col slds-has-flexi-truncate\">\n            <div class=\"slds-media slds-media--center slds-no-space slds-grow\">\n                <div class=\"slds-media__figure\">\n                    <figure>\n                        <span class=\"slds-icon_container vlc-slds-bg--default\">\n                            <svg aria-hidden=\"true\" class=\"slds-icon slds-icon--medium\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 48 48\">\n                                <path fill=\"#5EB6EF\" d=\"M48,4c0-2.2-1.8-4-4-4H4C1.8,0,0,1.8,0,4v40c0,2.2,1.8,4,4,4h40c2.2,0,4-1.8,4-4V4z M27.1,23.6l-4.1,12.2\n                                    l-3.1,2.6l-0.1,0L19,34.4l4.2-12.1c0.1-0.1,0.4-0.4,1-0.5l-4.4,12.9l0.2,1l1.5,0.5l0.8-0.7l0.2-0.6l-0.4-1l-1-0.3l4-11.8\n                                    c0.2,0,0.2,0,0.4,0.1C27.2,22.5,27.1,23.6,27.1,23.6z M27.8,21.5l-0.4,1.1c0,0,0.1-1.2-1.6-1.7c-1.6-0.5-2.3,0.4-2.3,0.4l0.4-1.2\n                                    c0.4-1.1,1.6-1.7,2.7-1.4C27.7,19.1,28.2,20.4,27.8,21.5z M33,32L33,32L33,32C32,32,30.3,32,28.7,32l0.7-2.9l2.8,0\n                                    c3,0,5.4-2.4,5.4-5.4c0-3-2.4-5.4-5.4-5.4c-1.2,0-2.3,0.3-2.4,0.3l-0.1,0l0-0.1c0,0,0.1-0.7,0.1-1c0-1.6-1.3-3-3-3\n                                    c-1.1,0-2.1,0.6-2.6,1.5l0,0.1l-0.9-1.2c-1.1-1.4-2.7-2.2-4.5-2.2c-3.2,0-5.7,2.6-5.7,5.7c0,0.1,0,0.2,0,0.3l0,0l0.1,1.4L12,20.3\n                                    c-2,0.5-3.4,2.2-3.4,4.3c0,2.4,2,4.5,4.5,4.5l3.2,0L15.8,32c-1,0-2,0-2.8,0c-4.1,0-7.5-3.3-7.5-7.4c0-3,1.8-5.7,4.6-6.9\n                                    c0.3-4.6,4.1-8.1,8.7-8.1c2.3,0,4.4,0.9,6,2.4c0.7-0.3,1.4-0.5,2.2-0.5c2.3,0,4.4,1.5,5.2,3.6c4.6,0.1,8.7,3.9,8.7,8.5\n                                    C41,28.1,37,31.9,33,32z\"/>\n                            </svg>\n                        </span>\n                    </figure>\n                </div>\n                <div class=\"slds-media__body\">\n                    <p class=\"slds-text-heading--label\">VLOCITY OMNISCRIPT</p>\n                    <h1 class=\"slds-page-header__title slds-m-right--small slds-truncate slds-align-middle\"></h1>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcLightningBanner",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcLightningBanner/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcLightningBanner"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcLightningBanner",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcLightningBanner",
+            "VlocityDataPackName": "omniLightning-vlcLightningBanner",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcLineBreak",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1 vlc-slds-line_break\">\n\n    <ng-form name='loopform'\n            class='slds-form-element vlc-flex vlc-slds-line_break'\n            ng-repeat='control in child.eleArray'\n            ng-style='{\"padding-bottom\":\"{{control.propSetMap.padding}}\"+\"px\"}'>\n\n        <div class=\"slds-form-element__control\"></div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcLineBreak",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcLineBreak/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcLineBreak"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcLineBreak",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcLineBreak",
+            "VlocityDataPackName": "omniLightning-vlcLineBreak",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcLookup",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n    <div class=\"slds-lookup\" data-select=\"multi\" data-scope=\"single\" data-typeahead=\"true\">\n\n        <ng-form name='loopform'\n                 class='slds-form-element vlc-flex vlc-slds-lookup-control'\n                 ng-repeat='control in child.eleArray'\n                 autocomplete=\"off\">\n\n            <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n            <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right\">\n\n                <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                    <input id='{{::control.name}}'\n                           ng-disabled='control.ro'\n                           ng-required='control.req'\n                           ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                           ng-click=\"convertToObject(true);control.showSubList = true\"\n                           name='loopname'\n                           type=\"text\"\n                           class=\"slds-input\"\n                           ng-model=\"control.response\"\n                           vlc-slds-lookup-control=\"test\"\n                           ng-init='init(this, control)'\n                           vlc-disable-auto-complete=\"off\"/>\n\n                    <!-- list of matched items -->\n                    <ul class=\"slds-list--vertical vlc-slds-list--vertical\"\n                        ng-click=\"aggregate(this, control.index, control.indexInParent, true, -1)\"\n                        ng-show=\"control.propSetMap.options.length && control.showSubList\">\n\n                        <!-- clear option-->\n                        <li ng-click=\"convertToObject(false);control.showSubList = false\"\n                            class=\"slds-list__item\">\n                            --\n                        </li>\n\n                        <li ng-click=\"setViewValue(obj)\"\n                            ng-repeat=\"obj in control.viewObjects|orderBy:'value' \"\n                            class='slds-list__item'>\n                            {{obj.value}}\n                        </li>\n\n                    </ul>\n\n\n                    <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                        <span class='vlc-asterix icon-v-asterix'\n                              ng-show='control.req'>\n                        </span>\n                    </label>\n\n                    <!-- tooltip template -->\n                    <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n                </div>\n\n                <slds-svg-icon aria-hidden=\"true\"\n                               sprite=\"'utility'\"\n                               icon=\"'search'\"\n                               size=\"'small'\"\n                               extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n                </slds-svg-icon>\n\n                <div ng-include=\"::errHTMLId\"></div>\n\n            </div>\n\n        </ng-form>\n\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcLookup",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcLookup/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcLookup"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcLookup",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcLookup",
+            "VlocityDataPackName": "omniLightning-vlcLookup",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcMobileConfirmation",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-box vlc-slds-mob-conf'>\n    <slds-svg-icon aria-hidden=\"true\"\n                   sprite=\"'action'\"\n                   icon=\"'approval'\"\n                   size=\"'small'\"\n                   extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n    </slds-svg-icon>\n\n    <div class='vlc-slds-mob-conf--body'>\n\n        <label class=\"slds-form-element__label\"\n               ng-if='bpTree.response.applicationRefNumber'>\n            Thank you for submitting the form. Your reference number is\n            <span class='vlc-slds-ref-number'>{{bpTree.response.applicationRefNumber}}</span>.\n        </label>\n\n        <label class=\"slds-form-element__label\"\n               ng-if='bpTree.response.OrderNumber'>\n            Thank you for submitting the order. Your order number is\n            <span class='vlc-slds-ref-number'>{{bpTree.response.OrderNumber}}</span>.\n        </label>\n\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcMobileConfirmation",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcMobileConfirmation/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcMobileConfirmation"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcMobileConfirmation",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcMobileConfirmation",
+            "VlocityDataPackName": "omniLightning-vlcMobileConfirmation",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcModalContent",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-modal slds-fade-in-open slds-modal--large via-slds via-omni'>\n    <div class='slds-modal__container'>\n        <div class='slds-modal__header'>\n            <h3 class=\"modal-title\">Item Comparison Sample</h3>\n        </div>\n        <div class='slds-modal__content slds-p-around--medium'>\n            <table class=\"table\">\n                <thead>\n                    <tr>\n                        <th>Product Name</th>\n                        <th>Feature</th>\n                    </tr>\n                </thead>\n                <tbody class='ins'>\n                    <tr ng-repeat='p in content.recSet'>\n                        <td>{{p.ProductName}}</td>\n                        <td>{{p.TermLifeMatrix__Rate}}\n                            <div ng-repeat=\"a in p.attributes | filterMultiple:{value:['True']}\">{{a.name}}</div>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n        <div class='slds-modal__footer'>\n            <button class=\"btn btn-warning\" ng-click=\"cancel()\">OK</button>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcModalContent",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcModalContent/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcModalContent"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcModalContent",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcModalContent",
+            "VlocityDataPackName": "omniLightning-vlcModalContent",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcModalContentInsuranceCart",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-modal slds-fade-in-open slds-modal--large via-slds via-omni'>\n    <div class='slds-modal__container'>\n        <div class='slds-modal__header'>\n            <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right vlc-slds-ins-cart--modal-select' ng-if='productList.length > 1'>\n                <div class='slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary'>\n                    <span class=\"vlc-slds-form-element__center--horizontal\">\n                        {{comparePlans.selectedCC}}\n                    </span>\n                    <select name='comparePlansSelect'\n                        id='comparePlansSelect'\n                        style='opacity:-1'\n                        ng-model='comparePlans.selectedCC'\n                        class='slds-select'\n                        ng-options=\"category.name as category.name for category in categoryList\"\n                        ng-change=\"selectedItemChanged(comparePlans.selectedCC)\"\n                        ng-if=\"productList.length > 1\">\n                    </select>\n                    <label for=\"{comparePlansSelect\" class='slds-form-element__label' style='text-align: left;'>{{::OmniInsuranceCartComparePlans}}</label>\n                </div>\n                <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n                </slds-svg-icon>\n            </div>\n        </div>\n        <div class='slds-modal__content slds-p-around--medium'>\n            <label ng-style=\"{'font-size':'25px','color':'#FF0000'}\" ng-if='productList.length < 2'>{{::OmniInsuranceCartModalNoProdMsg}}</label>\n            <table class=\"table\" ng-if='productList.length >1'>\n                <thead>\n                    <tr>\n                        <th></th>\n                        <th ng-repeat=\"product in productList | orderBy: '+TotalPrice'\" style='padding-left: 10px;'>\n                            <h2>{{product.name}}</h2>\n                            <div class=\"subtotal custom-premium\">\n                                <span id=\"premium-price\" class=\"num price-format\"><sup>{{currencySymbol}}</sup>{{product.TotalPrice | currency:\"\":2}}</span>\n                                <br>\n                                <span class=\"label-text\">{{::OmniInsuranceCartModalMonthlyPremium}}</span>\n                            </div>\n                        </th>\n                    </tr>\n                </thead>\n                <tbody class='ins' ng-repeat=\"category in categoryList | orderBy:'displaySequence'\" ng-if=\"showCategory(category)\">\n                    <tr class=\"attr-category\" style='background: #D3D3D3;' ng-if=\"category.name !== 'All'\">\n                        <td ng-attr-colspan=\"{{productList.length + 1}}\" style='padding: 5px 8px;'>\n                        <h3 style='font-size: 1rem;'>{{category.name}}</h3>\n                        </td>\n                    </tr>\n                    <tr ng-repeat=\"(key,value) in categoryMap[category.name]['attributes'] | orderObjectBy:'displaySequence' track by $index\">\n                        <td style='padding: 5px 15px;'>{{value.name}}</td>\n                        <td ng-repeat=\"product in productList | orderBy: 'TotalPrice' track by $index\" class=\"{{attributesValueForProduct(product.code,category.name,value.name).dataType.toLowerCase()}}\" style='padding-left: 10px; padding-top: 5px;'>\n                            <span class=\"value\">\n                            <span ng-if=\"attributesValueForProduct(product.code,category.name,value.name).dataType === 'Currency' && currencyCode\" class=\"currency-symbol\">{{currencySymbol}}</span> {{attributesValueForProduct(product.code,category.name,value.name).value }}\n                            </span>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n        <div class='slds-modal__footer vlc-slds-remote-action--button'>\n            <div class=\"slds-form-element__control\">\n                <div class=\"vlc-control-wrapper vlc-slds-cart__button vlc-slds-ins-cart--modal-okbutton\">\n\n                     <div id='insuranceCartOk'\n                         class='slds-box'\n                         title='{{::OmniInsuranceCartModalOk}}'\n                         ng-click=\"cancel()\">\n                        <p>{{::OmniInsuranceCartModalOk}}</p>\n                    </div>\n\n                </div>\n            </div>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcModalContentInsuranceCart",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcModalContentInsuranceCart/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcModalContentInsuranceCart"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcModalContentInsuranceCart",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcModalContentInsuranceCart",
+            "VlocityDataPackName": "omniLightning-vlcModalContentInsuranceCart",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcMulti-select",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-multiSelect-control'\n             id=\"{{::control.name + '|' + $index}}\"\n             ng-required=\"control.req\"\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control\">\n\n            <label for=\"{{::control.name + '|' + $index}}\" class='slds-form-element__label vlc-slds-inline-control__label'>\n                \n                {{::control.propSetMap.label}}\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" nubbin-direction=\"auto top-left\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n                <div vlc-slds-include=\"vlcLabelController.html\" ng-init=\"size='responsive'\"></div>\n\n                <span class='vlc-asterix icon-v-asterix' ng-if='validateRequired(this, control, option) && control.req'>\n                </span>\n\n            </label>\n\n\n            <div ng-init='init(this, control)' ng-include=\"'vlcHorMulti-selectItem.html'\"></div>\n\n            <div class='vlc-slds-error-block'>\n                <div class='error' ng-show='loopform.$error && loopform.$error.required && !loopform.$pristine'>\n                    <small class='description'>{{::customLabels.OmniRequired}}</small>\n                </div>\n                \n                <div class='error' ng-show='control.srvErr'>\n                    <small class='description'>{{control.srvErr}}</small>\n                </div>\n\n            </div>\n            \n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcMulti-select",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcMulti-select/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcMulti-select"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcMulti-select",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcMulti-select",
+            "VlocityDataPackName": "omniLightning-vlcMulti-select",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcMulti-selectItem",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-form-element\"\n     ng-repeat='option in getOptions(control, this.$parent) track by option.name'>\n\n    <!-- this div is present just to maintain the lightning component hierarchy -->\n    <div class=\"slds-form-element__control\">\n\n        <label class='slds-checkbox'>\n\n            <input id='{{::control.name}}'\n                   ng-disabled='control.ro'\n                   ng-required='control.req'\n                   type='checkbox'\n                   ng-model='option.selected'\n                   vlc-slds-val-checker=\"response\"\n                   ng-change='onMultiSelect(this, control, option)'/>\n\n            <span class=\"slds-checkbox--faux\" ng-if='control.propSetMap.horizontalMode!==\"image\"'></span>\n            <span class=\"slds-form-element__label\" ng-if='control.propSetMap.horizontalMode!==\"image\"'>{{option.value}}</span>\n\n        </label>\n\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcMulti-selectItem",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcMulti-selectItem/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcMulti-selectItem"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcMulti-selectItem",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcMulti-selectItem",
+            "VlocityDataPackName": "omniLightning-vlcMulti-selectItem",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcNotifyToast",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-notify_container am-fade\">\n  <div class=\"slds-notify slds-notify--toast\" \n    ng-class=\"{'slds-theme--success': severity == 'success', 'slds-theme--warning': severity == 'warning', 'slds-theme--error': severity == 'error'}\" \n    role=\"alert\">\n    <span class=\"slds-assistive-text\">{{::$root.vlocity.getCustomLabel('Info', 'Info')}}</span>\n    <button class=\"slds-button slds-button--icon-inverse slds-notify__close\" ng-click=\"$hide()\">\n      <slds-button-svg-icon sprite=\"'utility'\" icon=\"'close'\" size=\"'large'\"></slds-button-svg-icon>\n      <span class=\"slds-assistive-text\">{{::$root.vlocity.getCustomLabel('Close', 'Close')}}</span>\n    </button>\n    <div class=\"slds-notify__content slds-grid\">\n        <slds-svg-icon sprite=\"'utility'\" icon=\"icon\" size=\"'small'\" extra-classes=\"'slds-m-right--small slds-col slds-no-flex'\" ng-if=\"icon\"></slds-svg-icon>\n        <div class=\"slds-col slds-align-middle\">\n          <h2 class=\"slds-text-heading--small\" ng-if=\"title\">\n            {{title}}\n          </h2>\n          <h2 class=\"slds-text-heading--small\" ng-if=\"message\">\n            {{message}}\n          </h2>\n          <p ng-if=\"content\" ng-bind-html=\"content\"></p>\n        </div>\n    </div>\n  </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcNotifyToast",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcNotifyToast/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcNotifyToast"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcNotifyToast",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcNotifyToast",
+            "VlocityDataPackName": "omniLightning-vlcNotifyToast",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcNumber",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n        \n        <div class=\"slds-form-element__control\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       type='tel'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name='loopname'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input form-control'\n                       via-mask='::control.propSetMap.mask'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern}}'\n                       vlc-slds-num-val-checker=\"response\"\n                       vlc-slds-only-numeric=\"response\"\n                       vlc-slds-attr=\"placeholder\" />\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n            \n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcNumber",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcNumber/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcNumber"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcNumber",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcNumber",
+            "VlocityDataPackName": "omniLightning-vlcNumber",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcPDF",
+                        "%vlocity_namespace%__HTML__c": "<div>\n    <iframe src=\"{{response.attachmentUrl}}\" class='vlc-slds-pdf--embedded' />\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcPDF",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcPDF/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcPDF"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcPDF",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcPDF",
+            "VlocityDataPackName": "omniLightning-vlcPDF",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcPassword",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n        \n        <div class=\"slds-form-element__control\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n                <input id='{{::control.name}}'\n                       type='password'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name='loopname'\n                       ng-init='init(this, control)'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input form-control'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern }}'\n                       vlc-slds-val-checker=\"response\" />\n\n                \n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcPassword",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcPassword/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcPassword"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcPassword",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcPassword",
+            "VlocityDataPackName": "omniLightning-vlcPassword",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcPaymentList",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    <table class=\"slds-table slds-table--bordered slds-table--cell-buffer vlc-slds-table\" ng-class=\"compareWindowWidth(768,'vlc-slds-table--stacked')\" ng-init=digestOnResize()>\n       <thead>\n            <tr class=\"slds-text-heading--label\">\n                <th width=\"20px\"/>\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">Primary</div>\n                </th>\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">Type</div>\n                </th>\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">Name</div>\n                </th>\n                <!-- <th/> -->\n            </tr>\n        </thead>\n        <tbody>\n            <tr ng-repeat='p in control.vlcSI[control.itemsKey]' ng-class=\"{ 'vlc-selectableitem-selected' : p.vlcSelected }\" >\n                <td class=\"slds-cell-shrink\" data-label='Select'>\n                    <label class=\"slds-checkbox\">\n                        <input type='checkbox' ng-model='p.vlcSelected' ng-change='onSelectItem(control, p, $index, this)' checked ng-if=\"bpTree.response['Task Details']['Task Sub Category']!='Amend Payment Method'\" />\n                        <span class=\"slds-checkbox--faux\"></span>\n                        <span class=\"slds-assistive-text\">Select</span>\n                    </label>\n                </td>\n                <td data-label='Primary'>\n                    <div class=\"slds-truncate\"><span class=\"icon icon-v-check\" ng-if='p.IsPrimary'></span></div>\n                </td>\n                <td data-label='Type'>\n                    <div class=\"slds-truncate\">{{p.PayMethType}}</span></div>\n                </td>\n                <td data-label='Name'>\n                    <div class=\"slds-truncate\">{{p.Name}}</span></div>\n                </td>\n                <!-- <td>\n                    <button type=\"button\" class=\"btn btn-link\" ng-click=\" buttonClick(bpTree.response, control, this, p, 'Update')\">\n                      <span class=\"icon icon-v-edit\" aria-hidden=\"true\"></span>\n                    </button>\n                    <button type=\"button\" class=\"btn btn-link\" ng-click=\"buttonClick(bpTree.response, control, this, p, 'Delete')\">\n                      <span class=\"icon icon-v-trash\" aria-hidden=\"true\"></span>\n                    </button>\n                </td> -->\n            </tr>\n        </tbody>\n    </table>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcPaymentList",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcPaymentList/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcPaymentList"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcPaymentList",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcPaymentList",
+            "VlocityDataPackName": "omniLightning-vlcPaymentList",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRadio",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-radio-control'\n             id=\"{{::control.name + '|' + $index}}\"\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control\">\n\n\n            <label for=\"{{::control.name + '|' + $index}}\" class='slds-form-element__label vlc-slds-inline-control__label'>\n\n                {{::control.propSetMap.label}}\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" nubbin-direction=\"auto top-right\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n                <div vlc-slds-include=\"vlcLabelController.html\" ng-init=\"size='responsive'\"></div>\n\n                <span class='vlc-asterix icon-v-asterix'\n                      ng-show='control.req'>\n                </span>  \n                \n            </label>\n            \n            <div horizontalMode='{{false !== control.propSetMap.horizontalMode}}' ng-include=\"'vlcRadioItem.html'\"></div>\n\n            <div class='vlc-slds-error-block'>\n                <div class='error' ng-show='control.srvErr'>\n                    <small ng-show='control.srvErr' class='description'>{{control.srvErr}}</small>\n                </div>\n            </div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRadio",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRadio/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRadio"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRadio",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRadio",
+            "VlocityDataPackName": "omniLightning-vlcRadio",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRadioGroup",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    <ng-form name='loopform'\n             class='slds-form-element slds-grid slds-grid--vertical vlc-radioGroup'\n             id=\"{{::control.name + '|' + $index}}\"\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control\">     \n            <label for=\"{{::control.name + '|' + $index}}\" class='slds-form-element__label vlc-slds-inline-control__label slds-p-left_none'>\n                {{::control.propSetMap.label}}\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" nubbin-direction=\"auto top-right\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n                <div vlc-slds-include=\"vlcLabelController.html\" ng-init=\"size='responsive'\"></div>\n                <span class='vlc-asterix icon-v-asterix' ng-if='validateRequired(this, control, option) && control.req'>\n                </span>\n            </label>\n            <div id='{{::control.name}}' ng-init='init(this, control)' ng-include=\"'vlcRadioGroupItem.html'\"></div>\n            <div class='vlc-slds-error-block'>\n                <div class='error' ng-show='loopform.$error && loopform.$error.required && !loopform.$pristine'>\n                   <small class=\"nds-form-element__help\">{{::customLabels.OmniRequired}}</small>\n               </div>\n                <div class='error' ng-show='control.srvErr'>\n                    <small class='description'>{{control.srvErr}}</small>\n                </div>\n            </div>\n        </div>\n    </ng-form>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRadioGroup",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRadioGroup/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRadioGroup"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRadioGroup",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRadioGroup",
+            "VlocityDataPackName": "omniLightning-vlcRadioGroup",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRadioGroupItem",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-grid\">\n    <div class='slds-col slds-size_{{control.propSetMap.radioLabelsWidth}}-of-12'>\n    </div>            \n    <div class='slds-col slds-size_{{12-control.propSetMap.radioLabelsWidth}}-of-12 slds-grid'>\n        <label ng-repeat='option in getOptions(control, this.$parent) track by option.name'\n               class='slds-col slds-p-left_x-small set-all'\n               style=\"width:{{100/control.propSetMap.options.length}}%\">\n\n            <div ng-if=\"option.setAll\" class=\"vlc-slds-button\" ng-click='!control.ro && setAllRadioGroup(this.$parent, option.name)'>\n                {{::customLabels.OmniRadioGroupSetAll}}\n            </div>\n        </label>\n    </div>\n</div>\n<div id='{{::label.name}}' class='slds-form-element__control slds-grid slds-grid--align-spread slds-p-vertical_x-small'\n     ng-repeat=\"label in control.propSetMap.radioLabels track by label.name\">\n    <div class='slds-grid slds-col slds-size_{{control.propSetMap.radioLabelsWidth}}-of-12'>\n        <label class='slds-radio slds-p-right_x-small'>\n            <span class=\"slds-form-element__label\">\n                {{::label.value}}\n            </span>\n        </label>\n    </div>\n    <div class='slds-grid slds-col slds-size_{{12-control.propSetMap.radioLabelsWidth}}-of-12'>\n        <label ng-repeat='option in control.propSetMap.options track by option.name'\n               ng-class=\"{'itemSelected': control.response[label.name]==option.name}\"\n               class='slds-radio slds-p-left_x-small slds-col'\n               style=\"width:{{100/control.propSetMap.options.length}}%\">\n\n            <input ng-disabled='control.ro'\n                   ng-required='!control.response && control.response[label.name] && control.req'\n                   type='radio'\n                   ng-init='init(this, control)'\n                   ng-value='option.name'\n                   ng-model='control.response[label.name]'\n                   ng-change='onRadioGroupSelect(this, control, option)'\n                   vlc-slds-mu-val-checker=\"response\"\n                   />\n            <span class=\"slds-radio--faux\" ng-if='control.propSetMap.horizontalMode!==\"image\"' ></span>\n            <span class=\"slds-form-element__label\" ng-if='control.propSetMap.horizontalMode!==\"image\"' >{{::option.value}}</span>\n            <span ng-if='control.propSetMap.horizontalMode==\"image\"' ng-include=\"'vlcDisplayOption.html'\" class=\"slds-radio--faux_container\"></span>\n        </label>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRadioGroupItem",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRadioGroupItem/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRadioGroupItem"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRadioGroupItem",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRadioGroupItem",
+            "VlocityDataPackName": "omniLightning-vlcRadioGroupItem",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRadioItem",
+                        "%vlocity_namespace%__HTML__c": "<label ng-repeat='option in getOptions(control, this.$parent) track by option.name' ng-class=\"{'itemSelected': control.response==option.name}\"  class=\"slds-radio\">\n\n    <input id='{{::control.name}}'\n           ng-disabled='control.ro'\n           ng-required='!control.response && control.req'\n           type='radio'\n           ng-init='init(this, control)'\n           ng-value='option.name'\n           ng-model='control.response'\n           ng-change='aggregate(this, control.index, control.indexInParent, true, -1);'\n           vlc-slds-val-checker=\"response\"\n           ng-click='autoAdvance(option.autoAdv);'/>\n\n    <span class=\"slds-radio--faux\" ng-if='control.propSetMap.horizontalMode!==\"image\"' ></span>\n    <span class=\"slds-form-element__label\" ng-if='control.propSetMap.horizontalMode!==\"image\"' >{{option.value}}</span>\n    <span ng-if='control.propSetMap.horizontalMode==\"image\"' ng-include=\"'vlcDisplayOption.html'\" class=\"slds-radio--faux_container\"></span>\n</label>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRadioItem",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRadioItem/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRadioItem"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRadioItem",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRadioItem",
+            "VlocityDataPackName": "omniLightning-vlcRadioItem",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRange",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-range-control'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control\">\n\n            <label for=\"{{::control.name}}\" class='slds-form-element__label vlc-slds-inline-control__label'>\n\n                {{::control.propSetMap.label}}\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" nubbin-direction=\"auto top-left\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n                <div vlc-slds-include=\"vlcLabelController.html\" ng-init=\"size='responsive'\"></div>\n                <span class='vlc-asterix icon-v-asterix'\n                      ng-show='control.req'>\n                </span>\n                \n            </label>\n\n\n\n            <div class=\"vlc-control-wrapper\">\n\n                <input ng-init='init(this, control)'\n                       id='{{::control.name}}'\n                       type='range'\n                       vlc-range-slider\n                       ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name='loopname'\n                       min='{{control.propSetMap.rangeLow}}'\n                       max='{{control.propSetMap.rangeHigh}}'\n                       step='{{::control.propSetMap.step}}'\n                       ng-model=\"control.response\"\n                       mask='{{::control.propSetMap.mask}}'\n                       vlc-slds-val-checker=\"response\"/>\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRange",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRange/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRange"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRange",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRange",
+            "VlocityDataPackName": "omniLightning-vlcRange",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRaptorAcknowledge",
+                        "%vlocity_namespace%__HTML__c": "<div class='panel panel-default review'>\n    <div class='panel-heading'>\n        {{::customLabels.OmniDRCallResult}}\n    </div>\n    <div class='panel-body'>\n        <json-tree json='response' collapsed-level='2' labelmap='null'></json-tree>\n    </div>\n</div>\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRaptorAcknowledge",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRaptorAcknowledge/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRaptorAcknowledge"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRaptorAcknowledge",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRaptorAcknowledge",
+            "VlocityDataPackName": "omniLightning-vlcRaptorAcknowledge",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRedirectActionBtnFooter",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-wrap slds-m-top--small'>\n    <div class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{::bpTree.redirectActionBtn.propSetMap.redirectPreviousWidth}}-of-12 slds-col--padded slds-clearfix slds-m-top--small\">\n        <button class='slds-button vlc-slds-button--primary'\n                ng-click='navigateBackToStep(bpTree, bpTree.redirectActionBtn, bpTree.parentStepIndex)'>\n            {{::bpTree.redirectActionBtn.propSetMap.redirectPreviousLabel}}\n        </button>\n    </div>\n</div>\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRedirectActionBtnFooter",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRedirectActionBtnFooter/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRedirectActionBtnFooter"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRedirectActionBtnFooter",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRedirectActionBtnFooter",
+            "VlocityDataPackName": "omniLightning-vlcRedirectActionBtnFooter",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRedirectActionFooter",
+                        "%vlocity_namespace%__HTML__c": "<!-- footer template  -->\n<div class='slds-grid slds-wrap slds-m-top--small vlc-slds-action--footer'>\n    <div class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{::bpTree.redirectAction.propSetMap.redirectNextWidth}}-of-12\"\n         style=\"flex-grow:0\"\n         ng-if='bpTree.redirectAction.bHasNext'>\n\n        <button class='slds-button vlc-slds-button--primary'\n                ng-click='navigate(bpTree, bpTree.redirectAction, \"next\")'>\n            {{::bpTree.redirectAction.propSetMap.redirectNextLabel}}\n        </button>\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRedirectActionFooter",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRedirectActionFooter/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRedirectActionFooter"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRedirectActionFooter",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRedirectActionFooter",
+            "VlocityDataPackName": "omniLightning-vlcRedirectActionFooter",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRemoteAction",
+                        "%vlocity_namespace%__HTML__c": "<div id='{{::child.name}}'\n     class=\"slds-box vlc-slds-remote-action__container\"\n     ng-if='child.ui.show && child.ui.error'>\n\n    <div class=\"vlc-slds-remote-action__content\" ng-if='!loading && child.ui.error'>\n\n        <p>{{::child.propSetMap.label}}</p>\n        <p ng-if='child.ui.preTransform'>{{::customLabels.OmniPreTransform}}</p>\n        <p ng-if='child.ui.postTransform'>{{::customLabels.OmniPostTransform}}</p>\n        <p>{{child.ui.errorMessage}}</p>\n\n        <p>\n            <button class=\"slds-button slds-button--neutral\"\n                    ng-if='::child.propSetMap.enableDefaultAbort != true && child.ui.error && findPreShowStep(child.indexInParent) != null'\n                    ng-click='previous(this, child)'>\n                {{::child.propSetMap.failureGoBackLabel}}\n            </button>\n\n            <button class=\"slds-button slds-button--neutral\"\n                    ng-if='::child.propSetMap.enableDefaultAbort && child.ui.error && findPreShowStep(child.indexInParent) != null'\n                    confirmed-click='cancel()'\n                    ng-confirm-click='{{::child.propSetMap.failureAbortMessage}}'>\n                {{::child.propSetMap.failureAbortLabel}}\n            </button>\n\n            <button class=\"slds-button slds-button--neutral\"\n                    ng-if='child.ui.error && child.bHasNext'\n                    ng-click='nextRepeater(child.nextIndex, child.indexInParent)'>\n                {{::child.propSetMap.failureNextLabel}}\n            </button>\n        </p>\n        \n\n\n    </div>\n\n</div>\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRemoteAction",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRemoteAction/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRemoteAction"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRemoteAction",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRemoteAction",
+            "VlocityDataPackName": "omniLightning-vlcRemoteAction",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcRemoteActionBtn",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-form-group vlc-slds-remote-action--button'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control\">\n\n            <div class=\"vlc-control-wrapper\">\n\n                <div id='{{::control.name}}'\n                     class='slds-box'\n                     title='{{::control.propSetMap.label}}'\n                     ng-click='buttonClick(this.bpTree.response, control, this)'\n                     ng-if='!control.propSetMap.confirm'>\n                    <p tabindex=\"-1\">{{::control.propSetMap.label}}</p>\n                    <div class=\"slds-spinner_container\" ng-if=\"this.loading\">\n                        <div role=\"status\" class=\"slds-spinner slds-spinner_x-small\">\n                            <span class=\"slds-assistive-text\">Loading</span>\n                            <div class=\"slds-spinner__dot-a\"></div>\n                            <div class=\"slds-spinner__dot-b\"></div>\n                        </div>\n                    </div>\n                </div>\n\n                <div id='{{::control.name}}'\n                     class='slds-box'\n                     title='{{::control.propSetMap.label}}'\n                     ng-confirm-click='{{::control.propSetMap.remoteConfirmMsg}}'\n                     confirmed-click='buttonClick(this.bpTree.response, control, this)'\n                     submit-label='{{::control.propSetMap.subLabel}}'\n                     cancel-label='{{::control.propSetMap.cancelLabel}}'\n                     ng-if='control.propSetMap.confirm'>\n                    <p tabindex=\"-1\">{{::control.propSetMap.label}}</p>\n                    <div class=\"slds-spinner_container\" ng-if=\"loading\">\n                        <div role=\"status\" class=\"slds-spinner slds-spinner_x-small\">\n                            <span class=\"slds-assistive-text\">Loading</span>\n                            <div class=\"slds-spinner__dot-a\"></div>\n                            <div class=\"slds-spinner__dot-b\"></div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n            <div class='vlc-sub-block'></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcRemoteActionBtn",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcRemoteActionBtn/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcRemoteActionBtn"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRemoteActionBtn",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcRemoteActionBtn",
+            "VlocityDataPackName": "omniLightning-vlcRemoteActionBtn",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcReviewActionBtnFooter",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-grid slds-wrap slds-m-top--small'>\n    <div class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{::bpTree.reviewActionBtn.propSetMap.previousWidth}}-of-12 slds-clearfix slds-m-top--small\">\n        <button class='slds-button vlc-slds-button--primary'\n                ng-click='navigateBackToStep(bpTree, bpTree.reviewActionBtn, bpTree.parentStepIndex)'>\n            {{::bpTree.reviewActionBtn.propSetMap.previousLabel}}\n        </button>\n    </div>\n</div>\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcReviewActionBtnFooter",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcReviewActionBtnFooter/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcReviewActionBtnFooter"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcReviewActionBtnFooter",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcReviewActionBtnFooter",
+            "VlocityDataPackName": "omniLightning-vlcReviewActionBtnFooter",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcReviewActionFooter",
+                        "%vlocity_namespace%__HTML__c": "<!-- footer template  -->\n<div class='slds-grid slds-wrap slds-m-top--small vlc-slds-action--footer'>\n\n    <div class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{::bpTree.reviewAction.propSetMap.previousWidth}}-of-12 vlc-slds-button--tertiary\"\n         ng-if='bpTree.reviewAction.bHasPrevious'>\n\n        <div ng-click='navigate(bpTree, bpTree.reviewAction, \"previous\")'>\n            {{::bpTree.reviewAction.propSetMap.previousLabel}}\n        </div>\n    </div>\n\n    <div class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{::bpTree.reviewAction.propSetMap.nextWidth}}-of-12\"\n         style=\"flex-grow:0\"\n         ng-if='bpTree.reviewAction.bHasNext'>\n\n        <button class='slds-button vlc-slds-button--primary'\n                ng-click='navigate(bpTree, bpTree.reviewAction, \"next\")'>\n            {{::bpTree.reviewAction.propSetMap.nextLabel}}\n        </button>\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcReviewActionFooter",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcReviewActionFooter/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcReviewActionFooter"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcReviewActionFooter",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcReviewActionFooter",
+            "VlocityDataPackName": "omniLightning-vlcReviewActionFooter",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSaveForLaterAcknowledge",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col'>\n    <div class=\"slds-grid slds-box vlc-slds-save_for_later\">\n\n        <div class=\"slds-col\" ng-if=\"response.error==='OK'\">\n\n            <figure class=\"vlc-slds-figure\">\n                <span class=\"slds-icon_container slds-icon-action-check slds-icon_container--circle\">\n                    <slds-svg-icon aria-hidden=\"true\"\n                                   sprite=\"'utility'\"\n                                   icon=\"'check'\"\n                                   size=\"'small'\"\n                                   extra-classes=\"''\">\n                    </slds-svg-icon>\n                </span>\n\n                <div>\n                    <figcaption class=\"slds-form-element__label\">{{::customLabels.OmniSaved}}</figcaption>\n                </div>\n\n            </figure>\n\n            <label class=\"slds-form-element__label\">{{::customLabels.OmniResume}}\n                <a href='{{response.saveURL}}' target=\"_blank\"> {{::customLabels.OmniLink}}</a>&#8228;\n            </label>\n            <br/>\n            <button class='vlc-omni-copy vlc-slds-button--link slds-button' ng-click=\"copyToClipboard(customLabels.OmniCopyToClipBoard, response.saveURL);$event.preventDefault()\">{{::customLabels.OmniCopyLink}}</button> or\n            <a href=\"mailto:?&subject=&body={{::customLabels.OmniResumeLink}} %0D{{response.saveURLMailTo}}%0D%0D{{::customLabels.OmniSaveEmailBody}}\">{{::customLabels.OmniEmailMe}}</a>\n\n        </div>\n\n        <div class=\"slds-col slds-col__error\" ng-if=\"response.error!=='OK'\">\n\n            <figure class=\"vlc-slds-figure\">\n                <span class=\"slds-icon_container slds-icon-action-check slds-icon_container--circle\">\n\n                    <slds-svg-icon aria-hidden=\"true\"\n                                   sprite=\"'utility'\"\n                                   icon=\"'remove'\"\n                                   size=\"'small'\"\n                                   extra-classes=\"''\">\n                    </slds-svg-icon>\n\n                </span>\n                <figcaption class=\"slds-form-element__label\">{{::customLabels.OmniError}}</figcaption>\n            </figure>\n\n            <label class=\"slds-form-element__label\">{{response.error}}</label>\n\n        </div>\n\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSaveForLaterAcknowledge",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSaveForLaterAcknowledge/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSaveForLaterAcknowledge"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSaveForLaterAcknowledge",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSaveForLaterAcknowledge",
+            "VlocityDataPackName": "omniLightning-vlcSaveForLaterAcknowledge",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSelect",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-select-control'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class='slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right'>\n\n            <div class=\"slds-select_container vlc-control-wrapper vlc-slds__border vlc-slds__border--primary\" help=\"{{::control.propSetMap.help}}\">\n\n                <span class=\"vlc-slds-form-element__center--horizontal\">\n                    {{ control.response.value }}\n                </span>\n\n                <!-- this select control should not be visible to the user -->\n                <select name='loopname'\n                        id='{{::control.name}}'\n                        style='opacity:-1'\n                        ng-disabled='control.ro'\n                        ng-required='control.req'\n                        ng-model='control.response'\n                        class='slds-select'\n                        vlc-slds-val-checker=\"response\"\n                        ng-init='init(this, control)'\n                        ng-options='sOption as sOption.value for sOption in getOptions(control, this) track by sOption.name'\n                        ng-change='autoAdvance(control.response.autoAdv);aggregate(this, control.index, control.indexInParent, true, -1)'> \n                    <option value=\"\">{{::customLabels.OmniClear}}</option>\n\n                </select>\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n                \n            </div>\n            \n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'down'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSelect",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSelect/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSelect"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelect",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelect",
+            "VlocityDataPackName": "omniLightning-vlcSelect",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSelectableItem",
+                        "%vlocity_namespace%__HTML__c": "<a class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12 vlc-slds-items--container\"\n   vlc-slds-added=\"{{ p.added }}\"\n   vlc-slds-prod-desc=\"{{ p.Description }}\"\n   ng-repeat='p in control.vlcSI[control.itemsKey]'>\n\n    <div class=\"slds-grid slds-box vlc-slds-selectableItem\">\n\n        <div class=\"slds-size--2-of-12 slds-box vlc-slds-item--image\">\n            <img ng-if=\"p.Image\" ng-src=\"{{::instanceHost}}/servlet/servlet.FileDownload?file={{p.Image}}\" />\n        </div>\n\n        <div class=\"slds-size--6-of-12 vlc-slds-item--details\">\n\n            <label class=\"slds-form__element__label\">\n                {{p.Name}}\n            </label>\n\n            <label class=\"slds-form__element__label\">\n                {{p.Description}}\n            </label>\n\n        </div>\n\n\n        <div class=\"slds-size--2-of-12 vlc-slds-item--onecost\">\n\n            <label class=\"slds-form__element__label\">\n                <span>{{p.CurrencySymbol}}</span>\n                {{p.OneTimeCost}}\n            </label>\n\n            <label class=\"slds-form__element__label\">{{::customLabels.OmniOneTime}}</label> \n\n        </div>\n\n        <div class=\"slds-size--2-of-12 vlc-slds-item--cost\">\n\n            <label class=\"slds-form__element__label\">\n                <span>{{p.CurrencySymbol}}</span>\n                {{p.MonthlyCost}}\n            </label>\n\n            <label class=\"slds-form__element__label\">{{::customLabels.OmniMonthly}}</label>\n\n        </div>\n\n        <div class=\"slds-size--12-of-12 slds-medium-size--2-of-12 vlc-slds-item--add\"\n             vlc-slds-added=\"{{ p.added }}\"\n             ng-init=\" p.isConfigurable == true ? operation = 'configureProd' : operation = 'Add' \"\n             ng-click=\"buttonClick(bpTree.response, control, this, p, (p.added?'Remove':'Add'), baseCtrl.customHandleSelectedItem)\">\n            <button class=\"slds-button slds-button--neutral\" style=\"line-height:1.3rem\">\n                {{ p.added? \"Added to Cart\" : \"Add to Cart\" }}\n            </button>\n        </div>\n\n    </div>\n\n</a>\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSelectableItem",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSelectableItem/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSelectableItem"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelectableItem",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelectableItem",
+            "VlocityDataPackName": "omniLightning-vlcSelectableItem",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSelectableItemHyb",
+                        "%vlocity_namespace%__HTML__c": "<a class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12 vlc-slds-items--container\"\n\n   ng-click=\"baseCtrl.addProductToCart(p, control, this)\"\n   vlc-slds-prod-desc=\"{{ p.Product2.Description }}\"\n   ng-repeat='p in control.vlcSI[control.itemsKey][0].records'>\n\n    <div class=\"slds-grid slds-box vlc-slds-selectableItem\">\n\n        <div class=\"slds-size--2-of-12 slds-box vlc-slds-item--image\" ng-if=\"!p.Attachments\"></div>\n        <div class=\"slds-size--2-of-12 slds-box vlc-slds-item--image\" ng-repeat='a in p.Attachments'>\n            <img src=\"{{a.url}}\" alt=\"{{a.title}}\" ng-if=\"a.contentType === 'Image'\"/>\n        </div>\n\n        <div class=\"slds-size--6-of-12 vlc-slds-item--details\">\n\n            <label class=\"slds-form__element__label\">\n                {{p.Name.value}}\n            </label>\n\n            <label class=\"slds-form__element__label\">\n                {{p.Product2.Description}}\n            </label>\n\n        </div>\n\n\n        <div class=\"slds-size--2-of-12 vlc-slds-item--onecost\" ng-init=\"UnitPrice = p.UnitPrice.value ? p.UnitPrice.value : 0.00\">\n\n            <label class=\"slds-form__element__label\">\n                {{UnitPrice | currency:bpTree.cpqCurrencySymbol  | numFormatFilter}}\n            </label>\n\n            <label class=\"slds-form__element__label\">{{::customLabels.OmniOneTime}}</label> \n        </div>\n\n        <div class=\"slds-size--2-of-12 vlc-slds-item--cost\" ng-init=\"RecurringPrice__c = p[nsPrefix + 'RecurringPrice__c'].value ? p[nsPrefix + 'RecurringPrice__c'].value : 0.00\">\n\n            <label class=\"slds-form__element__label\">\n                {{RecurringPrice__c | currency:bpTree.cpqCurrencySymbol  | numFormatFilter}}\n            </label>\n\n            <label class=\"slds-form__element__label\">{{::customLabels.OmniMonthly }}</label>\n        </div>\n\n\n        <div class=\"vls-slds-item--action\">\n\n            <span class=\"slds-icon_container slds-icon-action-approval slds-icon_container--circle\">\n                <slds-svg-icon aria-hidden=\"true\"\n                               sprite=\"'action'\"\n                               icon=\"'approval'\"\n                               size=\"'small'\"\n                               extra-classes=\"''\">\n                </slds-svg-icon>\n            </span>\n\n        </div>\n\n    </div>\n\n</a>\n<div class='vlc-slds-loadmore-products-btn vlc-slds-remote-action--button' ng-if=\"control.vlcSI[control.itemsKey][0].actions\">\n    <div class=\"slds-form-element__control\">\n        <div class=\"vlc-control-wrapper\">\n            <div id=\"loadMoreProducts\"\n                 class='slds-box'\n                 title=\"Load More\"\n                 ng-click=\"baseCtrl.loadMoreProducts(control, this)\">\n                <p>{{::customLabels.OmniSelItemLoadMore}}</p>\n            </div>\n        </div>\n    </div>\n</div>\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSelectableItemHyb",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSelectableItemHyb/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSelectableItemHyb"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelectableItemHyb",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelectableItemHyb",
+            "VlocityDataPackName": "omniLightning-vlcSelectableItemHyb",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSelectableItemV2",
+                        "%vlocity_namespace%__HTML__c": "<a class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--12-of-12 vlc-slds-items--container\"\n\n   ng-click=\"configureItem(bpTree.response, control, this, p, operation, baseCtrl.customHandleSelectedItem, baseCtrl.customIsConfigurable)\"\n   vlc-slds-prod-desc=\"{{p.Description}}\"\n   ng-repeat='p in control.vlcSI[control.itemsKey]'>\n\n    <div class=\"slds-grid slds-box vlc-slds-selectableItem\">\n\n        <div class=\"slds-size--12-of-12 slds-medium-size--2-of-12\">\n            <div class=\"slds-box vlc-slds-item--image\">\n                <img ng-if=\"p.Image\" ng-src=\"{{::instanceHost}}/servlet/servlet.FileDownload?file={{p.Image}}\" />\n            </div>\n        </div>\n\n        <div class=\"slds-size--12-of-12 slds-medium-size--6-of-12 vlc-slds-item--details\">\n\n            <label class=\"slds-form__element__label\">\n                {{p.Name}}\n            </label>\n\n            <label class=\"slds-form__element__label\">\n                {{p.Description}}\n            </label>\n\n        </div>\n\n\n        <div class=\"slds-size--12-of-12 slds-medium-size--2-of-12 vlc-slds-item--onecost\">\n\n            <label class=\"slds-form__element__label\">\n                <span>{{p.CurrencySymbol}}</span>\n                {{p.OneTimeCost}}\n            </label>\n\n            <label class=slds-form__element__label\">{{::customLabels.OmniOneTime}}</label> \n        </div>\n\n        <div class=\"slds-size--12-of-12 slds-medium-size--2-of-12 vlc-slds-item--cost\">\n\n            <label class=\"slds-form__element__label\">\n                <span>{{p.CurrencySymbol}}</span>\n                {{p.MonthlyCost}}\n            </label>\n\n            <label class=\"slds-form__element__label\">{{::customLabels.OmniMonthly}}</label>\n        </div>\n\n\n        <div class=\"vls-slds-item--action\"\n             ng-init=\" p.isConfigurable == true ? operation = 'configureProd' : operation = 'Add' \">\n\n            <span class=\"slds-icon_container slds-icon-action-approval slds-icon_container--circle\">\n                \n                <slds-svg-icon aria-hidden=\"true\"\n                               sprite=\"'action'\"\n                               icon=\"'approval'\"\n                               size=\"'small'\"\n                               extra-classes=\"''\">\n                </slds-svg-icon>\n\n            </span>\n\n        </div>\n\n    </div>\n\n</a>\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSelectableItemV2",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSelectableItemV2/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSelectableItemV2"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelectableItemV2",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelectableItemV2",
+            "VlocityDataPackName": "omniLightning-vlcSelectableItemV2",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSelectableItems",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-selItem'\n             id='{{::control.name}}'\n             ng-repeat='control in child.eleArray' >\n\n        <div class=\"slds-form-element__control\">\n\n\n            <label for=\"{{::control.name}}\"\n                   class='slds-form-element__label vlc-slds-selItem__label'>\n             {{::control.propSetMap.label}} \n                 <span class='vlc-asterix icon-v-asterix' \n                       ng-if='control.req'> \n                 </span> \n            </label> \n            \n\n\n            <ng-include class=\"slds-grid slds-wrap slds-grid--pull-padded\"\n                        ng-if='ngInitValidation(this, control)'\n                        src='::control.propSetMap.HTMLTemplateId' />\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSelectableItems",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSelectableItems/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSelectableItems"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelectableItems",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSelectableItems",
+            "VlocityDataPackName": "omniLightning-vlcSelectableItems",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSideBar",
+                        "%vlocity_namespace%__HTML__c": "<!-- vlc Cart persisten component (OMNI-1331)-->\n<div class=\"vlc-slds-cart\" ng-if=\"bpTree.showPC\">\n    <ng-include ng-repeat=\"vlcPC in ::bpTree.propSetMap.persistentComponent\"\n                ng-if='bpTree.showPCNew[vlcPC.pcIndex] && ($index === 0 )'\n                id='{{::vlcPC.id}}'\n                class=\"slds-box\"\n                src=\"::bpTree.dfHPSTmpl[vlcPC.pcIndex]\"/>\n</div>\n\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSideBar",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSideBar/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSideBar"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSideBar",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSideBar",
+            "VlocityDataPackName": "omniLightning-vlcSideBar",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSignature",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       type='text'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name='loopname'\n                       ng-model='control.response'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input form-control vlc-handwriting'\n                       style='font-family: cursive !important;'\n                       vlc-slds-val-watch=\"response\"\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       ng-init='init(this, control)'\n                       vlc-slds-val-checker=\"response\"/>\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-show='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSignature",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSignature/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSignature"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSignature",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSignature",
+            "VlocityDataPackName": "omniLightning-vlcSignature",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSldsHeadingBanner",
+                        "%vlocity_namespace%__HTML__c": "<section  class=\"slds-page-header vlc-slds-page--header\" ng-style=\"bpTree.propSetMap.hideStepChart && {'display': 'inline-block'}\">\n\n    <div class='slds-size--1-of-1 vlc-slds-height--100'>\n\n\n        <div  class=\"slds-grid vlc-slds-height--100\">\n\n            <!-- <div ng-show='bpTree.children[bpTree.asIndex].bHasPrevious'\n                 class=\"slds-size--1-of-12 slds-clearfix\"\n                 ng-click=\"previous(this,bpTree.children[bpTree.asIndex])\"\n                 ng-class=\"bpTree.children[bpTree.asIndex].bHasPrevious? 'vlc-slds-back-button':''\"\n                 aria-hidden=\"true\"\n                 reverse=\"true\">\n\n                 <span>\n                 \n                 <slds-svg-icon aria-hidden=\"true\"\n                 sprite=\"'utility'\"\n                 icon=\"'chevronup'\"\n                 size=\"'small'\"\n                 extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n                 </slds-svg-icon>\n                 \n\n                 <span class=\"vlc-slds-small-size--hide\">{{::bpTree.children[bpTree.asIndex].propSetMap.previousLabel}}</span>\n\n                 </span>\n\n\t\t </div>\n\t       -->\n            <div class=\"slds-size--11-of-12 vlc-slds-flex-grow vlc-slds-underline--gradient\">\n                <h1 class=\"slds-page-header__title vlc-slds-page-header__title slds-truncate\"\n                   prev=\"{{bpTree.children[bpTree.asIndex].bHasPrevious}}\">\n                    {{bpTree.children[bpTree.asIndex].propSetMap.label}}\n                </h1>\n            </div>\n\n        </div>\n\n    </div>\n\n</section>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSldsHeadingBanner",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSldsHeadingBanner/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSldsHeadingBanner"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsHeadingBanner",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsHeadingBanner",
+            "VlocityDataPackName": "omniLightning-vlcSldsHeadingBanner",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSldsInstructions",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-instruction--container vlc-slds-rte\"\n     ng-if='bpTree.asIndex !== null &&\n            bpTree.children[bpTree.asIndex].propSetMap.instructionDisplay'>\n\n    <!-- instructions for the step if any -->\n    <p ng-bind-html='bpTree.children[bpTree.asIndex].propSetMap.instructionDisplay'></p>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSldsInstructions",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSldsInstructions/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSldsInstructions"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsInstructions",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsInstructions",
+            "VlocityDataPackName": "omniLightning-vlcSldsInstructions",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSldsOmniToolTip",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-popover {{nubbinDirection ? 'slds-nubbin--' + nubbinDirection.replace('auto ','') : ''}} {{theme ? 'slds-theme--' + theme : ''}} {{tooltip ? 'slds-popover--tooltip' : ''}} vlc-slds--tooltip\"\n     role=\"tooltip\"\n     style=\"position:absolute\">\n    <div class=\"slds-popover__body\">\n        {{control.propSetMap.helpText || attr.valuedescription__c }}\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSldsOmniToolTip",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSldsOmniToolTip/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSldsOmniToolTip"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsOmniToolTip",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsOmniToolTip",
+            "VlocityDataPackName": "omniLightning-vlcSldsOmniToolTip",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSldsRightPanel",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-right--panel\" ng-if=\"::!bpTree.propSetMap.hideStepChart\">\n\n    <div vlc-slds-step-chart map=\"StepChart\" ></div>\n\n    <!-- knowledge component will go here -->\n    <ng-include ng-repeat=\"vlcPC in ::bpTree.propSetMap.persistentComponent\"\n                ng-if='bpTree.showPCNew[vlcPC.pcIndex] && ($index === 1 )'\n                id='{{::vlcPC.id}}'\n                knowledge=\"true\"\n                src=\"::bpTree.dfHPSTmpl[vlcPC.pcIndex]\"/>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSldsRightPanel",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSldsRightPanel/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSldsRightPanel"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsRightPanel",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsRightPanel",
+            "VlocityDataPackName": "omniLightning-vlcSldsRightPanel",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSldsScriptNotFound",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-script--notFound\">\n    <div class=\"slds-box\">\n        <section class=\"vlc-slds-scrNotFound--header\">\n            <figure class=\"vlc-slds-figure\">\n                <span class=\"slds-icon_container slds-icon-action-close slds-icon_container--circle\">\n\n                    <slds-svg-icon aria-hidden=\"true\"\n                                   sprite=\"'action'\"\n                                   icon=\"'close'\"\n                                   size=\"'small'\"\n                                   extra-classes=\"''\">\n                    </slds-svg-icon>\n\n                </span>\n            </figure>\n        </section>\n\n        <section>\n\n            <p>{{::rootCustomLabels.OmniScriptError}}:</p>\n\n            <p>{{::rootCustomLabels.OmniScriptNotFound1}}</p>\n            \n            <p ng-if='scriptNotFound1'>\n               <span class=\"bold\">{{::rootCustomLabels.OmniScriptType}}: </span><span>{{type}}</span><br/>\n               <span class=\"bold\">{{::rootCustomLabels.OmniScriptSubType}}: </span><span>{{subType}}</span></br>\n               <span class=\"bold\">{{::rootCustomLabels.OmniScriptLang}}: </span><span>{{lang}}</span></br>\n            <p>\n            \n            <p ng-if='scriptNotFound2'>\n                <span class=\"bold\">{{::rootCustomLabels.OmniScriptId}}:</span><span> {{id}}</span>\n            </p>\n            \n            <p>{{::rootCustomLabels.OmniScriptNotFound2}}</p>\n\n        </section>\n\n    </div>\n\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSldsScriptNotFound",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSldsScriptNotFound/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSldsScriptNotFound"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsScriptNotFound",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsScriptNotFound",
+            "VlocityDataPackName": "omniLightning-vlcSldsScriptNotFound",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSldsSpinner",
+                        "%vlocity_namespace%__HTML__c": "\n<div class=\"slds-spinner_container\">\n    <div class=\"slds-spinner--brand slds-spinner slds-spinner--large\" aria-hidden=\"false\" role=\"alert\">\n        <div class=\"slds-spinner__dot-a\"></div>\n        <div class=\"slds-spinner__dot-b\"></div>\n    </div>\n    <div class=\"vlc-loading-message\" ng-if=\"loadingMessage.actionMessage\">\n    \t<span>{{loadingMessage.actionMessage}}</span>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSldsSpinner",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSldsSpinner/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSldsSpinner"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsSpinner",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSldsSpinner",
+            "VlocityDataPackName": "omniLightning-vlcSldsSpinner",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSmallItems",
+                        "%vlocity_namespace%__HTML__c": "<a class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--6-of-12 vlc-slds-items--container\"\n\n   ng-click=\"buttonClick(bpTree.response, control, this, p, (p.added?'Remove':'Add'), baseCtrl.customHandleSelectedItem)\"\n   vlc-slds-added=\"{{ p.added }}\"\n   vlc-slds-prod-desc=\"{{p.Description}}\"\n   ng-repeat='p in control.vlcSI[control.itemsKey]'>\n\n    <div class=\"slds-grid slds-box vlc-slds-selectableItem\">\n\n        <div class=\"slds-size--2-of-12 slds-box vlc-slds-item--image\">\n\n            <img ng-if=\"p.Image\" ng-src=\"{{::instanceHost}}/servlet/servlet.FileDownload?file={{p.Image}}\" />\n        </div>\n\n        <div class=\"slds-size--6-of-12 vlc-slds-item--details\">\n\n            <label class=\"slds-form__element__label\">\n                {{p.Name}}\n            </label>\n\n            <label class=\"slds-form__element__label\">\n                {{p.Description}}\n            </label>\n\n        </div>\n\n\n        <div class=\"slds-size--12-of-12 slds-medium-size--4-of-12 vlc-slds-item--cost\">\n\n            <div class=\"vlc-slds-item--cost-row-align\">\n                <label class=\"slds-form__element__label\">\n                    <span>{{p.CurrencySymbol}}</span>\n                    {{p.MonthlyCost}}\n                </label>\n\n                <label class=\"slds-form__element__label vlc-slds-form-element__label--last\">\n                    {{::customLabels.OmniMonthly}}\n                </label>\n            </div>\n\n            <div class=\"vlc-slds-item--add\"\n                 vlc-slds-added=\"{{ p.added }}\"\n                 ng-init=\" p.isConfigurable == true ? operation = 'configureProd' : operation = 'Add' \"\n                 ng-click=\"buttonClick(bpTree.response, control, this, p, (p.added?'Remove':'Add'), baseCtrl.customHandleSelectedItem)\">\n                <button class=\"slds-button slds-button--neutral\">\n                    {{ p.added? \"Added to Cart\" : \"Add to Cart\" }}\n                </button>\n            </div>\n\n        </div>\n\n    </div>\n\n</a>\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSmallItems",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSmallItems/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSmallItems"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSmallItems",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSmallItems",
+            "VlocityDataPackName": "omniLightning-vlcSmallItems",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSmallItemsHyb",
+                        "%vlocity_namespace%__HTML__c": "<a class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--6-of-12 vlc-slds-items--container\"\n\n   ng-click=\"baseCtrl.addProductToCart(p, control, this)\"\n   vlc-slds-prod-desc=\"{{p.Product2.Description}}\"\n   ng-repeat='p in control.vlcSI[control.itemsKey][0].records'>\n\n    <div class=\"slds-grid slds-box vlc-slds-selectableItem\">\n\n        <div class=\"slds-size--2-of-12 slds-box vlc-slds-item--image\" ng-if=\"!p.Attachments\"></div>\n        <div class=\"slds-size--2-of-12 slds-box vlc-slds-item--image\" ng-repeat='a in p.Attachments'>\n            <img src=\"{{a.url}}\" alt=\"{{a.title}}\" ng-if=\"a.contentType === 'Image'\"/>\n        </div>\n\n        <div class=\"slds-size--7-of-12 vlc-slds-item--details\">\n\n            <label class=\"slds-form__element__label\">\n                {{p.Name.value}}\n            </label>\n\n            <label class=\"slds-form__element__label\">\n                {{p.Product2.Description}}\n            </label>\n\n        </div>\n\n\n        <div class=\"slds-size--3-of-12 vlc-slds-item--cost\" ng-init=\"RecurringPrice__c = p[nsPrefix + 'RecurringPrice__c'].value ? p[nsPrefix + 'RecurringPrice__c'].value : 0.00\">\n\n            <label class=\"slds-form__element__label\">\n                {{RecurringPrice__c | currency:bpTree.cpqCurrencySymbol  | numFormatFilter}}\n            </label>\n\n            <label class=\"slds-form__element__label\">{{::customLabels.OmniMonthly}}</label>\n        </div>\n\n\n        <div class=\"vls-slds-item--action\"\n             ng-init=\" p.isConfigurable == true ? operation = 'configureProd' : operation = 'Add' \">\n\n            <span class=\"slds-icon_container slds-icon-action-approval slds-icon_container--circle\">\n\n                <slds-svg-icon aria-hidden=\"true\"\n                               sprite=\"'action'\"\n                               icon=\"'approval'\"\n                               size=\"'small'\"\n                               extra-classes=\"''\">\n                </slds-svg-icon>\n\n            </span>\n\n        </div>\n\n    </div>\n\n</a>\n<div class='vlc-slds-loadmore-products-btn vlc-slds-remote-action--button' ng-if=\"control.vlcSI[control.itemsKey][0].actions\">\n    <div class=\"slds-form-element__control\">\n        <div class=\"vlc-control-wrapper\">\n            <div id=\"loadMoreProducts\"\n                 class='slds-box'\n                 title=\"Load More\"\n                 ng-click=\"baseCtrl.loadMoreProducts(control, this)\">\n                <p>{{::customLabels.OmniSelItemLoadMore}}</p>\n            </div>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSmallItemsHyb",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSmallItemsHyb/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSmallItemsHyb"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSmallItemsHyb",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSmallItemsHyb",
+            "VlocityDataPackName": "omniLightning-vlcSmallItemsHyb",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSmallItemsV2",
+                        "%vlocity_namespace%__HTML__c": "<a class=\"slds-size--12-of-12 slds-medium-size--12-of-12 slds-large-size--6-of-12 vlc-slds-items--container\"\n\n   ng-click=\"configureItem(bpTree.response, control, this, p, operation, baseCtrl.customHandleSelectedItem, baseCtrl.customIsConfigurable)\"\n   vlc-slds-prod-desc=\"{{p.Description}}\"\n   ng-repeat='p in control.vlcSI[control.itemsKey]'>\n\n    <div class=\"slds-grid slds-box vlc-slds-selectableItem\">\n\n        <div class=\"slds-size--12-of-12 slds-medium-size--2-of-12\">\n             <div class=\"slds-box vlc-slds-item--image\">\n                 <img ng-if=\"p.Image\" ng-src=\"{{::instanceHost}}/servlet/servlet.FileDownload?file={{p.Image}}\" />\n             </div>\n        </div>\n\n        <div class=\"slds-size--12-of-12 slds-medium-size--7-of-12 vlc-slds-item--details\">\n\n            <label class=\"slds-form__element__label\">\n                {{p.Name}}\n            </label>\n\n            <label class=\"slds-form__element__label\">\n                {{p.Description}}\n            </label>\n\n        </div>\n\n\n        <div class=\"slds-size--12-of-12 slds-medium-size--3-of-12 vlc-slds-item--cost\">\n            <label class=\"slds-form__element__label\">\n                <span>{{p.CurrencySymbol}}</span>\n                {{p.MonthlyCost}}\n            </label>\n            <label class=\"slds-form__element__label\">{{::customLabels.OmniMonthly}}</label>\n        </div>\n\n\n        <div class=\"vls-slds-item--action\"\n             ng-init=\" p.isConfigurable == true ? operation = 'configureProd' : operation = 'Add' \">\n\n            <span class=\"slds-icon_container slds-icon-action-approval slds-icon_container--circle\">\n\n                <slds-svg-icon aria-hidden=\"true\"\n                               sprite=\"'action'\"\n                               icon=\"'approval'\"\n                               size=\"'small'\"\n                               extra-classes=\"''\">\n                </slds-svg-icon>\n\n            </span>\n\n        </div>\n\n    </div>\n\n</a>\n\n\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSmallItemsV2",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSmallItemsV2/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSmallItemsV2"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSmallItemsV2",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSmallItemsV2",
+            "VlocityDataPackName": "omniLightning-vlcSmallItemsV2",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcStep",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-grid vlc-slds-step--container\" vlc-slds-window-scroll=\"test\">\n\n\n    <section id='{{::child.name}}'\n             ng-show='child.bAccordionActive && child.bAccordionOpen'\n             class=\"step-step slds-size--1-of-1\">\n\n        <!-- banner template -->\n        <vlc-slds-banner></vlc-slds-banner>\n\n        <!-- article when embedded in omniscript -->\n        <vlc-slds-embedded-article></vlc-slds-embedded-article>\n\n        <form novalidate\n              role='form'\n              stepForm\n              name='{{::bpTree.sOmniScriptId}}-{{$index}}'\n              id='{{::bpTree.sOmniScriptId}}-{{$index}}'\n              vlc-slds-disable-auto-complete=\"testing\"\n              class='slds-grid slds-wrap'>\n\n            <!-- child controls in the step new comment-->\n            <div class='slds-col--padded slds-size--1-of-1'>\n                <div  class=\"slds-grid slds-wrap slds-grid--pull-padded\">\n                    <child vlc-slds-change-inline-templates=\"::child.eleArray[0].propSetMap.showInputWidth\"\n                           class=\"slds-size--1-of-1 slds-medium-size--{{child.eleArray[0].propSetMap.controlWidth}}-of-12\"\n                           ng-repeat='child in ::children = child.children'\n                           ng-show='::!child.eleArray[0].propSetMap.hide'\n                           ng-if='(child.eleArray[0].propSetMap.hide && child.eleArray[0].type!==\"Formula\")||(!child.eleArray[0].propSetMap.show || evaluateShow(child.eleArray[0], this))'>\n                    </child>\n                </div>\n            </div>\n\n            <div class='slds-col--padded slds-size--1-of-1 slds-m-top--medium slds-m-bottom--medium'>\n\n                <div class='slds-grid slds-wrap vlc-slds-button--footer'>\n\n                    <div class='vlc-slds--tertiary-container'>\n\n                        <div class='vlc-slds-button--tertiary'\n                             ng-if='child.bAccordionActive && bpTree.propSetMap.allowCancel != false'\n                             confirmed-click='cancel()'\n                             ng-confirm-click='{{::child.propSetMap.cancelMessage}}'>\n                            {{::child.propSetMap.cancelLabel}}\n                        </div>\n\n                        <!-- test -->\n                        <div ng-show='!child.bHasNext'\n                             class='vlc-slds-button--tertiary'\n                             ng-if='bpTree.scriptState == \"saveAndResume\" && child.bAccordionActive'\n                             vlc-animation-slider=\"test\"\n                             confirmed-click='completeScript(true)'\n                             ng-confirm-click='{{::child.propSetMap.completeMessage}}'>\n                            {{::child.propSetMap.completeLabel}}\n                        </div>\n\n\n                        <div class='vlc-slds-button--tertiary'\n                             ng-if='child.propSetMap.allowSaveForLater !== false && bpTree.propSetMap.allowSaveForLater !== false && !bpService.bSflInProgress && bpTree.scriptState !== \"review\" && child.bAccordionActive'\n                             confirmed-click='saveForLater(child)'\n                             ng-confirm-click='{{::child.propSetMap.saveMessage}}' >\n                            {{::child.propSetMap.saveLabel}}\n                        </div>\n\n                    </div>\n\n                    <div class='slds-size--1-of-1 slds-medium-size--6-of-12'>\n\n                        <div class='slds-grid slds-wrap slds-grid--pull-padded vlc-slds-small--size-column' style=\"justify-content:flex-end\">\n\t\t\t    \n\t\t\t    <!-- OMNI:2008 -->\n\t\t\t    <div ng-if='child.bHasPrevious'\n\t\t\t\t class='slds-size--1-of-1 slds-medium-size--{{::child.propSetMap.previousWidth}}-of-12 vlc-slds-remote-action--button'>\n\n\t\t\t\t<div class=\"slds-form-element__control\">\n\n\t\t\t\t    <div class=\"vlc-control-wrapper\">\n\t\t\t\t\t\n\t\t\t\t\t<div\n\t\t\t\t\t    id=\"{{::child.name + '_prevBtn'}}\"\n\t\t\t\t\t    class=\"slds-box vlc-slds-box--neutral\"\n\t\t\t\t\t     ng-click='previous(this,child)'\n\t\t\t\t\t     aria-hidden=\"true\"\n\t\t\t\t\t     vlc-animation-slider=\"test\"\n\t\t\t\t\t     reverse=\"true\">\n\n\t\t\t\t\t    <p>\n\t\t\t\t\t\t{{::child.propSetMap.previousLabel}}\n\t\t\t\t\t    </p>\n\n\t\t\t\t\t</div>\n\n\t\t\t\t    </div>\n\n\t\t\t\t</div>\n\n\t\t\t    </div>\n\n                            <div ng-show='child.bHasNext'\n\t\t\t\t class='slds-size--1-of-1 slds-medium-size--{{::child.propSetMap.nextWidth}}-of-12 vlc-slds-remote-action--button'>\n\n                                <div class=\"slds-form-element__control\">\n\n                                    <div class=\"vlc-control-wrapper\">\n\n                                        <div\n\t\t\t\t\t    id=\"{{::child.name + '_nextBtn'}}\"\n\t\t\t\t\t    ng-click='nextRepeater(child.nextIndex, child.indexInParent)'\n                                            ng-disabled='checkValidity(this, child.index, child.indexInParent, \"Step\", null, true)'\n                                            vlc-animation-slider='test'\n                                            class='slds-box'>\n                                            <p>{{::child.propSetMap.nextLabel}}</p>\n                                        </div>\n\n                                    </div>\n                                </div>\n\n                            </div>\n\n                        </div>\n\n                    </div>\n\n                </div>\n\n            </div>\n\n        </form>\n    </section>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcStep",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcStep/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcStep"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcStep",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcStep",
+            "VlocityDataPackName": "omniLightning-vlcStep",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcStepChart",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-wizard\"\n     role=\"navigation\" vlc-slds-toggle-element=\"test\">\n\n    <!-- step instructions section OMNI-2008 -->\n    <vlc-slds-instruction></vlc-slds-instruction>\n\n    <label class=\"slds-form-element__label vlc-slds-step-chart--title\">\n        {{::customLabels.OmniStepChartDesc}}\n    </label>\n\n\n    <!-- this banner is the header  in mobile -->\n    <vlc-slds-banner src=\"vlcSldsHeadingBanner.html\"></vlc-slds-banner>\n\n    <ol class=\"list-group vertical-steps\">\n        <li ng-repeat=\"step in ::children\"\n            ng-if=\"step.type === 'Step' && step.show\"\n            class=\"list-group-item\"\n            state=\"{{step.bAccordionActive}}\"\n            ng-click=\"sidebarNav(step)\"\n            vlc-slds-step-styler>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'close'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-icon-text-default'\"\n                           ng-if=\"step.tInvalid\">\n            </slds-svg-icon>\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'check'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-icon-text-default'\"\n                           ng-if=\"!step.tInvalid\">\n            </slds-svg-icon>\n            <span class=\"slds-form-element__label\">\n              {{::step.propSetMap.chartLabel || step.propSetMap.label}}\n            </span>\n        </li>\n    </ol>\n\n    <div class=\"vlc-slds-container--grippy\">\n        <span class=\"vlc-slds--grippy\" vlc-slds-expand=\"test\">\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'chevrondown'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-icon-text-default'\">\n            </slds-svg-icon>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'chevronup'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-icon-text-default'\">\n            </slds-svg-icon>\n\n        </span>\n    </div>\n\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcStepChart",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcStepChart/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcStepChart"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcStepChart",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcStepChart",
+            "VlocityDataPackName": "omniLightning-vlcStepChart",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcSubmit",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-form-group vlc-slds-remote-action--button'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control\">\n\n            <div class=\"vlc-control-wrapper\">\n\n                <div class='slds-box'\n                     title='{{::control.propSetMap.label}}'\n                     ng-click='submit(this, control)'>\n                    <p>{{::control.propSetMap.label}}</p>\n                </div>\n\n            </div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcSubmit",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcSubmit/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcSubmit"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSubmit",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcSubmit",
+            "VlocityDataPackName": "omniLightning-vlcSubmit",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTableSample",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    <div class=\"vlc-slds-table-heading\">\n        <label>{{::control.propSetMap.label}}</label>\n    </div>\n    <table class=\"slds-table slds-table--bordered slds-table--cell-buffer vlc-slds-table\">\n       <thead>\n            <tr class=\"slds-text-heading--label\">\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">field1</div>\n                </th>\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">field2</div>\n                </th>\n                <th scope=\"col\">\n                    <div class=\"slds-truncate\">field3</div>\n                </th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr ng-repeat='p in control.vlcInputBlock.fieldArray' >\n                <td>\n                    <div class=\"slds-truncate\"><input type='text' ng-model='p.field1'/></div>\n                </td>\n                <td>\n                    <div class=\"slds-truncate\"><input type='text' ng-model='p.field2'/></div>\n                </td>\n                <td>\n                    <div class=\"slds-truncate\"><input type='text' ng-model='p.field3'/></div>\n                </td>\n            </tr>\n        </tbody>\n    </table>\n    <div class=\"vlc-slds-upgrade-btn\">\n        <button id=\"save&next\" class=\"slds-button vlc-slds-button--primary\" title=\"Save & Next\" ng-click=\"buttonClick(bpTree.response, control, this, control.vlcInputBlock, 'Save', callBackNextStep)\">\n            Save &amp; Next\n        </button>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTableSample",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTableSample/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTableSample"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTableSample",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTableSample",
+            "VlocityDataPackName": "omniLightning-vlcTableSample",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTel",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-tel'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       type='text'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name=\"loopname\"\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input form-control'\n                       vlc-slds-val-checker=\"telControl\"\n                       ui-mask='{{::control.propSetMap.mask}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern}}'\n                       vlc-slds-attr=\"placeholder\" />\n\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTel",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTel/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTel"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTel",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTel",
+            "VlocityDataPackName": "omniLightning-vlcTel",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcText",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n\n        <div class=\"slds-form-element__control\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       type='text'\n                       name='loopname'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input'\n                       ui-mask='{{::control.propSetMap.mask}}'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       vlc-slds-min-max-len=\"response\"\n                       vlc-slds-val-checker=\"response\"/>\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <!-- this is the error block -->\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcText",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcText/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcText"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcText",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcText",
+            "VlocityDataPackName": "omniLightning-vlcText",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTextTelephone",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-tel'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       type='tel'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       name=\"loopname\"\n                       ng-init='init(this, control)'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       class='slds-input form-control'\n                       ui-mask='{{::control.propSetMap.mask}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       vlc-slds-ng-pattern='{{::control.propSetMap.pattern}}'\n                       vlc-slds-val-checker=\"response\"\n                       vlc-slds-attr=\"placeholder\" />\n\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTextTelephone",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTextTelephone/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTextTelephone"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTextTelephone",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTextTelephone",
+            "VlocityDataPackName": "omniLightning-vlcTextTelephone",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTextarea",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    \n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-text-area'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control\">\n\n            <div class=\"vlc-control-wrapper vlc-control-text-area__wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <textarea id='{{::control.name}}'\n                          name='loopname'\n                          ng-disabled='control.ro'\n                          ng-required='control.req'\n                          ng-init='init(this, control)'\n                          ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                          ng-model='control.response'\n                          ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                          class='slds-textarea'\n                          ng-minlength='{{::control.propSetMap.minLength}}'\n                          ng-maxlength='{{::control.propSetMap.maxLength}}'\n                          vlc-slds-ng-pattern='{{::control.propSetMap.pattern }}'\n                          vlc-slds-val-checker=\"response\">\n                </textarea>\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n        \n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTextarea",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTextarea/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTextarea"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTextarea",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTextarea",
+            "VlocityDataPackName": "omniLightning-vlcTextarea",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTextblock",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-text-block vlc-slds-rte'\n             ng-repeat='control in child.eleArray' id='{{::control.name}}'>\n\n        <label class='slds-form-element__label'>\n        </label>\n\n        <div class=\"slds-form-element__control\">\n            <p vlc-bind-html='::control.propSetMap.value'></p>\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTextblock",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTextblock/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTextblock"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTextblock",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTextblock",
+            "VlocityDataPackName": "omniLightning-vlcTextblock",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTime",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-time-picker-control'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       placement='none'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       type='text'\n                       name='loopname'\n                       ng-change='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       class='slds-input slds-time-picker'\n                       ng-model='control.response'\n                       ng-init='init(this, control)'\n                       data-min-time=\"{{::control.propSetMap.minTime}}\"\n                       data-max-time=\"{{::control.propSetMap.maxTime}}\"\n                       time-type=\"{{::control.propSetMap.timeType}}\"\n                       model-time-format=\"{{::control.propSetMap.modelTimeFormat}}\"\n                       slds-time-picker\n                       data-time-format =\"{{::control.propSetMap.timeFormat}}\"\n                       vlc-slds-val-checker=\"response\" />\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n            </div>\n\n            <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'clock'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large'\">\n            </slds-svg-icon>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTime",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTime/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTime"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTime",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTime",
+            "VlocityDataPackName": "omniLightning-vlcTime",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTopCartChildrensHyb",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-item--name\"  ng-init='i.isExpanded = false; prodHierLevel = prodHierLevel + 1'>\n\n    <div class='vlc-slds-cart--button__settings'>\n        <slds-svg-icon sprite=\"'utility'\" icon=\"'settings'\" extra-classes=\"'slds-button__icon-cart'\" size=\"'small'\" ng-if=\"i.attributeCategories\" ng-click=\"openConfigPan(this[this.gParentId+'_' + (this.prodHierLevel-1)], this[this.gParentId+'_' + 1], i, true)\"></slds-svg-icon>\n    </div>\n\n    <div class=\"vlc-slds-item--details__product_name vlc-slds-cart-hier-level-{{prodHierLevel}}\">\n        <div class=\"vlc-slds-item--details__product_name-group\">\n            <div class=\"vlc-slds-item--icon-pointer\">\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'right'\" size=\"'small'\" ng-click=\"i.isExpanded = !i.isExpanded\" extra-classes=\"'vlc-slds-item--cart-right-arrow'\" ng-if=\"(!i.isExpanded && (i.lineItems !== undefined || i.childProducts !== undefined || i.productGroups !== undefined))\"></slds-svg-icon>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'left'\" size=\"'small'\" ng-click=\"i.isExpanded = !i.isExpanded\" extra-classes=\"'vlc-slds-item--cart-left-arrow'\" ng-if=\"(!i.isExpanded && (i.lineItems !== undefined || i.childProducts !== undefined || i.productGroups !== undefined))\"></slds-svg-icon>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'down'\" size=\"'small'\" ng-click=\"i.isExpanded = !i.isExpanded\" ng-if=\"(i.isExpanded && (i.lineItems !== undefined || i.childProducts !== undefined || i.productGroups !== undefined))\"></slds-svg-icon>\n            </div>\n            <label class=\"slds-form-element__label\" ng-class=\"{'slds-form-element__label_no_child' : i.lineItems == undefined}\" >{{::(i.PricebookEntry.Product2.Name || i.Product2.Name)}}</label>\n            <span class='vlc-slds-item--details__child_number' ng-if='i.lineItems || i.childProducts || i.productGroups'>({{i.lineItems.records.length + i.childProducts.records.length + i.productGroups.records.length}})</span>\n        </div>\n        <div class='vlc-slds-item--details__errors'>\n            <span ng-repeat=\"e in i.messages\" ng-if=\"e.severity === 'ERROR'\" ng-init=\"showErrorIconInCart(i.messages)\">\n                {{e.message}}\n            </span>\n            <span ng-if=\"i.fieldValidationMessage\">\n                {{i.fieldValidationMessage}}\n            </span>\n        </div>\n        <div class=\"vlc-slds-item--details__product_price\" ng-if=\"i.itemType === 'lineItem'\">\n            <div class=\"vlc-slds-item--details__product_price_label\">\n                <span class=\"vlc-slds-item--price__label_rtl\">{{::customLabels.OmniOneTime}}</span>\n                <span class=\"price\"> {{i[nsPrefix + 'OneTimeCharge__c'].value | currency:bpTree.cpqCurrencySymbol | numFormatFilter }} </span>\n            </div>\n\n            <div class=\"vlc-slds-item--details__product_price_label vlc-slds-item--details__product_price_label_margin\">\n                <span class=\"vlc-slds-item--price__label_rtl\">{{::customLabels.OmniMonthly}}</span>\n                <span class=\"price\"> {{i[nsPrefix + 'RecurringCharge__c'].value | currency:bpTree.cpqCurrencySymbol | numFormatFilter }} </span>\n            </div>\n        </div>\n        <div class=\"vlc-slds-item--details__product_price\"  ng-if=\"i.itemType === 'childProduct'\">\n            <div class=\"vlc-slds-item--details__product_price_label vlc-slds-item--details__product_price_label_margin\">\n                <span class=\"vlc-slds-item--price__label_rtl\">{{::customLabels.OmniMonthly}}</span>\n                <span class=\"price\"> {{i.UnitPrice.value | currency:bpTree.cpqCurrencySymbol}} </span>\n            </div>\n\n            <div class=\"vlc-slds-item--details__product_price_label\">\n                <span class=\"vlc-slds-item--price__label_rtl\">{{::customLabels.OmniOneTime}}</span>\n                <span class=\"price\"> {{i[nsPrefix + 'RecurringPrice__c'].value | currency:bpTree.cpqCurrencySymbol | numFormatFilter }} </span>\n            </div>\n        </div>\n    </div>\n\n    <div class='vlc-slds-cart--quantity-box' ng-if=\"i.itemType === 'lineItem'\">\n        <div class=\"vlc-slds-item--details\">\n            <div class=\"vlc-slds-item--details__product_price\">\n                <div class=\"vlc-slds-item--details__product_price_label\">\n                    <span class=\"price\"> {{i[nsPrefix + 'OneTimeCharge__c'].value | currency:bpTree.cpqCurrencySymbol  | numFormatFilter }}</span>\n                </div>\n\n                <div class=\"vlc-slds-item--details__product_price_label vlc-slds-item--details__product_price_label_margin\">\n                    <span class=\"price\"> {{i[nsPrefix + 'RecurringCharge__c'].value | currency:bpTree.cpqCurrencySymbol  | numFormatFilter }}  </span>\n                </div>\n            </div>\n        </div>\n\n        <div class='vlc-slds-cart--quantity-box-quantity'>\n            <div class=\"slds-form-element__control\">\n                <input type ='number' name=\"quantity\"\n                    min='0'\n                    step=\"1\"\n                    pattern=\"\\d*\"\n                    ng-model=\"i.Quantity.value\"\n                    class=\"slds-input vls-slds-input-quantity\"\n                    ng-disabled=\"(i.minQuantity && i.minQuantity === i.maxQuantity) || !i.actions.updateitems\" \n                    ng-focus=\"i.oldQty = i.Quantity.value\"\n                    ng-blur=\"i.oldQty !== i.Quantity.value && updateLineField(this[this.gParentId+'_' + (this.prodHierLevel-1)], i)\"/>\n            </div>\n            <slds-svg-icon sprite=\"'utility'\" icon=\"'up'\" extra-classes=\"'vlc-slds-quantity__up_arrow' + ((i.minQuantity && i.minQuantity === i.maxQuantity) || !i.actions.updateitems ? ' vlc-slds-cart--button__disabled':'')\" size=\"'small'\" ng-click=\"updateLineField(this[this.gParentId+'_' + (this.prodHierLevel-1)], i, i.Quantity.value+1)\"></slds-svg-icon>\n            <slds-svg-icon sprite=\"'utility'\" icon=\"'down'\" extra-classes=\"'vlc-slds-quantity__down_arrow' + ((i.minQuantity && i.minQuantity === i.maxQuantity) || !i.actions.updateitems ? ' vlc-slds-cart--button__disabled':'')\" size=\"'small'\" ng-click=\"updateLineField(this[this.gParentId+'_' + (this.prodHierLevel-1)], i, i.Quantity.value-1)\"></slds-svg-icon>\n            <div class='vlc-slds-cart--button__delete'>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'delete'\" extra-classes=\"'slds-button__icon-cart' + (!i.actions.deleteitem ? ' vlc-slds-cart--button__disabled':'')\" size=\"'small'\" ng-if=\"i.actions.deleteitem && checkCardinalityForDelete(this[this.gParentId+'_' + (this.prodHierLevel-1)], i)\" ng-click=\"deleteProductFromCart(this[this.gParentId+'_' + (this.prodHierLevel-1)], i, $index,this[this.gParentId+'_' + 1])\"></slds-svg-icon>\n            </div>\n            <div class='vlc-slds-cart--button__delete'>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'copy'\" extra-classes=\"'slds-button__icon-cart' + (!i.actions.cloneitem ? ' vlc-slds-cart--button__disabled':'')\" size=\"'small'\" ng-if=\"i.actions.cloneitem && checkCardinalityForClone(this[this.gParentId+'_' + (this.prodHierLevel-1)], i)\" ng-click=\"clone(this[this.gParentId+'_' + (this.prodHierLevel-1)], i)\"></slds-svg-icon>\n            </div>\n            <div class='vlc-slds-cart--button__delete'>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'add'\" extra-classes=\"'slds-button__icon-cart'\" size=\"'small'\" ng-if=\"i.actions.addtocart && checkCardinalityForAdd(this[this.gParentId+'_' + (this.prodHierLevel-1)], i)\"\n                    ng-disabled=\"i.processingLine || attrs.processingLine == 'true'\" ng-click=\"addProductFromCart(this[this.gParentId+'_' + (this.prodHierLevel-1)], i, this[this.gParentId+'_' + 1])\">\n                </slds-svg-icon>\n            </div>\n\n        </div>\n    </div>\n    <div class='vlc-slds-cart--quantity-box' ng-if=\"i.itemType === 'childProduct'\">\n        <div class=\"vlc-slds-item--details\">\n            <div class=\"vlc-slds-item--details__product_price\">\n                <div class=\"vlc-slds-item--details__product_price_label\">\n                    <span class=\"price\"> {{i.UnitPrice.value | currency:bpTree.cpqCurrencySymbol}}  </span>\n                </div>\n\n                <div class=\"vlc-slds-item--details__product_price_label vlc-slds-item--details__product_price_label_margin\">\n                    <span class=\"price\"> {{i[nsPrefix + 'RecurringPrice__c'].value | currency:bpTree.cpqCurrencySymbol  | numFormatFilter }}</span>\n                </div>\n            </div>\n        </div>\n        <div class='vlc-slds-cart--quantity-box-quantity vlc-slds-cart--addToCart-button'>\n            <div ng-if=\"i.actions.addtocart && checkCardinalityForAddon(this[this.gParentId+'_' + (this.prodHierLevel-1)], i)\" ng-show=\"!(i.processingLine || attrs.processingLine == 'true')\">\n                <button class=\"slds-button slds-button--neutral\" ng-click=\"addProductFromCart(this[this.gParentId+'_' + (this.prodHierLevel-1)], i, this[this.gParentId+'_' + 1])\">\n                   {{::customLabels.OmniCpqAddtoCartBtn}}\n                </button>\n            </div>\n        </div>\n    </div>\n    <div class='vlc-slds-cart--quantity-box' ng-if=\"i.itemType === 'productGroup'\">\n        <div class=\"vlc-slds-item--details\">\n            <div class=\"vlc-slds-item--details__product_price\">\n                <div class=\"vlc-slds-item--details__product_price_label\">\n                    <span class=\"price\"></span>\n                </div>\n\n                <div class=\"vlc-slds-item--details__product_price_label vlc-slds-item--details__product_price_label_margin\">\n                    <span class=\"price\"></span>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class='vlc-slds-item--details__errors_mobile'>\n        <span ng-repeat=\"e in i.messages\" ng-if=\"e.severity === 'ERROR'\" ng-init=\"showErrorIconInCart(i.messages)\">\n            {{e.message}}\n        </span>\n        <span ng-if=\"i.fieldValidationMessage\">\n            {{i.fieldValidationMessage}}\n        </span>\n    </div>\n\n    <span class='vlc-slds-item--details__hide' ng-class=\"{'vlc-slds-item--details__hide-childGroup' : i.itemType === 'productGroup'}\" ng-click=\"i.isExpanded = !i.isExpanded\" ng-show=\"(!i.isExpanded && i.lineItems !== undefined)\">{{::customLabels.Omnicmtcartshowchild}}</span>\n    <span class='vlc-slds-item--details__hide' ng-class=\"{'vlc-slds-item--details__hide-childGroup' : i.itemType === 'productGroup'}\" ng-click=\"i.isExpanded = !i.isExpanded\" ng-show=\"(i.isExpanded && i.lineItems!== undefined)\">{{::customLabels.Omnicmtcarthidechild}}</span>\n\n</div>\n\n<div ng-show=\"i.isExpanded\" ng-init=\"initParent(this, i)\">\n    <div class=\"vlc-slds-line-item\"\n        ng-repeat=\"i in this[this.gParentId+'_' + this.prodHierLevel].childRecords | orderBy: 'sequenceNumber'\"\n        ng-include=\"'vlcTopCartChildrensHyb.html'\" >\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTopCartChildrensHyb",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTopCartChildrensHyb/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTopCartChildrensHyb"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTopCartChildrensHyb",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTopCartChildrensHyb",
+            "VlocityDataPackName": "omniLightning-vlcTopCartChildrensHyb",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTopCartHierarchy",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-item--name\">\n\n    <div class=\"vlc-slds-item--details__product_name vlc-slds-cart-hier-level-{{i.level}}\">\n        <div class=\"vlc-slds-item--details__product_name-group\">\n            <div class=\"vlc-slds-item--icon-pointer\">\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'right'\" size=\"'small'\" ng-click=\"i.isExpanded = !i.isExpanded\" extra-classes=\"'vlc-slds-item--cart-right-arrow'\" ng-if=\"(!i.isExpanded && i.cartItems !== undefined)\"></slds-svg-icon>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'left'\" size=\"'small'\" ng-click=\"i.isExpanded = !i.isExpanded\" extra-classes=\"'vlc-slds-item--cart-left-arrow'\" ng-if=\"(!i.isExpanded && i.cartItems !== undefined)\"></slds-svg-icon>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'down'\" size=\"'small'\" ng-click=\"i.isExpanded = !i.isExpanded\" ng-if=\"(i.isExpanded && i.cartItems !== undefined)\"></slds-svg-icon>\n            </div>\n            <label class=\"slds-form-element__label\" ng-class=\"{'slds-form-element__label_no_child' : i.cartItems == undefined}\" >{{i.itemSObject.PricebookEntry.Product2.Name}}</label>\n            <span class='vlc-slds-item--details__child_number' ng-if='i.cartItems'>({{i.cartItems.length}})</span>\n            <slds-svg-icon sprite=\"'utility'\" icon=\"'settings'\" extra-classes=\"'vlc-slds-item--icon-settings'\" size=\"'small'\" ng-if=\"!(i.orderActive || i.provisioningStatus === 'Deleted') && (i.isRoot && i.isConfigurable)\" ng-click=\"configureItem(bpTree, null, this, i, 'configureProdInCart', baseCtrl.customHandleSelectedItem, baseCtrl.customIsConfigurable, vlcPC.pcIndex)\"></slds-svg-icon>\n        </div>\n        <div class='vlc-slds-item--details__errors'>\n            <span ng-repeat=\"e in i.errors\">\n                {{e}}\n            </span>\n        </div>\n        <div class=\"vlc-slds-item--details__product_price\">\n            <div class=\"vlc-slds-item--details__product_price_label\">\n                <span class=\"vlc-slds-item--price__label_rtl\">{{::customLabels.OmniOneTime}}</span>\n                <span class=\"price old-price\" ng-show=\"i.itemSObject[nsPrefix + 'OneTimeCharge__c'] > i.itemSObject[nsPrefix + 'OneTimeTotal__c']\">\n                    {{i.itemSObject[nsPrefix + 'OneTimeCharge__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                </span>\n                <span class=\"price\" ng-class=\"{'new-price':i.itemSObject[nsPrefix + 'OneTimeCharge__c'] > i.itemSObject[nsPrefix + 'OneTimeTotal__c']}\">\n                    {{i.itemSObject[nsPrefix + 'OneTimeTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                </span>\n            </div>\n\n            <div class=\"vlc-slds-item--details__product_price_label vlc-slds-item--details__product_price_label_margin\">\n                <span class=\"vlc-slds-item--price__label_rtl\">{{::customLabels.OmniMonthly}}</span>\n                <span class=\"price old-price\" ng-show=\"i.itemSObject[nsPrefix + 'RecurringCharge__c'] > i.itemSObject[nsPrefix + 'RecurringTotal__c']\">\n                    {{i.itemSObject[nsPrefix + 'RecurringCharge__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                </span>\n                <span class=\"price\" ng-class=\"{'new-price':i.itemSObject[nsPrefix + 'RecurringCharge__c'] > i.itemSObject[nsPrefix + 'RecurringTotal__c']}\">\n                    {{i.itemSObject[nsPrefix + 'RecurringTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                </span>\n            </div>\n        </div>\n    </div>\n    <span class='vlc-slds-item--details__hide' ng-click=\"i.isExpanded = !i.isExpanded\" ng-show=\"(!i.isExpanded && i.cartItems !== undefined)\">{{::customLabels.Omnicmtcartshowchild}}</span>\n    <span class='vlc-slds-item--details__hide' ng-click=\"i.isExpanded = !i.isExpanded\" ng-show=\"(i.isExpanded && i.cartItems !== undefined)\">{{::customLabels.Omnicmtcarthidechild}}</span>\n\n    <div class='vlc-slds-cart--quantity-box'>\n        <div class=\"vlc-slds-item--details\">\n            <div class=\"vlc-slds-item--details__product_price\">\n                <div class=\"vlc-slds-item--details__product_price_label\">\n                    <span class=\"price old-price\" ng-show=\"i.itemSObject[nsPrefix + 'OneTimeCharge__c'] > i.itemSObject[nsPrefix + 'OneTimeTotal__c']\">\n                        {{i.itemSObject[nsPrefix + 'OneTimeCharge__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                    </span>\n                    <span class=\"price\" ng-class=\"{'new-price':i.itemSObject[nsPrefix + 'OneTimeCharge__c'] > i.itemSObject[nsPrefix + 'OneTimeTotal__c']}\">\n                        {{i.itemSObject[nsPrefix + 'OneTimeTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                    </span>\n                </div>\n\n                <div class=\"vlc-slds-item--details__product_price_label vlc-slds-item--details__product_price_label_margin\">\n                    <span class=\"price old-price\" ng-show=\"i.itemSObject[nsPrefix + 'RecurringCharge__c'] > i.itemSObject[nsPrefix + 'RecurringTotal__c']\">\n                        {{i.itemSObject[nsPrefix + 'RecurringCharge__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                    </span>\n                    <span class=\"price\" ng-class=\"{'new-price':i.itemSObject[nsPrefix + 'RecurringCharge__c'] > i.itemSObject[nsPrefix + 'RecurringTotal__c']}\">\n                        {{i.itemSObject[nsPrefix + 'RecurringTotal__c'] | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }}\n                    </span>\n                </div>\n            </div>\n        </div>\n\n        <div class='vlc-slds-cart--quantity-box-quantity'>\n            <slds-svg-icon sprite=\"'utility'\" icon=\"'settings'\" extra-classes=\"'vlc-slds-quantity__settings'\" size=\"'small'\" ng-if=\"!(i.orderActive || i.provisioningStatus === 'Deleted') && (i.isRoot && i.isConfigurable)\" ng-click=\"configureItem(bpTree, null, this, i, 'configureProdInCart', baseCtrl.customHandleSelectedItem, baseCtrl.customIsConfigurable, vlcPC.pcIndex)\"></slds-svg-icon>\n            <div class=\"slds-form-element__control\">\n                <input type ='number' name=\"quantity\"\n                    min='0'\n                    step=\"1\"\n                    pattern=\"\\d*\"\n                    ng-model=\"i.itemSObject.Quantity\"\n                    class=\"slds-input vls-slds-input-quantity\"\n                    ng-init=\"oldQty = i.itemSObject.Quantity\"\n                    ng-blur=\"oldQty !== i.itemSObject.Quantity && pcAction(vlcPC.pcIndex, bpTree, this, i, 'Update')\"/>\n            </div>\n            <slds-svg-icon sprite=\"'utility'\" icon=\"'up'\" extra-classes=\"'vlc-slds-quantity__up_arrow'\" size=\"'small'\" ng-click=\"onClickProductCartQuantity(vlcPC.pcIndex, bpTree, this, i, 'Update', i.itemSObject.Quantity+1)\"></slds-svg-icon>\n            <slds-svg-icon sprite=\"'utility'\" icon=\"'down'\" extra-classes=\"'vlc-slds-quantity__down_arrow'\" size=\"'small'\" ng-click=\"onClickProductCartQuantity(vlcPC.pcIndex, bpTree, this, i, 'Update', i.itemSObject.Quantity-1)\"></slds-svg-icon>\n            <div class='vlc-slds-cart--button__delete' ng-if=\"!(i.orderActive || i.provisioningStatus === 'Deleted')\">\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'delete'\" extra-classes=\"'slds-button__icon-cart'\" size=\"'small'\" ng-click=\"pcAction(vlcPC.pcIndex, bpTree, this, i, 'Delete')\"></slds-svg-icon>\n            </div>\n\n        </div>\n    </div>\n    <div class='vlc-slds-item--details__errors_mobile'>\n        <span ng-repeat=\"e in i.errors\">\n            {{e}}\n        </span>\n    </div>\n\n</div>\n\n<div ng-show=\"i.isExpanded\">\n    <div class=\"vlc-slds-line-item\"\n        ng-repeat=\"i in i.cartItems\"\n        ng-include=\"'vlcTopCartHierarchy.html'\">\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTopCartHierarchy",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTopCartHierarchy/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTopCartHierarchy"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTopCartHierarchy",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTopCartHierarchy",
+            "VlocityDataPackName": "omniLightning-vlcTopCartHierarchy",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTopCartHierarchyHyb",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"vlc-slds-item--name\"  ng-init='i.isExpanded = false; prodHierLevel = prodHierLevel + 1'>\n\n    <div class='vlc-slds-cart--button__settings'>\n        <slds-svg-icon sprite=\"'utility'\" icon=\"'settings'\" extra-classes=\"'slds-button__icon-cart'\" size=\"'small'\" ng-if=\"i.attributeCategories\" ng-click=\"openConfigPan(null, null, i, true)\"></slds-svg-icon>\n    </div>\n\n    <div class=\"vlc-slds-item--details__product_name vlc-slds-cart-hier-level-{{prodHierLevel}}\">\n        <div class=\"vlc-slds-item--details__product_name-group\">\n            <div class=\"vlc-slds-item--icon-pointer\">\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'right'\" size=\"'small'\" ng-click=\"i.isExpanded = !i.isExpanded\" extra-classes=\"'vlc-slds-item--cart-right-arrow'\" ng-if=\"(!i.isExpanded && (i.lineItems !== undefined || i.childProducts !== undefined || i.productGroups !== undefined))\"></slds-svg-icon>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'left'\" size=\"'small'\" ng-click=\"i.isExpanded = !i.isExpanded\" extra-classes=\"'vlc-slds-item--cart-left-arrow'\" ng-if=\"(!i.isExpanded && (i.lineItems !== undefined || i.childProducts !== undefined || i.productGroups !== undefined))\"></slds-svg-icon>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'down'\" size=\"'small'\" ng-click=\"i.isExpanded = !i.isExpanded\" ng-if=\"(i.isExpanded && (i.lineItems !== undefined || i.childProducts !== undefined || i.productGroups !== undefined))\"></slds-svg-icon>\n            </div>\n            <label class=\"slds-form-element__label\" ng-class=\"{'slds-form-element__label_no_child' : i.lineItems == undefined}\" >{{::(i.PricebookEntry.Product2.Name || i.Product2.Name)}}</label>\n            <span class='vlc-slds-item--details__child_number' ng-if='i.lineItems || i.childProducts || i.productGroups'>({{i.lineItems.records.length + i.childProducts.records.length + i.productGroups.records.length}})</span>\n            <!-- <slds-svg-icon sprite=\"'utility'\" icon=\"'settings'\" extra-classes=\"'vlc-slds-item--icon-settings'\" size=\"'small'\" ng-click=\"openConfigPan(i, true)\"></slds-svg-icon>-->\n        </div>\n        <div class='vlc-slds-item--details__errors'>\n            <span ng-repeat=\"e in i.messages\" ng-if=\"e.severity === 'ERROR'\" ng-init=\"showErrorIconInCart(i.messages)\">\n                {{e.message}}\n            </span>\n            <span ng-if=\"i.fieldValidationMessage\">\n                {{i.fieldValidationMessage}}\n            </span>\n        </div>\n        <div class=\"vlc-slds-item--details__product_price\">\n            <div class=\"vlc-slds-item--details__product_price_label\">\n                <span class=\"vlc-slds-item--price__label_rtl\">{{::customLabels.OmniOneTime}}</span>\n                <span class=\"price\"> {{i[nsPrefix + 'OneTimeCharge__c'].value | currency:bpTree.cpqCurrencySymbol  | numFormatFilter }} </span>\n            </div>\n\n            <div class=\"vlc-slds-item--details__product_price_label vlc-slds-item--details__product_price_label_margin\">\n                <span class=\"vlc-slds-item--price__label_rtl\">{{::customLabels.OmniMonthly}}</span>\n                <span class=\"price\"> {{i[nsPrefix + 'RecurringCharge__c'].value | currency:bpTree.cpqCurrencySymbol  | numFormatFilter }} </span>\n            </div>\n        </div>\n    </div>\n\n    <div class='vlc-slds-cart--quantity-box'>\n        <div class=\"vlc-slds-item--details\" ng-if=\"i.itemType === 'lineItem'\">\n            <div class=\"vlc-slds-item--details__product_price\">\n                <div class=\"vlc-slds-item--details__product_price_label\">\n                    <span class=\"price\"> {{i[nsPrefix + 'OneTimeCharge__c'].value | currency:bpTree.cpqCurrencySymbol  | numFormatFilter }}</span>\n                </div>\n\n                <div class=\"vlc-slds-item--details__product_price_label vlc-slds-item--details__product_price_label_margin\">\n                    <span class=\"price\"> {{i[nsPrefix + 'RecurringCharge__c'].value | currency:bpTree.cpqCurrencySymbol  | numFormatFilter }}  </span>\n                </div>\n            </div>\n        </div>\n\n        <div class='vlc-slds-cart--quantity-box-quantity'>\n            <!-- <slds-svg-icon sprite=\"'utility'\" icon=\"'settings'\" extra-classes=\"'vlc-slds-quantity__settings'\" size=\"'small'\" ng-click=\"openConfigPan(i, true)\"></slds-svg-icon> -->\n            <div class=\"slds-form-element__control\">\n                <input type ='number' name=\"quantity\"\n                    min='0'\n                    step=\"1\"\n                    pattern=\"\\d*\"\n                    ng-model=\"i.Quantity.value\"\n                    class=\"slds-input vls-slds-input-quantity\"\n                    ng-disabled=\"(i.minQuantity && i.minQuantity === i.maxQuantity) || !i.actions.updateitems\" \n                    ng-focus=\"i.oldQty = i.Quantity.value\"\n                    ng-blur=\"i.oldQty !== i.Quantity.value && updateLineField(null, i)\"/>\n            </div>\n            <slds-svg-icon sprite=\"'utility'\" icon=\"'up'\" extra-classes=\"'vlc-slds-quantity__up_arrow' + ((i.minQuantity && i.minQuantity === i.maxQuantity) || !i.actions.updateitems ? ' vlc-slds-cart--button__disabled':'')\" size=\"'small'\" ng-click=\"updateLineField(null, i, i.Quantity.value+1)\"></slds-svg-icon>\n            <slds-svg-icon sprite=\"'utility'\" icon=\"'down'\" extra-classes=\"'vlc-slds-quantity__down_arrow' + ((i.minQuantity && i.minQuantity === i.maxQuantity) || !i.actions.updateitems ? ' vlc-slds-cart--button__disabled':'')\" size=\"'small'\" ng-click=\"updateLineField(null, i, i.Quantity.value-1)\"></slds-svg-icon>\n            <div class='vlc-slds-cart--button__delete'>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'delete'\" extra-classes=\"'slds-button__icon-cart' + (!i.actions.deleteitem ? ' vlc-slds-cart--button__disabled':'')\" size=\"'small'\" ng-click=\"deleteProductFromCart(null, i, $index)\"></slds-svg-icon>\n            </div>\n            <div class='vlc-slds-cart--button__delete'>\n                <slds-svg-icon sprite=\"'utility'\" icon=\"'copy'\" extra-classes=\"'slds-button__icon-cart'  + (!i.actions.cloneitem ? ' vlc-slds-cart--button__disabled':'')\" size=\"'small'\" ng-click=\"clone(null, i)\"></slds-svg-icon>\n            </div>\n\n        </div>\n    </div>\n    <div class='vlc-slds-item--details__errors_mobile'>\n        <span ng-repeat=\"e in i.messages\" ng-if=\"e.severity === 'ERROR'\" ng-init=\"showErrorIconInCart(i.messages)\">\n            {{e.message}}\n        </span>\n        <span ng-if=\"i.fieldValidationMessage\">\n            {{i.fieldValidationMessage}}\n        </span>\n    </div>\n\n    <span class='vlc-slds-item--details__hide' ng-class=\"{'vlc-slds-item--details__hide-childGroup' : i.itemType === 'productGroup'}\" ng-click=\"i.isExpanded = !i.isExpanded\" ng-show=\"(!i.isExpanded && i.lineItems !== undefined)\">{{::customLabels.Omnicmtcartshowchild}}</span>\n    <span class='vlc-slds-item--details__hide' ng-class=\"{'vlc-slds-item--details__hide-childGroup' : i.itemType === 'productGroup'}\" ng-click=\"i.isExpanded = !i.isExpanded\" ng-show=\"(i.isExpanded && i.lineItems!== undefined)\">{{::customLabels.Omnicmtcarthidechild}}</span>\n\n</div>\n\n<div ng-show=\"i.isExpanded\" ng-init=\"initParent(this, i);\">\n    <div class=\"vlc-slds-line-item\"\n        ng-repeat=\"i in this[this.gParentId+'_' + this.prodHierLevel].childRecords | orderBy: 'sequenceNumber'\"\n        ng-include=\"'vlcTopCartChildrensHyb.html'\" >\n    </div>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTopCartHierarchyHyb",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTopCartHierarchyHyb/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTopCartHierarchyHyb"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTopCartHierarchyHyb",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTopCartHierarchyHyb",
+            "VlocityDataPackName": "omniLightning-vlcTopCartHierarchyHyb",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTypeAhead",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-type-ahead'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"vlc-slds-control-action__container\"\n             ng-hide=\"control.propSetMap.hideEditButton\"\n             ng-click='toggleTypeAheadEditMode(this)'\n             ng-if='!control.propSetMap.enableLookup'>\n\n            <figure>\n\n                <slds-svg-icon aria-hidden=\"true\"\n                           sprite=\"'utility'\"\n                           icon=\"'edit'\"\n                           size=\"'small'\"\n                           extra-classes=\"'slds-button__icon slds-button__icon--large vlc-slds-button_typeahead_edit'\">\n                </slds-svg-icon>\n\n                <figcaption class=\"slds-p-top--x-small slds-text-body--small\">Edit</figcaption>\n\n            </figure>\n\n       </div>\n\n       <div class=\"slds-form-element__control slds-input-has-icon slds-has-input-has-icon--right\">\n            <slds-button-svg-icon sprite=\"'utility'\" icon=\"'down'\" size=\"'large'\" ng-if='control.propSetMap.enableLookup'></slds-button-svg-icon>\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n                <input type=\"text\"\n                       id='{{::control.name}}'\n                       name='loopname'\n                       class='slds-input'\n                       data-animation=\"am-fade\"\n                       ng-focus=\"onClickTypeAheadWrapper(this, control)\"\n                       ng-if='(!control.propSetMap.enableGoogleMapsAutocomplete && !control.propSetMap.enableLookup) && ngInitValidation(this, control)'\n                       data-limit=\"2001\"\n                       data-trim-value=\"false\"\n                       ng-trim=\"false\"\n                       ng-init='init(this, control); undefinedValueForDataFilter = undefined'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       bs-options=\"control.propSetMap.typeAheadKey ? option[control.propSetMap.typeAheadKey] : option for option in typeAheadSearch($viewValue, this.bpTree.response, control, this)\"\n                       ng-required='control.req'\n                       ng-disabled='control.ro'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       bs-typeahead autocomplete='off'\n                       data-template='{{::typeaheadHTMLId}}'\n                       ng-keydown='typeAheadOnChange($event, this)'\n                       data-html='1'\n                       vlc-slds-typeahead-prefill=\"response\"\n                       ng-attr-data-filter=\"{{control.propSetMap.disableDataFilter ? false : undefinedValueForDataFilter}}\"\n                       vlc-slds-val-checker=\"response\"/>\n\n                <input type=\"text\"\n                       id='{{::control.name}}'\n                       name='loopname'\n                       class='slds-input'\n                       ng-class='{\"vlc-typeahead-invalid-key\": googleInvalidKey === true}'\n                       ng-focus=\"onFocusAutocomplete(this, control)\"\n                       ng-if='(control.propSetMap.enableGoogleMapsAutocomplete && !control.propSetMap.enableLookup) && ngInitValidation(this, control)'\n                       ng-init='initAutocomplete(this, control)'\n                       ng-model='control.response'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       placeholder =''\n                       ng-required='control.req'\n                       ng-disabled='control.ro'\n                       ng-maxlength='{{::control.propSetMap.maxLength}}'\n                       ng-minlength='{{::control.propSetMap.minLength}}'\n                       ng-keydown='onKeyDownAutocomplete($event, this, control)'\n                       vlc-slds-typeahead-prefill=\"response\"\n                       vlc-slds-val-checker=\"response\"/>\n\n                <input type='text'\n                       id='{{::control.name}}'\n                       name='loopname'\n                       class='slds-input'\n                       ng-if='control.propSetMap.enableLookup && ngInitValidation(this, control)'\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       ng-click='typeAheadSearch($viewValue, this.bpTree.response, control, this, true)'\n                       ng-model='control.response'\n                       bs-options='control.propSetMap.typeAheadKey ? option[control.propSetMap.typeAheadKey] : option for option in control.propSetMap.options'\n                       bs-typeahead\n                       data-template='{{::typeaheadHTMLId}}'\n                       data-limit='2001'\n                       data-min-length='0'\n                       data-watch-options='true'\n                       ng-init='init(this, control)'\n                       autocomplete='off'\n                       ng-required='control.req'\n                       ng-disabled='control.ro'\n                       vlc-slds-typeahead-prefill=\"response\"\n                       ng-focus=\"control.propSetMap.options = null\"\n                       ng-style=\"{'background': 'none'}\"\n                       ng-attr-data-filter=\"{{control.propSetMap.disableDataFilter ? false : undefinedValueForDataFilter}}\"\n                       vlc-slds-val-checker=\"response\"\n                       readonly/>\n\n                <label class='slds-form-element__label' ng-hide='googleInvalidKey === true'>\n                  <span class=\"vlc-label-description\">\n                    {{::control.propSetMap.label}}\n                  </span>\n\n                  <span class='vlc-asterix icon-v-asterix'\n                        ng-if='control.req'>\n                  </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n\n                <div id='{{::control.name}}_map'\n                    class='vlc-typeahead-gmap'\n                    ng-if='control.propSetMap.enableGoogleMapsAutocomplete && !control.propSetMap.hideMap'>\n                </div>\n\n                <div ng-include=\"::errHTMLId\"></div>\n                {{validForm = (loopform.loopname.$valid && control.req && !control.srvErr);\"\"}}\n                {{invalidForm = ((loopform.loopname.$invalid  && !control.req) || (loopform.loopname.$invalid && loopform.loopname.$dirty && control.req) || (control.srvErr));\"\"}}\n            </div>\n        </div>\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTypeAhead",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTypeAhead/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTypeAhead"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTypeAhead",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTypeAhead",
+            "VlocityDataPackName": "omniLightning-vlcTypeAhead",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTypeAheadBlock",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-typeahead-block'\n             id='{{::control.name}}'\n             ng-init=\"control.blockIndex = child.blockIndex\"\n             ng-repeat='control in child.eleArray' >\n\n        <div class=\"slds-form-element__control vlc-slds-p-left--none vlc-slds-p-right--none vlc-typeahead-form\">\n            <div class='slds-size--1-of-1'>\n                <div  class=\"slds-grid slds-wrap slds-grid--pull-padded\">\n                    <child vlc-slds-change-inline-templates=\"::child.eleArray[0].propSetMap.showInputWidth\" class=\"slds-size--1-of-1 slds-medium--1-of-1 slds-large-size--{{ $index === 0 ? 12 : child.eleArray[0].propSetMap.controlWidth}}-of-12\"\n                           ng-repeat='child in ::children = control.children'\n                           ng-init=\"($index === 0 ? child.eleArray[0].blockIndex = control.blockIndex:''); ($index === 0 ? child.eleArray[0].noformatterebmodal = control.noformatterebmodal:''); (control.propSetMap.isTypeaheadEdit = control.propSetMap.editMode)\"\n                           ng-show='$index === 0 || ($index !== 0 && (control.propSetMap.isTypeaheadEdit && !control.propSetMap.enableLookup)&& !child.eleArray[0].propSetMap.hide)'>\n                    </child>\n                </div>\n            </div>\n        </div>\n\n    </ng-form>\n\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTypeAheadBlock",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTypeAheadBlock/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTypeAheadBlock"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTypeAheadBlock",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTypeAheadBlock",
+            "VlocityDataPackName": "omniLightning-vlcTypeAheadBlock",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcTypeAheadDropdown",
+                        "%vlocity_namespace%__HTML__c": "<ul tabindex=\"-1\" class=\"typeahead dropdown-menu slds-list_vertical vlc-slds-list--scroll data-iframe-ignore-children\" ng-show=\"$isVisible()\" role=\"select\">\n    <li role=\"presentation\" ng-repeat=\"match in $matches\" ng-class=\"{active: $index == $activeIndex}\">\n        <a role=\"menuitem\" tabindex=\"-1\" ng-click=\"$select($index, $event)\" ng-bind=\"match.label\"></a>\n    </li>\n</ul>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcTypeAheadDropdown",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcTypeAheadDropdown/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcTypeAheadDropdown"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTypeAheadDropdown",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcTypeAheadDropdown",
+            "VlocityDataPackName": "omniLightning-vlcTypeAheadDropdown",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcURL",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-col--padded slds-size--1-of-1'>\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex'\n             ng-repeat='control in child.eleArray'>\n\n        <div vlc-slds-include=\"vlcLabelController.html\"></div>\n\n        <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right\">\n\n            <div class=\"vlc-control-wrapper\" help=\"{{::control.propSetMap.help}}\">\n\n                <input id='{{::control.name}}'\n                       ng-disabled='control.ro'\n                       ng-required='control.req'\n                       type='url'\n                       name='loopname'\n                       ng-model='control.response'\n                       ng-model-options=\"{ updateOn: 'default focusout blur', debounce: { 'default': control.propSetMap.debounceValue, 'focusout': 0, 'blur': 0 } }\"\n                       ng-blur='aggregate(this, control.index, control.indexInParent, true, -1)'\n                       class='slds-input form-control'\n                       ng-init='init(this, control)'\n                       vlc-slds-ng-pattern='(ht|f)tps?:\\/\\/[a-z0-9-\\.]+\\.[a-z]{2,4}\\/?([^\\s<>\\#%\\,\\{\\}\\\\|\\\\\\^\\[\\]`]+)?'\n                       vlc-slds-val-checker=\"response\" />\n\n                <label for=\"{{::control.name}}\" class='slds-form-element__label'>{{::control.propSetMap.label}}\n                    <span class='vlc-asterix icon-v-asterix'\n                          ng-if='control.req'>\n                    </span>\n                </label>\n\n                <!-- tooltip template -->\n                <a vlc-slds-tool-tip=\"test\" ng-show=\"{{control.propSetMap.help}}\"> i </a>\n\n                                \n            </div>\n\n            <div ng-include=\"::errHTMLId\"></div>\n\n        </div>\n\n    </ng-form>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcURL",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcURL/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcURL"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcURL",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcURL",
+            "VlocityDataPackName": "omniLightning-vlcURL",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcVCart",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"horizontal-cart vlc-cart-knowledge-padding\" ng-init=\"showCart = false;setJSDataPreprocessor(vlcPC, baseCtrl.createCartHierarchy)\">\n    <div class=\"panel panel-default\">\n        <div class=\"panel-heading\">\n            <div class=\"head-item cart-toggle\" ng-click=\"showCart = !showCart;\">\n                <span class=\"cart-icon icon-v-cart-line\"></span>\n                <h3 class=\"panel-title\">{{::vlcPC.label}}</h3>\n                <span class=\"toggle-icon\" ng-class=\"{'icon-v-up-caret':showCart, 'icon-v-down-caret': !showCart}\"></span>\n            </div>\n            <div class=\"head-item\">\n                <label>{{::customLabels.OmniOneTime}}</label>\n                <h4>{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].OneTimeSum | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }} &nbsp;</h4>\n            </div>\n            <div class=\"head-item\">\n                <label>{{::customLabels.OmniMonthly}}</label>\n                <h4>{{bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].RecurringSum | currency:bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]].currencySymbol | numFormatFilter }} &nbsp;</h4>\n            </div>\n\n            <!--\n            <div class=\"head-item padding0\">\n                <button class=\"btn btn-primary\">Continue</button>\n            </div>\n            -->\n        </div>\n        <div class=\"panel-body\" ng-show=\"showCart\">\n            <section class=\"hcart-section\">\n                <h3>{{::vlcPC.label}}</h3>\n                <div class=\"topcartitems\" ng-repeat=\"i in bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]] | filterMultiple:{provisioningStatus:['New','Pending','Changed']}\" ng-include=\"'vlcTopCartHierarchy.html'\"></div>\n            </section>\n            <section class=\"hcart-section\">\n                <h3>{{::customLabels.OmniCurrentSetup}}</h3>\n                <div class=\"topcartitems\" ng-repeat=\"i in bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]] | filterMultiple:{provisioningStatus:['Active','Inactive']}\" ng-include=\"'vlcTopCartHierarchy.html'\"></div>\n            </section>\n        </div>\n    </div>\n</div>",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcVCart",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcVCart/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcVCart"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcVCart",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcVCart",
+            "VlocityDataPackName": "omniLightning-vlcVCart",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcVKnowledge",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-box\" ng-init=\"showCart = false;\">\n    <ng-include src=\"'vlcVKnowledgeAux.html'\"/>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcVKnowledge",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcVKnowledge/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcVKnowledge"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcVKnowledge",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcVKnowledge",
+            "VlocityDataPackName": "omniLightning-vlcVKnowledge",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcVKnowledgeAux",
+                        "%vlocity_namespace%__HTML__c": "<div  class=\"slds-form-element slds-lookup vlc-slds-knowledge-component\"\n      data-select=\"single\" data-scope=\"single\">\n\n    <label class=\"slds-form-element__label\"\n           for=\"vlcKnowledgeKeyword\">\n\n        {{::vlcPC.label}}\n\n    </label>\n\n    <div class=\"slds-form-element__control slds-input-has-icon slds-input-has-icon--right\">\n\n        <input id='vlcKnowledgeKeyword'\n               class=\"slds-lookup__search-input slds-input\"\n               type=\"text\"\n               aria-autocomplete=\"list\"\n               role=\"combobox\"\n               aria-expanded=\"true\"\n               aria-activedescendant=\"\"\n               ng-model-options=\"{ updateOn: 'change blur' }\"\n               ng-model='bpTree.children[bpTree.asIndex].knowledgeKeyword'\n               ng-enter='searchKnowledgeArticle(bpTree.children[bpTree.asIndex], true)'\n               placeholder=\"{{::customLabels.OmniScriptSearch}}\" />\n\n        <!-- OMNI-1718 -->\n        <slds-svg-icon aria-hidden=\"true\"\n\t\t       sprite=\"'utility'\"\n\t\t       icon=\"'search'\"\n\t\t       size=\"'small'\"\n\t\t       extra-classes=\"'slds-input__icon slds-icon-text-default'\">\n        </slds-svg-icon>\n\n    </div>\n\n    <ul ng-show=\"showCart\"\n        class=\"vlc-slds-knowledge-item\">\n\n        <!-- <h5 class=\"panel-title vlc-knoledge-cat\" ng-if=\"kLabel = getKnowledgeDataCatLabel(bpTree.children[bpTree.asIndex], vlcPC)\">{{kLabel}}</h5> -->\n        <li class=\"slds-item\" \n            ng-repeat=\"i in bpTree.response.vlcPersistentComponent[bpTree.pcId[vlcPC.pcIndex]][bpTree.pcItemsKey[vlcPC.pcIndex]]\">\n\n            <!-- this needs to be the page header and team -->\n            <div class=\"vlc-slds-knowledge-list-item\">\n                <!-- <p ng-click=\"openArticleInConsole(i)\">{{i.title}}</p> -->\n                <div class=\"vlc-slds-control-action__container\">\n\n                    <p vlc-slds-open=\"openArticleInConsole\">{{i.title}}</p>\n\n                    <a href=\"\" ng-click='getArticleBody(bpTree.children[bpTree.asIndex], i)'>\n\n                        <slds-svg-icon aria-hidden=\"true\"\n                                       sprite=\"'utility'\"\n                                       icon=\"'preview'\"\n                                       size=\"'small'\"\n                                       alt=\"{{::customLabels.OmniScriptOpen}}\"\n                                       extra-classes=\"'slds-button__icon slds-button__icon--medium vlc-slds-button--eye'\">\n                        </slds-svg-icon>\n\n                        <small>{{ ::customLabels.OmniScriptOpen }}</small>\n                    </a>\n\n                    <a href=\"\" ng-click='getArticleBody(bpTree.children[bpTree.asIndex], i, true)'>\n                        \n                        <slds-svg-icon aria-hidden=\"true\"\n                                       sprite=\"'utility'\"\n                                       icon=\"'expand'\"\n                                       size=\"'small'\"\n                                       alt=\"{{::customLabels.OmniScriptModal}}\"\n                                       extra-classes=\"'slds-button__icon slds-button__icon--medium vlc-slds-button--exp'\">\n                        </slds-svg-icon>\n\n                        <small>{{ ::customLabels.OmniScriptModal }}</small>\n                    </a>\n\n                </div>\n\n                <h3>{{i.summary}}</h3>\n                <h3>{{i.displayType}} | {{::customLabels.OmniScriptLastPublished}} {{i.lastPubDate}}</h3>\n\n            </div>\n\n        </li>\n\n    </ul>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcVKnowledgeAux",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcVKnowledgeAux/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcVKnowledgeAux"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcVKnowledgeAux",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcVKnowledgeAux",
+            "VlocityDataPackName": "omniLightning-vlcVKnowledgeAux",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcValidation",
+                        "%vlocity_namespace%__HTML__c": "<div class=\"slds-col--padded slds-size--1-of-1\">\n\n    <ng-form name='loopform'\n             class='slds-form-element vlc-flex vlc-slds-message'\n             ng-repeat='control in child.eleArray'>\n\n        <div class=\"slds-form-element__control\">\n\n            <label ng-if='::!control.propSetMap.hideLabel' class='slds-form-element__label'>\n                {{::control.propSetMap.label}}\n            </label>\n\n            <div class=\"vlc-control-wrapper\">\n\n                <div class=\"message description\"\n                     ng-repeat='msg in ::control.propSetMap.messages'\n                     msg=\"{{msg.type}}\"\n                     ng-if=\"msg.active === true && control.response !== null && control.response === msg.value\">\n                    {{control.displayMsg}}\n                </div>\n\n                <input id='{{::control.name}}'\n                       type='text'\n                       name='loopname'\n                       ng-show='performValidate(this, control)'\n                       ng-model='control.response'\n                       class='slds-input'\n                       vlc-slds-val-checker=\"response\"\n                       readonly />\n                \n            </div>\n\n        </div>\n\n    </ng-form>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcValidation",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcValidation/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcValidation"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcValidation",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcValidation",
+            "VlocityDataPackName": "omniLightning-vlcValidation",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-vlcVertPC",
+                        "%vlocity_namespace%__HTML__c": "<div>\n    <ng-include ng-repeat=\"vlcPC in ::bpTree.propSetMap.persistentComponent\" ng-if='bpTree.showPCNew[vlcPC.pcIndex]' id='{{::vlcPC.id}}' src=\"::bpTree.dfVertPSTmpl[vlcPC.pcIndex]\"/>\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-vlcVertPC",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-vlcVertPC/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-vlcVertPC"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcVertPC",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-vlcVertPC",
+            "VlocityDataPackName": "omniLightning-vlcVertPC",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        },
+        {
+            "VlocityDataPackData": {
+                "%vlocity_namespace%__VlocityUITemplate__c": [
+                    {
+                        "%vlocity_namespace%__Active__c": true,
+                        "%vlocity_namespace%__Author__c": "Vlocity",
+                        "%vlocity_namespace%__DisplayOn__c": "All",
+                        "%vlocity_namespace%__ExternalID__c": "omniLightning-xpreviewSimulate",
+                        "%vlocity_namespace%__HTML__c": "<div class='slds-grid slds-wrap slds-grid--pull-padded slds-col--padded'>\n\n    <div class='slds-size--1-of-1'>\n        \n        <div class=\"slds-form--stacked\">\n\n            <div class=\"slds-form-element\">\n                <label class=\"slds-form-element__label\" for=\"inputSample2\">Bundle Name</label>\n                <div class=\"slds-form-element__control\">\n                    <input class=\"slds-input\" type=\"text\" ng-model=\"bundleName\"/>\n                </div>\n            </div>\n\n            <div class=\"slds-form-element\">\n                <label class=\"slds-form-element__label\" for=\"inputSample2\">Context Id</label>\n                <div class=\"slds-form-element__control\">\n                    <input class=\"slds-input\" type=\"text\" ng-model=\"ctxObjId\"/>\n                </div>\n            </div>\n\n            <div class=\"slds-form-element\">\n                <label class=\"slds-form-element__label\" for=\"inputSample2\"></label>\n                <div class=\"slds-form-element__control\">\n                        <button style=\"flex: 0 0 100%\"\n                                class=\"slds-button vlc-slds-button--primary\"\n                                ng-click='invokeDR(bundleName, ctxObjId)'>\n                            Fetch Data\n                        </button>\n                </div>\n            </div>\n\n        </div>\n        \n    </div>\n\n    <div class='slds-size--1-of-1' ng-if=\"bpTree.previewMode\">\n        <div class='slds-form-element__label'>{{::customLabels.OmniDataJSON}}</div>\n        <json-formatter json=\"drInvokeResult\" class=\"slds-box\"></json-formatter>\n    </div>\n\n</div>\n",
+                        "%vlocity_namespace%__Type__c": "OmniScript",
+                        "%vlocity_namespace%__Version__c": 1,
+                        "Name": "omniLightning-xpreviewSimulate",
+                        "VlocityDataPackIsIncluded": true,
+                        "VlocityDataPackType": "SObject",
+                        "VlocityRecordSObjectType": "%vlocity_namespace%__VlocityUITemplate__c",
+                        "VlocityRecordSourceKey": "VlocityUITemplate/omniLightning-xpreviewSimulate/%vlocity_namespace%__VlocityUITemplate__c/omniLightning-xpreviewSimulate"
+                    }
+                ],
+                "VlocityDataPackIsIncluded": true,
+                "VlocityDataPackKey": "VlocityUITemplate/omniLightning-xpreviewSimulate",
+                "VlocityDataPackType": "VlocityUITemplate"
+            },
+            "VlocityDataPackIsIncluded": true,
+            "VlocityDataPackKey": "VlocityUITemplate/omniLightning-xpreviewSimulate",
+            "VlocityDataPackName": "omniLightning-xpreviewSimulate",
+            "VlocityDataPackRelationshipType": "Primary",
+            "VlocityDataPackStatus": "Success",
+            "VlocityDataPackType": "VlocityUITemplate"
+        }
+    ],
+    "name": "OmniScriptLightningTemplatesMultiPack",
+    "primaryDataPackKey": "VlocityDeploy",
+    "processMultiple": true,
+    "status": "Complete",
+    "version": 1
+}

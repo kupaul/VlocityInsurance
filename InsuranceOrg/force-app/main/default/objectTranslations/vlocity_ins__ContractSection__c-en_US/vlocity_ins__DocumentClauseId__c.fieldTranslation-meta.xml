@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Document Clause --></label>
+    <name>vlocity_ins__DocumentClauseId__c</name>
+    <relationshipLabel><!-- Contract Document Sections --></relationshipLabel>
+</CustomFieldTranslation>

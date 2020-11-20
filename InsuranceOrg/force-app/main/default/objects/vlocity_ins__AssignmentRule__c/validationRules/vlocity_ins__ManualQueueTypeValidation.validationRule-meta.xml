@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ManualQueueTypeValidation</fullName>
+    <active>true</active>
+    <description>A Destination Queue is required if Assignment Type is Manual Queue</description>
+    <errorConditionFormula>AND(ISPICKVAL(vlocity_ins__AssignmentType__c,&apos;Manual Queue&apos;), ISBLANK(vlocity_ins__DestinationQueueId__c ))</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__DestinationQueueId__c</errorDisplayField>
+    <errorMessage>Destination Queue is required for Manual Queue Assignment Type</errorMessage>
+</ValidationRule>

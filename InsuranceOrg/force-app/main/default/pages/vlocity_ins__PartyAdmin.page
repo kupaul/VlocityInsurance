@@ -1,0 +1,631 @@
+<apex:page controller="vlocity_ins.PartyAdminController" showHeader="true" sidebar="true" applyBodyTag="false" applyHtmlTag="true" >
+<apex:sectionHeader title="Vlocity Party Maintenance" subtitle="Party Maintenance"/>
+	<html xmlns:ng="http://angularjs.org" ng-app="PartyAdminApp" class="ng-cloak" style="height:100%" >
+		<head>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/v102/vlocity_core_assets.js')}"/>
+    		<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__Jquery, '/ui/jquery-ui-1.9.1.custom.min.js')}"/>
+		   	<apex:includeScript value="/soap/ajax/31.0/connection.js" />
+		   	<apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__IcoMoonIconPack, 'style.css')}"/>
+			<style>
+				div[id^="overlay"]{
+		   			position: absolute;
+				    background: white;
+				    width: 47px;
+				    height: 30px;
+				    opacity: 0.7;
+				}
+
+				#loading {
+				    position: absolute;
+				    width: 20px;
+					top: 5px;
+					left: 15px;
+				}
+                .vlocity .table.ins-party-admin>thead>tr>td.success,
+                .vlocity .table.ins-party-admin>thead>tr>th.success,
+                .vlocity .table.ins-party-admin>thead>tr.success>td,
+                .vlocity .table.ins-party-admin>thead>tr.success>th,
+                .vlocity .table.ins-party-admin>tbody>tr>td.success,
+                .vlocity .table.ins-party-admin>tbody>tr>th.success,
+                .vlocity .table.ins-party-admin>tbody>tr.success>td,
+                .vlocity .table.ins-party-admin>tbody>tr.success>th,
+                .vlocity .table.ins-party-admin>tfoot>tr>td.success,
+                .vlocity .table.ins-party-admin>tfoot>tr>th.success,
+                .vlocity .table.ins-party-admin>tfoot>tr.success>td,
+                .vlocity .table.ins-party-admin>tfoot>tr.success>th {
+                    background-color: #DFF0D8;
+                }
+
+
+			</style>
+		   	<script>
+		   		sforce.connection.sessionId = '{!$Api.Session_ID}';
+		   		j$ = jQuery.noConflict();
+
+		   		function partyAnalysisJob(callback)
+		   		{
+		   			var parameters = {};
+                	parameters['methodName'] =  'partyAnalysisJob';
+
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+
+					Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.PartyAdminController.invokeMethod}',
+                                    remoteOptions,
+                                   	callback,
+                                    {buffer: false, escape: false});
+		   		}
+
+		   		function startCreatePartyJob(callback){
+		   			var parameters = {};
+                	parameters['methodName'] =  'startCreatePartyJob';
+
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+
+					Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.PartyAdminController.invokeMethod}',
+                                    remoteOptions,
+                                   	callback,
+                                    {buffer: false, escape: false});
+		   		}
+
+		   		function deleteOrphanPartyJob(callback){
+		   			var parameters = {};
+                	parameters['methodName'] =  'startDeleteOrphanParties';
+
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+
+					Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.PartyAdminController.invokeMethod}',
+                                    remoteOptions,
+                                   	callback,
+                                    {buffer: false, escape: false});
+		   		}
+
+		   		function mergePartyJob(callback){
+		   			var parameters = {};
+                	parameters['methodName'] =  'mergeParties';
+
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+
+					Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.PartyAdminController.invokeMethod}',
+                                    remoteOptions,
+                                   	callback,
+                                    {buffer: false, escape: false});
+		   		}
+
+		   		function refreshBatchJobLists(callback){
+		   			var parameters = {};
+                	parameters['methodName'] =  'refreshBatchJobLists';
+
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                	remoteOptions['parameters'] =  JSON.stringify(parameters);
+
+					Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.PartyAdminController.invokeMethod}',
+                                    remoteOptions,
+                                   	callback,
+                                    {buffer: false, escape: false});
+		   		}
+
+
+
+
+		   		var PartyAdminApp = angular.module('PartyAdminApp', ['ui.bootstrap']);
+				PartyAdminApp.factory('PartyAdminService',function($q,$rootScope){
+		        	var factory = {};
+
+		        	factory.partyAnalysisJob = function() {
+                            var deferred = new j$.Deferred();
+                            partyAnalysisJob(function(result){
+                                $rootScope.$apply(function(){
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result);
+                                    }
+                                    deferred.resolve(sresult);
+
+                                });
+                            });
+                            return deferred.promise();
+                    };
+
+		        	factory.startCreatePartyJob = function() {
+                            var deferred = new j$.Deferred();
+                            startCreatePartyJob(function(result){
+                                $rootScope.$apply(function(){
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result);
+                                    }
+                                    deferred.resolve(sresult);
+
+                                });
+                            });
+                            return deferred.promise();
+                    };
+                    factory.deleteOrphanPartyJob = function() {
+                            var deferred = new j$.Deferred();
+                            deleteOrphanPartyJob(function(result){
+                                $rootScope.$apply(function(){
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result);
+                                    }
+                                    deferred.resolve(sresult);
+
+                                });
+                            });
+                            return deferred.promise();
+                    };
+
+                    factory.mergePartyJob = function() {
+                            var deferred = new j$.Deferred();
+                            mergePartyJob(function(result){
+                                $rootScope.$apply(function(){
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result);
+                                    }
+                                    deferred.resolve(sresult);
+
+                                });
+                            });
+                            return deferred.promise();
+                    };
+                    factory.refreshBatchJobLists = function() {
+                            var deferred = new j$.Deferred();
+                            refreshBatchJobLists(function(result){
+                                $rootScope.$apply(function(){
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result);
+                                    }
+                                    deferred.resolve(sresult);
+
+                                });
+                            });
+                            return deferred.promise();
+                    };
+
+
+                    return factory;
+		        });
+
+				PartyAdminApp.controller('PartyAdminAppController', function ($scope, $timeout, PartyAdminService) {
+					$scope.accountsMissingPartyList = [];
+					$scope.contactMissingPartyList = [];
+					$scope.hhsMissingPartyList = [];
+					$scope.orphanParties = [];
+					$scope.duplicateParties=[];
+					$scope.totalRecords=0;
+					$scope.orphanRecords=0;
+					$scope.numMergePairs=0;
+					$scope.partyAnalysisMessage={};
+					$scope.orphanPartyAnalysisMessage = {};
+					$scope.unmergedPartyAnalysisMessage={};
+					$scope.isPartyAnalysisJobCopplapsed = true;
+					$scope.isDeletePartyJobsCollapsed=true;
+					$scope.isMergePartyJobsCollapsed=true;
+
+					$scope.createPartyJobsList = [];
+					$scope.deleteOrphanPartyJobList = [];
+					$scope.mergePartyJobList =[];
+					$scope.isCreatePartyJobsCollapsed = true;
+
+					$scope.partyAnalysisJob = function(){
+						PartyAdminService.partyAnalysisJob().then(function(result){
+							console.log('partyAnalysisJob result: ' + result);
+							$scope.accountsMissingPartyList = result.accountsMissingParty;
+							$scope.contactsMissingPartyList = result.contactsMissingParty;
+							$scope.hhsMissingPartyList = result.hhsMissingParty;
+							$scope.orphanParties = result.orphanParties;
+							//$scope.totalRecords = $scope.accountsMissingPartyList.length + $scope.contactsMissingPartyList.length + $scope.hhsMissingPartyList.length;
+							$scope.totalRecords = result.numMissingRecs;
+							$scope.orphanRecords = result.numOrphanRecs;
+							$scope.partyAnalysisMessage = result.partyAnalysisMessage;
+							$scope.duplicateParties = angular.fromJson(result.duplicateParties);
+							$scope.numMergePairs = result.numMergePairs;
+							$scope.orphanPartyAnalysisMessage=result.orphanPartyAnalysisMessage;
+							$scope.unmergedPartyAnalysisMessage=result.unmergedPartyAnalysisMessage;
+							console.log('totalRecords: ' + $scope.totalRecords);
+						});
+
+					};
+
+
+					$scope.startCreatePartyJob = function(){
+						PartyAdminService.startCreatePartyJob().then(function(result){
+							$scope.createPartyJobsList = result.createPartyJobs;
+
+						})
+
+					};
+
+					$scope.deleteOrphanPartyJob = function(){
+						PartyAdminService.deleteOrphanPartyJob().then(function(result){
+							$scope.deleteOrphanPartyJobList = result.deleteOrphanPartyJobs;
+
+						})
+
+					};
+
+					$scope.mergePartyJob = function(){
+						PartyAdminService.mergePartyJob().then(function(result){
+							$scope.mergePartyJobList = result.mergePartyJobs;
+
+						})
+
+					};
+
+
+					$scope.refreshBatchJobLists = function(){
+						PartyAdminService.refreshBatchJobLists().then(function(result){
+							$scope.createPartyJobsList = result.createPartyJobs;
+							$scope.deleteOrphanPartyJobList=result.deleteOrphanPartyJobs;
+							$scope.mergePartyJobList = result.mergePartyJobs;
+							$timeout($scope.refreshBatchJobLists, 3000);
+
+						})
+					};
+
+					$scope.displayWaitDialog = function(parentId){
+						var over = j$('<div id="overlay-'+parentId+'">' +
+								            '<img id="loading" src="'+'{!$Resource.MINILOADING}'+'">' +
+								            '</div>');
+						var div = j$('#'+parentId);
+						over.css('top', div.position().top);
+						over.css('left', div.position().left);
+				        j$(over).appendTo(div);
+
+					};
+
+					$scope.removeWaitDialog = function(parentId){
+						j$('#overlay-'+parentId).remove();
+
+					};
+
+					$scope.showSuccessStatus = function(parentId){
+						var over = j$('<div id="overlay-'+parentId+'">' +
+                  							'<span style="font-size: 2em; color:green" aria-hidden="true" data-icon="&#xea10;" class="icon-checkmark" />' +
+                  						'</div>');
+					    var div = j$('#'+parentId);
+					    over.css('top', div.position().top);
+					    over.css('left', div.position().left);
+
+						j$(over).appendTo(div);
+						j$(over).fadeOut(2000).promise().then(function(){
+							j$(over).remove();
+
+						})
+
+					};
+
+					$scope.refreshBatchJobLists();
+
+				});
+
+
+
+			</script>
+		</head>
+		<body ng-controller="PartyAdminAppController">
+   <div class="vlocity" >
+   <div class="container-fluid">
+      <tabset>
+         <!--  <div class="page-header">
+            <h2 style="color: rgb(1, 138, 180);">Vlocity Party Maintenance</h2>
+            </div> -->
+         <!-- <tab heading="{!$Label.MaintenanceJobs}" id="idMaintenanceJobs">  -->
+         <div style="margin: 5px;" class="panel panel-default">
+            <div class="list-group">
+               <a href="#" class="list-group-item" >
+                  <div class="row">
+                     <div class="col-md-8 col-sm-12 col-xs-12" ng-click="isPartyAnalysisJobCopplapsed = !isPartyAnalysisJobCopplapsed">
+                        <h4 class="list-group-item-heading">{!$Label.VlocityPartyAnalysis}</h4>
+                        <p class="list-group-item-text">{!$Label.VlocityPartyAnalysisDescription}</p>
+                     </div>
+                     <div class="col-md-4 col-sm-12 col-xs-12  text-right ">
+                        <button id="idAcctHierStartButton" type="button" ng-click="isPartyAnalysisJobCopplapsed = false; partyAnalysisJob();" class="btn btn-primary btn-sm">{!$Label.StartDT}</button>
+                     </div>
+                  </div>
+                  <div  collapse="isPartyAnalysisJobCopplapsed">
+                     <p ng-if="totalRecords != 0" class="text-warning" style="margin-top:30px;">{{partyAnalysisMessage}}</p>
+                     <p ng-if="totalRecords == 0" class="text-success" style="margin-top:30px;">{!$Label.VlocityPartyAnalysisNoMissing}</p>
+                     <div ng-if="totalRecords != 0" >
+                        <table  style="margin-bottom:5px; " class="table table-condensed">
+                           <tr>
+                              <th>{!$Label.PartyObjectType}</th>
+                              <th>{!$Label.Name}</th>
+                              <th>{!$ObjectType.Account.Fields.PartyId__c.Label}</th>
+                              <th>{!$ObjectType.Account.Fields.CreatedDate.Label}</th>
+                              <th>{!$ObjectType.Account.Fields.LastModifiedDate.Label}</th>
+                           </tr>
+                           <tr ng-repeat="accnt in accountsMissingPartyList track by $index">
+                              <td style=" width: 20%">
+                                 <p>{!$ObjectType.Account.Label}</p>
+                              </td>
+                              <td style=" width: 20%;">
+                                 <p>{{accnt.Name}}</p>
+                              </td>
+                              <td style="width: 20%;">
+                                 <p>{{accnt.PartyId__c}}</p>
+                              </td>
+                              <td style="width: 20%;">
+                                 <p>{{accnt.CreatedDate | date:'short'}}</p>
+                              </td>
+                              <td style="width: 20%;">
+                                 <p>{{accnt.LastModifiedDate | date:'short'}}</p>
+                              </td>
+                           </tr>
+                           <tr ng-repeat="cons in contactsMissingPartyList track by $index">
+                              <td style=" width: 20%">
+                                 <p>{!$ObjectType.Contact.Label}</p>
+                              </td>
+                              <td style=" width: 20%;">
+                                 <p>{{cons.FirstName +' '+cons.LastName}}</p>
+                              </td>
+                              <td style="width: 20%;">
+                                 <p>{{cons.PartyId__c}}</p>
+                              </td>
+                              <td style="width: 20%;">
+                                 <p>{{cons.CreatedDate | date:'short'}}</p>
+                              </td>
+                              <td style="width: 20%;">
+                                 <p>{{cons.LastModifiedDate | date:'short'}}</p>
+                              </td>
+                           </tr>
+                           <tr ng-repeat="hh in hhsMissingPartyList track by $index">
+                              <td style=" width: 20%">
+                                 <p>{!$ObjectType.Household__c.Label}</p>
+                              </td>
+                              <td style=" width: 20%;">
+                                 <p>{{hh.Name}}</p>
+                              </td>
+                              <td style="width: 20%;">
+                                 <p>{{hh.PartyId__c}}</p>
+                              </td>
+                              <td style="width: 20%;">
+                                 <p>{{hh.CreatedDate | date:'short'}}</p>
+                              </td>
+                              <td style="width: 20%;">
+                                 <p>{{hh.LastModifiedDate |date:'short'}}</p>
+                              </td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div>
+                        <p ng-if="orphanRecords != 0" class="text-warning" style="margin-top:30px;">{{orphanPartyAnalysisMessage}}</p>
+                        <p ng-if="orphanRecords == 0" class="text-success" style="margin-top:30px;">{!$Label.VlocityOrphanPartyAnalysisNoOrphan}</p>
+                        <div ng-if="orphanRecords != 0" >
+                           <table  style="margin-bottom:5px; " class="table table-condensed">
+                              <tr>
+                                 <th>{!$Label.PartyObjectType}</th>
+                                 <th>{!$Label.Name}</th>
+                                 <th>{!$ObjectType.Party__c.Fields.CreatedDate.Label}</th>
+                                 <th>{!$ObjectType.Party__c.Fields.LastModifiedDate.Label}</th>
+                              </tr>
+                              <tr ng-repeat="pat in orphanParties track by $index">
+                                 <td style=" width: 25%">
+                                    <p>{!$ObjectType.Party__c.Label}</p>
+                                 </td>
+                                 <td style=" width: 25%;">
+                                    <p>{{pat.Name}}</p>
+                                 </td>
+                                 <td style="width: 25%;">
+                                    <p>{{pat.CreatedDate | date:'short'}}</p>
+                                 </td>
+                                 <td style="width: 25%;">
+                                    <p>{{pat.LastModifiedDate | date:'short'}}</p>
+                                 </td>
+                              </tr>
+                           </table>
+                        </div>
+                        <div>
+                           <p ng-if="numMergePairs != 0" class="text-warning" style="margin-top:30px;">{{unmergedPartyAnalysisMessage}}</p>
+                           <p ng-if="numMergePairs == 0" class="text-success" style="margin-top:30px;">{!$Label.VlocityUnmergedPartyAnalysisNoResult}</p>
+                           <div ng-if="numMergePairs != 0" >
+                              <table  style="margin-bottom:5px; " class="table table-condensed">
+                                 <tr>
+                                    <th>{!$Label.MasterParty}</th>
+                                    <th>{!$Label.NonmasterParty}</th>
+                                 </tr>
+                                 <tr ng-repeat="pat in duplicateParties">
+                                    <td style=" width: 50%">
+                                       <p>{{pat.Master}}</p>
+                                    </td>
+                                    <td style=" width: 50%;">
+                                       <p>{{pat.Nonmaster}}</p>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                    </div>
+               </a>
+               <a href="#" class="list-group-item" >
+               <div class="row">
+               <div class="col-md-8 col-sm-12 col-xs-12" ng-click="isCreatePartyJobsCollapsed = !isCreatePartyJobsCollapsed">
+               <h4 class="list-group-item-heading">{!$Label.VlocityPartyMaintenance}</h4>
+               <p class="list-group-item-text">{!$Label.VlocityPartyMaintenanceDescription}</p>
+               </div>
+               <div class="col-md-4 col-sm-12 col-xs-12  text-right ">
+               <button id="idAcctHierStartButton" type="button" ng-click="isCreatePartyJobsCollapsed = false; startCreatePartyJob();" class="btn btn-primary btn-sm">{!$Label.StartDT}</button>
+               </div>
+               </div>
+               <div ng-if="createPartyJobsList.length != 0" collapse="isCreatePartyJobsCollapsed">
+               <table style="margin-bottom:5px;margin-top:30px" class="table table-condensed ins-party-admin">
+               <tr>
+               <th>{!$Label.VlocityPartyMaintenanceJob}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.Status.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.TotalJobItems.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.JobItemsProcessed.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.CreatedDate.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.CompletedDate.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.ExtendedStatus.Label}</th>
+               </tr>
+               <tr ng-class="{	active: job.Status == 'Queued',
+                  active: job.Status == 'Holding',
+                  active: job.Status == 'Preparing',
+                  success: job.Status == 'Completed',
+                  info: job.Status == 'Aborted',
+                  warning: job.Status == 'Processing',
+                  danger: job.Status == 'Failed'}"
+                  ng-repeat="job in createPartyJobsList track by $index">
+               <td style=" width: 25%;">
+               <p>{!$Label.VlocityCreatePartyJob}</p>
+               </td>
+               <td style="width: 5%;">
+               <p>{{job.Status}}</p>
+               </td>
+               <td style="width: 5%;">
+               <p>{{job.TotalJobItems}}</p>
+               </td>
+               <td style="width: 5%;">
+               <p>{{job.JobItemsProcessed}}</p>
+               </td>
+               <td style="width: 15%;">
+               <p>{{ job.CreatedDate | date : 'short' }}</p>
+               </td>
+               <td style="width: 15%;">
+               <p>{{ job.CompletedDate | date : 'short' }}</p>
+               </td>
+               <td style="width: 40%;">
+               <p>{{job.ExtendedStatus}}</p>
+               </td>
+               </tr>
+               </table>
+               </div>
+               </a>
+               <a href="#" class="list-group-item" >
+               <div class="row">
+               <div class="col-md-8 col-sm-12 col-xs-12" ng-click="isDeletePartyJobsCollapsed = !isDeletePartyJobsCollapsed">
+               <h4 class="list-group-item-heading">{!$Label.VlocityOrphanPartyMaintenance}</h4>
+               <p class="list-group-item-text">{!$Label.VlocityOrphanPartyMaintenanceDescription}</p>
+               </div>
+               <div class="col-md-4 col-sm-12 col-xs-12  text-right ">
+               <button id="iddeleteparty" type="button" ng-click="isDeletePartyJobsCollapsed = false; deleteOrphanPartyJob()" class="btn btn-primary btn-sm">{!$Label.StartDT}</button>
+               </div>
+               </div>
+               <div ng-if="deleteOrphanPartyJobList.length != 0" collapse="isDeletePartyJobsCollapsed">
+               <table style="margin-bottom:5px;margin-top:30px" class="table table-condensed ins-party-admin">
+               <tr>
+               <th>{!$Label.VlocityDeleteOrphanPartyJob}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.Status.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.TotalJobItems.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.JobItemsProcessed.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.CreatedDate.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.CompletedDate.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.ExtendedStatus.Label}</th>
+               </tr>
+               <tr ng-class="{	active: job.Status == 'Queued',
+                  active: job.Status == 'Holding',
+                  active: job.Status == 'Preparing',
+                  success: job.Status == 'Completed',
+                  info: job.Status == 'Aborted',
+                  warning: job.Status == 'Processing',
+                  danger: job.Status == 'Failed'}"
+                  ng-repeat="job in deleteOrphanPartyJobList track by $index">
+               <td style=" width: 25%;">
+               <p>{!$Label.VlocityDeleteOrphanPartyJob}</p>
+               </td>
+               <td style="width: 5%;">
+               <p>{{job.Status}}</p>
+               </td>
+               <td style="width: 5%;">
+               <p>{{job.TotalJobItems}}</p>
+               </td>
+               <td style="width: 5%;">
+               <p>{{job.JobItemsProcessed}}</p>
+               </td>
+               <td style="width: 15%;">
+               <p>{{ job.CreatedDate | date : 'short' }}</p>
+               </td>
+               <td style="width: 15%;">
+               <p>{{ job.CompletedDate | date : 'short' }}</p>
+               </td>
+               <td style="width: 40%;">
+               <p>{{job.ExtendedStatus}}</p>
+               </td>
+               </tr>
+               </table>
+               </div>
+               </a>
+
+               <a href="#" class="list-group-item" >
+               <div class="row">
+               <div class="col-md-8 col-sm-12 col-xs-12" ng-click="isMergePartyJobsCollapsed = !isMergePartyJobsCollapsed">
+               <h4 class="list-group-item-heading">{!$Label.VlocityUnmergedPartyMaintenance}</h4>
+               <p class="list-group-item-text">{!$Label.VlocityUnmergedPartyMaintenanceDescription}</p>
+               </div>
+               <div class="col-md-4 col-sm-12 col-xs-12  text-right ">
+               <button id="idmergeparty" type="button" ng-click="isMergePartyJobsCollapsed = false; mergePartyJob()" class="btn btn-primary btn-sm">{!$Label.StartDT}</button>
+               </div>
+               </div>
+               <div ng-if="mergePartyJobList.length != 0" collapse="isMergePartyJobsCollapsed">
+               <table style="margin-bottom:5px;margin-top:30px" class="table table-condensed ins-party-admin">
+               <tr>
+               <th>{!$Label.VlocityMergePartyJob}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.Status.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.TotalJobItems.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.JobItemsProcessed.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.CreatedDate.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.CompletedDate.Label}</th>
+               <th>{!$ObjectType.AsyncApexJob.Fields.ExtendedStatus.Label}</th>
+               </tr>
+               <tr ng-class="{	active: job.Status == 'Queued',
+                  active: job.Status == 'Holding',
+                  active: job.Status == 'Preparing',
+                  success: job.Status == 'Completed',
+                  info: job.Status == 'Aborted',
+                  warning: job.Status == 'Processing',
+                  danger: job.Status == 'Failed'}"
+                  ng-repeat="job in mergePartyJobList track by $index">
+               <td style=" width: 25%;">
+               <p>{!$Label.VlocityMergePartyJob}</p>
+               </td>
+               <td style="width: 5%;">
+               <p>{{job.Status}}</p>
+               </td>
+               <td style="width: 5%;">
+               <p>{{job.TotalJobItems}}</p>
+               </td>
+               <td style="width: 5%;">
+               <p>{{job.JobItemsProcessed}}</p>
+               </td>
+               <td style="width: 15%;">
+               <p>{{ job.CreatedDate | date : 'short' }}</p>
+               </td>
+               <td style="width: 15%;">
+               <p>{{ job.CompletedDate | date : 'short' }}</p>
+               </td>
+               <td style="width: 40%;">
+               <p>{{job.ExtendedStatus}}</p>
+               </td>
+               </tr>
+               </table>
+               </div>
+               </a>
+
+
+               </div>
+            </div>
+      </tabset>
+      </div>
+   </div>
+     </body>
+	</html>
+</apex:page>

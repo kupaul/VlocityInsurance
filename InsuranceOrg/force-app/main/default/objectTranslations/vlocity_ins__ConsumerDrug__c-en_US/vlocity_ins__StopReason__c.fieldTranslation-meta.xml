@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The reason the Member stopped taking their medication. --></help>
+    <label><!-- Stop Reason --></label>
+    <name>vlocity_ins__StopReason__c</name>
+    <picklistValues>
+        <masterLabel>Duplicate</masterLabel>
+        <translation><!-- Duplicate --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medication added in error</masterLabel>
+        <translation><!-- Medication added in error --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Patient stopped medication</masterLabel>
+        <translation><!-- Patient stopped medication --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Physician discontinued</masterLabel>
+        <translation><!-- Physician discontinued --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Prescription change in dose or frequency</masterLabel>
+        <translation><!-- Prescription change in dose or frequency --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Prescription complete</masterLabel>
+        <translation><!-- Prescription complete --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

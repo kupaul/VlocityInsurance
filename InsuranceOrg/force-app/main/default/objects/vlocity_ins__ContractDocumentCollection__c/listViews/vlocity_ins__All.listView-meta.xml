@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__All</fullName>
+    <columns>NAME</columns>
+    <columns>vlocity_ins__AttachmentId__c</columns>
+    <columns>vlocity_ins__ContentVersionId__c</columns>
+    <columns>vlocity_ins__ContractVersionId__c</columns>
+    <columns>vlocity_ins__Description__c</columns>
+    <columns>vlocity_ins__DocumentLink__c</columns>
+    <columns>vlocity_ins__DocumentModifiedDate__c</columns>
+    <columns>vlocity_ins__DocumentSize__c</columns>
+    <columns>vlocity_ins__DocumentTitle__c</columns>
+    <columns>vlocity_ins__DocumentType__c</columns>
+    <columns>vlocity_ins__SourceType__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

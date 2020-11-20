@@ -1,0 +1,36 @@
+<apex:page standardStylesheets="false" showHeader="false" sidebar="false" docType="html-5.0" controller="vlocity_ins.VFPageControllerBase"
+           language="{!$CurrentPage.parameters.LanguageCode}">
+   <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      </meta>
+   </head>
+    <div ng-app="OmniScriptUniversal" class='vlocity'>
+        <c:BusinessProcessComponent verticalMode="false"
+                                    mobile="true"
+                                    strOmniScriptId="{!$CurrentPage.parameters.designerPreviewId}"
+                                    previewMode="{!$CurrentPage.parameters.previewEmbedded}"
+                                    strCSSFileList="[{!sNSP}vlocity_assets:css/vlocity.css], [{!sNSP}MobileOuiCSS], [{!sNSP}vlocityoui_assets:vlocityoui_assets/css/leaflet.css]"
+                                    overwriteHTMLTemplateMapping="{'vlcApplicationConfirmationV2.html':'vlcMobileReview.html', 'vlcApplicationConfirmation.html':'vlcMobileReview.html', 'vlcApplicationAcknowledgeV2.html': 'vlcMobileConfirmation.html', 'vlcSaveForLaterAcknowledge.html':'vlcMobileSaveForLater.html', 'vlcCartSummary.html': 'vlcMobileCartSummary.html', 'vlcAcknowledge.html': 'vlcMobileConfirmation.html',
+                                    'vlcSelectableItem.html': 'vlcMobileSelectableItem.html',
+                                    'vlcSmallItems.html': 'vlcMobileSmallItems.html', 'vlcSelectableItemV2.html': 'vlcMobileSelectableItem.html', 'vlcSmallItemsV2.html': 'vlcMobileSmallItems.html'}"
+                                    elementTypeToHTMLTemplateMapping="{'Checkbox': 'vlcSwitch.html', 'Radio': 'vlcMobileRadio.html', 
+                                    'SideBar' : 'vlcMobileSideBar.html', 
+                                    'Disclosure': 'vlcMobileDisclosure.html', 
+                                    'Select':'vlcMobileSelect.html', 
+                                    'Multi-select': 'vlcMobileSelectItem.html', 'Range': 'vlcMobileRange.html', 
+                                    'Step': 'vlcMobileStep.html', 'Time': 'vvlcMobileTime.html', 
+                                    'Date/Time (Local)': 'vlcMobileDatetime-local.html', 'Currency': 'vlcMobileCurrency.html', 
+                                    'Date': 'vlcMobileDate.html', 'Review Action Footer': 'vlcMobileReviewActionFooter.html', 
+                                    'Geolocation': 'vlcMobileGeolocation.html', 'Selectable Items': 'vlcMobileSelectableItems.html', 
+                                    'Selectable Item': 'vlcMobileSelectableItem.html', 'Filter Block': 'vlcMobileFilterBlock.html', 
+                                    'Horizontal Mode Persistent Component': 'vlcMobileHCart.html', 
+                                    'Vertical Mode Persistent Component': 'vlcMobileVCart.html', 
+                                    'Filter Multi-select': 'vlcMobileFilterItemMSelect.html', 'OmniMain': 'vlcMobileBPTreeMain.html',
+                                    'Auto Save for Later Message': 'vlcEmpty.html'}" />
+        <script type="text/javascript">
+            var modules = ['vlocity-business-process'];
+            var myModule = angular.module('OmniScriptUniversal', modules);
+        </script>
+    </div>
+    <c:VFActionFunction />
+</apex:page>

@@ -1,0 +1,4 @@
+Name
+NewProductVersionInterface
+KeyUpdatableInterface
+ChildItemSelectionInterface

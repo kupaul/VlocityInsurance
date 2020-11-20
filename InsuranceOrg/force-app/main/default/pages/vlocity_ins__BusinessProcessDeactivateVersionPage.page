@@ -1,0 +1,2 @@
+<apex:page standardController="vlocity_ins__OmniScript__c" extensions="vlocity_ins.BusinessProcessController" action="{!doDeactivateVersion}" docType="html-5.0">
+</apex:page>

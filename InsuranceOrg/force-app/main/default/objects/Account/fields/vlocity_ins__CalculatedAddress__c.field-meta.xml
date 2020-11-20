@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CalculatedAddress__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Formula: A concatenation of billing street, city, state/province and postal code.</description>
+    <externalId>false</externalId>
+    <formula>BillingStreet &amp; BR() &amp; BillingCity &amp; &quot; &quot; &amp; BillingState &amp; &quot; &quot; &amp; BillingPostalCode</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Calculated Address</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

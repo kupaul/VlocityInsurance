@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__BatchSize__c</fullName>
+    <defaultValue>200</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Items to process in each batch. Max: 2000</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The number of records processed per batch transaction (1-2000)</inlineHelpText>
+    <label>Batch Size</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

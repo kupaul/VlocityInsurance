@@ -1,0 +1,4 @@
+<apex:page showHeader="true" sidebar="true" standardController="vlocity_ins__ManualQueue__c">
+    <c:XOMQueueItemsComponent displayedFields="state__c, timestampReady__c, account__c, orderFulfilmentRequest__c, assignedToUserId__c"
+        manualQueueId="{!$CurrentPage.parameters.id}" />
+</apex:page>

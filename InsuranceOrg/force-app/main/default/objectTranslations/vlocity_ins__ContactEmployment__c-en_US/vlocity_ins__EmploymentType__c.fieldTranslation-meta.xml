@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Employment Type --></label>
+    <name>vlocity_ins__EmploymentType__c</name>
+    <picklistValues>
+        <masterLabel>Contract</masterLabel>
+        <translation><!-- Contract --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>FullTime</masterLabel>
+        <translation><!-- FullTime --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PartTime</masterLabel>
+        <translation><!-- PartTime --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Self-Employed</masterLabel>
+        <translation><!-- Self-Employed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Temporary</masterLabel>
+        <translation><!-- Temporary --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

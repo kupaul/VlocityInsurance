@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Property</fullName>
+    <active>true</active>
+    <label>Property</label>
+    <picklistValues>
+        <picklist>vlocity_ins__LocationType__c</picklist>
+        <values>
+            <fullName>Policyholder Home</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__PropertyType__c</picklist>
+        <values>
+            <fullName>Apartment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Leased</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Owned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cargo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Garage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Storefront</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Warehouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Condominium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Houseboat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Multi Family Home</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outbuilding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scheduled Personal Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single Family Home</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>vlocity_ins__TotalReserveStatus__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ApprovedRollup</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reverted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

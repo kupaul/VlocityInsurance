@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Category__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Clause Category</description>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Confidential</fullName>
+                <default>false</default>
+                <label>Confidential</label>
+            </value>
+            <value>
+                <fullName>Definitions</fullName>
+                <default>false</default>
+                <label>Definitions</label>
+            </value>
+            <value>
+                <fullName>Services</fullName>
+                <default>false</default>
+                <label>Services</label>
+            </value>
+            <value>
+                <fullName>License</fullName>
+                <default>false</default>
+                <label>License</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

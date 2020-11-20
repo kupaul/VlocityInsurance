@@ -1,0 +1,162 @@
+$dark-gray: #7c7c7c;
+$middle-dark-gray: #c7c7c7;
+$mid-gray: #d8d8d8;
+$middle-light-gray: #dedede;
+$light-gray: #f2f2f2;
+$lightest-gray: #f8f8f8;
+$white: #fff;
+$orange: orange;
+
+
+$primary-font-color: rgba(0,0,0,.9);
+$secondary-font-color: rgba(0,0,0,.65);
+$tertiary-font-color: rgba(0,0,0,.35);
+
+$dark-blue: #008ab3;
+$light-blue: #05a6df;
+
+$warning: #eac438;
+$success: #58a300;
+$error: #f65327;
+
+
+// Bootstrap Variable Overrides
+$bootstrap-sass-asset-helper: false !default;
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Global textual link color.
+
+$brand-error: $error;
+$brand-success: $success;
+$brand-warning: $warning;
+$brand-primary: $dark-blue;
+
+$link-color: $dark-blue;
+
+
+$padding-base-vertical: 4px;
+$padding-base-horizontal: 8px;
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif_vloc: "Salesforce Sans", Arial, sans-serif !default;
+$font-family-base: $font-family-sans-serif_vloc;
+
+$font-size-base: 12px;
+
+$font-size-h1: 19px;
+$font-size-h2: 17px;
+$font-size-h3: 15px;
+$font-size-h4: 13px;
+$font-size-h5: 13px;
+
+$line-height: 18px;
+
+$font-size-small: 11px;
+
+
+//== Tables
+//
+//## Customizes the `.table` component with basic values, each used across all table variations.
+
+$vlc-table-header-bg: $lightest-gray;
+$table-border-color: rgba(0,0,0,.15);
+$table-cell-padding: 8px 16px;
+$table-bg-accent: $white;
+
+$table-bg-hover: rgba($light-blue, 0.05);
+$table-bg-selected: rgba($light-blue, 0.1);
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+
+$border-radius-base: 3px;
+
+
+//== Forms
+//
+//##
+
+//** Default `.form-control` height
+$input-height-base: 28px;
+//** Large `.form-control` height
+$input-height-large: 44px;
+//** Small `.form-control` height
+$input-height-small: 20px;
+
+$input-bg-disabled: $middle-light-gray;
+$input-border: rgba(0,0,0,.15);
+$input-border-radius: $border-radius-base;
+
+$input-border-focus: $light-blue;
+
+
+//== Form states and alerts
+//
+//## Define colors for form feedback states and, by default, alerts.
+
+$state-danger-text:              $error;
+$state-danger-border:            $error;
+
+
+$state-success-bg: $success;
+
+
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-default-color:              $secondary-font-color;
+$btn-default-bg:                 #fff !default;
+$btn-default-border:             #ccc !default;
+
+$btn-primary-color:              $white;
+$btn-primary-bg:                 $brand-primary !default;
+$btn-primary-border:             darken($btn-primary-bg, 5%) !default;
+
+
+
+
+$close-color: $light-blue;
+$modal-md: 740px;
+$dropdown-link-hover-bg: $light-blue;
+
+$popover-max-width: 400px;
+
+$tooltip-bg: $dark-gray;
+$tooltip-arrow-color: $dark-gray;
+
+
+
+// Vertical gradient, from top to bottom
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+// Color stops are not available in IE9 and below.
+@mixin gradient-vertical-border($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  border-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  border-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Opera 12
+  border-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,923 @@
+<apex:page standardStylesheets="false"
+           showHeader="true"
+           sidebar="false"
+           docType="html-5.0"
+           tabStyle="OmniScriptHome__tab"
+           standardController="vlocity_ins__OmniScript__c"
+           extensions="vlocity_ins.OmniScriptDesignerController,vlocity_ins.OmniScriptHomeController,vlocity_ins.DRMapperController3,vlocity_ins.DRDataPackRunnerController,vlocity_ins.LWCDesignerController"
+           language="{!$CurrentPage.parameters.LanguageCode}">
+    <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-core.min.js')}"></script>
+    <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-api-metadata.min.js')}"></script>
+    <script src="{!URLFOR($Resource.jsforce_1_7, '/jsforce-api-tooling.min.js')}"></script>
+    <script src="{!URLFOR($Resource.jsforce_1_7, '/jszip.min.js')}"></script>
+    <script>
+        window.conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}', version: '45.0' });
+        window.conn.metadata.pollTimeout = 600000;  // 10 minute polling timeout
+    </script>
+    <script src="{!URLFOR($Resource.vlocity_core_assets, '/v102/vlocity_core_assets.js')}"></script>
+    <script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+
+    <script src="{!URLFOR($Resource.vlocity_assets, '/bower_components/angular-rangeslider/angular.rangeSlider.js')}"></script>
+    <script src="{!URLFOR($Resource.vlocity_assets, '/bower_components/clipboard/dist/clipboard.min.js')}"></script>
+    <script src="{!URLFOR($Resource.tinymce, '/js/tinymce/tinymce.min.js')}"></script>
+    <script src="{!URLFOR($Resource.ui_tinymce, '/src/tinymce.js')}"></script>
+    <script src="{!$Resource.DataRaptor}"></script>
+    <script src="{!$Resource.DRVComp}"></script>
+    <script src="{!$Resource.ExpressionEngineV2}"></script>
+    <script src="{!$Resource.VlocityExpressionEngine}"></script>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}" />
+    <apex:stylesheet value="{!$Resource.vlocity_ins__OmniScriptDesignerCss}" />
+    <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"
+    />
+    <apex:includeScript value="/support/console/42.0/integration.js" />
+    <script src="{!$Resource.SldsAngular}"></script>
+    <script src="{!$Resource.OmniscriptLwcCompiler}"></script>
+    <script src="{!$Resource.OmniScriptDesigner}"></script>
+    <script src="{!URLFOR($Resource.fileSaver_2_0_1, '/fileSaver.js')}"></script>
+
+    <style>
+        .vlocity .fa {
+            font-family: FontAwesome;
+        }
+    </style>
+    <script>
+        (function () {
+            document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+        })();
+    </script>
+    <div class="via-slds"></div>
+    <div class="vloc-body ng-cloak {!$User.UIThemeDisplayed}"
+         ng-app="omniscriptDesigner"
+         ng-controller="omniscriptDesignerController"
+         dir="ltr">
+        <div class="vlocity"
+             style="margin-top: -8px;margin-left: -9px;position: absolute;"
+             id="omnidesigner_goback">
+            <a class="btn btn-link btn-xs"
+               href="{!omniHomeUrl}"
+               target="_self">
+                <i class="icon icon-v-left-caret"></i>Go Back</a>
+        </div>
+        <apex:sectionHeader subtitle="{{scriptElement.Name}}"
+                            id="sectionHeader"
+                            title="{{ ::'OmniDesOmniDesigner' | localize }}" />
+        <div class="vlocity url-settings">
+            <button class="btn btn-default"
+                    ng-click="showHowToUse()">
+                <i class="icon icon-v-information-line
+		  "></i>{{::"OmniDesHowToUse" | localize:'How to launch activated script'}}</button>
+            <button class="btn btn-default"
+                    ng-click="viewFullDataJson()">
+                <i class="icon icon-v-information-line
+          "></i>{{::"OmniDesFullDataJson" | localize:'View Full Data JSON'}}</button>
+        </div>
+        <div class="vlocity"
+             via-affix="top">
+            <div class="container">
+                <div class="three-col-body"
+                     ng-class="{'collapse-left-col': collapsePalette, 'fullScreen': fullScreen}">
+                    <div class="left-col palette"
+                         ng-controller="elementPalette">
+                        <h4>{{ ::'OmniDesAvailableComps' | localize }}</h4>
+                        <button type="button"
+                                class="btn btn-default btn-sm collapse-btn"
+                                ng-click="toggleCollapsePalette()">
+                            <i class="icon"
+                               ng-class="{'icon-v-double-caret-left': !collapsePalette, 'icon-v-double-caret-right': collapsePalette}"></i>
+                        </button>
+                        <div class="paletteGroups col-body">
+                            <palette-group elements="allElements | controlType:'action'"
+                                           grouptitle="'OmniDesPaletteActions' | localize"></palette-group>
+                            <palette-group elements="allElements | controlType:'display'"
+                                           grouptitle="'OmniDesPaletteDisplay' | localize"></palette-group>
+                            <palette-group elements="allElements | controlType:'func'"
+                                           grouptitle="'OmniDesPaletteFunctions' | localize"></palette-group>
+                            <palette-group elements="allElements | controlType:'group'"
+                                           grouptitle="'OmniDesPaletteGroups' | localize"></palette-group>
+                            <palette-group elements="allElements  | controlType:'input'"
+                                           grouptitle="'OmniDesPaletteControls' | localize"></palette-group>
+                            <palette-group elements="reusableScripts"
+                                           grouptitle="'OmniDesPaletteOmniScripts' | localize"></palette-group>
+                        </div>
+                    </div>
+
+                    <!-- STRUCTURE CANVAS -->
+                    <div class="center-col canvas"
+                         ng-controller="structureCanvas">
+                        <h4>{{ ::'OmniDesCanvas' | localize }}</h4>
+                        <button class="btn btn-link expandAll"
+                                type="button"
+                                ng-click="expandAll()"
+                                ng-if="!allExpanded()"
+                                title="Expand All">
+                            <i class="icon icon-v-plus-circle"></i>
+                        </button>
+                        <button class="btn btn-link collapseAll"
+                                type="button"
+                                ng-click="collapseAll()"
+                                ng-if="allExpanded()"
+                                title="Collapse All">
+                            <i class="icon icon-v-minus-circle"></i>
+                        </button>
+                        <button class="btn btn-link showFilter"
+                                type="button"
+                                ng-click="showFilter = !showFilter"
+                                ng-class="{'active': showFilter}">
+                            <i class="icon icon-v-filter"></i>
+                        </button>
+                        <div ng-if="showFilter"
+                             class="canvasElement omniscriptElement filter-control">
+                            <div>
+                                <h3>
+                                    <span>{{ ::'OmniDesCanvasCtrlEl' | localize }}</span>
+                                </h3>
+                                <div class="form-group"
+                                     ng-repeat="rule in popover.rules track by $index">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <button type="button"
+                                                    class="btn btn-filter"
+                                                    style="width: 100%"
+                                                    ng-model="rule.element"
+                                                    bs-options="element as element for element in popover.controllingEntities()"
+
+                                                    data-placeholder="{{ ::'OmniDesCanvasCtrlEntity' | localize }}"
+                                                    bs-select="true"
+                                                    ng-style="{'border-left': '3px solid ' + popover.controllingElementsColors[rule.element][0]}">
+                                                {{ ::'OmniDesCanvasCondition' | localize }}
+                                                <span class="caret"></span>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text"
+                                                   class="form-control pull-left"
+                                                   ng-model="rule.value"
+                                                   placeholder="Value" />
+                                            <span class="icon icon-v-trash pull-right"
+                                                  ng-click="popover.deleteRule(rule)"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button"
+                                            class="btn btn-link"
+                                            ng-click="popover.clear()">{{ ::'OmniDesCanvasClear' | localize }}</button>
+                                    <button type="button"
+                                            class="btn btn-link pull-right"
+                                            ng-click="popover.addRule()"
+                                            ng-disabled="popover.rules[popover.rules.length - 1].field != null">{{ ::'OmniDesCanvasAdd' | localize }}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="structureCanvas col-body">
+                            <div class="canvasElement omniscriptElement  drop {{ scriptElement | className }}"
+                                 ng-class="{'active': activeElement == scriptElement}"
+                                 ng-click="onCanvasElementClick(scriptElement)">
+                                <div>
+                                    <ul class="show-marker-wrapper">
+                                        <li ng-repeat="color in popover.controllingElementsColors[element.Name] track by $index"
+                                            class="show-marker"
+                                            ng-style="{'background-color': color, 'left': 0}"></li>
+                                    </ul>
+                                    <h3>
+                                        <span>{{scriptElement.CanvasType}}
+                                            <i class="icon icon-v-claim-line"
+                                               ng-if="scriptElement.hasErrors()"
+                                               data-container=".container"
+                                               data-type="info"
+                                               bs-tooltip="scriptElement"
+                                               bs-enabled="true"
+                                               data-html="true"
+                                               ng-attr-data-title="{{errors != null && errors.length > 0 && errors[0].message}}"></i>
+                                        </span>
+                                    </h3>
+                                    <span ng-if="scriptElement.saving"
+                                          class="spinner pull-right"
+                                          style="margin-top: -32px"></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div ng-if="!scriptElement.Id"
+                                 class="message">
+                                <p>{{ ::'OmniDesCanvasEmpty' | localize }}</p>
+                            </div>
+                            <ul class="drop-zone"
+                                ng-if="scriptElement.Id"
+                                dnd-list="scriptElement.children"
+                                dnd-allowed-types="scriptElement.allowedTypes()"
+                                ng-attr-data-element-id="{{scriptElement.Id}}"
+                                dnd-disable-if="$parent.$parent.scriptElement.IsActive__c || scriptElement.saving"
+                                dnd-drop="onDNDDrop(event, index, item, external, type, 'itemType')"
+                                dnd-dragover="onDNDMove(event, index, item, external, type, 'itemType')">
+                                <li class="canvasElement {{element | className}}"
+                                    ng-class="{'active': activeElement == element, 'filter': element.filter}"
+                                    ng-repeat="element in scriptElement.children track by $index"
+                                    dnd-disable-if="$parent.$parent.scriptElement.IsActive__c || element.saving"
+                                    dnd-draggable="element.Id"
+                                    dnd-effect-allowed="move"
+                                    dnd-type="element.Type__c.type"
+                                    ng-click="onCanvasElementClick(element)"
+                                    ng-include="'canvas-element-template.tpl.html'">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- PROPERTIES TABS-->
+                    <div class="right-col rightPanel"
+                         ng-controller="tabbedController">
+                        <div bs-active-pane="tabs.activeTab"
+                             bs-tabs="bs-tabs"
+                             class="right-tabs">
+                            <div ng-repeat="tab in tabs"
+                                 title="{{tab.title}}"
+                                 disabled=""
+                                 ng-bind="tab.content"
+                                 bs-pane="bs-pane">
+                            </div>
+                        </div>
+                        <div class="actions form-inline"
+                             ng-show="tabs.activeTab === 1">
+                            <button class="btn btn-link pull-right last-action-item"
+                                    type="button"
+                                    ng-click="showDataPanel = !showDataPanel">
+                                {
+                                <span>{{ ::'OmniDesData' | localize }}</span>&nbsp;}</button>
+                            <select class="form-control pull-right action-item"
+                                    ng-options="mode for mode in previewModes"
+                                    ng-model="previewMode"></select>
+                            <select class="form-control pull-right action-item"
+                                    style="margin-right: 4px;"
+                                    ng-if="$root.scriptElement.Language__c === 'Multi-Language'"
+                                    ng-options="previewlang.value as previewlang.label for previewlang in languages"
+                                    ng-model="previewLanguage"
+                                    ng-change="changePreviewLanguage(previewLanguage)"></select>
+                            <button class="btn btn-link pull-right action-item"
+                                    type="button"
+                                    ng-click="toggleFullScreen()">
+                                <i class="icon icon-v-expand"></i>
+                            </button>
+                            <button class="btn btn-default pull-right action-item"
+                                    type="button"
+                                    enable-logging="testing">
+                                {{ ::'OmniDesDebug' | localize }}
+                            </button>
+                            <div>
+                                <!-- modal window that opens up when the debug button is clicked -->
+                                <vlc-debug-json-tree-view json-data="{}"></vlc-debug-json-tree-view>
+                            </div>
+                        </div>
+                        <div class="actions form-inline"
+                             ng-show="tabs.activeTab === 2">
+                            <button class="btn btn-link pull-right last-action-item"
+                                    type="button"
+                                    ng-click="showLwcDataPanel = !showLwcDataPanel">
+                                {
+                                <span>{{ ::'OmniDesData' | localize }}</span>&nbsp;}</button>
+                            <select class="form-control pull-right action-item"
+                                    ng-options="mode for mode in lwcPreviewModes"
+                                    ng-model="lwcPreviewMode"></select>
+                                    <select class="form-control pull-right action-item"
+                                    style="margin-right: 4px;"
+                                    ng-if="$root.scriptElement.Language__c === 'Multi-Language'"
+                                    ng-options="previewlang.value as previewlang.label for previewlang in languages"
+                                    ng-model="lwcPreviewLanguage"
+                                    ng-change="changelwcPreviewLanguage(lwcPreviewLanguage)"></select>
+                            <button class="btn btn-link pull-right action-item"
+                                    type="button"
+                                    ng-click="toggleFullScreen()">
+                                <i class="icon icon-v-expand"></i>
+                            </button>
+                            <button class="btn btn-default pull-right action-item"
+                                    type="button"
+                                    enable-logging="testing">
+                                {{ ::'OmniDesDebug' | localize }}
+                            </button>
+                            <!-- modal window that opens up when the debug button is clicked -->
+                            <vlc-lwc-debug-json-tree-view json-data="{}"></vlc-lwc-debug-json-tree-view>
+                        </div>
+
+                        <div class="propertiesPanel col-body"
+                             ng-show="tabs.activeTab === 0"
+                             ng-controller="propertiesController">
+                            <div class="form-wrapper">
+                                <a ng-click="toggleJsonEditor()"
+                                   ng-if="!showJsonEditor"
+                                   class="btn btn-link pull-right">{{ ::'OmniDesEditAsJson' | localize }}</a>
+                                <a ng-click="toggleJsonEditor()"
+                                   ng-if="showJsonEditor"
+                                   class="btn btn-link pull-right">{{ ::'OmniDesEditInProp' | localize }}</a>
+                                <div class="form-group pull-right"
+                                     ng-if="activeElement !== scriptElement"
+                                     style="margin-top: 5px;">
+                                    <label style="margin-top: auto">
+                                        <input type="checkbox"
+                                               ng-disabled="scriptElement.IsActive__c"
+                                               ng-model="activeElement.Active__c" /> {{ ::'OmniDesActive' | localize }}
+                                    </label>
+                                </div>
+                                <h2>{{activeElement | activeElementTitle}}&nbsp;
+                                    <small>{{activeElement.Type__c | elementLabel}}</small>
+                                </h2>
+                                <div ng-if="showJsonEditor">
+                                    <form name="form.propertiesForm">
+                                        <div class="form-group"
+                                             ng-class="{'has-feedback has-error': propertySetInvalid}">
+                                            <textarea class="form-control json-editor"
+                                                      ng-model="propertySetAsText"
+                                                      ng-change="onJsonChange(propertySetAsText)"
+                                                      ng-disabled="scriptElement.IsActive__c"
+                                                      rows="30"></textarea>
+                                            <span ng-if="propertySetInvalid"
+                                                  class="icon-v-close-circle form-control-feedback"
+                                                  data-container=".container"
+                                                  data-type="info"
+                                                  bs-tooltip="tooltip"
+                                                  bs-enabled="true"
+                                                  data-title="{{ ::'OmniDesInvalidJson' | localize }}"
+                                                  aria-hidden="true"></span>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div ng-switch="activeElement.type()"
+                                     ng-if="!showJsonEditor">
+                                    <omniscript-property-set element="activeElement"
+                                                             script-element="scriptElement"
+                                                             ng-switch-when="Script Configuration"></omniscript-property-set>
+
+                                    <!-- Action elements -->
+                                    <calculation-action-property-set element="activeElement"
+                                                                     script-element="scriptElement"
+                                                                     ng-switch-when="Calculation Action"></calculation-action-property-set>
+                                    <dataraptor-extract-action-property-set element="activeElement"
+                                                                            script-element="scriptElement"
+                                                                            ng-switch-when="DataRaptor Extract Action"></dataraptor-extract-action-property-set>
+                                    <dataraptor-extract-action-property-set element="activeElement"
+                                                                            script-element="scriptElement"
+                                                                            ng-switch-when="DataRaptor Turbo Action"></dataraptor-extract-action-property-set>
+                                    <dataraptor-post-action-property-set element="activeElement"
+                                                                         script-element="scriptElement"
+                                                                         ng-switch-when="DataRaptor Post Action"></dataraptor-post-action-property-set>
+                                    <dataraptor-transform-action-property-set element="activeElement"
+                                                                              script-element="scriptElement"
+                                                                              ng-switch-when="DataRaptor Transform Action"></dataraptor-transform-action-property-set>
+                                    <delete-action-property-set element="activeElement"
+                                                                script-element="scriptElement"
+                                                                ng-switch-when="Delete Action"></delete-action-property-set>
+                                    <docusign-envelope-action-property-set element="activeElement"
+                                                                           script-element="scriptElement"
+                                                                           ng-switch-when="DocuSign Envelope Action"></docusign-envelope-action-property-set>
+                                    <docusign-signature-action-property-set element="activeElement"
+                                                                            script-element="scriptElement"
+                                                                            ng-switch-when="DocuSign Signature Action"></docusign-signature-action-property-set>
+                                    <done-action-property-set element="activeElement"
+                                                              script-element="scriptElement"
+                                                              ng-switch-when="Done Action"></done-action-property-set>
+                                    <email-action-property-set element="activeElement"
+                                                               script-element="scriptElement"
+                                                               ng-switch-when="Email Action"></email-action-property-set>
+                                    <integration-procedure-action-property-set element="activeElement"
+                                                                               script-element="scriptElement"
+                                                                               ng-switch-when="Integration Procedure Action"></integration-procedure-action-property-set>
+                                    <matrix-action-property-set element="activeElement"
+                                                                script-element="scriptElement"
+                                                                ng-switch-when="Matrix Action"></matrix-action-property-set>
+                                    <navigate-action-property-set element="activeElement"
+                                                                  script-element="scriptElement"
+                                                                  ng-switch-when="Navigate Action"></navigate-action-property-set>
+                                    <pdf-action-property-set element="activeElement"
+                                                             script-element="scriptElement"
+                                                             ng-switch-when="PDF Action"></pdf-action-property-set>
+                                    <post-to-object-action-property-set element="activeElement"
+                                                                        script-element="scriptElement"
+                                                                        ng-switch-when="Post to Object Action"></post-to-object-action-property-set>
+                                    <remote-action-property-set element="activeElement"
+                                                                script-element="scriptElement"
+                                                                ng-switch-when="Remote Action"></remote-action-property-set>
+                                    <rest-action-property-set element="activeElement"
+                                                              script-element="scriptElement"
+                                                              ng-switch-when="Rest Action"></rest-action-property-set>
+                                    <review-action-property-set element="activeElement"
+                                                                script-element="scriptElement"
+                                                                ng-switch-when="Review Action"></review-action-property-set>
+                                    <set-errors-action-property-set element="activeElement"
+                                                                    script-element="scriptElement"
+                                                                    ng-switch-when="Set Errors"></set-errors-action-property-set>
+                                    <set-values-action-property-set element="activeElement"
+                                                                    script-element="scriptElement"
+                                                                    ng-switch-when="Set Values"></set-values-action-property-set>
+                                    <submit-action-property-set element="activeElement"
+                                                                script-element="scriptElement"
+                                                                ng-switch-when="Submit"></submit-action-property-set>
+
+                                    <!-- Display elements -->
+                                    <text-block-property-set element="activeElement"
+                                                             script-element="scriptElement"
+                                                             ng-switch-when="Text Block"></text-block-property-set>
+                                    <headline-property-set element="activeElement"
+                                                           script-element="scriptElement"
+                                                           ng-switch-when="Headline"></headline-property-set>
+                                    <line-break-property-set element="activeElement"
+                                                             script-element="scriptElement"
+                                                             ng-switch-when="Line Break"></line-break-property-set>
+
+                                    <!-- Function elements -->
+                                    <aggregate-property-set element="activeElement"
+                                                            script-element="scriptElement"
+                                                            ng-switch-when="Aggregate"></aggregate-property-set>
+                                    <formula-property-set element="activeElement"
+                                                          script-element="scriptElement"
+                                                          ng-switch-when="Formula"></formula-property-set>
+                                    <geolocation-property-set element="activeElement"
+                                                              script-element="scriptElement"
+                                                              ng-switch-when="Geolocation"></geolocation-property-set>
+                                    <validation-property-set element="activeElement"
+                                                             script-element="scriptElement"
+                                                             ng-switch-when="Validation"></validation-property-set>
+
+                                    <!-- Group elements -->
+                                    <block-property-set element="activeElement"
+                                                        script-element="scriptElement"
+                                                        ng-switch-when="Block"></block-property-set>
+                                    <edit-block-property-set element="activeElement"
+                                                             script-element="scriptElement"
+                                                             ng-switch-when="Edit Block"></edit-block-property-set>
+                                    <filter-block-property-set element="activeElement"
+                                                               script-element="scriptElement"
+                                                               ng-switch-when="Filter Block"></filter-block-property-set>
+                                    <input-block-property-set element="activeElement"
+                                                              script-element="scriptElement"
+                                                              ng-switch-when="Input Block"></input-block-property-set>
+                                    <radio-group-property-set element="activeElement"
+                                                              script-element="scriptElement"
+                                                              ng-switch-when="Radio Group"></radio-group-property-set>
+                                    <selectable-items-property-set element="activeElement"
+                                                                   script-element="scriptElement"
+                                                                   ng-switch-when="Selectable Items"></selectable-items-property-set>
+                                    <step-property-set element="activeElement"
+                                                       script-element="scriptElement"
+                                                       ng-switch-when="Step"></step-property-set>
+                                    <type-ahead-block-property-set element="activeElement"
+                                                                   script-element="scriptElement"
+                                                                   ng-switch-when="Type Ahead Block"></type-ahead-block-property-set>
+                                    <action-block-property-set element="activeElement"
+                                                               script-element="scriptElement"
+                                                               ng-switch-when="Action Block"></action-block-property-set>
+
+                                    <!-- Input elements -->
+                                    <checkbox-property-set element="activeElement"
+                                                           script-element="scriptElement"
+                                                           ng-switch-when="Checkbox"></checkbox-property-set>
+                                    <currency-property-set element="activeElement"
+                                                           script-element="scriptElement"
+                                                           ng-switch-when="Currency"></currency-property-set>
+                                    <custom-lwc-property-set element="activeElement"
+                                                             script-element="scriptElement"
+                                                             ng-switch-when="Custom Lightning Web Component"></custom-lwc-property-set>
+                                    <date-property-set element="activeElement"
+                                                       script-element="scriptElement"
+                                                       ng-switch-when="Date"></date-property-set>
+                                    <date-time-property-set element="activeElement"
+                                                            script-element="scriptElement"
+                                                            ng-switch-when="Date/Time (Local)"></date-time-property-set>
+                                    <disclosure-property-set element="activeElement"
+                                                             script-element="scriptElement"
+                                                             ng-switch-when="Disclosure"></disclosure-property-set>
+                                    <email-property-set element="activeElement"
+                                                        script-element="scriptElement"
+                                                        ng-switch-when="Email"></email-property-set>
+                                    <file-property-set element="activeElement"
+                                                       script-element="scriptElement"
+                                                       ng-switch-when="File"></file-property-set>
+                                    <filter-property-set element="activeElement"
+                                                         script-element="scriptElement"
+                                                         ng-switch-when="Filter"></filter-property-set>
+                                    <image-property-set element="activeElement"
+                                                        script-element="scriptElement"
+                                                        ng-switch-when="Image"></image-property-set>
+                                    <lookup-property-set element="activeElement"
+                                                         script-element="scriptElement"
+                                                         ng-switch-when="Lookup"></lookup-property-set>
+                                    <multiselect-property-set element="activeElement"
+                                                              script-element="scriptElement"
+                                                              ng-switch-when="Multi-select"></multiselect-property-set>
+                                    <number-property-set element="activeElement"
+                                                         script-element="scriptElement"
+                                                         ng-switch-when="Number"></number-property-set>
+                                    <password-property-set element="activeElement"
+                                                           script-element="scriptElement"
+                                                           ng-switch-when="Password"></password-property-set>
+                                    <radio-property-set element="activeElement"
+                                                        script-element="scriptElement"
+                                                        ng-switch-when="Radio"></radio-property-set>
+                                    <range-property-set element="activeElement"
+                                                        script-element="scriptElement"
+                                                        ng-switch-when="Range"></range-property-set>
+                                    <select-property-set element="activeElement"
+                                                         script-element="scriptElement"
+                                                         ng-switch-when="Select"></select-property-set>
+                                    <signature-property-set element="activeElement"
+                                                            script-element="scriptElement"
+                                                            ng-switch-when="Signature"></signature-property-set>
+                                    <telephone-property-set element="activeElement"
+                                                            script-element="scriptElement"
+                                                            ng-switch-when="Telephone"></telephone-property-set>
+                                    <text-property-set element="activeElement"
+                                                       script-element="scriptElement"
+                                                       ng-switch-when="Text"></text-property-set>
+                                    <text-area-property-set element="activeElement"
+                                                            script-element="scriptElement"
+                                                            ng-switch-when="Text Area"></text-area-property-set>
+                                    <time-property-set element="activeElement"
+                                                       script-element="scriptElement"
+                                                       ng-switch-when="Time"></time-property-set>
+                                    <url-property-set element="activeElement"
+                                                      script-element="scriptElement"
+                                                      ng-switch-when="URL"></url-property-set>
+
+                                    <!-- otherwise it's a reusable Omni-->
+                                    <reusable-script-property-set element="activeElement"
+                                                                  script-element="scriptElement"
+                                                                  ng-switch-default=" "></reusable-script-property-set>
+                                </div>
+                                <div class="push"
+                                     ng-if="scriptElement.PropertySet__c && !showJsonEditor && activeElement === scriptElement"></div>
+                            </div>
+                            <div class="freeze"
+                                 ng-if="scriptElement.PropertySet__c && !showJsonEditor && activeElement === scriptElement">
+                                <dl class="dl-horizontal">
+                                    <dt>{{ ::'OmniDesVersion' | localize }}</dt>
+                                    <dd id="OmniScript__c_Version__c">{{scriptElement.Version__c}}</dd>
+                                    <dt>{{ ::'OmniDesActive' | localize }}</dt>
+                                    <dd id="OmniScript__c_IsActive__c"
+                                        ng-if="scriptElement.IsActive__c">{{ ::'OmniDesYes' | localize }}</dd>
+                                    <dd id="OmniScript__c_IsActive__c"
+                                        ng-if="!scriptElement.IsActive__c">{{ ::'OmniDesNo' | localize }}</dd>
+                                    <dt>{{ ::'OmniDesOwner' | localize }}</dt>
+                                    <dd id="OmniScript__c_Owner">{{scriptElement.Owner}}</dd>
+                                    <dt>{{ ::'OmniDesCreatedBy' | localize }}</dt>
+                                    <dd>
+                                        <span id="OmniScript__c_CreatedBy">{{scriptElement.CreatedBy}}</span>
+                                        <span id="OmniScript__c_CreatedDate">{{scriptElement.CreatedDate | date:"M/d/yyyy hh:mma"}}</span>
+                                    </dd>
+                                    <dt>{{ ::'OmniDesLastModifiedBy' | localize }}</dt>
+                                    <dd>
+                                        <span id="OmniScript__c_LastModifiedBy">{{scriptElement.LastModifiedBy}}</span>
+                                        <span id="OmniScript__c_LastModifiedDate">{{scriptElement.LastModifiedDate | date:"M/d/yyyy hh:mma"}}</span>
+                                    </dd>
+                                </dl>
+                                <div class="button-row"
+                                     ng-controller="scriptFormController">
+                                    <button id="OmniScript__c_OpenInLwcDesigner"
+                                            type="button"
+                                            class="btn btn-default"
+                                            ng-disabled="disableOpenInLwcDesigner()"
+                                            ng-show="scriptElement.IsLwcEnabled__c && scriptElement.Id && scriptElement.Language__c !== 'Multi-Language'"
+                                            ng-click="$root.vlocityOpenUrl('/lightning/app/{!namespacePrefix}Vlocity_Digital_Studio/r/{!namespacePrefix}OmniScript__c/' + scriptElement.Id + '/view', $event, false)">Open in LWC OmniScript Designer</button>
+                                    <button id="OmniScript__c_deleteBtn"
+                                            type="button"
+                                            class="btn btn-default"
+                                            ng-disabled="scriptElement.IsActive__c || !scriptElement.Id || scriptElement.saving"
+
+                                            ng-click="delete()">{{ ::'OmniDesDelete' | localize }}</button>
+                                    <button id="OmniScript__c_createVersionBtn"
+                                            type="button"
+                                            class="btn btn-default"
+                                            ng-disabled="!scriptElement.Id|| scriptElement.saving"
+                                            ng-click="createVersion()">{{ ::'OmniDesCreateVersion' | localize }}</button>
+                                    <button id="OmniScript__c_deactivateVersionBtn"
+                                            type="button"
+                                            class="btn btn-default"
+                                            ng-disabled="!scriptElement.Id || scriptElement.deactivating || scriptElement.saving"
+
+                                            ng-if="scriptElement.IsActive__c"
+                                            ng-click="deactivateVersion()">{{ ::'OmniDesDeactivateVersion' | localize }}</button>
+                                    <button id="OmniScript__c_activateVersionBtn"
+                                            type="button"
+                                            class="btn btn-default"
+                                            ng-disabled="!scriptElement.Id || scriptElement.activating || scriptElement.saving || scriptElement.hasErrors()"
+
+                                            ng-if="!scriptElement.IsActive__c"
+                                            ng-click="activateVersion(scriptElement)">{{ ::'OmniDesActivateVersion' | localize }}</button>
+                                    <button id="OmniScript__c_exportBtn"
+                                            type="button"
+                                            class="btn btn-default"
+                                            ng-disabled="!scriptElement.Id || scriptElement.deactivating || scriptElement.saving || scriptElement.hasErrors()"
+
+                                            ng-click="export($event)">{{ ::'OmniHomeExport' | localize }}</button>
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            ng-if="scriptElement.Id && scriptElement.IsLwcEnabled__c"
+                                            ng-disabled="!scriptElement.Id|| scriptElement.activating || scriptElement.saving"
+                                            ng-click="downloadLwc()">{{ ::'OmniDesDownload' | localize }}</button>
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            ng-if="scriptElement.Id && scriptElement.IsLwcEnabled__c && scriptElement.IsActive__c"
+
+                                            ng-disabled="!scriptElement.Id || scriptElement.activating || scriptElement.saving"
+                                            ng-click="deployLwc()">{{ ::'OmniDesDeploy' | localize }}</button>
+                                    <button id="OmniScript__c_saveBtn"
+                                            type="button"
+                                            class="btn btn-primary"
+                                            ng-disabled="scriptElement.saving || (scriptElement.Id && scriptElement.hasErrors())"
+
+                                            ng-if="!scriptElement.IsActive__c"
+                                            ng-click="saveOmniScript()">{{ ::'OmniDesSave' | localize }}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="previewPanel col-body"
+                             ng-show="tabs.activeTab === 1">
+                            <alert-banner alert-container="previewWarning"></alert-banner>
+                            <div class="previewPanel-wrapper">
+                                <div class="iframe-holder"></div>
+                            </div>
+                        </div>
+                        <div class="previewPanel col-body"
+                             ng-show="tabs.activeTab === 2">
+                            <alert-banner alert-container="lwcDeployingWarning"></alert-banner>
+                            <div class="previewPanel-wrapper">
+                                <iframe style="height:100%; width: 100%; border: none;"
+                                        id="lwcFrame" />
+                            </div>
+                        </div>
+                        <div class="data-panel"
+                             ng-class="{'show':showDataPanel}"
+                             ng-if="tabs.activeTab === 1">
+                            <form>
+                                <div class="form-group">
+                                    <label>{{ ::'OmniDesContextId' | localize:"ContextId" }}</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="viewModel.contextId" />
+                                </div>
+                                <button type="button"
+                                        class="btn btn-primary"
+                                        ng-click="fetchDataForContextId(viewModel.contextId, viewModel.resetData)">{{ ::'OmniDesFetch' | localize:'Fetch' }}</button>
+                                <label style="margin-left: 16px">{{ ::'OmniDesResetDataOnFetch' | localize:'Clear Data on Fetch:' }}</label>
+                                <input type="checkbox"
+                                       ng-model="viewModel.resetData"
+                                       style="margin-left: 8px;" />
+                                <div class="form-group textarea-wrapper">
+                                    <h4 class="pull-left">{{ ::'OmniDesData' | localize:'Data' }}</h4>
+                                    <a class="btn btn-link pull-right"
+                                       ng-click="clearData()">{{ ::'OmniDesClearData' | localize:'Clear Data' }}</a>
+                                    <textarea class='form-control textarea'
+                                              ng-model='viewModel.testJSON'
+                                              ng-change="onPreviewJSONChange(viewModel.testJSON)"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="data-panel data-panel-lwc"
+                             ng-class="{'show':showLwcDataPanel}"
+                             ng-if="tabs.activeTab === 2">
+                            <form class="data-panel-form">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <label>{{ ::'OmniDesContextId' | localize:"ContextId" }}</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   ng-model="viewModel.lwcContextId" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button"
+                                                class="btn btn-primary update-button"
+                                                ng-click="updateLwcPrefillData()">{{ ::'OmniDesUpdate' | localize:'Update' }}</button>
+                                    </div>
+                                </div>
+                                <key-value-small-prop label="Test Data"
+                                                      ng-model="viewModel.lwcPrefillKeyPair"
+                                                      help-text=""
+                                                      key-label="Key"
+                                                      value-label="Value"
+                                                      add-btn-label="Add New Key/Value Pair"
+                                                      id-prefix="OmniScript__lwcprefill"></key-value-small-prop>
+                                <div class="form-group lwc-prefill-textarea-wrapper">
+                                    <h4 class="pull-left">{{ ::'OmniDesData' | localize:'Data' }}</h4>
+                                    <textarea class='form-control lwc-prefill-textarea'
+                                              ng-model='viewModel.lwcTestJSON'
+                                              ng-change="onPreviewJSONChange(viewModel.lwcTestJSON)"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        angular.module('omnidesigner.core', [])
+            .value('OmniScriptJson', JSON.parse('{!JSENCODE(omniscriptJSON)}'))
+            .value('ElementsJson', JSON.parse('{!JSENCODE(elementsJSON)}'))
+            .value('ElementTypesJson', JSON.parse('{!JSENCODE(elementTypesJSON)}'))
+            .value('ReusableScriptsInit', JSON.parse('{!JSENCODE(reusableScriptsInitJSON)}'))
+            .value('LanguagesJson', JSON.parse('{!JSENCODE(languagesJson)}'))
+            .value('AvailableScriptTypesInit', JSON.parse('{!JSENCODE(availableScriptTypesInitJSON)}'))
+            .value('OmniScriptTypesInit', JSON.parse('{!JSENCODE(omniScriptTypesInitJSON)}'))
+            .value('ScriptElementTypes', JSON.parse('{!JSENCODE(scriptElementTypesJson)}'));
+
+    </script>
+
+    <script type="text/javascript">
+        var ns = "{!namespacePrefix}",
+            oid = "{!$Organization.Id}"
+        isInsidePckg = '{!isInsidePckg}';
+
+        /* START_VLOC_I18N */
+        var i18n = {
+            OmniAdd: '{!JSENCODE($Label.OmniAdd)}',
+            OmniDesOmniDesigner: '{!JSENCODE($Label.OmniDesOmniDesigner)}',
+            OmniDesAvailableComps: '{!JSENCODE($Label.OmniDesAvailableComps)}',
+            OmniDesPaletteGroups: '{!JSENCODE($Label.OmniDesPaletteGroups)}',
+            OmniDesPaletteOmniScripts: '{!JSENCODE($Label.OmniDesPaletteOmniScripts)}',
+            OmniDesPaletteControls: '{!JSENCODE($Label.OmniDesPaletteControls)}',
+            OmniDesPaletteActions: '{!JSENCODE($Label.OmniDesPaletteActions)}',
+            OmniDesPaletteDisplay: '{!JSENCODE($Label.OmniDesPaletteDisplay)}',
+            OmniDesPaletteFunctions: '{!JSENCODE($Label.OmniDesPaletteFunctions)}',
+            OmniDesPaletteEmpty: '{!JSENCODE($Label.OmniDesPaletteEmpty)}',
+            OmniDesCanvas: '{!JSENCODE($Label.OmniDesCanvas)}',
+            OmniDesCanvasCtrlEl: '{!JSENCODE($Label.OmniDesCanvasCtrlEl)}',
+            OmniDesCanvasCtrlEntity: '{!JSENCODE($Label.OmniDesCanvasCtrlEntity)}',
+            OmniDesCanvasCondition: '{!JSENCODE($Label.OmniDesCanvasCondition)}',
+            OmniDesCanvasClear: '{!JSENCODE($Label.OmniDesCanvasClear)}',
+            OmniDesCanvasAdd: '{!JSENCODE($Label.OmniDesCanvasAdd)}',
+            OmniDesCanvasEmpty: '{!JSENCODE($Label.OmniDesCanvasEmpty)}',
+            OmniDesEditAsJson: '{!JSENCODE($Label.OmniDesEditAsJson)}',
+            OmniDesEditInProp: '{!JSENCODE($Label.OmniDesEditInProp)}',
+            OmniDesActive: '{!JSENCODE($Label.OmniDesActive)}',
+            OmniDesCondView: '{!JSENCODE($Label.OmniDesCondView)}',
+            OmniDesInvalidJson: '{!JSENCODE($Label.OmniDesInvalidJson)}',
+            OmniDesTestCstmHtml: '{!JSENCODE($Label.OmniDesTestCstmHtml)}',
+            OmniDesVersion: '{!JSENCODE($Label.OmniDesVersion)}',
+            OmniDesYes: '{!JSENCODE($Label.OmniDesYes)}',
+            OmniDesNo: '{!JSENCODE($Label.OmniDesNo)}',
+            OmniDesOwner: '{!JSENCODE($Label.OmniDesOwner)}',
+            OmniDesCreatedBy: '{!JSENCODE($Label.OmniDesCreatedBy)}',
+            OmniDesLastModifiedBy: '{!JSENCODE($Label.OmniDesLastModifiedBy)}',
+            OmniDesDelete: '{!JSENCODE($Label.OmniDesDelete)}',
+            OmniDesCreateVersion: '{!JSENCODE($Label.OmniDesCreateVersion)}',
+            OmniDesDeactivateVersion: '{!JSENCODE($Label.OmniDesDeactivateVersion)}',
+            OmniDesActivateVersion: '{!JSENCODE($Label.OmniDesActivateVersion)}',
+            OmniDesSave: '{!JSENCODE($Label.OmniDesSave)}',
+            OmniDesData: '{!JSENCODE($Label.OmniDesData)}',
+            OmniDesContextId: '{!JSENCODE($Label.OmniDesContextId)}',
+            OmniDesFetch: '{!JSENCODE($Label.OmniDesFetch)}',
+            OmniDesClearData: '{!JSENCODE($Label.OmniDesClearData)}',
+            OmniDesInputParam: '{!JSENCODE($Label.OmniDesInputParam)}',
+            OmniDesAddInputParam: '{!JSENCODE($Label.OmniDesAddInputParam)}',
+            OmniDesDataSource: '{!JSENCODE($Label.OmniDesDataSource)}',
+            OmniDesFilterValue: '{!JSENCODE($Label.OmniDesFilterValue)}',
+            OmniDesEnterSource: '{!JSENCODE($Label.OmniDesEnterSource)}',
+            OmniDesLookupQueryCfg: '{!JSENCODE($Label.OmniDesLookupQueryCfg)}',
+            OmniDesAddMapping: '{!JSENCODE($Label.OmniDesAddMapping)}',
+            OmniDesLookupOrder: '{!JSENCODE($Label.OmniDesLookupOrder)}',
+            OmniDesLookupObjAndFld: '{!JSENCODE($Label.OmniDesLookupObjAndFld)}',
+            OmniDesJSONPath: '{!JSENCODE($Label.OmniDesJSONPath)}',
+            OmniDesPopLookupEl: '{!JSENCODE($Label.OmniDesPopLookupEl)}',
+            OmniDesJSONPathFldName: '{!JSENCODE($Label.OmniDesJSONPathFldName)}',
+            OmniDesInto: '{!JSENCODE($Label.OmniDesInto)}',
+            OmniDesName: '{!JSENCODE($Label.OmniDesName)}',
+            OmniDesValue: '{!JSENCODE($Label.OmniDesValue)}',
+            OmniDesMapValue: '{!JSENCODE($Label.OmniDesMapValue)}',
+            OmniDesImage: '{!JSENCODE($Label.OmniDesImage)}',
+            OmniDesAutoAdvance: '{!JSENCODE($Label.OmniDesAutoAdvance)}',
+            OmniDesRadioGroupSetAll: '{!JSENCODE($Label.OmniDesRadioGroupSetAll)}',
+            OmniDesNewKeyValuePair: '{!JSENCODE($Label.OmniDesNewKeyValuePair)}',
+            OmniDesNewArrayProp: '{!JSENCODE($Label.OmniDesNewArrayProp)}',
+            OmniDesNewOption: '{!JSENCODE($Label.OmniDesNewOption)}',
+            OmniDesShowEnterFldName: '{!JSENCODE($Label.OmniDesShowEnterFldName)}',
+            OmniDesShowCond: '{!JSENCODE($Label.OmniDesShowCond)}',
+            OmniDesShowEnterValue: '{!JSENCODE($Label.OmniDesShowEnterValue)}',
+            OmniDesShowAddCond: '{!JSENCODE($Label.OmniDesShowAddCond)}',
+            OmniDesShowAddGroup: '{!JSENCODE($Label.OmniDesShowAddGroup)}',
+            OmniDesOk: '{!JSENCODE($Label.OmniDesOk)}',
+            OmniDesCancel: '{!JSENCODE($Label.OmniDesCancel)}',
+            OmniDesNewOmniScript: '{!JSENCODE($Label.OmniDesNewOmniScript)}',
+            OmniDesIsEqualTo: '{!JSENCODE($Label.OmniDesIsEqualTo)}',
+            OmniDesDoesNotEqual: '{!JSENCODE($Label.OmniDesDoesNotEqual)}',
+            OmniDesIsLessThan: '{!JSENCODE($Label.OmniDesIsLessThan)}',
+            OmniDesIsGreaterThan: '{!JSENCODE($Label.OmniDesIsGreaterThan)}',
+            OmniDesIsLessThanEqual: '{!JSENCODE($Label.OmniDesIsLessThanEqual)}',
+            OmniDesIsGreaterThanEqual: '{!JSENCODE($Label.OmniDesIsGreaterThanEqual)}',
+            OmniDesAnd: '{!JSENCODE($Label.OmniDesAnd)}',
+            OmniDesOr: '{!JSENCODE($Label.OmniDesOr)}',
+            OmniDesSObject: '{!JSENCODE($Label.OmniDesSObject)}',
+            OmniDesCustom: '{!JSENCODE($Label.OmniDesCustom)}',
+            OmniDesTipInputParam: '{!JSENCODE($Label.OmniDesTipInputParam)}',
+            OmniDesTipDataSource: '{!JSENCODE($Label.OmniDesTipDataSource)}',
+            OmniDesTipLookupQryCfg: '{!JSENCODE($Label.OmniDesTipLookupQryCfg)}',
+            OmniDesTipFilterValue: '{!JSENCODE($Label.OmniDesTipFilterValue)}',
+            OmniDesTipLookupObjectName: '{!JSENCODE($Label.OmniDesTipLookupObjectName)}',
+            OmniDesTipJsonPath: '{!JSENCODE($Label.OmniDesTipJsonPath)}',
+            OmniDesTipPopulate: '{!JSENCODE($Label.OmniDesTipPopulate)}',
+            OmniDesTipJsonPathFieldNameName: '{!JSENCODE($Label.OmniDesTipJsonPathFieldNameName)}',
+            OmniDesTipJsonPathFieldNameValue: '{!JSENCODE($Label.OmniDesTipJsonPathFieldNameValue)}',
+            OmniDesTipFieldNameName: '{!JSENCODE($Label.OmniDesTipFieldNameName)}',
+            OmniDesTipFieldNameValue: '{!JSENCODE($Label.OmniDesTipFieldNameValue)}',
+            OmniDesTipAutoAdvance: '{!JSENCODE($Label.OmniDesTipAutoAdvance)}',
+            OmniDesPropertySetLoading: '{!JSENCODE($Label.OmniDesPropertySetLoading)}',
+            OmniDesConfirmDeleteTitle: '{!JSENCODE($Label.OmniDesConfirmDeleteTitle)}',
+            OmniDesConfirmDeleteContent: '{!JSENCODE($Label.OmniDesConfirmDeleteContent)}',
+            OmniDesConfirmDeleteElContent: '{!JSENCODE($Label.OmniDesConfirmDeleteElContent)}',
+            OmniDesTabProperties: '{!JSENCODE($Label.OmniDesTabProperties)}',
+            OmniDesTabPreview: '{!JSENCODE($Label.OmniDesTabPreview)}',
+            OmniDesTabPreviewVertMode: '{!JSENCODE($Label.OmniDesTabPreviewVertMode)}',
+            OmniDesTabPreviewHorizMode: '{!JSENCODE($Label.OmniDesTabPreviewHorizMode)}',
+            OmniDesScriptHeaderProps: '{!JSENCODE($Label.OmniDesScriptHeaderProps)}',
+            OmniDesBundleName: '{!JSENCODE($Label.OmniDesBundleName)}',
+            OmniDesDocuTemplate: '{!JSENCODE($Label.OmniDesDocuTemplate)}',
+            OmniDesDocuAddRecipient: '{!JSENCODE($Label.OmniDesDocuAddRecipient)}',
+            OmniDesDocuRoutingOrder: '{!JSENCODE($Label.OmniDesDocuRoutingOrder)}',
+            OmniDesDocuSignerName: '{!JSENCODE($Label.OmniDesDocuSignerName)}',
+            OmniDesDocuSignerEmail: '{!JSENCODE($Label.OmniDesDocuSignerEmail)}',
+            OmniDesDocuTemplateRole: '{!JSENCODE($Label.OmniDesDocuTemplateRole)}',
+            OmniDesDocuRoutingTooltip: '{!JSENCODE($Label.OmniDesDocuRoutingTooltip)}',
+            OmniDesDocuSignReturnPageTooltip: '{!JSENCODE($Label.OmniDesDocuSignReturnPageTooltip)}',
+            OmniDesDocuRecipientErr: '{!JSENCODE($Label.OmniDesDocuRecipientErr)}',
+            ExpressionEngineInsertOperator: '{!JSENCODE($Label.ExpressionEngineInsertOperator)}',
+            ExpressionEngineFunctions: '{!JSENCODE($Label.ExpressionEngineFunctions)}',
+            OmniDesFullDataJson: '{!JSENCODE($Label.OmniDesFullDataJson)}',
+            OmniDesDocuAddTemplate: '{!JSENCODE($Label.OmniDesDocuAddTemplate)}',
+            OmniDesDocuIncludeToSend: '{!JSENCODE($Label.OmniDesDocuIncludeToSend)}',
+            OmniDesDocuTemplatePick: '{!JSENCODE($Label.OmniDesDocuTemplatePick)}',
+            OmniDesDocuDRTransformPick: '{!JSENCODE($Label.OmniDesDocuDRTransformPick)}',
+            OmniDesDocuSendJSONPath: '{!JSENCODE($Label.OmniDesDocuSendJSONPath)}',
+            OmniDesDocuSendJSONNode: '{!JSENCODE($Label.OmniDesDocuSendJSONNode)}',
+            OmniDesDocuIncludeTooltip: '{!JSENCODE($Label.OmniDesDocuIncludeTooltip)}',
+            OmniDesDocuTemplateErr: '{!JSENCODE($Label.OmniDesDocuTemplateErr)}',
+            OmniDesDocuTemplates: '{!JSENCODE($Label.OmniDesDocuTemplates)}',
+            OmniDesDocuRecipients: '{!JSENCODE($Label.OmniDesDocuRecipients)}',
+            OmniDesDocuEachTemplate: '{!JSENCODE($Label.OmniDesDocuEachTemplate)}',
+            OmniEditBlockMappingErr: '{!JSENCODE($Label.OmniEditBlockMappingErr)}',
+            OmniHomeExport: '{!JSENCODE($Label.OmniHomeExport)}',
+            // NEW LABELS START
+            OmniDesFieldAPIName: '{!JSENCODE($Label.OmniDesFieldAPIName)}',
+            OmniDesURLPattern: '{!JSENCODE($Label.OmniDesURLPattern)}',
+            OmniDesTipSavePattern: '{!JSENCODE($Label.OmniDesTipSavePattern)}',
+            OmniDesTipVFPagesInPreview: '{!JSENCODE($Label.OmniDesTipVFPagesInPreview)}',
+            OmniDesTipInvokeModeRemote: '{!JSENCODE($Label.OmniDesTipInvokeModeRemote)}',
+            OmniDesTipInvokeModeIP: '{!JSENCODE($Label.OmniDesTipInvokeModeIP)}',
+            OmniDesTipLightningOnly: '{!JSENCODE($Label.OmniDesTipLightningOnly)}',
+            OmniDesResetDataOnFetch: '{!JSENCODE($Label.OmniDesResetDataOnFetch)}',
+            OmniDesEditBlockSvgSpriteTooltip: '{!JSENCODE($Label.OmniDesEditBlockSvgSpriteTooltip)}',
+            OmniDesEditBlockElementNameTooltip: '{!JSENCODE($Label.OmniDesEditBlockElementNameTooltip)}',
+            OmniDesEditBlockSelectCheckBoxTooltip: '{!JSENCODE($Label.OmniDesEditBlockSelectCheckBoxTooltip)}',
+            OmniDesLightningDesignOnlyTooltip: '{!JSENCODE($Label.OmniDesLightningDesignOnlyTooltip)}',
+            OmniDesEditBlockSumElementTooltip: '{!JSENCODE($Label.OmniDesEditBlockSumElementTooltip)}',
+            OmniDesImageCountInRowTooltip: '{!JSENCODE($Label.OmniDesImageCountInRowTooltip)}',
+            IntProcDelType: '{!JSENCODE($Label.IntProcDelType)}',
+            IntProcDelId: '{!JSENCODE($Label.IntProcDelId)}',
+            IntProcAddSObj: '{!JSENCODE($Label.IntProcAddSObj)}',
+            IntProcAllOrNone: '{!JSENCODE($Label.IntProcAllOrNone)}',
+            IntProcAllOrNoneTooltip: '{!JSENCODE($Label.IntProcAllOrNoneTooltip)}',
+            OmniDesTipKnowledgeFieldVal: '{!JSENCODE($Label.OmniDesTipKnowledgeFieldVal)}',
+            OmniDesKnowledgeFieldKey: '{!JSENCODE($Label.OmniDesKnowledgeFieldKey)}',
+            OmniDesKnowledgeFieldVal: '{!JSENCODE($Label.OmniDesKnowledgeFieldVal)}',
+            OmniDesDataTypes: '{!JSENCODE($Label.OmniDesDataTypes)}',
+            OmniDesDownload: '{!JSENCODE($Label.OmniDesDownload)}',
+            OmniDesDebug: '{!JSENCODE($Label.OmniDesDebug)}',
+            OmniDesDeploy: '{!JSENCODE($Label.OmniDesDeploy)}',
+            OmniDesLwcDeployError: '{!JSENCODE($Label.OmniDesLwcDeployError)}',
+            OmniDesMissingType: '{!JSENCODE($Label.OmniDesMissingType)}',
+            OmniDesMissingSubType: '{!JSENCODE($Label.OmniDesMissingSubType)}',
+            OmniDesMissingLanguage: '{!JSENCODE($Label.OmniDesMissingLanguage)}',
+            OmniDesLwcDeactivateDeployError: '{!JSENCODE($Label.OmniDesLwcDeactivateDeployError)}',
+            OmniDesPrefillData: '{!JSENCODE($Label.OmniDesPrefillData)}',
+            OmniDesUpdate: '{!JSENCODE($Label.OmniDesUpdate)}',
+            OmniDesConfirmActivationWithLwc: '{!JSENCODE($Label.OmniDesConfirmActivationWithLwc)}',
+            OmniDesActivationError: '{!JSENCODE($Label.OmniDesActivationError)}',
+            OmniDesActivationValidationError: '{!JSENCODE($Label.OmniDesActivationValidationError)}',
+            OmniDesActivation: '{!JSENCODE($Label.OmniDesActivation)}',
+            OmniDesLwcDeployComplete: '{!JSENCODE($Label.OmniDesLwcDeployComplete)}',
+            OmniDesConfirmLwcDeployment: '{!JSENCODE($Label.OmniDesConfirmLwcDeployment)}',
+            OmniDesWaitForLwcDeployment: '{!JSENCODE($Label.OmniDesWaitForLwcDeployment)}',
+            OmniPlaceholderMaksingTooltipText: '{!JSENCODE($Label.OmniPlaceholderMaksingTooltipText)}',
+            OmniPlaceholderTooltipText: '{!JSENCODE($Label.OmniPlaceholderTooltipText)}',
+            NotSupportedInLwc: '{!JSENCODE($Label.NotSupportedInLwc)}',
+        };
+    /* END_VLOC_I18N */
+    </script>
+
+    <script type="text/javascript">
+        window.omniLwcCompilerConfig = {
+            accessToken: '{!$API.Session_Id}',
+            namespacePrefix: '{!namespace}',
+            isInsidePckg: '{!isInsidePckg}',
+            toolingBaseUrl: '{!baseUrl}',
+            remoteActions: {
+                buildJSONWithPrefillV2: {
+                    action: "{!$RemoteAction.OmniScriptDesignerController.BuildJSONWithPrefillV2}",
+                    config: { buffer: false, escape: false }
+                },
+                BuildJSONV3: {
+                    action: "{!$RemoteAction.OmniScriptDesignerController.BuildJSONV3}",
+                    config: { buffer: false, escape: false }
+                }
+            }
+        };
+    </script>
+    <c:VFActionFunction />
+</apex:page>

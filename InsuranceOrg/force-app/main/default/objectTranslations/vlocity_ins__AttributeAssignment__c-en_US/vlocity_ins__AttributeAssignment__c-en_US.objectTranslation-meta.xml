@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Attribute Metadata --></label>
+        <name>vlocity_ins__AttributeMetadata</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Contract Term Admin --></label>
+        <name>vlocity_ins__ContractTermAdmin</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Insurance Product Admin --></label>
+        <name>vlocity_ins__InsuranceProductAdmin</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- ProductJsonAttribute --></label>
+        <name>vlocity_ins__ProductJsonAttribute</name>
+    </fieldSets>
+</CustomObjectTranslation>

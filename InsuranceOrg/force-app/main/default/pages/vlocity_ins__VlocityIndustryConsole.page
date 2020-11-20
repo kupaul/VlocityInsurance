@@ -1,0 +1,69 @@
+<apex:page controller="vlocity_ins.ProductConsoleController" title="Vlocity Product Console" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+	<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org" ng-app="consoleadmin">
+		<head>
+			<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.ConsoleAdminCss)}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.ConsoleAdminSearchCss)}" />
+
+            <script type="text/javascript" src="{!URLFOR($Resource.JQUERYJS)}"></script>
+            <script type="text/javascript" src="/support/console/31.0/integration.js"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.vlocity_core_assets, '/latest/vlocity_core_assets.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.SldsAngular)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.ConsoleAdmin)}"></script>
+		</head>
+		<body>
+            <div class="via-slds vlocity">
+                <div id="console-header" class="slds-clearfix">
+                    <div class="slds-float--left"><img src="{!URLFOR($Resource.logo_horizontal_small_white)}" class="vlocity-logo" alt="" /></div>
+                    <div class="slds-float--right">
+                        <a href="{!sfBaseUrl}/home/home.jsp" target="_blank" class="backtosf">
+                            Switch to Salesforce<span class="slds-icon_container"><slds-svg-icon sprite="'utility'" size="'x-small'" icon="'new_window'" extra-classes="''"></slds-svg-icon></span>
+                        </a>
+                    </div>
+                </div>
+    			<div id="console-admin" class="ng-cloak" ng-controller="ConsoleAdminController">
+    				<div class="tabset">
+    					<tab ng-repeat="tab in tabs" heading="{{tab.title}}" object-url="{{tab.objectUrl}}" object-id="{{tab.objectId}}" active="{{tab.active}}" template-url="{{tab.template}}" class="console-tab"></tab>
+    				</div>
+    			</div>
+            </div>
+
+			<script type="text/javascript">
+				j$ = jQuery.noConflict();
+
+				var remoteActions = {
+                    invokeMethod: {
+                        action: "{!$RemoteAction.ProductConsoleController.invokeMethod}",
+                        config: {escape: false}
+                    }
+				};
+
+                function resizeTabContent() {
+                    var presentHeight = j$('#console-header').height() + j$('.console-navs').height() + 5;
+                    var tabContentHeight = j$(window).height() - presentHeight;
+                    j$('.console-tab-content').height(tabContentHeight);
+                }
+
+                function updateActiveTab(tabName) {
+                    j$('.console-navs li.active .tab-heading').html(tabName);
+                }
+
+                function bindIframeEvents(action, data) {
+                    var scope = angular.element(j$('#console-admin')).scope();
+                    scope.$apply(function() {
+                        scope.evalIframeEvents(action, data);
+                    });
+                }
+
+                var labels = {
+                    EPCVersioningNotEnabledErrorMessageLabel : "{!$Label.EPCVersioningNotEnabledErrorMessage}"
+                };
+
+                window.showProductImage = {!showProductImage};
+                window.userTimezoneOffset = 0 - {!userTimezoneOffset};
+                window.sfBaseUrl = '{!sfBaseUrl}';
+			</script>
+		</body>
+	</html>
+</apex:page>

@@ -1,0 +1,9 @@
+<apex:page standardController="Account" extensions="vlocity_ins.VFPageControllerBase" docType="html-5.0">
+    <c:VFCustomChildListComponent standardController="{!stdController}" 
+                   strControllingField="{!sNSP}PartyId__c" 
+                   strChildObjectName="{!sNSP}Application__c" 
+                   strWhereClause="WHERE Id IN (SELECT {!sNSP}ApplicationId__c FROM {!sNSP}ApplicationPartyRelationship__c WHERE {!sNSP}PartyId__c={0}) ORDER BY CreatedDate DESC" 
+                   strFieldSetName="{!sNSP}ApplicationChildListFieldSet"
+                   strDrilldownField="Name"
+                   strNamespacePrefixList="{!sNS}"/>               
+</apex:page>

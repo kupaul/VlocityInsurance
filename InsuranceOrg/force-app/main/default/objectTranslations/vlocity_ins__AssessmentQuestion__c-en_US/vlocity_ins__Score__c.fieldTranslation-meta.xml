@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- When completing an Assessment, stores the value resulting from the Answer to this specific Question. --></help>
+    <label><!-- Score --></label>
+    <name>vlocity_ins__Score__c</name>
+</CustomFieldTranslation>

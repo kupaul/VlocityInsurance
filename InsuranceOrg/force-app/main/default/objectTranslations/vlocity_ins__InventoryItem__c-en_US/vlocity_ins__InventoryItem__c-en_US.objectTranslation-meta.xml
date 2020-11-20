@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <label><!-- Inventory Item --></label>
+        <name>vlocity_ins__InventoryItem</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Service Qualification Result --></label>
+        <name>vlocity_ins__ServiceQualificationResult</name>
+    </recordTypes>
+</CustomObjectTranslation>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Document Type --></label>
+    <name>vlocity_ins__DocumentType__c</name>
+    <picklistValues>
+        <masterLabel>Appendix</masterLabel>
+        <translation><!-- Appendix --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Contract</masterLabel>
+        <translation><!-- Contract --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

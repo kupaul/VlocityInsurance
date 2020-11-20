@@ -1,0 +1,2 @@
+<apex:page standardController="vlocity_ins__ContractType__c" extensions="vlocity_ins.ContractTypeController" action="{!doDeepCopy}" docType="html-5.0">
+</apex:page>

@@ -1,0 +1,347 @@
+<apex:page standardStylesheets="false" showHeader="true" sidebar="false" controller="vlocity_ins.ContractDocumentSectionViewController" tabStyle="Contract">
+    <html xmlns:ng="http://angularjs.org" lang="en">
+        <head>
+            <meta charset="utf-8"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/> 
+            <apex:stylesheet value="{!$Resource.vlocity_ins__DocumentBaseCss}" />
+            <apex:stylesheet value="{!$Resource.vlocity_ins__ContractDocumentSectionViewCss}"/>
+
+            <apex:includeScript value="/support/console/42.0/integration.js"/>
+            <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+            <apex:includeScript value="/xdomain/xdomain.js"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__tinymceIce, '/js/tinymce/tinymce.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ui_tinymce, '/src/tinymce.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_utils_pagination, '/dirPagination.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/jszip/jszip.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/jszip-utils.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/file-saver.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/build/docxtemplater.v3.5.0.min.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ContractDocumentSectionViewApp}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__DocXContentTypes}"/>
+        </head>
+        <body>
+            <div class="vlocity via-slds vloc-body" ng-app="contractDocumentSectionViewApp" ng-controller="contractDocumentSectionViewCtrl" via-affix="top" via-screen-height="viaScreenHeight">
+                <div class="slds-spinner_container" ng-show="vlcLoading">
+                    <div class="slds-spinner slds-spinner_brand slds-spinner_large" aria-hidden="false" role="status">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+                <div class="slds-page-header custom-contract-creation-header" role="banner">
+                    <div class="slds-grid slds-grid_vertical-align-center">
+                        <div class="slds-size_1-of-3" role="banner">
+                            <div class="slds-media slds-no-space slds-grow">
+                                <div class="slds-media__figure">
+                                    <slds-svg-icon id="document-creation-icon" sprite="'standard'" icon="'contract'" size="'medium'" extra-classes="'slds-icon-standard-contract'"></slds-svg-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h1 class="slds-page-header__title custom slds-m-right_small slds-align-middle slds-truncate" title="Contract Document Customization">Contract Document Customization</h1>
+                                    <p class="slds-text-heading_label slds-line-height_reset">{{contractVersion.Name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-size_2-of-3">
+                            <div class="slds-button-group slds-float_right" role="group">
+                                <button type="button" class="slds-button slds-button_neutral" ng-if="!showTemplateSelection()" ng-click="navigateBack()">
+                                    <slds-button-svg-icon id="back-to-contract" sprite="'utility'" icon="'back'" size="'small'" extra-classes="'slds-button__icon_left'"></slds-button-svg-icon>
+                                    {!$Label.ContractGoBack}
+                                </button>
+                                <button type="button" class="slds-button slds-button_neutral" ng-if="!isTemplateBatchable" ng-click="switchToPageView()">
+                                    {!$Label.CLMDocGenSwitchToPageView}
+                                </button>
+                                <button type="button" class="slds-button slds-button_neutral" ng-click="preDownloadDocx()">
+                                    {!$Label.ContractDownloadWord}
+                                </button>
+                                <button type="button" class="slds-button slds-button_neutral" ng-if="!isTemplateBatchable" ng-click="preDownloadPdf()">
+                                    {!$Label.ContractDownloadPDF}
+                                </button>
+                                <button type="button" class="slds-button slds-button_neutral" ng-click="saveAllSections(false)" ng-disabled="disableSaveAllBtn">
+                                    {!$Label.CLMTemplateSaveAllSections}
+                                </button>
+                                <button type="button" class="slds-button slds-button_brand" ng-click="saveAllSections(true)">
+                                    {!$Label.CLMDocGenCheckIn}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE CONTENT -->
+                <div class="three-col-body center-collapsed" ng-init="collapseCenter = true" ng-class="{'center-collapsed': collapseCenter}">
+                    <div class="left-col template">
+                        <div class="col-body template">
+                            <div class="slds-section body-header slds-has-divider_bottom section-header" ng-class="{'slds-is-open': expandedSearch}">
+                                <p class="slds-text-heading_label">
+                                    {!$Label.CLMTemplateDocumentSections}
+                                    <button 
+                                        aria-controls="expando-unique-id" 
+                                        aria-expanded="{{expandedSearch}}" 
+                                        class="slds-button expand-search"
+                                        ng-click="expandedSearch = !expandedSearch">
+                                        <slds-button-svg-icon sprite="'utility'" icon="'filterList'" size="'medium'" extra-classes="'slds-button__icon slds-button__icon_center'"></slds-button-svg-icon>
+                                    </button>
+                                </p>
+                                <div aria-hidden="{{(!expandedSearch)}}" class="slds-section__content" id="expando-unique-id">
+                                    <div class="slds-form slds-form_compound">
+                                        <div class="slds-form-element__group">
+                                            <div class="slds-form-element__row" ng-if="!searchOptions.filterName">
+                                                <button class="slds-button" ng-click="(searchOptions.filterName = true)">+ {{labels.CLMDocSearchSectionFilterName}}</button>
+                                            </div>
+                                            <div class="slds-form-element__row" ng-if="searchOptions.filterName">
+                                                <div class="slds-form-element slds-size_1-of-8">
+                                                    <button class="slds-button slds-button_icon slds-m-top_x-small" ng-click="(searchOptions.filterName = false)">
+                                                        <slds-button-svg-icon sprite="'utility'" icon="'clear'" size="'medium'" extra-classes="'slds-button__icon btn-filter-remove'"></slds-button-svg-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="slds-form-element slds-size_7-of-8">
+                                                    <label class="slds-assistive-text" for="searchText">{{labels.CLMDocSearchSectionName}}</label>
+                                                    <input type="search" id="searchText" class="slds-input" ng-model="searchOptions.searchTerm" placeholder="{{labels.CLMDocSearchSectionName}}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element__group slds-m-top_medium">
+                                            <div class="slds-form-element__row" ng-if="!searchOptions.filterRedlines">
+                                                <button class="slds-button" ng-click="(searchOptions.filterRedlines = true)">+ {{labels.CLMDocSearchSectionFilterRedlines}}</button>
+                                            </div>
+                                            <div class="slds-form-element__row" ng-if="searchOptions.filterRedlines">
+                                                <div class="slds-form-element slds-size_1-of-8">
+                                                    <button class="slds-button slds-button_icon" ng-click="(searchOptions.filterRedlines = false)">
+                                                        <slds-button-svg-icon sprite="'utility'" icon="'clear'" size="'medium'" extra-classes="'slds-button__icon btn-filter-remove'"></slds-button-svg-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="slds-form-element slds-size_7-of-8">
+                                                    <label class="slds-checkbox_toggle slds-grid">
+                                                        <span class="slds-form-element__label slds-m-bottom_none slds-m-top_xxx-small">{{labels.CLMDocSearchSectionHasRedlines}}</span>
+                                                        <input type="checkbox" name="hasRedlines" ng-model="searchOptions.hasRedlines" aria-describedby="hasRedlines" />
+                                                        <span id="hasRedlines" class="slds-checkbox_faux_container" aria-live="assertive">
+                                                            <span class="slds-checkbox_faux"></span>
+                                                            <span class="slds-checkbox_on">{{labels.CLMDocSearchSectionRedlinesEnabled}}</span>
+                                                            <span class="slds-checkbox_off">{{labels.CLMDocSearchSectionRedlinesDisabled}}</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form-element__group">
+                                            <div class="slds-form-element__row">
+                                                <div class="slds-form-element slds-size_1-of-1">
+                                                    <button class="slds-button slds-button_neutral" ng-click="searchSections()">{{labels.CLMDocSearchSection}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section-pagination slds-text-align_center slds-has-divider_bottom" ng-show="showPagination">
+                                <button class="slds-button slds-button_icon" ng-disabled="(paginationOptions.pageNumber <= 1)" ng-click="searchSections(paginationOptions.previousPage)">
+                                    <slds-button-svg-icon sprite="'utility'" size="'medium'" icon="'left'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Previous Page</span>
+                                </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>Page {{paginationOptions.pageNumber}} of {{paginationOptions.totalPages}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button class="slds-button slds-button_icon" ng-disabled="(paginationOptions.pageNumber >= paginationOptions.totalPages)" ng-click="searchSections(paginationOptions.nextPage)">
+                                    <slds-button-svg-icon sprite="'utility'" size="'medium'" icon="'right'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Next Page</span>
+                                </button>
+                            </div>
+                            <ul ng-if="sections.length" class="existing-data draggable-items" dnd-list="sectionsArray" dnd-dragover="startDragging(event)">
+                                <li ng-repeat="section in sections | orderBy:'section.sequence'" ng-click="showSectionContent(section)" class="template-{{statusClass}}" ng-class="{'active': section.sequence === currentSectionSequence, 'dnd-disabled': templateActive || !validationErrors.sections[section.sectionId].sectionSaved}" dnd-draggable="section" dnd-effect-allowed="move" dnd-moved="reorderSequences($index, event)" add-hover-class="true">
+                                    <span class="data-name slds-truncate">{{section.name}}</span>
+                                    <span class="data-type">{{section.type}}</span>
+                                    <span class="slds-icon_container section-redlines-icon" title="{{labels.CLMDocSearchSectionHasRedlines}}" ng-if="section.hasRedlines && !section.disabled" data-placement="left">
+                                        <slds-svg-icon id="section-redlines-icon" sprite="'utility'" icon="'rows'" size="'small'"></slds-svg-icon>
+                                        <span class="slds-assistive-text">{{labels.CLMDocSearchSectionHasRedlines}}</span>
+                                    </span>
+                                    <i class="contract-icon icon icon-v-right-caret"></i>
+                                    <span class="slds-icon_container section-not-saved-icon" title="{{labels.CLMTemplateSectionNotSaved}}" ng-if="!validationErrors.sections[section.sectionId].sectionSaved && !section.disabled" data-placement="left">
+                                        <slds-svg-icon id="section-not-saved-icon" sprite="'utility'" icon="'save'" size="'small'"></slds-svg-icon>
+                                        <span class="slds-assistive-text">{{labels.CLMTemplateSectionNotSaved}}</span>
+                                    </span>
+                                </li>
+                            </ul>
+                            <div ng-if="(sections.length === 0)" class="slds-p-around_medium">{{labels.CLMDocSearchNoSections}}</div>
+                        </div>
+                    </div>
+                    <!-- right column -->
+                    <div class="right-col">
+                        <iframe ng-if="attachDocUrl !== undefined" name="attachDoc" ng-src="{{attachDocUrl}}" class="attachDoc-iframe"></iframe>
+                        <div ng-if="validationMessage.content" class="alert {{validationMessage.type}}" role="alert">
+                            {{validationMessage.content}}
+                        </div>
+                        <div class="col-body template-details">
+                            <!-- Section Form -->
+                            <check-section-saved class="section-form" ng-repeat="section in sections"  ng-class="{'active-section': section.sequence === currentSectionSequence}" ng-show="section.sequence === currentSectionSequence" doc-section="section" unsaved-sections="unsavedSections" redlines="redlines" validation-errors="validationErrors">
+                                <div ng-if="section.sectionType === 'Conditional' && !conditionalClauses" class="alert alert-warning" role="alert">
+                                    {{labels.CLMTemplateNoConditionalClauseFound}}
+                                </div>
+                                <div class="slds-clearfix slds-m-bottom_medium">
+                                    <div class="slds-float_right" ng-if="showContentEditor">
+                                        <button type="button" class="slds-button slds-button_brand" ng-click="saveSection(section)" ng-disabled="validationErrors.sections[section.sectionId].sectionSaved">
+                                            <i class="icon icon-v-check-circle" ng-if="validationErrors.sections[section.sectionId].sectionSaved"></i>
+                                            {!$Label.SaveSectionBtn}
+                                        </button>
+                                    </div>
+                                    <div class="slds-float_left slds-m-top_xx-small" ng-class="{'has-error': validationErrors.templateName}">
+                                        <span class="slds-page-header__title">{{section.name}}</span>
+                                        <span ng-if="validationErrors.sections[section.sectionId].sectionName" class="help-block" role="alert" aria-live="polite">{{validationErrors.sections[section.sectionId].sectionName}}</span>
+                                    </div>
+                                </div>
+                                <div class="rich-text-editor">
+                                    <textarea ui-tinymce="tinymceOptions" ng-model="section.content" class="tinymce-editor" ng-disabled="section.disabled || section.isRestricted"></textarea>
+                                    <span ng-if="validationErrors.sections[section.sectionId].content" class="help-block">{{validationErrors.sections[section.sectionId].content}}</span>
+                                    <span ng-if="validationErrors.sections[section.sectionId].sectionWarning.limitWarning" class="help-block">{{validationErrors.sections[section.sectionId].sectionWarning.limitWarning}}</span>
+                                </div>
+                                <!--<div ng-bind-html="trustAsHtml(section.content)" class="restricted" ng-if="!showContentEditor"></div>-->
+                            </check-section-saved>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                var nameSpacePrefix, contractId, baseRequestUrl, remoteActions, labels, sitePrefix;
+                window.sessionId = '{!$Api.Session_ID}';
+                nameSpacePrefix = '{!nameSpacePrefix}';
+                contractId = '{!$CurrentPage.parameters.Id}';
+                baseRequestUrl = '{!$Site.BaseRequestUrl}';
+                parentId = '{!parentId}';
+                docName = '{!JSENCODE(documentName)}';
+                userName = '{!$User.FirstName}' + ' ' + '{!$User.LastName}';
+                userId = '{!$User.Id}';
+				sitePrefix = '{!$Site.Prefix}';
+                remoteActions = {
+                    getSectionViewData: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.getSectionViewData}',
+                        config: {escape: false}
+                    },
+                    getSectionContent: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.getSectionContent}',
+                        config: {escape: false}
+                    },
+                    searchContractSections: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.searchContractSections}',
+                        config: {escape: false}
+                    },
+                    saveContractSection: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.saveContractSection}',
+                        config: {escape: false}
+                    },
+                    saveContractSections: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.saveContractSections}',
+                        config: {escape: false}
+                    },
+                    formatItemSection: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.formatItemSection}',
+                        config: {escape: false}
+                    },
+                    getWMLData: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.getWMLData}',
+                        config: {escape: false}
+                    },
+                    getWordFileTemplateContent: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.getWordFileTemplateContent}',
+                        config: {escape: false}
+                    },
+                    getGeneratedWordDocumentContent: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.getGeneratedWordDocumentContent}',
+                        config: {escape: false}
+                    },
+                    downloadPdf: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.downloadPdf}',
+                        config: {escape: false}
+                    },
+                    checkIn: {
+                        action: '{!$RemoteAction.ContractDocumentSectionViewController.checkIn}',
+                        config: {escape: false}
+                    }
+                };
+                labels = {
+                    'checkInDocLabel': '{!$Label.ContractCheckInDoc}',
+                    'customizeReadyCheckInLabel': '{!$Label.ContractCustomizeReadyCheckIn}',
+                    'yesCheckInLabel': '{!$Label.ContractYesCheckIn}',
+                    'noCheckInLabel': '{!$Label.ContractNoCheckIn}',
+                    'cancelLabel': '{!$Label.Cancel}',
+                    'downloadDocRedlineLabel':'{!$Label.ContractDownloadDocRedlines}',
+                    'yesDownloadLabel':'{!$Label.ContractYesDownload}',
+                    'downloadPDFLabel':'{!$Label.ContractDownloadPDF}',
+                    'downloadWordLabel':'{!$Label.ContractDownloadWord}',
+                    'CLMDocSearchSection': '{!$Label.CLMDocSearchSection}',
+                    'CLMDocSearchNoSections': '{!$Label.CLMDocSearchNoSections}',
+                    'CLMDocSearchSectionName': '{!$Label.CLMDocSearchSectionName}',
+                    'CLMDocSearchSectionFilterName': '{!$Label.CLMDocSearchSectionFilterName}',
+                    'CLMDocSearchSectionRedlines': '{!$Label.CLMDocSearchSectionRedlines}',
+                    'CLMDocSearchSectionFilterRedlines': '{!$Label.CLMDocSearchSectionFilterRedlines}',
+                    'CLMDocSearchSectionHasRedlines': '{!$Label.CLMDocSearchSectionHasRedlines}',
+                    'CLMDocSearchSectionRedlinesEnabled': '{!$Label.CLMDocSearchSectionRedlinesEnabled}',
+                    'CLMDocSearchSectionRedlinesDisabled': '{!$Label.CLMDocSearchSectionRedlinesDisabled}'
+                };
+
+                (function() {
+
+                    var matched, browser;
+
+                    // Use of jQuery.browser is frowned upon.
+                    // More details: http://api.jquery.com/jQuery.browser
+                    // jQuery.uaMatch maintained for back-compat
+                    jQuery.uaMatch = function( ua ) {
+                        ua = ua.toLowerCase();
+                
+                        var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+                            /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+                            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+                            /(msie) ([\w.]+)/.exec( ua ) ||
+                            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+                            [];
+                
+                        return {
+                            browser: match[ 1 ] || "",
+                            version: match[ 2 ] || "0"
+                        };
+                    };
+                
+                    matched = jQuery.uaMatch( navigator.userAgent );
+                    browser = {};
+                
+                    if ( matched.browser ) {
+                        browser[ matched.browser ] = true;
+                        browser.version = matched.version;
+                    }
+                
+                    // Chrome is Webkit, but Webkit is also Safari.
+                    if ( browser.chrome ) {
+                        browser.webkit = true;
+                    } else if ( browser.webkit ) {
+                        browser.safari = true;
+                    }
+                
+                    jQuery.browser = browser;
+                
+                    jQuery.sub = function() {
+                        function jQuerySub( selector, context ) {
+                            return new jQuerySub.fn.init( selector, context );
+                        }
+                        jQuery.extend( true, jQuerySub, this );
+                        jQuerySub.superclass = this;
+                        jQuerySub.fn = jQuerySub.prototype = this();
+                        jQuerySub.fn.constructor = jQuerySub;
+                        jQuerySub.sub = this.sub;
+                        jQuerySub.fn.init = function init( selector, context ) {
+                            if ( context && context instanceof jQuery && !(context instanceof jQuerySub) ) {
+                                context = jQuerySub( context );
+                            }
+                
+                            return jQuery.fn.init.call( this, selector, context, rootjQuerySub );
+                        };
+                        jQuerySub.fn.init.prototype = jQuerySub.fn;
+                        var rootjQuerySub = jQuerySub(document);
+                        return jQuerySub;
+                    };
+                
+                })();
+            </script>
+        </body>
+    </html>
+</apex:page>

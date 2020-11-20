@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CustomLabelName__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The name of a Salesforce Custom Label to be used instead of the Display Label to define the text to show on the action in the UI. Using a Custom Label allows translations of the display text and the ability to update the display text for many actions with a single edit.</description>
+    <externalId>false</externalId>
+    <label>Custom Label</label>
+    <length>100</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

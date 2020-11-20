@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EditDocument__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Indicates whether a user or profile can edit (redline) the contract document</description>
+    <externalId>false</externalId>
+    <label>Edit Document</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

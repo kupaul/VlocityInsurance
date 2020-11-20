@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- The NDC, or National Drug Code, is a unique 10-digit, 3-segment number. It is a universal product identifier for human drugs in the United States. The code is present on all nonprescription (OTC) and prescription medication packages and inserts in the US. --></help>
+    <label><!-- National Drug Code --></label>
+    <name>vlocity_ins__NationalDrugCode__c</name>
+</CustomFieldTranslation>

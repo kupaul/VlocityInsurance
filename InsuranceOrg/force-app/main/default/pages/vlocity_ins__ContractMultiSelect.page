@@ -1,0 +1,2 @@
+<apex:page standardController="Contract" recordSetVar="Contracts" extensions="vlocity_ins.ContractMultiSelectListController" action="{!tagForRenewal}">
+</apex:page>

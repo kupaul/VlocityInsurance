@@ -1,0 +1,654 @@
+<apex:page standardController="vlocity_ins__CalculationProcedureVersion__c" extensions="vlocity_ins.PricingServiceSimulationController" standardStylesheets="false" showHeader="true" sidebar="true">
+    <html xmlns:ng="http://angularjs.org" ng-app="pricingSimulationApp" lang="en">
+        <head>
+            <meta charset="utf-8"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__JQUERYJS}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/javascripts/bootstrap.min.js')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/css/styles.css')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__AngularJS}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT}"/>
+        </head>
+
+        <style>
+            .jsontext {
+                height: 200px;
+                width:100%;
+            }
+
+            .vlocity .table {
+                border-collapse: separate;
+            }
+
+            .vlocity .table > tbody > tr:first-child td {
+                border-top: none;
+            }
+
+            .vlocity .table > tbody > tr.separator {
+                background-color: #fff;
+                cursor: auto;
+            }
+
+            .vlocity input[type="checkbox"].form-control {
+                width: 2rem;
+                height: 1rem;
+                box-shadow: none;
+                -webkit-box-shadow: none;
+            }
+        </style>
+
+        <script type="text/javascript">
+            function getSimulationRate(jsonInput,callback)
+            {
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.PricingServiceSimulationController.getSimulationRate}',
+                    jsonInput,
+                    callback,
+                    {buffer: false, escape: false});
+            }
+
+            function isEmpty(map)
+            {
+                for(var key in map)
+                {
+                    if (map.hasOwnProperty(key))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            function formatDate(str) {
+                const date = new Date(str.replace(/-/g, '/'));
+                return date.getFullYear()
+                    + '-' + ('0' + (date.getMonth()+1)).slice(-2)
+                    + '-' + ('0' + date.getDate()).slice(-2);
+            }
+
+            // Bootstraps the angular application to load only after angular is ready (mainly for IE9)
+            // angular.element(document).ready(function() {
+            //     angular.bootstrap(document, ["pricingSimulationApp"]);
+            // });
+
+            var pricingSimulation = angular.module('pricingSimulationApp', ['ui.bootstrap']);
+
+            pricingSimulation.factory('pricingSimulationFactory',function($q,$rootScope)
+            {
+                var factory = {};
+
+                factory.getSimulationRate = function(jsonInput)
+                {
+                    var deferred = $q.defer();
+                    var callbackfunction = function(result, event)
+                    {
+                        if (event.status)
+                            $rootScope.$apply(function()
+                            {
+                                var sresult = [];
+                                if (result)
+                                {
+                                    sresult = angular.fromJson(result);
+                                }
+                                deferred.resolve(sresult);
+                            });
+                        else
+                            deferred.resolve({
+                                message: event.message
+                            });
+
+                    };
+                    getSimulationRate(jsonInput,callbackfunction);
+                    return deferred.promise;
+                };
+                return factory;
+            });
+
+            var contrl=pricingSimulation.controller('content', function ($scope,$filter,pricingSimulationFactory)
+            {
+                $scope.input= JSON.parse('{!JSENCODE(inputList)}');
+                $scope.attributes = $scope.input['attributes'];
+                $scope.variableAliasMap = $scope.input['variableAliasMap'];
+                $scope.inputVariableAliasMap = $scope.input['inputVariableAliasMap'];
+                $scope.variableDefaultValueMap = $scope.input['variableDefaultValueMap'];
+                $scope.applicableType = '';
+                $scope.enableLooping = $scope.input['enableLooping'];
+                $scope.applicableTypeDefined = false;
+                $scope.finalStepSimulationOutputList = $scope.input['outputList'];
+                $scope.variableDataTypeMap = $scope.input['variableDataTypeMap'];
+                $scope.currencySymbol = $scope.input['currencySymbol'];
+
+                $scope.effectiveDate = formatDate($scope.input['effectiveStartDate']);
+                $scope.minDate = formatDate($scope.input['effectiveStartDate']);
+                $scope.maxDate = $scope.input['effectiveEndDate'] ? formatDate($scope.input['effectiveEndDate']) : '';
+                $scope.useDatesOnly = false;
+
+                if ($scope.input['applicableType']!=null)
+                {
+                    $scope.applicableTypeDefined = true;
+                    $scope.applicableType = $scope.input['applicableType'];
+                }
+                var resultFound = false;
+                $scope.name = $scope.input['name'];
+                $scope.configurationVersionId=$scope.input['configurationVersionId'];
+                $scope.dataMap = {};
+
+                var lastSimulationInput = $scope.input['lastSimulationInput'];
+                $scope.lastSimulationInputMap = {};
+                if (lastSimulationInput!== null && lastSimulationInput!== undefined) {
+                    $scope.lastSimulationInputMap = JSON.parse(lastSimulationInput);
+                    // only inclucde in data map the last simulation with existing input attribute
+                    if($scope.attributes !== null && $scope.attributes !== undefined){
+                        for (var key in $scope.lastSimulationInputMap) {
+                            if($scope.attributes.indexOf(key)>=0){
+                                $scope.dataMap[key] = $scope.lastSimulationInputMap[key];
+                            }
+                        }
+                    }
+                }
+
+                $scope.searchDisabled = true;
+                $scope.simulationInputMap = {};
+                $scope.simulationOutput;
+                $scope.setVerboseOptions= false;
+                $scope.message='{!$Label.CPNoMatchingRecord}';
+                $scope.configMap = {};
+                $scope.resultList=[];
+                $scope.simulationFinalResultList=[];
+                $scope.showVerboseResult = false;
+                $scope.showFinalResult = false;
+                $scope.showJson = false;
+                $scope.sInputJson='';
+                $scope.sOutputJson='';
+                $scope.resultType = '{!$Label.CPCalResult}';
+                $scope.showNoCalcMsg = false;
+
+                $scope.processVerboseResult = function(result)
+                {
+                    if (result['simulate_Aggregation']==null)
+                    {
+                        $scope.resultType = 'Calculation Results';
+                        $scope.showNoCalcMsg = false;
+                        var simulationOutput = JSON.parse(result['simulate']);
+                        for (key in simulationOutput)
+                        {
+                            var stepResult = simulationOutput[key];
+                            var result = {};
+                            result['step']=key;
+                            var stepInput = stepResult['stepInputs'];
+
+                            for (inputKey in stepInput)
+                            {
+                                var inputObj = stepInput[inputKey];
+                                var inputList = [];
+                                for (inputObjKey in inputObj)
+                                {
+                                    var input = {};
+                                    var inputDisplay = inputObjKey;
+                                    var dataType = '';
+                                    var value = inputObj[inputObjKey];
+
+                                    if ($scope.variableDataTypeMap[inputObjKey]!=null)
+                                        dataType = $scope.variableDataTypeMap[inputObjKey];
+
+                                    if ($scope.inputVariableAliasMap[inputObjKey]!=null)
+                                        inputDisplay = $scope.inputVariableAliasMap[inputObjKey];
+
+                                    if (dataType == 'Percent')
+                                        value = value + '%';
+                                    else if (dataType == 'Currency')
+                                        value = $scope.currencySymbol+value;
+
+                                    input['key'] = inputDisplay;
+                                    input['value']=value;
+                                    inputList.push(input);
+                                }
+                                result['input'] = inputList;
+                            }
+
+                            var stepOutput = stepResult['stepResults'];
+                            for (outputKey in stepOutput)
+                            {
+                                var outputObj = stepOutput[outputKey];
+                                var outputList = [];
+                                for (outputObjKey in outputObj)
+                                {
+                                    var output = {};
+                                    var dataType = '';
+                                    var value = outputObj[outputObjKey];
+                                    if ($scope.variableDataTypeMap[outputObjKey]!=null)
+                                        dataType = $scope.variableDataTypeMap[outputObjKey];
+                                    var outputDisplay = outputObjKey;
+                                    if ($scope.inputVariableAliasMap[outputObjKey]!=null)
+                                        outputDisplay = $scope.inputVariableAliasMap[outputObjKey];
+                                    if (dataType == 'Percent')
+                                        value = value + '%';
+                                    else if (dataType == 'Currency')
+                                        value = $scope.currencySymbol+value;
+
+                                    output['key'] = outputDisplay;
+                                    output['value']= value;
+                                    outputList.push(output);
+                                }
+
+                                if (outputList.length > 0)
+                                {
+                                    result['output'] = outputList;
+                                    resultFound = true;
+                                    $scope.showVerboseResult = true;
+                                }
+                            }
+                            $scope.resultList.push(result);
+                        }
+                    }
+                    else
+                    {
+                        var simulationAggregation = JSON.parse(result['simulate_Aggregation']);
+                        $scope.resultType = 'Aggregation Results';
+                        $scope.showNoCalcMsg = true;
+                        for (var key in simulationAggregation)
+                        {
+                            var result = {};
+                            var stepResult = simulationAggregation[key];
+                            var stepOutput = stepResult['stepResults'];
+                            for (outputKey in stepOutput)
+                            {
+                                var aggResult = stepOutput[outputKey];
+                                var outputList = [];
+                                //debugger;
+                                for (var outputObjKey in aggResult)
+                                {
+                                    var output = {};
+                                    var value = aggResult[outputObjKey];
+                                    var dataType = '';
+
+                                    if ($scope.variableDataTypeMap[outputObjKey]!=null)
+                                        dataType = $scope.variableDataTypeMap[outputObjKey];
+
+                                    var outputDisplay = outputObjKey;
+                                    if ($scope.inputVariableAliasMap[outputObjKey]!=null)
+                                        outputDisplay = $scope.inputVariableAliasMap[outputObjKey];
+
+                                    if (dataType == 'Percent')
+                                        value = value + '%';
+                                    else if (dataType == 'Currency')
+                                        value = $scope.currencySymbol+value;
+
+                                    if (outputObjKey !='ID')
+                                    {
+                                        output['key'] = outputDisplay;
+                                        output['value']= value;
+                                        outputList.push(output);
+                                    }
+                                    if (outputList.length > 0)
+                                    {
+                                        result['output'] = outputList;
+                                        resultFound = true;
+                                        $scope.showFinalResult = true;
+                                    }
+                                }
+                            }
+                            $scope.resultList.push(result);
+                        }
+                    }
+                }
+
+                $scope.processNonVerboseResult = function(result)
+                {
+                    var simulationOutput = result['output'];
+                    var result = {};
+                    for (var i=0;i<simulationOutput.length;i++)
+                    {
+                        var simulationResult = simulationOutput[i];
+                        if (simulationResult['calculationResults']!=null && simulationResult['calculationResults'].length == 1)
+                        {
+                            $scope.resultType = 'Calculation Results';
+                            $scope.showNoCalcMsg = false;
+                            var calcResult = simulationResult['calculationResults'][0];
+                            var outputList = [];
+                            for (var outputObjKey in calcResult)
+                            {
+                                var output = {};
+                                var value = calcResult[outputObjKey];
+                                var dataType = '';
+
+                                if ($scope.variableDataTypeMap[outputObjKey]!=null)
+                                    dataType = $scope.variableDataTypeMap[outputObjKey];
+
+                                var outputDisplay = outputObjKey;
+                                if ($scope.inputVariableAliasMap[outputObjKey]!=null)
+                                    outputDisplay = $scope.inputVariableAliasMap[outputObjKey];
+                                if (dataType == 'Percent')
+                                    value = value + '%';
+                                else if (dataType == 'Currency')
+                                    value = $scope.currencySymbol+value;
+
+                                if (outputObjKey !='ID')
+                                {
+                                    output['key'] = outputDisplay;
+                                    output['value']= value;
+                                    outputList.push(output);
+                                }
+
+                                if (outputList.length > 0)
+                                {
+                                    result['output'] = outputList;
+                                    resultFound = true;
+                                    $scope.showFinalResult = true;
+                                }
+                            }
+                            $scope.resultList.push(result);
+                        }
+                        else if (simulationResult['aggregationResults']!=null && simulationResult['calculationResults'].length > 1)
+                        {
+                            $scope.resultType = 'Aggregation Results';
+                            $scope.showNoCalcMsg = true;
+                            var aggResult = simulationResult['aggregationResults'];
+                            var outputList = [];
+                            for (var outputObjKey in aggResult)
+                            {
+                                var output = {};
+                                var value = aggResult[outputObjKey];
+                                var dataType = '';
+
+                                if ($scope.variableDataTypeMap[outputObjKey]!=null)
+                                    dataType = $scope.variableDataTypeMap[outputObjKey];
+                                var outputDisplay = outputObjKey;
+                                if ($scope.inputVariableAliasMap[outputObjKey]!=null)
+                                    outputDisplay = $scope.inputVariableAliasMap[outputObjKey];
+                                if (dataType == 'Percent')
+                                    value = value + '%';
+                                else if (dataType == 'Currency')
+                                    value = $scope.currencySymbol+value;
+                                if (outputObjKey !='ID')
+                                {
+                                    output['key'] = outputDisplay;
+                                    output['value']= value;
+                                    outputList.push(output);
+                                }
+                                if (outputList.length > 0)
+                                {
+                                    result['output'] = outputList;
+                                    resultFound = true;
+                                    $scope.showFinalResult = true;
+                                }
+                            }
+                            resultFound = true;
+                            $scope.resultList.push(result);
+                        }
+                    }
+                }
+
+                $scope.getSimulationRate = function()
+                {
+                    var effectiveDate = !$scope.effectiveDate ? null : $scope.effectiveDate + ' 00:00:00';
+                    //Invoke the Pricing Service to calculate rates
+                    $scope.configMap['configurationName']= $scope.name;
+                    $scope.configMap['configurationVersionId']=$scope.configurationVersionId;
+                    $scope.configMap['mode']='Simulate';
+                    $scope.configMap['effectiveDate'] = effectiveDate;
+                    $scope.configMap['useDatesOnly'] = $scope.useDatesOnly;
+                    $scope.simulationInputMap['config']=$scope.configMap;
+                    $scope.simulationInputData={};
+
+                    var dummyId = 'input';
+                    var isEmptyData = isEmpty($scope.dataMap);
+
+                    $scope.sInputJson='';
+                    if (!isEmptyData)
+                    {
+                        $scope.simulationInputMap[dummyId]=$scope.dataMap;
+                        $scope.simulationInputData[dummyId]=$scope.dataMap;
+                        $scope.sInputJson = JSON.stringify( $scope.simulationInputData,null,2);
+                    }
+
+                    $scope.resultList=[];
+                    $scope.simulationFinalResultList=[];
+                    $scope.showNoResult = false;
+                    $scope.showVerboseResult = false;
+                    $scope.showFinalResult = false;
+                    $scope.showJson = false;
+                    $scope.sOutputJson='';
+
+                    var jsonInputString = JSON.stringify($scope.simulationInputMap);
+                    pricingSimulationFactory.getSimulationRate(jsonInputString).then(function(result, event)
+                    {
+                        if (!result || result.message) {
+                            resultFound = false;
+                            $scope.message = result.message;
+                        }
+                        else {
+                            $scope.message='No matching record found';
+                            if ($scope.setVerboseOptions)
+                            {
+                                $scope.processVerboseResult(result);
+                            }
+                            else
+                            {
+                                $scope.processNonVerboseResult(result);
+                            }
+
+                            if (result)
+                            {
+                                $scope.showJson = true;
+                                if(!$scope.sInputJson)
+                                {
+                                    var stepOutput = null;
+                                    try {
+                                        stepOutput = JSON.parse(result['simulate']);
+                                    }
+                                    catch(ex) {
+                                        stepOutput = result['simulate'];
+                                    }
+                                    var stepResult = stepOutput['1'];
+                                    $scope.sInputJson = JSON.stringify(stepResult['stepInputs'], null, 2);
+                                }
+                                $scope.outputResult = {};
+                                $scope.outputResult['output'] = result['output'];
+                                $scope.sOutputJson = JSON.stringify($scope.outputResult, null, 2);
+                            }
+                        }
+
+                        if (!resultFound)
+                            $scope.showNoResult = true;
+                    });
+                }
+
+                $scope.recordPicked = function (selectedRecordId)
+                {
+                    var objIds = [];
+                    objIds.push(selectedRecordId);
+                    $scope.configMap['SourceObjectIds']= objIds;
+                    $scope.dataMap = {};
+                }
+
+                function isNumber(n)
+                {
+                    return n != undefined && !isNaN(parseFloat(n)) && isFinite(n);
+                }
+
+                $scope.resetPageDetails = function() {
+                    $scope.simulationInputMap = {};
+                    $scope.configMap = {};
+                    $scope.selectedRecordId = "";
+                    $scope.selectedApplicableType="";
+                    $scope.showNoResult = false;
+                    $scope.showVerboseResult = false;
+                    $scope.showFinalResult = false;
+                    $scope.showJson = false;
+                    $scope.resultList=[];
+                    $scope.simulationFinalResultList=[];
+                }
+
+                $scope.valueEntered = function (attribute)
+                {
+                    $scope.resetPageDetails();
+                    var dataType = $scope.variableDataTypeMap[attribute];
+                    var value = $scope.dataMap[attribute];
+                    if (dataType == 'Currency' || dataType == 'Percent' || dataType == 'Number')
+                    {
+                        if (value != null && !isNumber(value))
+                        {
+                            var replacedValue = value.replace(/[^0-9.-]/g, "");
+                            $scope.dataMap[attribute] = replacedValue;
+                        }
+                    }
+                }
+
+                $scope.getSimulationRateStepByStep = function()
+                {
+                    $scope.simulationInputMap['verbose'] =true;
+                    $scope.setVerboseOptions= true;
+                    $scope.getSimulationRate();
+                }
+
+                $scope.getSimulationRateFinal = function()
+                {
+                    $scope.simulationInputMap['verbose'] =true;
+                    $scope.setVerboseOptions= false;
+                    $scope.getSimulationRate();
+                }
+            });
+        </script>
+        <body>
+            <div ng-controller="content" class="vlocity">
+                <div>
+                    <h4>{{name}}</h4>
+                    <table class="table">
+                        <tr>
+                            <td colspan="2">
+                                {!$Label.CPEffectiveDate}
+                            </td>
+                            <td>
+                                <input class="form-control"
+                                    ng-model="effectiveDate"
+                                    type="date"
+                                    name="{!$Label.CPEffectiveDate}"
+                                    ng-change="resetPageDetails()"
+                                    placeholder="{!$Label.CPEffectiveDate}"
+                                    min="{{minDate}}"
+                                    max="{{maxDate}}"
+                                    ng-min="{{minDate}}"
+                                    ng-max="{{maxDate}}"
+                                    />
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                {!$Label.CPUseDatesOnly}
+                            </td>
+                            <td>
+                                <input class="form-control"
+                                    ng-model="useDatesOnly"
+                                    type="checkbox"
+                                    name="{!$Label.CPUseDatesOnly}"
+                                    ng-change="resetPageDetails()"
+                                    />
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr class="separator"><td colspan="4"></td></tr>
+                        <tr ng-show="applicableTypeDefined">
+                            <td colspan="2">
+                                {{applicableType}}
+                            </td>
+                            <td>
+                                <input class="form-control"
+                                        ng-model="selectedRecordId"
+                                        name="acctSelect" type="text"
+                                        placeholder="{!$Label.CPEnterObjId}"
+                                        ng-change="recordPicked(selectedRecordId)"
+                                        />
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr class="separator" ng-show="applicableTypeDefined"><td colspan="4"></td></tr>
+                        <tr ng-repeat="attribute in attributes">
+                            <td>{{attribute}}</td>
+                            <td>{{variableDataTypeMap[attribute]}}</td>
+                            <td>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="{!$Label.CPEnterValue}"
+                                       ng-model="dataMap[attribute]"
+                                       ng-change="valueEntered(attribute)"/>
+                            </td>
+                            <!-- removing spaces to get the proper alias for the value-->
+                            <td>{{variableDefaultValueMap[attribute]}}</td>
+                        </tr>
+                    </table>
+                    <button ng-show="!enableLooping" ng-click="getSimulationRateStepByStep()">{!$Label.CPSimulateAll}</button>
+                    <button ng-click="getSimulationRateFinal()">{!$Label.CPSimulateFinal}</button>
+
+                    <div ng-show="!showNoResult">
+                        <br/>
+                        <br/>
+
+                        <div ng-show="showVerboseResult">
+                            <h4>{{resultType}}</h4>
+                            <div ng-show="showNoCalcMsg"><h5>{!$Label.CPNoCalcResult}</h5></div>
+                            <table class="table">
+                                <tr>
+                                    <th>Step</th>
+                                    <th>Input</th>
+                                    <th>Output</th>
+                                </tr>
+                                <tr ng-repeat="result in resultList track by $index">
+                                    <td>{{result['step']}}</td>
+                                    <td>
+                                        <table class="table">
+                                            <tr ng-repeat="input in result['input']">
+                                                <td>{{input['key']}}</td>
+                                                <td>{{input['value']}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table class="table">
+                                            <tr ng-repeat="output in result['output']">
+                                                <td>{{output['key']}}</td>
+                                                <td>{{output['value']}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div ng-show="showFinalResult">
+                            <h4>{{resultType}}</h4>
+                            <div ng-show="showNoCalcMsg"><h5>{!$Label.CPNoCalcResult}</h5></div>
+                            <br/>
+                            <table class="table">
+                                <tr ng-repeat="result in resultList track by $index">
+                                    <td>
+                                        <table class="table">
+                                            <tr ng-repeat="output in result['output']">
+                                                <td>{{output['key']}}</td>
+                                                <td>{{output['value']}}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div ng-show="showJson">
+                            <table class="table">
+                                <tr>
+                                    <th width="50%">{!$Label.InputJSON}</th>
+                                    <th width="50%">{!$Label.OutputJSON}</th>
+                                </tr>
+                                <tr>
+                                    <td width="50%"><textarea class="jsontext">{{sInputJson}}</textarea></td>
+                                    <td width="50%"><textarea class="jsontext">{{sOutputJson}}</textarea></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-show="showNoResult">
+                        <h4>{{message}}</h4>
+                    </div>
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>

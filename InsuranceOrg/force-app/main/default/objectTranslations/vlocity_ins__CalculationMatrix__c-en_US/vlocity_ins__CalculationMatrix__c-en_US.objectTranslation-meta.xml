@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <layouts>
+        <layout>Vlocity Pricing Matrix Layout (Vlocity 108)</layout>
+        <sections>
+            <label><!-- Active Pricing Matrix --></label>
+            <section>Active Pricing Matrix</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Grouped --></label>
+        <name>vlocity_ins__Grouped</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Row-Versioned --></label>
+        <name>vlocity_ins__RowVersioned</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Standard --></label>
+        <name>vlocity_ins__Standard</name>
+    </recordTypes>
+    <webLinks>
+        <label><!-- Export --></label>
+        <name>vlocity_ins__Export</name>
+    </webLinks>
+</CustomObjectTranslation>

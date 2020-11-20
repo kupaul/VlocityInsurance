@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Enabled for Objects (API) --></label>
+    <name>vlocity_ins__EnabledObjectsAPI__c</name>
+    <picklistValues>
+        <masterLabel>All</masterLabel>
+        <translation><!-- All --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Application__c</masterLabel>
+        <translation><!-- Application__c --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Case__c</masterLabel>
+        <translation><!-- Case__c --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Incident__c</masterLabel>
+        <translation><!-- Incident__c --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

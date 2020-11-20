@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Earliest Due Date of orchestration items in Ready/Running/Fatally Failed states. --></help>
+    <label><!-- Plan Scheduling Due Date --></label>
+    <name>vlocity_ins__PlanSchedulingDueDate__c</name>
+</CustomFieldTranslation>

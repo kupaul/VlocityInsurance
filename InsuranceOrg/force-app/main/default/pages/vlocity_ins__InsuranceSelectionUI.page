@@ -1,0 +1,78 @@
+<apex:page controller="vlocity_ins.InsuranceSelectionUIController" standardstylesheets="false" showHeader="true" sidebar="false" >
+  <html xmlns:ng="http://angularjs.org" ng-app="selectionUIApp" ng-cloak="true" lang="en" >
+  <head>
+    <apex:includeScript value="{!$Resource.vlocity_ins__JQUERYJS}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__AngularJS}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__AngularSanitizeJS}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__AngularAnimateJS}" /> 
+    <apex:includeScript value="{!$Resource.vlocity_ins__bootstrapslider}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__bootstrapslidercss)}"/>  
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vstrap2, '/javascripts/bootstrap.min.js')}"/>
+    <apex:includeScript value="{!$Resource.vlocity_ins__ngtable}"/>
+    <apex:stylesheet value="{!$Resource.vlocity_ins__ngtablecss}" />
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+    <apex:stylesheet value="{!$Resource.vlocity_ins__SelectionUICss}" />
+    <apex:includeScript value="/support/console/31.0/integration.js"/>
+    <style type="text/css">
+        .sidebar-filters,
+        .product-display {
+          display: table-cell;
+          vertical-align: top;
+        }
+        .sidebar-filters
+        {
+          height: 100%; 
+          width: 280px;
+          padding-right: 20px;
+        }
+        .product-comparison
+        {
+          z-index: 20;
+        }
+        .vlocity .container-fluid {
+          padding: 0;
+        }
+    </style>
+   </head>
+	 <body>
+      <!--<div class="bPageTitle">
+            <div class="ptBody">
+                <div class="content">
+                    <img src="/s.gif" alt="Product Selection" class="pageTitleIcon" title="Product Selection"/>
+                    <h1 class="pageType">Product Selection<span class="titleSeparatingColon">:</span></h1>
+                    <h2 class="pageDescription">Home</h2>
+                    <div class="blank">&nbsp;</div>
+                </div>
+            </div>
+      </div>-->
+      <div class="vlocity">
+        <div class="container-fluid product-selection">   
+          <div class="product-comparison">
+              <c:SelectionUIProductComparison pageControllerBase="{!this}" compKey="comparison" />
+          </div>
+          <div class="product-cpq">
+              <c:SelectionUICPQ pageControllerBase="{!this}" compKey="cpq" />
+          </div>
+  		    <div class="sidebar-filters">
+              <div class="account-selection sidebar-section">
+                  <c:SelectionUIAccountSelect pageControllerBase="{!this}" compKey="accountSelect" />
+              </div>
+              <div class="filters-container sidebar-section">
+                  <c:SelectionUIBasicFilters pageControllerBase="{!this}" compKey="basicFilters" />
+                  <c:SelectionUIProductFilter pageControllerBase="{!this}" compKey="filter" />
+              </div>
+   	      </div>
+          <div class="product-display">
+              <c:SelectionUICart pageControllerBase="{!this}" compKey="cart" />
+              <c:SelectionUIProductList pageControllerBase="{!this}" compKey="productList" />   
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+          var modules = ['selectionProductListApp', 'selectionUIAccountSelectApp', 'selectionCartApp', 'ProductComparisonApp','ProductCPQApp', 'selectionProductFilterApp', 'selectionProductListApp', 'selectionUIBasicFilterApp'];
+          var myModule = angular.module('selectionUIApp', modules);
+      </script>
+   	</body>
+  </html>
+</apex:page>

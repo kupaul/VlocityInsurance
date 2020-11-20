@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Asset Class --></label>
+    <name>vlocity_ins__AssetClass__c</name>
+    <picklistValues>
+        <masterLabel>Bond</masterLabel>
+        <translation><!-- Bond --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Money Market</masterLabel>
+        <translation><!-- Money Market --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stock</masterLabel>
+        <translation><!-- Stock --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

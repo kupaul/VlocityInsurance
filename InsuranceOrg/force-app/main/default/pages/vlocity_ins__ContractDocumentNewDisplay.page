@@ -1,0 +1,196 @@
+<apex:page standardController="Contract" extensions="vlocity_ins.ContractDocumentDisplayController" standardStylesheets="true" showHeader="false" sidebar="false" docType="html-5.0">
+<html xmlns:ng="http://angularjs.org" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <base target="_parent" />
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__dropzone, '/dist/min/dropzone.min.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ContractDocumentNewDisplayApp}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__JSZip}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__jsziputils}"/>
+        <apex:includeScript value="/support/console/42.0/integration.js"/>
+        <apex:includeScript value="/xdomain/xdomain.js"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__dropzone, '/dist/min/dropzone.min.css')}"/>
+        <apex:stylesheet value="{!$Resource.vlocity_ins__ActionComponentCss}"/>
+        <apex:stylesheet value="{!$Resource.vlocity_ins__ContractDocumentNewDisplayCss}"/>
+        <script type="text/javascript">
+            var serverTime = new Date('{!TimeLoaded}').toUTCString();
+                serverTime = Date.parse(serverTime);
+            var currentTime = Date.parse(new Date().toUTCString());
+                console.log('Server Time: ', serverTime);
+                console.log('Current Time from JS: ', currentTime);
+        </script>
+    </head>
+    <body>
+        <div class="vlocity via-slds contract-document-display" ng-app="contractDocumentNewDisplayApp" ng-controller="contractDocumentNewDisplayCtrl" ng-class="{'msie': isInternetExplorer}">
+            <div class="alert alert-warning ng-hide" role="alert" ng-show="isInternetExplorer && browserVersion < 10">test{!$Label.CLMContractDocNewDisplayNoSupport} <a href="https://www.google.com/chrome/browser/" target="_blank">{!$Label.CLMContractDocChrome}</a> or <a href="https://www.mozilla.org/firefox" target="_blank">{!$Label.CLMContractDocFirefox}</a>.</div>
+            <div ng-show="!isInternetExplorer || browserVersion >= 10" class="ng-hide">
+                <div class="slds-spinner_container" ng-show="vlcLoading">
+                    <div class="slds-spinner slds-spinner_medium" aria-hidden="false" role="alert">
+                          <div class="slds-spinner__dot-a"></div>
+                          <div class="slds-spinner__dot-b"></div>
+                    </div>
+                    <span ng-if="!accessedFromHistory" ng-show="needCreateDocument" class="create-document ng-hide">{!$Label.CLMContractDocNewDocDefaultTemplate} <span>{!$Label.CLMContractDocPlsWait}</span></span>
+                </div>
+                <iframe ng-if="attachDocUrl !== undefined" name="attachDoc" ng-src="{{attachDocUrl}}" class="attachDoc-iframe"></iframe>
+                <div class="panel-group vlc-accordion version-accordion" bs-collapse="true" ng-model="panels.activePanel">
+                    <div class="panel panel-default version-{{version[nameSpacePrefix + 'VersionNumber__c']}}-panel index-{{$index}} {{version[nameSpacePrefix + 'Status__c'].toLowerCase()}}" ng-repeat="version in versions" ng-class="{'is-open': panels.activePanel === $index, 'disallowed': version[nameSpacePrefix + 'Status__c'] === 'Active' && !version.canAddDoc}">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a bs-collapse-toggle="{{$index}}" class="version-{{version[nameSpacePrefix + 'VersionNumber__c']}}-toggle">
+                                    <span class="version-status {{version[nameSpacePrefix + 'Status__c'] | lowercase}}" bs-tooltip="version[nameSpacePrefix + 'Status__c']" data-placement="top"></span>
+                                    <span class="version-name">{{version.Name}} <span ng-if="version[nameSpacePrefix + 'IsDocumentLocked__c']" class="locked-by">({!$Label.CLMContractDocLockedBy} {{version[nameSpacePrefix + 'DocumentLockedUserName__c']}})</span></span>
+                                    <i class="icon icon-v-right-caret"></i>
+                                    <span ng-if="version[nameSpacePrefix + 'CreatorName__c']" class="version-meta-data">{!$Label.CLMContractDocCreatedBy} {{version[nameSpacePrefix + 'CreatorName__c']}}</span>
+                                    <span ng-if="version[nameSpacePrefix + 'Status__c'] === 'Active'" class="slds-text-heading_small manage-contract-terms" ng-click="manageContractTerms(version)">{!$Label.CLMManageContractTerms}</span>
+                                    <span ng-if="version[nameSpacePrefix + 'Status__c'] !== 'Active'" class="slds-text-heading_small manage-contract-terms" ng-click="manageContractTerms(version)">{!$Label.CLMViewContractTerms}</span>
+
+                                    <!--<i class="icon icon-v-information-line" data-placement="auto" data-trigger="hover" data-template-url="version-info-popover.tpl.html" bs-popover="true"></i> -->
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse" role="tabpanel" bs-collapse-target="{{$index}}">
+                            <div class="panel-body">
+                                <div class="version-top-section">
+                                    <h2 class="document-detail">{!$Label.CLMContractDocDetail}</h2>
+                                    <div class="vlocity-actions">
+                                        <div class="slds-button-group" role="group">
+                                            <button class="slds-button slds-button_neutral" ng-repeat="action in version.actions" ng-click="invoke(action)" ng-if="action.showAction">
+                                                <i class="slds-button__icon slds-button__icon_left icon {{action.vlocityIcon}}" ng-hide="action.imageRef.length"></i>
+                                                <div class="slds-button__icon slds-button__icon_left image-wrapper" ng-if="action.imageRef">
+                                                    <span class="helper"></span><img src="{!$Site.BaseRequestUrl}{{action.imageRef}}" alt=""/>
+                                                </div>
+                                                <span class="action-label">{{action.displayName}}</span>
+                                                <span class="short-action-label">{{action.shortName}}</span>
+                                                <iframe ng-if = "action.attachDocUrl !== undefined" name="action.attachDoc" ng-src="{{action.attachDocUrl}}" class="attachDoc-iframe"></iframe>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="header-information" ng-bind-html="version.popover.content"></div>
+                                </div>
+                                <div class="dropzone-container">
+                                    <h3><i class="icon icon-v-attachment"></i>{{version.Name}} {!$Label.Attachment}<span ng-if="version[nameSpacePrefix + 'Status__c'] === 'Active' && version.canAddDoc">{!$Label.CLMContractDocFilesAutoAttached}</span></h3>
+                                    <div dropzone="$index" class="dropzone" id="version-{{version[nameSpacePrefix + 'VersionNumber__c']}}-dropzone" ng-class="{'no-attachments': version.versionAttachments.length === 0}">
+                                        <p class="dropzone-message" ng-show="version[nameSpacePrefix + 'Status__c'] === 'Active' && version.canAddDoc && !isInternetExplorer"><i class="icon icon-v-upload"></i>{!$Label.CLMContractDocDragDropFiles}<a href="javascript:undefined;" class="version-browse-files version-{{version[nameSpacePrefix + 'VersionNumber__c']}}-browse-files"> {!$Label.CLMContractDocBrowse}</a> {!$Label.CLMContractDocFileMaxSize}</p>
+                                        <p class="dropzone-message" ng-show="version[nameSpacePrefix + 'Status__c'] === 'Active' && version.canAddDoc && isInternetExplorer"><i class="icon icon-v-upload"></i><a href="javascript:undefined;" ng-click="browseMsieFiles(version)" class="version-browse-files version-{{version[nameSpacePrefix + 'VersionNumber__c']}}-msie-browse-files"> {!$Label.CLMContractDocBrowse}</a> {!$Label.CLMContractDocFileUploadMaxSize}</p>
+                                        <input ng-if="version[nameSpacePrefix + 'Status__c'] === 'Active' && version.canAddDoc && isInternetExplorer" id="version-{{version[nameSpacePrefix + 'VersionNumber__c']}}-msie-select-file" type="file" name="file" onchange="angular.element(this).scope().uploadMsieFile(this.files, angular.element(this).scope().version)" ng-model="model1" style="display: none" />
+                                        <p class="dropzone-message inactive" ng-show="version[nameSpacePrefix + 'Status__c'] === 'Active' && !version.canAddDoc && !isInternetExplorer">{!$Label.ContractDocumentFileUploadDisallowed}</p>
+                                        <p class="dropzone-message inactive" ng-show="version[nameSpacePrefix + 'Status__c'] === 'Inactive' && !isInternetExplorer">{!$Label.ContractDocumentInactiveFileUpload}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var nameSpacePrefix, remoteActions, contractId, sourceId, baseRequestUrl, cancelLabel, continueLabel, uploadWordFileLabel, reconcileSuccessLabel, notWordDocument, needCreateDocument, headerLabels,labels, sitePrefix;
+            nameSpacePrefix = '{!JSENCODE(nameSpacePrefix)}';
+            contractId = '{!$CurrentPage.parameters.Id}';
+            sourceId = '{!sourceId}';
+            baseRequestUrl = '{!$Site.BaseRequestUrl}';
+            cancelLabel = '{!$Label.Cancel}';
+            continueLabel = '{!$Label.ActionValidationContinue}';
+            uploadWordFileLabel = '{!$Label.UploadWordFileLabel}';
+            reconcileSuccessLabel = '{!$Label.ReconcileSuccessLabel}';
+            notWordDocument = '{!$Label.NotWordDocument}';
+            needCreateDocument = {!needCreateDocument};
+            docType = '{!JSENCODE(attachDocType)}';  
+            contractActiveVersionId = '{!contractVersionId}';
+			sitePrefix = '{!$Site.Prefix}';
+            headerLabels = {
+               attachedTemplate: '{!$Label.CLMContractDocAttachedTemplate}',
+               creationMethod: '{!$Label.CLMContractDocCreationMethod}',
+               created: '{!$Label.CLMContractDocCreated}',
+               lastModified: '{!$Label.CLMContractDocLastModified}'
+            };
+            labels = {
+                clmContractDocActionButtonClicked: '{!$Label.CLMContractDocActionButtonClicked}',
+                clmReconcileFileNameIs: '{!$Label.CLMReconcileFileNameIs}',
+                clmReconcileFileTypeIs: '{!$Label.CLMReconcileFileTypeIs}',
+                clmReconcileFileNameIncorrectDocType: '{!$Label.CLMReconcileFileNameIncorrectDocType}',
+                clmReconcileFileNameIncorrectDocExtn: '{!$Label.CLMReconcileFileNameIncorrectDocExtn}',
+                clmReconcileDocPlsUploadWord: '{!$Label.CLMReconcileDocPlsUploadWord}',
+                clmReconcileDocProcessingFile: '{!$Label.CLMReconcileDocProcessingFile}',
+                clmErrorFileNameLength: '{!$Label.CLMErrorFileNameLength}',
+                loading: '{!$Label.LoadingUC}',
+                warning: '{!$Label.Warning}'
+            };
+            remoteActions = {
+                getContractVersions: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getContractVersions}',
+                    config: {escape: false}
+                },
+                getActiveVersion: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getActiveVersion}',
+                    config: {escape: false}
+                },
+                getContractVersionDocumentActions: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getContractVersionDocumentActions}',
+                    config: {escape: false}
+                },
+                invokeVOIMethod: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.invokeVOIMethod}',
+                    config: {escape: false}
+                },
+                getContractVersionAttachments: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getContractVersionAttachments}',
+                    config: {escape: false}
+                },
+                getContractVersionDocumentCollections: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getContractVersionDocumentCollections}',
+                    config: {escape: false}
+                },
+                deleteContractDocumentAttachment: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.deleteContractDocumentAttachment}',
+                    config: {escape: false}
+                },
+                handleWordDocImport: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.handleWordDocImport}',
+                    config: {escape: false}
+                },
+                checkInDocument: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.checkInDocument}',
+                    config: {escape: false}
+                },
+                removeCustomSetting: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.deleteCustomSetting}', 
+                    config: {escape: false}
+                },
+                getDefaultTemplateInfo: {
+                    action: '{!$RemoteAction.ContractDocumentDisplayController.getDefaultTemplateInfo}',
+                    config: {escape: false}
+                }
+            };
+            (function() {
+                'use strict';
+                function CustomEvent(event, params) {
+                    var evt;
+                    params = params || {bubbles: false, cancelable: false, detail: undefined};
+                    evt = document.createEvent('CustomEvent');
+                    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+                    return evt;
+                }
+
+                CustomEvent.prototype = window.Event.prototype;
+
+                window.CustomEvent = CustomEvent;
+            })();
+            function getAttachmentId(attachmentId) {
+                'use strict';
+                var event = new CustomEvent('AttachmentId', {
+                    detail: attachmentId
+                });
+                window.dispatchEvent(event);
+                console.log(attachmentId);
+            }
+        </script>
+        <c:VFContractAttachmentUpload />
+    </body>
+</html>
+</apex:page>

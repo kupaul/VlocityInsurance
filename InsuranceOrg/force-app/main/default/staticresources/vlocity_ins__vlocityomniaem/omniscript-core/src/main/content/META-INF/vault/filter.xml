@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/apps/vloc">
+        <include pattern="/apps/vloc((/components(/\w+)?)|(/templates))(/omniUniversal(Cont)?(/.*)?)?"/>
+    </filter>
+    <filter root="/apps/vloc/clientlibs/oout"/>
+    <filter root="/apps/vloc/clientlibs/ooutCustom">
+        <include pattern="/apps/vloc/clientlibs/ooutCustom/(.*(([Ss]ample)|(readme)).*)?"/>
+    </filter>
+    <filter root="/content/oout">
+        <include pattern="/content/oout/(.*[Uu]niversal(/.*)?)"/>
+    </filter>
+    <filter root="/apps/vloc/components/global/customTemplates">
+        <include pattern="/apps/vloc/components/global/customTemplates/(.*(([Ss]ample)|(readme)).*)?"/>
+    </filter>
+</workspaceFilter>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ContainsRedlines__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Indicates whether this contract document version contains redlines</description>
+    <externalId>false</externalId>
+    <formula>If( vlocity_ins__CountOfContainsRedlines__c&gt;0, true, false)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Contains Redlines</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

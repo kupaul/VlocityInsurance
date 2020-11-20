@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- File Format --></label>
+    <name>vlocity_ins__FileFormat__c</name>
+    <picklistValues>
+        <masterLabel>Docx</masterLabel>
+        <translation><!-- Docx --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PDF</masterLabel>
+        <translation><!-- PDF --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Word</masterLabel>
+        <translation><!-- Word --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

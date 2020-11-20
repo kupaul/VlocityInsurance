@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Reserve Status --></label>
+    <name>vlocity_ins__CoverageReserveStatus__c</name>
+    <picklistValues>
+        <masterLabel>Authority Denied</masterLabel>
+        <translation><!-- Authority Denied --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Closed</masterLabel>
+        <translation><!-- Closed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>New</masterLabel>
+        <translation><!-- New --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Open</masterLabel>
+        <translation><!-- Open --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pending Authority</masterLabel>
+        <translation><!-- Pending Authority --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

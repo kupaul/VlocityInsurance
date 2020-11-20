@@ -1,0 +1,2 @@
+<apex:page standardController="vlocity_ins__CalculationMatrixVersion__c"  extensions="vlocity_ins.CreateVersionController" action="{!doCreateMatrixVersion}" showHeader="false" sidebar="false" docType="html-5.0"> 
+</apex:page>

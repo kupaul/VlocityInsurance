@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <validationRules>
+        <errorMessage><!-- Timeout cannot be negative. --></errorMessage>
+        <name>vlocity_ins__TimeoutMinValueValidation</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- CompleteItem --></label>
+        <name>vlocity_ins__CompleteItem</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- RetryItem --></label>
+        <name>vlocity_ins__RetryItem</name>
+    </webLinks>
+</CustomObjectTranslation>

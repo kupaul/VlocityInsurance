@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProviderFeeScheduleId__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Provider Fee Schedule</label>
+    <referenceTo>vlocity_ins__ProviderFeeSchedule__c</referenceTo>
+    <relationshipLabel>Provider Fee Schedule Entries</relationshipLabel>
+    <relationshipName>ProviderFeeScheduleEntries</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

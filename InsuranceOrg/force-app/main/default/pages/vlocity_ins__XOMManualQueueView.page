@@ -1,0 +1,39 @@
+<!-- Displays Manual Tasks assigned to a Queue in off-platform -->
+<apex:page showHeader="false" sidebar="false" standardController="vlocity_ins__ManualQueue__c" extensions="vlocity_ins.XOMCatalogObjectControllerExtension,vlocity_ins.XOMOffPlatformAccessConfigController,vlocity_ins.XOMThorLocalizationController" standardStylesheets="false" docType="html-5.0">
+    <apex:slds />
+    <script type="text/javascript" src="{!URLFOR($Resource.ThorJsBundle)}"></script>
+    <!-- <script src="https://localhost:8443/main.js"></script> -->
+    <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/components/remoteActions.js')}"></script>
+    <link rel="stylesheet" href="{!URLFOR($Resource.ThorBundleCss)}" />   
+    <div class="slds-scope">
+        <ng-view id="xomApplicationContainer">loading...</ng-view>
+    </div>
+    <script type="application/javascript">
+        var globalKey = '{!globalKey}';
+        console.log('globalKey', globalKey);        
+        angular.module('xomServices')
+            .config(['remoteActionsProvider', function(remoteActionsProvider) 
+            {
+                remoteActionsProvider.setRemoteActions({
+                    getTranslation:'{!$RemoteAction.XOMThorLocalizationController.getTranslation}',
+                    getThorBackendUrl: "{!$RemoteAction.XOMOffPlatformAccessConfigController.getOffplatformUrl}"
+                });
+            }])
+            .value('thorLayoutConfig', 
+            {
+            hideObjectHierarchy: true,
+            hideHeader: true,
+            hideLogoutButton: true,
+            defaultFilter: {"State":["Ready", "Running", "Failed", "Fatally Failed"]},
+            defaultTabId: "4412964684871513729", // Assigned Manual Tasks tab
+            hideInactiveTabsForObjectTypes: ["4412964684871505537"], // list of Object Types with active tabs
+            contextObjectId: '{!$CurrentPage.parameters.Id}'
+            })
+            .value('errorMessageTranslations',
+            {
+                translations:'{!errorMessageTranslations}'
+            });
+            if(!window.location.hash)
+                window.location.hash = "!/globalObject/"+globalKey;
+    </script>
+</apex:page>

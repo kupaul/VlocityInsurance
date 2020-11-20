@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Attribute Scope --></label>
+    <name>vlocity_ins__AttributeScope__c</name>
+    <picklistValues>
+        <masterLabel>Claim</masterLabel>
+        <translation><!-- Claim --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Claim Coverage</masterLabel>
+        <translation><!-- Claim Coverage --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Policy</masterLabel>
+        <translation><!-- Policy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Policy Coverage</masterLabel>
+        <translation><!-- Policy Coverage --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

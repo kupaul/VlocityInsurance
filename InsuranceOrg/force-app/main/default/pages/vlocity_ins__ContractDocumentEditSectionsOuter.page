@@ -1,0 +1,237 @@
+<apex:page docType="html-5.0" standardStylesheets="false" showHeader="true" sidebar="false" controller="vlocity_ins.ContractDocumentDisplayController">
+    <html xmlns:ng="http://angularjs.org" lang="en">
+        <head>
+            <meta charset="utf-8"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+            <apex:stylesheet value="{!$Resource.vlocity_ins__DocumentBaseCss}" />
+            <apex:stylesheet value="{!$Resource.vlocity_ins__ContractDocumentCreationCss}"/>
+            <apex:stylesheet value="{!$Resource.vlocity_ins__ContractDocumentEditSectionsCss}"/>
+
+            <apex:includeScript value="/support/console/42.0/integration.js"/>
+            <apex:includeScript value="/soap/ajax/37.0/connection.js"/>
+            <apex:includeScript value="/xdomain/xdomain.js"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__tinymceIce, '/js/tinymce/tinymce.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ui_tinymce, '/src/tinymce.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_utils_pagination, '/dirPagination.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/jszip/jszip.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/jszip-utils.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/vendor/file-saver.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__docxtemplater_bundle, '/build/docxtemplater.v3.5.0.min.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ContractDocumentEditSectionsApp}"/>
+        </head>
+        <body>
+            <div class="vlocity via-slds vloc-body contract-edit-sections" ng-app="contractDocumentEditSectionsApp" ng-controller="contractDocumentEditSectionsCtrl" via-affix="top" via-screen-height="viaScreenHeight" ng-class="{'msie': isInternetExplorer}">
+                <div class="slds-spinner_container" ng-show="vlcLoading">
+                    <div class="slds-spinner slds-spinner_medium" aria-hidden="false" role="alert">
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+                <div class="slds-page-header custom-contract-creation-header" role="banner">
+                    <div class="slds-grid slds-grid_vertical-align-center">
+                        <div class="slds-size_1-of-2" role="banner">
+                            <div class="slds-media slds-no-space slds-grow">
+                                <div class="slds-media__figure">
+                                    <slds-svg-icon id="document-customization-icon" sprite="'utility'" icon="'settings'" size="'medium'" extra-classes="' slds-p-around_xx-small slds-icon-standard-contract'"></slds-svg-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h1 class="slds-page-header__title custom slds-m-right_small slds-align-middle slds-truncate" title="Contract Document Creation">Contract Document Customization</h1>
+                                    <p class="slds-text-heading_label slds-line-height_reset">{{versionName}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-size_1-of-2">
+                            <div class="slds-button-group slds-float_right" role="group">
+                                <button class="slds-button slds-button_neutral" ng-if="!showTemplateSelection()" ng-click="navigateBackConsole()">
+                                    <slds-button-svg-icon id="back-to-contract" sprite="'utility'" icon="'back'" size="'small'" extra-classes="'slds-button__icon_left'"></slds-button-svg-icon>
+                                    {!$Label.ContractGoBack}
+                                </button>
+                                <button class="slds-button slds-button_neutral" ng-if="showTemplateSelection()" ng-click="navigateBackAndCheckin()">
+                                    <slds-button-svg-icon id="back-to-contract" sprite="'utility'" icon="'back'" size="'small'" extra-classes="'slds-button__icon_left'"></slds-button-svg-icon>
+                                    {!$Label.CLMDocGenGoBackToContract}
+                                </button>
+                                <button type="button" class="slds-button slds-button_neutral" ng-click="switchToSectionView()">
+                                    {!$Label.CLMDocGenSwitchToSectionView}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="alert.message">
+                    <div class="slds-notify slds-notify_alert slds-theme_alert-texture" role="alert" ng-class="{'slds-theme_warning' : alert.type === 'warning', 'slds-theme_danger' : alert.type === 'danger', 'slds-theme_success' : alert.type === 'success'}">
+                        <button class="slds-button slds-button_icon-inverse slds-float_right" ng-click="clearAlert()">
+                            <slds-svg-icon sprite="'action'" icon="'close'" size="'x-small'"></slds-svg-icon>
+                        </button>
+                        <h2 ng-bind-html="alert.message">{{alert.message}}</h2>
+                    </div>
+                </div>
+                <div class="outer-container">
+                    <iframe ng-if="attachDocUrl !== undefined" name="attachDoc" ng-src="{{attachDocUrl}}" class="attachDoc-iframe"></iframe>
+                    <div class="two-col-inner-container">
+                        <div class="left-container" ng-class="{'contains-redlines': redlines.containsRedlines}">
+                            <div class="slds-notify slds-notify_toast slds-theme_warning slds-m-around_none redline-warning slds-p-around_small" role="alert" ng-if="redlines.containsRedlines">
+                                <slds-svg-icon sprite="'utility'" icon="'warning'" size="'x-small'" extra-classes="'slds-m-right_xx-small warning-icon'"></slds-svg-icon>
+                                <span class="slds-m-bottom_xxx-small">{!$Label.ContractContainsRedline}</span>
+                            </div>
+                            <div class="buttons-container" ng-class="{'redlines': redlines.containsRedlines}">
+                                <div class="document-buttons">
+                                    <div class="checkin-button buttons-group">
+                                        <h4>{!$Label.ContractCheckInDoc}</h4>
+                                        <button type="button" class="slds-button slds-button_brand go-back" ng-click="checkInDocumentConsole()">{!$Label.ContractCheckIn}</button>
+                                    </div>
+                                    <div class="download-buttons buttons-group">
+                                        <h4>{!$Label.ContractDownloadDoc}</h4>
+                                        <button type="button" class="slds-button slds-button_neutral download-pdf" ng-click="preDownloadPdfConsole()">{!$Label.ContractDownloadPDF}</button> 
+                                        <button type="button" class="slds-button slds-button_neutral download-word" ng-click="preDownloadDocxConsole()">{!$Label.ContractDownloadWord}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <iframe id="customizeDoc" name="customizeDoc" ng-src="{{customizeDocUrl}}" class="customizeDoc-iframe" height="800" scrolling="false" width="100%" style="border:none;margin-top:-2rem;"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                // Limit scope pollution from any deprecated API
+                (function() {
+                    var matched, browser;
+
+                    // Use of jQuery.browser is frowned upon.
+                    // More details: http://api.jquery.com/jQuery.browser
+                    // jQuery.uaMatch maintained for back-compat
+                    jQuery.uaMatch = function( ua ) {
+                        ua = ua.toLowerCase();
+                
+                        var match = /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+                            /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+                            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+                            /(msie) ([\w.]+)/.exec( ua ) ||
+                            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+                            [];
+                
+                        return {
+                            browser: match[ 1 ] || "",
+                            version: match[ 2 ] || "0"
+                        };
+                    };
+                
+                    matched = jQuery.uaMatch( navigator.userAgent );
+                    browser = {};
+                
+                    if ( matched.browser ) {
+                        browser[ matched.browser ] = true;
+                        browser.version = matched.version;
+                    }
+                
+                    // Chrome is Webkit, but Webkit is also Safari.
+                    if ( browser.chrome ) {
+                        browser.webkit = true;
+                    } else if ( browser.webkit ) {
+                        browser.safari = true;
+                    }
+                
+                    jQuery.browser = browser;
+                
+                    jQuery.sub = function() {
+                        function jQuerySub( selector, context ) {
+                            return new jQuerySub.fn.init( selector, context );
+                        }
+                        jQuery.extend( true, jQuerySub, this );
+                        jQuerySub.superclass = this;
+                        jQuerySub.fn = jQuerySub.prototype = this();
+                        jQuerySub.fn.constructor = jQuerySub;
+                        jQuerySub.sub = this.sub;
+                        jQuerySub.fn.init = function init( selector, context ) {
+                            if ( context && context instanceof jQuery && !(context instanceof jQuerySub) ) {
+                                context = jQuerySub( context );
+                            }
+                
+                            return jQuery.fn.init.call( this, selector, context, rootjQuerySub );
+                        };
+                        jQuerySub.fn.init.prototype = jQuerySub.fn;
+                        var rootjQuerySub = jQuerySub(document);
+                        return jQuerySub;
+                    };
+                
+                })();
+                
+                var nameSpacePrefix, remoteActions, contractId, contractVersionId, parentId, isEditableValue,isInConsole,userName, userId, docName, containsRedlines, baseRequestUrl, labels;
+                nameSpacePrefix = '{!nameSpacePrefix}';
+                contractId = '{!$CurrentPage.parameters.Id}';
+                parentId = '{!parentId}';
+                contractVersionId = '{!contractVersionId}';
+                isEditableValue = '{!isEditableValue}';
+                isInConsole = sforce.console.isInConsole();
+                userName = '{!$User.FirstName}' + ' ' + '{!$User.LastName}';
+                userId = '{!$User.Id}';
+                docName = '{!JSENCODE(documentName)}';
+                containsRedlines = {!containsRedlines};
+                baseRequestUrl = '{!$Site.BaseRequestUrl}';
+                labels = {
+                    'allSectionSavedLabel':'{!$Label.ContractAllSectionSaved}',
+                    'saveAllSectionLabel':'{!$Label.ContractSaveAllSections}', 
+                    'customizeReadyCheckInLabel':'{!$Label.ContractCustomizeReadyCheckIn}',
+                    'cancelLabel':'{!$Label.Cancel}',
+                    'yesCheckInLabel':'{!$Label.ContractYesCheckIn}',
+                    'noCheckInLabel':'{!$Label.ContractNoCheckIn}',
+                    'downloadDocRedlineLabel':'{!$Label.ContractDownloadDocRedlines}',
+                    'yesDownloadLabel':'{!$Label.ContractYesDownload}',
+                    'downloadPDFLabel':'{!$Label.ContractDownloadPDF}',
+                    'downloadWordLabel':'{!$Label.ContractDownloadWord}',
+                    'checkInDocLabel':'{!$Label.ContractCheckInDoc}',
+                    'safariNoSupportLabel': '{!$Label.ContractSafariNoSupport}',
+                    'clmContractDocAllSectionsSavedSuccess': '{!$Label.CLMContractDocAllSectionsSavedSuccess}',
+                    'clmContractDocAllSectionsSaved': '{!$Label.CLMContractDocAllSectionsSaved}',
+                    'clmContractDocValidationErrorCorrect': '{!$Label.CLMContractDocValidationErrorCorrect}'
+                };
+                remoteActions = {
+                    getContractSectionsForVersion: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.getContractSectionsForVersion}',
+                        config: {escape: false}
+                    },
+                    saveAllSections: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.saveContractSections}',
+                        config: {escape: false}
+                    },
+                    saveTemplateSection: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.saveOneSection}',
+                        config: {escape: false}
+                    },
+                    formatProductSection: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.formatProductSection}',
+                        config: {escape: false}
+                    },
+                    formatSignatureSection: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.formatSignatureSection}',
+                        config: {escape: false}
+                    },
+                    getUserAccess: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.getContractDocumentAccessControl}',
+                        config: {escape: false}
+                    },
+                    checkInDocument: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.checkInDocument}',
+                        config: {escape: false}
+                    },
+                    downloadDocx: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.getContractVersionDocument}',
+                        config: {escape: false}
+                    },
+                    downloadPdf: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.downloadPdf}',
+                        config: {escape: false}
+                    },
+                    getDocxTemplate: {
+                        action: '{!$RemoteAction.ContractDocumentDisplayController.getDocTemplateForContractType}',
+                        config: {escape: false}
+                    }
+                };
+            </script>
+        </body>
+    </html>
+</apex:page>

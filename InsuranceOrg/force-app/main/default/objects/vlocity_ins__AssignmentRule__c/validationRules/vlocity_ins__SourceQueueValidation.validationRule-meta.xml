@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SourceQueueValidation</fullName>
+    <active>true</active>
+    <description>A Source Queue is required</description>
+    <errorConditionFormula>ISBLANK(vlocity_ins__SourceQueueId__c)</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__SourceQueueId__c</errorDisplayField>
+    <errorMessage>Source Queue is required</errorMessage>
+</ValidationRule>

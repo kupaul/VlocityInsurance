@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Open Activities must all be in one of the selected status values in order for the relevant object to progress. --></help>
+    <label><!-- Status of Open Activities --></label>
+    <name>vlocity_ins__ActivityStatus__c</name>
+    <picklistValues>
+        <masterLabel>Deferred</masterLabel>
+        <translation><!-- Deferred --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>In Progress</masterLabel>
+        <translation><!-- In Progress --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not Started</masterLabel>
+        <translation><!-- Not Started --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Waiting on someone else</masterLabel>
+        <translation><!-- Waiting on someone else --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

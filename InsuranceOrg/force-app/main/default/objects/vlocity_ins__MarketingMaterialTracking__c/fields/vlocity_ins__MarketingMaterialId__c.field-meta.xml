@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__MarketingMaterialId__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This represents the specific Marketing Material, that has been given to attendees at a specific Marketing Event. For example, the giveaway to attendees at a Marketing Event.</description>
+    <externalId>false</externalId>
+    <label>Marketing Material</label>
+    <referenceTo>vlocity_ins__MarketingMaterial__c</referenceTo>
+    <relationshipLabel>Marketing Material Tracking Records</relationshipLabel>
+    <relationshipName>MarketingMaterialTrackingRecords</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

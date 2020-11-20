@@ -1,0 +1,4 @@
+<apex:page standardStylesheets="false" showHeader="true" sidebar="false" docType="html-5.0" controller="vlocity_ins.VFPageControllerBase" 
+           language="{!$CurrentPage.parameters.LanguageCode}">
+    <c:OmniScriptUniversalComponent />
+</apex:page>

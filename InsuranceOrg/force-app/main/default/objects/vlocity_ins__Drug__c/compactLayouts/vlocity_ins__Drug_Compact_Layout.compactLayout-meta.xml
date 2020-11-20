@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Drug_Compact_Layout</fullName>
+    <fields>vlocity_ins__RXCUINumber__c</fields>
+    <fields>Name</fields>
+    <fields>vlocity_ins__Method__c</fields>
+    <label>Drug Compact Layout</label>
+</CompactLayout>

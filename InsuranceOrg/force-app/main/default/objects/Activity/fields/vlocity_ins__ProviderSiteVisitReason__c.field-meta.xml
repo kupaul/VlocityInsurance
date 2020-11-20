@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ProviderSiteVisitReason__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Provider Site Visit Reason</label>
+    <required>false</required>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Site Review - Provider Facility</fullName>
+                <default>false</default>
+                <label>Site Review - Provider Facility</label>
+            </value>
+            <value>
+                <fullName>Site Review - Provider Practitioner</fullName>
+                <default>false</default>
+                <label>Site Review - Provider Practitioner</label>
+            </value>
+            <value>
+                <fullName>Medical Record Review</fullName>
+                <default>false</default>
+                <label>Medical Record Review</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

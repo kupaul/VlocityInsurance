@@ -1,0 +1,99 @@
+<apex:page controller="vlocity_ins.ProductConsoleController" title="Picklist Admin" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org" ng-app="epcadmin">
+        <head>
+            <base href="/"/>
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.EPCAdminCss)}" />
+
+            <script type="text/javascript" src="{!URLFOR($Resource.JQUERYJS)}"></script>
+            <script type="text/javascript" src="/support/console/31.0/integration.js"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/vlocity.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.SldsAngular)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.AngularRoute)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.EPCAdmin)}"></script>
+        </head>
+        <body class="via-slds ng-cloak" ng-controller="PicklistAdminController">
+            <div class="entity-page-header">
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <div class="slds-media slds-no-space slds-grow">
+                                <div class="slds-media__figure">
+                                    <slds-svg-icon sprite="'utility'" size="'medium'" icon="'picklist'" extra-classes="'slds-icon-standard-user'"></slds-svg-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h1 class="slds-page-header__title slds-m-right--small slds-m-top--xx-small slds-align-middle">{{picklistName}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-no-flex slds-grid slds-align-top">
+                            <div class="slds-button-group" role="group">
+                                <button class="slds-button slds-button--icon-border-filled" ng-click="init();closeFacetDetails();">
+                                    <slds-button-svg-icon sprite="'utility'" size="'small'" icon="'refresh'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Refresh</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="entity-page-content">
+                <div class="entity-facets">
+                    <div class="slds-grid slds-grid--vertical slds-navigation-list--vertical">
+                        <ul>
+                            <li ng-repeat="facet in facets" ng-class="{'slds-is-active': facet.active}"><a href="javascript:void(0)" ng-click="gotoFacet(facet)" class="slds-navigation-list--vertical__action slds-text-link--reset">{{facet.facetObj.Name}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="entity-facet-content">
+                    <div ng-class="{'facet-content-main': true, 'minimized': showFacetDetail}" ng-hide="maximizeFacetDetail">
+                        <div ng-repeat="facet in facets" class="vloc-facet" id="{{'facet-'+facet.facetObj.Id}}" ng-if="facet.active">
+                            <div ng-if="facet.hasSectionCustomView">
+                                <vloc-sections 
+                                    facet="facet"
+                                    parent-obj="editObject"
+                                    object-fields="objectFields"
+                                    object-picklists="objectPicklists"
+                                    attr-map="attrMap"
+                                    attr-obj-map="attrObjMap"
+                                    attr-assgn-obj-map="attrAssgnObjMap"
+                                    setup-view-attrs="setupViewAttrs(section)"
+                                    show-attribute-metadata="showAttributeMetadata(attributeId)"
+                                    ng-if="objectFields && objectPicklists && attrObjMap && attrObjMap"></vloc-sections>
+                            </div>
+                            <form name="editObjectRecordForm" ng-if="!facet.hasSectionCustomView">
+                                 <vloc-sections 
+                                    facet="facet"
+                                    parent-obj="editObject"
+                                    object-fields="objectFields"
+                                    object-picklists="objectPicklists"
+                                    attr-map="attrMap"
+                                    attr-obj-map="attrObjMap"
+                                    attr-assgn-obj-map="attrAssgnObjMap"
+                                    setup-view-attrs="setupViewAttrs(section)"
+                                    show-attribute-metadata="showAttributeMetadata(attributeId)"
+                                    form-name="'editObjectRecordForm'"
+                                    ng-if="objectFields && objectPicklists && attrObjMap && attrObjMap"></vloc-sections>
+                                <div ng-if="(facet.sections.length > 0)" class="vloc-section-form slds-text-align--right section-el-btn">
+                                    <button type="button" class="slds-button slds-button--brand" ng-click="saveObject($event)" ng-disabled="editObjectRecordForm.$invalid">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <vloc-facet-details maximize-facet-detail="maximizeFacetDetail" show-facet-detail="showFacetDetail" close-facet-details="closeFacetDetails()"></vloc-facet-details>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                j$ = jQuery.noConflict();
+
+                var remoteActions = {
+                    invokeMethod: {
+                        action: "{!$RemoteAction.ProductConsoleController.invokeMethod}",
+                        config: {escape: false}
+                    }
+                };
+            </script>
+        </body>
+    </html>
+</apex:page>

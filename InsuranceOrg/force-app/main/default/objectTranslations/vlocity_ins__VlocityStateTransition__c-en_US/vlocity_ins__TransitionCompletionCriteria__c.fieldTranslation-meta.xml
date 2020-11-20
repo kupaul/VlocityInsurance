@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- State Transition Completion Criteria --></label>
+    <name>vlocity_ins__TransitionCompletionCriteria__c</name>
+    <picklistValues>
+        <masterLabel>All True</masterLabel>
+        <translation><!-- All True --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Any True</masterLabel>
+        <translation><!-- Any True --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

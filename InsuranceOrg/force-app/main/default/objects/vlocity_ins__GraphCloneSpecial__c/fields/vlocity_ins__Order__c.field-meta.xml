@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Order__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Sequence of operation if there are multiple special pieces of code to run for the same Root / Child combination.</description>
+    <externalId>false</externalId>
+    <label>Order</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

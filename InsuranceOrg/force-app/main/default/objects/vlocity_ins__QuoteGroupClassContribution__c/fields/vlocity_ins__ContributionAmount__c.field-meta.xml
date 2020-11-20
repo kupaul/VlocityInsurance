@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ContributionAmount__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The amount that an employer or a group will contribute towards the cost of the plan on behalf of the Group Class members/dependents.</description>
+    <externalId>false</externalId>
+    <label>Contribution Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

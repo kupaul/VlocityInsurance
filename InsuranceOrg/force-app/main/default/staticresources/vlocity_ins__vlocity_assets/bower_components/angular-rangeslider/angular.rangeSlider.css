@@ -1,0 +1,439 @@
+/**
+ * 	Angular RangeSlider SCSS
+ *
+ *	Version: 0.0.13
+ *
+ * 	Author: Daniel Crisp, danielcrisp.com
+ *
+ * 	The rangeSlider has been styled to match the default styling
+ * 	of form elements styled using Twitter's Bootstrap
+ *
+ * 	Originally forked from https://github.com/leongersen/noUiSlider
+ *
+
+	This code is released under the MIT Licence - http://opensource.org/licenses/MIT
+
+	Copyright (c) 2013 Daniel Crisp
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in
+	all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+	THE SOFTWARE.
+
+ */
+/*------------------------------------*\
+    COMPASS IMPORTS
+\*------------------------------------*/
+/**
+ *  Angular RangeSlider SCSS
+ *
+ *  Version: 0.0.11
+ *
+ *  Author: Daniel Crisp, danielcrisp.com
+ *
+ *  The rangeSlider has been styled to match the default styling
+ *  of form elements styled using Twitter's Bootstrap
+ *
+ *  Originally forked from https://github.com/leongersen/noUiSlider
+ *
+  This code is released under the MIT Licence - http://opensource.org/licenses/MIT
+  Copyright (c) 2013 Daniel Crisp
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+ */
+/*------------------------------------*\
+    COMPASS IMPORTS
+\*------------------------------------*/
+/*------------------------------------*\
+    SETTINGS
+\*------------------------------------*/
+/*------------------------------------*\
+    THE CSS
+\*------------------------------------*/
+/* line 63, scss/_rangeSlider.scss */
+.ngrs-range-slider {
+  border: none;
+  box-shadow: none;
+  width: auto;
+  position: relative;
+  margin: 0 0 30px;
+  padding: 0;
+  border: none;
+  -moz-transition: border 0.2s linear, box-shadow 0.2s linear;
+  -o-transition: border 0.2s linear, box-shadow 0.2s linear;
+  -webkit-transition: border 0.2s linear, box-shadow 0.2s linear;
+  transition: border 0.2s linear, box-shadow 0.2s linear;
+  -webkit-tap-highlight-color: transparent;
+  /*------------------------------------*\
+      RUNNER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      JOIN (connects the two handles)
+  \*------------------------------------*/
+  /*------------------------------------*\
+      HANDLE
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VALUE LABELS
+  \*------------------------------------*/
+  /*------------------------------------*\
+      ATTACHED VALUE RUNNER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VERTICAL SLIDER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      DISABLED STATE
+  \*------------------------------------*/
+}
+/* line 66, scss/_rangeSlider.scss */
+.ngrs-range-slider, .ngrs-range-slider * {
+  display: block;
+  cursor: default;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* line 87, scss/_rangeSlider.scss */
+.ngrs-range-slider:before {
+  content: '';
+  width: 95%;
+  height: 8px;
+  position: absolute;
+  margin-top: 5px;
+  border-radius: 4px;
+}
+/* line 101, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-runner {
+  position: relative;
+  margin: 0 8px;
+  height: 8px;
+  background-image: -webkit-linear-gradient(top, #c0c0c0 0%, #d7d7d7 100%);
+  background-image: -o-linear-gradient(top, #c0c0c0 0%, #d7d7d7 100%);
+  background-image: linear-gradient(to bottom, #c0c0c0 0%, #d7d7d7 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFC0C0C0', endColorstr='#FFD7D7D7', GradientType=0);
+  border-radius: 4px;
+}
+/* line 113, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-join {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 0;
+  right: 100%;
+  height: 8px;
+  margin: -4px 0 0 0;
+  background-image: none;
+  background-color: #008ab3;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+/* line 132, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-handle {
+  position: absolute;
+  z-index: 2;
+  height: 16px;
+  width: 16px;
+  margin: -4px 0 0 -8px;
+  background-image: -webkit-linear-gradient(top, #fefefe 0%, #eaeaea 100%);
+  background-image: -o-linear-gradient(top, #fefefe 0%, #eaeaea 100%);
+  background-image: linear-gradient(to bottom, #fefefe 0%, #eaeaea 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFEFEFE', endColorstr='#FFEAEAEA', GradientType=0);
+  border: 1px solid #d8d8d8;
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
+  border-radius: 9px;
+  cursor: pointer;
+  /*------------------------------------*\
+      HANDLE ICON
+  \*------------------------------------*/
+}
+/* line 147, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-handle i {
+  display: block;
+  width: 4px;
+  height: 4px;
+  background: #717171;
+  border-radius: 4px;
+  margin: 5px;
+  cursor: pointer;
+}
+/* line 158, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-handle.ngrs-over i {
+  background: #05a6df;
+}
+/* line 163, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-handle.ngrs-down {
+  -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+}
+/* line 173, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-value,
+.ngrs-range-slider .ngrs-label {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 8px 0 0 0;
+  font-size: 12px;
+  color: #999;
+}
+/* line 182, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-value.ngrs-value-max, .ngrs-range-slider .ngrs-value.ngrs-label-max,
+.ngrs-range-slider .ngrs-label.ngrs-value-max,
+.ngrs-range-slider .ngrs-label.ngrs-label-max {
+  left: auto;
+  right: 0;
+  text-align: right;
+}
+/* line 190, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-handle-min-down .ngrs-value-min, .ngrs-range-slider.ngrs-handle-max-down .ngrs-value-max {
+  color: #333;
+}
+/* line 198, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-attached-handles {
+  margin: 0 9px;
+  position: relative;
+  /*------------------------------------*\
+      ATTACHED VALUE RUNNER LABELS
+  \*------------------------------------*/
+}
+/* line 205, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-attached-handles .ngrs-value-max {
+  text-align: left;
+}
+/* line 208, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-attached-handles .ngrs-value > div {
+  margin: 0 0 0 -50%;
+  color: #FFF;
+  background: #7c7c7c;
+  text-align: center;
+  border-radius: 2px;
+  min-width: 14px;
+}
+/* line 215, scss/_rangeSlider.scss */
+.ngrs-range-slider .ngrs-attached-handles .ngrs-value > div:after {
+  position: absolute;
+  content: "";
+  width: 0px;
+  height: 0px;
+  border-top: 4px solid transparent;
+  border-right: 4px solid rgba(231, 183, 183, 0);
+  border-bottom: 4px solid #7c7c7c;
+  border-left: 4px solid transparent;
+  top: 0%;
+  right: 50%;
+}
+/* line 234, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical {
+  width: 18px;
+  margin: 10px auto;
+  /*------------------------------------*\
+      RUNNER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      ATTACHED VALUE RUNNER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      JOIN
+  \*------------------------------------*/
+  /*------------------------------------*\
+      HANDLE
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VALUE LABELS
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VERTICAL LEFT SLIDER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VERTICAL RIGHT SLIDER
+  \*------------------------------------*/
+}
+/* line 242, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical .ngrs-runner {
+  margin: 8px 0;
+  height: 300px;
+  width: 16px;
+}
+/* line 252, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical .ngrs-value-runner.ngrs-attached-handles {
+  padding: 0;
+  position: absolute;
+  top: 0;
+  margin: 8px 0;
+  height: 300px;
+  left: 100%;
+}
+/* line 266, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical .ngrs-join {
+  width: 8px;
+  height: auto;
+  top: 0;
+  bottom: 100%;
+  left: 50%;
+  right: auto;
+  margin: 0 0 0 -4px;
+}
+/* line 280, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical .ngrs-handle {
+  width: 100%;
+  height: 16px;
+  margin: -8px 0 0 0;
+}
+/* line 290, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical .ngrs-value,
+.ngrs-range-slider.ngrs-vertical .ngrs-label {
+  top: 0;
+  left: 100%;
+  padding: 0 0 0 5px;
+}
+/* line 296, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical .ngrs-value.ngrs-value-max, .ngrs-range-slider.ngrs-vertical .ngrs-value.ngrs-label-max,
+.ngrs-range-slider.ngrs-vertical .ngrs-label.ngrs-value-max,
+.ngrs-range-slider.ngrs-vertical .ngrs-label.ngrs-label-max {
+  top: auto;
+  bottom: 0;
+  right: auto;
+  text-align: left;
+}
+/* line 306, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical .ngrs-attached-handles .ngrs-value-max, .ngrs-range-slider.ngrs-vertical .ngrs-attached-handles .ngrs-value-min {
+  margin: -50% 0 0;
+}
+/* line 315, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical.ngrs-left {
+  margin: 10px 0;
+}
+/* line 323, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical.ngrs-right {
+  margin: 10px 0 10px auto;
+  /*------------------------------------*\
+      ATTACHED VALUE RUNNER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VALUE LABELS
+  \*------------------------------------*/
+}
+/* line 329, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-attached-handles {
+  left: 0%;
+}
+/* line 337, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-value,
+.ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-label {
+  left: auto;
+  right: 100%;
+  padding: 0 5px 0 0;
+  text-align: right;
+}
+/* line 344, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-value.ngrs-value-max, .ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-value.ngrs-label-max,
+.ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-label.ngrs-value-max,
+.ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-label.ngrs-label-max {
+  text-align: right;
+}
+/* line 359, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-disabled, .ngrs-range-slider.ngrs-disabled.ngrs-focus {
+  border-color: #ddd;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+/* line 365, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-disabled .ngrs-handle {
+  background: #fff;
+  border-color: #ddd;
+}
+/* line 369, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-disabled .ngrs-handle i {
+  background: none !important;
+  cursor: default;
+}
+/* line 375, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-disabled .ngrs-join {
+  background: #ddd;
+}
+/* line 379, scss/_rangeSlider.scss */
+.ngrs-range-slider.ngrs-disabled .ngrs-value,
+.ngrs-range-slider.ngrs-disabled .ngrs-label {
+  color: #ddd;
+}
+
+/*------------------------------------*\
+    TOUCH STATE
+\*------------------------------------*/
+/* line 392, scss/_rangeSlider.scss */
+body.ngrs-touching {
+  -ms-touch-action: none;
+}
+
+/* line 397, scss/_rangeSlider.scss */
+.ngrs-range-slider-prefixed {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+  margin-bottom: 10px;
+  height: 40px;
+}
+/* line 405, scss/_rangeSlider.scss */
+.ngrs-range-slider-prefixed > label,
+.ngrs-range-slider-prefixed > span {
+  display: table-cell;
+  width: 1%;
+  white-space: nowrap;
+  vertical-align: middle;
+  padding: 0 8px 0 0;
+}
+/* line 414, scss/_rangeSlider.scss */
+.ngrs-range-slider-prefixed > .ngrs-range-slider {
+  padding-top: 15px;
+  display: table-cell;
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* line 427, scss/_rangeSlider.scss */
+.form-inline .ngrs-range-slider-prefixed {
+  display: inline-block;
+  min-width: 200px;
+  vertical-align: middle;
+  margin-top: 27px;
+  margin-left: 20px;
+}

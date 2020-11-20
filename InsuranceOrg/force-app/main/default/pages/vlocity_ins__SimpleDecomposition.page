@@ -1,0 +1,292 @@
+<apex:page docType="html-5.0" applyBodyTag="false" standardController="Order" extensions="vlocity_ins.SimpleDecompositionController,vlocity_ins.XOMOffPlatformAccessConfigController">
+<html ng-app="decomposeApp">
+<head>
+	<title>Decompose Order</title>
+	<apex:includeScript value="/soap/ajax/31.0/connection.js" />
+	<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__XOMNodeView)}" />
+    <script type="text/javascript" src="{!URLFOR($Resource.XomThorIntegration)}"></script>
+	<apex:stylesheet value="{!$Resource.vlocity_ins__XOMCss}"/>
+	<style type="text/css">
+		[ng\:cloak], [ng-cloak], .ng-cloak {
+			display: none !important;
+		}
+
+		.vlocity .vlc-overlay {
+			position: fixed;
+			z-index: 1038;
+			background-color: rgba(255, 255, 255, 0.9);
+			width: 100%;
+			height: 100%; }
+			.vlocity .vlc-overlay .spinner {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				margin-top: -14px;
+				margin-left: -14px;
+			}
+			.modal-body p {
+				word-wrap: break-word;
+			}
+			.modal-backdrop, .am-fade {
+				display: none;
+			}
+            .tooltip-inner{
+                max-width:350px !important;
+                width:auto;
+                overflow-wrap: break-word;
+                overflow:auto;
+                z-index:10000;
+            }
+            .panel-title .tooltip-inner {
+                width:auto;
+                max-width:2000px !important;
+                whitespace:no-wrap;
+                overflow-wrap: break-word;
+                overflow:visible;
+                z-index:10000;
+            }
+            .order .field-value {
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap;
+            }
+
+            .icon-v-link, .icon{
+                position:relative;
+                float:left;
+            }
+    </style>
+	</head>
+	<body>
+		<div class="vlocity" ng-controller="SimpleDecompositionController">
+				<div ng-show="showSpinner" class="vlc-overlay">
+					<div class="spinner"></div>
+				</div>
+				<div class="container-fluid">
+					<div class="btn-toolbar" role="toolbar">
+						<div class="btn-group actions" role="group">
+							<a class="submit-button"
+							ng-click="viewOriginalOrder();"><i class="icon icon-v-cart"></i><span>View Original Order</span></a>
+						</div>
+						<div class="btn-group actions" role="group">
+							<a class="submit-button" ng-if="orchestrationPlanId==null"
+							ng-click="startOrchestrationPlan()"><i class="icon icon-v-play"></i><span>Start Orchestration Plan</span></a>
+							<a class="submit-button" ng-if="orchestrationPlanId!=null"
+							ng-click="navigateToSFDCPlan(orchestrationPlanId)"><i class="icon icon-v-play"></i><span>View Orchestration Plan</span></a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6">
+							<h1>Source orders</h1>
+		                  	<node-view parent="originalOrders"></node-view>
+						</div>
+						<div class="col-xs-6">
+							<h1>Decomposed Fulfilment Requests</h1>
+		                  	<node-view parent="fulfilmentRequests"></node-view>
+						</div>
+
+					</div>
+				</div>
+
+			 <apex:includeScript value="/support/console/31.0/integration.js"/>
+			 <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/forceng/forceng.js')}"/>
+			 <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ForceTK/forcetk.js')}"/>
+			 <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AngularStrapJS_2_3_6)}"/>
+			 <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AngularStrapTplJS_2_3_6)}"/>
+			 <!-- 
+			 <apex:includeScript value="{!URLFOR($Resource.Jquery, 'jquery-1.8.2.min.js')}"/>
+			 <apex:includeScript value="{!URLFOR($Resource.Jquery, '/ui/jquery-ui-1.9.1.custom.min.js')}"/>
+			 -->
+			 <script type="text/javascript">
+		 	(function () {
+		 		'use strict';//changed the name of module from camel case vloc.xomNodeView since grunt is not detecting the module while injecting the dependency and needs to have the same module name as present in the folder structure
+		 		var remoteActions = {
+					decomposeOrder : {action: '{!$RemoteAction.SimpleDecompositionController.decomposeOrder}', config: {escape: false}},
+					getSourceOrderAssetInfo : {action: '{!$RemoteAction.SimpleDecompositionController.getSourceOrderAssetInfo}', config: {escape: false}},
+					isOffplatformMode : '{!$RemoteAction.XOMOffPlatformAccessConfigController.isOffplatformMode}',
+					startOrchestrationPlan : '{!$RemoteAction.SimpleDecompositionController.startOrchestrationPlan}',
+	                getOffplatformUrl: "{!$RemoteAction.XOMOffPlatformAccessConfigController.getOffplatformUrl}",
+					startOffPlatformOrchestrationPlan : '{!$RemoteAction.SimpleDecompositionController.startOffPlatformOrchestrationPlan}',
+					getOrderOrchestrationPlanReferenceId : '{!$RemoteAction.SimpleDecompositionController.getOrderOrchestrationPlanReferenceId}',
+					getSfIdByGlobalKey: '{!$RemoteAction.SimpleDecompositionController.getSfIdByGlobalKey}'
+				};
+
+		 		var app = angular.module('decomposeApp', ["vlocity", "ngSanitize", "forceng","mgcrea.ngStrap",'ngAnimate', 'vloc.xomNodeView', 'thorIntegration']);
+
+			 	//config data...
+				app.value('configData',{
+					orderId : '{!LEFT($CurrentPage.parameters.Id, 15)}'
+				});
+
+				app.config(["remoteActionsProvider", function(remoteActionsProvider){
+				        remoteActionsProvider.setRemoteActions(remoteActions); // configure the remoteActionsProvider
+				    }]);
+
+				app.config(function($provide) {
+				    $provide.decorator('remoteActions', function($delegate, $http, thorIntegrationService)
+				    {
+				        var originalRemoteActions = $delegate;
+				        // override the remoteActions methods you know may be off platform
+				        var potentiallyOffPlatformCalls = ['decomposeOrder'];
+				        potentiallyOffPlatformCalls.forEach(function(remoteActionName) {
+				            var remoteActionCallFn = originalRemoteActions[remoteActionName];
+				            // override getOrchestrationPlan by using $http service to fetch Offplatform data
+				            originalRemoteActions[remoteActionName] = function() {
+				                var args = [].slice.call(arguments);
+				                var recordId = args[0];
+				                // var uiMode = true;
+				                return (originalRemoteActions['getOrderOrchestrationPlanReferenceId'](recordId))
+				                	.then (function(refId) {
+				                		if (refId !== null) {
+							                return (thorIntegrationService.isOffplatformMode(originalRemoteActions))
+							                    .then(function(uiMode) {
+								                if (uiMode) {
+								                    // Thor data surce mode - fetch data via $http
+								                    return thorIntegrationService.getOffplatformUrl(originalRemoteActions)
+								                        .then(function(uiServiceUrl) {
+								                            return thorIntegrationService.retryOperationInCaseAuthenticationError(
+								                                    function() {
+								                                        return $http({method: 'GET', url: uiServiceUrl + '/orderManagement/orders/' + recordId + '/decompose', withCredentials: true})
+								                                                 .then(function success(response){
+								                                                    return response.data;
+								                                                    });
+								                                    },
+								                                    uiServiceUrl
+								                                )
+								                        });
+								                } else { // On-platform mode - fetch data using VF Remote manager (use origina function)
+								                    return remoteActionCallFn.apply(this, args);
+								                };
+							                });
+				                		} else {
+						                    return remoteActionCallFn.apply(this, args);
+				                		}
+				                	});
+
+				            }
+				        });
+				        return $delegate;
+				    })
+				});
+
+				app.controller('SimpleDecompositionController', function($scope,$rootScope, $templateCache, $q, $modal, $interpolate,$http, $sce, remoteActions, configData) {
+
+					console.log('processing Order id ', configData.orderId);
+
+					$scope.showSpinner = true;
+					$scope.originalOrders = {
+						nodes: []
+					};
+
+					$scope.fulfilmentRequests = {
+						nodes: []
+					};
+
+					$scope.viewOriginalOrder = function () {
+                        console.log(configData.orderId);
+                        window.open(parent.location.origin+'/'+configData.orderId, "_blank");
+                    };
+
+					$scope.decomposeAndRedirectToView = function () {
+                        $scope.showSpinner = true;
+                        remoteActions.decomposeOrder(configData.orderId).then(function(orders)
+                            {
+                                if (orders.sucCode == 0) {
+                                    window.location.replace('/apex/XOMViewOrderDecomposition?id=' + configData.orderId);
+                                } else {
+                                    $scope.loaded = false;
+                                    $modal({title: 'XOM Decomposition Error', content: orders.message, show: true, backdrop : 'false'});
+                                }
+                            });
+                       
+
+                    };
+
+					$scope.redirectToPlanViewPage = function(planId) {
+						window.open("/apex/OrchestrationPlanViewCommon?id=" + planId, "_blank");
+						$scope.showSpinner = false;
+					}
+
+					$scope.startOrchestrationPlan = function () {
+
+						remoteActions.isOffplatformMode().then(function(offPlatformFlag) {
+							$scope.showSpinner = true;
+							if (offPlatformFlag) {
+								remoteActions.startOffPlatformOrchestrationPlan(configData.orderId).then(function(planId) {
+									if (planId === null || planId === '-') {
+										$scope.waitForOrderSubmitCompletion();
+									} else {
+										$scope.redirectToPlanViewPage(planId);
+									}
+								});
+							} else {
+								remoteActions.startOrchestrationPlan(configData.orderId).then(function(planId) {
+									window.open("/" + planId, "_blank");
+									$scope.showSpinner = false;
+								});
+							}
+						});
+					}
+
+				    $scope.resolveNavigate = function(recordId)
+				    {
+				        var isExternalId = !isNaN(parseFloat(recordId)) && isFinite(recordId);
+				        if(!isExternalId)
+				        {
+				            //window.location = '/' + recordId;
+				            window.open('/' + recordId, "_blank");
+				        } else
+				        {
+				            $scope.redirectToPlanViewPage(recordId);
+				        }
+				    }
+
+    				$scope.navigateToSFDCPlan = function(planId)
+					{
+						$scope.resolveNavigate(planId);
+					};
+
+					$scope.waitForOrderSubmitCompletion = function() {
+						function keepWaiting() {
+							window.setTimeout(function() {
+								remoteActions.getOrderOrchestrationPlanReferenceId(configData.orderId).then(function(planId) {
+									if (planId !== null && plan !== '-') {
+										$scope.redirectToPlanViewPage(planId);
+									} else {
+										keepWaiting();
+									}
+								});
+							}, 5000);
+						}
+						keepWaiting();
+					}
+
+					$scope.decomposeAndRedirectToView();
+				});
+
+				app.run(["$sce","$templateCache","$rootScope","force", function($sce, $templateCache, $rootScope, force){
+//					console.log('inside run');
+
+					force.init({
+						accessToken: '{!$Api.Session_ID}',
+						useProxy: false
+					});
+
+					$rootScope.forcetkClient = new forcetk.Client();
+					$rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+
+				}]);
+
+			})();
+
+		</script>
+
+	</div>
+
+
+</body>
+</html>
+
+</apex:page>

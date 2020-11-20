@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <script src="js/fmwk/setting.js" type="text/javascript"></script>
+    </head>
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+            background-color: #f5f5f5;
+        }
+        .vlocity{
+            position: relative;
+            width: 61%;
+            top: 31%;
+            left: 20%;
+        }
+        .vlocity .panel{
+            display: block;
+            border-radius: 5px;
+            border: 2px solid;
+            color: #059dd3;
+            background-color: #f5f5f5;
+            border-color: #059dd3;
+            padding: 0px 13px 10px 10px;
+            height: 170px;
+        }
+        .vlocity .panel h3{
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 1.1;
+            font-family: "Salesforce Sans", Arial, sans-serif;
+        }
+        .vlocity #signing_complete,
+        .vlocity #signing_failed{
+            display: none;
+         }
+    </style>
+    <script type='text/javascript'>
+
+        function onPageLoad(event){
+            var searchStr = event.currentTarget.location.search;
+            searchStr = searchStr.substring(searchStr.indexOf('&event='), searchStr.length);
+            searchStr = searchStr.substring(searchStr.indexOf('=') + 1,searchStr.length);
+            if(searchStr === 'signing_complete') {
+                document.getElementById('signing_complete').style.display = 'block';
+                document.getElementById('signing_complete_success').innerHTML = customLabels.OmniDocuSignSuccessMsg;
+                document.getElementById('signing_complete_close').innerHTML = customLabels.OmniDocuSignCloseMsg;
+            }
+            else {
+                document.getElementById('signing_failed').style.display = 'block';
+                document.getElementById('signing_failed_fail').innerHTML = customLabels.OmniDocuSignFailMsg;
+                document.getElementById('signing_failed_close').innerHTML = customLabels.OmniDocuSignCloseMsg;
+            }
+        }
+
+    </script>
+            
+    <body onload='onPageLoad(event)'>
+        <div class='vlocity' >
+            <div id='signing_complete' class='panel'>
+                <h3 id='signing_complete_success'></h3>
+                <h3 id='signing_complete_close'></h3>
+            </div>
+            <div id='signing_failed' class='panel'>
+                <h3 id='signing_failed_fail'></h3>
+                <h3 id='signing_failed_close'></h3>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "namespace": "VlocityTemplateEditor",
+  "fsNamespace": "vlocity-template-editor",
+  "loader": "../vlocity-template-editor.js",
+  "global": "vlocity-template-editor.global.js",
+  "core": "vlocity-template-editor.core.js",
+  "corePolyfilled": "vlocity-template-editor.core.pf.js",
+  "components": {
+    "help-modal": {
+      "$": "help-modal"
+    },
+    "slds-checkbox": {
+      "$": "slds-checkbox"
+    },
+    "slds-combobox": {
+      "$": "slds-combobox"
+    },
+    "slds-input": {
+      "$": "slds-input"
+    },
+    "slds-modal": {
+      "$": "slds-modal"
+    },
+    "slds-select": {
+      "$": "slds-select"
+    },
+    "slds-toast": {
+      "$": "slds-toast"
+    },
+    "vlocity-monaco-editor": {
+      "$": "slds-toast"
+    },
+    "vlocity-template-diff": {
+      "$": "vlocity-template-diff"
+    },
+    "vlocity-template-editor": {
+      "$": "slds-toast"
+    },
+    "vlocity-template-info": {
+      "$": "vlocity-template-info"
+    },
+    "vlocity-template-preview": {
+      "$": "vlocity-template-preview"
+    }
+  }
+}

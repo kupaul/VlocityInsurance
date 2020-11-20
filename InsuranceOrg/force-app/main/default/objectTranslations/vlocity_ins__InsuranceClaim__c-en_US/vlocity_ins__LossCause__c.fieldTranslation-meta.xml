@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Loss Cause --></label>
+    <name>vlocity_ins__LossCause__c</name>
+    <picklistValues>
+        <masterLabel>3rd Party Injury</masterLabel>
+        <translation><!-- 3rd Party Injury --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Auto Accident</masterLabel>
+        <translation><!-- Auto Accident --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Auto Theft</masterLabel>
+        <translation><!-- Auto Theft --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fire</masterLabel>
+        <translation><!-- Fire --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Flooding</masterLabel>
+        <translation><!-- Flooding --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Glass Claim</masterLabel>
+        <translation><!-- Glass Claim --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Property Theft</masterLabel>
+        <translation><!-- Property Theft --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Windstorm</masterLabel>
+        <translation><!-- Windstorm --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

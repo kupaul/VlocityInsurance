@@ -1,0 +1,117 @@
+<apex:page showHeader="false"
+           sidebar="false"
+           standardStylesheets="false"
+           docType="html-5.0"
+           applyBodyTag="false"
+           lightningStylesheets="false"
+           title="LWC Preview VF Page"
+           cache="false"
+           controller="vlocity_ins.BusinessProcessDisplayController">
+
+    <apex:includeLightning />
+    <apex:slds />
+
+    <body>
+        <div id="loading"
+             style="display: none;">
+            <div class="slds-scope">
+                <div class="slds-spinner_container slds-is-fixed">
+                    <div role="status"
+                         class="slds-spinner--brand slds-spinner slds-spinner--large">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="lightning" />
+        <script>
+            (function () {
+
+                window.addEventListener('omniaggregate', function (event) {
+                    // Pass the data to the parent, as is needed there (because we are in an iframe)
+                    const data = JSON.parse(JSON.stringify(event.detail.data));
+                    var event = new CustomEvent('omniaggregate', {
+                        bubbles: true,
+                        cancelable: false,
+                        composed: false,
+                        detail: data
+                    });
+                    try {
+                        window.parent.document.dispatchEvent(event);
+                    } catch (e) {
+                        window.parent.postMessage({ name: 'omniaggregate', detail: event.detail }, '*');
+                    }
+                }, false);
+                window.addEventListener('omniactiondebug', function (event) {
+                    // Pass the data to the parent, as is needed there (because we are in an iframe)
+                    const data = JSON.parse(JSON.stringify(event.detail));
+                    var event = new CustomEvent('omniactiondebug', {
+                        bubbles: true,
+                        cancelable: false,
+                        composed: false,
+                        detail: {
+                            element: data.element,
+                            response: data.response,
+                            args: [data.params.sClassName, data.params.sMethodName, data.params.input, data.params.options]
+                        }
+                    });
+                    try {
+                        window.parent.document.dispatchEvent(event);
+                    } catch (e) {
+                        window.parent.postMessage({ name: 'omniactiondebug', detail: event.detail }, '*');
+                    }
+                }, false);
+
+                window.addEventListener('omnistepchange', function (event) {
+                    document.documentElement.scrollTop = 0;
+                },false);
+
+                // Get the parameters from the URL
+                const urlParams = new URLSearchParams(window.location.search);
+
+                // Get the params for the component
+                let namespace = '{!sNS}' || 'c',
+                    attrs = {},
+                    ns = urlParams.get('ns') || 'c',
+                    lwcComponent = urlParams.get('lwc');
+
+                // Create the object of attributes
+                urlParams.forEach((value, key) => {
+                    if (['lwc', 'ns'].indexOf(key) > -1) return;
+                    attrs[key] = value;
+                });
+
+                if (attrs['LanguageCode']) {
+                    attrs['langCode'] = attrs['LanguageCode'];
+                    delete attrs['LanguageCode'];
+                }
+
+                // indicates that lwc is previewed from omniscript designer
+                attrs.runMode = 'debug';
+
+                // Use lightning out to request the preview
+                document.getElementById('lightning').innerHTML = "";
+                $Lightning.use(`${namespace}:ltngOutVF`, function () {
+                    document.getElementById('loading').style.display = '';
+                    if (lwcComponent) {
+                        $Lightning.createComponent(`${ns}:${lwcComponent}`,
+                            attrs,
+                            "lightning",
+                            function (cmp, status) {
+                                if (status === "SUCCESS") {
+                                    // If lwc load succesfully, making sure error div is empty
+                                    document.querySelector("#auraErrorMessage").innerHTML = "";
+                                }
+                                document.getElementById('loading').style.display = 'none';
+                            }
+                        );
+                    }
+                });
+            })();
+        </script>
+        <!-- Hide aura errors as this also shows unhandled exceptions on aura/lightning out  -->
+        <div id="auraErrorMessage"></div>
+    </body>
+</apex:page>

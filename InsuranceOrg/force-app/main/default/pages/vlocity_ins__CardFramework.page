@@ -1,0 +1,194 @@
+<apex:page showHeader="false" sidebar="false" controller="vlocity_ins.CardCanvasController" 
+			standardStylesheets="false" docType="html-5.0" applyBodyTag="false">
+  <head>
+  		<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+
+        <!-- <apex:includeScript value="{!URLFOR($Resource.Ionic, '/js/ionic.bundle.min.js')}"/>
+        <apex:stylesheet value="{!$Resource.IonicVlocityCss}"/> -->
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ForceTK/forcetk.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/forceng/forceng.js')}"/>
+
+        <apex:includeScript value="{!$Resource.vlocity_ins__CardFramework}"/>
+
+
+
+
+        <style type="text/css">
+        	body {
+			  background: #fff;
+			}
+
+			.center {
+			  background: #ccc;
+			  display: flex;
+			  -webkit-align-content: center;
+			  -webkit-justify-content: center;
+			}
+
+        </style>
+
+        <script type="text/javascript">
+	      	var remoteActions = {
+	      		getAccounts: {
+	      			 action: "{!$RemoteAction.CardCanvasController.getAccounts}",
+	      			 config: {escape: false}
+	      		},
+	          	getTemplates: {
+	          		action: "{!$RemoteAction.CardCanvasController.getTemplates}",
+	          		config: {escape: false}	
+	          	},
+	          	getAllLayouts: {
+	          		action: "{!$RemoteAction.CardCanvasController.getAllLayouts}",
+	          		config: {escape: false}
+	          	}
+	        };
+    	</script>
+
+    	<script>
+    		function countWatchers(){
+			  	var watchers, elementsWithScope, scope, i, len;
+			  	watchers = 0;
+			  	elementsWithScope = document.querySelectorAll('.ng-scope');
+			  	for (i = 0, len = elementsWithScope.length; i < len; i++) {
+			    	scope = angular.element(elementsWithScope[i]).scope();
+			    	if (scope.$$watchers != null) {
+			      		watchers += scope.$$watchers.length; 
+			    	} 
+			  	} 
+			  	return watchers;
+			};
+    	</script>
+
+        
+
+        <script id="myApp" type="text/javascript">
+        var app = angular.module('myApp',["vlocity", "CardFramework" ,"ngSanitize", "forceng"]);
+
+        app.config(["remoteActionsProvider", function(remoteActionsProvider){
+	    	remoteActionsProvider.setRemoteActions(window.remoteActions || {});
+	  	}]);
+
+	  	app.run(["remoteActions","$sce","$templateCache","$rootScope","force","configService", function(remoteActions, $sce, $templateCache, $rootScope, force, configService){
+	  		console.log('inside run');
+	  		//getTemplates(); //call as  run is initiated
+	  		$rootScope.nsPrefix = '{!nsPrefix}';
+	  		$rootScope.sessionId = '{!$Api.Session_ID}';
+	  		configService.getTemplates().then(
+           	 	function(templates){ console.log(templates); }
+        	);
+	  	}]);
+
+		app.controller('myController', function($scope,$rootScope, remoteActions, force) {
+
+			$scope.accounts = [];
+			$scope.layouts = {};
+
+			var client = new forcetk.Client();
+            console.log($scope.sessionId);
+            force.init({accessToken: '{!$Api.Session_ID}', useProxy: false});
+            client.setSessionToken('{!$Api.Session_ID}');
+
+            console.log('API SESSION ID: {!$Api.Session_ID}');
+
+            $scope.testForce = function(){
+	            force.query('SELECT Id, Name, ' + $rootScope.nsPrefix + 'Type__c, ' + $rootScope.nsPrefix + 'DisplayOn__c, ' + $rootScope.nsPrefix + 'HTML__c, ' + $rootScope.nsPrefix + 'CSS__c, ' + $rootScope.nsPrefix + 'Sass__c, LastModifiedDate FROM ' + $rootScope.nsPrefix + 'VlocityUITemplate__c ORDER BY Name').then(
+	            	 function (data) {
+	            	 	console.log(data);
+	            	 },
+	            	 function (error) {
+	                    console.log('getTemplates retrieval error: ' + error);
+	                 }
+	            );
+
+	            client.query("SELECT Name FROM Account LIMIT 1", function(response){
+            		console.log(response);
+        		});
+
+	            client.apexrest('/'+$rootScope.nsPrefix.replace('__','')+'/v1/action?objType=Account',
+	                function(result){
+	                    console.log('actions forcetk: ',result);
+	                },
+	                function(error){
+	                    console.log(error);
+	                },'GET'
+	            );
+
+        	};
+        	
+
+			$scope.broadcast = function(){
+          		$rootScope.$broadcast("templatesLoaded");  
+        	};
+
+
+	  		$scope.getAccounts = function() {
+	  			console.log('getting accounts ',remoteActions);
+	  			remoteActions.getAccounts()
+			      	.then(function(accounts) {
+			      		//console.log(accounts);
+			      		$scope.accounts = JSON.parse(accounts);
+			    });
+	  		};
+
+	  		$scope.openAccount = function(acc) {
+	  			console.log(acc);
+	  			console.log($rootScope.$$listeners);
+	  			var selRecordEvent = $rootScope.$$listeners['actionSelected'];
+	  			if(selRecordEvent){
+	  				$rootScope.$broadcast("actionSelected",acc);	
+	  			}else {
+	  				console.log('event is not registered');
+	  			}
+	  			
+	  		};
+			
+
+ 		});
+
+		app.controller('infoCtrl', function($scope,$rootScope, remoteActions, force, $sce) {
+
+			$rootScope.$on('actionSelected',function(event, action){
+				console.log(action.url)
+				$scope.loaded = false;
+				$scope.url = $sce.trustAsResourceUrl(action.url);
+			});
+
+			//console.log($$rootScope.$$listeners);
+
+
+			window.iframeLoaded = function(){
+				if($scope.url){
+					console.error('frame loaded');
+					$scope.loaded = true;
+					$scope.$apply();	
+				}
+			}
+		});
+
+		app.controller('testCtrl', function($scope,$rootScope, remoteActions, force, $sce) {
+			$scope.test = function() {
+				console.error('this works');
+			}
+		});
+
+    </script>
+    
+
+  </head>
+  <body ng-app="myApp">
+    <div class="vlocity" ng-controller="myController">
+    	<!-- <button ng-click="testForce()"> test force</button> -->
+		<!-- <vloc-cmp name="community" customtemplate="community" loaded="true" ctrl="infoCtrl"/> -->
+
+		<vloc-cmp name="test1" customtemplate="info" loaded="true"/>
+		<vloc-cmp name="test1" customtemplate="info" loaded="true"/>
+  		<!-- <vloc-cmp name="test2" customtemplate="info" loaded="true" ctrl="infoCtrl"/> -->
+  		<!-- <vloc-cmp name="test3" customtemplate="info" loaded="true"/>
+  		<vloc-cmp name="test4" customtemplate="info" loaded="true"/> -->
+
+    </div>
+
+  </body>
+	
+</apex:page>

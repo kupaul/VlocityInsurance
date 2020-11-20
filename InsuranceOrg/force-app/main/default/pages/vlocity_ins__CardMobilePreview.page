@@ -1,0 +1,40 @@
+<apex:page docType="html-5.0" applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false" controller="vlocity_ins.CardCanvasController" >
+	<html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="myApp" class="ng-cloak"  style="height:100%"
+			dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+		<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<style type="text/css">
+			body {
+				margin: 0px !important;
+				padding: 0px !important;
+				background: #f9f9f9;
+                position:relative;
+			}
+		</style>
+
+		<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+
+		<!-- Salesforce Console API -->
+		<apex:includeScript value="/support/console/34.0/integration.js"/>
+
+		</head>
+		<body>
+
+			<!-- Component loads the vloc-layout and cards - defaults to Grid if no layout parameter is present -->
+			<!-- <c:CardLayoutComponent layout="Grid" controllers="myCtrl" modules="myApp"/> -->
+
+			<c:CardLayoutComponent layout="Grid" modules="myApp"/>
+
+
+			<script type="text/javascript">
+				var myApp = angular.module('myApp',['forceng','consoleCards']);
+
+				angular.module('vlocity')
+				.service('MobileService', function() { })
+				.controller('MobileController', function() { });
+
+			</script>
+
+		</body>
+	</html>
+</apex:page>

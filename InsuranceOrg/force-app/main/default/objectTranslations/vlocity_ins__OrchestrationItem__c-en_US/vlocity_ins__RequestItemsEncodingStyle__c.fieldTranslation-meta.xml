@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Request Items Encoding Style --></label>
+    <name>vlocity_ins__RequestItemsEncodingStyle__c</name>
+    <picklistValues>
+        <masterLabel>Flat</masterLabel>
+        <translation><!-- Flat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Structure</masterLabel>
+        <translation><!-- Structure --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

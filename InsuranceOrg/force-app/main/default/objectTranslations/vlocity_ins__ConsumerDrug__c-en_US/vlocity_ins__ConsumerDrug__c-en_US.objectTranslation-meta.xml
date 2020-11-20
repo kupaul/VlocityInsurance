@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <validationRules>
+        <errorMessage><!-- Frequency (Other) must not be empty, if the Frequency chosen is &apos;other&apos;. --></errorMessage>
+        <name>vlocity_ins__MedicationFrequencyCheck</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- The medication must have the Active field set. Otherwise, either the Stop Reason field needs to be set OR the Medication End Date field must be set to current date or earlier. --></errorMessage>
+        <name>vlocity_ins__MedicationMustBeActiveOrStoppedRule</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- If the Medication is marked Active, neither the Stop Reason field nor the Medication End Date field can be set. --></errorMessage>
+        <name>vlocity_ins__MedicationMustNotBeStoppedIfActiveRule</name>
+    </validationRules>
+</CustomObjectTranslation>

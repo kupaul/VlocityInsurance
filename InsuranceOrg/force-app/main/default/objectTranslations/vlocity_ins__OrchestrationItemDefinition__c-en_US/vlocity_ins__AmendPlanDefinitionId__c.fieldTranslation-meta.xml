@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Amend Plan Definition --></label>
+    <name>vlocity_ins__AmendPlanDefinitionId__c</name>
+    <relationshipLabel><!-- Amend Item Definitions --></relationshipLabel>
+</CustomFieldTranslation>

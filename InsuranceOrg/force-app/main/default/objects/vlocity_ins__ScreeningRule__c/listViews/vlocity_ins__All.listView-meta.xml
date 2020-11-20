@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__All</fullName>
+    <columns>NAME</columns>
+    <columns>vlocity_ins__RuleDetail__c</columns>
+    <columns>vlocity_ins__Validator__c</columns>
+    <columns>vlocity_ins__PriorityOrder__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

@@ -1,0 +1,3 @@
+<apex:page standardController="vlocity_ins__CalculationMatrixVersion__c" standardstylesheets="false" showHeader="false" sidebar="false" >
+	<c:PricingMatrixTable versionId="{!vlocity_ins__CalculationMatrixVersion__c.Id}" />
+</apex:page>

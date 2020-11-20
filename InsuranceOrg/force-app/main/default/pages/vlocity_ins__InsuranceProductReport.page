@@ -1,0 +1,20 @@
+<apex:page standardController="Product2" recordSetVar="products" extensions="vlocity_ins.ProductMultiSelectListController" standardStylesheets="false" showHeader="false" sidebar="false" docType="html-5.0">
+    
+    <apex:includeLightning />
+    <div id="vloc-ins-container">
+        
+    </div>
+    <script>
+        console.log('Namespace: {!namespace}');
+        $Lightning.use("{!namespace}:ltngOutVF", function()
+        {
+            $Lightning.createComponent(
+                "{!namespace}:insProductReport", {productIds: {!productIds}}
+                , "vloc-ins-container",
+                function(cmp)
+                {
+                }
+            );
+        });
+    </script>
+</apex:page>

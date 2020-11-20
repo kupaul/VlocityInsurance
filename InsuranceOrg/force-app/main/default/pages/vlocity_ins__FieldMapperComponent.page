@@ -1,0 +1,966 @@
+<apex:page standardStylesheets="false" controller="vlocity_ins.AdminUtilitiesController" showHeader="false" sidebar="false" applyBodyTag="false" applyHtmlTag="false">
+    <html xmlns:ng="http://angularjs.org" ng-app="fieldMapperApp" class="ng-cloak" style="height:100%" > 
+        <head>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__jquery_2_2_4, '/jquery.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__Jquery, '/ui/jquery-ui-1.9.1.custom.min.js')}"/>
+            <apex:includeScript value="/soap/ajax/31.0/connection.js" />
+            <apex:includeScript value="{!$Resource.vlocity_ins__AngularJS}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__bootstrap, '/bootstrap-3.2.0-dist/css/bootstrap.min.css')}"/>
+            <style>
+
+                .fieldsContainer{
+                    overflow-x: auto;
+                    width:188px;
+                    height:235px;
+                    display: inline-block;
+                    border:1.5px solid rgb(224, 222, 222);;
+                }
+                .referenceContainer{
+                    width:575px;
+                    overflow-x: auto;
+                    height:250px;
+                    white-space: nowrap;
+                }
+                #contentOverlay {
+                    position:absolute;
+                    background: white;          
+                    opacity: 0.7;
+                    z-index: 1000;
+                    text-align: center;
+                    
+                }
+                .fullHeight {
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: middle;
+                
+                }
+                .invalid{
+					border: 2px solid red;
+				}
+				.valid{
+					border: none;
+				}
+                
+            
+            </style>
+            <script>
+                sforce.connection.sessionId = '{!$Api.Session_ID}';
+                j$ = jQuery.noConflict();
+                
+                function getFieldMaps(sourceObject, destinationObject, callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'getFieldMaps';
+                    parameters['sourceObject'] =  sourceObject;
+                    parameters['destinationObject'] =  destinationObject;
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function getCustomFilters(sourceObject, destinationObject, callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'getCustomFilters';
+                    parameters['sourceObject'] =  sourceObject;
+                    parameters['destinationObject'] =  destinationObject;
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function getCustomFilterFormula(sourceObject, destinationObject, callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'getCustomFilterFormula';
+                    parameters['sourceObject'] =  sourceObject;
+                    parameters['destinationObject'] =  destinationObject;
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function getObjectFieldsDescribe(objectNames, callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'getObjectFieldsDescribe';
+                    parameters['objectNames'] = objectNames;
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function getGlobalDescribe(callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'getGlobalDescribe';
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function saveCustomFieldMaps(settingIdsToDelete, settingsToUpsert, callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'saveCustomFieldMaps';
+                    parameters['settingIdsToDelete'] = (settingIdsToDelete != null)?JSON.stringify(settingIdsToDelete):'';
+                    parameters['settingsToUpsert'] = JSON.stringify(settingsToUpsert);
+                    
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function saveFilterSettings(settingIdsToDelete, settingsToUpsert, filterFormulaIdToDelete, filterFormulaToUpsert, callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'saveFilterSettings';
+                    parameters['settingIdsToDelete'] = JSON.stringify(settingIdsToDelete);
+                    parameters['settingsToUpsert'] = JSON.stringify(settingsToUpsert);
+                    parameters['filterFormulaIdToDelete'] = filterFormulaIdToDelete;
+                    parameters['filterFormulaToUpsert'] = JSON.stringify(filterFormulaToUpsert);
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                function deleteSettings(settingIdsToDelete, callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'deleteSettings';
+                    parameters['settingIdsToDelete'] = settingIdsToDelete;
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                
+                
+                
+                function getModalData(fieldName, sourceObjectType, callback){ 
+                    var parameters = {};
+                    parameters['methodName'] =  'getModalData';
+                    parameters['fieldName'] = fieldName;
+                    parameters['sourceObjectType'] = sourceObjectType;
+                                
+                    var remoteOptions ={};
+                    remoteOptions['apexType'] =  '{!classType}';
+                    remoteOptions['parameters'] =  JSON.stringify(parameters);
+                    
+                    Visualforce.remoting.Manager.invokeAction( 
+                                    '{!$RemoteAction.AdminUtilitiesController.invokeMethod}',
+                                    remoteOptions, 
+                                    callback,
+                                    {buffer: false, escape: false}); 
+                }
+                var fieldMapperApp = angular.module('fieldMapperApp', ['ui.bootstrap']);
+                fieldMapperApp.factory('fieldMapperService',function($q,$rootScope){  
+                    var factory = {};
+                    
+                    factory.getFieldMaps = function(sourceObject, destinationObject) {
+                            var deferred = new j$.Deferred();
+                            getFieldMaps(sourceObject, destinationObject,function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    factory.getCustomFilters = function(sourceObject, destinationObject) {
+                            var deferred = new j$.Deferred();
+                            getCustomFilters(sourceObject, destinationObject,function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    factory.getCustomFilterFormula = function(sourceObject, destinationObject) {
+                            var deferred = new j$.Deferred();
+                            getCustomFilterFormula(sourceObject, destinationObject,function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.getObjectFieldsDescribe = function(objectNames) {
+                            var deferred = new j$.Deferred();
+                            getObjectFieldsDescribe(objectNames, function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.getGlobalDescribe = function() {
+                            var deferred = new j$.Deferred();
+                            getGlobalDescribe(function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.getModalData = function(fieldName, sourceObjectType) {
+                            var deferred = new j$.Deferred();
+                            getModalData(fieldName, sourceObjectType,  function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.saveCustomFieldMaps = function(settingIdsToDelete, settingsToUpsert) {
+                            var deferred = new j$.Deferred();
+                            saveCustomFieldMaps(settingIdsToDelete, settingsToUpsert,  function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    
+                                    deferred.resolve(sresult);  
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.saveFilterSettings = function(settingIdsToDelete, settingsToUpsert, filterFormulaIdToDelete, filterFormulaToUpsert) {
+                            var deferred = new j$.Deferred();
+                            saveFilterSettings(settingIdsToDelete, settingsToUpsert, filterFormulaIdToDelete, filterFormulaToUpsert, function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    factory.deleteSettings = function(settingIdsToDelete) {
+                            var deferred = new j$.Deferred();
+                            deleteSettings(settingIdsToDelete, function(result){  
+                                $rootScope.$apply(function(){ 
+                                    var sresult =[];
+                                    if ( result){
+                                        sresult = angular.fromJson(result); 
+                                    }
+                                    deferred.resolve(sresult);  
+
+                                });  
+                            });  
+                            return deferred.promise();  
+                    };
+                    
+                    return factory;
+                });
+                
+                fieldMapperApp.controller('fieldMapperAppController', function ($scope, $modal, $q, fieldMapperService) {
+                    $scope.settingsList = [];
+                    $scope.filterSettingsList = [];
+                    $scope.filterOperators = ['=','≠','<','≤','>','≥','{!$Label.StartsWith}','{!$Label.EndsWith}','{!$Label.Contains}','{!$Label.In}','{!$Label.NotIn}','{!$Label.Includes}','{!$Label.Excludes2}'];
+                    $scope.filterFormula = {};
+                    $scope.nsPrefix = '{!nsPrefix}';
+                    $scope.selectedItemIndex = null;
+                    $scope.disabledSave = false;
+                    $scope.sobjectTypes = [];
+                    fieldMapperService.getGlobalDescribe().then(function(result){
+                        $scope.sobjectTypes = angular.fromJson(result.objectsDescribeListJSON);
+                        
+                        $scope.sobjectTypes.push({label:'-- choose object --'});
+                    })
+                    $scope.combined = function(object){
+                        if(object.name == undefined || object.name == ''){
+                            return object.label;
+                        }
+                        else{
+                            return object.label+'<'+object.name+'>';
+                        }
+
+                    }
+                    
+                    $scope.addItem = function () {
+                        var customSetting ={};
+                        if($scope.sourceObject != null && $scope.destinationObject != null){
+                        customSetting[$scope.nsPrefix + 'SourceSObjectType__c'] = $scope.sourceObject;
+                        customSetting[$scope.nsPrefix + 'DestinationSObjectType__c'] = $scope.destinationObject;
+                        customSetting[$scope.nsPrefix + 'SourceFieldSObjectType__c'] = '';
+                        }
+                        
+                        $scope.settingsList.push(customSetting);
+                        
+                    };
+                    
+                    $scope.addFilterItem = function () {
+                        var customSetting ={};
+                        customSetting[$scope.nsPrefix + 'SourceSObjectType__c'] = $scope.sourceObject;
+                        customSetting[$scope.nsPrefix + 'DestinationSObjectType__c'] = $scope.destinationObject;
+                        $scope.filterSettingsList.push(customSetting);
+                        
+                    };
+                    
+                    $scope.saveSettings = function () {
+                    
+                        if($scope.disabledSave == false){
+                        
+                        
+                        $scope.displayWaitDialog();
+                        
+                        var fieldMappingArray = $scope.settingsList;
+	                	var fieldMappingMap = {};
+	                	var errorList = [];
+	                	var nsp = $scope.nsPrefix;
+	                	for(var i = 0 ; i < fieldMappingArray.length ; i++){
+	                		var fieldMapping = fieldMappingArray[i];
+	                		var key = fieldMapping[nsp+'SourceFieldName__c'] + ',' + fieldMapping[nsp+'DestinationFieldName__c'];
+	                		if(fieldMappingMap[key] == null){
+	                			fieldMappingMap[key] =  fieldMapping[nsp+'DestinationFieldName__c'];
+	                		}else{
+	                			errorList.push(key);
+	                			$scope.settingsList[i].color = true;
+	                		}
+	                	};
+	                	
+                        var settingsToUpsert =[];
+                        var settingIdsToDelete =[];
+                        
+                        if(errorList.length == 0){
+                            $scope.hasErrors = false;
+                            for(i=0; i <  $scope.settingsList.length; i++){
+                                if($scope.settingsList[i][$scope.nsPrefix + 'SourceFieldName__c'] != null && $scope.settingsList[i][$scope.nsPrefix + 'DestinationFieldName__c'] != null){
+                                
+                                var customSetting = new sforce.SObject($scope.nsPrefix + "CustomFieldMap__c");
+                                // Using timestamp to store field mapper name; But need to find a way to use Id as Name
+                                customSetting['Name'] = 'FieldMapper_'+ new Date().getTime() + '_' + i; 
+                                //customSetting['Name'] = $scope.sourceObject+'>'+$scope.destinationObject+''+i;
+                                customSetting[$scope.nsPrefix + 'SourceSObjectType__c'] = $scope.settingsList[i][$scope.nsPrefix + 'SourceSObjectType__c'];
+                                customSetting[$scope.nsPrefix + 'DestinationSObjectType__c'] = $scope.settingsList[i][$scope.nsPrefix + 'DestinationSObjectType__c'];  
+                                customSetting[$scope.nsPrefix + 'DestinationFieldName__c'] = $scope.settingsList[i][$scope.nsPrefix + 'DestinationFieldName__c'];
+                                customSetting[$scope.nsPrefix + 'SourceFieldName__c'] = $scope.settingsList[i][$scope.nsPrefix + 'SourceFieldName__c'];
+                                customSetting[$scope.nsPrefix + 'SourceFieldType__c'] = $scope.settingsList[i][$scope.nsPrefix + 'SourceFieldType__c'];
+                                customSetting[$scope.nsPrefix + 'SourceFieldSObjectType__c'] = $scope.settingsList[i][$scope.nsPrefix + 'SourceFieldSObjectType__c'];
+                                
+                                //remove the type field from the object
+                                delete customSetting.type;
+                                
+                                if($scope.settingsList[i].Id)
+                                    customSetting.Id = $scope.settingsList[i].Id;
+                                    settingsToUpsert.push(customSetting);
+                            
+                                 }
+                            }
+                            fieldMapperService.saveCustomFieldMaps().done(function () {
+                                 $scope.removeWaitDialog();
+                          })
+                        
+                        fieldMapperService.saveCustomFieldMaps(settingIdsToDelete, settingsToUpsert).then(function(){
+                            $scope.getSettings();
+ 
+                        });
+
+                      }
+                      else{
+                        $scope.hasErrors = true;
+                        $scope.removeWaitDialog();
+                      }
+                    }
+                    }
+                    $scope.displayWaitDialog = function(){
+                        var over = j$('<div id="contentOverlay"><span class="fullHeight"></span>' +
+                                            '<img id="contentLoading" src="'+'{!$Resource.WAITGIF}'+'">' +
+                                            '</div>');
+                        var div = j$('#panelList');
+                        over.css('top', div.offset().top);
+                        over.css('left', div.offset().left);
+                        over.css('width', div.width());
+                        over.css('height', div.outerHeight());
+                        j$(over).appendTo(div);
+                        $scope.disabledSave = true;
+
+                    }
+                    
+                    $scope.removeWaitDialog = function(){
+                        
+                        setTimeout( function(){j$('#contentOverlay').remove();$scope.disabledSave = false;},900);
+                        
+                    }
+                    
+                    
+                    $scope.saveFilterSettings = function (){
+                        var settingsToUpsert =[];
+                        var settingIdsToDelete =[];
+                        var filterFormulaIdToDelete;
+                        for(i=0; i <  $scope.filterSettingsList.length; i++){
+                            if($scope.filterSettingsList[i].Id){
+                                settingIdsToDelete.push($scope.filterSettingsList[i].Id);
+                                delete $scope.filterSettingsList[i].Id;
+                                  
+                            } 
+                            var customSetting = new sforce.SObject($scope.nsPrefix + "CustomFilter__c");
+                            // Using timestamp to store field mapper name; But need to find a way to use Id as Name
+                            customSetting['Name'] = 'CustomFilter_'+ new Date().getTime() + '_' + i; 
+                            //customSetting['Name'] = $scope.sourceObject+'>'+$scope.destinationObject+''+i;
+                            customSetting[$scope.nsPrefix + 'SourceSObjectType__c'] = $scope.filterSettingsList[i][$scope.nsPrefix + 'SourceSObjectType__c'];
+                            customSetting[$scope.nsPrefix + 'DestinationSObjectType__c'] = $scope.filterSettingsList[i][$scope.nsPrefix + 'DestinationSObjectType__c'];  
+                            customSetting[$scope.nsPrefix + 'Value__c'] = $scope.filterSettingsList[i][$scope.nsPrefix + 'Value__c'];
+                            customSetting[$scope.nsPrefix + 'Operator__c'] = $scope.filterSettingsList[i][$scope.nsPrefix + 'Operator__c'];
+                            customSetting[$scope.nsPrefix + 'FieldName__c'] = $scope.filterSettingsList[i].fieldInfo.name;
+                            customSetting[$scope.nsPrefix + 'FieldType__c'] = $scope.filterSettingsList[i].fieldInfo.type;
+                            customSetting[$scope.nsPrefix + 'Index__c'] = i;
+                            //remove the type field from the object
+                            delete customSetting.type;
+                            settingsToUpsert.push(customSetting);
+                            
+                        }
+                       
+                        
+                        // save filter formula
+                        if($scope.filterFormula.Id){
+                            filterFormulaIdToDelete = $scope.filterFormula.Id;
+                            delete $scope.filterFormula.Id;
+                            
+                        }
+                        
+                        var filterFormula = new sforce.SObject($scope.nsPrefix + "CustomFilterFormula__c");
+                        if($scope.sourceObject.length > 15){
+                            filterFormula['Name'] = $scope.sourceObject.substring(0,14);
+                            
+                        } else {
+                            filterFormula['Name'] = $scope.sourceObject;
+                            
+                        }
+                        
+                        filterFormula['Name'] += '>';
+                        if($scope.destinationObject.length > 15){
+                            filterFormula['Name'] += $scope.destinationObject.substring(0,14);
+                        } else {
+                            filterFormula['Name'] += $scope.destinationObject;
+                        
+                        }
+                        
+                        filterFormula['Name'] += '1';
+                        //filterFormula['Name'] = $scope.sourceObject+'>'+$scope.destinationObject+'1';
+                        filterFormula[$scope.nsPrefix + 'SourceSObjectType__c'] = $scope.filterFormula[$scope.nsPrefix + 'SourceSObjectType__c'];
+                        filterFormula[$scope.nsPrefix + 'DestinationSObjectType__c'] = $scope.filterFormula[$scope.nsPrefix + 'DestinationSObjectType__c'];  
+                        filterFormula[$scope.nsPrefix + 'Value__c'] = $scope.filterFormula[$scope.nsPrefix + 'Value__c'];
+                        //remove the type field from the object
+                        delete filterFormula.type;
+                        
+                        fieldMapperService.saveFilterSettings(settingIdsToDelete, settingsToUpsert, filterFormulaIdToDelete, filterFormula).then(function(){
+                            $scope.getSettings();
+                        
+                        })
+                        
+                    }
+                    
+                    $scope.deleteSettings = function (listType) {
+                        var settingIdsToDelete =[];
+                        var settingsList = [];
+                        var filterSettingsList = [];
+                        if(listType ==='fieldMaps'){
+                            for(i=0; i <  $scope.settingsList.length; i++){
+                                if($scope.settingsList[i].isSelected === true){
+                                    if($scope.settingsList[i].Id){
+                                        settingIdsToDelete.push($scope.settingsList[i].Id);
+                                        
+                                    }
+                                    
+                                } else {
+                                    settingsList.push($scope.settingsList[i]);
+                                    
+                                }
+                                
+                            } 
+                            
+                            $scope.settingsList = settingsList; 
+                        } else if (listType ==='filters'){
+                            for(i=0; i <  $scope.filterSettingsList.length; i++){
+                                if($scope.filterSettingsList[i].isSelected === true){
+                                    if($scope.filterSettingsList[i].Id){
+                                        settingIdsToDelete.push($scope.filterSettingsList[i].Id);
+                                        
+                                    }
+                                    
+                                } else {
+                                    filterSettingsList.push($scope.filterSettingsList[i]);
+                                    
+                                }
+                                
+                            } 
+                            
+                            $scope.filterSettingsList = filterSettingsList;
+                        
+                        }
+                        
+                        fieldMapperService.deleteSettings(settingIdsToDelete);
+                        
+                    };
+                    
+                    $scope.open = function (elementIndex) {
+                        $scope.selectedItemIndex = elementIndex;
+                        var modalInstance = $modal.open({
+                          templateUrl: 'FieldSelectionModal.html',
+                          controller: ModalInstanceCtrl,
+                          resolve: {
+                            items: function () {
+                              return [$scope.settingsList[elementIndex], $scope.nsPrefix];
+                            }
+                          }
+                        });
+                        modalInstance.result.then(function (fieldInfo) {
+                            //save change and clear destination field
+                            $scope.settingsList[$scope.selectedItemIndex][$scope.nsPrefix + 'SourceFieldName__c'] = fieldInfo[0];
+                            $scope.settingsList[$scope.selectedItemIndex][$scope.nsPrefix + 'SourceFieldType__c'] = fieldInfo[1];
+                            if(fieldInfo[2] == null){
+                                $scope.settingsList[$scope.selectedItemIndex][$scope.nsPrefix + 'SourceFieldSObjectType__c'] = '';
+                            } else {
+                                $scope.settingsList[$scope.selectedItemIndex][$scope.nsPrefix + 'SourceFieldSObjectType__c'] = fieldInfo[2];
+                            }
+                            
+                            delete $scope.settingsList[$scope.selectedItemIndex][$scope.nsPrefix + 'DestinationFieldName__c'];
+                            }, function () {
+                                //console.log.info('Modal dismissed at: ' + new Date());
+                        });
+                    };
+            
+                    $scope.getSettings = function(){
+                        
+                        j$.when(fieldMapperService.getFieldMaps($scope.sourceObject, $scope.destinationObject),
+                            fieldMapperService.getCustomFilters($scope.sourceObject, $scope.destinationObject),
+                            fieldMapperService.getCustomFilterFormula($scope.sourceObject, $scope.destinationObject),
+                            fieldMapperService.getObjectFieldsDescribe([$scope.sourceObject, $scope.destinationObject])).done(function(result1, result2, result3, result4){
+                                $scope.settingsList = result1.customFieldMapsList;
+                                $scope.filterSettingsList = result2.customFiltersList;
+                                $scope.filterFormula = result3.customFilterFormula;     
+                                $scope.destinationFieldsList = result4.objectNameToFieldDescribes[$scope.destinationObject];
+                                $scope.sourceFieldsList = result4.objectNameToFieldDescribes[$scope.sourceObject];
+                                fieldNameToFieldInfo = {};
+                                for(i = 0; i < $scope.sourceFieldsList.length; i ++){
+                                    fieldNameToFieldInfo[$scope.sourceFieldsList[i].name] = $scope.sourceFieldsList[i];
+                                    
+                                }
+                                
+                                for(i = 0; i < $scope.filterSettingsList.length; i++){
+                                    $scope.filterSettingsList[i].fieldInfo = fieldNameToFieldInfo[$scope.filterSettingsList[i][$scope.nsPrefix + "FieldName__c"]];
+                                
+                                }   
+                                $scope.hasErrors = false;                        
+                            
+                            })
+                                                                                
+                    }
+                    });
+                    
+                
+                fieldMapperApp.filter('forType', function() {
+                    return function(input, sourceType, sourceSobjectType, sourceFieldSobjectType) {
+                        var out = [];
+                        var filteringType = null;
+                        if(sourceFieldSobjectType == '' || sourceFieldSobjectType == null){
+                            filteringType = sourceSobjectType;
+                        } else {
+                            filteringType = sourceFieldSobjectType;
+                            
+                        }
+                         
+                        if(input && sourceType) {
+
+                            for(i = 0; i < input.length; i++){
+                            
+                                //Only show fields that are creatable
+                                if(!input[i].createable){
+                                    continue;
+                                }
+                                                            
+                                // if source field is of type Id then only allow the desitnation
+                                // to be a reference field of the same type of the source field's object type
+                                if(sourceType.toLowerCase() === 'id' || sourceType.toLowerCase() === 'reference'){
+                                    if((input[i].type.toLowerCase() === 'reference' && input[i].referenceTo[0] === filteringType) || input[i].type.toLowerCase() === 'string'){
+                                        out.push(input[i]);
+                                        
+                                    }
+                                    
+                                }  else {
+                                    if(input[i].type === sourceType){
+                                        out.push(input[i]);
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+                        }
+                        
+                        return out;
+                    }
+                });
+
+                var ModalInstanceCtrl = function ($scope, $modalInstance, items, fieldMapperService) {
+                    $scope.selectedItem = items[0];
+                    $scope.nsPrefix = items[1];
+                    $scope.selectedFields = [];
+                    $scope.fieldSets = [];
+                    $scope.objectNameToFields = {};
+                    $scope.objectNameToFields[$scope.selectedItem[$scope.nsPrefix + 'SourceSObjectType__c']] = {};
+                    $scope.objectNameToFieldDescribes = {};
+                    var counter = 0;
+                    if($scope.selectedItem[$scope.nsPrefix + 'SourceFieldName__c']){
+                        fieldMapperService.getModalData($scope.selectedItem[$scope.nsPrefix + 'SourceFieldName__c'], $scope.selectedItem[$scope.nsPrefix + 'SourceSObjectType__c']).then(function(result){
+                            $scope.objectNameToFieldDescribes = result.objectNameToFieldDescribes;
+                            for(var objectName in $scope.objectNameToFieldDescribes){
+                                $scope.objectNameToFields[objectName] = {};
+                                for(i = 0; i < $scope.objectNameToFieldDescribes[objectName].length; i++){
+                                    $scope.objectNameToFields[objectName][$scope.objectNameToFieldDescribes[objectName][i].name] = $scope.objectNameToFieldDescribes[objectName][i];
+                                    
+                                }
+                            }
+                            
+                            // build the required data for the modal
+                            // has to be done in the client side to allow for proper binding of the selected option
+                            var sourceFields = $scope.selectedItem[$scope.nsPrefix + 'SourceFieldName__c'].split('.');
+                            var sourceFieldsLength = sourceFields.length;
+                            $scope.nextReferenceObject = null;
+                            //normalize the field names;
+                            for(i=0; i < sourceFieldsLength; i++){
+                                if(sourceFields[i].indexOf('__r') !== -1){
+                                    sourceFields[i] = sourceFields[i].replace('__r','__c');
+                                    
+                                } else {
+                                    if(i < sourceFieldsLength - 1){
+                                        sourceFields[i] += 'Id';
+                                        
+                                    }
+    
+                                }
+    
+                            }
+                            
+                            for (i = 0; i < sourceFieldsLength; i++) {
+                                var fieldName = sourceFields[i];
+                                //initialize first elemet
+                                if(i === 0){
+                                    $scope.selectedFields.push($scope.objectNameToFields[$scope.selectedItem[$scope.nsPrefix + 'SourceSObjectType__c']][fieldName]); 
+                                    $scope.fieldSets[counter++] = $scope.objectNameToFieldDescribes[$scope.selectedItem[$scope.nsPrefix + 'SourceSObjectType__c']];
+    
+                                } else {
+                                    $scope.selectedFields.push($scope.objectNameToFields[$scope.nextReferenceObject][fieldName]); 
+                                    $scope.fieldSets[counter++] = $scope.objectNameToFieldDescribes[$scope.nextReferenceObject];
+    
+                                }
+                                // save the next reference object name
+                                if($scope.selectedFields[i].type == 'reference'){
+                                    $scope.nextReferenceObject = $scope.selectedFields[i].referenceTo;
+                                } else {
+                                    $scope.nextReferenceObject = null;
+    
+                                }
+                                
+                            }
+                            
+                        })
+                    } else {
+                        fieldMapperService.getObjectFieldsDescribe([$scope.selectedItem[$scope.nsPrefix + 'SourceSObjectType__c']]).then(function(result){
+                            $scope.fieldSets[0] = result.objectNameToFieldDescribes[$scope.selectedItem[$scope.nsPrefix + 'SourceSObjectType__c']];
+                            $scope.objectNameToFieldDescribes[$scope.selectedItem[$scope.nsPrefix + 'SourceSObjectType__c']] = $scope.fieldSets[0];
+                            fieldsList = $scope.fieldSets[0] ;
+                            for (i = 0; i < fieldsList.length; i++) { 
+                                $scope.objectNameToFields[$scope.selectedItem[$scope.nsPrefix + 'SourceSObjectType__c']][fieldsList[i].name] = fieldsList[i];
+                                
+                            }
+                        })
+                        
+                    }
+                    
+                    $scope.save = function () {
+                        var fieldName = [];
+                        var fieldType = null;
+                        var numberOfFields = $scope.selectedFields.length;
+                        var lastReferenceObject = null;
+                        for (i = 0; i < numberOfFields; i++) {
+                            var fieldInfo = $scope.selectedFields[i];
+                            if(fieldInfo.type === 'reference'){
+                                lastReferenceObject = fieldInfo.referenceTo[0];
+                                
+                            }
+                            // if it's a reference field and there is an element after it
+                            if(fieldInfo.type === 'reference' && i < numberOfFields - 1){
+                                if(fieldInfo.name.indexOf('__c') !== -1){
+                                    fieldName.push(fieldInfo.name.replace('__c','__r'));
+                                    
+                                }else{
+                                    fieldName.push(fieldInfo.name.substring(0,fieldInfo.name.length-2));
+                                    
+                                }
+                            } else {
+                                fieldName.push(fieldInfo.name);
+                                
+                            }
+                            fieldType = fieldInfo.type;
+                            
+                        }
+                        var fullFieldName = '';
+                        for (i = 0; i < fieldName.length; i++) { 
+                            fullFieldName += fieldName[i];
+                            if(i !==  fieldName.length-1){
+                                fullFieldName += '.';
+                                
+                            }
+                            
+                        } 
+                        
+                        $modalInstance.close([fullFieldName, fieldType, lastReferenceObject]);
+                    };
+                  
+                    $scope.populateNextTable = function(parentIndex, selectedField){
+                        //clear the following lists to the selected one
+                        if($scope.fieldSets.length > 1){
+                            var startIndex = parentIndex + 1;
+                            $scope.selectedFields.splice(startIndex, $scope.fieldSets.length);
+                            $scope.fieldSets.splice(startIndex, $scope.fieldSets.length);
+                            
+                        }
+                        
+                        if(selectedField.type === 'reference'){
+                            if(!$scope.objectNameToFields.hasOwnProperty(selectedField.referenceTo[0])){
+                                fieldMapperService.getObjectFieldsDescribe([selectedField.referenceTo[0]]).then(function(result){
+                                    var fields = result.objectNameToFieldDescribes[selectedField.referenceTo[0]];
+                                    $scope.objectNameToFields[selectedField.referenceTo[0]] = {};
+                                    $scope.objectNameToFieldDescribes[selectedField.referenceTo[0]] = fields;
+                                    for (j = 0; j < fields.length; j++) { 
+                                        $scope.objectNameToFields[selectedField.referenceTo[0]][fields[j].name] = fields[j];
+                                        
+                                    }
+                                    
+                                    $scope.fieldSets[++parentIndex] = $scope.objectNameToFieldDescribes[selectedField.referenceTo[0]] ;
+                            
+                                })
+                                
+                            } else {
+                                $scope.fieldSets[++parentIndex] = $scope.objectNameToFieldDescribes[selectedField.referenceTo[0]];
+                            
+                            }
+                            
+                        }
+                        
+                    }
+                
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                        
+                    };
+           };
+            </script> 
+        </head>
+        <body ng-controller="fieldMapperAppController">
+            <div class="container-fluid">
+                <div style="margin-bottom:5px" class="row" id="idSelectionSection">
+                    <div class="col-md-6">
+                        <label for="idSourceObject" class="control-label">{!$Label.SourceObject}</label>
+                        <select class="form-control" data-ng-options="object.name as combined(object) for object in sobjectTypes | orderBy:'label'" data-ng-model="sourceObject">
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="idDestinationObject" class="control-label">{!$Label.DestinationObject}</label>
+                        <select class="form-control" data-ng-options="object.name as combined(object) for object in sobjectTypes | orderBy:'label'" data-ng-model="destinationObject">
+                        </select>
+                    </div>
+                    
+                </div>
+                
+                <div style="margin-bottom:5px" class="row">
+                    <div class="col-md-12 text-center"> 
+                        <button type="button" ng-click="getSettings();" class="btn btn-primary btn-sm">
+                          {!$Label.LoadSettings}
+                        </button>
+                    </div>
+                </div>
+                <tabset>
+                    <tab heading="{!$Label.FieldsMap}" id="idSettingsSection">
+                        <div style="margin: 5px;" class="panel panel-default" id="panelList">
+                            <div class="panel-heading">{!$Label.FieldsMap}</div>
+                            <table style="margin-bottom:5px" class="table" ng-if="settingsList.length != 0">
+                                <tr ng-repeat="setting in settingsList track by $index" class="{{setting.color == true ? 'invalid' : 'valid'}}">
+                                    <td style="width: 50%; margin-left: -2px;">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <input ng-model="setting.isSelected" type="checkbox"/>
+                                            </span>
+                                            <input ng-model="setting[nsPrefix + 'SourceFieldName__c']" type="text" class="form-control" disabled="true"/>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" ng-click="open($index);" type="button">{!$Label.Select}</button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td style="width: 50%; margin-right: -2px;">
+                                        <select class="form-control" data-ng-options="field.name as field.label+'<'+field.name+'>' for field in destinationFieldsList|forType:setting[nsPrefix + 'SourceFieldType__c']:setting[nsPrefix + 'SourceSObjectType__c']:setting[nsPrefix + 'SourceFieldSObjectType__c'] | orderBy:'label'" data-ng-model="setting[nsPrefix + 'DestinationFieldName__c']"></select>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div ng-if="settingsList.length == 0">
+                                <alert>{!$Label.NoSettings}</alert>
+                            </div>
+                        </div>  
+                        <div ng-if="hasErrors == true" style="color:red">Duplicate Field Mappings found</div>
+                        <div class="col-md-12 text-center">
+                            <div class="btn-group">
+                                <button type="button" ng-click="addItem();" class="btn btn-primary btn-sm">{!$Label.Add}</button>
+                                <button type="button" ng-readonly="disabledSave" ng-click="saveSettings();" class="btn btn-primary btn-sm">{!$Label.Save}</button>
+                                <button type="button" ng-click="deleteSettings('fieldMaps');" class="btn btn-primary btn-sm">{!$Label.Delete}</button>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="{!$Label.FiltersList}" id="idFilersSection">
+                        <div style="margin: 5px;" class="panel panel-default">
+                            <div class="panel-heading">{!$Label.FilterBy}</div>
+        
+                            <div ng-if="filterSettingsList.length != 0">
+                                <table style="margin-bottom:5px" class="table">
+                                    <tr ng-repeat="filter in filterSettingsList track by $index">
+                                        <td style=" width: 3%;">
+                                            <p ng-model="filter[nsPrefix + 'Index__c']" class="form-control-static">{{$index}}</p>
+                                        </td>
+                                        <td style="width: 42%;">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <input ng-model="filter.isSelected" type="checkbox"/>
+                                                </span>
+                                                <div style="width:100%; margin-right: -2px;" class="input-group">
+                                                    <select class="form-control" data-ng-options="field as field.label+'<'+field.name+'>' for field in sourceFieldsList" data-ng-model="filter.fieldInfo"></select>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="width: 13%; margin-right: -2px;" >
+                                            <select class="form-control" data-ng-options="operator for operator in filterOperators" data-ng-model="filter[nsPrefix + 'Operator__c']"/>
+                                        </td>
+                                        <td style="width: 42%; margin-right: -2px;" >
+                                            <input ng-model="filter[nsPrefix + 'Value__c']" type="text" class="form-control"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style = "margin: 8px;" class="input-group">
+                                    <span class="input-group-addon">{!$Label.Formula}</span>
+                                    <input ng-model="filterFormula[nsPrefix + 'Value__c']" type="text" class="form-control" placeholder="{!$Label.FormulaExpression}"/>
+                                </div>
+                            </div>
+                            <div ng-if="filterSettingsList.length == 0">
+                                <alert>{!$Label.NoFilters}</alert>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-12 text-center"> 
+                            <div class="btn-group">
+                                <button type="button" ng-click="addFilterItem();" class="btn btn-primary btn-sm">{!$Label.Add}</button>
+                                <button type="button" ng-click="saveFilterSettings();" class="btn btn-primary btn-sm">{!$Label.Save}</button>
+                                <button type="button" ng-click="deleteSettings('filters');" class="btn btn-primary btn-sm">{!$Label.Delete}</button>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+                
+            <script type="text/ng-template" id="FieldSelectionModal.html">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span><span class="sr-only">{!$Label.Close}</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{!$Label.FieldSelection}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="referenceContainer">
+                        <div class="fieldsContainer"  ng-repeat="fieldSet in fieldSets track by $index" ng-init="outerIndex = $index">
+                            <select class="form-control" style="max-height: 233px; border:none;" size="500" ng-change="populateNextTable($index, selectedFields[$index])" data-ng-options="field as field.label+'<'+field.name+'>' for field in fieldSet | orderBy:'label'" data-ng-model="selectedFields[$index]"></select>                        
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="save()">{!$Label.Save}</button>
+                    <button type="button" class="btn btn-warning" ng-click="cancel()">{!$Label.Cancel}</button> 
+                </div>
+            </script>
+        </body>
+    </html>
+</apex:page>

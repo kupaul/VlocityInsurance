@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Fill Limit Form --></label>
+    <name>vlocity_ins__FillLimitForm__c</name>
+    <picklistValues>
+        <masterLabel>12 Hrs Patch</masterLabel>
+        <translation><!-- 12 Hrs Patch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>24 Hrs Patch</masterLabel>
+        <translation><!-- 24 Hrs Patch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>72 Hrs Patch</masterLabel>
+        <translation><!-- 72 Hrs Patch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>84 Hrs Patch</masterLabel>
+        <translation><!-- 84 Hrs Patch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>9 Hrs Patch</masterLabel>
+        <translation><!-- 9 Hrs Patch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cake</masterLabel>
+        <translation><!-- Cake --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Capsule</masterLabel>
+        <translation><!-- Capsule --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cream</masterLabel>
+        <translation><!-- Cream --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cream (Augmented)</masterLabel>
+        <translation><!-- Cream (Augmented) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Douche</masterLabel>
+        <translation><!-- Douche --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Drug Implant</masterLabel>
+        <translation><!-- Drug Implant --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Dry-Powder Inhaler (DPI)</masterLabel>
+        <translation><!-- Dry-Powder Inhaler (DPI) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Enema</masterLabel>
+        <translation><!-- Enema --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Film</masterLabel>
+        <translation><!-- Film --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Foam</masterLabel>
+        <translation><!-- Foam --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gas</masterLabel>
+        <translation><!-- Gas --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gel</masterLabel>
+        <translation><!-- Gel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gel (Augmented)</masterLabel>
+        <translation><!-- Gel (Augmented) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Gum</masterLabel>
+        <translation><!-- Gum --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Inhaler</masterLabel>
+        <translation><!-- Inhaler --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Irrigation Solution</masterLabel>
+        <translation><!-- Irrigation Solution --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lotion</masterLabel>
+        <translation><!-- Lotion --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lotion (Augmented)</masterLabel>
+        <translation><!-- Lotion (Augmented) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medicated Bar Soap</masterLabel>
+        <translation><!-- Medicated Bar Soap --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medicated Liquid Soap</masterLabel>
+        <translation><!-- Medicated Liquid Soap --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medicated Shampoo</masterLabel>
+        <translation><!-- Medicated Shampoo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medicated Tape</masterLabel>
+        <translation><!-- Medicated Tape --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Metered Dose Inhaler (MDI)</masterLabel>
+        <translation><!-- Metered Dose Inhaler (MDI) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ointment</masterLabel>
+        <translation><!-- Ointment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ointment (Augmented)</masterLabel>
+        <translation><!-- Ointment (Augmented) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Oral Strip</masterLabel>
+        <translation><!-- Oral Strip --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paste</masterLabel>
+        <translation><!-- Paste --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Patch</masterLabel>
+        <translation><!-- Patch --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Powder</masterLabel>
+        <translation><!-- Powder --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Powder Spray</masterLabel>
+        <translation><!-- Powder Spray --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Prefilled Syringe</masterLabel>
+        <translation><!-- Prefilled Syringe --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ring</masterLabel>
+        <translation><!-- Ring --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SR Tab</masterLabel>
+        <translation><!-- SR Tab --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Solution</masterLabel>
+        <translation><!-- Solution --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Spray</masterLabel>
+        <translation><!-- Spray --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Suppository</masterLabel>
+        <translation><!-- Suppository --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Suspension</masterLabel>
+        <translation><!-- Suspension --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tablet</masterLabel>
+        <translation><!-- Tablet --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Weekly Patch</masterLabel>
+        <translation><!-- Weekly Patch --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

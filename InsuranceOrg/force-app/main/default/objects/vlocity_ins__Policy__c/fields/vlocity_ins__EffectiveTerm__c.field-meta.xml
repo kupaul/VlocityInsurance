@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__EffectiveTerm__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Formula: [effective date] - [expiration date]. Textual description of the effective term, for example, 12/10/2014-12/10/2020.</description>
+    <externalId>false</externalId>
+    <formula>TEXT(vlocity_ins__EffectiveDate__c) &amp;&apos; - &apos;&amp; TEXT(vlocity_ins__ExpirationDate__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Effective Term</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

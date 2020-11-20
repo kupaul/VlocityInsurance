@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsProcessSuperBulk__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Process Each Creation Object in separate transactions</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Use batch Apex for processing. Prevents exceeding SFDC governor limits for complex Interface Objects.</inlineHelpText>
+    <label>Process Super Bulk</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AdministrationMethod__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Administration Method</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Oral</fullName>
+                <default>false</default>
+                <label>Oral</label>
+            </value>
+            <value>
+                <fullName>Topical</fullName>
+                <default>false</default>
+                <label>Topical</label>
+            </value>
+            <value>
+                <fullName>Subcutaneous</fullName>
+                <default>false</default>
+                <label>Subcutaneous</label>
+            </value>
+            <value>
+                <fullName>Intravenous</fullName>
+                <default>false</default>
+                <label>Intravenous</label>
+            </value>
+            <value>
+                <fullName>Urethral</fullName>
+                <default>false</default>
+                <label>Urethral</label>
+            </value>
+            <value>
+                <fullName>Intramuscular</fullName>
+                <default>false</default>
+                <label>Intramuscular</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

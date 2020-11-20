@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Affordable Care Act (ACA)</masterLabel>
+        <translation><!-- Affordable Care Act (ACA) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CHIP</masterLabel>
+        <translation><!-- CHIP --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Health Insurance Marketplace</masterLabel>
+        <translation><!-- Health Insurance Marketplace --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medicaid</masterLabel>
+        <translation><!-- Medicaid --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Medicare</masterLabel>
+        <translation><!-- Medicare --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

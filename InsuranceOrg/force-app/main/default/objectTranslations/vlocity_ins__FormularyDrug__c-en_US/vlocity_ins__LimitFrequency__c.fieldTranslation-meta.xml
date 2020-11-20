@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Limit Frequency --></label>
+    <name>vlocity_ins__LimitFrequency__c</name>
+    <picklistValues>
+        <masterLabel>Month</masterLabel>
+        <translation><!-- Month --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Plan Year</masterLabel>
+        <translation><!-- Plan Year --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Quarter</masterLabel>
+        <translation><!-- Quarter --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

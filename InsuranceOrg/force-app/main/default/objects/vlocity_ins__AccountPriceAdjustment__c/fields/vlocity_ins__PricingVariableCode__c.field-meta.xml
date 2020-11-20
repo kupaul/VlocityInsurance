@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PricingVariableCode__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Formula: The code of the adjusted pricing variable. This value is null for pricing using a selected pricing element since the adjusted pricing variable is defined by the selected pricing element.</description>
+    <externalId>false</externalId>
+    <formula>vlocity_ins__PricingVariableID__r.vlocity_ins__Code__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Adjusted Pricing Variable Code</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

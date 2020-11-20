@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Payment Source --></label>
+    <name>vlocity_ins__PaymentSource__c</name>
+    <picklistValues>
+        <masterLabel>Agency</masterLabel>
+        <translation><!-- Agency --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Brokerage</masterLabel>
+        <translation><!-- Brokerage --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carrier</masterLabel>
+        <translation><!-- Carrier --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Customer</masterLabel>
+        <translation><!-- Customer --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

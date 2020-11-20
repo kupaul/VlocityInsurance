@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Policy Type --></label>
+    <name>vlocity_ins__PolicyType__c</name>
+    <picklistValues>
+        <masterLabel>AD&amp;D</masterLabel>
+        <translation><!-- AD&amp;D --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Auto</masterLabel>
+        <translation><!-- Auto --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Boatowners</masterLabel>
+        <translation><!-- Boatowners --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Business Owners</masterLabel>
+        <translation><!-- Business Owners --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Condominium</masterLabel>
+        <translation><!-- Condominium --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Crime</masterLabel>
+        <translation><!-- Crime --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>D&amp;O</masterLabel>
+        <translation><!-- D&amp;O --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Equity−indexed annuity</masterLabel>
+        <translation><!-- Equity−indexed annuity --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fixed Annuity</masterLabel>
+        <translation><!-- Fixed Annuity --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>General Liability</masterLabel>
+        <translation><!-- General Liability --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Homeowners</masterLabel>
+        <translation><!-- Homeowners --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Inland Marine</masterLabel>
+        <translation><!-- Inland Marine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ocean Marine</masterLabel>
+        <translation><!-- Ocean Marine --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Permanent Life</masterLabel>
+        <translation><!-- Permanent Life --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pers/Scheduled Property</masterLabel>
+        <translation><!-- Pers/Scheduled Property --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Property</masterLabel>
+        <translation><!-- Property --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Renters</masterLabel>
+        <translation><!-- Renters --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Term Life</masterLabel>
+        <translation><!-- Term Life --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Umbrella Liability</masterLabel>
+        <translation><!-- Umbrella Liability --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unit Linked Life</masterLabel>
+        <translation><!-- Unit Linked Life --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Universal Life</masterLabel>
+        <translation><!-- Universal Life --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Universal Variable Life</masterLabel>
+        <translation><!-- Universal Variable Life --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Variable Annuity</masterLabel>
+        <translation><!-- Variable Annuity --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Variable Life</masterLabel>
+        <translation><!-- Variable Life --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Workers Compensation</masterLabel>
+        <translation><!-- Workers Compensation --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

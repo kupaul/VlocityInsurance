@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <label><!-- Group --></label>
+        <name>vlocity_ins__Group</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Household --></label>
+        <name>vlocity_ins__Household</name>
+    </recordTypes>
+</CustomObjectTranslation>

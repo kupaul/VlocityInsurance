@@ -1,0 +1,87 @@
+<apex:page controller="vlocity_ins.SelectionUIPageControllerBase" standardstylesheets="false" showHeader="true" sidebar="false" >
+
+  <html xmlns:ng="http://angularjs.org" ng-app="selectionUIApp" ng-cloak="true" lang="en" >
+  <head>
+    <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+    <apex:includeScript value="/support/console/31.0/integration.js"/>
+    <style type="text/css">
+       .account-selection
+       {
+          float: left;
+          width: 25%;
+          height: 100%; 
+        }
+        .product-display
+        {
+          float: right;
+          width: 74%;
+        }
+        .product-comparison
+        {
+          z-index: 20;
+        }
+
+        body .bPageTitle {
+          padding: 0;
+        }
+
+        .button {
+            font-family: 'Arial', 'Verdana','Geneva',sans-serif;
+            font-size: 80%;
+            color: #000;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: 200;
+            display: inline;
+            background: #fff;
+            border-radius: 4px;
+        }
+        
+        .input-group-addon {
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1;
+            color: #555;
+            text-align: right;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 90px;
+        }
+    </style>
+   </head>
+	 <body>
+   testing testing 1 2 3
+    <div>   
+        <!-- Stub app declaration allows building all components the same, which relies on having an angular app already declared TODO: Account for this better -->
+    </div>
+    <div class="product-comparison">
+        <c:SelectionUIProductComparison pageControllerBase="{!this}" compKey="comparison" />
+    </div>
+    <div class="product-cpq">
+        <c:SelectionUICPQ pageControllerBase="{!this}" compKey="cpq" />
+    </div>
+		<div class="account-selection">
+        <div>
+          <c:SelectionUIAccountSelect pageControllerBase="{!this}" compKey="accountSelect" />
+        </div>
+        <div>
+          <c:SelectionUIBasicFilters pageControllerBase="{!this}" compKey="basicFilters" />
+        </div>
+        <div>
+          <c:SelectionUIProductFilter pageControllerBase="{!this}" compKey="filter" />
+        </div>
+   	  </div>
+    <div class="product-display">
+        <c:SelectionUICart pageControllerBase="{!this}" compKey="cart" />
+        <c:SelectionUIProductList pageControllerBase="{!this}" compKey="productList" />   
+      </div>
+      <script type="text/javascript">
+            var modules = ['selectionProductListApp', 'selectionUIAccountSelectApp', 'selectionCartApp', 'ProductComparisonApp','ProductCPQApp', 'selectionProductFilterApp', 'selectionProductListApp', 'selectionUIBasicFilterApp'];
+            var myModule = angular.module('selectionUIApp', modules);
+        </script>  
+   	</body>
+  </html>
+</apex:page>

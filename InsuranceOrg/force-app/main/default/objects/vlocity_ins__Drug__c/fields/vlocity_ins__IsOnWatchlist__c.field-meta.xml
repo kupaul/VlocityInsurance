@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsOnWatchlist__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Boolean indicating if this Drug is on a watchlist; the Warning Message field will contain an optional message pertaining to this.</description>
+    <externalId>false</externalId>
+    <label>On Watchlist</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

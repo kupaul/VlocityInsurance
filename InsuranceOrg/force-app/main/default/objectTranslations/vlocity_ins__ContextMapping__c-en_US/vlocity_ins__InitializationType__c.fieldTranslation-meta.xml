@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Initialization Type --></label>
+    <name>vlocity_ins__InitializationType__c</name>
+    <picklistValues>
+        <masterLabel>Function</masterLabel>
+        <translation><!-- Function --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Scope SObject</masterLabel>
+        <translation><!-- Scope SObject --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Source Expression</masterLabel>
+        <translation><!-- Source Expression --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Type In</masterLabel>
+        <translation><!-- Type In --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

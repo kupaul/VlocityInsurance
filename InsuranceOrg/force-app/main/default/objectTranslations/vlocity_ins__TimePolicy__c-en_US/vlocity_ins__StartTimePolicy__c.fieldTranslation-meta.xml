@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Start Time Policy --></label>
+    <name>vlocity_ins__StartTimePolicy__c</name>
+    <picklistValues>
+        <masterLabel>Activation Start</masterLabel>
+        <translation><!-- Activation Start --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cycle Start Date</masterLabel>
+        <translation><!-- Cycle Start Date --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>First Day of Month</masterLabel>
+        <translation><!-- First Day of Month --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Purchase Date</masterLabel>
+        <translation><!-- Purchase Date --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

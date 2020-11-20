@@ -1,0 +1,11 @@
+<apex:page StandardController="Account" extensions="vlocity_ins.ReportDisplayController" docType="html-5.0">
+    <apex:outputPanel layout="block" style="width:320px; display:block; float:left; margin-left:20px; margin-bottom:20px;">
+        <analytics:reportChart size="small" developerName="{!sNameSpace}AgencyBrokeragePoliciesByLOB" filter="{column:'{!sNameSpace}PolicyPartyRelationship__c.{!sNameSpace}AccountId__c',operator:'equals',value:'{!Id}'}"/>    
+    </apex:outputPanel>
+    <apex:outputPanel layout="block" style="width:320px; display:block; float:left; margin-left:20px; margin-bottom:20px;">
+        <analytics:reportChart size="small" developerName="{!sNameSpace}AgencyBrokeragePoliciesByPolicyType" filter="{column:'{!sNameSpace}PolicyPartyRelationship__c.{!sNameSpace}AccountId__c',operator:'equals',value:'{!Id}'}"/>
+    </apex:outputPanel>
+    <apex:outputPanel layout="block" style="width:320px; display:block; float:left; margin-left:20px; margin-bottom:20px;">
+        <analytics:reportChart size="small" developerName="{!sNameSpace}AgencyBrokeragePoliciesUpForRenewal" filter="{column:'{!sNameSpace}PolicyPartyRelationship__c.{!sNameSpace}AccountId__c',operator:'equals',value:'{!Id}'}"/>
+    </apex:outputPanel>          
+</apex:page>

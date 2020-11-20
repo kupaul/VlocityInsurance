@@ -1,0 +1,33 @@
+<apex:page standardController="Contact" extensions="MKP002.Photo_Extension" showHeader="false" >
+	<apex:form id="theForm">
+		<apex:pageBlock >
+			<apex:messages />
+			<table>
+				<tr>
+					<td>
+						<b>Contact Photo</b>
+					</td>
+					<apex:outputPanel id="inputPanel" rendered="{!Contact.MKP002__Photo_Id__c == null}" >
+						<td >
+							<apex:pageBlockSection >
+								<apex:inputFile value="{!abody}" filename="{!aname}"/>
+								<apex:commandButton value="Save" action="{!saveAttachment}" /><br />
+								Note:
+								<br />
+								Images will be resized to 100 x 100 pix
+								<br/>
+							</apex:pageBlockSection>
+						</td>
+					</apex:outputPanel>
+					<apex:outputPanel id="imagePanel" rendered="{!Contact.MKP002__Photo_Id__c != null}" >
+						<td>
+							<img id="theImage" src="/servlet/servlet.FileDownload?file={!contact.MKP002__Photo_Id__c}" width="100" height="100" />
+							<apex:commandLink value="delete" action="{!deleteImage}" />
+						</td>
+					</apex:outputPanel>
+				</tr>
+			</table>
+		</apex:pageBlock>
+	</apex:form>
+	<apex:outputField value="{!contact.MKP002__Photo_Id__c}" rendered="false" />
+</apex:page>

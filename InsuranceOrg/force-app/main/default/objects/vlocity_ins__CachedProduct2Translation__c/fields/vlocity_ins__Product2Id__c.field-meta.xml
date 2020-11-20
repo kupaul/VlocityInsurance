@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Product2Id__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>This field store product id.</description>
+    <externalId>false</externalId>
+    <label>Translated Product</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Cached Product Translations</relationshipLabel>
+    <relationshipName>Cached_Product2_Translations</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

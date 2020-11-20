@@ -1,0 +1,51 @@
+<apex:page standardStylesheets="false" showHeader="false"
+            sidebar="false" docType="html-5.0"
+            controller="vlocity_ins.TemplateController"
+            extensions="vlocity_ins.CardCanvasController"
+            title="Vlocity UI Template Preview">
+<html xmlns:ng="http://angularjs.org" lang="{!language}" xml:lang="{!language}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+    <head>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ngInfiniteScroll, '/build/ng-infinite-scroll.min.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.css')}"/>
+        <c:CardStyleLoaderComponent useClassicStylesByDefault="true"></c:CardStyleLoaderComponent>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__svg4everybody, '/dist/svg4everybody.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__TemplatePreview}"/>
+    </head>
+    <body>
+        <div class="vloc-body ng-cloak" ng-app="templatepreview" ng-controller="templatePreview">
+            <div class="vlocity via-slds">
+                <div class="{{$root.template[$root.nsPrefix + 'Type__c']}}">
+                    <div ng-if="$root.template[$root.nsPrefix + 'HTML__c']" >
+                        <ng-include src="$root.template.Id"></ng-include>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var nsPrefix = '{!nsPrefix}',
+                sessionId = '{!$Api.Session_ID}',
+                remoteActions = {
+                    getTemplates: {
+                        action: '{!$RemoteAction.TemplateController.getTemplates}',
+                        escape: true
+                    },
+                    getTemplate: {
+                        action: '{!$RemoteAction.TemplateController.getTemplate}',
+                        escape: true
+                    }
+                },
+            /* START_VLOC_I18N */
+                i18n = {};
+            /* END_VLOC_I18N */
+            localStorage.setItem('nsPrefixDotNotation', "{!nsPrefixDotNotation}");
+        </script>
+    </body>
+</html>
+</apex:page>

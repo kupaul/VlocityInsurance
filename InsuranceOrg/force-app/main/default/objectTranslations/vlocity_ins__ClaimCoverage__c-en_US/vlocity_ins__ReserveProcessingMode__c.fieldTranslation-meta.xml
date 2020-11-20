@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Reserve Processing Mode --></label>
+    <name>vlocity_ins__ReserveProcessingMode__c</name>
+    <picklistValues>
+        <masterLabel>Coverage Reserve Mode</masterLabel>
+        <translation><!-- Coverage Reserve Mode --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reserve Worksheet Mode</masterLabel>
+        <translation><!-- Reserve Worksheet Mode --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

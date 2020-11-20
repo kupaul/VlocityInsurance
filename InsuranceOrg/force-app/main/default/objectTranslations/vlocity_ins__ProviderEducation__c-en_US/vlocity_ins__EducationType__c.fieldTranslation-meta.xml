@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Education Type --></label>
+    <name>vlocity_ins__EducationType__c</name>
+    <picklistValues>
+        <masterLabel>Dental Hygiene (ASDH)</masterLabel>
+        <translation><!-- Dental Hygiene (ASDH) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Doctor of Chiropractic (DC)</masterLabel>
+        <translation><!-- Doctor of Chiropractic (DC) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Doctor of Dental Medicine (DMD)</masterLabel>
+        <translation><!-- Doctor of Dental Medicine (DMD) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Doctor of Dental Surgery (DDS)</masterLabel>
+        <translation><!-- Doctor of Dental Surgery (DDS) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Doctor of Medicine (MD)</masterLabel>
+        <translation><!-- Doctor of Medicine (MD) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Doctor of Optometry (OD)</masterLabel>
+        <translation><!-- Doctor of Optometry (OD) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Doctor of Osteopathic Medicine (DO)</masterLabel>
+        <translation><!-- Doctor of Osteopathic Medicine (DO) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Doctor of Physical Therapy (DPT)</masterLabel>
+        <translation><!-- Doctor of Physical Therapy (DPT) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Master of Public Health (MPH)</masterLabel>
+        <translation><!-- Master of Public Health (MPH) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Master of Science in Occupational Therapy (MSOT)</masterLabel>
+        <translation><!-- Master of Science in Occupational Therapy (MSOT) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Master of Social Work (MSW)</masterLabel>
+        <translation><!-- Master of Social Work (MSW) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Nurse Practioner (NP)</masterLabel>
+        <translation><!-- Nurse Practioner (NP) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Occupational Therapy (OT)</masterLabel>
+        <translation><!-- Occupational Therapy (OT) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Physician Assistant (PA)</masterLabel>
+        <translation><!-- Physician Assistant (PA) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Podiatric Medicine (DPM)</masterLabel>
+        <translation><!-- Podiatric Medicine (DPM) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Radiation Therapy (RT)</masterLabel>
+        <translation><!-- Radiation Therapy (RT) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Registered Nurse (RM)</masterLabel>
+        <translation><!-- Registered Nurse (RM) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Respiratory Therapy (RT)</masterLabel>
+        <translation><!-- Respiratory Therapy (RT) --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

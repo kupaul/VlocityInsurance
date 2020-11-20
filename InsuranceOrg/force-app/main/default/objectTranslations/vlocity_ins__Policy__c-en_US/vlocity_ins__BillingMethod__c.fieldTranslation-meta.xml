@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Billing Method --></label>
+    <name>vlocity_ins__BillingMethod__c</name>
+    <picklistValues>
+        <masterLabel>Agent Collect</masterLabel>
+        <translation><!-- Agent Collect --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Billing Account</masterLabel>
+        <translation><!-- Billing Account --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Direct Bill</masterLabel>
+        <translation><!-- Direct Bill --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Payroll Deduction</masterLabel>
+        <translation><!-- Payroll Deduction --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

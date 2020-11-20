@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__UserTypeValidation</fullName>
+    <active>true</active>
+    <description>A Destination User is required if Assignment Type is User</description>
+    <errorConditionFormula>AND(ISPICKVAL(vlocity_ins__AssignmentType__c,&apos;User&apos;), ISBLANK(vlocity_ins__DestinationUserId__c))</errorConditionFormula>
+    <errorDisplayField>vlocity_ins__DestinationUserId__c</errorDisplayField>
+    <errorMessage>Destination User is required for User Assignment Type</errorMessage>
+</ValidationRule>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The type of Vlocity Rule such as configuration rules, pricing rules, eligibility rules, availability rules and attribute configuration rules.</description>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Configuration</fullName>
+                <default>false</default>
+                <label>Configuration</label>
+            </value>
+            <value>
+                <fullName>Pricing</fullName>
+                <default>false</default>
+                <label>Pricing</label>
+            </value>
+            <value>
+                <fullName>Eligibility</fullName>
+                <default>false</default>
+                <label>Eligibility</label>
+            </value>
+            <value>
+                <fullName>Availability</fullName>
+                <default>false</default>
+                <label>Availability</label>
+            </value>
+            <value>
+                <fullName>Attributes Configuration</fullName>
+                <default>false</default>
+                <label>Attributes Configuration</label>
+            </value>
+            <value>
+                <fullName>Context Rule</fullName>
+                <default>false</default>
+                <label>Context Rule</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

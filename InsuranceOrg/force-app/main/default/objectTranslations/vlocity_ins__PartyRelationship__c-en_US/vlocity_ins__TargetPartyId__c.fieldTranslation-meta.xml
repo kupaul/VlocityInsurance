@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Target Party Id --></label>
+    <name>vlocity_ins__TargetPartyId__c</name>
+    <relationshipLabel><!-- Party Relationships (Target Party Id) --></relationshipLabel>
+</CustomFieldTranslation>

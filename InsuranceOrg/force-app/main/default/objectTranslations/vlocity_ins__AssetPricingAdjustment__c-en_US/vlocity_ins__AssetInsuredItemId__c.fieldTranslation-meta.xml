@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Insured Item --></label>
+    <name>vlocity_ins__AssetInsuredItemId__c</name>
+    <relationshipLabel><!-- Policy Pricing Adjustments --></relationshipLabel>
+</CustomFieldTranslation>

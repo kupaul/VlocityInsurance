@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Hull Material --></label>
+    <name>vlocity_ins__HullMaterial__c</name>
+    <picklistValues>
+        <masterLabel>Aluminum</masterLabel>
+        <translation><!-- Aluminum --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Composite</masterLabel>
+        <translation><!-- Composite --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Fiberglass</masterLabel>
+        <translation><!-- Fiberglass --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Steel</masterLabel>
+        <translation><!-- Steel --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wood</masterLabel>
+        <translation><!-- Wood --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

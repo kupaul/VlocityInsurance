@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsPrimaryRelationship__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Represents the primary relationship among all the relationships for a Contact with Accounts. For example, the Primary Provider Location where a Provider serves.</description>
+    <externalId>false</externalId>
+    <label>Primary Relationship</label>
+    <type>Checkbox</type>
+</CustomField>

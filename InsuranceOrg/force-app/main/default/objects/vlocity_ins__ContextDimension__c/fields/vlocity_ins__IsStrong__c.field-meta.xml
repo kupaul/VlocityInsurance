@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsStrong__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If Dimension is strong or not. If strong &amp; a condition based on this dimension fails, the rule fails &amp; disqualifies the object.</description>
+    <externalId>false</externalId>
+    <label>Strong</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

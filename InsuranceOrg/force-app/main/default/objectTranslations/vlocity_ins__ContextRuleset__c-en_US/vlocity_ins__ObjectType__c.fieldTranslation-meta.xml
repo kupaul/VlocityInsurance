@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Object Type --></label>
+    <name>vlocity_ins__ObjectType__c</name>
+    <picklistValues>
+        <masterLabel>Availability</masterLabel>
+        <translation><!-- Availability --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Eligibility</masterLabel>
+        <translation><!-- Eligibility --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Security</masterLabel>
+        <translation><!-- Security --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

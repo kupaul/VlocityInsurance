@@ -1,0 +1,293 @@
+<apex:page standardStylesheets="false" showHeader="true" sidebar="false" controller="vlocity_ins.DocumentClauseDisplayController" tabStyle="VlocityDocumentClauses__tab">
+<apex:includeLightning />
+<html xmlns:ng="http://angularjs.org" lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <base href="/apex/DocumentClause"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__tinymce, '/js/tinymce/tinymce.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ui_tinymce, '/src/tinymce.js')}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+        <apex:includeScript value="{!$Resource.vlocity_ins__SEGJS}" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__HighlightTextareaJS}" />
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_utils_pagination, '/dirPagination.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/font-hack.css')}"/> 
+        <apex:stylesheet value="{!$Resource.vlocity_ins__HighlightTextareaCss}" />
+        <apex:stylesheet value="{!$Resource.vlocity_ins__DocumentBaseCss}" />
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+    </head>
+    <body>
+    <div id="vloc-body" class="vloc-body ng-cloak" ng-app="documentClauseApp" ng-controller="documentClauseCtrl" page-params="pageParams">
+        <div id="via-slds" class="vlocity via-slds" prevent-delete-back="preventDeleteBack" via-screen-height="viaScreenHeight" via-affix="top">
+            <div id="spinner-container" class="slds-spinner_container" ng-show="vlcLoading">
+                <div id="spinner" class="slds-spinner slds-spinner_medium" aria-hidden="false" role="alert" ng-show="!isInternetExplorer">
+                      <div id="spinner_dot-a" class="slds-spinner__dot-a"></div>
+                      <div id="spinner_dot-b" class="slds-spinner__dot-b"></div>
+                </div>
+                <span id="spinner-IE" ng-show="isInternetExplorer" class="spinner ng-hide"></span>
+            </div>
+            <div id="clause-container" class="container">
+                <div id="clause-page-header" class="slds-page-header" role="banner">
+                    <div id="clause-page-header1" class="slds-grid">
+                        <div id="clause-page-header2" class="slds-col slds-has-flexi-truncate">
+                            <div id="clause-page-header_media" class="slds-media slds-no-space slds-grow">
+                                <div id="clause-page-header_media_fiure" class="slds-media__figure">
+                                    <svg aria-hidden="true" class="slds-icon slds-icon-standard-post" ng-class="{'slds-icon-standard-task' : clauseData.clauseArchived}">
+                                    <slds-svg-icon ng-if="!clauseData.clauseArchived" id="clause-page-header_icon" sprite="'custom'" icon="'custom18'" size="'medium'" ></slds-svg-icon>
+                                    <slds-svg-icon ng-if="clauseData.clauseArchived" id="clause-page-header_icon" sprite="'custom'" icon="'custom77'" size="'medium'"></slds-svg-icon>
+                                    </svg>
+                                </div>
+                                <div class="slds-media__body" id="clause-page-header_media_body">
+                                    <h1  id="clause-page-header_media_body1" class="slds-page-header__title custom slds-m-right_small slds-align-middle slds-truncate" ng-if="!clauseData.clauseArchived">{!$label.CLMTemplateEditing}  "{{clauseData.clauseName}}"</h1>
+                                    <h1  id="clause-page-header_media_body1" class="slds-page-header__title custom slds-m-right_small slds-align-middle slds-truncate" ng-if="clauseData.clauseArchived"> Viewing "{{clauseData.clauseName}}"</h1>
+                                    <p id="clause-page-header_media_body2" class="slds-text-heading_label slds-line-height_reset" title="this should match the Record Title">Vlocity</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="clause-page-header_button_container">
+                            <div class="slds-float_right slds-m-left_small" ng-if="clauseData">
+                                <button id="button-update" ng-if="clauseScopeKeywords.saveUpdate == 'Update'" type="button" class="slds-button slds-button_brand" ng-disabled="validationErrors.inValidShortName" ng-hide="clauseData.clauseArchived" ng-click="saveClause(true, false)">{!$label.CLMClauseUpdate}</button>
+                                <button id="button-save" ng-if="clauseScopeKeywords.saveUpdate == 'Save'" type="button" class="slds-button slds-button_brand" ng-disabled="validationErrors.inValidShortName" ng-click="saveClause(false, false)">{!$Label.CLMClauseSave}</button>
+                            </div>
+                            <div class="slds-button-group slds-float_right" role="group">
+                                <button class="slds-button slds-button_neutral" ng-click="goToClauseOverview()">
+                                    <slds-button-svg-icon id="back-to-contract" sprite="'utility'" icon="'back'" size="'small'" extra-classes="'slds-button__icon_left'"></slds-button-svg-icon>
+                                   {!$Label.CLMTemplateBackToList}
+                                </button>
+                                <button id="button-archive" ng-if="clauseScopeKeywords.saveUpdate == 'Update'" type="button" class="slds-button slds-button_neutral" ng-disabled="validationErrors.inValidShortName" ng-click="checkArchive()" ng-hide="clauseData.clauseArchived">{!$Label.CLMClauseArchiveClause}</button>
+                                <button id="button-delete" ng-if="clauseScopeKeywords.saveUpdate == 'Update'" type="button" class="slds-button slds-button_neutral delete-clause-btn" ng-click="checkDeleteClause()">{!$Label.CLMClauseDeleteClause}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="notify-container" ng-if="validationMessage" class="slds-notify_container custom">
+                    <div id="notify" class="slds-notify slds-notify_alert slds-theme_success slds-theme_alert-texture" role="alert">
+                        <i id="notify-close" class="contract-icon icon icon-v-close-circle-line" ng-click="closeSuccessBanner()"/>
+                        <h2 id="validation-message">{{validationMessage}}</h2>
+                    </div>
+                </div>  
+                <div id="three-col-body" class="three-col-body">
+                    <div id="right-col" class="right-col" via-screen-height="viaScreenHeight">               
+                        <div id="col-body" class="col-body custom-clause" ng-if="clauseData.clauseType" style="height:110%"> 
+                            <div id="form-name_container" class="slds-form-element slds-m-bottom_small">
+
+                                <div id="form-name_validation" ng-if="validationErrors.clauseName" class="slds-popover slds-nubbin_bottom-left slds-theme_error" role="alert" aria-live="polite" style="top: 10px;max-width: 100%;width:auto">
+                                    <div id="form-name_popover" class="slds-popover__body slds-text-longform">
+                                        <p id="form-name_popovertext">{{validationErrors.clauseName}}</p>
+                                    </div>
+                                </div>
+                                <div id="form-name_data" class="slds-form-element slds-m-bottom_medium" ng-class="{'has-error': validationErrors.clauseName}">
+                                    <label id="form-name_label" class="slds-form-element__label clauses" for="clause-name" ng-if="clauseData.clauseType"> Name </label>
+                                    <div id="form-name_data2" class="slds-form-element__control">
+                                         <input type="text" class="slds-input" id="form-name_input" placeholder="{!$label.CLMClauseEnterClauseName}" ng-model="clauseData.clauseName" ng-disabled="clauseData.clauseArchived"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="form-shortName_validation" ng-if="validationErrors.clauseShortName || validationErrors.shortNameValidationMessage" class="slds-popover slds-nubbin_bottom-left slds-theme_error" role="alert" aria-live="polite" style="top: 10px;max-width: 100%;width:auto">
+                                <div id="form-shortName_popover" class="slds-popover__body slds-text-longform">
+                                    <p id="form-shortName_popovertext">{{validationErrors.clauseShortName || validationErrors.shortNameValidationMessage}}</p>
+                                </div>
+                            </div>
+                            <div  id="form-shortName" class="slds-form-element slds-m-bottom_medium" ng-class="{'has-error': validationErrors.clauseShortName}">
+                                <label id="form-shortName_label" class="slds-form-element__label" for="clause-shortName">{{labels[nameSpacePrefix  + 'ShortName__c']}}</label>
+                                <div id="form-shortName_container" class="form-element__control">
+                                        <input type="text" class="slds-input shortName" id="form-shortName_input" style="width:50%" placeholder="{!$label.CLMClauseEnterClauseShortName}" 
+                                                    ng-change="onShortNameChange()" 
+                                                    ng-model="clauseData.clauseShortName" ng-disabled="clauseData.clauseArchived" ng-model-options="{allowInvalid:true}"/>
+                                        <a id="copy_as_clauseToken" title="{!$label.CLMViewClauseToken}" ng-if="clauseData.clauseShortName" ng-click="viewShortName()"> {!$label.CLMViewClauseToken} </a>
+
+                                </div>
+                            </div>
+
+                            <div id="form-restricted1" class="slds-form-element slds-m-bottom_medium">
+                                <div id="form-restricted2" class="slds-form-element__control">
+                                    <label id="form-restricted3" class="slds-checkbox">
+                                        <input id="form-restricted_input" type="checkbox" ng-model="clauseData.clauseRestricted" ng-disabled="clauseData.clauseArchived" />
+                                         <span id="form-restricted_checkbox" class="slds-checkbox_faux"/>
+                                         <span id="form-restricted_label" class="slds-form-element__label">
+                                         {{labels[nameSpacePrefix + 'IsRestricted__c']}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="form-category_validation" ng-if="validationErrors.clauseCategory" class="slds-popover slds-nubbin_bottom-left slds-theme_error" role="alert" aria-live="polite" style="top: 10px;max-width: 100%;width:auto">
+                                <div id="form-category_popover" class="slds-popover__body slds-text-longform">
+                                    <p id="form-category_popovertext">{{validationErrors.clauseCategory}}</p>
+                                </div>
+                            </div>
+                            <div  id="form-category" class="slds-form-element slds-m-bottom_medium" ng-class="{'has-error': validationErrors.clauseCategory}">
+                                <label id="form-category_label" class="slds-form-element__label" for="clause-category">{{labels[nameSpacePrefix  + 'Category__c']}}</label>
+                                <div id="form-category_container" class="slds-form-element__control">
+                                    <div id="form-category_container2" class="slds-select_container">
+                                        <select id="form-category_select" class="slds-select" ng-model="clauseData.clauseCategory" ng-options="category for category in clauseCategories" ng-disabled="clauseData.clauseArchived"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="form-category_validation" ng-if="validationErrors.clauseLanguage" class="slds-popover slds-nubbin_bottom-left slds-theme_error" role="alert" aria-live="polite" style="top: 10px;max-width: 100%;width:auto">
+                                <div id="form-category_popover" class="slds-popover__body slds-text-longform">
+                                    <p id="form-category_popovertext"> Please Select a Language</p>
+                                </div>
+                            </div>
+                            <!-- Language dropdown -->
+                            <div  id="form-language" class="slds-form-element slds-m-bottom_medium" ng-class="{'has-error': validationErrors.clauseLanguage}">
+                                <label id="form-language_label" class="slds-form-element__label" for="clause-language">{{labels[nameSpacePrefix  + 'LocaleCode__c']}}</label>
+                                <div id="form-language_container" class="slds-form-element__control">
+                                    <div id="form-language_container2" class="slds-select_container">
+                                        <select id="form-language_select" class="slds-select" ng-model="clauseData.selectedLanguageObject" 
+                                        ng-options="language.Label for language in clauseLanguages | orderBy:'Label'" ng-disabled="clauseData.clauseArchived"
+                                        ng-change="onSelectedLanguageChange(clauseData.selectedLanguageObject)"
+                                        ></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end  Language dropdown -->
+                            <!-- Formatted -->
+                            <div class="slds-form-element slds-m-bottom_medium">
+                                <span class="slds-radio">
+                                    <label class="slds-radio__label" for="input1">
+                                        <input type="radio" ng-model="clauseData.clauseFormatted" ng-value="false"
+                                        name="isClauseFormatted" id="input1" ng-disabled="clauseData.clauseArchived" ng-change = "onIsFormatChange()"/>
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">{!$Label.CLMNonFormattedClauseLabel}</span>
+                                    </label>
+                                </span>
+                                <span class="slds-radio">
+                                    <label class="slds-radio__label" for="input2">
+                                        <input type="radio" ng-model="clauseData.clauseFormatted" ng-value="true"
+                                        name="isClauseFormatted" id="input2" ng-disabled="clauseData.clauseArchived" ng-change = "onIsFormatChange()"/>
+                                        <span class="slds-radio_faux"></span>
+                                        <span class="slds-form-element__label">{!$Label.CLMFormattedClauseLabel}</span>
+                                    </label>
+                                </span>
+                            </div>
+                            <!-- end of Formatted block-->
+                            <div id="form-content_validation" ng-if="validationErrors.clauseContent" class="slds-popover slds-nubbin_bottom-left slds-theme_error" role="alert" aria-live="polite" style="top: 10px;max-width: 100%;width:auto">
+                                    <div id="form-content_popover" class="slds-popover__body slds-text-longform">
+                                      <p id="form-content_popovertext">{{validationErrors.clauseContent}}</p>
+                                    </div>
+                            </div>
+                            <div id="form-content" class="slds-form-element slds-m-bottom_medium" ng-class="{'has-error': validationErrors.clauseContent}">
+                                <label id="form-content_label" class="slds-form-element__label" for="clause-content">{{labels[nameSpacePrefix + 'ClauseContent__c']}}
+                                <span id="form-content_conditional" ng-if="clauseData.clauseType !== 'Conditional'"> ({!$Label.CLMClauseToken} <span> {{ </span> <span>}}</span> {!$Label.CLMClauseTokenExample})</span>:</label>
+                                <div ng-if="!clauseData.clauseFormatted" id="form-content_container" class="slds-form-element__control">
+                                    <textarea  id="form-content_textarea" class="slds-textarea" rows="8" ng-model="clauseData.nonFormattedContent" placeholder="{!$label.CLMClauseEnterClauseContent}" highlight-tokens="true" ng-disabled="clauseData.clauseArchived"></textarea>
+                                </div>
+                                <div ng-if="clauseData.clauseFormatted" class="slds-form-element__control rich-text-editor">
+                                   <textarea ui-tinymce="tinymceOptions" ng-model="clauseData.clauseContent" ng-disabled="clauseData.clauseArchived" class="tinymce-editor" placeholder="{!$label.CLMClauseEnterClauseContent}" highlight-tokens="true"></textarea>
+                                </div>
+                            </div>
+                            <!-- Contract Type Tags: -->
+                            <div id="form-contracttype" class="slds-form-element slds-m-top_xx-large slds-m-bottom_medium" ng-if="clauseData.isDefault">
+                                <label id="form-contracttype_label" class="slds-form-element__label">  {!$Label.CLMClauseRestrictClause}
+                                    <a id="form-contracttype_switch" class="switch" ng-click="switchToCustom()" ng-hide="clauseData.clauseArchived"><i class="icon icon-v-filter"></i>{!$Label.CLMClauseSpecifyContractTypes}</a>
+                                    <div id="form-contracttype1" class="slds-form-element">
+                                      <div id="form-contracttype2" class="slds-form-element__control">
+                                        <label id="form-contracttype3" class="slds-checkbox">
+                                            <input id="form-contracttype_input" type="checkbox" ng-model="clauseData.isDefault" ng-disabled="clauseData.clauseArchived"/>
+                                            <span id="form-contracttype_checkbox" class="slds-checkbox_faux"></span>
+                                            <span id="form-contracttype_checkbox_text" class="slds-form-element__label">{!$Label.CLMClauseAllContractTypes}</span>
+                                        </label>
+                                     </div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div id="form-tags" class="slds-form-element slds-m-top_xx-large slds-m-bottom_medium" ng-if="!clauseData.isDefault">
+                                <div id="form-tags_container" class="slds-form-element__control">
+                                    <label id="form-tags_label" class="slds-form-element__label" for="clause-contract-type">{!$Label.CLMClauseRestrictClause}
+                                         <a id="form-tags_switch" class="switch" ng-click="switchToDefault()" ng-hide="clauseData.clauseArchived"><i class="icon icon-v-forward"></i>{!$Label.CLMClauseSwitchToDefault}</a>
+                                    </label>
+                                     <tags-input id="form-tags_input" ng-hide="clauseData.clauseArchived" ng-model="selectedContractTypes" min-length="1" placeholder="{!$label.CLMClauseSearchAvailableContractType}" on-tag-added="addContractType($tag)" on-tag-removed="removeContractType($tag)" add-From-Autocomplete-Only="true" replace-spaces-with-dashes="false" allow-Duplicates="false" show-tag="true" ng-disabled="clauseData.clauseArchived">
+                                        <auto-complete source="searchContractTypeList($query)" max-results-to-show="10" min-length="1"></auto-complete>
+                                    </tags-input>
+                                    <ul id="form-tags_list" class="slds-list_horizontal" ng-show="clauseData.clauseArchived">
+                                        <li id="form-tags_list_item" class="slds-box slds-box_x-small slds-m-right_x-small slds-theme_default" ng-repeat="contractTypes in selectedContractTypes">{{contractTypes.text}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script type="text/javascript">
+            window.userLocale = '{!userLocale}';
+            var nameSpacePrefix = '{!nameSpacePrefix}';
+            var remoteActions = {
+                getClauses: {
+                    action: "{!$RemoteAction.DocumentClauseDisplayController.getClauses}",
+                    config: {escape: false}
+                },
+                getCategories: {
+                    action: "{!$RemoteAction.DocumentClauseDisplayController.getCategories}",
+                    config: {escape: false}
+                },
+                getClauseLanguages: {
+                    action: "{!$RemoteAction.DocumentClauseDisplayController.getClauseLanguages}",
+                    config: {escape: false}
+                },
+                saveClause: {
+                    action: "{!$RemoteAction.DocumentClauseDisplayController.saveClause}",
+                    config: {escape: false}
+                },
+                updateClause: {
+                    action: "{!$RemoteAction.DocumentClauseDisplayController.updateClause}",
+                    config: {escape: false}
+                },
+                deleteClause: {
+                    action: "{!$RemoteAction.DocumentClauseDisplayController.deleteClause}",
+                    config: {escape: false}
+                }, 
+                getContractTypeList: {
+                    action: "{!$RemoteAction.DocumentClauseDisplayController.getContractTypeList}",
+                    config: {escape: false}
+                },
+                getDefaultContractType: {
+                    action: "{!$RemoteAction.DocumentClauseDisplayController.getDefaultContractType}",
+                    config: {escape: false}
+                },
+                getClauseById: {
+                    action: "{!$RemoteAction.DocumentClauseDisplayController.getClauseById}",
+                    config: {escape: false}
+                }
+            };
+             var modalLabels = {
+                'CLMClauseArchiveClauseMsg':'{!$label.CLMClauseArchiveClauseMsg}',
+                'CLMClauseArchiveClause':'{!$label.CLMClauseArchiveClause}',
+                'CLMClauseCancel': '{!$label.CLMClauseCancel}',
+                'CLMClauseSave':'{!$Label.CLMClauseSave}',
+                'CLMClauseSaveChangesMsg':'{!$Label.CLMClauseSaveChangesMsg}',
+                'CLMClauseDeleteClause': '{!$Label.CLMClauseDeleteClause}',
+                'CLMClauseClose': '{!$label.CLMClauseClose}',
+                'CLMClauseAreYouSureDelete': '{!$label.CLMClauseAreYouSureDelete}',
+                'CLMClauseActionNotUndone': '{!$label.CLMClauseActionNotUndone}',
+                'CLMClauseDeleteActiveClause': '{!$label.CLMClauseDeleteActiveClause}',
+                'CLMTemplateHasBeenDeleted': '{!$label.CLMTemplateHasBeenDeleted}',
+                'CLMClause': '{!$label.CLMClause}', 
+                'CLMClauseSavedSuccess': '{!$label.CLMClauseSavedSuccess}',
+                'CLMClauseNameExists': '{!$label.CLMClauseNameExists}',
+                'CLMClauseNameEmptyMsg': '{!$label.CLMClauseNameEmptyMsg}', 
+                'CLMClauseCharMin': '{!$label.CLMClauseCharMin}',
+                'CLMClausePlsShorten': '{!$label.CLMClausePlsShorten}',
+                'CLMClauseCharShortNameMin':'{!$label.CLMClauseCharShortNameMin}',
+                'CLMClauseSelectClauseCategory': '{!$label.CLMClauseSelectClauseCategory}',
+                'CLMClauseContentCharMax': '{!$label.CLMClauseContentCharMax}',
+                'CLMClausePlsShorten': '{!$label.CLMClausePlsShorten}',
+                'CLMClauseContentEmpty': '{!$label.CLMClauseContentEmpty}',
+                'CLMClauseUpdate': '{!$label.CLMClauseUpdate}',
+                'CLMClauseShortNameExists':'{!$label.CLMClauseShortNameExists}',
+                'CLMClauseInvalidShortNameWarning': '{!$label.CLMClauseInvalidShortNameWarning}',
+                'CLMClauseFormatChangeWarning':'{!$label.CLMClauseFormatChangeWarning}',
+                'CLMCopyToClipboard':'{!$label.CLMCopyToClipboard}',
+                'CLMViewClauseToken':'{!$label.CLMViewClauseToken}',
+                'CLMClauseTokenExample':'{!$label.CLMClauseTokenExample}',
+                'CLMClausePrefix':'{!$label.CLMClausePrefix}'
+
+             };
+        </script>
+        <apex:includeScript value="{!$Resource.vlocity_ins__DocumentClauseApp}" />
+    </body>
+</html>
+</apex:page>

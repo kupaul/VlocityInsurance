@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Default_quntity_cannot_be_zero</fullName>
+    <active>true</active>
+    <description>Default quantity should not be zero.</description>
+    <errorConditionFormula>vlocity_ins__DefaultQuantity__c = 0</errorConditionFormula>
+    <errorMessage>Default quantity should not be zero</errorMessage>
+</ValidationRule>

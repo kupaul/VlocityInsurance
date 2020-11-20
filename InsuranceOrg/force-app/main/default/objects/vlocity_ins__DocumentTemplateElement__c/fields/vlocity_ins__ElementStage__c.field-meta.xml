@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ElementStage__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Element Stage</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Original</fullName>
+                <default>false</default>
+                <label>Original</label>
+            </value>
+            <value>
+                <fullName>Replaced Clause Content</fullName>
+                <default>false</default>
+                <label>Replaced Clause Content</label>
+            </value>
+            <value>
+                <fullName>Formatted</fullName>
+                <default>false</default>
+                <label>Formatted</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

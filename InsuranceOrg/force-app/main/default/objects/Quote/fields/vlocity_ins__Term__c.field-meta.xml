@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Term__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Term</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>vlocity_ins__Term</valueSetName>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsActiveVersionBatchTemplate__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>vlocity_ins__ActiveContractVersionId__r.vlocity_ins__IsTemplateBatchable__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>IsActiveVersionBatchTemplate</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

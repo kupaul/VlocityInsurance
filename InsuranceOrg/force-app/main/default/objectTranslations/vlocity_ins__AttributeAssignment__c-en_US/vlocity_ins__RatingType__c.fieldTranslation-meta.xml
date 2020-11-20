@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Rating Attributes Use --></label>
+    <name>vlocity_ins__RatingType__c</name>
+    <picklistValues>
+        <masterLabel>Input</masterLabel>
+        <translation><!-- Input --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Output</masterLabel>
+        <translation><!-- Output --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

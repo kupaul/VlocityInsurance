@@ -1,0 +1,3 @@
+.oneFlexipage {
+    padding: 0;
+}

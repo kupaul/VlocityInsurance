@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Registration Type --></label>
+    <name>vlocity_ins__RegistrationType__c</name>
+    <picklistValues>
+        <masterLabel>Employee</masterLabel>
+        <translation><!-- Employee --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Media</masterLabel>
+        <translation><!-- Media --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Member</masterLabel>
+        <translation><!-- Member --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Partner</masterLabel>
+        <translation><!-- Partner --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Prospect</masterLabel>
+        <translation><!-- Prospect --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Speaker</masterLabel>
+        <translation><!-- Speaker --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

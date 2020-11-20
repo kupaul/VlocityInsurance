@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Occupation__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A description of the occupation of this individual--potentially helpful in determining the credit-worthiness of the individual.</description>
+    <externalId>false</externalId>
+    <label>Occupation</label>
+    <length>50</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

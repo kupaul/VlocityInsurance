@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PricingElementId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the pricing element version that was currently active at the time it was selected.</description>
+    <externalId>false</externalId>
+    <label>Pricing Element</label>
+    <referenceTo>vlocity_ins__PricingElement__c</referenceTo>
+    <relationshipName>PriceListEntries</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,143 @@
+<apex:page controller="vlocity_ins.EPCAdminController" title="Time Policy Admin" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org" ng-app="timepolicyadmin">
+        <head>
+            <base href="/"/>
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.EPCAdminCss)}" />
+
+            <script type="text/javascript" src="{!URLFOR($Resource.JQUERYJS)}"></script>
+            <script type="text/javascript" src="/support/console/31.0/integration.js"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.vlocity_assets, '/javascripts/vlocity.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.SldsAngular)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.AngularRoute)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.TimePolicyAdmin)}"></script>
+        </head>
+        <body class="via-slds ng-cloak" ng-controller="TimePolicyAdminController">
+            <div id="entity-info">
+                <div class="slds-clearfix">
+                    <div class="entity-menu slds-float--left">
+                        <a href="javascript:void(0)" ng-click="toggleMenu()"><span class="glyphicon icon-v-menu"></span></a>
+                    </div>
+                    <div class="entity-name slds-float--left">
+                        <h1 class="slds-text-heading--medium">{{timepolicyName}}</h1>
+                    </div>
+                    <div class="entity-context slds-float--right">
+                        <button class="slds-button slds-button--icon-border-filled" ng-click="init()">
+                            <slds-button-svg-icon sprite="'utility'" size="'small'" icon="'refresh'"></slds-button-svg-icon>
+                            <span class="slds-assistive-text">Refresh</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="content-container" class="clearfix">
+                <div class="entity" ng-show="showMenu"></div>
+                <div class="facets">
+                    <ul class="facet-sections">
+                        <li ng-repeat="facet in facets" ng-class="{'active': facet.active}"><a href="javascript:void(0)" ng-click="gotoFacet(facet)">{{facet.facetObj.Name}}</a></li>
+                    </ul>
+                </div>
+                <div ng-class="{'facet-content': true, 'minimized': showGlobalContext}">
+                    <div class="facet-container clearfix">
+                        <div ng-class="{'facet-master': true, 'minimized': showFacetDetail}">
+                            <div ng-repeat="facet in facets" class="vloc-facet" id="{{'facet-'+facet.facetObj.Id}}" ng-if="facet.active">
+                                <h2 class="slds-text-heading--small">{{facet.facetObj.Name}}</h2>
+                                <section ng-class="{'vloc-section': true, 'vloc-section-form': !facet.hasSectionCustomView}" ng-repeat="section in facet.sections">
+                                    <h3 class="slds-text-heading--label" ng-if="!facet.hasSectionCustomView">{{section.sectionObj.Name}}</h3>
+                                    <div class="vloc-section-body">
+                                        <vloc-custom-view ng-if="section.hasCustomView" ng-init="setupViewAttrs(section)"></vloc-custom-view>
+                                        <div ng-if="!section.hasCustomView" ng-repeat="sectionEl in section.sectionElements">
+                                            <div ng-switch="sectionEl[nsp+'Type__c']">
+                                                <div ng-switch-when="Field" class="vloc-section-element" ng-init="fieldName = sectionEl[nsp+'FieldApiName__c']; fieldName = (fieldName.endsWith('__c') ? nsp+fieldName : fieldName);">
+                                                    <div class="el__label"><label for="{{objectFields[fieldName].label}}">{{sectionEl.Name}}</label></div>
+                                                    <div class="el__control">
+                                                        <vloc-obj-field display-mode="'edit'" parent-obj="editTimepolicy" field-name="fieldName" field-info="objectFields[fieldName]" obj-picklists="objectPicklists[fieldName.toLowerCase()]"></vloc-obj-field>
+                                                    </div>
+                                                    <div class="el__attr-details"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <div ng-if="!facet.hasSectionCustomView" class="vloc-section-form slds-text-align--right section-el-btn">
+                                    <button type="button" class="slds-button slds-button--brand" ng-click="saveObject($event)">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="facet-detail" ng-show="showFacetDetail">
+                            <div class="close-facet-detail slds-text-align--right">
+                                <button class="slds-button slds-button--icon" ng-click="closeFacetDetails()">
+                                    <slds-button-svg-icon sprite="'utility'" size="'small'" icon="'close'"></slds-button-svg-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                            </div>
+                            <div id="facet-detail-content"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="global-context" ng-show="showGlobalContext">
+                    Global Contexts here..
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                j$ = jQuery.noConflict();
+
+                var remoteActions = {
+                    getObjectLayoutByName: {
+                        action: "{!$RemoteAction.EPCAdminController.getObjectLayoutByName}",
+                        config: {escape: false}
+                    },
+                    getObjectLayoutById: {
+                        action: "{!$RemoteAction.EPCAdminController.getObjectLayoutById}",
+                        config: {escape: false}
+                    },
+                    describeObject: {
+                        action: "{!$RemoteAction.EPCAdminController.describeObject}",
+                        config: {escape: false}
+                    },
+                    describeObjectFieldsById: {
+                        action: "{!$RemoteAction.EPCAdminController.describeObjectFieldsById}",
+                        config: {escape: false}
+                    },
+                    getObjectPicklistsByName: {
+                        action: "{!$RemoteAction.EPCAdminController.getObjectPicklistsByName}",
+                        config: {escape: false}
+                    },
+                    getObject: {
+                        action: "{!$RemoteAction.EPCAdminController.getObject}",
+                        config: {escape: false}
+                    },
+                    getFieldSetsByName: {
+                        action: "{!$RemoteAction.EPCAdminController.getFieldSetsByName}",
+                        config: {escape: false}
+                    },
+                    getPicklistValues: {
+                        action: "{!$RemoteAction.EPCAdminController.getPicklistValues}",
+                        config: {escape: false}
+                    },
+                    createObject: {
+                        action: "{!$RemoteAction.EPCAdminController.createObject}",
+                        config: {escape: false}
+                    },
+                    updateObject: {
+                        action: "{!$RemoteAction.EPCAdminController.updateObject}",
+                        config: {escape: false}
+                    },
+                    deleteObject: {
+                        action: "{!$RemoteAction.EPCAdminController.deleteObject}",
+                        config: {escape: false}
+                    }
+                };
+
+                var SLDSICON = {
+                    'ADD': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#add")}',
+                    'NEW': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#new")}',
+                    'EDIT': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#edit")}',
+                    'PREVIEW': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#preview")}',
+                    'DELETE': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#delete")}',
+                    'SEARCH': '{!URLFOR($Resource.slds, "/assets/icons/utility-sprite/svg/symbols.svg#search")}'
+                };
+            </script>
+        </body>
+    </html>
+</apex:page>

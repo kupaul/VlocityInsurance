@@ -1,0 +1,173 @@
+<apex:page showHeader="true"
+           sidebar="false"
+           standardStylesheets="false"
+           tabStyle="OmniScriptHome__tab"
+           standardController="vlocity_ins__OmniScript__c"
+           recordSetVar="omniscripts"
+           extensions="vlocity_ins.OmniScriptHomeController,vlocity_ins.DRDataPackRunnerController,vlocity_ins.OmniScriptDesignerController"
+           docType="html-5.0"
+           applyBodyTag="false"
+           title="Omniscript Designer Home">
+
+    <head>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__jsforce_1_7, '/jsforce-core.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__jsforce_1_7, '/jsforce-api-metadata.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__jsforce_1_7, '/jsforce-api-tooling.min.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__jsforce_1_7, '/jszip.min.js')}" />
+        <script>
+            window.conn = new jsforce.Connection({ accessToken: '{!$API.Session_Id}', version: '45.0' });
+            window.conn.metadata.pollTimeout = 600000;  // 10 minute polling timeout
+        </script>
+        <script src="{!URLFOR($Resource.vlocity_core_assets, '/v102/vlocity_core_assets.js')}"></script>
+        <apex:includeScript value="{!$Resource.vlocity_ins__angular_bundle_1_6}" />
+        <script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.js')}" />
+        <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ngInfiniteScroll, '/build/ng-infinite-scroll.min.js')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}" />
+        <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"
+        />
+        <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}" />
+        <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}" />
+        <apex:includeScript value="/support/console/42.0/integration.js" />
+        <script type="text/javascript">
+            window.omniLwcCompilerConfig = {
+                accessToken: '{!$API.Session_Id}',
+                namespacePrefix: '{!namespace}',
+                isInsidePckg: '{!isInsidePckg}',
+                toolingBaseUrl: '{!baseUrl}',
+                remoteActions: {
+                    buildJSONWithPrefillV2: {
+                        action: "{!$RemoteAction.OmniScriptDesignerController.BuildJSONWithPrefillV2}",
+                        config: { buffer: false, escape: false }
+                    }
+                }
+            };
+        </script>
+        <script src="{!$Resource.OmniscriptLwcCompiler}"></script>
+        <apex:includeScript value="{!$Resource.vlocity_ins__OmniScriptHome}" />
+        <script>
+            window.sessionId = '{!GETSESSIONID()}';
+        </script>
+        <apex:includeLightning />
+    </head>
+    <style>
+        html.Theme4d body,
+        html.Theme4u body {
+            margin: 0;
+        }
+
+        html:not(.Theme3) body.sfdcBody {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .bodyDiv .noSidebarCell {
+            padding: 0;
+        }
+    </style>
+    <script>
+        (function () {
+            document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+        })();
+    </script>
+
+    <body xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+        <div ng-app="ouihome"
+             class="via-slds ng-cloak {!$User.UIThemeDisplayed}"
+             ng-controller="ouihome">
+            <slds-home new-url="'{!newUrl}'"
+                       search-columns="searchColumns"
+                       page-title="'OmniScripts'"
+                       s-object-type="'{!$ObjectType.OmniScript__c.Name}'"
+                       row-actions="rowActions"
+                       group-by="groupBy"
+                       sorting="sorting"
+                       id-prefix="omni-home"
+                       backcompat-import="backcompatImport(json, done)"
+                       default-columns="defaultColumns"
+                       additional-table-buttons="additionalTableButtons"
+                       extra-filters="extraFilters">
+            </slds-home>
+        </div>
+        <script type="text/javascript">
+            /* START_VLOC_I18N */
+            var i18n = {
+                OmniDesLwcDeployError: '{!JSENCODE($Label.OmniDesLwcDeployError)}',
+                OmniDesMissingType: '{!JSENCODE($Label.OmniDesMissingType)}',
+                OmniDesMissingSubType: '{!JSENCODE($Label.OmniDesMissingSubType)}',
+                OmniDesMissingLanguage: '{!JSENCODE($Label.OmniDesMissingLanguage)}',
+                OmniDesLwcDeactivateDeployError: '{!JSENCODE($Label.OmniDesLwcDeactivateDeployError)}',
+                OmniDesConfirmActivationWithLwc: '{!JSENCODE($Label.OmniDesConfirmActivationWithLwc)}',
+                OmniDesOk: '{!JSENCODE($Label.OmniDesOk)}',
+                OmniDesCancel: '{!JSENCODE($Label.OmniDesCancel)}',
+                OmniDesActivation: '{!JSENCODE($Label.OmniDesActivation)}',
+                OmniDesActivationError: '{!JSENCODE($Label.OmniDesActivationError)}',
+                OmniDesActivationValidationError: '{!JSENCODE($Label.OmniDesActivationValidationError)}',
+                ActivateOmniscriptLwcComponentsMessage: '{!JSENCODE($Label.ActivateOmniscriptLwcComponentsMessage)}'
+            };
+    /* END_VLOC_I18N */
+        </script>
+        <c:VFActionFunction />
+        <div class="via-slds"
+             id="custom-slds-home-new-modal"
+             style="display: none">
+             <div id="lightning" />
+        </div>
+        <script>
+            window.omniNewUrl = "{!newUrl}";
+            window.omniLwcNewUrl = `/lightning/app/{!namespacePrefix}Vlocity_Digital_Studio/r/{!namespacePrefix}OmniScript__c/`;
+            window.disableLwcDesigner = true;
+            if (typeof sforce !== 'undefined') {
+                if (sforce.console && sforce.console.isInConsole()) {
+                    sforce.console.setTabTitle('Vlocity Omniscript Designer');
+                    sforce.console.setTabIcon('standard:template');
+                }
+            }
+            var ns = "{!namespacePrefix}".replace('__', '');
+            $Lightning.use(`${ns}:ltngOutVF`, function () {
+                creatNewForm();
+            });
+
+            function creatNewForm(){
+                $Lightning.createComponent(`${ns}:omniDesignerNewOmniScriptForm`,
+                    {
+                        objectApiName: '{!namespacePrefix}OmniScript__c',
+                        isNavigationApiUnsupported: true
+                    },
+                    "lightning",
+                    function (cmp, status) {
+                        if (status === "SUCCESS") {
+                            const newform = document.getElementById('lightning');
+                            newform.addEventListener('omninewnavigate', function (event) {
+                                // enable when we want the new designer to be the default.
+                                if (!window.disableLwcDesigner && event.detail.isLwcEnabled && !event.detail.isMultiLanguage) {
+                                    vlocityOpenUrl(`${omniLwcNewUrl}${event.detail.recordId}/view`, null, false);
+                                } else {
+                                    vlocityOpenUrl(`${omniNewUrl}?id=${event.detail.recordId}`, null, false);
+                                }
+                                event.stopPropagation();
+                                event.preventDefault();
+                            });
+                            newform.addEventListener('close', function (event) {
+                                cmp.destroy();
+                                Promise.resolve().then(() => {
+                                    const modalWrapper = document.getElementById('custom-slds-home-new-modal');
+                                    modalWrapper.style.display = 'none';
+                                    const newLightningEl = document.createElement('div');
+                                    newLightningEl.id = 'lightning';
+                                    modalWrapper.innerHTML = null;
+                                    modalWrapper.appendChild(newLightningEl);
+                                    creatNewForm();
+                                });
+                            });
+                            document.querySelector("#auraErrorMessage").innerHTML = "";
+                        }
+                    }
+                );
+            }
+        </script>
+    </body>
+
+</apex:page>

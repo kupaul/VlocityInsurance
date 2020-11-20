@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Description of the relationship from Source. (eg, &quot;is the CEO of&quot;) --></help>
+    <label><!-- Label String --></label>
+    <name>vlocity_ins__SourceString__c</name>
+</CustomFieldTranslation>

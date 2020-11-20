@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DeterminationCycle__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Determination Cycle</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>12 months</fullName>
+                <default>false</default>
+                <label>12 months</label>
+            </value>
+            <value>
+                <fullName>6 months</fullName>
+                <default>false</default>
+                <label>6 months</label>
+            </value>
+            <value>
+                <fullName>3 months</fullName>
+                <default>false</default>
+                <label>3 months</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Bill Type --></label>
+    <name>vlocity_ins__BillType__c</name>
+    <picklistValues>
+        <masterLabel>Account</masterLabel>
+        <translation><!-- Account --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Loan</masterLabel>
+        <translation><!-- Loan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Policy</masterLabel>
+        <translation><!-- Policy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Premium</masterLabel>
+        <translation><!-- Premium --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

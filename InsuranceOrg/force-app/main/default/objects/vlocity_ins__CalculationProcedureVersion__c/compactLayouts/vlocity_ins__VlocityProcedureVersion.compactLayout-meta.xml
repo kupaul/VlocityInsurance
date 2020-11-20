@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__VlocityProcedureVersion</fullName>
+    <fields>Name</fields>
+    <fields>vlocity_ins__VersionNumber__c</fields>
+    <fields>vlocity_ins__IsEnabled__c</fields>
+    <fields>vlocity_ins__StartDateTime__c</fields>
+    <fields>vlocity_ins__EndDateTime__c</fields>
+    <fields>vlocity_ins__Priority__c</fields>
+    <label>Vlocity Procedure Version</label>
+</CompactLayout>

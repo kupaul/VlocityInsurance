@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Mode__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The mode in which Object Type is associated with objects. Object Type Id: the object has a field called ObjectTypeId__c which is a direct lookup to the Object Type record. Record Type: map to a Object Type based on the object&apos;s record type. Field: map to an Object Type based on the value of a specified field on the object.</description>
+    <externalId>false</externalId>
+    <label>Mode</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Object Type Id</fullName>
+                <default>false</default>
+                <label>Object Type Id</label>
+            </value>
+            <value>
+                <fullName>Record Type</fullName>
+                <default>false</default>
+                <label>Record Type</label>
+            </value>
+            <value>
+                <fullName>Field</fullName>
+                <default>false</default>
+                <label>Field</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

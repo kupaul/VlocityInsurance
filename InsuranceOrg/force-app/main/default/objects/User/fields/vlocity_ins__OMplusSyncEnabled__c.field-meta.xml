@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__OMplusSyncEnabled__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Enable OM+ sync for this user</description>
+    <externalId>false</externalId>
+    <inlineHelpText>If checked a user will be marked for export to OMplus platform. User will be enabled in OMplus once catalog synchronisation job is complete in Vlocity XOM Administration tab.</inlineHelpText>
+    <label>OMplus Enabled</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

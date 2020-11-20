@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__CircularDependencyValidation</fullName>
+    <active>true</active>
+    <description>Orchestration Item Definition and Dependency Item Definition cannot have same value.</description>
+    <errorConditionFormula>vlocity_ins__DependencyItemDefinitionId__c  =  vlocity_ins__OrchestrationItemDefinitionId__c</errorConditionFormula>
+    <errorMessage>Orchestration Item Definition and Dependency Item Definition cannot have same value.</errorMessage>
+</ValidationRule>

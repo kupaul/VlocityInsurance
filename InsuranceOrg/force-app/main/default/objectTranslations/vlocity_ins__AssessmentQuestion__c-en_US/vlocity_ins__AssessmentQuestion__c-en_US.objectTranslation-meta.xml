@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <recordTypes>
+        <label><!-- Checkbox --></label>
+        <name>vlocity_ins__Checkbox</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Date --></label>
+        <name>vlocity_ins__Date</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Free Text --></label>
+        <name>vlocity_ins__FreeText</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Instruction --></label>
+        <name>vlocity_ins__Instruction</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Multi Select --></label>
+        <name>vlocity_ins__MultiSelect</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Number --></label>
+        <name>vlocity_ins__Number</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Question Table Multi Select --></label>
+        <name>vlocity_ins__QuestionTableMultiSelect</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Question Table Single Select --></label>
+        <name>vlocity_ins__QuestionTableSingleSelect</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Single Select --></label>
+        <name>vlocity_ins__SingleSelect</name>
+    </recordTypes>
+</CustomObjectTranslation>

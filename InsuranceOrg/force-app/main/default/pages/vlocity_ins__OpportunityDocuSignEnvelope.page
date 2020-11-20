@@ -1,0 +1,3 @@
+<apex:page standardController="Opportunity" extensions="vlocity_ins.VFPageControllerBase" standardStylesheets="false" showHeader="true" sidebar="false" docType="html-5.0">
+	<c:DocuSignEnvelope standardController="{!stdController}"/>
+</apex:page>

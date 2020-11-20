@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/salesforce-lightning-design-system-vf.min.css">
+        <link rel="stylesheet" type="text/css" href="css/VlocityChatBotCss.css">
+        <script src="js/chatBotSetting.js" type="text/javascript"></script>
+        <script src="js/vlocity_core_assets.js" type="text/javascript"></script>
+        <script src="js/ViaDirectives.min.js" type="text/javascript"></script>
+        <script src="js/VlocityChatBotLibs.js" type="text/javascript"></script>
+        <script src="js/VlocityDynamicForm.min.js" type="text/javascript"></script>
+        <script src="js/SldsAngular.min.js" type="text/javascript"></script>
+        <script src="js/VlocityChatBotJS.min.js" type="text/javascript"></script>
+        <script src="js/VlocityChatBotTemplates.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div ng-app="VlocityChatBot" class='vlocity via-slds via-omni' xmlns:xlink="http://www.w3.org/1999/xlink">
+            <script src="js/externalResources.js" type="text/javascript"></script>
+
+            <ng-include src="'vlcBotMain.html'"></ng-include>
+            <script type="text/javascript">
+                var modules = ['vlocity-chat-bot'];
+                var myModule = angular.module('VlocityChatBot', modules);
+            </script>
+        </div>
+    </body>
+</html>

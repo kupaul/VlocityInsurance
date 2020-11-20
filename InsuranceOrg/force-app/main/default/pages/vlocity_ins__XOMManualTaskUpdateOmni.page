@@ -1,0 +1,15 @@
+<apex:page standardStylesheets="false" showHeader="true" sidebar="true" docType="html-5.0">
+    <div class="vlocity via-slds" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ng-app="ManualTask">
+        <c:BusinessProcessComponent strOmniScriptType="ManualTask"
+            strOmniScriptSubType="ManualTaskUpdate"
+            strOmniScriptLang="English"/>
+        <c:BusinessProcessHelperComponent />
+        <c:JSONTreeHTMLTemplateComponent />
+        <script type="text/javascript">
+            var modules = ['vlocity-business-process'];
+            var myModule = angular.module('ManualTask', modules);
+        </script>
+
+    </div>
+    <c:VFActionFunction /> 
+</apex:page>

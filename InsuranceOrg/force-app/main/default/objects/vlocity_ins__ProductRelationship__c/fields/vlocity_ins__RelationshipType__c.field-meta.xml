@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__RelationshipType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>The type of relationship such as Recommends, Requires, Excludes, Auto-Add, Auto-Remove, Auto-Replace, Modify Attributes and Relies On.</description>
+    <externalId>false</externalId>
+    <label>Relationship Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Auto-Add</fullName>
+                <default>false</default>
+                <label>Auto-Add</label>
+            </value>
+            <value>
+                <fullName>Auto-Remove</fullName>
+                <default>false</default>
+                <label>Auto-Remove</label>
+            </value>
+            <value>
+                <fullName>Auto-Replace</fullName>
+                <default>false</default>
+                <label>Auto-Replace</label>
+            </value>
+            <value>
+                <fullName>Recommends</fullName>
+                <default>false</default>
+                <label>Recommends</label>
+            </value>
+            <value>
+                <fullName>Requires</fullName>
+                <default>false</default>
+                <label>Requires</label>
+            </value>
+            <value>
+                <fullName>Excludes</fullName>
+                <default>false</default>
+                <label>Excludes</label>
+            </value>
+            <value>
+                <fullName>Specification</fullName>
+                <default>false</default>
+                <label>Specification</label>
+            </value>
+            <value>
+                <fullName>Service</fullName>
+                <default>false</default>
+                <label>Service</label>
+            </value>
+            <value>
+                <fullName>Resource</fullName>
+                <default>false</default>
+                <label>Resource</label>
+            </value>
+            <value>
+                <fullName>Modify Attributes</fullName>
+                <default>false</default>
+                <label>Modify Attributes</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

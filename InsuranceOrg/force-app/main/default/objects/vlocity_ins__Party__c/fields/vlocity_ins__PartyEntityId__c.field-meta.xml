@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__PartyEntityId__c</fullName>
+    <deprecated>false</deprecated>
+    <description>This field is used internally to store Ids from different objects. If the party type is contact, this field stores Contact.Id, if it is household, it stores Household__c.Id. Used to provide a link to the source record.</description>
+    <externalId>false</externalId>
+    <label>Party Entity Id</label>
+    <length>20</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

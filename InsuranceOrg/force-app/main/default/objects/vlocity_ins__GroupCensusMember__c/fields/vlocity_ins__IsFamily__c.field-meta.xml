@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__IsFamily__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <formula>IF(vlocity_ins__HasSpouse__c &amp;&amp; vlocity_ins__NumberOfDependents__c &gt;0, true, IF(!vlocity_ins__HasSpouse__c &amp;&amp; vlocity_ins__NumberOfDependents__c &gt;1, true, false))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is Family</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

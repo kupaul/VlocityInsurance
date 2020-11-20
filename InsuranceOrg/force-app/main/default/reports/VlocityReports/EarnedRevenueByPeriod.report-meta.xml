@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Asset$Account</field>
+    </columns>
+    <columns>
+        <field>Asset$Name</field>
+    </columns>
+    <columns>
+        <field>Asset$Product2</field>
+    </columns>
+    <columns>
+        <field>Asset$SerialNumber</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Asset.vlocity_ins__AssetRevenueSchedule__r$vlocity_ins__PeriodEarnedRevenue__c</field>
+    </columns>
+    <description>Earned Revenue by Monthly Period</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Month</dateGranularity>
+        <field>Asset.vlocity_ins__AssetRevenueSchedule__r$vlocity_ins__Date__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Earned Revenue By Period</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Earned_Revenue_by_Period__c</reportType>
+    <scope>user</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Asset$CreatedDate</dateColumn>
+        <interval>INTERVAL_PREVCURY</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ContributionType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Defines the type of the contribution in which an employer or a group will contribute towards the plan such as percentage of the cost or a flat amount.</description>
+    <externalId>false</externalId>
+    <label>Contribution Type</label>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Percent</fullName>
+                <default>false</default>
+                <label>Percent</label>
+            </value>
+            <value>
+                <fullName>Amount</fullName>
+                <default>false</default>
+                <label>Amount</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

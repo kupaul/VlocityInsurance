@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AttributeCategoryId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>ID of the Vlocity Attribute Category copied from the attribute at the time the attribute was assigned.</description>
+    <externalId>false</externalId>
+    <label>Attribute Category</label>
+    <referenceTo>vlocity_ins__AttributeCategory__c</referenceTo>
+    <relationshipLabel>Attribute Assignments</relationshipLabel>
+    <relationshipName>AttributeAssignments</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

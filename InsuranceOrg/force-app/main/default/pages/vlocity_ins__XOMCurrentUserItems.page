@@ -1,0 +1,4 @@
+<apex:page showHeader="true" sidebar="true" standardController="User">
+    <c:XOMQueueItemsComponent title="Assigned To Me"
+        displayedFields="state__c, timestampReady__c, account__c, orderFulfilmentRequest__c, manualQueueId__c"/>
+</apex:page>

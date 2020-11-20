@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SchedulingExpirationIntervalSeconds__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Defines a duration in seconds to monitor overdue tasks starting from a task creation date.
+Once scheduling interval is reached then system stops calculating jeopardy statuses for tasks and order due dates (i.e. scheduling is expired).
+This setting allows to switch off Orchestration Plan re-scheduling after some period of time. Orders and Order Items with expired scheduling are not updated.</description>
+    <externalId>false</externalId>
+    <label>Scheduling Expiration Interval (Seconds)</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

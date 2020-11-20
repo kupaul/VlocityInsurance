@@ -1,0 +1,6 @@
+<apex:page controller="vlocity_ins.CustomLabelTranslationController" contentType="application/x-JavaScript; charset=utf-8" showHeader="false" sidebar="false" language="{!labelLanguage}" standardStylesheets="false">
+    "language" : { "code" : "{!labelLanguage}" },
+    <apex:repeat value="{!labels}" var="labelName">
+    	"{!labelName}" : "{!JSENCODE($Label[labelName])}",
+    </apex:repeat>
+</apex:page>

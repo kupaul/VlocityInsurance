@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Percentage__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A percentage for this relationship. However, use Beneficiary Percentage on beneficiary relationships and Commission Percentage on producer relationships.</description>
+    <externalId>false</externalId>
+    <label>Percentage</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>

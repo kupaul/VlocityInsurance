@@ -1,0 +1,91 @@
+<apex:page controller="vlocity_ins.ProductConsoleController" title="New Object Record" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ng="http://angularjs.org" ng-app="epcadmin">
+        <head>
+            <base href="/"/>
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.EPCAdminCss)}" />
+
+            <script type="text/javascript" src="{!URLFOR($Resource.JQUERYJS)}"/>
+            <script type="text/javascript" src="/support/console/31.0/integration.js"/>
+            <script type="text/javascript" src="{!URLFOR($Resource.vlocity_core_assets, '/latest/vlocity_core_assets.js')}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.SldsAngular)}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.EPCAdmin)}"/>
+        </head>
+        <body class="via-slds ng-cloak" ng-controller="NewObjectRecordController">
+            <div class="entity-page-header">
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-has-flexi-truncate">
+                            <div class="slds-media slds-no-space slds-grow">
+                                <div class="slds-media__figure">
+                                    <slds-svg-icon sprite="'custom'" size="'medium'" icon="'custom83'" extra-classes="'slds-icon-standard-user'"></slds-svg-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h1 class="slds-page-header__title slds-m-right--small slds-m-top--xx-small slds-align-middle">New {{doLabel}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="entity-page-content">
+                <div class="facet-content-main new-object-record">
+                    <div class="vloc-facet">
+                        <form name="createObjectRecordForm" ng-if="!facet.hasSectionCustomView">
+                            <div class="vloc-sections" ng-if="hasObjectTypes">
+                                <section class="vloc-section vloc-section-form">
+                                    <h3 class="slds-text-heading--small">Object Type</h3>
+		                            <div class="vloc-section-body vloc-section-element-form">
+                                        <div class="vloc-section-element">
+                                            <div class="el__label">
+                                                <label for="objectType">Object Type</label>
+                                            </div>
+                                            <div class="el__control">
+                                                <vloc-obj-field 
+                                                    display-mode="'edit'" 
+                                                    parent-obj="editObject" 
+                                                    form-element-name="'objectType'" 
+                                                    field-name="'objectTypeId'" 
+                                                    field-info="objTypeSelect" 
+                                                    obj-picklists="objectTypes"></vloc-obj-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <vloc-sections 
+                                facet="facet"
+                                parent-obj="editObject"
+                                field-display-mode="create"
+                                object-fields="objectFields"
+                                object-picklists="objectPicklists"
+                                attr-map="attrMap"
+                                attr-obj-map="attrObjMap"
+                                attr-assgn-obj-map="attrAssgnObjMap"
+                                setup-view-attrs="setupViewAttrs(section)"
+                                show-attribute-metadata="showAttributeMetadata(attributeId)"
+                                form-name="'createObjectRecordForm'"
+                                record-type="doRecordType"
+                                ng-if="objectFields && objectPicklists && attrObjMap && attrObjMap"></vloc-sections>
+                            <div ng-if="(facet.sections.length > 0)" class="vloc-section-form slds-text-align--right section-el-btn">
+                                <button type="button" class="slds-button slds-button--brand" ng-click="saveObject($event)" ng-disabled="createObjectRecordForm.$invalid">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                j$ = jQuery.noConflict();
+
+                var remoteActions = {
+                    invokeMethod: {
+                        action: "{!$RemoteAction.ProductConsoleController.invokeMethod}",
+                        config: {escape: false}
+                    }
+                };
+            </script>
+        </body>
+    </html>
+</apex:page>

@@ -1,0 +1,20 @@
+<apex:page standardController="Asset" showHeader="false" sidebar="false"     >
+<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__IcoMoonIconPack, 'style.css')}"/>
+    <apex:outputPanel style="text-align:center" >
+        <apex:form >
+            <br/>
+             <span style="text-align:right" > 
+                <button id="zoom_in"  class="zoomb"><span aria-hidden="true" class="icon-zoomin" data-icon="&amp;#xe600;" ></span></button>
+                <button id="zoom_out"  class="zoomb"><span aria-hidden="true" class="icon-zoomout" data-icon="&amp;#xe601;" ></span></button>           
+             </span>
+        </apex:form>
+    </apex:outputPanel>
+    <br/>
+    <c:PartyHierarchy rootRelationship="AssetPartyRelationship__c"  
+                                rootRelKey="AssetId__r" 
+                                partyRelKey="PartyId__r" 
+                                rootRelTypeKey="PartyRelationshipTypeId__r" 
+                                readOnlyGraph="true"
+                                displayMultipleRel="true"
+                                pLevels="1"/>    
+</apex:page>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__OriginalContractId__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <description>Specifies the original contract from which this contact was created. This contract is considered an amendment of the original contract</description>
+    <externalId>false</externalId>
+    <label>Original Contract</label>
+    <referenceTo>Contract</referenceTo>
+    <relationshipLabel>Amendment Contracts</relationshipLabel>
+    <relationshipName>Contracts</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

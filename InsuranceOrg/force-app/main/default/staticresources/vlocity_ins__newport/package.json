@@ -1,0 +1,17 @@
+{
+  "name": "@vlocity/newport-design-system",
+  "description": "Vlocity Newport Design System",
+  "version": "108.0.0",
+  "author": "Vlocity",
+  "license": "SEE LICENSE IN README.md",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vlocityinc/newport-design-system.git"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  }
+}

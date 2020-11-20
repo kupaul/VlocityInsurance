@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DataType__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Data type of the values in this picklist: text, number, date, date/time or boolean.</description>
+    <externalId>false</externalId>
+    <label>Data Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Text</fullName>
+                <default>true</default>
+                <label>Text</label>
+            </value>
+            <value>
+                <fullName>Number</fullName>
+                <default>false</default>
+                <label>Number</label>
+            </value>
+            <value>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+                <label>Boolean</label>
+            </value>
+            <value>
+                <fullName>Date</fullName>
+                <default>false</default>
+                <label>Date</label>
+            </value>
+            <value>
+                <fullName>Date Time</fullName>
+                <default>false</default>
+                <label>Date Time</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

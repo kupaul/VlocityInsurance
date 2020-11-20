@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>vlocity_ins__Status__c</name>
+    <picklistValues>
+        <masterLabel>Authority Denied</masterLabel>
+        <translation><!-- Authority Denied --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cancelled</masterLabel>
+        <translation><!-- Cancelled --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Closed W/O Pay</masterLabel>
+        <translation><!-- Closed W/O Pay --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>New</masterLabel>
+        <translation><!-- New --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Open</masterLabel>
+        <translation><!-- Open --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Paid</masterLabel>
+        <translation><!-- Paid --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Payment Pending</masterLabel>
+        <translation><!-- Payment Pending --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pending Authority</masterLabel>
+        <translation><!-- Pending Authority --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stopped</masterLabel>
+        <translation><!-- Stopped --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Voided</masterLabel>
+        <translation><!-- Voided --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

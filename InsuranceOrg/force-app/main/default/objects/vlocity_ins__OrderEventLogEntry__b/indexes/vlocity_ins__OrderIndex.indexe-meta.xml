@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Index xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__OrderIndex</fullName>
+    <fields>
+        <name>vlocity_ins__OrderId__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <fields>
+        <name>vlocity_ins__EventTime__c</name>
+        <sortDirection>DESC</sortDirection>
+    </fields>
+    <fields>
+        <name>vlocity_ins__EventRecordId__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <fields>
+        <name>vlocity_ins__EventType__c</name>
+        <sortDirection>ASC</sortDirection>
+    </fields>
+    <label>Order Index</label>
+</Index>

@@ -1,0 +1,55 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" controller="vlocity_ins.CardCanvasController" action="{!checkAuth}">
+<!--
+    *******TODO'S*********
+    - Create a separate controller, dont use CommunityCanvasController
+    - revisit the auth check
+    - Populate the vlocCommunities fields with new controller
+-->
+  <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <!-- Common stylesheets -->
+        <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+
+        <style type="text/css">
+            body {
+                max-width: 1200px;
+                min-width: 300px;
+                margin: 0 auto !important;
+            }
+
+            .vlocity .community .h2 {
+                margin: 10px 0px;
+            }
+        </style>
+    </head>
+    <body ng-app="communityApp">
+
+        <div class="vlocity" ng-controller="CommunityController">
+            <vloc-cmp name="Community" customtemplate="community-grid" loaded="true"> </vloc-cmp>
+        </div>
+
+        <!-- Common scripts -->
+        <script src="{!URLFOR($Resource.vlocity_core_assets, '/latest/vlocity_core_assets.js')}"></script>
+        <script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+        <script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework_assets.js')}"></script>
+        <script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework.js')}"></script>
+        <script src="{!$Resource.SldsAngular}"></script>
+
+        <!-- App specific scripts-->
+        <script src="{!$Resource.community}"></script>
+
+        <script type="text/javascript">
+            var vlocCommunities = {
+                'sfInstanceUrl': '{!sfInstanceUrl}',
+                'nsPrefix': '{!nsPrefix}',
+                'accessToken': '{!$Api.Session_ID}',
+                'loggedUser': JSON.parse('{!JSENCODE(loggedUser)}'),
+                'staticResourceURL' : {
+                    'communityHeader': '{!URLFOR($Resource.communityHeader)}',
+                    'logo': '{!URLFOR($Resource.CommunityLogo)}'
+                }
+            };
+        </script>
+    </body>
+</apex:page>

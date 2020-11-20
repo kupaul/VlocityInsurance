@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DisableDatasourceREST__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Disable the REST Datasource at the org level.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Disable the REST Datasource at the org level.</inlineHelpText>
+    <label>Disable Datasource REST</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

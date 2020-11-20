@@ -1,0 +1,44 @@
+<apex:page docType="html-5.0" controller="vlocity_ins.CardCanvasController" applyHtmlTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+    <html xmlns:ng="http://angularjs.org" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  ng-app="insProductMethodsHelper" class="ng-cloak" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <style type="text/css">
+                body {
+                    margin: 0px !important;
+                    padding: 0px !important;
+                    min-height: 100vh;
+                }
+                .via-slds .vloc-ins-product-model-initial-spinner {
+                    background-color: transparent;
+                }
+            </style>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_strap_bundle_1_6)}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__ViaDirectives}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework_assets.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__cardframework_core_assets, '/latest/cardframework.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__InsValidationHandler}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_touch, '/angular-touch.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__angular_carousel, '/dist/angular-carousel.js')}"/>
+            <apex:includeScript value="{!$Resource.vlocity_ins__InsProductMethodsHelper}"/>
+            <c:CardStyleLoaderComponent ></c:CardStyleLoaderComponent>
+        </head>
+        <body>
+            <div class="vlocity via-slds preload">
+                <vloc-layout ctrl="InsProductMethodsController" layout-name="ins-product-methods-helper">
+                </vloc-layout>
+            </div>
+            <script type="text/javascript">
+                var sessionId = '{!$Api.Session_ID}';
+                var vlocINS = {
+                    'accessToken': '{!$Api.Session_ID}',
+                    'staticResourceURL' : {
+                        'slds': '{!URLFOR($Resource.vlocity_ins__slds)}',
+                    }
+                };
+                var userId = '{!$User.Id}';
+            </script>
+        </body>
+    </html>
+</apex:page>

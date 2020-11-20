@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Disclosure2__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>Whether this customer is a company in the gaming or gambling business. Primarily relevant to financial services organizations using Vlocity, but may also be relevant for credit checks.</description>
+    <externalId>false</externalId>
+    <label>Gaming or Gambling</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Image__c</fullName>
+    <deprecated>false</deprecated>
+    <description>A rich text area field that stores an image of this person. The image must be a .gif, .jpg or .png file and is limited to 1 MB in size. For more information about images stored in rich text area fields, see Editing Rich Text Are Fields in Records (https://help.salesforce.com/articleView?id=fields_using_rich_text_area.htm&amp;type=5).</description>
+    <externalId>false</externalId>
+    <label>Image</label>
+    <length>32768</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

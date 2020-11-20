@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Exterior Construction --></label>
+    <name>vlocity_ins__ExteriorConstruction__c</name>
+    <picklistValues>
+        <masterLabel>Brick</masterLabel>
+        <translation><!-- Brick --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Composite</masterLabel>
+        <translation><!-- Composite --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Concrete Block</masterLabel>
+        <translation><!-- Concrete Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stone</masterLabel>
+        <translation><!-- Stone --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Stucco</masterLabel>
+        <translation><!-- Stucco --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Vinyl Siding</masterLabel>
+        <translation><!-- Vinyl Siding --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wood Shingle</masterLabel>
+        <translation><!-- Wood Shingle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wood Siding</masterLabel>
+        <translation><!-- Wood Siding --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__DecompositionRelationshipHighlightsPanel</fullName>
+    <fields>Name</fields>
+    <fields>vlocity_ins__SourceProductId__c</fields>
+    <fields>vlocity_ins__DestinationProductId__c</fields>
+    <label>Decomposition Relationship Highlights</label>
+</CompactLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SubType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Sub Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Automatic Premium Loan</fullName>
+                <default>false</default>
+                <label>Automatic Premium Loan</label>
+            </value>
+            <value>
+                <fullName>Dividends on Deposit Withdrawal</fullName>
+                <default>false</default>
+                <label>Dividends on Deposit Withdrawal</label>
+            </value>
+            <value>
+                <fullName>Full Liquidation</fullName>
+                <default>false</default>
+                <label>Full Liquidation</label>
+            </value>
+            <value>
+                <fullName>Interest Only, Surrender-Free Amount Withdrawal</fullName>
+                <default>false</default>
+                <label>Interest Only, Surrender-Free Amount Withdrawal</label>
+            </value>
+            <value>
+                <fullName>Interest Only / Gain Only Withdrawal</fullName>
+                <default>false</default>
+                <label>Interest Only / Gain Only Withdrawal</label>
+            </value>
+            <value>
+                <fullName>Non Preferred Standard Loan</fullName>
+                <default>false</default>
+                <label>Non Preferred Standard Loan</label>
+            </value>
+            <value>
+                <fullName>One Year Term Partial</fullName>
+                <default>false</default>
+                <label>One Year Term Partial</label>
+            </value>
+            <value>
+                <fullName>Paid - Up Additions Partial Surrender</fullName>
+                <default>false</default>
+                <label>Paid - Up Additions Partial Surrender</label>
+            </value>
+            <value>
+                <fullName>Preferred Loan</fullName>
+                <default>false</default>
+                <label>Preferred Loan</label>
+            </value>
+            <value>
+                <fullName>Required Minimum Distribution</fullName>
+                <default>false</default>
+                <label>Required Minimum Distribution</label>
+            </value>
+            <value>
+                <fullName>Specified Amount Withdrawal</fullName>
+                <default>false</default>
+                <label>Specified Amount Withdrawal</label>
+            </value>
+            <value>
+                <fullName>Substantially Equal Payments</fullName>
+                <default>false</default>
+                <label>Substantially Equal Payments</label>
+            </value>
+            <value>
+                <fullName>Surrender Free Withdrawal</fullName>
+                <default>false</default>
+                <label>Surrender Free Withdrawal</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

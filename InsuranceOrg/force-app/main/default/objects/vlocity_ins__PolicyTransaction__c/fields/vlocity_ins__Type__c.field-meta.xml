@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Renewal</fullName>
+                <default>false</default>
+                <label>Renewal</label>
+            </value>
+            <value>
+                <fullName>Premium Paid</fullName>
+                <default>false</default>
+                <label>Premium Paid</label>
+            </value>
+            <value>
+                <fullName>Billing Notice</fullName>
+                <default>false</default>
+                <label>Billing Notice</label>
+            </value>
+            <value>
+                <fullName>Surrender</fullName>
+                <default>false</default>
+                <label>Surrender</label>
+            </value>
+            <value>
+                <fullName>Policy Loan</fullName>
+                <default>false</default>
+                <label>Policy Loan</label>
+            </value>
+            <value>
+                <fullName>Lapse</fullName>
+                <default>false</default>
+                <label>Lapse</label>
+            </value>
+            <value>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+                <label>Cancelled</label>
+            </value>
+            <value>
+                <fullName>Changed/Endorsed</fullName>
+                <default>false</default>
+                <label>Changed/Endorsed</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

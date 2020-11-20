@@ -1,0 +1,55 @@
+<apex:page standardController="Product2" extensions="vlocity_ins.NewProductVersionController">
+ <apex:sectionHeader title="{!prevProductName}" subtitle="New Version"/>
+ 
+ <apex:form id="form_Upload">
+ <apex:pageBlock >
+ 
+  <apex:pageBlockButtons >
+   <apex:commandButton id="cloneBtn" value="Generate New Version" action="{!processClone}" />
+   <apex:commandButton action="{!back}" value="Back to {!prevProductName}"/>
+   <apex:commandButton action="{!back}" value="Cancel"/>
+  </apex:pageBlockButtons>
+  
+   <apex:pageMessages />
+  
+  <apex:pageBlockSection columns="1">
+  
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="New Version Number" for="newVersion"/>
+      <apex:inputText value="{!newVersion}" />
+    </apex:pageBlockSectionItem>
+    
+    <apex:pageBlockSectionItem >
+    	<apex:outputLabel value="New Status" for="newStatus"/>
+    	<apex:selectList size="1" value="{!newStatus}">
+			<apex:selectOptions value="{!statusOptions}" /> 
+		</apex:selectList>
+    </apex:pageBlockSectionItem>
+    
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="New Version Active" for="isActive"/>
+      <apex:inputCheckbox value="{!tempProduct.IsActive}"/>
+    </apex:pageBlockSectionItem>
+    
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="Effective Date" for="startDate"/>
+      <apex:inputField value="{!tempProduct.vlocity_ins__EffectiveDate__c}"/>
+    </apex:pageBlockSectionItem>
+    
+   <apex:pageBlockSectionItem >
+      <apex:outputLabel value="End Date" for="endDate"/>
+      <apex:inputField value="{!tempProduct.vlocity_ins__EndDate__c}"/>
+    </apex:pageBlockSectionItem>
+<!--         
+    <apex:pageBlockSectionItem >
+      <apex:outputLabel value="" for="cloneBtn"/> 
+      <apex:commandButton id="cloneBtn" value="Generate New Version" action="{!processClone}" />
+    </apex:pageBlockSectionItem>   
+-->     
+  </apex:pageBlockSection>
+ 
+ </apex:pageBlock>
+     
+ </apex:form>
+  
+</apex:page>

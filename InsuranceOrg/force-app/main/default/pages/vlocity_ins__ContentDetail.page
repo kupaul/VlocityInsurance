@@ -1,0 +1,53 @@
+<apex:page controller="vlocity_ins.ContentDetailDisplayController" sidebar="true">
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__bootstrap, '/bootstrap-3.2.0-dist/css/sfboot.min.css')}"/>
+  <style>
+	.bPageBlock{
+      //border-top: 1px solid #eaeaea !important;
+      background-color: transparent !important;
+  }
+  .back-link {
+    margin-top: 10px;
+    display: inline-block;
+  }     
+</style>
+<apex:outputLink id="back-link" styleClass="back-link" value="/apex/ContentSegmentList">&laquo; Back to Vlocity Content Attributes</apex:outputLink>
+  <apex:outputPanel id="idErrorMessages">
+        <apex:pageMessages />
+  </apex:outputPanel>
+  <apex:form >
+    <apex:sectionHeader title="{!$Label.vlocity_ins__contentdetail}" />
+    <apex:outputPanel >
+        <apex:pageBlock >
+        <apex:pageBlockSection id="idContent" columns="1" rendered="{!NOT(ISNULL(content))}">
+            <apex:pageBlockSectionItem >
+                    <apex:outputLabel >{!$Label.vlocity_ins__title}</apex:outputLabel>
+                    <apex:outputField value="{!content.Title}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                    <apex:outputLabel >{!$Label.vlocity_ins__description}</apex:outputLabel>
+                    <apex:outputField value="{!content.Description}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                    <apex:outputLabel >{!$Label.vlocity_ins__filetype}</apex:outputLabel>
+                    <apex:outputField value="{!content.FileType}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                    <apex:outputLabel >{!$Label.vlocity_ins__author}</apex:outputLabel>
+                    <apex:outputField value="{!content.Owner.Name}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                    <apex:outputLabel >{!$Label.vlocity_ins__version}</apex:outputLabel>
+                    <apex:outputField value="{!content.VersionNumber}"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>       
+        </apex:pageBlock>
+     </apex:outputPanel> 
+  </apex:form>  
+  <apex:form > 
+  <apex:pageBlock title="{!$Label.vlocity_ins__segments}">
+   <apex:pageBlockSection id="segment" columns="1" collapsible="true" >
+  <c:SegmentComponent />
+  </apex:pageBlockSection>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

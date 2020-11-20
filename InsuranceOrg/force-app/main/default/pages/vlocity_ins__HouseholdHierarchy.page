@@ -1,0 +1,14 @@
+<apex:page standardController="vlocity_ins__Household__c" showHeader="false" sidebar="false" docType="html-5.0">
+<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__IcoMoonIconPack, 'style.css')}"/>
+    <apex:outputPanel style="text-align:center" >
+        <apex:form >
+            <br/>
+             <span style="text-align:right" > 
+                <button id="zoom_in"  class="zoomb"><span aria-hidden="true" class="icon-zoomin" data-icon="&amp;#xe600;" ></span></button>
+                <button id="zoom_out"  class="zoomb"><span aria-hidden="true" class="icon-zoomout" data-icon="&amp;#xe601;" ></span></button>           
+             </span>
+        </apex:form>
+    </apex:outputPanel>
+    <br/>
+    <c:PartyHierarchy />    
+</apex:page>

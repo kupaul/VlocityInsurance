@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Enter the Apex code here for the Validator Class to use to check the criteria specified in the detailed Rule Properties below. (More details on proper syntax in the Vlocity Public Sector Admin Configuration Guide.) --></help>
+    <label><!-- Validate Method --></label>
+    <name>vlocity_ins__ValidateMethod__c</name>
+</CustomFieldTranslation>

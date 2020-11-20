@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__all_allfields</fullName>
+    <columns>NAME</columns>
+    <columns>vlocity_ins__Description__c</columns>
+    <columns>vlocity_ins__DrugId__c</columns>
+    <columns>vlocity_ins__MaxFillAllowed__c</columns>
+    <columns>vlocity_ins__LimitFrequency__c</columns>
+    <columns>vlocity_ins__QuantityPerRefill__c</columns>
+    <columns>vlocity_ins__FormularyId__c</columns>
+    <columns>vlocity_ins__FormularyTierId__c</columns>
+    <columns>vlocity_ins__HasPriorAuthorization__c</columns>
+    <columns>vlocity_ins__IsActive__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>all-allfields</label>
+</ListView>

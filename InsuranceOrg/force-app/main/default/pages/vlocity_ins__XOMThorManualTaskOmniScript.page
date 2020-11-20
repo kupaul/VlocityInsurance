@@ -1,0 +1,189 @@
+<apex:page docType="html-5.0" applyBodyTag="false" showHeader="false" sidebar="false" standardController="Order" extensions="vlocity_ins.SimpleDecompositionController,vlocity_ins.XOMSyncDeltaControllerExtension">
+<html ng-app="ThorManualTaskOS">
+<head>
+    <title>XOM ThorManual Task OmniScript</title>
+   <apex:includeScript value="/soap/ajax/31.0/connection.js" />
+    <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+    </head>
+    <body class="redirectPage">
+        <div class="vlocity via-slds" ng-controller="XOMObjectProxyController">
+                
+                <c:BusinessProcessComponent strOmniScriptType="XOM"
+                strOmniScriptSubType="Thor Manual Task Update"
+                strOmniScriptLang="English"
+                previewMode="{!$CurrentPage.parameters.previewEmbedded}"
+                verticalMode="{!$CurrentPage.parameters.verticalMode}"
+                strOmniScriptId="{!$CurrentPage.parameters.designerPreviewId}"/>
+    
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/components/vlocity.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/components/remoteActions.js')}"/>
+
+            <apex:includeScript value="/support/console/31.0/integration.js"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/forceng/forceng.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ForceTK/forcetk.js')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__slds, 'assets/styles/salesforce-lightning-design-system-vf.css')}"/>
+
+
+              
+             <script type="text/javascript">
+             
+            (function () {
+                'use strict';
+                var remoteActions = {
+                    getSfIdByGlobalKey: '{!$RemoteAction.SimpleDecompositionController.getSfIdByGlobalKey}',
+                    getManualQueueSfIdByGlobalKey: '{!$RemoteAction.SimpleDecompositionController.getManualQueueSfIdByGlobalKey}'
+                };
+
+                var app = angular.module('ThorManualTaskOS', ["vlocity-business-process","vlocity"]);
+
+               
+                app.config(["remoteActionsProvider", function(remoteActionsProvider){
+                        remoteActionsProvider.setRemoteActions(remoteActions); 
+                    }]);
+                
+                app.controller('XOMObjectProxyController', function($scope,$rootScope,  remoteActions) {
+
+                    $scope.showSpinner = true;
+                    $rootScope.mId="";
+                    $rootScope.mAdditionalId="";
+                    $rootScope.iframeUrl='';
+                    $rootScope.showEditOrderItem =false;
+                    var uiServicesUrl = '{!JSENCODE(uiServicesUrl)}';  
+                    var contextId = '{!JSENCODE($CurrentPage.parameters.ContextId)}'; 
+                    var taskId = '{!JSENCODE($CurrentPage.parameters.taskId)}'; 
+
+                    sfdcVars.urlParams = {"useCache":"false","uiServicesUrl":uiServicesUrl,
+                    "contextObjectId":contextId, "taskId":taskId};
+                    
+                    //sfdcVars.urlParams = {"useCache":"false","uiServicesUrl":'{!uiServicesUrl}'};
+                    $scope.resolveByManualQueueGlobalKey = function()
+                      { 
+                        var globalKey = $('#customAttrElement').attr('customAttrMQueueGlobalKey');
+                        if(globalKey==""){
+                          var globalKey = $('#customAttrElement').attr('customAttrAssignedMQueueGlobalKey');
+                        }
+                        globalKey = globalKey.replace(/^\"+|\"+$/g, '');
+                        var additionalId=$('#customAttrElement').attr('customAttrAdditionalId');
+                        if(additionalId==""){
+                          var additionalId = $('#customAttrElement').attr('customAttrlId');
+                        }
+                        additionalId =additionalId.replace(/^\"+|\"+$/g, '');
+                        if(globalKey.indexOf('-') > -1)
+                        {
+                          remoteActions.getManualQueueSfIdByGlobalKey(globalKey)
+                            .then(function(recordId)
+                              {
+                                window.open('apex/XOMManualQueueView?isdtp=mn&id='+recordId+'#!/object/'+ additionalId,'_self');
+                              });  
+                        } 
+                      }; 
+                    $scope.showEditOrderItemIframe = function(paramOrderItemId)
+                      {
+                       $rootScope.iframeUrl="/apex/XOMOrderItemAttributeEdit#!/object/"+paramOrderItemId+"/tab/976718169186106517";
+                       $rootScope.showEditOrderItem = !$rootScope.showEditOrderItem; 
+                      }; 
+                    $scope.resolveByGlobalKey = function(globalKey)
+                      {
+                        if(globalKey.indexOf('-') > -1)
+                        {
+                          remoteActions.getSfIdByGlobalKey(globalKey)
+                            .then(function(recordId)
+                              {
+                                window.open('/' + recordId);
+                              });  
+                        } else {
+                          window.open('/' + globalKey);
+                        }
+                      }; 
+                      $scope.getTooltip = function (message, helperArg) {
+                        if (helperArg === 'processAtrribute'){
+                            message = $scope.processAtrribute(message); 
+                        }
+                        else if (helperArg != '' && helperArg != null){
+                            message = message | helperArg;
+                        }
+                        return {title:message};
+                    } 
+                    $scope.processAtrribute = function(attr) {
+                      if(!attr) attr = {};
+                      if(attr.value){
+                        var newValue = attr.value;
+                        if(attr.type === 'Date'){
+                          newValue = new Date ( Date.parse(attr.value));
+                          var newLocaleValue = newValue.toLocaleString();
+                          var dtList = newLocaleValue.split(',');
+                          return dtList[0];
+                        }else if(attr.type === 'Datetime'){
+                          newValue = new Date ( Date.parse(attr.value));
+                          var newLocaleValue = newValue.toLocaleString();
+                          var dtList = newLocaleValue.split(',');
+                          return dtList[0];
+                        }
+                        return newValue;
+                      }
+                      return "";
+                    };
+                    $scope.resolveNavigate = function(recordId)
+                      {
+                        var isExternalId = !isNaN(parseFloat(recordId)) && isFinite(recordId);
+                        if(!isExternalId)
+                        {
+                            window.open('/' + recordId);
+                        } else 
+                        {
+                            window.open('/apex/XOMLoki#!/object/' + recordId);
+                        }
+                      };             
+                });
+
+                app.run(["$sce","$rootScope","force", function($sce, $rootScope, force){
+                    force.init({
+                        accessToken: '{!$Api.Session_ID}',
+                        useProxy: false
+                    });
+
+                    $rootScope.forcetkClient = new forcetk.Client();
+                    $rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+
+                }]);
+                app.directive('btn', function () {
+                    return {
+                        restrict: 'CA',
+                        controller: function($scope, $element, $attrs, $location) {
+                        $element.click(function() {
+                        if ($attrs.confirmedClick == "cancel()") {
+                            $scope.resolveByManualQueueGlobalKey();
+                            }
+                        });
+                    }
+                    };
+                });
+                app.directive('title', function () {
+                    return {
+                        restrict: 'A',
+                        controller: function($scope, $element, $attrs, $location) {
+                        $element.click(function() {
+                        if ($attrs.title === 'Cancel'||$attrs.title === 'Complete') {
+                            $scope.resolveByManualQueueGlobalKey();
+                            }
+                        if ($attrs.title === 'Retry') {
+                              setTimeout(function () {
+                                 location.reload(); 
+                              }, 1000);
+                            }
+                        });
+                    }
+                    };
+                });
+
+            })();
+            
+        </script>
+
+    </div>
+
+
+</body>
+</html>
+
+</apex:page>

@@ -1,0 +1,286 @@
+<apex:page showHeader="true" standardstylesheets="false" sidebar="false" standardController="vlocity_ins__OutboundConfiguration__c" extensions="vlocity_ins.OutboundConfigurationController">
+<html xmlns:ng="http://angularjs.org" ng-app="outboundConfigApp" class="ng-cloak">
+
+<head>
+
+<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__bootstrap, '/bootstrap-3.2.0-dist/css/bootstrap.css')}"/>
+<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__bootstrap, '/bootstrap-3.2.0-dist/css/sfboot.min.css')}"/>
+<style>
+	body {
+        font-size: 12px;
+    }
+</style>
+<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/v102/vlocity_core_assets.js')}"/>
+<apex:includeScript value="{!$Resource.vlocity_ins__ANGULARBOOT}"/>
+
+<script>
+
+    var nsPrefix = '{!NsPrefix}';
+	function getConfig(o,callback)
+    {
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.OutboundConfigurationController.getConfig}',
+            o, callback,
+            {escape: false});
+    }
+
+    function saveConfig(o,callback)
+    {
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.OutboundConfigurationController.saveConfig}',
+            o, callback,
+            {escape: false});
+    }
+
+	function getStates(o,callback)
+    {
+    	console.log(o);
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.OutboundConfigurationController.getAllStates}',
+            o, callback,
+            {escape: false});
+    }
+
+    function scheduleJob(o,callback)
+    {
+        Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.OutboundConfigurationController.scheduleJob}',
+            o, callback,
+            {escape: false});
+    }
+
+    function Path(name, parent, cascadeDel){
+        this.name = name;
+        this.path = name+':Id';
+        this.parent = parent;
+        this.selected = false;
+        this.child = parent? true:false;
+        this.root = !this.child? true:false;
+        this.cascadeDel = cascadeDel? true:false;
+    }
+
+    function toArray2(obj, name) {
+        var result = [];
+        var passName;
+        var tempArray = [];
+        for (var prop in obj) {
+            var value = obj[prop];
+            if (typeof value === 'object') {
+                if ($.isNumeric(prop)) {
+                    //console.log('is numeric '+name);
+                    if(name){
+                        passName = name + "[" + prop+"]";
+                        result.push(new Path(passName, name, true));
+                    } else {
+                        passName = "[" + prop+"]";
+                        result.push(new Path(passName, true));
+                    }
+                } else {
+                    if(name){
+                        passName = name + ":" + prop;
+                        result.push(new Path(passName, name, false));
+                    } else {
+                        passName = prop;
+                        result.push(new Path(passName, false));
+                    }
+                }
+                tempArray = toArray2(value, passName);
+                $.each(tempArray, function (key, value) {
+                    result.push(value);
+                });
+
+            } else {
+                if(name){
+                  //result.push(new Path(name + ":" + prop, name));
+                } else {
+                  //result.push(new Path(prop, prop));
+                }
+            }
+        }
+        return result;
+    }
+
+    var outboundConfigApp = angular.module("outboundConfigApp", ['ui.bootstrap']);
+
+    outboundConfigApp.controller('outboundController', function ($rootScope,$scope,$q) {
+    	$scope.outboundConfig = {};
+    	$scope.states = [];
+    	$scope.configId = '{!JSENCODE(outboundConfig.Id)}';
+        $scope.delPaths = [];
+        $scope.pathArray = [];
+        $scope.nsPrefix = nsPrefix;
+
+    	$scope.doScheduleJob = function() {
+
+    		var deferred = $q.defer();
+    		var jsonObject = JSON.stringify($scope.outboundConfig);
+            scheduleJob(jsonObject,function(result){
+                $rootScope.$apply(function(){
+                    var sresult =[];
+                    if (result){
+                    	//console.log(result);
+                        //sresult = angular.fromJson(result);
+                    }
+                    deferred.resolve(sresult);
+
+                });
+            });
+            //return deferred.promise;
+
+            deferred.promise.then(function(result,event){
+            	console.log(result);
+            })
+    	}
+    	//console.log($scope.configId);
+
+    	var getAllStates = function(o) {
+            var deferred = $q.defer();
+            getStates(o,function(result){
+                $rootScope.$apply(function(){
+                    var sresult =[];
+                    if (result){
+                        sresult = angular.fromJson(result);
+                    }
+                    deferred.resolve(sresult);
+
+                });
+            });
+            return deferred.promise;
+    	}
+
+    	var getOutboundConfig = function(o) {
+            var deferred = $q.defer();
+            getConfig(o,function(result){
+                $rootScope.$apply(function(){
+                    var sresult =[];
+                    if (result){
+                        sresult = angular.fromJson(result);
+                    }
+                    deferred.resolve(sresult);
+
+                });
+            });
+            return deferred.promise;
+    	}
+
+        $scope.saveConfiguration = function(){
+            var deferred = $q.defer();
+            var jsonObject = JSON.stringify($scope.outboundConfig);
+            saveConfig(jsonObject,function(result){
+                $rootScope.$apply(function(){
+                    var sresult =[];
+                    if (result){
+                        console.log(result);
+                        //sresult = angular.fromJson(result);
+                    }
+                    deferred.resolve(sresult);
+
+                });
+            });
+            //return deferred.promise;
+
+            deferred.promise.then(function(result,event){
+                console.log(result);
+            })
+        }
+
+        $scope.getPaths = function() {
+            $scope.pathArray = toArray2(JSON.parse($scope.outboundConfig[  $scope.nsPrefix + 'Template__c']));
+
+            if($scope.outboundConfig[  $scope.nsPrefix + 'PathstoDelete__c']) {
+                angular.forEach($scope.outboundConfig[  $scope.nsPrefix + 'PathstoDelete__c'].split(','), function(path, key) {
+                    var index = $scope.pathArray.indexOf(path);
+                    if(index != -1){
+                        $scope.pathArray[index].selected = true;
+                    }
+                });
+            }
+
+        }
+
+        $scope.deleteMe = function(elem) {
+            if(elem.root){
+                angular.forEach($scope.pathArray, function(path, key) {
+                  if(path.cascadeDel){
+                        path.selected = elem.selected;
+                    }
+                });
+            }
+            var index = $scope.delPaths.indexOf(elem.path);
+            if(elem.selected && index == -1) { //not in paths to delete
+                $scope.delPaths.push(elem.path);
+            } else if(index != -1){
+                $scope.delPaths.splice(index,1);
+            }
+            $scope.outboundConfig[$scope.nsPrefix + 'PathstoDelete__c'] = $scope.delPaths.toString();
+        }
+
+    	getOutboundConfig($scope.configId).then(function(result,event){
+			console.log(result);
+			$scope.outboundConfig = result[0];
+
+            getAllStates($scope.outboundConfig.Name).then(function(result,event){
+                console.log(result);
+                $scope.states = result;
+            });
+		});
+
+
+
+
+
+
+    });
+</script>
+
+</head>
+
+<body>
+<div id="vlocity" class="container" ng-controller="outboundController">
+    <div>
+        <h1>{{outboundConfig.Name}}  <span class="badge">{{states.length}}</span> </h1>
+        <div>
+            <div class="row">
+                <label>Initial Action</label> <!-- <input type="text" ng-model="outboundConfig[ nsPrefix + 'InitialAction__c']" /> -->
+                <span>{{outboundConfig[ nsPrefix + 'InitialAction__c']}} </span>
+            </div>
+            <div class="row">
+             <label>Batch Size</label><input type="number" min="1" max="9999" ng-model="outboundConfig[ nsPrefix + 'BatchSize__c']" value="outboundConfig[ nsPrefix + 'BatchSize__c']"/>
+            <button class="btn btn-primary" ng-click="getPaths()">Show Paths</button>
+            <button class="btn btn-primary" ng-click="doScheduleJob()">Cleanup Errors</button>
+            </div>
+            <button class="btn btn-primary" ng-clicks="saveConfiguration()">Save</button>
+            <div class="panel panel-default" ng-if="outboundConfig[ nsPrefix + 'DeleteAfterSuccess__c']">
+                <div class="panel-body">
+                    <textarea class="col-md-8" rows="4" cols="50">{{outboundConfig[ nsPrefix + 'Template__c']}}</textarea>
+                    <div class="paths col-md-4">
+                        <div ng-repeat="path in pathArray">
+                            <input type="checkbox" ng-change="deleteMe(path)" cascade="path.cascade" root="path.root" ng-model="path.selected"/> {{path.name}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+		</div>
+	</div>
+	<!-- <div class="row">
+		Search: <input ng-model="searchText"/>
+	</div> -->
+	<table class="table table-hover">
+		<tr>
+			<th>#</th>
+			<th>Transaction Record</th>
+			<th>Action</th>
+			<th>Status</th>
+            <th>Description</th>
+		</tr>
+		<tr ng-repeat="state in states | filter:searchText">
+			<td>{{$index + 1}}</td>
+			<td><a href="/{{state[ nsPrefix + 'ParentId__c']}}" target="_blank">{{state[ nsPrefix + 'ParentId__c']}}</a></td>
+			<td>{{state[ nsPrefix + 'Action__c']}}</td>
+			<td>{{state[ nsPrefix + 'DRStatus__c']}}</td>
+            <td>{{state[ nsPrefix + 'Description__c']}}</td>
+		</tr>
+	</table>
+</div>
+
+</body>
+</html>
+
+</apex:page>

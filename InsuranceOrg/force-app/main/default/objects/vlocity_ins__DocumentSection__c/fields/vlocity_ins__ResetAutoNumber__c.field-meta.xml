@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__ResetAutoNumber__c</fullName>
+    <defaultValue>false</defaultValue>
+    <deprecated>false</deprecated>
+    <description>If checked, indicates that the section number for this section will be reset</description>
+    <externalId>false</externalId>
+    <label>Reset Auto Number</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

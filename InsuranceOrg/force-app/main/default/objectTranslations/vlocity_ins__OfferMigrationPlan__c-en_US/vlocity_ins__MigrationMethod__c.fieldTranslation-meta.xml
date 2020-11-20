@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Migration Method --></label>
+    <name>vlocity_ins__MigrationMethod__c</name>
+    <picklistValues>
+        <masterLabel>Any to Any Offers</masterLabel>
+        <translation><!-- Any to Any Offers --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Specific Offers</masterLabel>
+        <translation><!-- Specific Offers --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

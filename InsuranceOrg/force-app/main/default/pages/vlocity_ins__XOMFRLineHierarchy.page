@@ -1,0 +1,247 @@
+<apex:page standardController="vlocity_ins__FulfilmentRequest__c" extensions="vlocity_ins.XOMFRLineAndInventoryItemController,vlocity_ins.XOMThorLocalizationController" showHeader="false" sidebar="false" applyHtmlTag="false">
+<html ng-app="hierarchyApp" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+<head>
+	<apex:includeScript value="/soap/ajax/31.0/connection.js" />
+	<apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+	<style type="text/css">
+		[ng\:cloak], [ng-cloak], .ng-cloak {
+			display: none !important;
+		}
+		ul li, ol li {
+    		overflow-wrap: break-word;
+    		word-wrap: break-word;
+    		-ms-word-break: break-all;
+    		word-break: break-word;
+            display: flex;
+		}
+        html[dir="rtl"] .vlocity #frLineContainer span{
+            float:right !important;
+        }
+        html[dir="rtl"] .vlocity #frLineContainer div{
+            overflow: hidden;
+        }
+	</style>
+</head>
+
+<body class="vlocity" style=" overflow: auto;" ng-controller="FRLineController" >
+	
+	<script type="text/ng-template" id="frLineTree">
+		<div>
+			</br>
+			<div>
+				<div class="{!IF(isLanguageRTL, 'glyphicon icon-v-left-arrow', 'glyphicon icon-v-right-arrow')}" style="display:inline" ng-click="$(this).siblings('#frlNode').toggle();changeArrow(this);">
+                </div>
+				<a href="/{{frlNode.id}}" target="_parent">{{frlNode.name}}</a><br/>
+				<div>
+                      <span>
+                      <b>{{::$root.translatedLabels['XOMFRLineNumber']}}: </b></span>
+                      <span>{{frlNode.fields.lineNumber}}<br/></span>
+                </div>
+                <div>
+                      <span><b>{{::$root.translatedLabels['XOMDecomProduct']}} : </b></span>
+                      <span>
+                          <a href="/{{frlNode.productId}}" target="_parent">{{frlNode.product}}</a>
+                      </span>
+                </div>
+			
+					<div class='attrContainer'>
+						<h4 style="text-transform:none; font-weight:bold">{{::$root.translatedLabels['XOMFRAttributes']}}: </h4>
+						<ul style="list-style-type:none" ng-if="frlNode.attrs" onClick="toggle();">
+							<li style="text-transform:none" ng-repeat="attribute in frlNode.attrs">
+								<span><b>{{attribute.name}} : </b></span>
+								<span ng-if="attribute.datatype=='Text' || attribute.datatype=='Number' || attribute.datatype=='Checkbox'">{{attribute.value}}</span>
+							    <span ng-if="attribute.datatype=='Percent' && attribute.value !=null">{{attribute.value}} %</span>
+							    <span ng-if="attribute.datatype=='Currency' && attribute.value !=null">{{invItemNode.currencyCode}} {{attribute.value}}</span>
+							    <span ng-if="attribute.datatype=='Date' || attribute.datatype=='Datetime'">{{formatDateAttribute(attribute)}}</span>
+							    <span ng-if="attribute.datatype=='Picklist' || attribute.datatype=='Multi Picklist'">{{attribute.valueDisplayText}}</span>
+							</li>
+			  			</ul>
+					</div>
+					<br/>
+		    		<ul style="list-style-type:none" ng-if="frlNode.nodes">
+	            		<li ng-repeat="frlNode in frlNode.nodes" ng-include="'frLineTree'">           
+	            		</li>
+	        		</ul>
+		  		</div>
+			</div>
+		</div>
+	</script>
+	
+	<div class="ng-cloak container-fluid" ng-if="loaded">
+		<div class="row">
+			<div>
+				<div ng-repeat="frlNode in frLineNodes">
+					<div class="panel panel-default">
+					  <div class="panel-heading">
+					  </div>
+					  <div class="panel-body">
+					  	 <div class="{!IF(isLanguageRTL, 'glyphicon icon-v-left-arrow', 'glyphicon icon-v-right-arrow')}" style="display:inline" onClick="$(this).siblings('#frLineContainer').toggle();changeArrow(this);"></div>
+					  	<a href="/{{frlNode.id}}" target="_parent">{{frlNode.name}}</a><br/>
+					  	<div id="frLineContainer" style="display:none; padding-left:20px">
+                            <div>
+                                <span>
+                                <b>{{::$root.translatedLabels['XOMFRLineNumber']}}: </b></span>
+                                <span>{{frlNode.fields.lineNumber}}<br/></span>
+                            </div>
+                            <div>
+                                <span><b>{{::$root.translatedLabels['XOMDecomProduct']}} : </b></span>
+                                <span>
+                                    <a href="/{{frlNode.productId}}" target="_parent">{{frlNode.product}}</a>
+                                </span>
+                            </div>
+					  		<div class='attrContainer'>
+								<h4 style='text-transform:none'><b>{{::$root.translatedLabels['XOMFRAttributes']}}: </b></h4>
+			  					<ul style="list-style-type:none" ng-if="frlNode.attrs">
+									<li style="text-transform:none" ng-repeat="attribute in frlNode.attrs">
+										<span><b>{{attribute.name}} :</b></span>
+										<!-- 
+										<span ng-if="attribute.datatype=='Text' || attribute.datatype=='Number' || attribute.datatype=='Checkbox'" ng-bind-html="attribute.value">{{attribute.value}}</span> 
+										-->
+							           	<span ng-if="attribute.datatype=='Text' || attribute.datatype=='Number' || attribute.datatype=='Checkbox'" ng-bind-html="attribute.value"></span>
+							            <span ng-if="attribute.datatype=='Percent' && attribute.value !=null">{{attribute.value}} %</span>
+							            <span ng-if="attribute.datatype=='Currency' && attribute.value !=null">{{invItemNode.currencyCode}} {{attribute.value}}</span>
+							            <span ng-if="attribute.datatype=='Date' || attribute.datatype=='Datetime'">{{formatDateAttribute(attribute)}}</span>
+							            <span ng-if="attribute.datatype=='Picklist' || attribute.datatype=='Multi Picklist'">{{attribute.valueDisplayText}}</span>
+									</li>
+			  					</ul>
+							</div>
+					    	<ul style="list-style-type:none" ng-if="frlNode.nodes">
+				            	<li ng-repeat="frlNode in frlNode.nodes" ng-include="'frLineTree'">           
+				            	</li>
+				        	</ul>
+				        </div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/forceng/forceng.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ForceTK/forcetk.js')}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AngularStrapJS)}"/>
+	<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__AngularStrapTplJS)}"/>
+	<script type="text/javascript">
+		
+		function changeArrow(el) {
+            var rtl ='{!isLanguageRTL}';
+            if($(el).hasClass('icon-v-down-arrow') && (rtl =="true")){ 
+                $(el).removeClass('icon-v-down-arrow'); 
+                $(el).addClass('icon-v-left-arrow'); return;
+            }
+            if($(el).hasClass('icon-v-down-arrow') && (rtl=="false")){ 
+                $(el).removeClass('icon-v-down-arrow'); 
+                $(el).addClass('icon-v-right-arrow'); return;
+            }
+            if($(el).hasClass('icon-v-right-arrow') || $(el).hasClass('icon-v-left-arrow')){ 
+                $(el).removeClass('icon-v-left-arrow'); 
+                $(el).removeClass('icon-v-right-arrow'); 
+                $(el).addClass('icon-v-down-arrow'); return;}
+        }
+
+		(function () {
+			'use strict';
+			
+			var app = angular.module('hierarchyApp', ["vlocity", "ngSanitize", "forceng","mgcrea.ngStrap",'ngAnimate']);
+		//config data...
+			app.value('configData',{
+				frId : '{!$CurrentPage.parameters.Id}'
+			});
+
+			var remoteActions = {
+			 		getFRLineNodes : '{!$RemoteAction.XOMFRLineAndInventoryItemController.getFulfilmentRequestLines}',
+                    getCustomLabels: '{!$RemoteAction.XOMThorLocalizationController.getCustomLabels}'
+			};
+
+			app.config(["remoteActionsProvider", function(remoteActionsProvider){
+		        remoteActionsProvider.setRemoteActions(remoteActions); // configure the remoteActionsProvider
+		    }]);
+		    
+		    app.controller('FRLineController', function($scope,$rootScope, $templateCache, $q, $modal, $interpolate,$http, $sce, remoteActions, configData) {
+
+		    	$scope.frLineNodes;
+                $scope.isLanguageRTL ='{!isLanguageRTL}';
+                $scope.userLocal = '{!userLocal}';
+                $scope.getCustomLabels =function ()
+                {
+                var labelNamesQueue= [];
+                $rootScope.translatedLabels= [];
+
+                var idx = labelNamesQueue.push("XOMDecomProduct","XOMFRAttributes","XOMFRLineNumber");
+                    remoteActions['getCustomLabels'](labelNamesQueue,$scope.userLocal)
+                        .then(function(translation) 
+                        { 
+                            console.log('received translations for ' +labelNamesQueue.length + ' labels', translation);
+                            var idx = 1;
+                               var  decodedTranslations= translation.replace(/&#39/g, '\/');
+                               decodedTranslations = JSON.parse(decodedTranslations.replace(/(&quot\;)/g,"\""));
+                            for (var key in decodedTranslations) 
+                            {
+                              if (decodedTranslations.hasOwnProperty(key)) 
+                              {
+                                if(key !=="language")
+                                {
+                                    $rootScope.translatedLabels[key] = decodedTranslations[key];
+                                    idx++;
+                                }
+                              }
+                            }
+                        })
+                        console.log("Here is the custom label values :",$rootScope.translatedLabels);
+                };
+                $scope.getCustomLabels();
+		    	
+		    	$scope.fetchFRLines = function () {
+		    		remoteActions.getFRLineNodes(configData.frId).then(function(frLines) {
+	    				$scope.loaded = true;
+		    			$scope.frLineNodes = frLines;
+		    		});
+		    	};
+
+		    	$scope.fetchFRLines();
+		    	
+            	$scope.formatDateAttribute = function(attr) {
+					if(!attr) attr = {};
+					if(attr.value){
+						var newValue = new Date (Date.parse(attr.value));
+
+                        if(attr.datatype === 'Date') {
+                            var newLocaleValue = newValue.toLocaleDateString();
+                        } else {
+                        	var newLocaleValue = newValue.toLocaleString();
+                        }
+
+               			var dtList = newLocaleValue.split(',');
+						newLocaleValue = dtList[0].substring(0, dtList[0].length - 4) + dtList[0].substring(dtList[0].length - 2, dtList[0].length);
+							
+						if(attr.datatype === 'Datetime')
+							newLocaleValue = newLocaleValue + dtList[1].substring(0, dtList[1].length - 6) + dtList[1].substring(dtList[1].length - 3, dtList[1].length);
+               			
+               			return newLocaleValue;
+             		}
+              		return "";
+            	};
+
+		    });
+
+		    app.run(["$sce","$templateCache","$rootScope","force", function($sce, $templateCache, $rootScope, force){
+                console.log('inside run');
+                
+                force.init({
+                        accessToken: '{!$Api.Session_ID}',
+                        useProxy: false
+                    });
+    
+                $rootScope.forcetkClient = new forcetk.Client();
+                $rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+        
+            }]);
+
+		})();
+
+	</script>
+	
+</body>
+</html>
+</apex:page>

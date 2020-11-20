@@ -1,0 +1,9 @@
+<apex:page standardStylesheets="false" sidebar="true" showHeader="false" standardController="vlocity_ins__Element__c" extensions="vlocity_ins.VFPageControllerBase" docType="html-5.0">
+    <c:JSONTreeComponent standardController="{!stdController}"
+                         JSONString="{!vlocity_ins__Element__c.vlocity_ins__PropertySet__c}"
+                         JSONTreeHTMLTemplateName="JSONTreeEditableHTMLTemplate.html"
+                         strNamespacePrefixList="{!sNS}"
+                         Label="{!$Label.vlocity_ins__propertyset}"
+                         SaveField="{!sNSP}PropertySet__c"/>  
+    <c:JSONTreeHTMLTemplateComponent />                                                      
+</apex:page>

@@ -1,0 +1,118 @@
+<apex:page controller="vlocity_ins.DRDataPackRunnerController"
+showHeader="true" 
+sidebar="true"
+docType="html-5.0"
+applyBodyTag="false">
+  <head>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+      <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/css/vlocity.css')}"/>
+      <apex:stylesheet value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/fontawesome/css/font-awesome.css')}"/>
+  </head>
+  <body>
+  <style>
+.vlocity .vlc-overlay {
+  position: fixed;
+  z-index: 1038;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%; }
+
+.vlocity .vlc-overlay svg {
+    width: 28px;
+    display: block;
+    margin: 32px auto; }
+  </style>
+
+    <div ng-app="drvcomp" class="ng-cloak vlocity" ng-controller="drdatapackrunner">
+    <div ng-if="running || currentMessage == 'Complete'" >
+      {{ currentMessage }}
+    </div>
+    <div ng-repeat="(dataPackKey, errorList) in processData.errors">
+         Error: {{  errorList[0].VlocityDataPackLabel }} - {{ errorList[0].VlocityDataPackName }} - {{ errorList[0].VlocityRecordName }} - {{  errorList[0].VlocityDataPackMessage }}
+        <button ng-click="ignoreErrorForDataPacks(dataPackKey)" class="btn btn-primary">Ignore Error</button>
+    </div>
+    
+    <div ng-repeat="(dataPackKey, warningList) in processData.warnings">
+        Warning: {{ warningList[0].VlocityDataPackLabel }} - {{ warningList[0].VlocityDataPackName }} - {{ warningList[0].VlocityRecordName }} - {{ warningList[0].VlocityDataPackMessage }}
+    </div>
+    
+    <div ng-if="processType == 'Not Selected'">
+      <div class="form-group">
+        <button ng-click="selectProcessType('Import')" class="btn btn-primary">Import</button>
+        <button ng-click="selectProcessType('Export')" class="btn btn-primary">Export</button>
+      </div>
+    </div>
+    <div class="form-group" ng-if="processType == 'Import' && !importDataLoaded" >
+      <label>Import File</label>
+      <input type="file" ng-model="fileData" ng-change="updateFileDataJSON(fileData)" app-filereader="app-filereader" />
+    </div>
+
+    <div ng-if="processType == 'Export' && !exportStarted">
+      <div class="form-group">
+          <label>Vlocity DataPack Type</label>
+          <input type="text" class="form-control" ng-model="exportDataPackType" />
+      </div>
+      <div class="form-group">
+          <label>Vlocity DataPack JSON Data</label>
+          <input type="text" class="form-control" ng-model="exportDataPackInfo" />
+      </div>
+      <div class="form-group">
+       <button ng-click="onClickExport(exportDataPackType, exportDataPackInfo)" class="btn btn-primary">Export</button>
+     </div>
+    </div>
+
+    <div class="form-group" ng-if="(importDataLoaded || exportDataFinal) && !dataReady">
+      <button ng-click="setDataToReady()" class="btn btn-primary">Ready</button>
+    </div>
+
+    <div ng-if="dataReady">
+      <div class="form-group" ng-if="processType == 'Import' && !importStarted">
+        <button ng-click="onClickImport()" class="btn btn-primary">Start Import</button>
+      </div>
+      <div class="form-group" ng-if="processType == 'Export'">
+         <button ng-click="saveDataToFile()" class="btn btn-primary">Save to File</button>
+      </div>
+    </div>
+   
+    <div class="list-group" ng-repeat="(type, value) in processData.dataPacks">
+      <div ng-if="value != null 
+      && ((processType == 'Export' && (value.VlocityDataPackStatus == 'Success'))
+      || (processType == 'Import' && (value.VlocityDataPackStatus != 'Not Included')))">
+        <h4>{{ value.VlocityDataPackLabel }}</h4>
+        <drv-comptree object-data="value.VlocityDataPackData" record-status="value.VlocityDataPackRecords" is-editable="!dataReady" is-locked="running && processType == 'Export'"></drv-comptree>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var namespace = '{!namespace}';
+        var remoteActions = {
+            runExport: { 
+              action: "{!$RemoteAction.DRDataPackRunnerController.runExport}",
+              config: {escape: false} 
+            }, 
+            runImport: { 
+              action: "{!$RemoteAction.DRDataPackRunnerController.runImport}",
+              config: {escape: false} 
+            }, 
+            updateDataPackData: { 
+              action: "{!$RemoteAction.DRDataPackRunnerController.updateDataPackData}",
+              config: {escape: false} 
+            }, 
+            getAllDataPackData: { 
+              action: "{!$RemoteAction.DRDataPackRunnerController.getAllDataPackData}",
+              config: {escape: false} 
+            }
+            , 
+            ignoreErrorForDataPacks: { 
+              action: "{!$RemoteAction.DRDataPackRunnerController.ignoreErrorForDataPacks}",
+              config: {escape: false} 
+            }
+          };
+        var localeMap = {
+};
+      </script>
+      <c:VFActionFunction />
+      <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}"/>
+    </div>
+  </body>	
+</apex:page>

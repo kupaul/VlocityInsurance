@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="47px" height="53px" viewBox="0 0 47 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Enrollment-Flow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="19-Review" transform="translate(-371.000000, -1081.000000)">
+            <g id="Group-2" transform="translate(372.000000, 1082.000000)">
+                <path d="M32.5,34.5001 C32.5,43.3371 25.337,50.5001 16.5,50.5001 C7.663,50.5001 0.5,43.3371 0.5,34.5001 C0.5,25.6631 7.663,18.5001 16.5,18.5001 C25.337,18.5001 32.5,25.6631 32.5,34.5001 Z" id="Stroke-1" stroke="#0070D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                <polyline id="Stroke-3" stroke="#0070D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="5.5 12.0001 5.5 0.5001 0.5 0.5001"></polyline>
+                <path d="M19.5,34.5001 C19.5,36.1571 18.157,37.5001 16.5,37.5001 C14.843,37.5001 13.5,36.1571 13.5,34.5001 C13.5,32.8431 14.843,31.5001 16.5,31.5001 C18.157,31.5001 19.5,32.8431 19.5,34.5001" id="Fill-5" fill="#0070D2"></path>
+                <polyline id="Stroke-7" stroke="#0070D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="32.5 34.5001 36.5 34.5001 38.5 48.5001 44.5 48.5001"></polyline>
+                <polyline id="Stroke-9" stroke="#0070D2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="29.5 25.1729 29.5 11.9999 5.5 11.9999 5.5 22.8849"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>vlocity_ins__UniqueNameUpdate</fullName>
+        <field>vlocity_ins__UniqueNameField__c</field>
+        <formula>vlocity_ins__ProfSegCategory__r.vlocity_ins__Code__c  + &quot;.&quot; +   Name</formula>
+        <name>UniqueNameUpdate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>vlocity_ins__UpdateCode</fullName>
+        <field>vlocity_ins__Code__c</field>
+        <formula>vlocity_ins__AutoCode__c</formula>
+        <name>UpdateCode</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <rules>
+        <fullName>vlocity_ins__GenerateSegmentCode</fullName>
+        <actions>
+            <name>vlocity_ins__UpdateCode</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <formula>ISBLANK(vlocity_ins__Code__c)</formula>
+        <triggerType>onCreateOrTriggeringUpdate</triggerType>
+    </rules>
+    <rules>
+        <fullName>vlocity_ins__UniqueSegmentName</fullName>
+        <actions>
+            <name>vlocity_ins__UniqueNameUpdate</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <criteriaItems>
+            <field>vlocity_ins__ProfilingSegment__c.vlocity_ins__AutoCode__c</field>
+            <operation>notEqual</operation>
+        </criteriaItems>
+        <triggerType>onAllChanges</triggerType>
+    </rules>
+</Workflow>

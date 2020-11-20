@@ -1,0 +1,123 @@
+<apex:page controller="vlocity_ins.EPCAdminController" title="Product Structure" showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0">
+	<html xmlns:ng="http://angularjs.org" ng-app="productstructure">
+		<head>
+			<base href="/"/>
+			<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.vlocity_assets, '/css/vlocity.css')}" />
+            <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.ProductStructureCss)}" />
+		</head>
+		<body class="vlocity ng-cloak" ng-controller="ProductStructureController">
+			<div class="product-structure">
+				<div ng-class="{'hierarchy': true, 'collapsed': showDetails}">
+					<table class="product-list">
+						<thead>
+							<tr>
+								<th class="prod-action"></th>
+								<th class="prod-name">Product</th>
+								<th ng-repeat="field in prodFieldSet" ng-show="!showDetails" ng-class="{'prod': ($index === 0)}">{{field.fieldLabel}}</th>
+								<th ng-repeat="field in prodChildFieldSet" ng-show="!showDetails" ng-class="{'prod-child': ($index === 0)}">{{field.fieldLabel}}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-if="baseProductId !== ''">
+                                <td class="prod-action"><span class="label label-info">OFFER</span></td>
+                                <td class="offer" colspan="{{prodFieldSet.length+prodChildFieldSet.length+1}}">
+                                    {{productName}}
+                                </td>
+                            </tr>
+                            <tr ng-repeat="p in productList" ng-if="p.show" ng-class="{'selected': p.isSelected, 'child': !p.isRoot}" ng-click="!p.isRoot && viewDetails(p)">
+								<td class="prod-action">
+									<a href="javascript:void(0)" ng-click="$event.stopPropagation();"><span class="glyphicon icon-v-plus-line" bs-tooltip="tooltip" data-title="Add Product Child Item" data-trigger="hover focus" data-placement="right"></span></a>&nbsp;
+									<span ng-if="!p.isRoot"><a href="javascript:void(0)" ng-click="showDeleteItemModal(p);$event.stopPropagation();"><span class="glyphicon icon-v-minus-line" bs-tooltip="tooltip" data-title="Delete Product Child Item" data-trigger="hover focus" data-placement="right"></span></a></span>
+								</td>
+								<td class="prod-name">
+									<div class="p-wrapper">
+										<div ng-repeat="n in getNumber(p.level) track by $index" class="p-level"></div>
+										<div class="p-expand">
+											<span 	ng-if="p.hasChildren"
+													ng-class="{'glyphicon': true, 'icon-v-down-arrow': p.showChildren, 'icon-v-right-arrow': !p.showChildren}"
+													ng-click="p.hasChildren && toggleChildren($index); $event.stopPropagation();"></span>
+										</div>
+										<div class="p-name">{{p.productName}}</div>
+									</div>
+								</td>
+								<td ng-repeat="field in prodFieldSet" ng-show="!showDetails" ng-class="{'prod': ($index === 0)}">{{p.prodObj[field.fieldPath]}}</td>
+								<td ng-repeat="field in prodChildFieldSet" ng-show="!showDetails" ng-class="{'prod-child': ($index === 0)}">{{p.prodChildObj[field.fieldPath]}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="details" ng-if="showDetails">
+					<div class="panel panel-default panel-details">
+						<div class="panel-heading">
+							<h3 class="panel-title">{{selectedProd.productName}}</h3>
+							<span class="glyphicon icon-v-close-circle-line" ng-click="closeDetails()"></span>
+						</div>
+						<div class="panel-body">
+                            <div bs-active-pane="activeProductTab" bs-tabs="true">
+                                <div ng-repeat="tab in productTabs" title="{{ tab.title }}" name="{{ tab.title }}" ng-include="tab.contentUrl" bs-pane="true"></div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__JQUERYJS)}"/>
+			<apex:includeScript value="/support/console/31.0/integration.js"/>
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/javascripts/vlocity.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__IframeResize)}"/>
+			<apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ProductStructure)}"/>
+			<script>
+				j$ = jQuery.noConflict();
+				j$(document).ready(function() {
+					if (window.frameElement !== null) {
+						// create a iframe resize event binding with the parent
+						window.parent.bindIframeResize(window.frameElement.id);
+					}
+				});
+
+				var remoteActions = {
+					getProdStructureItems: {
+						action: "{!$RemoteAction.EPCAdminController.getProdStructureItems}",
+						config: {escape: false}
+					},
+					getObject: {
+						action: "{!$RemoteAction.EPCAdminController.getObject}",
+						config: {escape: false}
+					},
+                    describeObject: {
+                        action: "{!$RemoteAction.EPCAdminController.describeObjectbyId}",
+                        config: {escape: false}
+                    },
+					updateObject: {
+                        action: "{!$RemoteAction.EPCAdminController.updateObject}",
+                        config: {escape: false}
+                    },
+                    deleteObject: {
+                        action: "{!$RemoteAction.EPCAdminController.deleteObject}",
+                        config: {escape: false}
+                    },
+                    getFieldSets: {
+						action: "{!$RemoteAction.EPCAdminController.getFieldSets}",
+						config: {escape: false}
+					},
+                    getOverride: {
+                        action: "{!$RemoteAction.EPCAdminController.getOverride}",
+                        config: {escape: false}
+                    },
+                    createOverride: {
+                        action: "{!$RemoteAction.EPCAdminController.createOverride}",
+                        config: {escape: false}
+                    },
+                    saveOverride: {
+                        action: "{!$RemoteAction.EPCAdminController.saveOverride}",
+                        config: {escape: false}
+                    },
+                    deleteOverride: {
+                        action: "{!$RemoteAction.EPCAdminController.deleteOverride}",
+                        config: {escape: false}
+                    }
+				};
+			</script>
+		</body>
+	</html>
+</apex:page>

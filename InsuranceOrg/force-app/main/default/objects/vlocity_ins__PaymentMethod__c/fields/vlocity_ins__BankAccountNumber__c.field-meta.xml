@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__BankAccountNumber__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Bank Account Number</label>
+    <length>80</length>
+    <maskChar>X</maskChar>
+    <maskType>lastFour</maskType>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>EncryptedText</type>
+</CustomField>

@@ -1,0 +1,170 @@
+<apex:page docType="html-5.0" showHeader="false" sidebar="false" controller="vlocity_ins.CardCanvasController" standardStylesheets="false">
+<html dir="{!IF(isLanguageRTL, 'rtl', 'ltr')}">
+<style type="text/css">
+			body {
+				margin: 0px !important;
+				padding: 0px !important;
+                background: #FFF;
+			}
+</style>
+
+<apex:includeScript value="/support/console/34.0/integration.js"/>
+<apex:includeLightning />
+<c:CardStyleLoaderComponent useClassicStylesByDefault="true"></c:CardStyleLoaderComponent>
+
+
+<div class="vlocity via-slds" ng-app="rightSidebarApp" ng-controller="accountCtrl">
+    <!-- Sidebar layout-->
+    <vloc-layout layout-name="{{layoutName}}" layout-id="{{layoutId}}"/>
+</div>
+
+<script src="{!URLFOR($Resource.vlocity_core_assets, '/v102/vlocity_core_assets.js')}"></script>
+<script src="{!URLFOR($Resource.angular_strap_bundle_1_6)}"></script>
+<script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework_assets.js')}"></script>
+<script src="{!URLFOR($Resource.cardframework_core_assets, '/latest/cardframework.js')}"></script>
+<script src="{!$Resource.SldsAngular}"></script>
+
+<script type="text/javascript">
+    //var sideBarModule = angular.module('sidebarApp',['CardFramework', 'vlocity']);
+    var sideBarModule = angular.module('rightSidebarApp',['CardFramework', 'vlocity', 'forceng', 'cfp.hotkeys']);
+
+    sideBarModule.config(['$localizableProvider', function($localizableProvider) {
+      'use strict';
+      $localizableProvider.setLocalizedMap(window.i18n);
+      $localizableProvider.setDebugMode(window.ns === '');
+    }]);
+
+    // this is used for remoteActions config inside CardFramework
+    // this is duplicated in both ConsoleSidebar.page and CardLayoutComponent.component to facilitate
+    // independent testing of the left handside vs right handside of the console
+    var nsPrefixDotNotation = "{!nsPrefixDotNotation}";
+    console.log('nsPrefixDotNotation fetched from CardCanvasController: ' + nsPrefixDotNotation);
+    localStorage.setItem('nsPrefixDotNotation', nsPrefixDotNotation);
+    console.log('nsPrefixDotNotation value stored in localStorage: ' + localStorage.getItem('nsPrefixDotNotation'));
+
+
+    sideBarModule.run(["$sce","$rootScope","force","timeStampInSeconds", function($sce, $rootScope, force, timeStampInSeconds){
+        console.log('inside run');
+
+        force.init({
+            accessToken: '{!$Api.Session_ID}',
+            useProxy: false
+        });
+
+        $rootScope.forcetkClient = new forcetk.Client();
+        $rootScope.forcetkClient.setSessionToken('{!$Api.Session_ID}');
+     }]);
+
+    sideBarModule.controller('accountCtrl', ['$scope', '$rootScope', 'timeStampInSeconds','dataService', 'pageService', '$localizable', function($scope, $rootScope, timeStampInSeconds, dataService, pageService, $localizable) {
+        //Used to load layout based on url params
+        //TBD: remove !layout
+        $scope.layoutName = pageService.params.layout ? pageService.params.layout: 'console-right-sidebar-slds';
+        $scope.layoutId = pageService.params.layoutId;
+        $scope.actionList = '{!consoleActionList}';
+        $scope.init = function () {
+
+            function load(result) {
+
+                // in the case user creates a new account, there is no account id,
+                // so the rest should not be loaded.
+                // console sets result.id to a string with "null" value when creating new Acount
+                if (result.id === 'null') {
+                    $rootScope.entitySelected = false;
+                    return;
+                }
+
+                // As part of CARD-185, we are using params.id in cards which contains account id.
+                $rootScope.accountId = $scope.accountId = result.id;
+                $rootScope.entitySelected = true;
+                //we no longer pass the objType as we differ it inside of apex to make Console Cards actions agnostic
+                $scope.consoleCardsAction = JSON.parse($scope.actionList);
+                if($scope.consoleCardsAction.length === 0){
+                    console.error('Either Vlocity Action has not been setup or it is not activated, so cards cannot be presented');
+                    return;
+                }
+                console.log('action completed:',$scope.consoleCardsAction);
+                sforce.console.getEnclosingPrimaryTabId(openSubtab);
+
+            }
+
+            if(sforce.console.isInConsole()) {
+                console.info('inside console');
+                sforce.console.getEnclosingPrimaryTabObjectId(load);
+            } else {
+                console.info('outside console');
+                var result = { id:'0013t00001a7uq4' };
+                load(result);
+            }
+        };
+
+        $scope.init();
+
+        var openSubtab = function openSubtab(result) {
+            $scope.primaryTabId = result.id;
+            var subTabName = $scope.consoleCardsAction['name'];
+            sforce.console.getSubtabIds($scope.primaryTabId , showTabId);
+            //sforce.console.focusSubtabByNameAndPrimaryTabId(subTabName, $scope.primaryTabId,focusSuccess);
+        };
+
+        var focusSuccess = function focusSuccess(result) {
+            console.log('openSuccess:',result);
+
+            // detect if the consoleCardActions layout name has changed such that a new
+            // layout will be used in the ConsoleCards (if not user has to close the account
+            // and select the same account again in order for ConsoleCards to reflect change
+            // of layout name being used)
+            // var originalLayoutName = localStorage.getItem('consoleCardsLayoutName');
+            // var url = $scope.consoleCardsAction.url;
+            // var consoleCardsActionLayoutParams = url.substring(url.indexOf('&layout')).split('=');
+            // var consoleCardsActionLayoutName = consoleCardsActionLayoutParams[1];
+            if (!result.success || originalLayoutName !== consoleCardsActionLayoutName) {
+                // AccountConsoleCards subtab is NOT open. We need to open a new one and focus it OR layoutName changed
+                angular.forEach($scope.consoleCardsAction, function(action){
+                    var originalLayoutName = localStorage.getItem('consoleCardsLayoutName');
+                    var url = action.url;
+                    var consoleCardsActionLayoutParams = url.substring(url.indexOf('&layout')).split('=');
+                    var consoleCardsActionLayoutName = consoleCardsActionLayoutParams[1];
+                    var tabLabel = action['displayName'];
+                    var subTabName = action['name'];
+                    sforce.console.openSubtab($scope.primaryTabId, url, true, tabLabel, null, openSuccess, subTabName);
+                });
+                // var tabLabel = $scope.consoleCardsAction['displayName'];
+                // var subTabName = $scope.consoleCardsAction['name'];
+                // sforce.console.openSubtab($scope.primaryTabId, url, true, tabLabel, null, openSuccess, subTabName);
+            }
+        };
+
+        var showTabId = function showTabId(result) {
+            //Display the subtab IDs
+            var subtabId = localStorage.getItem('subtabId');
+            if(result.ids.indexOf(subtabId) > -1){
+                // console.error('found the tab ');
+            } else {
+                // console.error('didnt find it, open it');
+                var subTabName = $scope.consoleCardsAction['name'];
+                sforce.console.focusSubtabByNameAndPrimaryTabId(subTabName, $scope.primaryTabId,focusSuccess);
+            }
+        };
+
+        var openSuccess = function openSuccess(result) {
+            // console.error('opening subtab');
+            if(result.success){
+                var subtabId = localStorage.getItem('subtabId');
+                if(subtabId != result.Id){
+                    localStorage.setItem('subtabId',result.id);
+                    sforce.console.focusSubtabById(result.id);
+                }
+            }
+        };
+
+        // this will prevent the sidebar in loading itself twice, reducing api calls by 50%
+        var eventHandler = function eventHandler(result) {
+           // just do nothing so I do not refresh :)
+        };
+        sforce.console.onEnclosingTabRefresh(eventHandler);
+
+    }]);
+
+</script>
+</html>
+</apex:page>

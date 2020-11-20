@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Action Block</masterLabel>
+        <translation><!-- Action Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Aggregate</masterLabel>
+        <translation><!-- Aggregate --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Batch Action</masterLabel>
+        <translation><!-- Batch Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Block</masterLabel>
+        <translation><!-- Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cache Block</masterLabel>
+        <translation><!-- Cache Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Calculation Action</masterLabel>
+        <translation><!-- Calculation Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chatter Action</masterLabel>
+        <translation><!-- Chatter Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Checkbox</masterLabel>
+        <translation><!-- Checkbox --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Conditional Block</masterLabel>
+        <translation><!-- Conditional Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Currency</masterLabel>
+        <translation><!-- Currency --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Custom Lightning Web Component</masterLabel>
+        <translation><!-- Custom Lightning Web Component --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DataRaptor Extract Action</masterLabel>
+        <translation><!-- DataRaptor Extract Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DataRaptor Post Action</masterLabel>
+        <translation><!-- DataRaptor Post Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DataRaptor Transform Action</masterLabel>
+        <translation><!-- DataRaptor Transform Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DataRaptor Turbo Action</masterLabel>
+        <translation><!-- DataRaptor Turbo Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Date</masterLabel>
+        <translation><!-- Date --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Date/Time (Local)</masterLabel>
+        <translation><!-- Date/Time (Local) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Delete Action</masterLabel>
+        <translation><!-- Delete Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Disclosure</masterLabel>
+        <translation><!-- Disclosure --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DocuSign Envelope Action</masterLabel>
+        <translation><!-- DocuSign Envelope Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>DocuSign Signature Action</masterLabel>
+        <translation><!-- DocuSign Signature Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Done Action</masterLabel>
+        <translation><!-- Done Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Edit Block</masterLabel>
+        <translation><!-- Edit Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Email</masterLabel>
+        <translation><!-- Email --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Email Action</masterLabel>
+        <translation><!-- Email Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>File</masterLabel>
+        <translation><!-- File --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Filter</masterLabel>
+        <translation><!-- Filter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Filter Block</masterLabel>
+        <translation><!-- Filter Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Formula</masterLabel>
+        <translation><!-- Formula --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Geolocation</masterLabel>
+        <translation><!-- Geolocation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Headline</masterLabel>
+        <translation><!-- Headline --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Image</masterLabel>
+        <translation><!-- Image --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Input Block</masterLabel>
+        <translation><!-- Input Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Integration Procedure Action</masterLabel>
+        <translation><!-- Integration Procedure Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Intelligence Action</masterLabel>
+        <translation><!-- Intelligence Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Line Break</masterLabel>
+        <translation><!-- Line Break --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>List Merge Action</masterLabel>
+        <translation><!-- List Merge Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Lookup</masterLabel>
+        <translation><!-- Lookup --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Loop Block</masterLabel>
+        <translation><!-- Loop Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Matrix Action</masterLabel>
+        <translation><!-- Matrix Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Multi-select</masterLabel>
+        <translation><!-- Multi-select --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Navigate Action</masterLabel>
+        <translation><!-- Navigate Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Number</masterLabel>
+        <translation><!-- Number --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OmniForm</masterLabel>
+        <translation><!-- OmniForm --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>OmniScript</masterLabel>
+        <translation><!-- OmniScript --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PDF Action</masterLabel>
+        <translation><!-- PDF Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Password</masterLabel>
+        <translation><!-- Password --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Post to Object Action</masterLabel>
+        <translation><!-- Post to Object Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Radio</masterLabel>
+        <translation><!-- Radio --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Radio Group</masterLabel>
+        <translation><!-- Radio Group --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Range</masterLabel>
+        <translation><!-- Range --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Remote Action</masterLabel>
+        <translation><!-- Remote Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Response Action</masterLabel>
+        <translation><!-- Response Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Rest Action</masterLabel>
+        <translation><!-- Rest Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Review Action</masterLabel>
+        <translation><!-- Review Action --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Select</masterLabel>
+        <translation><!-- Select --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Selectable Items</masterLabel>
+        <translation><!-- Selectable Items --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Set Errors</masterLabel>
+        <translation><!-- Set Errors --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Set Values</masterLabel>
+        <translation><!-- Set Values --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Signature</masterLabel>
+        <translation><!-- Signature --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Step</masterLabel>
+        <translation><!-- Step --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Submit</masterLabel>
+        <translation><!-- Submit --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Telephone</masterLabel>
+        <translation><!-- Telephone --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Text</masterLabel>
+        <translation><!-- Text --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Text Area</masterLabel>
+        <translation><!-- Text Area --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Text Block</masterLabel>
+        <translation><!-- Text Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Time</masterLabel>
+        <translation><!-- Time --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Try Catch Block</masterLabel>
+        <translation><!-- Try Catch Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Type Ahead Block</masterLabel>
+        <translation><!-- Type Ahead Block --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>URL</masterLabel>
+        <translation><!-- URL --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Validation</masterLabel>
+        <translation><!-- Validation --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

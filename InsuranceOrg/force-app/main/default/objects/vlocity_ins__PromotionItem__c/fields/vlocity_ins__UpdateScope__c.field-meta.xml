@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__UpdateScope__c</fullName>
+    <deprecated>false</deprecated>
+    <description>When the Action on a Promotion Item is update, the Update Scope defines the way the update happens to existing cart items. Update Item Only means the Promotion Item adjustments are only applied to the specified item, not to its child items. Update Item and Child Items means the Promotion Item adjustments are applied to this item and its child items. Using Update Item Only allows adjusting the child items under the Promotion Item when the Action is Add, but not applying those child item adjustments when the Action is update.</description>
+    <externalId>false</externalId>
+    <label>Update Scope</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Update Item Only</fullName>
+                <default>true</default>
+                <label>Update Item Only</label>
+            </value>
+            <value>
+                <fullName>Update Item and Child Items</fullName>
+                <default>false</default>
+                <label>Update Item and Child Items</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Code Sub Type --></label>
+    <name>vlocity_ins__CodeSubType__c</name>
+    <picklistValues>
+        <masterLabel>CM</masterLabel>
+        <translation><!-- CM --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>CMS+PCS</masterLabel>
+        <translation><!-- CMS+PCS --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ICD-10</masterLabel>
+        <translation><!-- ICD-10 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ICD-9</masterLabel>
+        <translation><!-- ICD-9 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>PCS</masterLabel>
+        <translation><!-- PCS --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

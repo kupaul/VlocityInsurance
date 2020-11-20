@@ -1,0 +1,137 @@
+<apex:page showHeader="true" sidebar="false"
+            standardStylesheets="false"
+            docType="html-5.0" applyBodyTag="false"
+            standardController="vlocity_ins__VlocityUITemplate__c"
+            extensions="vlocity_ins.TemplateController,vlocity_ins.DRDataPackRunnerController"
+            recordSetVar="templates"
+            tabStyle="VlocityUITemplateDesigner__tab"
+            title="Vlocity Templates">
+  <head>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__jsforce_1_7, '/jsforce-core.min.js')}" />
+      <script>
+          window.conn = new jsforce.Connection({ accessToken: '{!$Api.Session_Id}', version: '45.0' });
+      </script>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_core_assets, '/latest/vlocity_core_assets.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__vlocity_assets, '/bower_components/ng-table/dist/ng-table.js')}"/>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__ngInfiniteScroll, '/build/ng-infinite-scroll.min.js')}"/>
+      <apex:stylesheet value="{!IF(isLanguageRTL, URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.rtl.min.css'), URLFOR($Resource.vlocity_ins__slds, '/assets/styles/salesforce-lightning-design-system-vf.min.css'))}"/>
+      <apex:includeScript value="{!URLFOR($Resource.vlocity_ins__Sass, 'sass.js')}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__SldsAngular}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__DRVComp}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__TemplateUtilities}"/>
+      <apex:includeScript value="{!$Resource.vlocity_ins__TemplateHome}"/>
+      <apex:includeScript value="/support/console/42.0/integration.js"/>
+  </head>
+  <style>
+    html.Theme4d body,
+    html.Theme4u body {
+      margin: 0;
+    }
+    html:not(.Theme3) body.sfdcBody {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .bodyDiv .noSidebarCell{
+      padding: 0;
+    }
+  </style>
+  <script>
+    (function() {
+      document.documentElement.classList.add('{!$User.UIThemeDisplayed}');
+    })();
+  </script>
+  <body xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <div ng-app="templatehome" class="via-slds ng-cloak {!$User.UIThemeDisplayed}" ng-controller="templatehome">
+      <slds-home
+                page-title="'Templates'"
+                new-url="'{!newUrl}'"
+                user-first-name="'{!$User.FirstName}'"
+                user-last-name="'{!$User.LastName}'"
+                s-object-type="'{!$ObjectType.VlocityUITemplate__c.Name}'"
+                row-actions="rowActions"
+                default-columns="defaultColumns"
+                min-height="'300px'"
+                id-prefix="template-home"
+                additional-table-buttons="additionalTableButtons"
+                additional-header-buttons="additionalHeaderButtons">
+      </slds-home>
+    </div>
+    <c:VFActionFunction />
+    <script>
+      window.templatesNewUrl = "{!newUrl}";
+      window.orgName = "{!orgName}";
+    </script>
+    <script type="text/javascript">
+
+        var ns = "{!nsPrefix}",
+            nsPrefix = '{!nsPrefix}',
+            remoteActions = {
+              getTemplates: "{!$RemoteAction.TemplateController.getTemplates}",
+              getTemplateTypes: "{!$RemoteAction.TemplateController.getTemplateTypes}",
+              getTemplate: "{!$RemoteAction.TemplateController.getTemplate}",
+              deleteTemplate: "{!$RemoteAction.TemplateController.deleteTemplate}",
+              getBaseTemplates: {
+                action: "{!$RemoteAction.TemplateController.getBaseTemplates}",
+                escape: false
+              },
+              getTemplatesAllFields: {
+                action: "{!$RemoteAction.TemplateController.getTemplatesAllFields}",
+                escape: false
+              },
+              saveTemplate: {
+                action: "{!$RemoteAction.TemplateController.saveTemplate}",
+                escape: false
+              },
+              getSassMixins: {
+                  action: '{!$RemoteAction.TemplateController.getSassMixins}',
+                  escape: false
+              },
+              isInsidePckg: {
+                  action: '{!$RemoteAction.TemplateController.isInsidePckg}',
+                  escape: false
+              }
+            },
+            i18n = {
+              "SldsObjectHomeHeaderInfo": "{!$Label.vlocity_ins__sldsobjecthomeheaderinfo}",
+              "RefreshData": "{!$Label.vlocity_ins__refreshdata}",
+              "Export": "{!$Label.vlocity_ins__export}",
+              "New": "{!$Label.vlocity_ins__new}",
+              "FilterList": "{!$Label.vlocity_ins__filterlist}",
+              "Import": "{!$Label.vlocity_ins__import}",
+              "AdditionalActions": "{!$Label.vlocity_ins__additionalactions}",
+              "Delete": "{!$Label.vlocity_ins__delete}",
+              "Preview": "{!$Label.vlocity_ins__preview}",
+              "LastModified": "{!$Label.vlocity_ins__lastmodified}",
+              "Name": "{!$Label.vlocity_ins__name}",
+              "ModifiedOnBy": "{!$Label.vlocity_ins__modifiedonby}",
+              "DeleteTemplate": "{!$Label.vlocity_ins__deletetemplate}",
+              "InstallDataPack": "{!$Label.vlocity_ins__installdatapack}",
+              "DeleteTemplateConfirmation": "{!$Label.vlocity_ins__deletetemplateconfirmation}",
+              "Filters":"{!$Label.vlocity_ins__filters}",
+              "HideFilter":"{!$Label.vlocity_ins__hidefilter}",
+              "Cancel":"{!$Label.vlocity_ins__cancel}",
+              "Save":"{!$Label.vlocity_ins__save}",
+              "ShowMe":"{!$Label.vlocity_ins__showme}",
+              "MatchingAllOfTheseFilters":"{!$Label.vlocity_ins__matchingallofthesefilters}",
+              "Remove":"{!$Label.vlocity_ins__remove}",
+              "NewFilter":"{!$Label.vlocity_ins__newfilter}",
+              "AddFilter":"{!$Label.vlocity_ins__addfilter}",
+              "RemoveAll":"{!$Label.vlocity_ins__removeall}",
+              "Field":"{!$Label.vlocity_ins__field}",
+              "Operator":"{!$Label.vlocity_ins__operator}",
+              "Value":"{!$Label.vlocity_ins__value}",
+              "Done":"{!$Label.vlocity_ins__done}",
+              "AllType":"{!$Label.vlocity_ins__alltype}",
+              "MyType":"{!$Label.vlocity_ins__mytype}"
+            };
+
+            //Setting LEX tab icon
+            if(sforce.console && sforce.console.isInConsole()) {
+                sforce.console.setTabIcon("custom:custom83");
+            }
+      </script>
+
+  </body>
+
+</apex:page>

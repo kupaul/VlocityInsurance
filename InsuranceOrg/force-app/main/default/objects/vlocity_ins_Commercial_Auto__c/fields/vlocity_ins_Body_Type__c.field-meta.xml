@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins_Body_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Body Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>vlocity_ins_Vehicle_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ATV</fullName>
+                <default>false</default>
+                <label>ATV</label>
+            </value>
+            <value>
+                <fullName>Bus</fullName>
+                <default>false</default>
+                <label>Bus</label>
+            </value>
+            <value>
+                <fullName>Convertible</fullName>
+                <default>false</default>
+                <label>Convertible</label>
+            </value>
+            <value>
+                <fullName>Coupe</fullName>
+                <default>false</default>
+                <label>Coupe</label>
+            </value>
+            <value>
+                <fullName>Four-door sedan</fullName>
+                <default>false</default>
+                <label>Four-door sedan</label>
+            </value>
+            <value>
+                <fullName>Motorcycle</fullName>
+                <default>false</default>
+                <label>Motorcycle</label>
+            </value>
+            <value>
+                <fullName>Pickup track</fullName>
+                <default>false</default>
+                <label>Pickup track</label>
+            </value>
+            <value>
+                <fullName>RV/Motor Home</fullName>
+                <default>false</default>
+                <label>RV/Motor Home</label>
+            </value>
+            <value>
+                <fullName>Snowmobile</fullName>
+                <default>false</default>
+                <label>Snowmobile</label>
+            </value>
+            <value>
+                <fullName>Station wagon</fullName>
+                <default>false</default>
+                <label>Station wagon</label>
+            </value>
+            <value>
+                <fullName>SUV</fullName>
+                <default>false</default>
+                <label>SUV</label>
+            </value>
+            <value>
+                <fullName>Tractor</fullName>
+                <default>false</default>
+                <label>Tractor</label>
+            </value>
+            <value>
+                <fullName>Trailer</fullName>
+                <default>false</default>
+                <label>Trailer</label>
+            </value>
+            <value>
+                <fullName>Truck</fullName>
+                <default>false</default>
+                <label>Truck</label>
+            </value>
+            <value>
+                <fullName>Two-door sedan</fullName>
+                <default>false</default>
+                <label>Two-door sedan</label>
+            </value>
+            <value>
+                <fullName>Utility trailer</fullName>
+                <default>false</default>
+                <label>Utility trailer</label>
+            </value>
+            <value>
+                <fullName>Van</fullName>
+                <default>false</default>
+                <label>Van</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Trucks/Tractors/Trailers</controllingFieldValue>
+            <controllingFieldValue>Passenger Vehicle</controllingFieldValue>
+            <valueName>Pickup track</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trucks/Tractors/Trailers</controllingFieldValue>
+            <valueName>Tractor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trucks/Tractors/Trailers</controllingFieldValue>
+            <valueName>Trailer</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trucks/Tractors/Trailers</controllingFieldValue>
+            <valueName>Truck</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Trucks/Tractors/Trailers</controllingFieldValue>
+            <controllingFieldValue>Livery Vehicle</controllingFieldValue>
+            <valueName>Van</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Passenger Vehicle</controllingFieldValue>
+            <valueName>Convertible</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Passenger Vehicle</controllingFieldValue>
+            <valueName>Coupe</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Passenger Vehicle</controllingFieldValue>
+            <valueName>Four-door sedan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Passenger Vehicle</controllingFieldValue>
+            <valueName>Station wagon</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Passenger Vehicle</controllingFieldValue>
+            <valueName>SUV</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Passenger Vehicle</controllingFieldValue>
+            <valueName>Two-door sedan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Livery Vehicle</controllingFieldValue>
+            <valueName>Bus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Special</controllingFieldValue>
+            <valueName>Motorcycle</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Special</controllingFieldValue>
+            <valueName>Utility trailer</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

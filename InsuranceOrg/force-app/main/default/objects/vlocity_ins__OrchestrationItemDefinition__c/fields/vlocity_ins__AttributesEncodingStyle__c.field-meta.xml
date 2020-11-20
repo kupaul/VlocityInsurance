@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__AttributesEncodingStyle__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Attributes Encoding Style</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Flat</fullName>
+                <default>false</default>
+                <label>Flat</label>
+            </value>
+            <value>
+                <fullName>Structure</fullName>
+                <default>true</default>
+                <label>Structure</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

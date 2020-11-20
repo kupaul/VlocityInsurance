@@ -1,0 +1,5 @@
+Authority approval request for your attention
+Claim Number : {!vlocity_ins__InsuranceClaim__c.Name}
+Owner Name :{!vlocity_ins__InsuranceClaim__c.vlocity_ins__PrimaryOwnerName__c}
+
+https://ins105-01.lightning.force.com/lightning/o/ProcessInstanceWorkitem/list?filterName=00B3t000007xzV3UAK

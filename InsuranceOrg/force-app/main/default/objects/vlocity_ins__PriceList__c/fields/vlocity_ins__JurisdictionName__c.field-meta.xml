@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__JurisdictionName__c</fullName>
+    <deprecated>false</deprecated>
+    <description>Name of jurisdiction in which the price list is applicable.</description>
+    <externalId>false</externalId>
+    <formula>vlocity_ins__JurisdictionId__r.Name</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Jurisdiction Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

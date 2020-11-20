@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RemoteSiteSetting xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Please enable this to see Vlocity docs inside of the Vlocity Digital Studio.</description>
+    <disableProtocolSecurity>false</disableProtocolSecurity>
+    <isActive>true</isActive>
+    <url>http://docs-vlocity-help-center.s3.amazonaws.com</url>
+</RemoteSiteSetting>

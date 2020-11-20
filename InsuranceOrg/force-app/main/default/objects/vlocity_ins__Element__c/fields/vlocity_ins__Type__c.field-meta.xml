@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__Type__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Aggregate</fullName>
+                <default>false</default>
+                <label>Aggregate</label>
+            </value>
+            <value>
+                <fullName>Block</fullName>
+                <default>false</default>
+                <label>Block</label>
+            </value>
+            <value>
+                <fullName>Calculation Action</fullName>
+                <default>false</default>
+                <label>Calculation Action</label>
+            </value>
+            <value>
+                <fullName>Checkbox</fullName>
+                <default>false</default>
+                <label>Checkbox</label>
+            </value>
+            <value>
+                <fullName>Conditional Block</fullName>
+                <default>false</default>
+                <label>Conditional Block</label>
+            </value>
+            <value>
+                <fullName>Custom Lightning Web Component</fullName>
+                <default>false</default>
+                <label>Custom Lightning Web Component</label>
+            </value>
+            <value>
+                <fullName>Loop Block</fullName>
+                <default>false</default>
+                <label>Loop Block</label>
+            </value>
+            <value>
+                <fullName>Currency</fullName>
+                <default>false</default>
+                <label>Currency</label>
+            </value>
+            <value>
+                <fullName>DataRaptor Extract Action</fullName>
+                <default>false</default>
+                <label>DataRaptor Extract Action</label>
+            </value>
+            <value>
+                <fullName>DataRaptor Post Action</fullName>
+                <default>false</default>
+                <label>DataRaptor Post Action</label>
+            </value>
+            <value>
+                <fullName>DataRaptor Transform Action</fullName>
+                <default>false</default>
+                <label>DataRaptor Transform Action</label>
+            </value>
+            <value>
+                <fullName>Date</fullName>
+                <default>false</default>
+                <label>Date</label>
+            </value>
+            <value>
+                <fullName>Date/Time (Local)</fullName>
+                <default>false</default>
+                <label>Date/Time (Local)</label>
+            </value>
+            <value>
+                <fullName>Delete Action</fullName>
+                <default>false</default>
+                <label>Delete Action</label>
+            </value>
+            <value>
+                <fullName>Disclosure</fullName>
+                <default>false</default>
+                <label>Disclosure</label>
+            </value>
+            <value>
+                <fullName>DocuSign Envelope Action</fullName>
+                <default>false</default>
+                <label>DocuSign Envelope Action</label>
+            </value>
+            <value>
+                <fullName>DocuSign Signature Action</fullName>
+                <default>false</default>
+                <label>DocuSign Signature Action</label>
+            </value>
+            <value>
+                <fullName>Done Action</fullName>
+                <default>false</default>
+                <label>Done Action</label>
+            </value>
+            <value>
+                <fullName>Edit Block</fullName>
+                <default>false</default>
+                <label>Edit Block</label>
+            </value>
+            <value>
+                <fullName>Email</fullName>
+                <default>false</default>
+                <label>Email</label>
+            </value>
+            <value>
+                <fullName>Email Action</fullName>
+                <default>false</default>
+                <label>Email Action</label>
+            </value>
+            <value>
+                <fullName>File</fullName>
+                <default>false</default>
+                <label>File</label>
+            </value>
+            <value>
+                <fullName>Filter</fullName>
+                <default>false</default>
+                <label>Filter</label>
+            </value>
+            <value>
+                <fullName>Filter Block</fullName>
+                <default>false</default>
+                <label>Filter Block</label>
+            </value>
+            <value>
+                <fullName>Formula</fullName>
+                <default>false</default>
+                <label>Formula</label>
+            </value>
+            <value>
+                <fullName>Geolocation</fullName>
+                <default>false</default>
+                <label>Geolocation</label>
+            </value>
+            <value>
+                <fullName>Headline</fullName>
+                <default>false</default>
+                <label>Headline</label>
+            </value>
+            <value>
+                <fullName>Image</fullName>
+                <default>false</default>
+                <label>Image</label>
+            </value>
+            <value>
+                <fullName>Input Block</fullName>
+                <default>false</default>
+                <label>Input Block</label>
+            </value>
+            <value>
+                <fullName>Integration Procedure Action</fullName>
+                <default>false</default>
+                <label>Integration Procedure Action</label>
+            </value>
+            <value>
+                <fullName>Intelligence Action</fullName>
+                <default>false</default>
+                <label>Intelligence Action</label>
+            </value>
+            <value>
+                <fullName>Line Break</fullName>
+                <default>false</default>
+                <label>Line Break</label>
+            </value>
+            <value>
+                <fullName>List Merge Action</fullName>
+                <default>false</default>
+                <label>List Merge Action</label>
+            </value>
+            <value>
+                <fullName>Lookup</fullName>
+                <default>false</default>
+                <label>Lookup</label>
+            </value>
+            <value>
+                <fullName>Matrix Action</fullName>
+                <default>false</default>
+                <label>Matrix Action</label>
+            </value>
+            <value>
+                <fullName>Multi-select</fullName>
+                <default>false</default>
+                <label>Multi-select</label>
+            </value>
+            <value>
+                <fullName>Number</fullName>
+                <default>false</default>
+                <label>Number</label>
+            </value>
+            <value>
+                <fullName>OmniForm</fullName>
+                <default>false</default>
+                <label>OmniForm</label>
+            </value>
+            <value>
+                <fullName>OmniScript</fullName>
+                <default>false</default>
+                <label>OmniScript</label>
+            </value>
+            <value>
+                <fullName>Password</fullName>
+                <default>false</default>
+                <label>Password</label>
+            </value>
+            <value>
+                <fullName>PDF Action</fullName>
+                <default>false</default>
+                <label>PDF Action</label>
+            </value>
+            <value>
+                <fullName>Post to Object Action</fullName>
+                <default>false</default>
+                <label>Post to Object Action</label>
+            </value>
+            <value>
+                <fullName>Radio</fullName>
+                <default>false</default>
+                <label>Radio</label>
+            </value>
+            <value>
+                <fullName>Radio Group</fullName>
+                <default>false</default>
+                <label>Radio Group</label>
+            </value>
+            <value>
+                <fullName>Range</fullName>
+                <default>false</default>
+                <label>Range</label>
+            </value>
+            <value>
+                <fullName>Remote Action</fullName>
+                <default>false</default>
+                <label>Remote Action</label>
+            </value>
+            <value>
+                <fullName>Response Action</fullName>
+                <default>false</default>
+                <label>Response Action</label>
+            </value>
+            <value>
+                <fullName>Rest Action</fullName>
+                <default>false</default>
+                <label>Rest Action</label>
+            </value>
+            <value>
+                <fullName>Review Action</fullName>
+                <default>false</default>
+                <label>Review Action</label>
+            </value>
+            <value>
+                <fullName>Select</fullName>
+                <default>false</default>
+                <label>Select</label>
+            </value>
+            <value>
+                <fullName>Selectable Items</fullName>
+                <default>false</default>
+                <label>Selectable Items</label>
+            </value>
+            <value>
+                <fullName>Set Errors</fullName>
+                <default>false</default>
+                <label>Set Errors</label>
+            </value>
+            <value>
+                <fullName>Set Values</fullName>
+                <default>false</default>
+                <label>Set Values</label>
+            </value>
+            <value>
+                <fullName>Signature</fullName>
+                <default>false</default>
+                <label>Signature</label>
+            </value>
+            <value>
+                <fullName>Step</fullName>
+                <default>false</default>
+                <label>Step</label>
+            </value>
+            <value>
+                <fullName>Submit</fullName>
+                <default>false</default>
+                <label>Submit</label>
+            </value>
+            <value>
+                <fullName>Telephone</fullName>
+                <default>false</default>
+                <label>Telephone</label>
+            </value>
+            <value>
+                <fullName>Text</fullName>
+                <default>false</default>
+                <label>Text</label>
+            </value>
+            <value>
+                <fullName>Text Area</fullName>
+                <default>false</default>
+                <label>Text Area</label>
+            </value>
+            <value>
+                <fullName>Text Block</fullName>
+                <default>false</default>
+                <label>Text Block</label>
+            </value>
+            <value>
+                <fullName>Time</fullName>
+                <default>false</default>
+                <label>Time</label>
+            </value>
+            <value>
+                <fullName>Type Ahead Block</fullName>
+                <default>false</default>
+                <label>Type Ahead Block</label>
+            </value>
+            <value>
+                <fullName>URL</fullName>
+                <default>false</default>
+                <label>URL</label>
+            </value>
+            <value>
+                <fullName>Validation</fullName>
+                <default>false</default>
+                <label>Validation</label>
+            </value>
+            <value>
+                <fullName>Navigate Action</fullName>
+                <default>false</default>
+                <label>Navigate Action</label>
+            </value>
+            <value>
+                <fullName>Cache Block</fullName>
+                <default>false</default>
+                <label>Cache Block</label>
+            </value>
+            <value>
+                <fullName>Try Catch Block</fullName>
+                <default>false</default>
+                <label>Try Catch Block</label>
+            </value>
+            <value>
+                <fullName>Batch Action</fullName>
+                <default>false</default>
+                <label>Batch Action</label>
+            </value>
+            <value>
+                <fullName>DataRaptor Turbo Action</fullName>
+                <default>false</default>
+                <label>DataRaptor Turbo Action</label>
+            </value>
+            <value>
+                <fullName>Chatter Action</fullName>
+                <default>false</default>
+                <label>Chatter Action</label>
+            </value>
+            <value>
+                <fullName>Action Block</fullName>
+                <default>false</default>
+                <label>Action Block</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

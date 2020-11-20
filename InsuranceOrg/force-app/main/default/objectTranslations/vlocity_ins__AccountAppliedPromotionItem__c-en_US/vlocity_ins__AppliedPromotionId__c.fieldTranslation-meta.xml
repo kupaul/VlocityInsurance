@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Applied Promotion --></label>
+    <name>vlocity_ins__AppliedPromotionId__c</name>
+    <relationshipLabel><!-- Applied Promotion Affected Assets --></relationshipLabel>
+</CustomFieldTranslation>

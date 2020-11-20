@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Style --></label>
+    <name>vlocity_ins__Style__c</name>
+    <picklistValues>
+        <masterLabel>Airboat</masterLabel>
+        <translation><!-- Airboat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Bass Boat</masterLabel>
+        <translation><!-- Bass Boat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cabin Cruiser</masterLabel>
+        <translation><!-- Cabin Cruiser --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Canoe</masterLabel>
+        <translation><!-- Canoe --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Cargo Truck</masterLabel>
+        <translation><!-- Cargo Truck --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Catamaran</masterLabel>
+        <translation><!-- Catamaran --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Convertible</masterLabel>
+        <translation><!-- Convertible --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Farm Equipment</masterLabel>
+        <translation><!-- Farm Equipment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Hatchback</masterLabel>
+        <translation><!-- Hatchback --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Jet Boat</masterLabel>
+        <translation><!-- Jet Boat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Jet Ski / Water Scooter</masterLabel>
+        <translation><!-- Jet Ski / Water Scooter --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kayak</masterLabel>
+        <translation><!-- Kayak --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Light Truck</masterLabel>
+        <translation><!-- Light Truck --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Minivan</masterLabel>
+        <translation><!-- Minivan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Motorcycle</masterLabel>
+        <translation><!-- Motorcycle --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pontoon Boat</masterLabel>
+        <translation><!-- Pontoon Boat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>RV</masterLabel>
+        <translation><!-- RV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Runabout</masterLabel>
+        <translation><!-- Runabout --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SUV</masterLabel>
+        <translation><!-- SUV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sailboat</masterLabel>
+        <translation><!-- Sailboat --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sedan</masterLabel>
+        <translation><!-- Sedan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Semi Tractor</masterLabel>
+        <translation><!-- Semi Tractor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Semi-Trailer</masterLabel>
+        <translation><!-- Semi-Trailer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trailer</masterLabel>
+        <translation><!-- Trailer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trawler</masterLabel>
+        <translation><!-- Trawler --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Van</masterLabel>
+        <translation><!-- Van --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Yacht</masterLabel>
+        <translation><!-- Yacht --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

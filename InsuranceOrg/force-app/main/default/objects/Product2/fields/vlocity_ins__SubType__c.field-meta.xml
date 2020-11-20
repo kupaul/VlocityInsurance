@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>vlocity_ins__SubType__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Sub Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>vlocity_ins__Type__c</controllingField>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Auto</fullName>
+                <default>false</default>
+                <label>Auto</label>
+            </value>
+            <value>
+                <fullName>BOP</fullName>
+                <default>false</default>
+                <label>BOP</label>
+            </value>
+            <value>
+                <fullName>Claim</fullName>
+                <default>false</default>
+                <label>Claim</label>
+            </value>
+            <value>
+                <fullName>Homeowners</fullName>
+                <default>false</default>
+                <label>Homeowners</label>
+            </value>
+            <value>
+                <fullName>Multi Auto</fullName>
+                <default>false</default>
+                <label>Multi Auto</label>
+            </value>
+            <value>
+                <fullName>Multi Pet</fullName>
+                <default>false</default>
+                <label>Multi Pet</label>
+            </value>
+            <value>
+                <fullName>Multi Vessel</fullName>
+                <default>false</default>
+                <label>Multi Vessel</label>
+            </value>
+            <value>
+                <fullName>Renters</fullName>
+                <default>false</default>
+                <label>Renters</label>
+            </value>
+            <value>
+                <fullName>Pet</fullName>
+                <default>false</default>
+                <label>Pet</label>
+            </value>
+            <value>
+                <fullName>PCA</fullName>
+                <default>false</default>
+                <label>PCA</label>
+            </value>
+            <value>
+                <fullName>Base</fullName>
+                <default>false</default>
+                <label>Base</label>
+            </value>
+            <value>
+                <fullName>Coverage</fullName>
+                <default>false</default>
+                <label>Coverage</label>
+            </value>
+            <value>
+                <fullName>Item</fullName>
+                <default>false</default>
+                <label>Item</label>
+            </value>
+            <value>
+                <fullName>Party</fullName>
+                <default>false</default>
+                <label>Party</label>
+            </value>
+            <value>
+                <fullName>Rating Fact</fullName>
+                <default>false</default>
+                <label>Rating Fact</label>
+            </value>
+            <value>
+                <fullName>Commercial Auto</fullName>
+                <default>false</default>
+                <label>Commercial Auto</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Business Owners</controllingFieldValue>
+            <valueName>BOP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Owners</controllingFieldValue>
+            <controllingFieldValue>Watercraft</controllingFieldValue>
+            <controllingFieldValue>Auto</controllingFieldValue>
+            <controllingFieldValue>Property</controllingFieldValue>
+            <controllingFieldValue>Pet</controllingFieldValue>
+            <valueName>Claim</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Commercial Auto</controllingFieldValue>
+            <valueName>Commercial Auto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Watercraft</controllingFieldValue>
+            <valueName>Multi Vessel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Auto</controllingFieldValue>
+            <valueName>Auto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Auto</controllingFieldValue>
+            <valueName>Multi Auto</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Property</controllingFieldValue>
+            <valueName>Homeowners</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Property</controllingFieldValue>
+            <valueName>Renters</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pet</controllingFieldValue>
+            <valueName>Multi Pet</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pet</controllingFieldValue>
+            <valueName>Pet</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

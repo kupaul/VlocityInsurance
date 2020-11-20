@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- License Type --></label>
+    <name>vlocity_ins__LicenseType__c</name>
+    <picklistValues>
+        <masterLabel>Producer</masterLabel>
+        <translation><!-- Producer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Provider</masterLabel>
+        <translation><!-- Provider --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

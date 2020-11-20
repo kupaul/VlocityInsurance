@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type --></label>
+    <name>vlocity_ins__Type__c</name>
+    <picklistValues>
+        <masterLabel>Contract</masterLabel>
+        <translation><!-- Contract --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Licensing &amp; Permitting</masterLabel>
+        <translation><!-- Licensing &amp; Permitting --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Watercraft</masterLabel>
+        <translation><!-- Watercraft --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>ins</masterLabel>
+        <translation><!-- ins --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

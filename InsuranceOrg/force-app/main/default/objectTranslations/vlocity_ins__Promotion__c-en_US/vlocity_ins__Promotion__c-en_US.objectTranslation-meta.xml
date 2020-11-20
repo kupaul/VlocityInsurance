@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Console Admin Search --></label>
+        <name>vlocity_ins__ConsoleAdminSearch</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Console Admin Search for Discount --></label>
+        <name>vlocity_ins__ConsoleAdminSearch_Discount</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- New Promotion --></label>
+        <name>vlocity_ins__NewPromotion</name>
+    </fieldSets>
+    <recordTypes>
+        <description><!-- Discount record --></description>
+        <label><!-- Discount --></label>
+        <name>vlocity_ins__Discount</name>
+    </recordTypes>
+    <recordTypes>
+        <description><!-- Promotion record --></description>
+        <label><!-- Promotion --></label>
+        <name>vlocity_ins__Promotion</name>
+    </recordTypes>
+</CustomObjectTranslation>
